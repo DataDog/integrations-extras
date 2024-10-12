@@ -1,1 +1,228 @@
-Please build an out-of-the-box dashboard for your integration following our best practices here: https://datadoghq.dev/integrations-core/guidelines/dashboards/#best-practices 
+{
+  "title": "Artie Overview",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 6219498822507012,
+      "definition": {
+        "title": "Total rows processed",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:artie.rows_processed{*}.as_count()",
+                "aggregator": "sum"
+              }
+            ],
+            "formulas": [{ "formula": "query1" }]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 0, "y": 0, "width": 3, "height": 3 }
+    },
+    {
+      "id": 2071911679427456,
+      "definition": {
+        "title": "Rows processed by time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:artie.rows_processed{*} by {deployuuid}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 3, "y": 0, "width": 9, "height": 3 }
+    },
+    {
+      "id": 8792853344764442,
+      "definition": {
+        "title": "Ingestion lag time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit",
+                    "unit_name": "millisecond"
+                  }
+                },
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:artie.ingestion_lag_ms{*} by {deployuuid}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 3, "width": 6, "height": 2 }
+    },
+    {
+      "id": 693265439001282,
+      "definition": {
+        "title": "Row lag",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:artie.row_lag{*} by {deployuuid}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 3, "width": 6, "height": 2 }
+    },
+    {
+      "id": 6654003848251968,
+      "definition": {
+        "title": "Flush time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit",
+                    "unit_name": "millisecond"
+                  }
+                },
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:artie.flush_time_ms{*} by {deployuuid}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 5, "width": 6, "height": 3 }
+    },
+    {
+      "id": 6789286815340558,
+      "definition": {
+        "title": "Replication slot size",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": { "type": "canonical_unit", "unit_name": "megabyte" }
+                },
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:artie.replication_slot_size_mb{*} by {deployuuid,slotname}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 5, "width": 6, "height": 3 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
