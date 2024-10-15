@@ -25,7 +25,7 @@ class LighthouseCheck(AgentCheck):
             raise CheckException("missing lighthouse instance url or name, please fix yaml")
 
         common_tags = instance.get("tags", [])
-        if type(common_tags) != list:
+        if isinstance(common_tags, list):
             self.log.warning("The tags list in the lighthouse check is not configured properly")
             common_tags = []
 
