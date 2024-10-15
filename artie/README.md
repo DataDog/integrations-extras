@@ -30,11 +30,13 @@ The included dashboard should start to show data within 5-10 minutes of connecti
 
 Artie reports the following metrics for each of your deployments:
 
-1. Rows processed - the number of rows synced from your source database to your destination database/data warehouse
-2. Ingestion lag time - the median amount of time between a row being published to Kafka and being ingested into your destination
-3. Ingestion row lag - the number of rows remaining to be processed in Kafka at a given time
-4. Flush time - the median amount of time it takes Artie to flush data from its in-memory store into your destination
-5. Replication slot size for any PostgreSQL source databases you have connected
+| Metric                | Description                                                                                                       |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Rows processed        | The number of rows synced from your source database to your destination database or data warehouse                |
+| Ingestion lag time    | The median amount of time (in ms) between a row being published to Kafka and being ingested into your destination |
+| Ingestion row lag     | The number of rows remaining to be processed in Kafka at a given time                                             |
+| Flush time            | The median amount of time (in ms) it takes Artie to flush data from its in-memory store into your destination     |
+| Replication slot size | The size (in MB) of the replication slot Artie is using in any PostgreSQL source databases you have connected     |
 
 ### Service Checks
 
