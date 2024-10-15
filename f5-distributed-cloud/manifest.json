@@ -20,6 +20,16 @@
         "media_type": "image",
         "caption": "The F5 Distributed Cloud Services access log overview dashboard.",
         "image_url": "images/dashboard_image.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The F5 Distributed Cloud Services WAF events dashboard.",
+        "image_url": "images/F5DCS-WAF-Events-Overview.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The F5 Distributed Cloud Services BOT Defense events overview dashboard.",
+        "image_url": "images/F5DCS-BOT-Defense-Events-Overview.png"
       }
     ],
     "classifier_tags": [
@@ -45,11 +55,27 @@
     "support_email": "g.coward@f5.com"
   },
   "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 22988204,
+      "source_type_name": "F5 Distributed Cloud Services",
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
-      "f5xc_access": "assets/dashboards/f5xc_access.json"
+      "f5xc_access": "assets/dashboards/f5xc_access.json",
+      "f5xc_waf_events_overview": "assets/dashboards/f5xc_waf_events_overview.json",
+      "f5xc_bot_defense_events_overview": "assets/dashboards/f5xc_bot_defense_events_overview.json"
     },
     "saved_views": {
       "f5xc_all": "assets/saved_views/all.json"
+    },
+    "logs": {
+      "source": "f5-distributed-cloud-services"
     }
   }
 }
