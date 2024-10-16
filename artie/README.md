@@ -10,7 +10,7 @@ With this integration, you can receive metrics about your Artie deployments dire
 
 ### Installation
 
-This integration is only available for existing Artie accounts. If you're not using Artie yet and would like to start a trial, contact us at hi@artie.com.
+This integration is only available for existing Artie accounts. If you're not using Artie yet and would like to start a trial, email hi@artie.com.
 
 1. Click **Connect Accounts** on the Artie integration tile to connect Datadog with Artie.
 2. Log into Artie if you aren't logged in yet.
