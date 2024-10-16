@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Artie][1] is a real-time database replication product for reliably and consistently syncing data from source databases to data warehouses.
+[Artie][1] is a real-time database replication product for syncing data from source databases to data warehouses.
 
 With this integration, you can receive metrics about your Artie deployments directly to your Datadog account in order to monitor the health of your data pipelines. Metrics include number of rows processed over time, ingestion lag, flush time, and replication slot size.
 
