@@ -16,7 +16,7 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise==1.0.0
+   datadog-agent integration install -t datadog-redis_enterprise==1.1.0
    ```
    
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
