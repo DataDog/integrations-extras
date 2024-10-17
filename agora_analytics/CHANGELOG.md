@@ -8,4 +8,4 @@
 
 ## 1.0.1 / 2024-10-15
 
-* Update Dashboard Agora Analytics, Add New Widgets for Chat Metrics
+* Update Dashboard Agora Analytics with new widgets for chat metrics
