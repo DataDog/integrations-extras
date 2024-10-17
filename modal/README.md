@@ -45,10 +45,14 @@ There are no metrics collected for this integration.
 Once this integration has been uninstalled, any previous authorizations are
 revoked and logs/metrics stop being emitted to Datadog.
 
-1. On the **Configure** tab in the **Modal** integration tile in Datadog, click **Uninstall Integration**.
-
-2. Ensure that all API keys associated with this integration have been disabled
-   by searching for the integration name on the [API Keys page][4].
+1. Navigate to the [Modal metrics settings page](http://modal.com/settings/metrics)
+   and select **Delete Datadog Integration**.
+2. On the **Configure** tab in the Modal integration tile in Datadog,
+   click **Uninstall Integration**.
+3. Confirm that you want to uninstall the integration.
+4. Ensure that all API keys associated with this integration have been
+   disabled by searching for the integration name on the [API Keys](https://app.datadoghq.com/organization-settings/api-keys?filter=Modal)
+   page.
 
 ## Troubleshooting
 
