@@ -12,7 +12,12 @@ CloudQuery extracts, transforms, and loads configuration from cloud APIs to a va
 
 ### Installation
 
-Sign up for free at [cloud.cloudquery.io][2]. Once logged in, navigate to the **Sources** page and add a Datadog source. Under the **Authentication** section, use the **Authenticate** button to grant access to your Datadog account using OAuth2 flow.
+1. Sign up for free at [cloud.cloudquery.io][2]. 
+2. In Datadog, navigate to the CloudQuery Cloud integration tile
+3. Click **Connect Accounts**
+4. You'll be redirected to CloudQuery to log in
+5. Navigate to the **Sources** page and add a Datadog source
+6. Under the **Authentication** section, use the **Authenticate** button to grant access to your Datadog account using OAuth2 flow.
 
 For more information about using CloudQuery Cloud, refer to the [quickstart guide][3].
 
