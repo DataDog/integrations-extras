@@ -26,7 +26,7 @@ pipeline:
       sourceType: attribute
       target: log_id
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `content.attributes.date` to `log_date`
@@ -48,8 +48,3 @@ pipeline:
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
-    - type: status-remapper
-      name: Define `content.attributes.is_feedback_bug` as the official status of the log
-      enabled: true
-      sources:
-        - content.attributes.is_feedback_bug
