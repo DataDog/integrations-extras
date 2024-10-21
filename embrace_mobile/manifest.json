@@ -56,6 +56,30 @@
   "assets": {
     "dashboards": {
       "Embrace Overview": "assets/dashboards/embrace_mobile_overview.json"
+    },
+    "integration": {
+      "auto_install": true,
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "check": ["embrace.session_total.five_minute",
+          "embrace.session_total.hourly",
+          "embrace.session_total.daily",
+          "embrace.crash_total.five_minute",
+          "embrace.crash_total.hourly",
+          "embrace.crash_total.daily",
+          "embrace.users_total.daily"
+        ],
+        "metadata_path": "metadata.csv",
+        "prefix": "embrace."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+       },
+      "source_type_name": "Embrace",
+      "source_type_id": 25653134
     }
   }
 }
