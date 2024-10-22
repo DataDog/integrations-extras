@@ -1,0 +1,1008 @@
+{
+  "title": "Upstash Redis - Overview",
+  "description": "**Overview Dashboard for Upstash Database Metrics**\n\nThis dashboard provides an overview of the resource utilization and key performance indicators related to your activity\n\nIt serves as your central hub for monitoring, troubleshooting, and tracking the cost of your Upstash databases.\n\nWith this dashboard, you can proactively address performance issues, optimize resource allocation, and manage your database costs effectively.\n\nFor more detailed information on metrics, charts, and Upstash monitoring best practices, please refer to the following link: [Upstash Monitoring Documentation](https://upstash.com/docs/redis/howto/metricsandcharts) (cloned)",
+  "widgets": [
+    {
+      "id": 996904437902644,
+      "definition": {
+        "title": "",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4506160814656580,
+            "definition": {
+              "type": "image",
+              "url": "https://mintlify.s3-us-west-1.amazonaws.com/upstash/logo/upstash-white-bg.svg",
+              "sizing": "contain",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+          },
+          {
+            "id": 3409502508415138,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard shows storage breakdowns, connection counts, and query statistics that summarize your Upstash database performance.\n\n#### [Datadog Integration Documentation ↗](https://upstash.com/docs) ####\n\n#### [Upstash Documentation ↗](https://upstash.com/docs) ####",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 1187373831296820,
+      "definition": {
+        "title": "                                                        Overview",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 817293377427530,
+            "definition": {
+              "title": "Daily Commands",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.dailyprocessedcommands{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "command"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 1045943157630872,
+            "definition": {
+              "title": "Montly Commands",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.monthlycommands{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "command"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 7236388538185138,
+            "definition": {
+              "title": "Monthly Cost",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.monthlycost{$team}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 5358420418174018,
+            "definition": {
+              "title": "Active Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.connections{$database}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 1, "width": 3, "height": 1 }
+          },
+          {
+            "id": 5203087357950488,
+            "definition": {
+              "title": "Total Datasize",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.totaldatasize{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gibibyte"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 3, "y": 1, "width": 3, "height": 1 }
+          },
+          {
+            "id": 3325592892380178,
+            "definition": {
+              "title": "Average Read Latency (p99)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.readlatencyp99{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 3
+            },
+            "layout": { "x": 0, "y": 2, "width": 3, "height": 1 }
+          },
+          {
+            "id": 8379623304794482,
+            "definition": {
+              "title": "Average Write Latency (p99)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.writelatencyp99{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 4
+            },
+            "layout": { "x": 3, "y": 2, "width": 3, "height": 1 }
+          },
+          {
+            "id": 2195024240672616,
+            "definition": {
+              "title": "Keyspace",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.keyspace{$database}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "record"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 3, "width": 3, "height": 1 }
+          },
+          {
+            "id": 5290978297193452,
+            "definition": {
+              "title": "Hit Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.hitrate{$team, $database}.as_rate()",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 3, "y": 3, "width": 3, "height": 1 }
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 8561993874368468,
+      "definition": {
+        "title": "Performance",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5327182849685760,
+            "definition": {
+              "type": "note",
+              "content": "Latency measures the time difference between client request and server response. Monitoring these metrics enables you to detect changes in system performance. The P99 (99th percentile) latency shown here indicates that 99% of operations are faster than the displayed value. Low latencies are crucial, as high latency for one operation can potentially impact subsequent operations, leading to bottlenecks in the system. By tracking both read and write latencies across different regions, you can identify performance issues and ensure optimal database responsiveness.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 5025245256909470,
+            "definition": {
+              "title": "Write Latency P99",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.writelatencyp99{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 0, "width": 5, "height": 3 }
+          },
+          {
+            "id": 8641626188521106,
+            "definition": {
+              "title": "Read Latency P99",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.readlatencyp99{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 7, "y": 0, "width": 5, "height": 3 }
+          },
+          {
+            "id": 8622630240029772,
+            "definition": {
+              "type": "note",
+              "content": "This metric measures the rate at which the database system processes operations. It indicates the system's capacity to handle workload and reflects overall performance. Each plan has a unique **max commands per second** limit and when you exceed this limit, your operations will be throttled.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 3, "width": 2, "height": 6 }
+          },
+          {
+            "id": 378022647035690,
+            "definition": {
+              "title": "Throughput (Commands per Second)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.throughput{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 3, "width": 10, "height": 3 }
+          },
+          {
+            "id": 3656007426107962,
+            "definition": {
+              "title": "Write Commands per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.writepersecond{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 6, "width": 5, "height": 3 }
+          },
+          {
+            "id": 557185786246822,
+            "definition": {
+              "title": "Read Commands per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.readpersecond{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 7, "y": 6, "width": 5, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 5, "width": 12, "height": 10 }
+    },
+    {
+      "id": 7905925229467068,
+      "definition": {
+        "title": "Usage",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8020230414264578,
+            "definition": {
+              "type": "note",
+              "content": "**TODO: THEY WILL BE SEPERATED AS READ/WRITE IN THE GRAPH**\nThe Daily and Monthly Processed Commands metrics track the total number of operations executed on the database over daily and monthly periods respectively. These metrics are crucial for understanding usage patterns, capacity planning, and potentially for billing purposes, as it's the main metric for the pricing calculation.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 7145821187061932,
+            "definition": {
+              "title": "Daily Processed Commands",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.dailyprocessedcommands{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 0, "width": 5, "height": 3 }
+          },
+          {
+            "id": 2578938411614050,
+            "definition": {
+              "title": "Montly Command Usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:upstash.db.dailyprocessedcommands{$database} by {database}.weighted()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 7, "y": 0, "width": 5, "height": 3 }
+          },
+          {
+            "id": 5195792168827832,
+            "definition": {
+              "type": "note",
+              "content": "The Total Datasize metric represents the cumulative size of all data stored in the database. It reflects the actual volume of data, including keys and values, but excludes metadata or system overhead. This metric is crucial for monitoring database growth, capacity planning, and storage management. Tracking Total Datasize helps in predicting storage needs, optimizing data retention/eviction policies. To optimize the total data space, you can [enable eviction](https://upstash.com/docs/redis/features/eviction#eviction).",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 3, "width": 2, "height": 3 }
+          },
+          {
+            "id": 71080770403614,
+            "definition": {
+              "title": "Total Datasize",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.totaldatasize{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 3, "width": 10, "height": 3 }
+          },
+          {
+            "id": 507180645798656,
+            "definition": {
+              "type": "note",
+              "content": "The total keys in the database. You can access this count from your database with **DBSIZE** command.",
+              "background_color": "pink",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 6, "width": 2, "height": 3 }
+          },
+          {
+            "id": 3772650782541120,
+            "definition": {
+              "title": "Persistence Entry Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.keyspace{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 6, "width": 10, "height": 3 }
+          },
+          {
+            "id": 1418036893377456,
+            "definition": {
+              "type": "note",
+              "content": "Cache Hit Rate measures the percentage of data requests successfully served from the cache, indicating cache efficiency. A high hit rate suggests optimal performance and reduced load on the main database.\n\nCache Miss Rate represents the percentage of requests not found in the cache, requiring retrieval from the primary data source. Higher miss rates may indicate opportunities to improve caching strategies or adjust cache size.\n\nThese metrics are crucial for evaluating cache effectiveness, optimizing system performance, and balancing resource allocation between cache and main storage.",
+              "background_color": "purple",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 9, "width": 2, "height": 3 }
+          },
+          {
+            "id": 2845981425894996,
+            "definition": {
+              "title": "Hit Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.hitrate{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 9, "width": 5, "height": 3 }
+          },
+          {
+            "id": 1994347250780724,
+            "definition": {
+              "title": "Miss Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.missrate{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 7, "y": 9, "width": 5, "height": 3 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 12,
+        "height": 13,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 500835714982030,
+      "definition": {
+        "title": "Network",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6256556396423740,
+            "definition": {
+              "type": "note",
+              "content": "Monthly Bandwidth (Data Transfer) tracks the total volume of data sent to and from the database each month. This metric is crucial for monitoring network usage, capacity planning, and cost management. It helps identify long-term trends in data access patterns, optimize network resources, and predict future bandwidth needs.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 7726759994154778,
+            "definition": {
+              "title": "Daily Bandwith",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:upstash.db.dailybandwidth{$team} by {database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 0, "width": 10, "height": 3 }
+          },
+          {
+            "id": 5900409301436410,
+            "definition": {
+              "type": "note",
+              "content": "Active Concurrent Connection Count tracks the number of simultaneous client connections to the database at any given time. This metric reflects system load, user activity, and connection management efficiency. There's a unique limit of max concurrent connections for each plan. If you exceed this amount, new connections would be rejected.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 3, "width": 2, "height": 3 }
+          },
+          {
+            "id": 7042230330657680,
+            "definition": {
+              "title": "Active Concurrent TCP Connection Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.connections{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 2, "y": 3, "width": 5, "height": 3 }
+          },
+          {
+            "id": 5153420958205878,
+            "definition": {
+              "title": "Active REST Connection Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:upstash.db.restconnections{$database}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 7, "y": 3, "width": 5, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 28, "width": 12, "height": 7 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "team",
+      "prefix": "team",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "database",
+      "prefix": "database",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
