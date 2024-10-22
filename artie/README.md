@@ -24,27 +24,6 @@ The integration will automatically send metrics to Datadog; no further configura
 
 The included dashboard will start to show data 5-10 minutes after you connect the integration as long as you have data flowing in your Artie deployments.
 
-## Data Collected
-
-### Metrics
-
-Artie reports the following metrics for each of your deployments:
-
-| Metric                | Description                                                                                                       |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Rows processed        | The number of rows synced from your source database to your destination database or data warehouse                |
-| Ingestion lag time    | The median amount of time (in ms) between a row being published to Kafka and being ingested into your destination |
-| Ingestion row lag     | The number of rows remaining to be processed in Kafka at a given time                                             |
-| Flush time            | The median amount of time (in ms) it takes Artie to flush data from its in-memory store into your destination     |
-| Replication slot size | The size (in MB) of the replication slot Artie is using in any PostgreSQL source databases you have connected     |
-
-### Service Checks
-
-Artie does not include any service checks.
-
-### Events
-
-Artie does not include any events.
 
 ## Troubleshooting
 
