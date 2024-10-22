@@ -27,7 +27,6 @@ EPHEMERAL = [
     'rdse.node_available_flash',
     'rdse.node_available_flash_no_overbooking',
     'rdse.node_avg_latency',
-    'rdse.node_up',
     'rdse.redis_aof_delayed_fsync',
     'rdse.redis_blocking_reads',
     'rdse.redis_blocking_writes',
@@ -99,6 +98,9 @@ EPHEMERAL = [
 
 # enterprise metrics use the namespace 'rdse'
 METRICS_MAP = {
+    'RDSE.CLUSTER': [
+        'rdse.cluster_shards_limit',
+    ],
     'RDSE.DATABASE': [
         'rdse.bdb_avg_latency',
         'rdse.bdb_avg_latency_max',
@@ -219,6 +221,10 @@ METRICS_MAP = {
         'rdse.node_provisional_memory_no_overbooking',
         'rdse.node_total_req',
         'rdse.node_up',
+        'rdse.listener_write_res_max',
+        'rdse.listener_write_started_res',
+        'rdse.listener_write_started_res_max',
+        'rdse.node_cert_expiration_seconds',
     ],
     'RDSE.SHARD': [
         'rdse.redis_active_defrag_running',
@@ -397,6 +403,9 @@ METRICS_MAP = {
         'rdse.listener_write_req',
         'rdse.listener_write_req_max',
         'rdse.listener_write_res',
+        'rdse.listener_write_res_max',
+        'rdse.listener_write_started_res',
+        'rdse.listener_write_started_res_max',
     ],
     'RDSE.BIGSTORE': [
         'rdse.node_bigstore_free',
@@ -412,8 +421,8 @@ METRICS_MAP = {
     ],
 }
 
-
 DEFAULT_METRICS = [
+    'RDSE.CLUSTER',
     'RDSE.DATABASE',
     'RDSE.NODE',
     'RDSE.SHARD',
