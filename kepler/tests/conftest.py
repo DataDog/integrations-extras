@@ -10,6 +10,8 @@ COMPOSE_FILE = os.path.join(HERE, 'docker', 'docker-compose.yaml')
 
 INSTANCE = {'openmetrics_endpoint': 'http://localhost:8080/metrics'}
 
+EXPECTED_METRICS = ['kepler.container.gpu_joules']
+
 
 @pytest.fixture(scope='session')
 def dd_environment():
