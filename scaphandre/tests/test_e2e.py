@@ -15,7 +15,7 @@ def test_check_scaphandre_e2e(dd_agent_check, instance):
     metrics = common.METRICS
 
     for metric in metrics:
-        aggregator.assert_metric(name=metric)
+        aggregator.assert_metric(name='scaphandre.' + metric)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check('scaphandre.openmetrics.health', ServiceCheck.OK, count=1)
+    aggregator.assert_service_check('scaphandre.openmetrics.health', ServiceCheck.OK, count=2)
