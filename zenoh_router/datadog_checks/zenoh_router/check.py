@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import re
 import time
 from collections import defaultdict
 
@@ -9,8 +10,8 @@ from datadog_checks.base import AgentCheck  # noqa: F401
 class ZenohRouterCheck(AgentCheck):
     __NAMESPACE__ = 'zenoh.router'
 
-    __PREFIX = '@/router/'
-    __RID_LEN = 32
+    __URI = '/@/*/router?_stats=true'
+    __RID_PATTERN = r'@/([a-f0-9]{32})/router'
 
     def __init__(self, name, init_config, instances):
         super(ZenohRouterCheck, self).__init__(name, init_config, instances)
@@ -67,20 +68,28 @@ class ZenohRouterCheck(AgentCheck):
             tags['whatami'] = k
             self.count('sessions', v, tags=self.__map_to_ddtags(tags))
 
+    def __extract_rid(self, text):
+        match = re.search(self.__RID_PATTERN, text)
+        if match:
+            return match.group(1)
+        return None
+
     def check(self, instance):
         url = instance.get('url')
         try:
-            response = self.http.get(url + '/' + self.__PREFIX + '*?_stats=true')
+            response = self.http.get(url + self.__URI)
             response.raise_for_status()
             data = response.json()
 
             for item in data:
-                k = item['key'][len(self.__PREFIX) :]
-                rid = k[: self.__RID_LEN]
+                rid = self.__extract_rid(item['key'])
+                if rid is None:
+                    continue
                 value = item['value']
                 gtags = self.__tags_by_config(value)
-                self.__process_stats(value['stats'], gtags.copy(), rid)
                 self.__process_peers(value['sessions'], gtags.copy())
+                if 'stats' in value:
+                    self.__process_stats(value['stats'], gtags.copy(), rid)
 
             self.service_check('can_connect', AgentCheck.OK)
 
