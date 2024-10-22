@@ -18,5 +18,5 @@ def test_check(dd_run_check, aggregator, instance, mock_http_response, caplog):
     caplog.set_level(logging.DEBUG)
 
     dd_run_check(check)
-    #aggregator.assert_all_metrics_covered()
+    # aggregator.assert_all_metrics_covered()
     # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
