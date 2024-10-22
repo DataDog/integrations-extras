@@ -4,7 +4,7 @@
 
 [Artie][1] is a real-time database replication product for syncing data from source databases to data warehouses.
 
-With this integration, you can view metrics about your Artie deployments directly in Datadog to monitor the health of your data pipelines. Metrics from this integration include the number of rows processed over time, ingestion lag, flush time, and replication slot size.
+With this integration, you can view metrics about your Artie deployments directly in Datadog to monitor the health of your data pipelines. Metrics from this integration include the number of rows processed over time, ingestion lag, flush time, and replication slot size. This can help you diagnose any delays in your pipeline, tune the settings of your Artie deployment to optimize throughput, and prevent any negative impact on your source database from replication slot growth.
 
 ## Setup
 
@@ -23,7 +23,6 @@ The integration will automatically send metrics to Datadog; no further configura
 ### Validation
 
 The included dashboard will start to show data 5-10 minutes after you connect the integration as long as you have data flowing in your Artie deployments.
-
 
 ## Troubleshooting
 
