@@ -22,6 +22,10 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install Zenoh router
    datadog-agent integration install -t datadog-zenoh_router==<INTEGRATION_VERSION>
    ```
 
+Note:
+- The datadog-zenoh_router integration version 1.0.0 is compatible with Zenoh router versions below 1.0.
+- For Zenoh router versions above or equal 1.0, integration version 1.1.0 should be used.
+
 ### Installation from the source code
 
 To install the Zenoh router check on your host:
@@ -37,6 +41,14 @@ To install the Zenoh router check on your host:
 ### Configuration
 
 1. Make sure that the [Zenoh REST API plugin][2] is enabled.
+
+Note:
+- The default Zenoh router provides only session information. 
+- To access full statistics, this feature needs to be enabled at Zenoh router build time using the stats feature. For example:
+```shell
+cargo build --features stats
+```
+Alternatively, you can use routers from the [Zetta Platform][12]
 
 2. Edit the `zenoh_router.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][10] to start collecting your Zenoh router [metrics](#metrics).
 See the [sample zenoh_router.d/conf.yaml][4] for all available configuration options.
@@ -77,3 +89,4 @@ Need help? Contact [Datadog support][9].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [11]: https://docs.datadoghq.com/developers/integrations/python/
+[12]: https://www.zettascale.tech/zetta/

@@ -11,7 +11,7 @@ def test_check(dd_run_check, aggregator, instance, mock_http_response):
     STATS_RESPONSE = '''
 [
   {
-    "key": "@/router/9bafaff963b9465d80552419bf397add",
+    "key": "@/9bafaff963b9465d80552419bf397add/router",
     "value": {
       "locators": [
         "tcp/172.10.0.2:7449",
