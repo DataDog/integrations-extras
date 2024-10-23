@@ -25,17 +25,19 @@ To install the Scaphandre check on your host:
 
 ### Configuration
 
-!!! Add list of steps to set up this integration !!!
+Edit the `scaphandre.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][10]. See the [sample scaphandre.d/conf.yaml][11] for all available configuration options.
+
+[Restart the Agent][12] to start sending Scaphandre metrics to Datadog.
 
 ### Validation
 
-!!! Add steps to validate integration is functioning as expected !!!
+Run the [Agent's status subcommand][13] and look for `scaphandre` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-Scaphandre does not include any metrics.
+See [metadata.csv][14] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -58,4 +60,9 @@ Need help? Contact [Datadog support][3].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/scaphandre/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/scaphandre/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
+[10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
+[11]: https://github.com/DataDog/integrations-core/blob/master/scaphandre/datadog_checks/scaphandre/data/conf.yaml.example
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[13]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[14]: https://github.com/DataDog/integrations-extras/blob/master/scaphandre/metadata.csv
 
