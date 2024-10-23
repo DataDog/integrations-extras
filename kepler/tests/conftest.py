@@ -21,9 +21,7 @@ def dd_environment():
         CheckEndpoints(INSTANCE["openmetrics_endpoint"]),
     ]
     with docker_run(compose_file, conditions=conditions):
-        yield {
-            'instances': [INSTANCE],
-        }
+        yield INSTANCE
 
 
 @pytest.fixture
