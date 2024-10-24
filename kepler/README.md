@@ -8,20 +8,15 @@ This check monitors [Kepler][1].
 
 ### Installation
 
-To install the Kepler check on your host:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Kepler check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
+1. Run the following command to install the integration:
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
+   ```shell
+   datadog-agent integration install -t datadog-kepler==<INTEGRATION_VERSION>
+   ```
 
-2. Run `ddev release build kepler` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/kepler/dist/<ARTIFACT_NAME>.whl`.
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
