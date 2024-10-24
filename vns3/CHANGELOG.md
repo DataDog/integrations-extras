@@ -1,4 +1,4 @@
-# CHANGELOG - Nomad
+# CHANGELOG - VNS3
 
 ## 1.0.2
 
