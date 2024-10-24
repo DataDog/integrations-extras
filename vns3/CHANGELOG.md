@@ -1,4 +1,10 @@
-# CHANGELOG - Nomad
+# CHANGELOG - VNS3
+
+## 1.0.2
+
+***Added***:
+
+* Example dashboard .json, description of metrics for links, remote support status, interfaces.
 
 ## 1.0.1
 
