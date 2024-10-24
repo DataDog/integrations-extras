@@ -25,11 +25,14 @@ To install the Kepler check on your host:
 
 ### Configuration
 
-!!! Add list of steps to set up this integration !!!
+
+1. Edit the `kepler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your kepler performance data. See the [sample kepler.d/conf.yaml][4] for all available configuration options.
+
+2. [Restart the Agent][5].
 
 ### Validation
 
-!!! Add steps to validate integration is functioning as expected !!!
+[Run the Agent's status subcommand][6] and look for `kepler` under the Checks section.
 
 ## Data Collected
 
@@ -39,7 +42,7 @@ Kepler does not include any metrics.
 
 ### Service Checks
 
-Kepler does not include any service checks.
+See [service_checks.json][8] for a list of service checks provided by this integration.
 
 ### Events
 
@@ -49,7 +52,7 @@ Kepler does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://sustainable-computing.io/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/kepler/datadog_checks/kepler/data/conf.yaml.example

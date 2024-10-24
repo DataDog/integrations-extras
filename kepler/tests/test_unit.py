@@ -20,5 +20,7 @@ def test_check(dd_run_check, aggregator, instance, mock_http_response, caplog):
     dd_run_check(check)
     for metric in EXPECTED_METRICS:
         aggregator.assert_metric(metric)
+
+    aggregator.assert_service_check("kepler.openmetrics.health")
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
