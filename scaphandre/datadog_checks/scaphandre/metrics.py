@@ -33,8 +33,7 @@ METRIC_MAP = {
     'scaph_process_disk_write_bytes': {'name': 'process.disk.write', 'type': 'gauge'},
     'scaph_process_disk_read_bytes': {'name': 'process.disk.read', 'type': 'gauge'},
     'scaph_process_disk_total_read_bytes': {'name': 'process.disk.total_read', 'type': 'gauge'},
+    'scaph_self_version': {'name': 'version'},
 }
 
 RENAME_LABELS_MAP = {'exe': 'scaphandre_exe', 'cmdline': 'scaphandre_command', 'pid': 'scaphandre_pid'}
-
-# SCAPHANDRE_VERSION = {'scaph_self_version': {'type': 'metadata', 'label': 'version', 'name': 'version'}}

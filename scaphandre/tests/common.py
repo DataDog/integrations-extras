@@ -37,6 +37,7 @@ METRICS = {
     'process.disk.write',
     'process.disk.read',
     'process.disk.total_read',
+    'version'
 }
 
 MOCKED_INSTANCE = {
