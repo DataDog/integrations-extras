@@ -15,8 +15,8 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
     a. Alias: Name of the exporter (String).
     b. Ingestor: Specify the Port as "514" and Type as "ami".
     c. Cloud Tool Exports: Create a new exporter tool by selecting '+' and add details as shown in the following diagram:
-    ![1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon1.png)
-    ![2](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon2.png)
+    ![AMI exporter][6]
+    ![Cloud Tools Exporter][7]
     
 
 ## Data Collected
@@ -36,4 +36,6 @@ Need help? Contact [Gigamon Support][5].
 [3]: https://docs.gigamon.com/doclib66/Content/GigaVUE_Cloud_Suites.html?tocpath=GigaVUE%20Cloud%20Suite%7C_____0
 [4]: https://docs.gigamon.com/doclib66/Content/GV-GigaSMART/Application%20Protocol%20Bundle.html
 [5]: https://www.gigamon.com/support/support-and-services/contact-support.html
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon1.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/gigamon2.png
 
