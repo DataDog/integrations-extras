@@ -36,6 +36,6 @@ Need help? Contact [Gigamon Support][5].
 [3]: https://docs.gigamon.com/doclib66/Content/GigaVUE_Cloud_Suites.html?tocpath=GigaVUE%20Cloud%20Suite%7C_____0
 [4]: https://docs.gigamon.com/doclib66/Content/GV-GigaSMART/Application%20Protocol%20Bundle.html
 [5]: https://www.gigamon.com/support/support-and-services/contact-support.html
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon1.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/gigamon1.png
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/gigamon2.png
 
