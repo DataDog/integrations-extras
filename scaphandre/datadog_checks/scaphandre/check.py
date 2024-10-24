@@ -8,6 +8,7 @@ from .metrics import METRIC_MAP, RENAME_LABELS_MAP
 
 SCAPHANDRE_VERSION = {'scaph_self_version': {'name': 'version'}}
 
+
 class ScaphandreCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     DEFAULT_METRIC_LIMIT = 0
     __NAMESPACE__ = 'scaphandre'
@@ -32,6 +33,6 @@ class ScaphandreCheck(OpenMetricsBaseCheckV2, ConfigMixin):
         metric_transformer.add_custom_transformer('scaph_self_version', self.configure_version_metadata_transformer)
 
     def configure_version_metadata_transformer(self, metric, sample_data):
-        for sample, tags, hostname in sample_data:
+        for sample, *_ in sample_data:
             SCAPHANDRE_VERSION['scaph_self_version']['type'] = 'metadata'
             SCAPHANDRE_VERSION['scaph_self_version']['label'] = sample.value
