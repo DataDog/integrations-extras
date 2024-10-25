@@ -25,7 +25,7 @@ To install the Scaphandre check on your host:
 
 ### Configuration
 
-Edit the `scaphandre.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][10]. See the [sample scaphandre.d/conf.yaml][11] for all available configuration options.
+Edit the `scaphandre.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][10]. See the [sample scaphandre.d/conf.yaml][11] for all available configuration options. For example, to secure Scaphandre command line tags and prevent sensitive data from being pulled into Datadog, you can use the `exclude_labels` config option.
 
 [Restart the Agent][12] to start sending Scaphandre metrics to Datadog.
 
