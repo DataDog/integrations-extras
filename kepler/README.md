@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check brings energy usage estimates of Kuberenetes workloads from [Kepler][1] into Datadog.
+This check brings Kuberenetes workloads energy usage estimates from [Kepler][1] into Datadog.
 
 ## Setup
 
