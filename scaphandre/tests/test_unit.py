@@ -17,6 +17,7 @@ def test_check(dd_run_check, aggregator, mock_http_response):
     for metric in METRICS:
         aggregator.assert_metric(f'scaphandre.{metric}')
 
+    aggregator.assert_service_check('scaphandre.openmetrics.health', ServiceCheck.OK)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
     aggregator.assert_service_check('scaphandre.openmetrics.health', ServiceCheck.OK)
