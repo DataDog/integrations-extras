@@ -13,7 +13,10 @@ To install the Scaphandre check on your host:
 
 1. Install the developer toolkit [10] on any machine. The specific developer toolkit that should be installed depends on your platform and architecture.
 
-2. Run `ddev release build scaphandre` to build the package.
+2. Run the following command to build the package:
+    ```
+    ddev release build scaphandre
+    ```
 
 3. [Download the Datadog Agent][2].
 
