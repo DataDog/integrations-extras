@@ -36,7 +36,7 @@ Linux command
      category <example-category> { <example_channel>; };
     }
     ```
-    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [these](#timezone-steps) steps. Also, check the categories defined by Bind 9 [here][16].
+    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [the steps for using a different time zone](#timezone-steps). Also, [check the categories defined by Bind 9][16].
     
     Example logging channel:
     ```
@@ -71,7 +71,7 @@ Linux command
      category <example-category> { <example_channel>; };
     }
     ```
-    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because Datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind9 logs is not UTC please make sure to follow [the steps for using a different time zone](#timezone-steps). Also, [check the categories defined by Bind9][16].
+    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because Datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [the steps for using a different time zone](#timezone-steps). Also, [check the categories defined by Bind 9][16].
     
     Example logging channel:
     ```
