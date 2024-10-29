@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Scaphandre][1], a monitoring agent that uses RAPL and MsrRAPL via powercap to measure power usage of bare metal machines. The goal of the project is to permit to any company or individual to measure the power consumption of its tech services and get this data in a convenient form, sending it through any monitoring or data analysis toolchain.
+This check monitors [Scaphandre][1], a monitoring agent that uses RAPL and MsrRAPL through powercap to measure power usage of bare metal machines. The goal of the project is to permit to any company or individual to measure the power consumption of its tech services and get this data in a convenient form, sending it through any monitoring or data analysis toolchain.
 
 ## Setup
 
