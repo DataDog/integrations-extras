@@ -1,16 +1,16 @@
 ## Overview
 
-[Bind 9][19] is a complete, highly portable implementation of the Domain Name System (DNS) protocol. The Bind9 name server (named), can act as an authoritative name server, recursive resolver, DNS forwarder, or all three simultaneously.
+[Bind 9][19] is a complete, highly portable implementation of the Domain Name System (DNS) protocol. The Bind 9 name server (named), can act as an authoritative name server, recursive resolver, DNS forwarder, or all three simultaneously.
 
 
-This integration provides enrichment and visualization for Query, Query Errors, Network, Lame Servers, Notify, and Security log types. It helps to visualize detailed insights into DNS request patterns, DNS communication and proper server configurations, DNS attacks, ensuring a robust and reliable DNS environment through the out-of-the-box dashboards. Additionally, This integration provides out of the box detection rules. Also, it will collect bind9 stats in form of metrics that can be used for visualizations as needed.
+This integration provides enrichment and visualization for Query, Query Errors, Network, Lame Servers, Notify, and Security log types. It helps to visualize detailed insights into DNS request patterns, DNS communication, proper server configurations, and DNS attacks, ensuring a robust and reliable DNS environment through the out-of-the-box dashboards. Additionally, this integration provides out-of-the-box detection rules. Also, it will collect Bind 9 stats in form of metrics that can be used for visualizations as needed.
 
 
 ## Setup
 
 ### Installation
 
-To install the Bind9 integration, run the following Agent installation command and the steps below. For more information, see the [Integration Management][14] documentation.
+To install the Bind 9 integration, run the following Agent installation command and the steps below. For more information, see the [Integration Management][14] documentation.
 
 **Note**: This step is not necessary for Agent version >= 7.58.0.
 
@@ -23,8 +23,8 @@ Linux command
 
 #### File Monitoring
 
-1. Log in to your Bind9 device.
-2. Open `named.conf` file to add a logging clause:
+1. Log in to your Bind 9 device.
+2. Open the `named.conf` file to add a logging clause:
     ```
     logging {
      channel <example_channel> {
@@ -36,7 +36,7 @@ Linux command
      category <example-category> { <example_channel>; };
     }
     ```
-    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind9 logs is not UTC please make sure to follow [these](#timezone-steps) steps. Also, check the categories defined by Bind9 [here][16].
+    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [these](#timezone-steps) steps. Also, check the categories defined by Bind 9 [here][16].
     
     Example logging channel:
     ```
@@ -57,7 +57,7 @@ Linux command
     ```
 
 #### Syslog
-1. Log in to your Bind9 device.
+1. Log in to your Bind 9 device.
 2. Open `named.conf` file to add a logging clause:
     ```
     logging {
@@ -71,7 +71,7 @@ Linux command
      category <example-category> { <example_channel>; };
     }
     ```
-    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because Datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind9 logs is not UTC please make sure to follow [these](#timezone-steps) steps. Also, check the categories defined by Bind9 [here][16].
+    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because Datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind9 logs is not UTC please make sure to follow [the steps for using a different time zone](#timezone-steps). Also, [check the categories defined by Bind9][16].
     
     Example logging channel:
     ```
@@ -87,7 +87,7 @@ Linux command
     ```
 
 3. Save and exit the file.
-4. Edit the syslog/rsyslog configuration to log to your Datadog using the facility you selected in Bind9:
+4. Edit the syslog/rsyslog configuration to log to Datadog using the facility you selected in Bind 9:
     ```
     <syslog_facility>.* @@<DATADOG_AGENT_IP_ADDRESS>:<PORT>
     ```
@@ -97,13 +97,13 @@ Linux command
     service named restart
     ```
 
-**Note**: Make sure you have mentioned `print-category` and `print-severity` as yes in the channels configured for Bind9 application.
+**Note**: Make sure `print-category` and `print-severity` are set to `yes` in the channels configured for Bind 9 application.
 
 ### Configuration
 
 #### Metric collection
 
-1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Bind9 [metrics](#metrics). See the [sample bind9.d/conf.yaml][8] for all available configuration options.
+1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Bind 9 [metrics](#metrics). See the [sample bind9.d/conf.yaml][8] for all available configuration options.
 
    ```yaml
    init_config:
@@ -122,9 +122,9 @@ Linux command
    logs_enabled: true
    ```
 
-#### File Monitoring
+#### File monitoring
 
-1. Add this configuration block to your `bind9.d/conf.yaml` file to start collecting your Bind9 logs.
+1. Add this configuration block to your `bind9.d/conf.yaml` file to start collecting your Bind 9 logs.
 
    See the [sample bind9.d/conf.yaml][8] for available configuration options.
 
@@ -135,12 +135,12 @@ Linux command
        service: bind9
        source: bind9
    ```
-   **Note**: Change the `path` variable in `conf.yaml` to the same as configured in `file` parameter in channels for Bind9 application.
+   **Note**: Change the `path` variable in `conf.yaml` to the same path configured in the `file` parameter in channels for the Bind 9 application.
 
 3. [Restart the Agent][9].
 
 #### Syslog
-1. Add this configuration block to your `bind9.d/conf.yaml` file to start collecting your Bind9 logs.
+1. Add this configuration block to your `bind9.d/conf.yaml` file to start collecting your Bind 9 logs.
 
    See the [sample bind9.d/conf.yaml][8] for available configuration options.
 
@@ -155,22 +155,22 @@ Linux command
 
 3. [Restart the Agent][9].
 
-<h4 id="timezone-steps"> Specify a time zone other than UTC in the Bind9 Datadog log pipeline</h4>
+<h4 id="timezone-steps"> Specify a time zone other than UTC in the Bind 9 Datadog log pipeline</h4>
 
-Datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind9 logs is not UTC, specify the correct time zone in the Bind9 Datadog pipeline.
+Datadog expects all logs to be in the UTC time zone by default. If the time zone of your Bind 9 logs is not UTC, specify the correct time zone in the Bind 9 Datadog pipeline.
 
-To change the time zone in Bind9 pipeline:
+To change the time zone in the Bind 9 pipeline:
 
   1. Navigate to the [Pipelines page][15] in the Datadog app. 
 
-  2. Enter "Bind9" in the  **Filter Pipelines** search box.
+  2. Enter "Bind 9" in the  **Filter Pipelines** search box.
 
-  3. Hover over the Bind9 pipeline and click on the **clone**  button. This will create an editable clone of the Bind9 pipeline.
+  3. Hover over the Bind 9 pipeline and click on the **clone**  button. This will create an editable clone of the Bind 9 pipeline.
 
   4. Edit the Grok Parser using the below steps:
-      - In the cloned pipeline, find a processor with the name "Grok Parser: Parsing Bind9 common log format" and click on the `Edit` button by hovering over the pipeline.
-      - Under **Define parsing rules**,,
-        - Change the string `UTC` to the [TZ identifier][17] of the time zone of your Bind9 server. For example, if your timezone is IST, you would change the value to`Asia/Calcutta`.
+      - In the cloned pipeline, find a processor with the name "Grok Parser: Parsing Bind 9 common log format" and click on the `Edit` button by hovering over the pipeline.
+      - Under **Define parsing rules**,
+        - Change the string `UTC` to the [TZ identifier][17] of the time zone of your Bind 9 server. For example, if your timezone is IST, you would change the value to`Asia/Calcutta`.
       - Click the **update** button.
 
 ### Validation
@@ -185,7 +185,7 @@ The check is compatible with all major platforms.
 
 ### Logs
 
-The Bind9 integration collects the following log types.
+The Bind 9 integration collects the following log types.
 
 | Event Types    |
 | -------------- |
@@ -197,7 +197,7 @@ See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Events
 
-The Bind9 check does not include any events.
+The Bind 9 check does not include any events.
 
 ### Service Checks
 
