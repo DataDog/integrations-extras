@@ -1,4 +1,4 @@
-# Agent Check: Scaphandre
+# Scaphandre
 
 ## Overview
 
@@ -20,19 +20,20 @@ To install the Scaphandre check on your host:
 
 3. [Download the Datadog Agent][2].
 
-4. Upload the build package to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/scaphandre/dist/<ARTIFACT_NAME>.whl`.
+4. Upload the build artifact to any host with an Agent and run the following command:
+    ```
+    datadog-agent integration install -w path/to/scaphandre/dist/<ARTIFACT_NAME>.whl
+    ```
 
 ### Configuration
 
-Edit the `scaphandre.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][5]. See the [sample scaphandre.d/conf.yaml][6] for all available configuration options. For example, to secure Scaphandre command line tags and prevent sensitive data from being pulled into Datadog, you can use the `exclude_labels` config option.
+Edit the `scaphandre.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][5]. See the [sample scaphandre.d/conf.yaml][6] for all available configuration options. For example, to secure Scaphandre command line tags and prevent sensitive data from being pulled into Datadog, use the `exclude_labels` config option.
 
 [Restart the Agent][7] to start sending Scaphandre metrics to Datadog.
 
 ### Validation
 
-Run the [Agent's status subcommand][8] and look for `scaphandre` under the Checks section.
+Run the [Agent's status subcommand][8] and look for `scaphandre` in the **Checks** section.
 
 ## Data Collected
 
