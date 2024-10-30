@@ -18,7 +18,7 @@ This integration is only available for existing Artie accounts. If you're not us
 
 ### Configuration
 
-The integration will automatically send metrics to Datadog; no further configuration is needed.
+The integration automatically sends metrics to Datadog; no further configuration is needed.
 
 ### Validation
 
