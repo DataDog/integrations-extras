@@ -22,7 +22,7 @@ The integration automatically sends metrics to Datadog; no further configuration
 
 ### Validation
 
-The included dashboard will start to show data 5-10 minutes after you connect the integration as long as you have data flowing in your Artie deployments.
+The included dashboard starts to show data 5-10 minutes after you connect the integration as long as you have data flowing in your Artie deployments.
 
 ## Troubleshooting
 
