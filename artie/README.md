@@ -16,10 +16,6 @@ This integration is only available for existing Artie accounts. If you're not us
 2. Log into Artie if you aren't logged in yet.
 3. Review the Datadog permissions that will be granted to Artie, and click **Authorize**.
 
-### Configuration
-
-The integration automatically sends metrics to Datadog; no further configuration is needed.
-
 ### Validation
 
 The included dashboard starts to show data 5-10 minutes after you connect the integration as long as you have data flowing in your Artie deployments.
