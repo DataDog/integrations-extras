@@ -14,7 +14,7 @@ This integration is only available for existing Artie accounts. If you're not us
 
 1. In Datadog, click **Connect Accounts** on the Artie integration tile to connect Datadog with Artie.
 2. Log into Artie if you aren't logged in yet.
-3. Review the Datadog permissions that will be granted to Artie and click **Authorize**.
+3. Review the Datadog permissions that will be granted to Artie, and click **Authorize**.
 
 ### Configuration
 
