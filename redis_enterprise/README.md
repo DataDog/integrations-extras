@@ -16,7 +16,7 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise==1.0.0
+   datadog-agent integration install -t datadog-redis_enterprise==1.1.0
    ```
    
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
@@ -40,18 +40,18 @@ become 'bdb_up'. The full list of metrics is available on the 'Data Collected' t
 The following extra groups use the associated prefixes, which can be used to search for individual metrics on 
 the data collected page.
 
-| Group           | Prefix                      | Notes                                                |
-|-----------------|-----------------------------|------------------------------------------------------|
-| RDSE.NODE       | rdse.node_                  | This will return bigstore and flash metrics as well  |
-| RDSE.DATABASE   | rdse.bdb_                   | This will return replication metrics as well         |
-| RDSE.SHARD      | rdse.redis_                 | This will return shard replication metrics as well   |
-| RDSE.REPLCATION | rdse.bdb_crdt_              |                                                      |
-| RDSE.REPLCATION | rdse.bdb_replicaof_         |                                                      |
-| RDSE.SHARDREPL  | rdse.redis_crdt_            |                                                      |
-| RDSE.PROXY      | rdse.dmcproxy_              |                                                      |
-| RDSE.LISTENER   | rdse.listener_              |                                                      |
-| RDSE.BIGSTORE   | rdse.node_bigstore_         |                                                      |
-| RDSE.FLASH      | rdse.node_available_flash   | All flash metrics are of the form: rdse.node_*_flash |
+| Group            | Prefix                      | Notes                                                |
+|------------------|-----------------------------|------------------------------------------------------|
+| RDSE.NODE        | rdse.node_                  | This will return bigstore and flash metrics as well  |
+| RDSE.DATABASE    | rdse.bdb_                   | This will return replication metrics as well         |
+| RDSE.SHARD       | rdse.redis_                 | This will return shard replication metrics as well   |
+| RDSE.REPLICATION | rdse.bdb_crdt_              |                                                      |
+| RDSE.REPLICATION | rdse.bdb_replicaof_         |                                                      |
+| RDSE.SHARDREPL   | rdse.redis_crdt_            |                                                      |
+| RDSE.PROXY       | rdse.dmcproxy_              |                                                      |
+| RDSE.LISTENER    | rdse.listener_              |                                                      |
+| RDSE.BIGSTORE    | rdse.node_bigstore_         |                                                      |
+| RDSE.FLASH       | rdse.node_available_flash   | All flash metrics are of the form: rdse.node_*_flash |
 
 ### Validation
 

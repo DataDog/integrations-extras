@@ -1,4 +1,6 @@
 # enterprise metrics use the namespace 'rdse'
+REDIS_CLUSTER = {'cluster_shards_limit': 'cluster_shards_limit'}
+
 REDIS_DATABASE = {
     'bdb_avg_latency': 'bdb_avg_latency',
     'bdb_avg_latency_max': 'bdb_avg_latency_max',
@@ -76,7 +78,10 @@ REDIS_NODE = {
     'node_available_memory': 'node_available_memory',
     'node_available_memory_no_overbooking': 'node_available_memory_no_overbooking',
     'node_avg_latency': 'node_avg_latency',
-    'node_cert_expiration_seconds': 'node_cert_expiration_seconds',
+    'node_cert_expiration_seconds': {
+        'name': 'node_cert_expiration_seconds',
+        'type': 'gauge',
+    },
     'node_conns': 'node_conns',
     'node_cpu_idle': 'node_cpu_idle',
     'node_cpu_idle_max': 'node_cpu_idle_max',
@@ -123,7 +128,10 @@ REDIS_NODE = {
     'node_provisional_memory': 'node_provisional_memory',
     'node_provisional_memory_no_overbooking': 'node_provisional_memory_no_overbooking',
     'node_total_req': 'node_total_req',
-    'node_up': 'node_up',
+    'node_up': {
+        'name': 'node_up',
+        'type': 'gauge',
+    },
 }
 
 REDIS_SHARD = {
@@ -340,6 +348,9 @@ REDIS_LISTENER = {
     'listener_write_req': {'name': 'listener_write_req', 'type': 'gauge'},
     'listener_write_req_max': {'name': 'listener_write_req_max', 'type': 'gauge'},
     'listener_write_res': {'name': 'listener_write_res', 'type': 'gauge'},
+    'listener_write_res_max': {'name': 'listener_write_res_max', 'type': 'gauge'},
+    'listener_write_started_res': {'name': 'listener_write_started_res', 'type': 'gauge'},
+    'listener_write_started_res_max': {'name': 'listener_write_started_res_max', 'type': 'gauge'},
 }
 
 REDIS_BIGSTORE = {
@@ -357,6 +368,7 @@ REDIS_FLASH = {
 }
 
 DEFAULT_METRICS = [
+    REDIS_CLUSTER,
     REDIS_DATABASE,
     REDIS_NODE,
     REDIS_SHARD,
