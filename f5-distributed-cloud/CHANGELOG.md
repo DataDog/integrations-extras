@@ -6,3 +6,9 @@
 
 * Initial F5XC Integration Tile.
 
+## 2.0.0 / 2024-08-01
+
+**Added**
+
+* Added support of bot-defense and waf events.
+* Added dashboards and detection rules for bot-defense and waf events.
