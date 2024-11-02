@@ -67,7 +67,7 @@ def test_check_all_metrics(aggregator):
             new_key = "stardog.%s" % metric_key
             metric_val = float(metric_value[next(iter(metric_value))])
             aggregator.assert_metric(new_key, metric_type=0, count=1, value=metric_val, tags=local_tags)
-    aggregator.assert_all_metrics_covered
+    aggregator.assert_all_metrics_covered()
 
 
 class HttpServerThread(threading.Thread):
