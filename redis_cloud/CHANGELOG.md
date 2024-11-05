@@ -5,7 +5,6 @@
 ***Changed***:
 
 * Removed redis_cloud.yaml file
-* Changed version to 1.1.0
 * Replaced file descriptor panel with buffer memory panel in Redis Cloud Networking dashboard
 
 ***Added***:
