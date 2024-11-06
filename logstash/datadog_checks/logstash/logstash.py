@@ -1,10 +1,9 @@
 # stdlib
 from collections import namedtuple
-from distutils.version import LooseVersion
+from packaging.version import Version
 
 # 3rd party
-from six import iteritems
-from six.moves.urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse
 
 # project
 from datadog_checks.base import AgentCheck
@@ -182,7 +181,7 @@ class LogstashCheck(AgentCheck):
 
     def _is_multi_pipeline(self, version):
         """Reusable version checker"""
-        return version and LooseVersion(version) >= LooseVersion("6.0.0")
+        return version and Version(version) >= Version("6.0.0")
 
     def check(self, instance):
         config = self.get_instance_config(instance)
@@ -192,13 +191,13 @@ class LogstashCheck(AgentCheck):
         stats_url = urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
 
-        for metric, desc in iteritems(self.STATS_METRICS):
+        for metric, desc in self.STATS_METRICS.items():
             self._process_metric(stats_data, metric, *desc, tags=config.tags)
 
         if not self._is_multi_pipeline(logstash_version):
             self._process_pipeline_data(stats_data['pipeline'], config.tags, logstash_version)
         elif 'pipelines' in stats_data:
-            for pipeline_name, pipeline_data in iteritems(stats_data['pipelines']):
+            for pipeline_name, pipeline_data in stats_data['pipelines'].items():
                 if pipeline_name.startswith('.'):
                     # skip internal pipelines like '.monitoring_logstash'
                     continue
@@ -209,7 +208,7 @@ class LogstashCheck(AgentCheck):
         self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK, tags=config.service_check_tags)
 
     def _process_stats_data(self, data, stats_metrics, config):
-        for metric, desc in iteritems(stats_metrics):
+        for metric, desc in stats_metrics.items():
             self._process_metric(data, metric, *desc, tags=config.tags)
 
     def _process_pipeline_data(self, pipeline_data, tags, logstash_version):
@@ -235,7 +234,7 @@ class LogstashCheck(AgentCheck):
         pipeline_metrics = self.PIPELINE_METRICS
         if self._is_multi_pipeline(logstash_version):
             pipeline_metrics.update(self.PIPELINE_QUEUE_METRICS)
-        for metric, metric_desc in iteritems(pipeline_metrics):
+        for metric, metric_desc in pipeline_metrics.items():
             self._process_metric(pipeline_data, metric, *metric_desc, tags=tags)
 
     def _process_pipeline_plugins_data(
@@ -256,7 +255,7 @@ class LogstashCheck(AgentCheck):
             if plugin_conf_id:
                 metrics_tags.append(u"plugin_conf_id:{}".format(plugin_conf_id))
 
-            for metric, desc in iteritems(pipeline_plugins_metrics):
+            for metric, desc in pipeline_plugins_metrics.items():
                 self._process_metric(plugin_data, metric, *desc, tags=metrics_tags)
 
     def _process_metric(self, data, metric, xtype, path, tags=None, hostname=None):
