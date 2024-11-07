@@ -1,0 +1,56 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "3ccc5034-0902-4e00-8a69-04d007d31310",
+  "app_id": "artie",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Artie offers real-time replication between databases and data warehouses.",
+    "title": "Artie",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Artie overview dashboard",
+        "image_url": "images/artie-overview-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cloud",
+      "Category::Data Stores",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "artie overview": "assets/dashboards/artie_overview.json"
+    },
+    "integration": {
+      "auto_install": false,
+      "source_type_name": "Artie",
+      "source_type_id": 30415289,
+      "metrics": {
+        "check": ["artie.rows_processed"],
+        "metadata_path": "metadata.csv",
+        "prefix": "artie."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "oauth": "assets/oauth_clients.json"
+  },
+  "author": {
+    "support_email": "hi@artie.com",
+    "name": "Artie",
+    "homepage": "https://www.artie.com/",
+    "sales_email": "hi@artie.com"
+  }
+}
