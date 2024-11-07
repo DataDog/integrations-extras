@@ -22,6 +22,14 @@ Integrate Vercel with Datadog to:
 
 See [metadata.csv][11] for a list of metrics provided by this integration.
 
+### Service Checks
+
+The Vercel integration does not include any service checks.
+
+### Events
+
+The Vercel integration does not include any events.
+
 ### Logs
 
 The Vercel integration collects logs from your Vercel Project using Vercel's [Log Drains][10] feature.
