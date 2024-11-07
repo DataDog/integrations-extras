@@ -147,6 +147,10 @@ coverage:
         target: 75
         flags:
         - reboot_required
+      Redis_Cloud:
+        target: 75
+        flags:
+        - redis_cloud
       Redis_Enterprise:
         target: 75
         flags:
@@ -175,6 +179,10 @@ coverage:
         target: 75
         flags:
         - scalr
+      Scaphandre:
+        target: 75
+        flags:
+        - scaphandre
       Sendmail:
         target: 75
         flags:
@@ -287,10 +295,6 @@ coverage:
         target: 75
         flags:
         - pihole
-      redis_cloud:
-        target: 75
-        flags:
-        - redis_cloud
       snmpwalk:
         target: 75
         flags:
@@ -539,6 +543,11 @@ flags:
     paths:
     - reboot_required/datadog_checks/reboot_required
     - reboot_required/tests
+  redis_cloud:
+    carryforward: true
+    paths:
+    - redis_cloud/datadog_checks/redis_cloud
+    - redis_cloud/tests
   redis_enterprise:
     carryforward: true
     paths:
@@ -574,6 +583,11 @@ flags:
     paths:
     - scalr/datadog_checks/scalr
     - scalr/tests
+  scaphandre:
+    carryforward: true
+    paths:
+    - scaphandre/datadog_checks/scaphandre
+    - scaphandre/tests
   sendmail:
     carryforward: true
     paths:
