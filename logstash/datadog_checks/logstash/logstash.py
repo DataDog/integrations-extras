@@ -1,9 +1,10 @@
 # stdlib
 from collections import namedtuple
-from packaging.version import Version
 
 # 3rd party
 from urllib.parse import urljoin, urlparse
+
+from packaging.version import Version
 
 # project
 from datadog_checks.base import AgentCheck
