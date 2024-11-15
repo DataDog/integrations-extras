@@ -1,8 +1,8 @@
 # stdlib
 from collections import namedtuple
-from looseversion import LooseVersion
 
 # 3rd party
+from looseversion import LooseVersion
 from six import iteritems
 from six.moves.urllib.parse import urljoin, urlparse
 
