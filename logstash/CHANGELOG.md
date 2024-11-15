@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* distutils is deprecated with removal planned for Python 3.12.
+* replace `distutils.version` with `looseversion` since `disutils` was removed in Python 3.12.
 
 ## 1.1.0
 
