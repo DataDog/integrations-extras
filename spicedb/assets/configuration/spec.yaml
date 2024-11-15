@@ -1,10 +1,20 @@
-name: SpiceDB
+---
+name: "SpiceDB"
 files:
-- name: spicedb.yaml
-  options:
-  - template: init_config
+  - name: "spicedb.yaml"
     options:
-    - template: init_config/default
-  - template: instances
-    options:
-    - template: instances/default
+      - template: "init_config"
+        options:
+          - template: "init_config/openmetrics"
+      - template: "instances"
+        options:
+          - template: "instances/openmetrics"
+            overrides:
+              openmetrics_endpoint.required: false
+              openmetrics_endpoint.value.example: "http://localhost:9090/metrics"
+              tags.value.example:
+                - "node:<NODE>"
+                - "cluster:<CLUSTER>"
+                - "region:<REGION>"
+                - "<KEY_1>:<VALUE_1>"
+                - "<KEY_2>:<VALUE_2>"
