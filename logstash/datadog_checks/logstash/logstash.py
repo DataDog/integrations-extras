@@ -1,6 +1,6 @@
 # stdlib
 from collections import namedtuple
-from distutils.version import LooseVersion
+from looseversion import LooseVersion
 
 # 3rd party
 from six import iteritems
