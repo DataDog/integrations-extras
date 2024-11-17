@@ -2,11 +2,12 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-import time
-from collections import ChainMap
-import requests
 import json
 import os
+import time
+from collections import ChainMap
+
+import requests
 
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 from datadog_checks.base.checks.openmetrics.v2.scraper import (
