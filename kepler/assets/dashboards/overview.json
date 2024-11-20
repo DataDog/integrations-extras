@@ -38,7 +38,7 @@
     "widgets": [
         {
             "definition": {
-                "banner_img": "https://sustainable-computing.io/logo.png",
+                "banner_img": "/static/images/logos/kepler_large.svg",
                 "layout_type": "ordered",
                 "show_title": false,
                 "title": "New group",
@@ -121,7 +121,7 @@
                                             "aggregator": "avg",
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:kepler.container.joules{$host,$container_id,$container_name,$pod_name,$kube_namespace} by {container_name,container_id}"
+                                            "query": "sum:kepler.container.usage.joules{$host,$container_id,$container_name,$pod_name,$kube_namespace} by {container_name,container_id}"
                                         }
                                     ],
                                     "response_format": "scalar",
@@ -167,7 +167,7 @@
                                             "aggregator": "avg",
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:kepler.container.gpu_joules{$host,$container_id,$container_name,$pod_name,$kube_namespace}"
+                                            "query": "avg:kepler.container.usage.gpu_joules{$host,$container_id,$container_name,$pod_name,$kube_namespace}"
                                         }
                                     ],
                                     "response_format": "scalar"
@@ -203,7 +203,7 @@
                                             "aggregator": "avg",
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:kepler.container.dram_joules{$host, $container_id, $pod_name, $container_name, $kube_namespace}"
+                                            "query": "avg:kepler.container.usage.dram_joules{$host, $container_id, $pod_name, $container_name, $kube_namespace}"
                                         }
                                     ],
                                     "response_format": "scalar"
@@ -250,7 +250,7 @@
                                 "aggregator": "avg",
                                 "data_source": "metrics",
                                 "name": "query1",
-                                "query": "sum:kepler.container.core_joules{$host, $container_id, $pod_name, $kube_namespace, $container_name} by {pod_name}"
+                                "query": "sum:kepler.container.usage.core_joules{$host, $container_id, $pod_name, $kube_namespace, $container_name} by {pod_name}"
                             }
                         ],
                         "response_format": "scalar",
