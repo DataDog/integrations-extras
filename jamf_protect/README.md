@@ -9,7 +9,6 @@ Jamf Protect not only detects known malware, adware, but also prevents unknown t
 
 ### Prequisites
 
-- Confirm your [Datadog Site][8] on the top right corner. 
 - Datadog intake URL. Use the [Datadog API Logs documentation][7] and select your Datadog Site at the top of the page.
 - Your [Datadog API and App keys][10].
 
@@ -18,9 +17,9 @@ Jamf Protect not only detects known malware, adware, but also prevents unknown t
 Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
 ### macOS Security Portal
-1.  On the Jamf Protect Overview page sidebar, click **Actions**.
+1. In Jamf Protect, click **Actions**.
 2.  Click **Create Actions**.
-3.  In the *Action Config Name* field, enter a name (`Datadog`).
+3.  In the *Action Config Name* field, enter a name (such as `Datadog`).
 4.  (Optional) To collect alerts, click **Remote Alert Collection Endpoints** and add the following:
 
     a. **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
