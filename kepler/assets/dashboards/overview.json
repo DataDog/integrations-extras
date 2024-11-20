@@ -1,0 +1,285 @@
+{
+    "author_name": "Datadog",
+    "description": "",
+    "layout_type": "ordered",
+    "template_variables": [
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "host",
+            "prefix": "host"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "container_id",
+            "prefix": "container_id"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "container_name",
+            "prefix": "container_name"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "pod_name",
+            "prefix": "pod_name"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "kube_namespace",
+            "prefix": "kube_namespace"
+        }
+    ],
+    "title": "Kepler Overview ",
+    "widgets": [
+        {
+            "definition": {
+                "banner_img": "https://sustainable-computing.io/logo.png",
+                "layout_type": "ordered",
+                "show_title": false,
+                "title": "New group",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "background_color": "white",
+                            "content": "**Kepler**\n\nThis dashboard provides an overview of your Kepler metrics, giving you insight into the power usage of your Kubernetes clusters.\n",
+                            "font_size": "14",
+                            "has_padding": true,
+                            "show_tick": false,
+                            "text_align": "left",
+                            "tick_edge": "left",
+                            "tick_pos": "50%",
+                            "type": "note",
+                            "vertical_align": "top"
+                        },
+                        "id": 5478983280988798,
+                        "layout": {
+                            "height": 2,
+                            "width": 3,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "background_color": "white",
+                            "content": "**Useful Links**\n\n\n* [Kepler Github](https://github.com/sustainable-computing-io/kepler)\n* [Kepler Documentation](https://sustainable-computing.io/)\n* [Kepler Blog Post](https://www.cncf.io/blog/2023/10/11/exploring-keplers-potentials-unveiling-cloud-application-power-consumption/)",
+                            "font_size": "16",
+                            "has_padding": true,
+                            "show_tick": false,
+                            "text_align": "left",
+                            "tick_edge": "left",
+                            "tick_pos": "50%",
+                            "type": "note",
+                            "vertical_align": "top"
+                        },
+                        "id": 6394363111995732,
+                        "layout": {
+                            "height": 2,
+                            "width": 3,
+                            "x": 3,
+                            "y": 0
+                        }
+                    }
+                ]
+            },
+            "id": 5398344842010224,
+            "layout": {
+                "height": 5,
+                "width": 6,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "vivid_blue",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Overview",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "has_search_bar": "auto",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Joules",
+                                            "cell_display_mode": "bar",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "aggregator": "avg",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:kepler.container.joules{$host,$container_id,$container_name,$pod_name,$kube_namespace} by {container_name,container_id}"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "index": 0,
+                                                "order": "desc",
+                                                "type": "formula"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "time": {},
+                            "title": "Energy Usage by Container",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "query_table"
+                        },
+                        "id": 7806120855083582,
+                        "layout": {
+                            "height": 5,
+                            "width": 6,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "autoscale": true,
+                            "precision": 2,
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "aggregator": "avg",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:kepler.container.gpu_joules{$host,$container_id,$container_name,$pod_name,$kube_namespace}"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "time": {},
+                            "title": "Energy Usage from GPUs",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "query_value"
+                        },
+                        "id": 8976643496345002,
+                        "layout": {
+                            "height": 2,
+                            "width": 3,
+                            "x": 0,
+                            "y": 5
+                        }
+                    },
+                    {
+                        "definition": {
+                            "autoscale": true,
+                            "precision": 2,
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "aggregator": "avg",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:kepler.container.dram_joules{$host, $container_id, $pod_name, $container_name, $kube_namespace}"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "time": {},
+                            "title": "Energy spent in DRAM",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "query_value"
+                        },
+                        "id": 2502943567176324,
+                        "layout": {
+                            "height": 2,
+                            "width": 3,
+                            "x": 3,
+                            "y": 5
+                        }
+                    }
+                ]
+            },
+            "id": 7752646698053128,
+            "layout": {
+                "height": 8,
+                "width": 6,
+                "x": 6,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "legend": {
+                    "type": "table"
+                },
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "aggregator": "avg",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "query": "sum:kepler.container.core_joules{$host, $container_id, $pod_name, $kube_namespace, $container_name} by {pod_name}"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "sort": {
+                            "count": 500,
+                            "order_by": [
+                                {
+                                    "index": 0,
+                                    "order": "desc",
+                                    "type": "formula"
+                                }
+                            ]
+                        },
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "time": {},
+                "title": "Top pods",
+                "type": "sunburst"
+            },
+            "id": 4419494431069640,
+            "layout": {
+                "height": 3,
+                "width": 6,
+                "x": 0,
+                "y": 5
+            }
+        }
+    ]
+}

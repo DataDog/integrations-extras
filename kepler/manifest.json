@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "0cae7d1b-d0e9-48f1-b8c7-ea73f40370d7",
+  "app_id": "kepler",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "View energy usage estimates of Kuberenetes workloads from Kepler",
+    "title": "Kepler",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Kubernetes",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 16318151,
+      "source_type_name": "Kepler",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "kepler.",
+        "check": "kepler.container.joules.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Kepler Overview ": "assets/dashboards/overview.json"
+    }
+  },
+  "author": {
+    "support_email": "sarah.witt@datadoghq.com",
+    "name": "Sarah",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "sarah.witt@datadoghq.com"
+  }
+}
