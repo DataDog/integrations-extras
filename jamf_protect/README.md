@@ -7,146 +7,139 @@ Jamf Protect not only detects known malware, adware, but also prevents unknown t
 
 ## Setup
 
+### Prequisites
+
+- Confirm your [Datadog Site][8] on the top right corner. 
+- Datadog intake URL. Use the [Datadog API Logs documentation][7] and select your Datadog Site at the top of the page.
+- Your [Datadog API and App keys][10].
+
 ### Installation
 
 Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
-
-### Determine your Datadog Intake URL
-
-Using the [Datadog API Logs documentation][7], determine what your intake URL is by selecting your [Datadog Site][8] on the top right corner. 
-
-
 ### macOS Security Portal
-1.  Click **Actions**.
-2.  Click **Create Actions**.
-3.  **Name:** Datadog.
-4.  Click **Remote Alert Collection Endpoints**.
+1.  On the Jamf Protect Overview page sidebar, click **Actions**.
+2.  Click **Create Actions**.
+3.  In the *Action Config Name* field, enter a name (`Datadog`).
+4.  (Optional) To collect alerts, click **Remote Alert Collection Endpoints** and add the following:
 
-    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
+    a. **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
 
-    b.  Set **Min Severity & Max Severity:**
+    b. Set **Min Severity & Max Severity**.
 
-    c.  Click **+ Add HTTP Header**. 
-    ```
-    i.  Name: DD-API-KEY
-    ii.  Value: <API_Key>
-    ```
-            
-    d.  Click **+ Add HTTP Header**.
-    ```
-    i.  Name: DD-APPLICATION-KEY
-    ii. Value: <APPLICATION_KEY>
-    ```
+    c. Click **+ Add HTTP Header** twice and add the following HTML header fields: 
+      ```
+      Name: DD-API-KEY
+      Value: <API_Key>
+      ```
+      ```
+      Name: DD-APPLICATION-KEY
+      Value: <APPLICATION_KEY>
+      ```
 
-5.  Click **+ Unified Logs Collection Endpoints**.
+5. (Optional) To collect unified logs, click **+ Unified Logs Collection Endpoints** and add the following.
 
-    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=unifiedlogs`
+    a. **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=unifiedlogs`
 
-    b.  Click + **Add HTTP Header**.
-    ```
-    i.  Name: DD-API-KEY
-    ii. Value: <API_Key>
-    ```
+    b. Click **+ Add HTTP Header** twice and add the following HTML header fields.
+      ```
+      Name: DD-API-KEY
+      Value: <API_Key>
+      ```
+      ```
+      Name: DD-APPLICATION-KEY
+      Value: <APPLICATION_KEY>
+      ```
 
-    c.  Click **+ Add HTTP Header**.
-    ```
-    i.  Name: DD-APPLICATION-KEY
-    ii. Value: <APPLICATION_KEY>
-    ```
-
-6.  Click **+ Telemetry Collection Endpoints**.
+6. (Optional) To collect telemetry data, click **+ Telemetry Collection Endpoints**.
 
     a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=telemetry`
 
-    b.  Click **+ Add HTTP Header**.
-    ```
-    i.  Name: DD-API-KEY
-    ii. Value: <API_Key>
-    ```
+    b.  Click **+ Add HTTP Header** twice and add the following HTML header fields.
+      ```
+      Name: DD-API-KEY
+      Value: <API_Key>
+      ```
+      ```
+      Name: DD-APPLICATION-KEY
+      Value: <APPLICATION_KEY>
+      ```
 
-    c.  Click **+ Add HTTP Header**.
-    ```
-    i.  Name: DD-APPLICATION-KEY
-    ii. Value: <APPLICATION_KEY>
-    ```
+7. Click **Save**.
 
-7.  Click **Save**.
+### Update your plan to use configured Actions
 
+1. Click **Plans**.
+1. Find the plan assigned to devices.
+1. Click **Edit** next to the name of the plan.
+1. Select the Action from the *Action Configuration* dropdown menu. This is the Action config name that contains the Datadog configuration.
+1. Click **Save**.
 
-### Jamf Security Cloud
+### (Optional) Jamf Security Cloud
 
-
-1.  Click **Integrations** in the Threat Events Stream.
-2.  Click **Data Streams**.
-3.  Click **New Configuration**.
-4.  Select **Threat Events**.
-    a.  Select **Generic HTTP**.
-5.  Click **Continue**.
-
-    a.  **Configuration** **Name:** Datadog (Threat)
-
-    b.  **Protocol:** **HTTPS**
-
-    c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
-
-    d.  **Port:** **443**
-
-    e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=threatevents`
-    
-    f.  **Additional Headers:**
-
-    i.  **Header Name:** DD-API-KEY
+1.  Click **Integrations** in the Threat Events Stream.
+2.  Click **Data Streams**.
+3.  Click **New Configuration**.
+4.  Select **Threat Events**.
+5.  Select **Generic HTTP**.
+6.  Click **Continue**.
+    | **Configuration**        | **Details**                         |
+    |--------------------------|-------------------------------------|
+    | **Name**                 | Datadog (Threat)                    |
+    | **Protocol**             | HTTPS                               |
+    | **Server Hostname/IP**   | `${DATADOG_INTAKE_URL}`             |
+    | **Port**                 | 443                                 |
+    | **Endpoint**             | `api/v2/logs?ddsource=jamfprotect&` |
         
-6.  Click **Create option "DD-API-KEY"**.
+7.  Click **Create option "DD-API-KEY"**.
     ```
-    i.  **Header Value:** <API_Key>
-    ii.  **Header Name**: DD-APPLICATION-KEY
+    Header Value: <API_Key>
+    Header Name: DD-APPLICATION-KEY
     ```
-7.  Click **Create option "DD-APPLICATION-KEY"**.
+8.  Click **Create option "DD-APPLICATION-KEY"**.
     ```
-    iii.  **Header Value:** <APPLICATION_KEY>
+    Header Value: <APPLICATION_KEY>
     ```
-    1.  Click **Test Configuration**.
+9.  Click **Test Configuration**.
 
-    2.  If successful, click **Create Configuration**.
+10.  If successful, click **Create Configuration**.
 
-### Network Traffic Stream
-1.  Click **Integrations**.
-2.  Click **Data Streams**.
-3.  Click **New Configuration**.
-4.  Select **Threat Events**.
+### (Optional) Network Traffic Stream
 
-    a.  Select **Generic HTTP**.
+1.  Click **Integrations**.
+2.  Click **Data Streams**.
+3.  Click **New Configuration**.
+4.  Select **Threat Events**.
 
-5.  Click **Continue**.
-    a.  **Configuration** **Name:** Datadog (Threat)
+5. Select **Generic HTTP**.
 
-    b.  **Protocol:** **HTTPS**
+6.  Click **Continue**.
+    a.  **Configuration Name:** Datadog (Threat)
 
-    c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
+    b.  **Protocol:** **HTTPS**
 
-    d.  **Port:** **443**
+    c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
+
+    d.  **Port:** **443**
 
     e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=networktraffic`
 
-    1. **Additional Headers:**
+    f. **Additional Headers:**
 
         i.  **Header Name:** DD-API-KEY
 
-        1.  Click **Create option "DD-API-KEY"**.
+        1.  Click **Create option "DD-API-KEY"**.
 
-        ii.  **Header Value:** <API_Key>
+        ii.  **Header Value:** <API_Key>
 
            i. Header Name: DD-APPLICATION-KEY
 
-        iv.  Click **Create option "DD-APPLICATION-KEY"**.
+        iv.  Click **Create option "DD-APPLICATION-KEY"**.
 
            i. Header Value: <APPLICATION_KEY>
 
-6.  Click **Test Configuration**.
-7.  If successful, click **Create Configuration**.
-
+7.  Click **Test Configuration**.
+8.  If successful, click **Create Configuration**.
 
 ### Validation
 
@@ -174,6 +167,12 @@ Jamf Protect does not include any events.
 
 Need help? Contact [Datadog support][3].
 
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+[Jamf Documentation Integrating Datadog with Jamf Protect][9]
+
 [1]: https://www.jamf.com/products/jamf-protect/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
@@ -182,3 +181,5 @@ Need help? Contact [Datadog support][3].
 [6]: https://app.datadoghq.com/integrations
 [7]: https://docs.datadoghq.com/api/latest/logs/#send-logs
 [8]: https://docs.datadoghq.com/getting_started/site/
+[9]: https://learn.jamf.com/en-US/bundle/jamf-protect-documentation/page/SecurityIntegration_Datadog.html
+[10]: https://docs.datadoghq.com/account_management/api-app-keys/
