@@ -54,7 +54,6 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
         return config
 
     def load_state(self):
-        """Load shared state from a file."""
         if os.path.exists(self.STATE_FILE):
             try:
                 with open(self.STATE_FILE, "r") as f:
@@ -71,7 +70,6 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
             self.previous_leader = None
 
     def save_state(self):
-        """Save shared state to a file."""
         try:
             with open(self.STATE_FILE, "w") as f:
                 json.dump({"previous_leader": self.previous_leader}, f)
@@ -93,9 +91,6 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
         self.process_custom_metrics(instance)
 
     def process_custom_metrics(self, instance):
-        """
-        Process the scraped metrics to calculate custom values (e.g., dcs.last_seen).
-        """
         self.log.debug("Starting process_custom_metrics")
 
         for endpoint, scraper in self.scrapers.items():  # Access the scraper instances
@@ -135,7 +130,6 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
                         self.log.error("Error processing primary: %s", str(e))
 
     def handle_failover_event(self, current_leader):
-        """Checks for a leader change and submits a Datadog event if a failover occurred."""
         if current_leader != self.previous_leader:
             if self.previous_leader is not None:
                 self.event(
