@@ -2,45 +2,48 @@
 
 ## Overview
 
-This check monitors [Ocient][1].
+[Ocient][1] Hyperscale Data Warehouse is a data analytics software solutions company that enables all-the-time, compute-intensive analysis of large, complex datasets while optimizing for performance, cost, and energy efficiency.
 
-Include a high level overview of what this integration does:
-- What does your product do (in 1-2 sentences)?
-- What value will customers get from this integration, and why is it valuable to them?
-- What specific data will your integration monitor, and what's the value of that data?
+With industry-standard interfaces like SQL and JDBC, Ocient makes it easy for organizations to interact with data in Ocient.
+
+The Ocient integration enables you to collect metrics related to query performance, disk usage, database tables, and more.
 
 ## Setup
 
+Follow the instructions below to install and configure this check for an Agent running on a host.
+
 ### Installation
 
-To install the Ocient check on your host:
-
-
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
-
-2. Run `ddev release build ocient` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/ocient/dist/<ARTIFACT_NAME>.whl`.
+The Ocient check is included in the [Datadog Agent][2] package, so you don't need to install anything else on your Ocient server.
 
 ### Configuration
 
-!!! Add list of steps to set up this integration !!!
+To configure this check for an Agent running on a host:
+
+1. Edit the `ocient.d/conf.yaml` file, in the `conf.d/` folder at the root of your [Agent's configuration directory][3]. See the [sample ocient.d/conf.yaml][4] for all available configuration options:
+
+```yaml
+instances:
+
+- use_openmetrics: true  # Enables OpenMetrics V2
+
+  ## @param openmetrics_endpoint - string - required
+  ## The URL exposing metrics in the OpenMetrics format.
+  #
+  openmetrics_endpoint: http://localhost:<PORT>/metrics
+```
+
+2. [Restart the Agent][5].
 
 ### Validation
 
-!!! Add steps to validate integration is functioning as expected !!!
+[Run the Agent's status subcommand][6] and look for `ocient` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-Ocient does not include any metrics.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -52,15 +55,13 @@ Ocient does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact [Datadog support][8].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://ocient.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [4]: https://github.com/DataDog/integrations-extras/blob/master/ocient/datadog_checks/ocient/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ocient/metadata.csv
-[8]: https://github.com/DataDog/integrations-extras/blob/master/ocient/assets/service_checks.json
-[9]: https://docs.datadoghq.com/help/
-
+[8]: https://docs.datadoghq.com/help/
