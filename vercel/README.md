@@ -10,7 +10,7 @@ Integrate Vercel with Datadog to:
 
 - View and parse your application logs using [Datadog's Log Management][5]
 - See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
-- Monitor frontend performance with [Datadog Synthetics][6]
+- Monitor frontend and [Vercel Functions][9] performance with [Datadog Synthetics][6]
 
 ## Setup
 
@@ -20,7 +20,7 @@ Integrate Vercel with Datadog to:
 
 ### Metrics
 
-The Vercel integration does not include any metrics.
+See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -29,6 +29,10 @@ The Vercel integration does not include any service checks.
 ### Events
 
 The Vercel integration does not include any events.
+
+### Logs
+
+The Vercel integration collects logs from your Vercel Project using Vercel's [Log Drains][10] feature.
 
 ## Troubleshooting
 
@@ -46,3 +50,6 @@ Need help? Contact [Datadog support][8].
 [6]: /synthetics/
 [7]: https://app.datadoghq.com/setup/vercel
 [8]: /help/
+[9]: https://vercel.com/docs/functions
+[10]: https://vercel.com/docs/observability/log-drains
+[11]: https://github.com/DataDog/integrations-extras/blob/master/vercel/metadata.csv
