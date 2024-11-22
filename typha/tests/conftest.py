@@ -39,6 +39,7 @@ def setup_typha():
         ]
     )
 
+
 @pytest.fixture(scope='session')
 def dd_environment():
     with kind_run(

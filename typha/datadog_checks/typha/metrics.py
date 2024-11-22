@@ -1,4 +1,4 @@
-METRIC_MAP  = {
+METRIC_MAP = {
     "typha_cache_size": "cache.size",
     "typha_snapshots_generated": "snapshots.generated",
     "typha_snapshots_reused": "snapshots.reused",
