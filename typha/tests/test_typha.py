@@ -10,7 +10,7 @@ from datadog_checks.base.errors import CheckException, ConfigurationError
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.typha import TyphaCheck
 
-from .common import EXPECTED_METRICS, EXPECTED_CHECKS, MOCK_INSTANCE
+from .common import EXPECTED_CHECKS, EXPECTED_METRICS, MOCK_INSTANCE
 
 
 def get_response(filename):

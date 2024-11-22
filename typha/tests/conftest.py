@@ -3,10 +3,10 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
 import os
+from os import path
 
 import pytest
 
-from os import path
 from datadog_checks.dev import run_command
 from datadog_checks.dev.kind import kind_run
 from datadog_checks.dev.kube_port_forward import port_forward
