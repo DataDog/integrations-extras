@@ -1,7 +1,8 @@
 # (C) Datadog, Inc. 2021-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import os 
+
+import os
 
 import pytest
 
@@ -26,19 +27,26 @@ def setup_typha():
     run_command(["kubectl", "apply", "-f", path.join(HERE, 'kind', 'typha.yaml')])
 
     # Wait for pods
-    run_command(["kubectl", "wait", "--for=condition=Ready", "pods", "--selector=k8s-app=calico-typha", "--all-namespaces", "--timeout=300s"])
+    run_command(
+        [
+            "kubectl",
+            "wait",
+            "--for=condition=Ready",
+            "pods",
+            "--selector=k8s-app=calico-typha",
+            "--all-namespaces",
+            "--timeout=300s",
+        ]
+    )
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    
-    with kind_run(conditions=[setup_typha], kind_config=path.join(HERE, 'kind', 'kind-typha.yaml'), sleep=10) as kubeconfig:
+    with kind_run(
+        conditions=[setup_typha], kind_config=path.join(HERE, 'kind', 'kind-typha.yaml'), sleep=10
+    ) as kubeconfig:
         with ExitStack() as stack:
             ip_ports_metrics = [
-                stack.enter_context(
-                    port_forward(
-                        kubeconfig, 'kube-system', METRICS_PORT, 'service', 'calico-typha'
-                    )
-                )
+                stack.enter_context(port_forward(kubeconfig, 'kube-system', METRICS_PORT, 'service', 'calico-typha'))
             ]
 
         instances = {
