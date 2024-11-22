@@ -2,19 +2,20 @@ import os
 
 import pytest
 
-from datadog_checks.dev import docker_run, get_docker_hostname, get_here
+from datadog_checks.dev import docker_run, get_here
 
-URL = f"http://{get_docker_hostname()}:9598/metrics"
-INSTANCE = {"openmetrics_endpoint": URL}
+from . import common
+
+INSTANCE = {"openmetrics_endpoint": common.VECTOR_METRICS_URL}
 
 
 @pytest.fixture(scope="session")
 def dd_environment():
     compose_file = os.path.join(get_here(), "docker/docker-compose.yaml")
-    with docker_run(compose_file, endpoints=[URL]):
-        yield INSTANCE
+    with docker_run(compose_file, endpoints=[common.VECTOR_METRICS_URL]):
+        yield
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def instance():
-    return {"openmetrics_endpoint": URL}
+    return INSTANCE

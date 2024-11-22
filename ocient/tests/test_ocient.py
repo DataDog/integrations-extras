@@ -1,12 +1,12 @@
-from pytest import mark
+import pytest
 
 from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.ocient import OcientCheck
 
 
-@mark.e2e
-def test_check(dd_run_check, aggregator, instance):
+@pytest.mark.e2e
+def test_e2e(dd_run_check, aggregator, instance):
     check = OcientCheck("ocient", {}, [instance])
 
     dd_run_check(check)
