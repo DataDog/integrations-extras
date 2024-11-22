@@ -6,6 +6,7 @@ from datadog_checks.ocient import OcientCheck
 
 
 @pytest.mark.e2e
+@pytest.mark.usefixtures('dd_environment')
 def test_e2e(dd_run_check, aggregator, instance):
     check = OcientCheck("ocient", {}, [instance])
 
