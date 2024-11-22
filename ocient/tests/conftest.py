@@ -13,8 +13,7 @@ def dd_environment():
     with docker_run(compose_file, endpoints=[URL]):
         yield INSTANCE
 
+
 @pytest.fixture
 def instance():
-    return {
-        'openmetrics_endpoint': 'http://127.0.0.1:9598/metrics'
-    }
+    return {'openmetrics_endpoint': 'http://127.0.0.1:9598/metrics'}
