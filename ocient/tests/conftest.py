@@ -17,4 +17,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {"openmetrics_endpoint": "http://127.0.0.1:9598/metrics"}
+    return {"openmetrics_endpoint": URL}
