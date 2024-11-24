@@ -1,26 +1,14 @@
 # (C) Datadog, Inc. 2022-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-
 import json
 import os
 import time
 from collections import ChainMap
 
-import requests
+from datadog_checks.base import OpenMetricsBaseCheckV2
 
-from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
-from datadog_checks.base.checks.openmetrics.v2.scraper import (
-    OpenMetricsCompatibilityScraper,
-)
-
-from .metrics import (
-    ALERT_TYPE_INFO,
-    API_METRICS,
-    ENDPOINTS,
-    METRIC_MAP,
-    construct_metrics_config,
-)
+from .metrics import METRIC_MAP, construct_metrics_config
 
 
 class PatroniCheck(OpenMetricsBaseCheckV2):
@@ -135,7 +123,8 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
                 self.event(
                     {
                         "msg_title": "Patroni Failover Detected",
-                        "msg_text": f"Failover occurred: Leader changed from {self.previous_leader} to {current_leader}",
+                        "msg_text": f"Failover occurred: \
+                        Leader changed from {self.previous_leader} to {current_leader}",
                         "alert_type": "info",
                         "source_type_name": "patroni",
                         "tags": [

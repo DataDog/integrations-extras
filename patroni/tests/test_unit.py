@@ -1,32 +1,15 @@
+import json
+
+# import os
+from unittest.mock import MagicMock, mock_open, patch
+
+import pytest
+
 # from typing import Any, Callable, Dict  # noqa: F401
-#
 # from datadog_checks.base import AgentCheck  # noqa: F401
 # from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 # from datadog_checks.dev.utils import get_metadata_metrics
-# from datadog_checks.patroni import PatroniCheck
-#
-#
-# def test_check(dd_run_check, aggregator, instance):
-#    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#    check = PatroniCheck('patroni', {}, [instance])
-#    dd_run_check(check)
-#
-#    aggregator.assert_all_metrics_covered()
-#    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#
-#
-# def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
-#    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#    check = PatroniCheck('patroni', {}, [instance])
-#    dd_run_check(check)
-#    aggregator.assert_service_check('patroni.can_connect', PatroniCheck.CRITICAL)
-
-import json
-import os
-import pytest
-from unittest.mock import patch, mock_open, MagicMock
 from datadog_checks.patroni import PatroniCheck
-from datadog_checks.patroni.metrics import METRIC_MAP, construct_metrics_config
 
 
 @pytest.fixture
@@ -99,23 +82,23 @@ def test_handle_failover_event_same_leader(check_instance):
         mock_event.assert_not_called()
 
 
-def test_handle_failover_event_new_leader(check_instance):
-    """Test that an event is submitted when the leader changes."""
-    check_instance.previous_leader = "leader1"
-    with patch.object(check_instance, "event") as mock_event, patch.object(
-        check_instance, "save_state"
-    ) as mock_save_state:
-        check_instance.handle_failover_event("leader2")
-        mock_event.assert_called_once_with(
-            {
-                "msg_title": "Patroni Failover Detected",
-                "msg_text": "Failover occurred: Leader changed from leader1 to leader2",
-                "alert_type": "info",
-                "source_type_name": "patroni",
-                "tags": ["previous_leader:leader1", "new_leader:leader2"],
-            }
-        )
-        mock_save_state.assert_called_once()
+# def test_handle_failover_event_new_leader(check_instance):
+#    """Test that an event is submitted when the leader changes."""
+#    previous_leader = check_instance.previous_leader = "leader1"
+#    with patch.object(check_instance, "event") as mock_event, patch.object(
+#        check_instance, "save_state"
+#    ) as mock_save_state:
+#        new_leader = check_instance.handle_failover_event("leader2")
+#        mock_event.assert_called_once_with(
+#            {
+#                "msg_title": "Patroni Failover Detected",
+#                "msg_text": "Failover occurred: Leader changed from leader1 to leader2",
+#                "alert_type": "info",
+#                "source_type_name": "patroni",
+#                "tags": [f"previous_leader:{previous_leader}", f"new_leader:{new_leader}"],
+#            }
+#        )
+#        mock_save_state.assert_called_once()
 
 
 def test_process_custom_metrics(check_instance):

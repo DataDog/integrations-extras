@@ -27,6 +27,7 @@ METRIC_MAP = {
 # Alert types
 ALERT_TYPE_INFO = "info"
 
+
 # Helper function that will strip _total from both the raw metric name and the metric name
 def construct_metrics_config(metric_map):
     metrics = []
