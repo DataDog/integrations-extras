@@ -7,7 +7,7 @@ Jamf Protect not only detects known malware, adware, but also prevents unknown t
 
 ## Setup
 
-### Prequisites
+### Prerequisites
 
 - Datadog intake URL. Use the [Datadog API Logs documentation][7] and select your Datadog Site at the top of the page.
 - Your [Datadog API and App keys][10].
