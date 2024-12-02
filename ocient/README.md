@@ -4,13 +4,12 @@
 
 [Ocient][1] Hyperscale Data Warehouse is a data analytics software solutions company that enables all-the-time, compute-intensive analysis of large, complex datasets while optimizing for performance, cost, and energy efficiency.
 
-With industry-standard interfaces like SQL and JDBC, Ocient makes it easy for organizations to interact with data in Ocient.
-
+With industry-standard interfaces like SQL and JDBC, Ocient makes it easy for organizations to interact with data within its platform.
 The Ocient integration enables you to collect metrics related to query performance, disk usage, database tables, and more.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host.
+Follow these instructions to install and configure this check for an Agent running on a host.
 
 ### Installation
 
@@ -20,7 +19,7 @@ The Ocient check is included in the [Datadog Agent][2] package, so you don't nee
 
 To configure this check for an Agent running on a host:
 
-1. Edit the `ocient.d/conf.yaml` file, in the `conf.d/` folder at the root of your [Agent's configuration directory][3]. See the [sample ocient.d/conf.yaml][4] for all available configuration options:
+1. Edit the `ocient.d/conf.yaml` file, in the `conf.d/` folder at the root of your [Agent's configuration directory][3]. For all available configuration options, see the [sample ocient.d/conf.yaml][4].
 
 ```yaml
 instances:
