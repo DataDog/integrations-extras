@@ -1,4 +1,3 @@
-
 def test_metrics(dd_agent_check, instance):
     aggregator = dd_agent_check(instance, rate=True)
     expected_metrics = []
