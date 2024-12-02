@@ -20,6 +20,8 @@ class SpicedbCheck(OpenMetricsBaseCheckv2, ConfigMixin):
         Provides a default configuration, e.g. for tests.
         """
         return {
+                # TODO: this is technically the prometheus endpoint, not the openmetrics endpoint
+                # Need to see if that'll be a problem.
                 'openmetrics_endpoint': 'http://localhost:9090/metrics',
                 'metrics': METRICS_CONFIG
                 }
