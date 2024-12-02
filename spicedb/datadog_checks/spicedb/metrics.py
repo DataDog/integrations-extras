@@ -63,5 +63,5 @@ def construct_metric_config(raw: str, dotted: str):
 
 
 METRICS_CONFIG: list[dict[str, dict[str, str]]] = [
-        construct_metric_config(raw, dotted) for raw, dotted in METRIC_MAP.items()
-        ]
+    construct_metric_config(raw, dotted) for raw, dotted in METRIC_MAP.items()
+]

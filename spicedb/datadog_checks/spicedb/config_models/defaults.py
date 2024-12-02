@@ -49,7 +49,7 @@ def instance_enable_health_service_check():
 
 
 def instance_histogram_buckets_as_distributions():
-    return False
+    return True
 
 
 def instance_ignore_connection_errors():
