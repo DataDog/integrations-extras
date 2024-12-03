@@ -1,7 +1,7 @@
 import pytest
 
 from datadog_checks.base.constants import ServiceCheck
-from datadog_checks.cockroachdb import CockroachdbCheck
+from datadog_checks.spicedb import SpicedbCheck
 from datadog_checks.dev.utils import assert_service_checks, get_metadata_metrics
 
 # NOTE: this is the same as annotating all of the test functions in this file with the dd_environment fixture.
@@ -9,7 +9,7 @@ pytestmark = [pytest.mark.usefixtures("dd_environment")]
 
 
 def test_metrics(aggregator, instance, dd_run_check):
-    check = CockroachdbCheck("spicedb", {}, [instance])
+    check = SpicedbCheck("spicedb", {}, [instance])
     dd_run_check(check)
 
     expected_metrics = []
