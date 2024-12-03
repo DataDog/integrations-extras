@@ -10,7 +10,7 @@ A definition of the metrics publicly exposed in SpiceDB.
 # `application.` because all of these metrics will come in
 # with a `spicedb.` prefix.
 
-METRIC_MAP = {
+COUNTER_METRICS = {
     # SpiceDB counter metrics
     "spicedb_cache_cost_added_bytes": "application.cache.cost_added",
     "spicedb_cache_cost_evicted_bytes": "application.cache.cost_evicted",
@@ -26,6 +26,16 @@ METRIC_MAP = {
     "spicedb_dispatch_client_lookup_subjects_total": "application.dispatch_client.lookup_subjects",
     "spicedb_dispatch_client_reachable_resources_from_cache_total": "application.dispatch_client.reachable_resources_from_cache",
     "spicedb_dispatch_client_reachable_resources_total": "application.dispatch_client.reachable_resources",
+    # gRPC counter metrics
+    "grpc_server_handled_total": "grpc.server.handled",
+    "grpc_server_msg_received_total": "grpc.server.msg_received",
+    "grpc_server_msg_sent_total": "grpc.server.msg_sent",
+    "grpc_server_started_total": "grpc.server.started",
+    # process counter metrics
+    "process_cpu_seconds_total": "process.cpu.seconds",
+}
+
+OTHER_METRICS = {
     # SpiceDB gauge metrics
     "spicedb_datastore_watching_schema_cache_caveats_fallback_mode": "application.datastore.watching_schema_cache.caveats_fallback_mode",
     "spicedb_datastore_watching_schema_cache_namespaces_fallback_mode": "application.datastore.watching_schema_cache.namespaces_fallback_mode",
@@ -38,17 +48,15 @@ METRIC_MAP = {
     "spicedb_datastore_query_latency": "application.datastore.query_latency",
     "spicedb_datastore_spanner_watch_retries": "application.datastore.spanner_watch_retries",
     "spicedb_services_dispatches": "application.services.dispatches",
-    # gRPC counter metrics
-    "grpc_server_handled_total": "grpc.server.handled",
-    "grpc_server_msg_received_total": "grpc.server.msg_received",
-    "grpc_server_msg_sent_total": "grpc.server.msg_sent",
-    "grpc_server_started_total": "grpc.server.started",
     # gRPC histogram metrics
     "grpc_server_handling_seconds": "grpc.server.handling_seconds",
-    # process counter metrics
-    "process_cpu_seconds_total": "process.cpu.seconds",
     # process gauge metrics
     "process_virtual_memory_bytes": "process.virtual_memory_bytes",
+}
+
+METRIC_MAP = {
+    **COUNTER_METRICS,
+    **OTHER_METRICS,
 }
 
 
