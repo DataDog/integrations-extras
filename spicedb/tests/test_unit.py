@@ -1,11 +1,8 @@
-from typing import Any, Callable, Dict  # noqa: F401
-
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
+from datadog_checks.base.constants import ServiceCheck
 from datadog_checks.dev.utils import assert_service_checks, get_metadata_metrics
 from datadog_checks.spicedb import SpicedbCheck
 
-from .util import get_fixture_path
+from .util import get_fixture_path, get_expected_metrics
 
 
 def test_metrics(aggregator, instance, dd_run_check, mock_http_response):
@@ -15,12 +12,12 @@ def test_metrics(aggregator, instance, dd_run_check, mock_http_response):
     tags = ["cluster:spicedb-cluster", "endpoint:http://localhost:9090/metrics", "node:1", "node_id:1"]
 
     # TODO:
-    for metric in metrics:
+    for metric in get_expected_metrics():
         aggregator.assert_metric("spicedb.{}".format(metric))
         for tag in tags:
             aggregator.assert_metric_has_tag("spicedb.{}".format(metric), tag)
 
-    aggregator.assert_service_check("cockroachdb.prometheus.health", ServiceCheck.OK)
+    aggregator.assert_service_check("spicedb.prometheus.health", ServiceCheck.OK)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
 
