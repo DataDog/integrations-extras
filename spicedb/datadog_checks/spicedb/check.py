@@ -4,13 +4,13 @@ A SpiceDB metrics check for the Datadog agent.
 Borrows heavily from the CockroachDB check in integrations-core.
 """
 
-from datadog_checks.base.checks.openmetrics.v2 import OpenMetricsBaseCheckv2
+from datadog_checks.base import OpenMetricsBaseCheckV2
 
 from .config_models import ConfigMixin
 from .metrics import METRICS_CONFIG
 
 
-class SpicedbCheck(OpenMetricsBaseCheckv2, ConfigMixin):
+class SpicedbCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = "spicedb"
 
