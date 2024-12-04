@@ -24,5 +24,5 @@ def instance(scope="session"):
     return {
         "openmetrics_endpoint": "http://{}:{}/metrics".format(HOST, PORT),
         "histogram_buckets_as_distributions": True,
-        "tags": ["cluster:cockroachdb-cluster", "node:1"],
+        "tags": ["cluster:spicedb-cluster", "node:1"],
     }
