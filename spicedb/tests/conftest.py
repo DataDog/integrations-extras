@@ -8,7 +8,7 @@ from .util import HOST, PORT
 
 @pytest.fixture(scope="session")
 def dd_environment(instance):
-    env_vars = {"SPICEDB_GRPC_PRESHARED_KEY": "some random key"}
+    env_vars = {"SPICEDB_GRPC_PRESHARED_KEY": "somerandomkey"}
 
     with docker_run(
         os.path.join(get_here(), "docker", "docker-compose.yml"),
@@ -19,8 +19,8 @@ def dd_environment(instance):
         yield instance
 
 
-@pytest.fixture
-def instance(scope="session"):
+@pytest.fixture(scope="session")
+def instance():
     return {
         "openmetrics_endpoint": "http://{}:{}/metrics".format(HOST, PORT),
         "histogram_buckets_as_distributions": True,
