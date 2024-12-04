@@ -1,6 +1,8 @@
 """
 A definition of the metrics publicly exposed in SpiceDB.
 """
+from itertools import chain
+
 # For the metrics, the key is the SpiceDB name and the
 # value is the Datadog name. They're manually rewritten
 # because Datadog likes dot-separated names and SpiceDB
@@ -35,41 +37,46 @@ COUNTER_METRICS = {
     "process_cpu_seconds_total": "process.cpu.seconds",
 }
 
-OTHER_METRICS = {
+GAUGE_METRICS = {
     # SpiceDB gauge metrics
     "spicedb_datastore_watching_schema_cache_caveats_fallback_mode": "application.datastore.watching_schema_cache.caveats_fallback_mode",
     "spicedb_datastore_watching_schema_cache_namespaces_fallback_mode": "application.datastore.watching_schema_cache.namespaces_fallback_mode",
     "spicedb_datastore_watching_schema_cache_tracked_revision": "application.datastore.watching_schema_cache.tracked_revision",
+    # process gauge metrics
+    "process_virtual_memory_bytes": "process.virtual_memory_bytes",
+}
+
+HISTOGRAM_METRICS = {
     # SpiceDB histogram metrics
     "spicedb_check_direct_dispatch_query_count": "application.check.direct_dispatch_query_count",
     "spicedb_check_dispatch_chunk_count": "application.check.dispatch_chunk_count",
     "spicedb_datastore_crdb_watch_retries": "application.datastore.crdb_watch_retries",
-    "application.datastore.loaded_relationships_count": "application.datastore.loaded_relationships_count",
+    "spicedb_datastore_loaded_relationships_count": "application.datastore.loaded_relationships_count",
     "spicedb_datastore_query_latency": "application.datastore.query_latency",
     "spicedb_datastore_spanner_watch_retries": "application.datastore.spanner_watch_retries",
     "spicedb_services_dispatches": "application.services.dispatches",
     # gRPC histogram metrics
     "grpc_server_handling_seconds": "grpc.server.handling_seconds",
-    # process gauge metrics
-    "process_virtual_memory_bytes": "process.virtual_memory_bytes",
-}
+        }
 
-METRIC_MAP = {
-    **COUNTER_METRICS,
-    **OTHER_METRICS,
-}
-
-
-def construct_metric_config(raw: str, dotted: str):
+def construct_counter_metric_config(raw: str, dotted: str):
     """
     Transforms openmetrics configuration names into names that datadog likes.
     """
 
     # Datadog doesn't like _total as a suffix on openmetrics
     # counter metrics, so we remove it
-    return {raw.removesuffix("_total"): {"name": dotted}}
+    return {raw.removesuffix("_total"): {"name": dotted, "type": "counter"}}
+
+def construct_gauge_metric_config(raw: str, dotted: str):
+    return {raw: {"name": dotted, "type": "gauge"}}
+
+def construct_histogram_metric_config(raw: str, dotted: str):
+    return {raw: {"name": dotted, "type": "histogram"}}
 
 
-METRICS_CONFIG: list[dict[str, dict[str, str]]] = [
-    construct_metric_config(raw, dotted) for raw, dotted in METRIC_MAP.items()
-]
+METRICS_CONFIG: list[dict[str, dict[str, str]]] = list(chain(
+    (construct_counter_metric_config(raw, dotted) for raw, dotted in COUNTER_METRICS.items()),
+    (construct_gauge_metric_config(raw, dotted) for raw, dotted in GAUGE_METRICS.items()),
+    (construct_histogram_metric_config(raw, dotted) for raw, dotted in HISTOGRAM_METRICS.items()),
+    ))
