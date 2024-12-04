@@ -14,7 +14,34 @@ Integrate Vercel with Datadog to:
 
 ## Setup
 
-- [Configure the Vercel integration][7]
+### Datadog
+
+To connect Datadog with Vercel, enable the integration and selct an API Key.
+
+1. Open the Vercel integration tile.
+
+2. Select the **Configure** tab and select **Configure the Vercel integration**.
+
+3. On the **Your Datadog account info** form, select **Select an API Key** and either choose an existing API key or select **+ Create New** to use a new API key for the Vercel integration.
+
+4. After your selection is made, select **Use API Key**. This copies the selected API key to your device's clipboard.
+
+5. After the API key is selected, you are redirected back to the **Your Datadog account info** form. Select **Vercel > Add Integration** to complete the integration setup for Vercel.
+### Vercel
+
+1. Click the **Vercel > Add Integration** link to be redirected to Vercel's Datadog integration page.
+
+2. Select **Connect Account** to open the **Connect Datadog Account** form.
+
+3. Select which Vercel Team to connect the integration to. (Teams that already have the integration installed have an icon next to them labeled **Installed**)
+
+4. Select the radio button associated with either enabling the integration for all projects or a specific project that the team owns. Select **Connect Account** to save your changes.
+
+5. Paste the API key that was copied to your clipboard in Step 4 of the Datadog setup above into the box labeled **Your Datadog API Key**.
+
+6. Scroll to the bottom of the form and select **Add Integration** to save your changes.
+
+- {{< region-param key="vercel_setup" link="true" text="Configure the Vercel integration" >}}
 
 ## Data Collected
 
@@ -36,6 +63,9 @@ The Vercel integration collects logs from your Vercel Project using Vercel's [Lo
 
 ## Troubleshooting
 
+If you are using the Vercel OpenTelemetry Collector, the `serviceName` specified in `registerOTel` block of your [initializer][12] must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
+
+
 Need help? Contact [Datadog support][8].
 
 ## Further Reading
@@ -53,3 +83,4 @@ Need help? Contact [Datadog support][8].
 [9]: https://vercel.com/docs/functions
 [10]: https://vercel.com/docs/observability/log-drains
 [11]: https://github.com/DataDog/integrations-extras/blob/master/vercel/metadata.csv
+[12]: https://vercel.com/docs/observability/otel-overview#initialize-otel
