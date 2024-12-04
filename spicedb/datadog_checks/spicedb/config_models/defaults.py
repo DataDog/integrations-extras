@@ -17,7 +17,7 @@ def instance_allow_redirects():
 
 
 def instance_auth_type():
-    return "basic"
+    return 'basic'
 
 
 def instance_cache_metric_wildcards():
@@ -57,7 +57,7 @@ def instance_ignore_connection_errors():
 
 
 def instance_kerberos_auth():
-    return "disabled"
+    return 'disabled'
 
 
 def instance_kerberos_delegate():
@@ -81,7 +81,7 @@ def instance_non_cumulative_histogram_buckets():
 
 
 def instance_openmetrics_endpoint():
-    return "http://localhost:9090/metrics"
+    return 'http://localhost:9090/metrics'
 
 
 def instance_persist_connections():
