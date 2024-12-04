@@ -3,8 +3,23 @@ name: "spicedb"
 
 services:
   spicedb:
-    image: "ghcr.io/authzed/spicedb:${SPICEDB_VERSION}"
+    image: "authzed/spicedb:v1.38.1"
     command: "serve"
+    environment:
+      SPICEDB_GRPC_PRESHARED_KEY: ${SPICEDB_GRPC_PRESHARED_KEY}
     ports:
       - "9090:9090"
-      - "50051:50051"
+  thumper:
+    image: "thumper"
+    command: "run --endpoint spicedb:50051 --token ${SPICEDB_GRPC_PRESHARED_KEY} /scripts/example.yaml"
+    depends_on:
+      - "spicedb"
+      - "thumper-init"
+  thumper-init:
+    image: "thumper"
+    command: "migrate --endpoint spicedb:50051 --token ${SPICEDB_GRPC_PRESHARED_KEY} /scripts/schema.yaml"
+    # Restarting on failure should mean that the init reattempts until it succeeds
+    restart: "on-failure"
+    depends_on:
+      spicedb:
+        condition: "service_started"
