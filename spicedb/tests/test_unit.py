@@ -12,7 +12,7 @@ def test_metrics(aggregator, instance, dd_run_check, mock_http_response):
 
     tags = ["cluster:spicedb-cluster", "node:1"]
 
-    # TODO:
+    # TODO: why are these failing?
     for metric in get_expected_non_histogram_metrics():
         aggregator.assert_metric("spicedb.{}".format(metric))
         for tag in tags:
