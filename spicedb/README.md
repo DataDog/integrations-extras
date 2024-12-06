@@ -16,7 +16,7 @@ SpiceDB metrics allow developers and SREs to monitor their SpiceDB deployments, 
 To install the SpiceDB check on your host:
 
 1. Download and install the [Datadog Agent][2].
-1. Install the SpiceDB integration on the agent on the host where it's running
+1. Install the SpiceDB integration on the Agent on the host where it's running.
    ```shell
    datadog-agent integration install -t datadog-spicedb==<INTEGRATION_VERSION>
    ```
