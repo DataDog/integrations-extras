@@ -2,7 +2,7 @@
 
 ## Overview
 
-[SpiceDB][1]is an open source, [Google Zanzibar][zanzibar]-inspired, database system for creating and managing security-critical application permissions.
+[SpiceDB][1]is an open source, [Google Zanzibar][zanzibar]-inspired database system for creating and managing security-critical application permissions.
 
 Developers create a schema that models their permissions requirements and use any of the official or community maintained client libraries to apply the schema to the database, insert data into the database, and query the data to efficiently check permissions in their applications.
 
