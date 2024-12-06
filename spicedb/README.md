@@ -6,7 +6,7 @@
 
 Developers create a schema that models their permissions requirements. Then, they use any of the official or community maintained client libraries to apply the schema to the database and insert data into the database. They can query the data to efficiently check permissions in their applications.
 
-SpiceDB metrics allow developers and SREs to monitor their SpiceDB deployments, including request latency metrics, cache metrics such as size and hit/miss metrics, and datastore connection and query metrics. These will allow developers and SREs to diagnose performance problems and tune performance characteristics of their SpiceDB clusters.
+SpiceDB metrics allow developers and SREs to monitor their SpiceDB deployments, including request latency metrics, cache metrics such as size and hit/miss metrics, and datastore connection and query metrics. These metrics allow developers and SREs to diagnose performance problems and tune performance characteristics of their SpiceDB clusters.
 
 ## Setup
 
