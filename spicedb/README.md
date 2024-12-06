@@ -22,7 +22,7 @@ To install the SpiceDB check on your host:
    ```
 
 #### With the Agent sidecar container
-1. Build a custom image with the agent installed:
+1. Build a custom image with the Agent installed:
     ```dockerfile
     FROM gcr.io/datadoghq/agent:latest
     RUN agent integration install -t datadog-spicedb==<INTEGRATION_VERSION>
