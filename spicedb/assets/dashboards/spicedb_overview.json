@@ -1,1 +1,1198 @@
-{"title":"SpiceDB Overview","description":"[[suggested_dashboards]]","widgets":[{"id":512625727012637,"definition":{"title":"New group","banner_img":"","show_title":false,"type":"group","layout_type":"ordered","widgets":[{"id":790129298401198,"definition":{"type":"image","url":"https://design-authzed.vercel.app/images/Banners/SpiceDB-1600x400-Banner-Light.svg","url_dark_theme":"https://design-authzed.vercel.app/images/Banners/SpiceDB-1600x400-Banner.svg","sizing":"contain","has_background":false,"has_border":false,"vertical_align":"center","horizontal_align":"left"},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":5391176615093781,"definition":{"type":"note","content":"#### Optimize your SpiceDB integration configuration for monitoring\n\n1. Configure `cluster`, `node`, and `region` tags in your `spicedb.d/conf.yaml` file:\n\n\n    ```\n    instances:\n      - openmetrics_endpoint: http://localhost:8080/_status/vars\n        tags: [\"cluster:prod\", \"node:1\", \"region:us-east-1\"]\n      - openmetrics_endpoint: http://localhost:8082/_status/vars\n        tags: [\"cluster:dev\", \"node:1\", \"region:us-east-2\"]\n    ```","background_color":"white","font_size":"14","text_align":"left","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":6,"y":0,"width":6,"height":3}},{"id":8404853868782660,"definition":{"type":"note","content":"This dashboard provides a high-level view of your SpiceDB cluster, including:\n- A high-level view of request performance & latency.\n- Information about resource consumption to help aid in capacity planning.","background_color":"transparent","font_size":"14","text_align":"left","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":false},"layout":{"x":0,"y":2,"width":6,"height":1}}]},"layout":{"x":0,"y":0,"width":12,"height":4}},{"id":3560130955990344,"definition":{"title":"Throughput","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":7615141942543467,"definition":{"title":"Total by RPC","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{*}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":3925663272929855,"definition":{"title":"Total by Consistency","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{*}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":6,"y":0,"width":6,"height":3}},{"id":364527830066764,"definition":{"title":"Check Operations","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{grpc_method:checkpermission}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":0,"y":3,"width":6,"height":3}},{"id":2823083366205463,"definition":{"title":"Lookup Operations","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{grpc_method in (lookupsubjects ,lookupresources )} by {grpc_method}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":6,"y":3,"width":6,"height":3}},{"id":279197301579739,"definition":{"title":"Relationship Operations","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{grpc_method in (readrelationships ,writerelationships ,deleterelationships )} by {grpc_method}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":0,"y":6,"width":6,"height":3}},{"id":3380816430782344,"definition":{"title":"Schema Operations","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.grpc.server.handled.count{grpc_method in (writeschema ,readschema)} by {grpc_method}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"bars"}]},"layout":{"x":6,"y":6,"width":6,"height":3}}]},"layout":{"x":0,"y":4,"width":12,"height":10}},{"id":4793433791679627,"definition":{"title":"Latency","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":863409587490583,"definition":{"title":"Checks","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: CheckPermission","formula":"query1"},{"alias":"p95: CheckPermission","formula":"query2"},{"alias":"p95: CheckPermission","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:checkpermission}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:checkpermission}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:checkpermission}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":6076165849438225,"definition":{"title":"Bulk Checks","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: CheckBulkPermission","formula":"query1"},{"alias":"p95: CheckBulkPermission","formula":"query2"},{"alias":"p99: CheckBulkPermission","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":0,"width":6,"height":3}},{"id":5409060165861238,"definition":{"title":"ReadRelationships","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: ReadRelationships","formula":"query1"},{"alias":"p95: WriteRelationships","formula":"query2"},{"alias":"p99: WriteRelationships","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:readrelationships}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:readrelationships}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:readrelationships}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":3,"width":6,"height":3}},{"id":4680938480636664,"definition":{"title":"WriteRelationships","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: WriteRelationships","formula":"query1"},{"alias":"p95: WriteRelationships","formula":"query2"},{"alias":"p99: WriteRelationships","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:writerelationships}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:writerelationships}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:writerelationships}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":3,"width":6,"height":3}},{"id":7324769101390434,"definition":{"title":"DeleteRelationships","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: DeleteRelationships","formula":"query1"},{"alias":"p95: DeleteRelationships","formula":"query2"},{"alias":"p99: DeleteRelationships","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:deleterelationships}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:deleterelationships}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:deleterelationships}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":6,"width":6,"height":3}},{"id":2497504251532424,"definition":{"title":"ExpandPermissionTree","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: ExpandPermissionTree","formula":"query1"},{"alias":"p95: ExpandPermissionTree","formula":"query2"},{"alias":"p99: ExpandPermissionTree","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":6,"width":6,"height":3}},{"id":8307194191289555,"definition":{"title":"LookupResources","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: LookupResources","formula":"query1"},{"alias":"p95: LookupResources","formula":"query2"},{"alias":"p99: LookupResources","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:lookupresources}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:lookupresources}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:lookupresources}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":9,"width":6,"height":3}},{"id":8169958283522599,"definition":{"title":"LookupSubjects","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: LookupSubjects","formula":"query1"},{"alias":"p95: LookupSubjects","formula":"query2"},{"alias":"p99: LookupSubjects","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":9,"width":6,"height":3}},{"id":4835192591489553,"definition":{"title":"ReadSchema","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: ReadSchema","formula":"query1"},{"alias":"p95: ReadSchema","formula":"query2"},{"alias":"p99: ReadSchema","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:readschema}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:readschema}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:readschema}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":12,"width":6,"height":3}},{"id":1786825540718652,"definition":{"title":"WriteSchema","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"p50: WriteSchema","formula":"query1"},{"alias":"p95: WriteSchema","formula":"query2"},{"alias":"p99: WriteSchema","formula":"query3"}],"queries":[{"name":"query1","data_source":"metrics","query":"p50:spicedb.grpc.server.handling{grpc_method:writeschema}"},{"name":"query2","data_source":"metrics","query":"p95:spicedb.grpc.server.handling{grpc_method:writeschema}"},{"name":"query3","data_source":"metrics","query":"p99:spicedb.grpc.server.handling{grpc_method:writeschema}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":12,"width":6,"height":3}}]},"layout":{"x":0,"y":14,"width":12,"height":16,"is_column_break":true}},{"id":1969543100199273,"definition":{"title":"Node","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":3363586656686623,"definition":{"title":"vCPU","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"CPU %","formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"sum:spicedb.process.cpu.seconds.count{*} by {host}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}],"markers":[]},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":5592139522821831,"definition":{"title":"Memory","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Memory Usage","formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"avg:spicedb.process.virtual_memory_bytes{*} by {host}"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":0,"width":6,"height":3}}]},"layout":{"x":0,"y":30,"width":12,"height":4}}],"template_variables":[],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed"}
+{
+  "title": "SpiceDB Overview",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 512625727012637,
+      "definition": {
+        "title": "New group",
+        "banner_img": "",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 790129298401198,
+            "definition": {
+              "type": "image",
+              "url": "https://design-authzed.vercel.app/images/Banners/SpiceDB-1600x400-Banner-Light.svg",
+              "url_dark_theme": "https://design-authzed.vercel.app/images/Banners/SpiceDB-1600x400-Banner.svg",
+              "sizing": "contain",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "left"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 5391176615093781,
+            "definition": {
+              "type": "note",
+              "content": "#### Optimize your SpiceDB integration configuration for monitoring\n\n1. Configure `cluster`, `node`, and `region` tags in your `spicedb.d/conf.yaml` file:\n\n\n    ```\n    instances:\n      - openmetrics_endpoint: http://localhost:8080/_status/vars\n        tags: [\"cluster:prod\", \"node:1\", \"region:us-east-1\"]\n      - openmetrics_endpoint: http://localhost:8082/_status/vars\n        tags: [\"cluster:dev\", \"node:1\", \"region:us-east-2\"]\n    ```",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8404853868782660,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high-level view of your SpiceDB cluster, including:\n- A high-level view of request performance & latency.\n- Information about resource consumption to help aid in capacity planning.",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 3560130955990344,
+      "definition": {
+        "title": "Throughput",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7615141942543467,
+            "definition": {
+              "title": "Total by RPC",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{*}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3925663272929855,
+            "definition": {
+              "title": "Total by Consistency",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{*}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 364527830066764,
+            "definition": {
+              "title": "Check Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method:checkpermission}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2823083366205463,
+            "definition": {
+              "title": "Lookup Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method in (lookupsubjects ,lookupresources )} by {grpc_method}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 279197301579739,
+            "definition": {
+              "title": "Relationship Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method in (readrelationships ,writerelationships ,deleterelationships )} by {grpc_method}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3380816430782344,
+            "definition": {
+              "title": "Schema Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method in (writeschema ,readschema)} by {grpc_method}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 4793433791679627,
+      "definition": {
+        "title": "Latency",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 863409587490583,
+            "definition": {
+              "title": "Checks",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: CheckPermission",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: CheckPermission",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p95: CheckPermission",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:checkpermission}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:checkpermission}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:checkpermission}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6076165849438225,
+            "definition": {
+              "title": "Bulk Checks",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: CheckBulkPermission",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: CheckBulkPermission",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: CheckBulkPermission",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5409060165861238,
+            "definition": {
+              "title": "ReadRelationships",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: ReadRelationships",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: WriteRelationships",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: WriteRelationships",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:readrelationships}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:readrelationships}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:readrelationships}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4680938480636664,
+            "definition": {
+              "title": "WriteRelationships",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: WriteRelationships",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: WriteRelationships",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: WriteRelationships",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:writerelationships}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:writerelationships}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:writerelationships}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7324769101390434,
+            "definition": {
+              "title": "DeleteRelationships",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: DeleteRelationships",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: DeleteRelationships",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: DeleteRelationships",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:deleterelationships}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:deleterelationships}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:deleterelationships}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2497504251532424,
+            "definition": {
+              "title": "ExpandPermissionTree",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: ExpandPermissionTree",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: ExpandPermissionTree",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: ExpandPermissionTree",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:expandpermissiontree}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8307194191289555,
+            "definition": {
+              "title": "LookupResources",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: LookupResources",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: LookupResources",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: LookupResources",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:lookupresources}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:lookupresources}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:lookupresources}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8169958283522599,
+            "definition": {
+              "title": "LookupSubjects",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: LookupSubjects",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: LookupSubjects",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: LookupSubjects",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:lookupsubjects}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 9,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4835192591489553,
+            "definition": {
+              "title": "ReadSchema",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: ReadSchema",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: ReadSchema",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: ReadSchema",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:readschema}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:readschema}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:readschema}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1786825540718652,
+            "definition": {
+              "title": "WriteSchema",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p50: WriteSchema",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95: WriteSchema",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99: WriteSchema",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "p50:spicedb.grpc.server.handling{grpc_method:writeschema}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "p95:spicedb.grpc.server.handling{grpc_method:writeschema}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "p99:spicedb.grpc.server.handling{grpc_method:writeschema}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 12,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 14,
+        "width": 12,
+        "height": 16,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 1969543100199273,
+      "definition": {
+        "title": "Node",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3363586656686623,
+            "definition": {
+              "title": "vCPU",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "CPU %",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:spicedb.process.cpu.seconds.count{*} by {host}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5592139522821831,
+            "definition": {
+              "title": "Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Memory Usage",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:spicedb.process.virtual_memory_bytes{*} by {host}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 30,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
