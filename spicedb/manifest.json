@@ -1,0 +1,76 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "3084d0f4-cf4c-493f-9a0d-5754555da0b2",
+  "app_id": "spicedb",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "SpiceDB is an open source database system for creating and managing security-critical application permissions.",
+    "title": "SpiceDB",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "SpiceDB in a nutshell",
+        "image_url": "images/hero.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "A SpiceDB schema in our playground schema editor",
+        "image_url": "images/schema.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "A visualization of a SpiceDB schema",
+        "image_url": "images/schema-visualization.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "A preview of the SpiceDB Datadog Dashboard",
+        "image_url": "images/dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cloud",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 31725454,
+      "source_type_name": "SpiceDB",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "spicedb.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+        "SpiceDB Overview": "assets/dashboards/spicedb_overview.json"
+    },
+    "monitors": {},
+    "saved_views": {}
+  },
+  "author": {
+    "support_email": "support@authzed.com",
+    "name": "Tanner Stirrat",
+    "homepage": "https://authzed.com/spicedb",
+    "sales_email": "sales@authzed.com"
+  }
+}
