@@ -46,10 +46,10 @@ Need help? Contact [Datadog support][8].
 [2]: https://vercel.com/
 [3]: https://vercel.com/docs/edge-network/overview
 [4]: https://vercel.com/docs/serverless-functions/introduction
-[5]: /logs/
-[6]: /synthetics/
+[5]: https://docs.datadoghq.com/logs/
+[6]: https://docs.datadoghq.com/synthetics/
 [7]: https://app.datadoghq.com/setup/vercel
-[8]: /help/
+[8]: https://docs.datadoghq.com/help/
 [9]: https://vercel.com/docs/functions
 [10]: https://vercel.com/docs/observability/log-drains
 [11]: https://github.com/DataDog/integrations-extras/blob/master/vercel/metadata.csv
