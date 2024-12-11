@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "title": "Cluster CU Capacity usage is higher than expected",
+  "tags": [
+    "integration:zilliz-cloud-zilliz-cloud"
+  ],
+  "created_at": "2024-11-25",
+  "last_updated_at": "2024-11-25",
+  "description": "CU Capacity measures the utilized capacity relative to the total allowance of the CU. This monitor tracks the high CU Capacity usage by cluster to avoid any service interruption.",
+  "definition": {
+    "id": 157661814,
+    "name": "[Zilliz Cloud] CU Capacity is higher than expected",
+    "type": "query alert",
+    "query": "avg(last_10m):avg:zilliz.cluster.cu.capacity.current{*} by {org_id,project_id,cluster_id} * 100 > 90",
+    "message": "Current value:  {{value}} %",
+    "tags": [
+      "integration:zilliz_cloud"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 90,
+        "warning": 70
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "silenced": {}
+    },
+    "priority": null,
+    "restricted_roles": null
+  }
+}

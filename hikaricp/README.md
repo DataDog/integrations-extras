@@ -14,11 +14,13 @@ To install the HikariCP check on your host:
 1. Install the [developer toolkit][10]
  on any machine.
 
-2. Run `ddev release build hikaricp` to build the package.
+2. Clone the [integrations-extras][12] repo and navigate into the directory.
 
-3. [Download the Datadog Agent][2].
+3. Run `ddev release build hikaricp` to build the package.
 
-4. Upload the build artifact to any host with an Agent and
+4. [Download the Datadog Agent][2].
+
+5. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
  path/to/hikaricp/dist/<ARTIFACT_NAME>.whl`.
 
@@ -61,4 +63,4 @@ Need help? Contact [Datadog support][9].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://docs.datadoghq.com/developers/integrations/python/
 [11]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/assets/service_checks.json
-
+[12]: https://github.com/DataDog/integrations-extras

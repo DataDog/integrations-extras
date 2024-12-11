@@ -1,0 +1,76 @@
+{
+  "app_id": "zilliz-cloud-zilliz-cloud",
+  "app_uuid": "01930078-8f78-7bf8-a96f-2104f77b1c90",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Zilliz Cloud",
+    "description": "Powered by open-source Milvus, Zilliz delivers the most performant and cost-effective vector database for AI.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Dashboard - Title and Resource",
+        "image_url": "images/20241108-1.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard - Performance",
+        "image_url": "images/20241108-2.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard- Data",
+        "image_url": "images/20241108-3.jpg"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Queried Data Type::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@zilliz.com",
+    "name": "Zilliz Cloud",
+    "homepage": "https://zilliz.com",
+    "sales_email": "support@zilliz.com",
+    "vendor_id": "zilliz-cloud"
+  },
+  "assets": {
+    "dashboards": {
+      "Zilliz Cloud Dashboard ": "assets/dashboards/zilliz_cloud_dashboard_.json"
+    },
+    "monitors": {
+      "Cluster CU Computation usage is higher than expected": "assets/monitors/cluster_cu_computation_usage_is_higher_than_expected.json",
+      "Cluster CU Capacity usage is higher than expected": "assets/monitors/cluster_cu_capacity_usage_is_higher_than_expected.json",
+      "P99 Search Latency is higher than expected": "assets/monitors/p99_search_latency_is_higher_than_expected.json"
+    },
+    "integration": {
+      "source_type_name": "zilliz_cloud",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "zilliz",
+        "check": [
+          "zilliz.cluster.cu.computation.current"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 31066669
+    }
+  }
+}

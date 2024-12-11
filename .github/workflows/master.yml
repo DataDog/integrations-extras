@@ -22,5 +22,10 @@ jobs:
     concurrency:
       group: test-results
 
+    permissions: # For test-results-master.yml
+      checks: write
+      pull-requests: write
+      contents: write
+
     uses: DataDog/integrations-core/.github/workflows/test-results-master.yml@master
     secrets: inherit
