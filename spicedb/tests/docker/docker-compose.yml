@@ -10,13 +10,13 @@ services:
     ports:
       - "9090:9090"
   thumper:
-    image: "thumper"
+    image: "authzed/thumper"
     command: "run --endpoint spicedb:50051 --token ${SPICEDB_GRPC_PRESHARED_KEY} /scripts/example.yaml"
     depends_on:
       - "spicedb"
       - "thumper-init"
   thumper-init:
-    image: "thumper"
+    image: "authzed/thumper"
     command: "migrate --endpoint spicedb:50051 --token ${SPICEDB_GRPC_PRESHARED_KEY} /scripts/schema.yaml"
     # Restarting on failure should mean that the init reattempts until it succeeds
     restart: "on-failure"
