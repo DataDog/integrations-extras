@@ -1,6 +1,6 @@
 # CHANGELOG - SpiceDB
 
-## 1.0.0 / YYYY-MM-DD
+## 1.0.0 / 2024-12-06
 
 ***Added***:
 
