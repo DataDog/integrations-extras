@@ -3,10 +3,10 @@
 ## Overview
 
 [Modal][1] lets you run generative AI models, large-scale batch jobs, job
-queues, and much more. This integration collects metrics (CPU, memory
-or GPU use for example) and logs (stdout/stderr logging from your modal
-applications, or audit logs for your account) that you can visualize through Datadog
-dashboards and set up alerts for with Datadog monitors.
+queues, and much more. This integration collects logs (stdout/stderr logging
+from your modal applications, or audit logs for your account) that you can
+visualize through Datadog dashboards and set up alerts for with Datadog
+monitors.
 
 ## Setup
 
@@ -27,28 +27,32 @@ Logs and metrics from your Modal apps should now start appearing in Datadog.
 
 ## Data Collected
 
-### Metrics
-
-Modal collects GPU, CPU, and memory utilization metrics for
-applications/functions that run on Modal.
-
 ### Logs
 
-Modal collects audit logs and all application logs (all stdout/stderr logging).
+Modal collects all application (stdout/stderr logging for functions) and audit logs.
 
 ### Events
 
 Modal does not include any events.
+
+### Metrics
+
+There are no metrics collected for this integration.
+
 
 ## Uninstallation
 
 Once this integration has been uninstalled, any previous authorizations are
 revoked and logs/metrics stop being emitted to Datadog.
 
-1. On the **Configure** tab in the **Modal** integration tile in Datadog, click **Uninstall Integration**.
-
-2. Ensure that all API keys associated with this integration have been disabled
-   by searching for the integration name on the [API Keys page][4].
+1. Navigate to the [Modal metrics settings page](http://modal.com/settings/metrics)
+   and select **Delete Datadog Integration**.
+2. On the **Configure** tab in the Modal integration tile in Datadog,
+   click **Uninstall Integration**.
+3. Confirm that you want to uninstall the integration.
+4. Ensure that all API keys associated with this integration have been
+   disabled by searching for the integration name on the [API Keys](https://app.datadoghq.com/organization-settings/api-keys?filter=Modal)
+   page.
 
 ## Troubleshooting
 

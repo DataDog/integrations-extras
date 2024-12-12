@@ -59,5 +59,5 @@ Need help? Contact [CelerData support][7].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/celerdata/metadata.csv
 [7]: mailto:support@celerdata.com
 [8]: https://app.datadoghq.com/account/settings/agent/latest
-[9]: https://docs.starrocks.io/docs/administration/metrics/ 
+[9]: https://docs.starrocks.io/docs/administration/management/monitoring/metrics/
 [10]: https://github.com/DataDog/integrations-extras/blob/master/celerdata/service_checks.json
