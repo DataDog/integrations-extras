@@ -1,0 +1,79 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "0b59b80e-db72-44a6-8c2b-67475d10ad71",
+  "app_id": "redis-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Redis Cloud Integration",
+    "title": "Redis Cloud",
+    "media": [
+      {
+        "media_type":  "image",
+        "caption": "redis cloud overview display",
+        "image_url": "images/datadog-cloud-overview-dashboard.png"
+      },
+      {
+        "media_type":  "image",
+        "caption": "redis cloud cluster details",
+        "image_url": "images/datadog-cloud-cluster-database.png"
+      },
+      {
+        "media_type":  "image",
+        "caption": "redis cloud node details",
+        "image_url": "images/datadog-cloud-node-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::AI/ML",
+      "Category::Caching",
+      "Category::Data Stores",
+      "Category::Cloud",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 7769531,
+      "source_type_name": "Redis Cloud",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rdsc",
+        "check": "rdsc.bdb_conns",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "redis-cloud-overview": "assets/dashboards/redis_cloud_overview.json",
+      "redis-cloud-database": "assets/dashboards/redis_cloud_database.json",
+      "redis-cloud-networking": "assets/dashboards/redis_cloud_networking.json",
+      "redis-cloud-active-active": "assets/dashboards/redis_cloud_active-active.json",
+      "redis-cloud-proxy": "assets/dashboards/redis_cloud_proxy.json",
+      "redis-cloud-proxy-threads": "assets/dashboards/redis_cloud_proxy-threads.json"
+    },
+    "logs": {}
+  },
+  "author": {
+    "homepage": "https://redis.com/cloud/overview/",
+    "name": "Redis, Inc.",
+    "sales_email": "press@redis.com",
+    "support_email": "support@redis.com"
+  },
+  "oauth": {}
+}
