@@ -43,6 +43,12 @@ The moovingon integration includes events.
 
 Need help? Contact [moovingon.ai support][2].
 
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Increase visibility into network incidents using moovingon.ai and Datadog][3]
+
 [1]: https://moovingon.ai/
 [2]: mailto:support@moovingon.com
-
+[3]: https://www.datadoghq.com/blog/moovingon-datadog-marketplace/
