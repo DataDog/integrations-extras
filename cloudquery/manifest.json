@@ -1,0 +1,62 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "9a7d20ab-d200-4c5a-ae7c-b3e4fa18407d",
+  "app_id": "cloudquery",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your CloudQuery syncs",
+    "title": "CloudQuery",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "CloudQuery Syncs Insights",
+        "image_url": "images/dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cost Management",
+      "Category::Data Stores",
+      "Category::Developer Tools",
+      "Category::Security",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs",
+      "Submitted Data Type::Traces"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 22006399,
+      "source_type_name": "CloudQuery",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "cloudquery.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "CloudQuery": "assets/dashboards/cloudquery_syncs_insights.json"
+    }
+  },
+  "author": {
+    "support_email": "support@cloudquery.io",
+    "name": "Community",
+    "homepage": "https://www.cloudquery.io/",
+    "sales_email": "hello@cloudquery.io"
+  }
+}
