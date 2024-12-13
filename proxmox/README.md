@@ -4,10 +4,7 @@
 
 This check monitors [Proxmox][1] through the Datadog Agent. 
 
-Include a high level overview of what this integration does:
-- What does your product do (in 1-2 sentences)?
-- What value will customers get from this integration, and why is it valuable to them?
-- What specific data will your integration monitor, and what's the value of that data?
+The Proxmox check collects metrics from the Proxmox API and sends them to Datadog, providing insight into the performance of your Proxmox virtual machines and hosts.
 
 ## Setup
 
@@ -17,6 +14,12 @@ Follow the instructions below to install and configure this check for an Agent r
 
 The Proxmox check is included in the [Datadog Agent][2] package.
 No additional installation is needed on your server.
+To install the Proxmox integration, run the following Agent installation command and the steps below. For more information, see the [Integration Management](https://docs.datadoghq.com/agent/guide/integration-management/?tab=linux#install) documentation.
+
+```shell
+datadog-agent integration install datadog-vsphere==3.6.0
+```
+
 
 ### Configuration
 
@@ -40,8 +43,6 @@ The Proxmox integration does not include any events.
 
 ### Service Checks
 
-The Proxmox integration does not include any service checks.
-
 See [service_checks.json][8] for a list of service checks provided by this integration.
 
 ## Troubleshooting
@@ -49,7 +50,7 @@ See [service_checks.json][8] for a list of service checks provided by this integ
 Need help? Contact [Datadog support][9].
 
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://proxmox.com
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-core/blob/master/proxmox/datadog_checks/proxmox/data/conf.yaml.example
