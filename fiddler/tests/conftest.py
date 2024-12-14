@@ -27,6 +27,46 @@ def instance():
 
 
 @pytest.fixture
+def mock_baselines_response_data():
+    return {
+        "data": {
+            "page_size": 100,
+            "total": 1,
+            "item_count": 1,
+            "page_count": 1,
+            "page_index": 1,
+            "offset": 0,
+            "items": [
+                {
+                    "id": 21093,
+                    "organization_name": "preprod",
+                    "project_name": "lending",
+                    "name": "p2p_loans__auto",
+                    "type": "PRE_PRODUCTION",
+                    "dataset_name": "p2p_loans",
+                    "model_name": "logreg_all",
+                    "start_time": None,
+                    "end_time": None,
+                    "offset": None,
+                    "window_size": None,
+                    "columns": [
+                        {
+                            "column-name": "loan_amnt",
+                            "data-type": "float",
+                            "is-nullable": True,
+                            "value-range-min": 1000,
+                            "value-range-max": 35000,
+                        },
+                    ],
+                },
+            ],
+        },
+        "api_version": "2.0",
+        "kind": "PAGINATED",
+    }
+
+
+@pytest.fixture
 def mock_metrics_response_data():
     return {
         "data": {
