@@ -71,38 +71,33 @@ class PingCheck(AgentCheck):
         lines, err, retcode = get_subprocess_output(
             precmd + [cmd, countOption, "1", timeoutOption, str(timeout), target_host],
             self.log,
-            raise_on_empty_output=True,
+            raise_on_empty_output=False,  # Host unreachable != fail
         )
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
-        if retcode != 0:
-            raise CheckException("ping returned {}: {}".format(retcode, err))
-
-        return lines
+        if retcode == 0:  # If ping successful
+            return lines  # Return the output
+        return ""  # If not, return empty string without errors
 
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
-
+        length = -1  # Initialize length to -1 in case ping unsuccessful
         custom_tags.append("target_host:{}".format(host))
 
-        try:
-            lines = self._exec_ping(timeout, host)
-            regex = re.compile(r"time[<=]((\d|\.)*)")
-            result = regex.findall(lines)
-            if result:
-                length = result[0][0]
-            else:
-                raise CheckException("No time= found ({})".format(lines))
+        lines = self._exec_ping(timeout, host)
+        regex = re.compile(r"time[<=]((\d|\.)*)")
+        result = regex.findall(lines)
+        if result:  # If ping successful, get the length value
+            length = result[0][0]
 
-        except CheckException as e:
-            self.log.info("%s is DOWN (%s)", host, e)
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, custom_tags, message=str(e))
+        if lines == "":  # If ping unsuccessful
+            self.log.info("%s is DOWN or UNREACHABLE", host)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.WARNING, custom_tags)
             self.gauge(self.SERVICE_CHECK_NAME, 0, custom_tags)
+            
+        else:
+            if response_time:  # If ping successful
+                self.gauge("network.ping.response_time", length, custom_tags)
 
-            raise e
-
-        if response_time:
-            self.gauge("network.ping.response_time", length, custom_tags)
-
-        self.log.debug("%s is UP", host)
-        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
-        self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags)
+            self.log.debug("%s is UP", host)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
+            self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags)
