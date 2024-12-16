@@ -6,7 +6,7 @@ Zilliz Cloud is a fully managed vector database service built on Milvus, the lea
 
 Zilliz Cloud integrates with Datadog, enabling customers to push their cluster metrics to a preconfigured dashboard for visualizing key performance data. With this powerful integration, customers gain robust monitoring capabilities, allowing users to track cluster performance through detailed metrics and set custom alerts.
 
-By leveraging Datadog's ability to aggregate metrics and events across the entire DevOps stack-including SaaS and cloud providers, automation tools, monitoring systems, and databases-Zilliz Cloud users benefit from seamless observability across their systems, applications, and services.
+By leveraging Datadog’s ability to aggregate metrics and events across the entire DevOps stack—including SaaS and cloud providers, automation tools, monitoring systems, and databases—Zilliz Cloud users benefit from seamless observability across their systems, applications, and services.
 
 **Note:** The Zilliz Cloud Datadog integration is available exclusively on the Zilliz Cloud Dedicated (Enterprise) Plan.
 
