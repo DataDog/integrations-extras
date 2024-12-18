@@ -1,10 +1,10 @@
 import pytest
 
 from datadog_checks.base.constants import ServiceCheck
-from datadog_checks.spicedb import SpicedbCheck
 from datadog_checks.dev.utils import assert_service_checks, get_metadata_metrics
+from datadog_checks.spicedb import SpicedbCheck
 
-from .util import get_expected_non_histogram_metrics, get_expected_histogram_metrics
+from .util import get_expected_histogram_metrics, get_expected_non_histogram_metrics
 
 # NOTE: this is the same as annotating all of the test functions in this file with the dd_environment fixture.
 pytestmark = [pytest.mark.usefixtures("dd_environment")]

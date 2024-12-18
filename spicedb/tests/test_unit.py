@@ -2,7 +2,7 @@ from datadog_checks.base.constants import ServiceCheck
 from datadog_checks.dev.utils import assert_service_checks, get_metadata_metrics
 from datadog_checks.spicedb import SpicedbCheck
 
-from .util import get_fixture_path, get_expected_non_histogram_metrics, get_expected_histogram_metrics
+from .util import get_expected_histogram_metrics, get_expected_non_histogram_metrics, get_fixture_path
 
 
 def test_metrics(aggregator, instance, dd_run_check, mock_http_response):
