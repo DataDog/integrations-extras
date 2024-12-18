@@ -23,8 +23,7 @@ COUNTER_METRICS = {
     "spicedb_datastore_hedged_requests_total": "application.datastore.hedged_requests",
     "spicedb_dispatch_client_check_from_cache_total": "application.dispatch_client.check_from_cache",
     "spicedb_dispatch_client_check_total": "application.dispatch_client.check",
-    "spicedb_dispatch_client_lookup_resources_from_cache_total":
-    "application.dispatch_client.lookup_resources_from_cache",
+    "spicedb_dispatch_client_lookup_resources_from_cache_total": "application.dispatch_client.lookup_resources_from_cache",  # noqa: E501
     "spicedb_dispatch_client_lookup_resources_total": "application.dispatch_client.lookup_resources",
     "spicedb_dispatch_client_lookup_subjects_from_cache_total": "application.dispatch_client.lookup_subjects_from_cache",  # noqa: E501
     "spicedb_dispatch_client_lookup_subjects_total": "application.dispatch_client.lookup_subjects",
