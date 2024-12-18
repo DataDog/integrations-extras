@@ -23,11 +23,12 @@ COUNTER_METRICS = {
     "spicedb_datastore_hedged_requests_total": "application.datastore.hedged_requests",
     "spicedb_dispatch_client_check_from_cache_total": "application.dispatch_client.check_from_cache",
     "spicedb_dispatch_client_check_total": "application.dispatch_client.check",
-    "spicedb_dispatch_client_lookup_resources_from_cache_total": "application.dispatch_client.lookup_resources_from_cache",
+    "spicedb_dispatch_client_lookup_resources_from_cache_total":
+    "application.dispatch_client.lookup_resources_from_cache",
     "spicedb_dispatch_client_lookup_resources_total": "application.dispatch_client.lookup_resources",
-    "spicedb_dispatch_client_lookup_subjects_from_cache_total": "application.dispatch_client.lookup_subjects_from_cache",
+    "spicedb_dispatch_client_lookup_subjects_from_cache_total": "application.dispatch_client.lookup_subjects_from_cache",  # noqa: E501
     "spicedb_dispatch_client_lookup_subjects_total": "application.dispatch_client.lookup_subjects",
-    "spicedb_dispatch_client_reachable_resources_from_cache_total": "application.dispatch_client.reachable_resources_from_cache",
+    "spicedb_dispatch_client_reachable_resources_from_cache_total": "application.dispatch_client.reachable_resources_from_cache",  # noqa: E501
     "spicedb_dispatch_client_reachable_resources_total": "application.dispatch_client.reachable_resources",
     # gRPC counter metrics
     "grpc_server_handled_total": "grpc.server.handled",
@@ -40,9 +41,9 @@ COUNTER_METRICS = {
 
 GAUGE_METRICS = {
     # SpiceDB gauge metrics
-    "spicedb_datastore_watching_schema_cache_caveats_fallback_mode": "application.datastore.watching_schema_cache.caveats_fallback_mode",
-    "spicedb_datastore_watching_schema_cache_namespaces_fallback_mode": "application.datastore.watching_schema_cache.namespaces_fallback_mode",
-    "spicedb_datastore_watching_schema_cache_tracked_revision": "application.datastore.watching_schema_cache.tracked_revision",
+    "spicedb_datastore_watching_schema_cache_caveats_fallback_mode": "application.datastore.watching_schema_cache.caveats_fallback_mode",  # noqa: E501
+    "spicedb_datastore_watching_schema_cache_namespaces_fallback_mode": "application.datastore.watching_schema_cache.namespaces_fallback_mode",  # noqa: E501
+    "spicedb_datastore_watching_schema_cache_tracked_revision": "application.datastore.watching_schema_cache.tracked_revision",  # noqa: E501
     # process gauge metrics
     "process_virtual_memory_bytes": "process.virtual_memory_bytes",
 }
