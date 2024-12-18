@@ -1,6 +1,7 @@
 """
 A definition of the metrics publicly exposed in SpiceDB.
 """
+
 from itertools import chain
 
 # For the metrics, the key is the SpiceDB name and the
@@ -57,7 +58,8 @@ HISTOGRAM_METRICS = {
     "spicedb_services_dispatches": "application.services.dispatches",
     # gRPC histogram metrics
     "grpc_server_handling_seconds": "grpc.server.handling_seconds",
-        }
+}
+
 
 def construct_counter_metric_config(raw: str, dotted: str):
     """
@@ -68,15 +70,19 @@ def construct_counter_metric_config(raw: str, dotted: str):
     # counter metrics, so we remove it
     return {raw.removesuffix("_total"): {"name": dotted, "type": "counter"}}
 
+
 def construct_gauge_metric_config(raw: str, dotted: str):
     return {raw: {"name": dotted, "type": "gauge"}}
+
 
 def construct_histogram_metric_config(raw: str, dotted: str):
     return {raw: {"name": dotted, "type": "histogram"}}
 
 
-METRICS_CONFIG: list[dict[str, dict[str, str]]] = list(chain(
-    (construct_counter_metric_config(raw, dotted) for raw, dotted in COUNTER_METRICS.items()),
-    (construct_gauge_metric_config(raw, dotted) for raw, dotted in GAUGE_METRICS.items()),
-    (construct_histogram_metric_config(raw, dotted) for raw, dotted in HISTOGRAM_METRICS.items()),
-    ))
+METRICS_CONFIG: list[dict[str, dict[str, str]]] = list(
+    chain(
+        (construct_counter_metric_config(raw, dotted) for raw, dotted in COUNTER_METRICS.items()),
+        (construct_gauge_metric_config(raw, dotted) for raw, dotted in GAUGE_METRICS.items()),
+        (construct_histogram_metric_config(raw, dotted) for raw, dotted in HISTOGRAM_METRICS.items()),
+    )
+)
