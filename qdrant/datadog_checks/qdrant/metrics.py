@@ -20,4 +20,10 @@ DEFAULT_METRICS = {
     "cluster_commit": "cluster.commit",
     "cluster_pending_operations_total": "cluster.pending.operations.total",
     "cluster_voter": "cluster.voter",
+    "memory_active_bytes": "memory.active.bytes",
+    "memory_allocated_bytes": "memory.allocated.bytes",
+    "memory_metadata_bytes": "memory.metadata.bytes",
+    "memory_resident_bytes": "memory.resident.bytes",
+    "memory_retained_bytes": "memory.retained.bytes",
+    "collection_hardware_metric_cpu": "collection.hardware.metric.cpu"
 }
