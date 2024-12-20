@@ -25,5 +25,5 @@ DEFAULT_METRICS = {
     "memory_metadata_bytes": "memory.metadata.bytes",
     "memory_resident_bytes": "memory.resident.bytes",
     "memory_retained_bytes": "memory.retained.bytes",
-    "collection_hardware_metric_cpu": "collection.hardware.metric.cpu"
+    "collection_hardware_metric_cpu": "collection.hardware.metric.cpu",
 }
