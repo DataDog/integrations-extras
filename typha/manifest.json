@@ -1,0 +1,48 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "877f564d-10b5-419f-bcb0-caadea42139e",
+  "app_id": "typha",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Typha integration",
+    "title": "Typha",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Kubernetes",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 32200460,
+      "source_type_name": "Typha",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "typha.",
+        "check": "typha.cache.size",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "motta.carlos08@gmail.com",
+    "name": "Community",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": ""
+  }
+}
