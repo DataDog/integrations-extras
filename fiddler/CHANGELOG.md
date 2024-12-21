@@ -1,5 +1,11 @@
 # CHANGELOG - fiddler
 
+## 3.1.0 / 2024-04-30
+
+***Changed***
+
+* Changed to use baseline name queried from backend instead of using constant 'DEFAULT'
+
 ## 3.0.0 / 2024-03-06
 
 ***Changed***
