@@ -36,7 +36,7 @@ Linux command
      category <example-category> { <example_channel>; };
     }
     ```
-    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [the steps for using a different time zone](#timezone-steps). Also, [check the categories defined by Bind 9][16].
+    **NOTE**: Recommended value for `print-time` is `iso8601-utc` because datadog expects all logs to be in the UTC time zone by default. If the timezone of your Bind 9 logs is not UTC please make sure to follow [the steps for using a different time zone][21]. Also, [check the categories defined by Bind 9][16].
     
     Example logging channel:
     ```
@@ -103,7 +103,7 @@ Linux command
 
 #### Metric collection
 
-1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Bind 9 [metrics](#metrics). See the [sample bind9.d/conf.yaml][8] for all available configuration options.
+1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Bind 9 [metrics][20]. See the [sample bind9.d/conf.yaml][8] for all available configuration options.
 
    ```yaml
    init_config:
@@ -227,3 +227,5 @@ For any further assistance, contact [Datadog support][13].
 [17]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [18]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [19]: https://www.isc.org/bind/
+[20]: https://docs.datadoghq.com/integrations/bind9/#metrics
+[21]: https://docs.datadoghq.com/integrations/bind9/#timezone-steps
