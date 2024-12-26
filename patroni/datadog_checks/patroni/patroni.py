@@ -123,8 +123,7 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
                 self.event(
                     {
                         "msg_title": "Patroni Failover Detected",
-                        "msg_text": f"Failover occurred: \
-                        Leader changed from {self.previous_leader} to {current_leader}",
+                        "msg_text": f"Failover occurred: Leader changed from {self.previous_leader} to {current_leader}",
                         "alert_type": "info",
                         "source_type_name": "patroni",
                         "tags": [
@@ -133,7 +132,7 @@ class PatroniCheck(OpenMetricsBaseCheckV2):
                         ],
                     }
                 )
-            # Update the previous leader to the current one
             self.log.debug("Setting current leader: %s", current_leader)
             self.previous_leader = current_leader
             self.save_state()
+            return current_leader

@@ -82,23 +82,23 @@ def test_handle_failover_event_same_leader(check_instance):
         mock_event.assert_not_called()
 
 
-# def test_handle_failover_event_new_leader(check_instance):
-#    """Test that an event is submitted when the leader changes."""
-#    previous_leader = check_instance.previous_leader = "leader1"
-#    with patch.object(check_instance, "event") as mock_event, patch.object(
-#        check_instance, "save_state"
-#    ) as mock_save_state:
-#        new_leader = check_instance.handle_failover_event("leader2")
-#        mock_event.assert_called_once_with(
-#            {
-#                "msg_title": "Patroni Failover Detected",
-#                "msg_text": "Failover occurred: Leader changed from leader1 to leader2",
-#                "alert_type": "info",
-#                "source_type_name": "patroni",
-#                "tags": [f"previous_leader:{previous_leader}", f"new_leader:{new_leader}"],
-#            }
-#        )
-#        mock_save_state.assert_called_once()
+def test_handle_failover_event_new_leader(check_instance):
+   """Test that an event is submitted when the leader changes."""
+   previous_leader = check_instance.previous_leader = "leader1"
+   with patch.object(check_instance, "event") as mock_event, patch.object(
+       check_instance, "save_state"
+   ) as mock_save_state:
+       new_leader = check_instance.handle_failover_event("leader2")
+       mock_event.assert_called_once_with(
+           {
+               "msg_title": "Patroni Failover Detected",
+               "msg_text": f"Failover occurred: Leader changed from {previous_leader} to {new_leader}",
+               "alert_type": "info",
+               "source_type_name": "patroni",
+               "tags": [f"previous_leader:{previous_leader}", f"new_leader:{new_leader}"],
+           }
+       )
+       mock_save_state.assert_called_once()
 
 
 def test_process_custom_metrics(check_instance):
