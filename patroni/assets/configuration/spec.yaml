@@ -7,4 +7,25 @@ files:
     - template: init_config/default
   - template: instances
     options:
+    - name: openmetrics_endpoint
+      required: true
+      description: |
+        The URL endpoint for the Patroni metrics. This should point to the `/metrics` endpoint exposed by Patroni's OpenMetrics integration.
+        Example: `http://127.0.0.1:8008/metrics`
+      value:
+        example: http://127.0.0.1:8008/metrics
+        type: string
+    - name: tags
+      description: |
+        A list of tags to associate with metrics collected by this integration. For example, `tags: ["cluster:prod", "scope:demo"]`.
+      value:
+        example: ["cluster:prod", "scope:demo"]
+        type: list
     - template: instances/default
+
+  - template: logs
+    example:
+    - type: file
+      path: /var/log/patroni/patroni.log
+      source: patroni
+      service: patroni

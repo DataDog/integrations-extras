@@ -1,9 +1,8 @@
-# Agent Check: Patroni
+# Patroni
 
 ## Overview
 
-#This check monitors [Patroni][1].
-This check collects key metrics from your Patroni-managed PostgreSQL clusters, including cluster state, replication status, and database health. It also monitors your cluster's Distributed Configuration Store (DCS) and provides insights into failover and synchronization activity.
+This check monitors [Patroni][1] collects key metrics from your Patroni-managed PostgreSQL clusters, including cluster state, replication status, and database health. It also monitors your cluster's Distributed Configuration Store (DCS) and provides insights into failover and synchronization activity.
 
 ## Setup
 
@@ -42,11 +41,11 @@ Run the [Agent's status subcommand][6] and look for `patroni` under the Checks s
 
 ### Metrics
 
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/patroni/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-See [service_checks.json](https://github.com/DataDog/integrations-extras/blob/master/patroni/assets/service_checks.json) for a list of service checks provided by this integration
+See [service_checks.json][8] for a list of service checks provided by this integration
 
 ### Events
 
