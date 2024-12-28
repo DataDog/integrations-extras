@@ -105,7 +105,7 @@ Additional helpful documentation, links, and articles:
 
 - [Signal Sciences blog][11]
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard.png
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard-2.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
 [3]: https://docs.signalsciences.net/install-guides/
 [4]: https://docs.datadoghq.com/agent/kubernetes/dogstatsd/
