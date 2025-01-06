@@ -27,7 +27,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Qdrant c
 
 ### Configuration
 
-1. Edit the `qdrant.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Qdrant [metrics](#metrics).
+1. Edit the `conf.d/qdrant.d/conf.yaml` file in your [Agent's configuration directory][7] to start collecting your Qdrant [metrics](#metrics)
 
 Most importantly, set the `openmetrics_endpoint` value to the [`/metrics` endpoint](https://qdrant.tech/documentation/guides/monitoring/#monitoring) of your Qdrant instance.
 
