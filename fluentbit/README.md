@@ -44,7 +44,6 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fluent B
 
 2. [Restart the Agent][6].
 
-
 ### Validation
 
 [Run the Agent's status subcommand][7] and look for `fluentbit` under the Checks section.
