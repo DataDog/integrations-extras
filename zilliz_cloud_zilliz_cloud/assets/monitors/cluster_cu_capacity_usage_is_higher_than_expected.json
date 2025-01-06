@@ -1,17 +1,17 @@
 {
   "version": 2,
-  "title": "Cluster CU Computation usage is higher than expected",
+  "title": "Cluster CU Capacity usage is higher than expected",
   "tags": [
     "integration:zilliz-cloud-zilliz-cloud"
   ],
   "created_at": "2025-01-06",
   "last_updated_at": "2025-01-06",
-  "description": "CU Computation measures the utilized computation power relative to the total allowance of the CU. This monitor tracks the high CU computation usage by cluster to avoid any service interruption.",
+  "description": "CU Capacity measures the utilized capacity relative to the total allowance of the CU. This monitor tracks the high CU Capacity usage by cluster to avoid any service interruption.",
   "definition": {
-    "id": 157660939,
-    "name": "[Zilliz Cloud] CU Computation is higher than expected",
+    "id": 157661814,
+    "name": "[Zilliz Cloud] CU Capacity is higher than expected",
     "type": "query alert",
-    "query": "avg(last_10m):avg:zilliz.cluster.cu.computation.current{*} by {org_id,project_id,cluster_id} * 100 > 90",
+    "query": "avg(last_10m):avg:zilliz.cluster.cu.capacity.current{*} by {org_id,project_id,cluster_id} * 100 > 90",
     "message": "Current value:  {{value}} %",
     "tags": [
       "integration:zilliz_cloud"
