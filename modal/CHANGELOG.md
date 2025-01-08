@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.2.0 / 2024-11-27
+
+***Added***:
+
+* Container metrics
+
 ## 1.1.0 / 2024-07-09
 
 ***Added***:

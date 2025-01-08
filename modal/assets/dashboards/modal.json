@@ -15,7 +15,7 @@
             "id": 961790136530845,
             "definition": {
               "type": "note",
-              "content": "# Modal\n\nGet detailed visibility into your:\n\n- Audit logs\n- Function logs\n- Utilization metrics (coming soon)",
+              "content": "# Modal\n\nGet detailed visibility into your:\n\n- Audit logs\n- Function logs\n- Container metrics",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -33,17 +33,116 @@
             }
           },
           {
-            "id": 8805205994996698,
+            "id": 1499917651954632,
             "definition": {
-              "title": "Function logs across all Modal applications",
+              "title": "CPU Usage across all Modal containers",
               "title_size": "16",
               "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:modal.cpu.utilization{*} by {container_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6603502348617972,
+            "definition": {
+              "title": "Memory Usage across all Modal containers",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:modal.memory.utilization{*} by {container_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4599509251662375,
+            "definition": {
+              "title": "Container logs across all Modal applications",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
               "requests": [
                 {
                   "response_format": "event_list",
                   "query": {
                     "data_source": "logs_stream",
-                    "query_string": "source:modal service:modal.function-logs ",
+                    "query_string": "source:modal service:modal.function-logs",
                     "indexes": [],
                     "storage": "hot"
                   },
@@ -74,320 +173,14 @@
               "type": "list_stream"
             },
             "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 8,
-              "height": 5
-            }
-          },
-          {
-            "id": 7237822391958798,
-            "definition": {
-              "title": "Aggregate count of function logs",
-              "title_size": "16",
-              "title_align": "left",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "group_by": [],
-                      "search": {
-                        "query": "source:modal service:modal.function-logs"
-                      },
-                      "storage": "hot"
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "legend": {
-                "type": "automatic"
-              },
-              "custom_links": [
-                {
-                  "override_label": "containers",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "hosts",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "logs",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "traces",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "profiles",
-                  "is_hidden": true
-                }
-              ]
-            },
-            "layout": {
               "x": 0,
               "y": 3,
-              "width": 2,
-              "height": 2
+              "width": 6,
+              "height": 3
             }
           },
           {
-            "id": 1376163082090280,
-            "definition": {
-              "title": "Function logs by app ID",
-              "type": "query_table",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "a",
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "group_by": [
-                        {
-                          "facet": "app_id",
-                          "limit": 10,
-                          "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        }
-                      ],
-                      "search": {
-                        "query": "source:modal service:modal.function-logs"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "sort": {
-                    "count": 10,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
-                  "formulas": [
-                    {
-                      "alias": "Count",
-                      "formula": "a"
-                    }
-                  ]
-                }
-              ],
-              "custom_links": [
-                {
-                  "override_label": "containers",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "hosts",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "logs",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "traces",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "profiles",
-                  "is_hidden": true
-                }
-              ]
-            },
-            "layout": {
-              "x": 2,
-              "y": 3,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 3182229123548591,
-            "definition": {
-              "title": "Aggregate count of audit logs",
-              "title_size": "16",
-              "title_align": "left",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "group_by": [],
-                      "search": {
-                        "query": "source:modal service:modal.audit-logs"
-                      },
-                      "storage": "hot"
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "legend": {
-                "type": "automatic"
-              },
-              "custom_links": [
-                {
-                  "override_label": "containers",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "hosts",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "logs",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "traces",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "profiles",
-                  "is_hidden": true
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 5,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 3793871630180570,
-            "definition": {
-              "title": "Audit logs by source/service",
-              "type": "query_table",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "a",
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "group_by": [
-                        {
-                          "facet": "source",
-                          "limit": 10,
-                          "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
-                        {
-                          "facet": "service",
-                          "limit": 10,
-                          "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        }
-                      ],
-                      "search": {
-                        "query": "source:modal service:modal.audit-logs"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "sort": {
-                    "count": 100,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
-                  "formulas": [
-                    {
-                      "alias": "Count",
-                      "formula": "a"
-                    }
-                  ]
-                }
-              ],
-              "custom_links": [
-                {
-                  "override_label": "containers",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "hosts",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "logs",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "traces",
-                  "is_hidden": true
-                },
-                {
-                  "override_label": "profiles",
-                  "is_hidden": true
-                }
-              ]
-            },
-            "layout": {
-              "x": 2,
-              "y": 5,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 4599509251662375,
+            "id": 8521961163085800,
             "definition": {
               "title": "Audit logs across all Modal applications",
               "title_size": "16",
@@ -428,67 +221,10 @@
               "type": "list_stream"
             },
             "layout": {
-              "x": 4,
-              "y": 5,
-              "width": 8,
-              "height": 4
-            }
-          },
-          {
-            "id": 5612536058431307,
-            "definition": {
-              "title": "Audit logs over time",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "group_by": [],
-                      "search": {
-                        "query": "source:modal service:modal.audit-logs"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 7,
-              "width": 4,
-              "height": 2
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
             }
           }
         ]
@@ -497,7 +233,7 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 12
+        "height": 9
       }
     }
   ],
