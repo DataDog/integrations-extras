@@ -238,22 +238,18 @@ instances:
     ## label value that matches the `pod` label value of `metric_b`, and all labels from `metric_c`
     ## to all other metrics if their value is equal to `23` or `42`.
     ##
-    
-    # Consumer lag join metrics support
-    share_labels:        
-       redpanda_kafka_consumer_group_committed_offset: 
-         labels:
-         - redpanda_group
-         match:
-         - redpanda_topic
-         - redpanda_parition
-       redpanda_kafka_max_offset:
-         labels:
-         - consumer_metrics_1
-         match:
-         - redpanda_topic
-         - redpanda_partition
-      #
+    ##   share_labels:
+    ##     metric_a: true
+    ##     metric_b:
+    ##       labels:
+    ##       - node
+    ##       match:
+    ##       - pod
+    ##     metric_c:
+    ##       values:
+    ##       - 23
+    ##       - 42
+    #
     # share_labels: {}
 
     ## @param cache_shared_labels - boolean - optional - default: true
@@ -443,6 +439,11 @@ instances:
     ##     client_secret (required): The client secret.
     ##     basic_auth: Whether the provider expects credentials to be transmitted in
     ##                 an HTTP Basic Auth header. The default is: false
+    ##     options: Mapping of additional options to pass to the provider, such as the audience
+    ##              or the scope. For example:
+    ##                 options:
+    ##                   audience: https://example.com
+    ##                   scope: read:example
     ##
     ## The available writers are:
     ##
@@ -521,8 +522,8 @@ instances:
     ## @param tls_ca_cert - string - optional
     ## The path to a file of concatenated CA certificates in PEM format or a directory
     ## containing several CA certificates in PEM format. If a directory, the directory
-    ## must have been processed using the c_rehash utility supplied with OpenSSL. See:
-    ## https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
+    ## must have been processed using the `openssl rehash` command. See:
+    ## https://www.openssl.org/docs/man3.2/man1/c_rehash.html
     #
     # tls_ca_cert: <CA_CERT_PATH>
 
