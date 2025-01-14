@@ -1,4 +1,4 @@
-<div class="alert alert-warning">The existing agent check to gather JFrog metrics has been replaced with Fluentd. The agent check will be deprecated on October 31st 2023.</div>
+<div class="alert alert-warning">The existing agent check to gather JFrog metrics has been replaced with Fluentd. The agent check is deprecated.</div>
 
 ## Overview
 
@@ -46,17 +46,21 @@ We recommend following the installation guide that matches your environment:
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this integration
+See [metadata.csv][6] for a list of metrics provided by this integration.
+
+### Events
+
+The JFrog check does not include any events.
+
+### Service Checks
+
+The JFrog check does not include any service checks.
 
 ## Support
 
 Need help? Contact [support@jfrog.com](support@jfrog.com) or open a support ticket on JFrog [Customer Support Portal][7]
 
 ### Troubleshooting
-
-**Q : I have a JFrog Cloud Enterprise + license. Will I be able to use this integration?**
-
-A: No. This integration is only built for JFrog customers who have the on-prem or self-hosted JFrog subscription. JFrog is working on a SaaS Log streaming solution which will allow our SaaS customers to stream logs to Datadog. We hope to launch that solution in late 2023.
 
 **Q : I am about to upgrade from on-prem to JFrog Cloud. Can I expect all the same logs to stream into Datadog from my SaaS instance post-migration when I install the SaaS version of the integration?**
 
@@ -68,7 +72,7 @@ A: At launch, the SaaS version of the integration will only stream the artifacto
 [3]: https://docs.datadoghq.com/logs/explorer/facets/
 [4]: https://github.com/jfrog/log-analytics-datadog
 [5]: https://app.datadoghq.com/organization-settings/api-keys
-[6]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform_self_hosted/metadata.csv
 [7]: https://support.jfrog.com/s/login/?language=en_US&ec=302&startURL=%2Fs%2F
 [8]: https://github.com/jfrog/log-analytics-datadog#os--virtual-machine
 [9]: https://github.com/jfrog/log-analytics-datadog#docker

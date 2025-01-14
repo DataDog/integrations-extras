@@ -1,5 +1,17 @@
 # CHANGELOG - hikaricp
 
+## 1.2.0 / 2024-01-16
+
+***Added***:
+
+* Added collection for prometheus-style named metrics
+
+## 1.1.1 / 2023-10-31
+
+***Changed***:
+
+* Config models update - PR [2088](https://github.com/DataDog/integrations-extras/pull/2088)
+
 ## 1.1.0 / 2023-08-09
 
 ***Added***:

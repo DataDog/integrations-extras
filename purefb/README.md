@@ -10,10 +10,10 @@ You can monitor multiple FlashBlades and aggregate these into a single dashboard
 
 **This integration requires the following**:
 
- - FlashBlade Purity 3.2.x+
+ - FlashBlade Purity 4.1.x+
  - Datadog Agent v7.26.x+ to use OpenMetricsBaseCheckV2
  - Python 3
- - The Pure Storage FlashBlade OpenMetrics exporter is installed and running in a containerized environment. Refer to the [Pure Storage GitHub repo][1] for installation instructions.
+ - The Pure Storage FlashBlade OpenMetrics exporter v1.0.11+ is installed and running in a containerized environment. Refer to the [Pure Storage GitHub repo][1] for installation instructions.
 
 ## Setup
 
@@ -27,7 +27,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 #### Host
 
-To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==1.0.2`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==2.0.0`.
 
 
 ### Configuration

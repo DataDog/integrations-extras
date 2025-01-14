@@ -1,0 +1,993 @@
+{
+  "title": "Robust Intelligence AI Firewall Results",
+  "description": "AI Firewall results show flagged model input and output events, indicating potentially harmful, unauthorized, or toxic content.",
+  "widgets": [
+    {
+      "id": 5491445590883548,
+      "definition": {
+        "title": "New group",
+        "banner_img": "https://github.com/RobustIntelligence/datadog-integrations-extras/blob/master/robust_intelligence_ai_firewall/images/ri-dashboard-banner.png?raw=true",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6729257547590554,
+            "definition": {
+              "type": "note",
+              "content": "### This dashboard provides observability into AI security issues in your Firewall, including metrics for allowed data points, blocked data points, and insight on why each data point was blocked.\n\nFurther reading for Robust Intelligence AI Firewall and monitoring:\n\n- [Robust Intelligence AI Firewall Overview](https://www.robustintelligence.com/platform/ai-firewall)\n\n- [Robust Intelligence Platform](https://www.robustintelligence.com/platform/overview)\n",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 6
+      }
+    },
+    {
+      "id": 8143804686683546,
+      "definition": {
+        "title": "Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5105430024734006,
+            "definition": {
+              "title": "Flagged requests %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true, $scope}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{$scope}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "100 * query1 / query2"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_red",
+                      "value": 20
+                    },
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_yellow",
+                      "value": 5
+                    },
+                    {
+                      "comparator": "<=",
+                      "palette": "white_on_green",
+                      "value": 5
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 6476252737184134,
+            "definition": {
+              "title": "Histogram of actions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "alias": "Flagged",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
+                      "alias": "Allowed",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:false, $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3192174819248068,
+            "definition": {
+              "title": "Histogram of flagged tests",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 5
+                      },
+                      "alias": "Factual Inconsistency",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "PII Detection",
+                      "style": {
+                        "palette": "orange"
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Prompt Injection",
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 17
+                      },
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "Toxicity",
+                      "style": {
+                        "palette": "red"
+                      },
+                      "formula": "query5"
+                    },
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 8
+                      },
+                      "alias": "Toxicity",
+                      "formula": "query4"
+                    },
+                    {
+                      "alias": "Toxicity",
+                      "style": {
+                        "palette": "purple"
+                      },
+                      "formula": "query6"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true, $scope} by {validation_type}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true, $scope} by {validation_type}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:indirect_prompt_injection , flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:denial_of_service , flagged:true , $scope} by {validation_type}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 6
+      }
+    },
+    {
+      "id": 3805592466735378,
+      "definition": {
+        "title": "Flags by Rule",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2049374713297996,
+            "definition": {
+              "title": "Tests flagged on Output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 5
+                      },
+                      "alias": "Factual Inconsistency",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "orange",
+                        "palette_index": 4
+                      },
+                      "alias": "PII Detection",
+                      "formula": "query2"
+                    },
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 17
+                      },
+                      "alias": "Toxicity",
+                      "formula": "query5"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 6
+                      },
+                      "alias": "Toxicity",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, validation_type:output, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, validation_type:output, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, validation_type:output, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:denial_of_service , validation_type:output, flagged:true, $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1060742250500148,
+            "definition": {
+              "title": "Tests flagged on Input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "classic",
+                        "palette_index": 4
+                      },
+                      "alias": "Prompt Injection",
+                      "formula": "query3"
+                    },
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 8
+                      },
+                      "alias": "Prompt Extraction",
+                      "formula": "query4"
+                    },
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 15
+                      },
+                      "alias": "PII Extraction",
+                      "formula": "query6"
+                    },
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 5
+                      },
+                      "alias": "PII Extraction",
+                      "formula": "query5"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 5
+                      },
+                      "alias": "PII Extraction",
+                      "formula": "query7"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, validation_type:input, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:indirect_prompt_injection , validation_type:input, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection , validation_type:input, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity , validation_type:input, flagged:true, $scope}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query7",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:denial_of_service , validation_type:input, flagged:true, $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 385928067681282,
+            "definition": {
+              "title": "Prompt Injection flags on input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 1
+                      },
+                      "alias": "Prompt Injection",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true, $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8681536884238108,
+            "definition": {
+              "title": "Indirect Prompt Injection flags on input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 1
+                      },
+                      "alias": "Prompt Injection",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:indirect_prompt_injection, flagged:true , $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1604475424760328,
+            "definition": {
+              "title": "PII Detection flags on input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "orange",
+                        "palette_index": 4
+                      },
+                      "alias": "PII Detection",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true, $scope, validation_type:input}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3366704696294332,
+            "definition": {
+              "title": "PII Detection flags on output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "orange",
+                        "palette_index": 4
+                      },
+                      "alias": "PII Detection",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true, $scope, validation_type:output}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 831467269284648,
+            "definition": {
+              "title": "Toxicity flags on input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 17
+                      },
+                      "alias": "Toxicity",
+                      "formula": "query5"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true, $scope, validation_type:input}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 598638555426794,
+            "definition": {
+              "title": "Toxicity flags on output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "dd20",
+                        "palette_index": 17
+                      },
+                      "alias": "Toxicity",
+                      "formula": "query5"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true, $scope, validation_type:output}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8699458007096508,
+            "definition": {
+              "title": "Factual Inconsistency flags on output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 5
+                      },
+                      "alias": "Factual Inconsistency",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true, $scope}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6840314069916408,
+            "definition": {
+              "title": "Denial of Service flags on output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "orange",
+                        "palette_index": 4
+                      },
+                      "alias": "PII Detection",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:denial_of_service , flagged:true, $scope, validation_type:output}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 6,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 871205312339460,
+            "definition": {
+              "title": "Denial of Service flags on input",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "orange",
+                        "palette_index": 4
+                      },
+                      "alias": "PII Detection",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:denial_of_service , flagged:true, $scope, validation_type:input}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 6,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 9,
+        "is_column_break": true
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "scope",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

@@ -9,7 +9,7 @@ on:
 
       python-version:
         required: false
-        default: "3.9"
+        default: "3.12"
         type: string
       standard:
         required: false
@@ -106,6 +106,25 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
+  j9eb5f31:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: celerdata
+      target: celerdata
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
   jcb3c31b:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
@@ -187,6 +206,25 @@ jobs:
     with:
       job-name: Cyral
       target: cyral
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  jfe56917:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: emqx
+      target: emqx
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -334,25 +372,6 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j6134697:
-    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
-    with:
-      job-name: fluxcd
-      target: fluxcd
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      python-version: "${{ inputs.python-version }}"
-      standard: ${{ inputs.standard }}
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      setup-env-vars: "${{ inputs.setup-env-vars }}"
-    secrets: inherit
   jb4053fb:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
@@ -472,6 +491,25 @@ jobs:
     with:
       job-name: hikaricp
       target: hikaricp
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  j43aee0d:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Kepler
+      target: kepler
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -866,11 +904,87 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
+  ja7891bb:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Qdrant
+      target: qdrant
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  jd4cdbe0:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Radarr
+      target: radarr
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
   j473bdb7:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
       job-name: Reboot Required
       target: reboot_required
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  jacbd216:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Redis Cloud
+      target: redis_cloud
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  j9989d64:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Redis Enterprise V2
+      target: redis_enterprise
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -980,11 +1094,49 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jf772a8e:
+  jfcdbb05:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Scalr
+      job-name: Robust Intelligence AI Firewall
+      target: robust_intelligence_ai_firewall
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  j154ce9f:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Scalr (Community Version)
       target: scalr
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  ja91188c:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Scaphandre
+      target: scaphandre
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1018,10 +1170,10 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j6c988ec:
+  j190d837:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Snmpwalk
+      job-name: snmpwalk
       target: snmpwalk
       platform: linux
       runner: '["ubuntu-22.04"]'
@@ -1170,25 +1322,6 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j54ace69:
-    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
-    with:
-      job-name: Traefik
-      target: traefik
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      python-version: "${{ inputs.python-version }}"
-      standard: ${{ inputs.standard }}
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      setup-env-vars: "${{ inputs.setup-env-vars }}"
-    secrets: inherit
   jd73ec80:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
@@ -1322,11 +1455,30 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  ja67c5ea:
+  j0a99eb2:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Zabbix
+      job-name: Zabbix (Community Version)
       target: zabbix
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  j7f4936a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Zenoh router
+      target: zenoh_router
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"

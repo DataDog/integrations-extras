@@ -1,0 +1,75 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "5e75658c-065e-460f-b9f8-42bf100e361d",
+  "app_id": "doctordroid",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Analyze your alerts, identify trends, and improve noise and coverage",
+    "title": "Doctor Droid",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Doctor Droid Overview Dashboard",
+        "image_url": "images/doctor_droid_overview.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Trends in Datadog Alert Occurrences",
+        "image_url": "images/alert_occurence_count_trends.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Distribution of Top 5 Alert Occurrences",
+        "image_url": "images/top_5_alerts_distribution.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Top 10 Lifetime Alert Types and Affected Services",
+        "image_url": "images/top_10_lifetime_alert_counts.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Incidents",
+      "Offering::Integration",
+      "Queried Data Type::Metrics",
+      "Queried Data Type::Logs",
+      "Queried Data Type::Traces",
+      "Queried Data Type::Events",
+      "Queried Data Type::Incidents",
+      "Submitted Data Type::Events"
+    ]
+  },
+  "author": {
+    "support_email": "support@drdroid.io",
+    "sales_email": "sales@drdroid.io",
+    "homepage": "https://www.drdroid.io",
+    "name": "Doctor Droid"
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 10443,
+      "source_type_name": "doctor_droid",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "doctor_droid_overview": "assets/dashboards/doctor_droid_overview.json"
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}

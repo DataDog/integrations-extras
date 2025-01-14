@@ -2,7 +2,7 @@
   "manifest_version": "2.0.0",
   "app_uuid": "2ef15aea-af91-4769-940c-2b124e4d04a6",
   "app_id": "cribl-stream",
-  "display_on_public_website": false,
+  "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
@@ -36,7 +36,8 @@
       "Category::Google Cloud",
       "Category::Log Collection",
       "Category::Security",
-      "Category::Metrics"
+      "Category::Metrics",
+      "Offering::Integration"
     ]
   },
   "author": {
@@ -45,7 +46,6 @@
     "homepage": "https://cribl.io",
     "sales_email": "sales@cribl.io"
   },
-  "oauth": {},
   "assets": {
     "dashboards": {
       "cribl_stream_overview": "assets/dashboards/cribl_stream_overview.json"
@@ -56,14 +56,16 @@
       "events": {
         "creates_events": false
       },
-    "metrics": {
-      "prefix": "cribl.logstream.",
-      "check": [],
-      "metadata_path": "metadata.csv"
-    },
+      "metrics": {
+        "prefix": "cribl.logstream.",
+        "check": "cribl.logstream.health.outputs",
+        "metadata_path": "metadata.csv"
+      },
       "service_checks": {
-    "metadata_path": "assets/service_checks.json"
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10391,
+      "auto_install": true
     }
   }
- }
 }

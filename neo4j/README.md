@@ -8,25 +8,6 @@ Neo4j metrics enable database administrators to monitor their Neo4j deployments.
 
 With this integration, visualize important Neo4j metrics in our out-of-the-box dashboards and enable your DBAs to troubleshoot and monitor the health of your Neo4j databases.
 
-### Metrics
-
-**Neo4j Version 4**
-Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
-
-**Neo4j Version 5**
-Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
-
-Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
-
-See [metadata.csv][6] for the full list of metrics provided by this check.
-
-### Service Checks
-
-Service check `neo4j.prometheus.health` is submitted in the base check
-
-### Events
-
-Neo4j does not include any events.
 
 ## Setup
 
@@ -57,6 +38,20 @@ To install the neo4j check on your host:
 
 ## Data Collected
 
+### Metrics
+
+The integration collects metrics through the neo4j prometheus endpoint. Ensure your neo4j edition supports the prometheus endpoint.
+
+**Neo4j Version 4**
+Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+**Neo4j Version 5**
+Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
+
+See [metadata.csv][6] for the full list of metrics provided by this check.
+
 ### Service Checks
 
 Service check `neo4j.prometheus.health` is submitted in the base check
@@ -64,6 +59,7 @@ Service check `neo4j.prometheus.health` is submitted in the base check
 ### Events
 
 Neo4j does not include any events.
+
 
 ## Troubleshooting
 

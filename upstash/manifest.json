@@ -1,0 +1,67 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "fe1f17e3-11a4-4e44-b819-8781ebcc86f8",
+  "app_id": "upstash",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Visualize metrics for databases and kafka clusters from Upstash",
+    "title": "Upstash",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Upstash Redis Database Metrics",
+        "image_url": "images/upstash-redis-overview-dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Upstash Kafka Metrics",
+        "image_url": "images/upstash-kafka-overview-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Category::Cloud",
+      "Category::AI/ML",
+      "Category::Data Stores",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_name": "Upstash",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "upstash.",
+        "metadata_path": "metadata.csv",
+        "check": ["upstash.metadata.metric_publish"]
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10412
+    },
+    "dashboards": {
+      "Upstash-Redis-Overview": "assets/dashboards/upstash_redis_overview.json",
+      "Upstash-Kafka-Overview": "assets/dashboards/upstash_kafka_overview.json"
+    },
+    "oauth": "assets/oauth_clients.json"
+  },
+  "author": {
+    "support_email": "support@upstash.com",
+    "name": "Upstash",
+    "homepage": "https://upstash.com",
+    "sales_email": "sales@upstash.com"
+  }
+}

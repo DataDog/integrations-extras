@@ -3,15 +3,20 @@
 MongoDB Atlas can push calculated metrics into Datadog to:
 
 - Visualize key MongoDB Atlas metrics.
-- Correlate MongoDB Atlas performance with the rest of your applications.
+- Visualize MongoDB Atlas Vector Search metrics.
+- Correlate overall MongoDB Atlas performance with the rest of your applications.
 
-**Note: This integration is only available on M10+ clusters.**
+The integration includes out-of-the-box monitors and dedicated dashboards that enable you to view Atlas health and performance metrics. You can monitor throughput metrics, track the average latency of read/write operations over time, and create monitors that alert you when the number of current connections is approaching the maximum limit.
+
+With MongoDB Atlas Vector Search metrics, you can also confidently use Atlas Vector Search to index, retrieve, and build performant gen AI applications.
+
+**Note**: The MongoDB Atlas integration is only available on M10+ clusters.
 
 ## Setup
 
 ### Installation
 
-You can install the MongoDB Atlas integration by logging into your Atlas portal.
+You can install the MongoDB Atlas integration by logging in to your Atlas portal.
 
 ### Configuration
 
@@ -38,10 +43,15 @@ Need help? [Contact Datadog Support][5]
 
 ## Further Reading
 
-{{< partial name="whats-next/whats-next.html" >}}
+Additional helpful documentation, links, and articles:
+
+- [Monitor MongoDB Atlas with Datadog][6]
+- [MongoDB Atlas for Government][7]
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://docs.atlas.mongodb.com/tutorial/monitoring-integrations/#procedure
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv
-[4]: https://www.mongodb.com/blog/post/push-your-mongodb-atlas-alerts-to-datadog
+[4]: https://www.mongodb.com/docs/atlas/configure-alerts/#std-label-notification-options
 [5]: https://docs.datadoghq.com/help/
+[6]: https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/
+[7]: https://www.mongodb.com/products/platform/atlas-for-government

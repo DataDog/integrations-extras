@@ -17,16 +17,16 @@
       "Category::Security",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Offering::Integration"
     ]
   },
   "author": {
-    "support_email": "help@datadoghq.com",
-    "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "help@datadoghq.com",
+    "support_email": "support@cohesive.net",
+    "homepage": "https://cohesive.net/",
+    "sales_email": "sales@cohesive.net",
     "name": "Cohesive Networks"
   },
-  "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "VNS3",
@@ -36,12 +36,17 @@
       },
       "metrics": {
         "prefix": "vns3.",
-        "check": "vns3.peering",
+        "check": ["vns3.peering", "vns3.overlay.clients", "vns3.overlay.links", "vns3.ipsec", "vns3.interfaces", "vns3.sys_admin.remote_support"],
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10005,
+      "auto_install": true
+    },
+    "dashboards": {
+      "Cohesive": "assets/dashboards/VNS3ExampleDashboard-20240923.json"
     }
   }
 }

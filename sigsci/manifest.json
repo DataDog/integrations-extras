@@ -15,7 +15,14 @@
       "Supported OS::Linux",
       "Supported OS::macOS",
       "Supported OS::Windows",
-      "Category::Security"
+      "Category::Security",
+      "Offering::Integration"
+    ],
+    "resources": [
+      {
+        "resource_type": "blog",
+        "url": "https://www.signalsciences.com/blog/"
+      }
     ]
   },
   "author": {
@@ -24,7 +31,6 @@
     "sales_email": "info@signalsciences.com",
     "name": "Signal Sciences"
   },
-  "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "Signal Sciences",
@@ -39,13 +45,15 @@
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10037,
+      "auto_install": true
     },
     "dashboards": {
       "sigsci": "assets/dashboards/overview.json"
     },
     "monitors": {
-      "Excessive blocked http requests": "assets/monitors/excessiveblockedHTTP.json"
+      "Firewall is blocking a high number of requests": "assets/monitors/excessiveblockedHTTP.json"
     }
   }
 }

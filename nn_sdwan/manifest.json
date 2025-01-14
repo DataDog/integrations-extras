@@ -16,7 +16,8 @@
       "Category::Notifications",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Offering::Integration"
     ]
   },
   "author": {
@@ -25,7 +26,6 @@
     "sales_email": "info@netnology.io",
     "name": "Netnology"
   },
-  "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "Netnology SD-WAN",
@@ -45,14 +45,16 @@
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10277,
+      "auto_install": true
     },
     "dashboards": {
       "Netnology SD-WAN Overview": "assets/dashboards/nn_sdwan_overview.json"
     },
     "monitors": {
-      "High Latency Monitor": "assets/monitors/high-latency-monitor.json",
-      "Packet Loss Monitor": "assets/monitors/packet-loss-monitor.json"
+      "Link latency is high": "assets/monitors/high-latency-monitor.json",
+      "Packet loss percentage is high": "assets/monitors/packet-loss-monitor.json"
     }
   }
 }

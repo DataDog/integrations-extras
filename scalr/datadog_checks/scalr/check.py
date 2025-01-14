@@ -90,7 +90,7 @@ class ScalrCheck(AgentCheck):
 
         res: dict = self._get_json(SCALR_FIND_ACCOUNT_ENDPOINT.format(self.url, domain_name))
         data = res.get("data", [])
-        if type(data) is not list or len(data) != 1:
+        if not isinstance(data, list) or len(data) != 1:
             raise errors.CheckException("SCALR account not found.")
 
         acc_id = data[0]['id']

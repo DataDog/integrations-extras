@@ -39,7 +39,8 @@
     ],
     "classifier_tags": [
       "Category::IoT",
-      "Category::Metrics"
+      "Category::Metrics",
+      "Offering::Integration"
     ]
   },
   "author": {
@@ -48,7 +49,6 @@
     "sales_email": "sales@emnify.com",
     "name": "EMnify"
   },
-  "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "EMnify",
@@ -63,16 +63,18 @@
         "prefix": "emnify.",
         "check": "emnify.endpoint.volume",
         "metadata_path": "metadata.csv"
-      }
+      },
+      "source_type_id": 10304,
+      "auto_install": true
     },
     "dashboards": {
       "EMnify Dashboard": "assets/dashboards/emnify_dashboard.json"
     },
     "monitors": {
-      "Daily Traffic Forecast": "assets/monitors/emnify_data_usage_forecast.json",
-      "High Incoming Traffic": "assets/monitors/emnify_data_usage_high_rx.json",
-      "High Outgoing Traffic": "assets/monitors/emnify_data_usage_high_tx.json",
-      "Traffic Transmition Stopped": "assets/monitors/emnify_data_usage_host_stopped.json"
+      "Forecasted data usage is more than expected": "assets/monitors/emnify_data_usage_forecast.json",
+      "Receiving traffic is abnormally high": "assets/monitors/emnify_data_usage_high_rx.json",
+      "Data transmission is abnormally high": "assets/monitors/emnify_data_usage_high_tx.json",
+      "Data exchange has stopped unexpectedly": "assets/monitors/emnify_data_usage_host_stopped.json"
     }
   }
 }

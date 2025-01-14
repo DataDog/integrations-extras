@@ -15,7 +15,8 @@
       "Category::Configuration & Deployment",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Offering::Integration"
     ]
   },
   "author": {
@@ -24,7 +25,6 @@
     "sales_email": "help@datadoghq.com",
     "name": "Nomad"
   },
-  "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "Nomad",
@@ -39,17 +39,19 @@
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10002,
+      "auto_install": true
     },
     "dashboards": {
       "Nomad Overview": "assets/dashboards/overview.json"
     },
     "monitors": {
-      "Nomad Excessive Leadership Losses": "assets/monitors/nomad_excessive_leadership_losses.json",
-      "Nomad No Jobs Running": "assets/monitors/nomad_no_jobs_running.json",
-      "Nomad Pending Jobs": "assets/monitors/nomad_pending_jobs.json",
-      "Nomad Job Is Failing": "assets/monitors/nomad_job_is_failing.json",
-      "Nomad Heartbeats Received": "assets/monitors/nomad_heartbeats_received.json"
+      "Nomad has excessive leadership losses": "assets/monitors/nomad_excessive_leadership_losses.json",
+      "No Jobs Running": "assets/monitors/nomad_no_jobs_running.json",
+      "Jobs are in pending status": "assets/monitors/nomad_pending_jobs.json",
+      "Nomad jobs are failing": "assets/monitors/nomad_job_is_failing.json",
+      "Nomad heartbeats is low": "assets/monitors/nomad_heartbeats_received.json"
     }
   }
 }

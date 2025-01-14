@@ -1,81 +1,84 @@
 {
-    "manifest_version": "2.0.0",
-    "app_uuid": "d81d1dd3-d5e8-4373-98a6-f95b797b3f9d",
-    "app_id": "sym",
-    "display_on_public_website": true,
-    "tile": {
-        "overview": "README.md#Overview",
-        "configuration": "README.md#Setup",
-        "support": "README.md#Support",
-        "uninstallation": "README.md#Uninstallation",
-        "changelog": "CHANGELOG.md",
-        "description": "Send Sym Audit Logs to Datadog",
-        "title": "Sym",
-        "media": [
-            {
-                "media_type": "video",
-                "caption": "A Sym Overview Video",
-                "image_url": "images/sym_video_thumbnail.jpg",
-                "vimeo_id": 846654213
-            },
-            {
-                "media_type": "image",
-                "caption": "Sym helps you build access and approval workflows using your native platform engineering tools",
-                "image_url": "images/home_hero_image.png"
-            },
-            {
-                "media_type": "image",
-                "caption": "Define and deploy access rules in Terraform",
-                "image_url": "images/define_deploy.jpg"
-            },
-            {
-                "media_type": "image",
-                "caption": "Request, approve, and deny anywhere in Slack",
-                "image_url": "images/request_approve.jpg"
-            },
-            {
-                "media_type": "image",
-                "caption": "An example of the Sym Overview Dashboard",
-                "image_url": "images/sym_overview_dashboard.png"
-            }
-        ],
-        "classifier_tags": [
-            "Supported OS::Windows",
-            "Supported OS::macOS",
-            "Supported OS::Linux",
-            "Category::Security",
-            "Category::Developer Tools",
-            "Offering::Integration",
-            "Submitted Data Type::Logs"
-        ]
+  "manifest_version": "2.0.0",
+  "app_uuid": "d81d1dd3-d5e8-4373-98a6-f95b797b3f9d",
+  "app_id": "sym",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "uninstallation": "README.md#Uninstallation",
+    "changelog": "CHANGELOG.md",
+    "description": "Send Sym Audit Logs to Datadog",
+    "title": "Sym",
+    "media": [
+      {
+        "media_type": "video",
+        "caption": "A Sym Overview Video",
+        "image_url": "images/sym_video_thumbnail.jpg",
+        "vimeo_id": 846654213
+      },
+      {
+        "media_type": "image",
+        "caption": "Sym helps you build access and approval workflows using your native platform engineering tools",
+        "image_url": "images/home_hero_image.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Define and deploy access rules in Terraform",
+        "image_url": "images/define_deploy.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Request, approve, and deny anywhere in Slack",
+        "image_url": "images/request_approve.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "An example of the Sym Overview Dashboard",
+        "image_url": "images/sym_overview_dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Supported OS::Linux",
+      "Category::Security",
+      "Category::Developer Tools",
+      "Offering::Integration",
+      "Submitted Data Type::Logs"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "Sym Overview": "assets/dashboards/sym_overview.json"
     },
-    "assets": {
-        "dashboards": {
-            "Sym Overview": "assets/dashboards/sym_overview.json"
-        },
-        "integration": {
-            "source_type_name": "sym",
-            "configuration": {},
-            "events": {
-                "creates_events": false
-            },
-            "metrics": {
-             "metadata_path": "metadata.csv",
-             "check": [],
-             "prefix": "sym."
-           },
-            "service_checks": {
-                "metadata_path": "assets/service_checks.json"
-            }
-        },
-        "logs": {
-            "source": "sym"
-        }
+    "integration": {
+      "source_type_name": "sym",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "sym."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10396,
+      "auto_install": true
     },
-    "author": {
-        "support_email": "support@symops.com",
-        "name": "Sym",
-        "homepage": "https://symops.com/",
-        "sales_email": "sales@symops.com"
-    }
+    "logs": {
+      "source": "sym"
+    },
+    "oauth": "assets/oauth_clients.json"
+  },
+  "author": {
+    "support_email": "support@symops.com",
+    "name": "Sym",
+    "homepage": "https://symops.com/",
+    "sales_email": "sales@symops.com"
+  }
 }

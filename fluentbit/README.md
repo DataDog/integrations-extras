@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Fluent Bit][1] metrics through the Datadog Agent. For sending logs to Datadog with Fluent Bit, see the [Fluent Bit][11] documentation to learn about the Datadog Fluent Bit output plugin.
+This check monitors [Fluent Bit][1] metrics through the Datadog Agent. To send logs to Datadog with Fluent Bit and to learn about the Datadog Fluent Bit output plugin, see the [Fluent Bit][11] documentation.
 
 ## Fluent Bit configuration
 Fluent Bit doesn't expose its internal metrics by default. You need to enable the built-in HTTP server that exposes the metrics endpoint.
@@ -15,8 +15,6 @@ See the official [documentation][2] for more information.
 ## Setup
 
 Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][4] for guidance on applying these instructions.
-
-### Installation
 
 ### Installation
 
@@ -68,6 +66,12 @@ The Fluent Bit integration does not include any service checks.
 
 Need help? Contact [Datadog support][10].
 
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Send Fluent Bit Logs to Datadog][11]
+
 
 [1]: https://fluentbit.io
 [2]: https://docs.fluentbit.io/manual/administration/monitoring
@@ -79,5 +83,5 @@ Need help? Contact [Datadog support][10].
 [8]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
-[11]: https://docs.datadoghq.com/integrations/fluentbit/
+[11]: https://docs.datadoghq.com/logs/guide/fluentbit/
 [12]: https://docs.datadoghq.com/developers/integrations/python/

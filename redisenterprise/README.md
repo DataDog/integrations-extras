@@ -1,8 +1,10 @@
-# Redis Enterprise
+# Redis Enterprise (Deprecated)
 
 ![img](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/redis-enterprise.jpg)
 
 ## Overview
+
+**This integration is will be deprecated starting on November 1, 2024. Please use the latest [Redis Enterprise Datadog Integration][13] going forward. This new integration exposes all of the latest Redis Enterprise metrics and includes updated dashboards.**
 
 This integration provides [Redis Enterprise][1] monitoring and metrics for Datadog.
 
@@ -128,3 +130,4 @@ Contact the [Redis Field Engineering Team][11].
 [10]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
 [11]: mailto:redis.observability@redis.com?subject=Datadog%20Integration%20Support
 [12]: https://github.com/DataDog/integrations-extras/tags
+[13]: https://docs.datadoghq.com/integrations/redis_enterprise/

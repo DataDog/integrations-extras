@@ -2,21 +2,22 @@
   "manifest_version": "2.0.0",
   "app_uuid": "17230c84-50c7-4025-8fc8-69a9bc0bd502",
   "app_id": "mergify",
-  "display_on_public_website": true,
+  "display_on_public_website": false,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
     "description": "Mergify merge queue statistics integration",
-    "title": "Mergify",
+    "title": "Mergify [Deprecated]",
     "media": [],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
       "Submitted Data Type::Metrics",
-      "Category::Developer Tools"
+      "Category::Developer Tools",
+      "Offering::Integration"
     ]
   },
   "assets": {
@@ -30,30 +31,17 @@
       },
       "metrics": {
         "prefix": "mergify.",
-        "check": "mergify.merge_queue_length",
-        "metadata_path": "metadata.csv"
-      },
-      "metrics": {
-        "prefix": "mergify.",
-        "check": "mergify.time_to_merge.median",
-        "metadata_path": "metadata.csv"
-      },
-      "metrics": {
-        "prefix": "mergify.",
-        "check": "mergify.time_to_merge.mean",
-        "metadata_path": "metadata.csv"
-      },
-      "metrics": {
-        "prefix": "mergify.",
         "check": "mergify.queue_checks_outcome",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10349,
+      "auto_install": true
     },
     "dashboards": {
-      "Mergify merge queue overview": "assets/dashboards/mergify_overview.json"
+      "Mergify merge queue overview [deprecated]": "assets/dashboards/mergify_overview.json"
     }
   },
   "author": {
@@ -61,6 +49,5 @@
     "name": "Community",
     "homepage": "https://mergify.com",
     "sales_email": "hello@mergify.com"
-  },
-  "oauth": {}
+  }
 }

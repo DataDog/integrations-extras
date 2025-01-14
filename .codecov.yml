@@ -67,6 +67,10 @@ coverage:
         target: 75
         flags:
         - jfrog_platform_self_hosted
+      Kepler:
+        target: 75
+        flags:
+        - kepler
       Kernelcare:
         target: 75
         flags:
@@ -135,14 +139,30 @@ coverage:
         target: 75
         flags:
         - purefb
+      Qdrant:
+        target: 75
+        flags:
+        - qdrant
+      Radarr:
+        target: 75
+        flags:
+        - radarr
       Reboot_Required:
         target: 75
         flags:
         - reboot_required
+      Redis_Cloud:
+        target: 75
+        flags:
+        - redis_cloud
       Redis_Enterprise:
         target: 75
         flags:
         - redisenterprise
+      Redis_Enterprise_V2:
+        target: 75
+        flags:
+        - redis_enterprise
       Redis_Sentinel:
         target: 75
         flags:
@@ -155,18 +175,22 @@ coverage:
         target: 75
         flags:
         - riak_repl
-      Scalr:
+      Robust_Intelligence_AI_Firewall:
+        target: 75
+        flags:
+        - robust_intelligence_ai_firewall
+      Scalr_(Community_Version):
         target: 75
         flags:
         - scalr
+      Scaphandre:
+        target: 75
+        flags:
+        - scaphandre
       Sendmail:
         target: 75
         flags:
         - sendmail
-      Snmpwalk:
-        target: 75
-        flags:
-        - snmpwalk
       Sonarr:
         target: 75
         flags:
@@ -191,10 +215,6 @@ coverage:
         target: 75
         flags:
         - tidb
-      Traefik:
-        target: 75
-        flags:
-        - traefik
       Trino:
         target: 75
         flags:
@@ -219,10 +239,18 @@ coverage:
         target: 75
         flags:
         - vespa
-      Zabbix:
+      Zabbix_(Community_Version):
         target: 50
         flags:
         - zabbix
+      Zenoh_router:
+        target: 75
+        flags:
+        - zenoh_router
+      celerdata:
+        target: 75
+        flags:
+        - celerdata
       cfssl:
         target: 75
         flags:
@@ -231,6 +259,10 @@ coverage:
         target: 75
         flags:
         - cybersixgill_actionable_alerts
+      emqx:
+        target: 75
+        flags:
+        - emqx
       exim:
         target: 75
         flags:
@@ -243,10 +275,6 @@ coverage:
         target: 75
         flags:
         - filemage
-      fluxcd:
-        target: 75
-        flags:
-        - fluxcd
       gRPC_Check:
         target: 75
         flags:
@@ -271,6 +299,10 @@ coverage:
         target: 75
         flags:
         - pihole
+      snmpwalk:
+        target: 75
+        flags:
+        - snmpwalk
       speedtest:
         target: 75
         flags:
@@ -295,6 +327,11 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
+  celerdata:
+    carryforward: true
+    paths:
+    - celerdata/datadog_checks/celerdata
+    - celerdata/tests
   cfssl:
     carryforward: true
     paths:
@@ -320,6 +357,11 @@ flags:
     paths:
     - cyral/datadog_checks/cyral
     - cyral/tests
+  emqx:
+    carryforward: true
+    paths:
+    - emqx/datadog_checks/emqx
+    - emqx/tests
   eventstore:
     carryforward: true
     paths:
@@ -350,11 +392,6 @@ flags:
     paths:
     - fluentbit/datadog_checks/fluentbit
     - fluentbit/tests
-  fluxcd:
-    carryforward: true
-    paths:
-    - fluxcd/datadog_checks/fluxcd
-    - fluxcd/tests
   gatekeeper:
     carryforward: true
     paths:
@@ -395,6 +432,11 @@ flags:
     paths:
     - jfrog_platform_self_hosted/datadog_checks/jfrog_platform_self_hosted
     - jfrog_platform_self_hosted/tests
+  kepler:
+    carryforward: true
+    paths:
+    - kepler/datadog_checks/kepler
+    - kepler/tests
   kernelcare:
     carryforward: true
     paths:
@@ -495,11 +537,31 @@ flags:
     paths:
     - purefb/datadog_checks/purefb
     - purefb/tests
+  qdrant:
+    carryforward: true
+    paths:
+    - qdrant/datadog_checks/qdrant
+    - qdrant/tests
+  radarr:
+    carryforward: true
+    paths:
+    - radarr/datadog_checks/radarr
+    - radarr/tests
   reboot_required:
     carryforward: true
     paths:
     - reboot_required/datadog_checks/reboot_required
     - reboot_required/tests
+  redis_cloud:
+    carryforward: true
+    paths:
+    - redis_cloud/datadog_checks/redis_cloud
+    - redis_cloud/tests
+  redis_enterprise:
+    carryforward: true
+    paths:
+    - redis_enterprise/datadog_checks/redis_enterprise
+    - redis_enterprise/tests
   redis_sentinel:
     carryforward: true
     paths:
@@ -520,11 +582,21 @@ flags:
     paths:
     - riak_repl/datadog_checks/riak_repl
     - riak_repl/tests
+  robust_intelligence_ai_firewall:
+    carryforward: true
+    paths:
+    - robust_intelligence_ai_firewall/datadog_checks/robust_intelligence_ai_firewall
+    - robust_intelligence_ai_firewall/tests
   scalr:
     carryforward: true
     paths:
     - scalr/datadog_checks/scalr
     - scalr/tests
+  scaphandre:
+    carryforward: true
+    paths:
+    - scaphandre/datadog_checks/scaphandre
+    - scaphandre/tests
   sendmail:
     carryforward: true
     paths:
@@ -570,11 +642,6 @@ flags:
     paths:
     - tidb/datadog_checks/tidb
     - tidb/tests
-  traefik:
-    carryforward: true
-    paths:
-    - traefik/datadog_checks/traefik
-    - traefik/tests
   trino:
     carryforward: true
     paths:
@@ -615,3 +682,8 @@ flags:
     paths:
     - zabbix/datadog_checks/zabbix
     - zabbix/tests
+  zenoh_router:
+    carryforward: true
+    paths:
+    - zenoh_router/datadog_checks/zenoh_router
+    - zenoh_router/tests

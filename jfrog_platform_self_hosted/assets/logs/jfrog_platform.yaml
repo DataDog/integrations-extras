@@ -1,301 +1,302 @@
 id: jfrog_platform
 metric_id: jfrog-platform
+backend_only: false
 facets:
-  - name: Duration
-    source: log
+  - facetType: range
+    groups:
+      - Measure
+    name: Duration
     path: duration
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: nanosecond
-    groups:
-      - Measure
-  - name: Event Name
-    source: log
+  - groups:
+      - Event
+    name: Event Name
     path: evt.name
-    groups:
-      - Event
-  - name: Method
     source: log
+  - groups:
+      - Web Access
+    name: Method
     path: http.method
-    groups:
-      - Web Access
-  - name: Status Code
     source: log
+  - groups:
+      - Web Access
+    name: Status Code
     path: http.status_code
-    groups:
-      - Web Access
-  - name: URL Path
     source: log
+  - groups:
+      - Web Access
+    name: URL Path
     path: http.url
-    groups:
-      - Web Access
-  - name: URL Path
     source: log
+  - groups:
+      - Web Access
+    name: URL Path
     path: http.url_details.path
-    groups:
-      - Web Access
-  - name: User-Agent
     source: log
+  - groups:
+      - Web Access
+    name: User-Agent
     path: http.useragent
-    groups:
-      - Web Access
-  - name: Thread Name
     source: log
-    path: logger.thread_name
-    groups:
+  - groups:
       - Source Code
-  - name: Client IP
+    name: Thread Name
+    path: logger.thread_name
     source: log
-    path: network.client.ip
-    groups:
+  - groups:
       - Web Access
-  - name: User ID
+    name: Client IP
+    path: network.client.ip
     source: log
-    path: usr.id
-    groups:
+  - groups:
       - User
-  - path: response_content_length
+    name: User ID
+    path: usr.id
     source: log
+  - groups:
+      - jfrog
     name: Response Content Length
-    groups:
-      - jfrog
-  - path: repo_path_url
+    path: response_content_length
     source: log
+  - groups:
+      - jfrog
     name: Repo Path URL
-    groups:
-      - jfrog
-  - path: properties
+    path: repo_path_url
     source: log
+  - groups:
+      - jfrog
     name: Properties
-    groups:
-      - jfrog
-  - path: cvss_score
+    path: properties
     source: log
+  - groups:
+      - jfrog
     name: CVSS Score
-    groups:
-      - jfrog
-  - path: remote_repo_name
+    path: cvss_score
     source: log
+  - groups:
+      - jfrog
     name: Remote Repo Name
-    groups:
-      - jfrog
-  - name: Message
+    path: remote_repo_name
     source: log
+  - groups:
+      - jfrog
+    name: Message
     path: jfrog.msg
-    groups:
-      - jfrog
-  - path: violation_details_url
     source: log
+  - groups:
+      - jfrog
     name: Violation Details URL
-    groups:
-      - jfrog
-  - path: log_source
+    path: violation_details_url
     source: log
+  - groups:
+      - jfrog
     name: Log Source
-    groups:
-      - jfrog
-  - name: Entity Name
+    path: log_source
     source: log
+  - groups:
+      - jfrog
+    name: Entity Name
     path: jfrog.entity_name
-    groups:
-      - jfrog
-  - path: infected_components
     source: log
+  - groups:
+      - jfrog
     name: Infected Components
-    groups:
-      - jfrog
-  - path: tag
+    path: infected_components
     source: log
+  - groups:
+      - jfrog
     name: Tag
-    groups:
-      - jfrog
-  - path: signature
+    path: tag
     source: log
+  - groups:
+      - jfrog
     name: Signature
-    groups:
-      - jfrog
-  - path: DownstreamContentSize
+    path: signature
     source: log
+  - groups:
+      - jfrog
     name: DownstreamContentSize
-    groups:
-      - jfrog
-  - path: violation_id
+    path: DownstreamContentSize
     source: log
+  - groups:
+      - jfrog
     name: Violation ID
-    groups:
-      - jfrog
-  - path: impacted_artifacts_url
+    path: violation_id
     source: log
+  - groups:
+      - jfrog
     name: Impacted Artifacts URL
-    groups:
-      - jfrog
-  - path: ServiceAddr
+    path: impacted_artifacts_url
     source: log
+  - groups:
+      - jfrog
     name: Service Address
-    groups:
-      - jfrog
-  - path: watch_name
+    path: ServiceAddr
     source: log
+  - groups:
+      - jfrog
     name: Watch Name
-    groups:
-      - jfrog
-  - path: service_type
+    path: watch_name
     source: log
+  - groups:
+      - jfrog
     name: Service Type
-    groups:
-      - jfrog
-  - path: cvss_version
+    path: service_type
     source: log
+  - groups:
+      - jfrog
     name: CVSS Version
-    groups:
-      - jfrog
-  - path: StartUTC
+    path: cvss_version
     source: log
+  - groups:
+      - jfrog
     name: StartUTC
-    groups:
-      - jfrog
-  - path: token_id
+    path: StartUTC
     source: log
+  - groups:
+      - jfrog
     name: Token ID
-    groups:
-      - jfrog
-  - path: app_disk_free_bytes
+    path: token_id
     source: log
+  - groups:
+      - jfrog
     name: App Disk Free Bytes
-    groups:
-      - jfrog
-  - path: data_changed
+    path: app_disk_free_bytes
     source: log
+  - groups:
+      - jfrog
     name: Data Changed
-    groups:
-      - jfrog
-  - path: class_line_number
+    path: data_changed
     source: log
+  - groups:
+      - jfrog
     name: Class Line Number
-    groups:
-      - jfrog
-  - name: Category
+    path: class_line_number
     source: log
+  - groups:
+      - jfrog
+    name: Category
     path: jfrog.category
-    groups:
-      - jfrog
-  - path: repo
     source: log
+  - groups:
+      - jfrog
     name: Repo
-    groups:
-      - jfrog
-  - path: remote_url
+    path: repo
     source: log
+  - groups:
+      - jfrog
     name: Remote URL
-    groups:
-      - jfrog
-  - path: logged_principal
+    path: remote_url
     source: log
+  - groups:
+      - jfrog
     name: Logged Principal
-    groups:
-      - jfrog
-  - path: impacted_artifacts
+    path: logged_principal
     source: log
+  - groups:
+      - jfrog
     name: Impacted Artifacts
-    groups:
-      - jfrog
-  - path: matched_policies
+    path: impacted_artifacts
     source: log
+  - groups:
+      - jfrog
     name: Matched Policies
-    groups:
-      - jfrog
-  - name: Severity
+    path: matched_policies
     source: log
+  - groups:
+      - jfrog
+    name: Severity
     path: jfrog.severity
-    groups:
-      - jfrog
-  - path: repo_path
     source: log
+  - groups:
+      - jfrog
     name: Repo Path
-    groups:
-      - jfrog
-  - path: created
+    path: repo_path
     source: log
+  - groups:
+      - jfrog
     name: Created
-    groups:
-      - jfrog
-  - name: Provider
+    path: created
     source: log
+  - groups:
+      - jfrog
+    name: Provider
     path: jfrog.provider
-    groups:
-      - jfrog
-  - path: image
     source: log
+  - groups:
+      - jfrog
     name: Image
-    groups:
-      - jfrog
-  - path: fix_versions
+    path: image
     source: log
+  - groups:
+      - jfrog
     name: Fix Versions
-    groups:
-      - jfrog
-  - path: policies
+    path: fix_versions
     source: log
+  - groups:
+      - jfrog
     name: Policies
-    groups:
-      - jfrog
-  - path: infected_versions
+    path: policies
     source: log
+  - groups:
+      - jfrog
     name: Infected Versions
-    groups:
-      - jfrog
-  - path: type
+    path: infected_versions
     source: log
-    name: Type
-    groups:
+  - groups:
       - Event
-  - path: BackendAddr
+    name: Type
+    path: type
     source: log
+  - groups:
+      - jfrog
     name: Backend Address
-    groups:
-      - jfrog
-  - path: action_response
+    path: BackendAddr
     source: log
+  - groups:
+      - jfrog
     name: Action Response
-    groups:
-      - jfrog
-  - path: summary
+    path: action_response
     source: log
+  - groups:
+      - jfrog
     name: Summary
-    groups:
-      - jfrog
-  - path: rules
+    path: summary
     source: log
+  - groups:
+      - jfrog
     name: Rules
-    groups:
-      - jfrog
-  - path: request_content_length
+    path: rules
     source: log
+  - groups:
+      - jfrog
     name: Request Content Length
-    groups:
-      - jfrog
-  - path: description
+    path: request_content_length
     source: log
+  - groups:
+      - jfrog
     name: Description
-    groups:
-      - jfrog
-  - path: issue_id
+    path: description
     source: log
+  - groups:
+      - jfrog
     name: Issue ID
-    groups:
-      - jfrog
-  - path: cve
+    path: issue_id
     source: log
+  - groups:
+      - jfrog
     name: CVE
-    groups:
-      - jfrog
-  - path: event_type
+    path: cve
     source: log
-    name: Event Type
-    groups:
+  - groups:
       - jfrog
+    name: Event Type
+    path: event_type
+    source: log
 pipeline:
   type: pipeline
   name: JFrog Platform

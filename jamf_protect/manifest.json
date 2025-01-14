@@ -1,0 +1,43 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a863cfe8-5ba4-45ae-923c-d273510f099c",
+  "app_id": "jamf-protect",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Endpoint security and mobile threat defense (MTD) for Mac and mobile devices.",
+    "title": "Jamf Protect",
+    "classifier_tags": [
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Security",
+      "Offering::Integration"
+    ],
+    "media": []
+  },
+  "author": {
+    "support_email": "support@jamf.com",
+    "name": "Jamf Protect",
+    "homepage": "https://www.jamf.com/products/jamf-protect/",
+    "sales_email": "support@jamf.com"
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "jamf_logs",
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10433,
+      "auto_install": true
+    },
+    "dashboards": {
+      "jamf-protect-overview": "assets/dashboards/jamf_protect_overview.json"
+    }
+  }
+}
