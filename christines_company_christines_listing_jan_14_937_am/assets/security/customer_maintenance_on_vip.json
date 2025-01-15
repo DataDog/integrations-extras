@@ -1,0 +1,59 @@
+{
+  "name": "Customer Maintenance on VIP",
+  "partnerRuleId": "ext-00b-RPv",
+  "message": "@{{bottomline.mainframe.activity.usr.id}} performed customer maintenance on VIP account",
+  "isEnabled": null,
+  "createdAt": 1706720796310,
+  "isDefault": false,
+  "isPartner": true,
+  "isBeta": false,
+  "isDeleted": false,
+  "isDeprecated": false,
+  "queries": [
+    {
+      "query": "@bottomline.mainframe.activity.resource.code:BNKCSTF and @bottomline.mainframe.activity.customer.id:300842 ",
+      "groupByFields": [
+        "@bottomline.mainframe.activity.usr.id"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": ""
+    }
+  ],
+  "options": {
+    "evaluationWindow": 900,
+    "detectionMethod": "threshold",
+    "maxSignalDuration": 86400,
+    "keepAlive": 3600
+  },
+  "cases": [
+    {
+      "name": "Customer Maintenance by User",
+      "status": "high",
+      "notifications": [],
+      "condition": "a > 0"
+    }
+  ],
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": [],
+  "version": 1,
+  "id": "ext-001-btm",
+  "updatedAt": 1732295539878,
+  "blocking": false,
+  "partnerIntegrationId": "bottomline-recordandreplay",
+  "metadata": {
+    "entities": [],
+    "sources": []
+  },
+  "creator": {
+    "handle": "",
+    "name": ""
+  },
+  "updater": {
+    "handle": "",
+    "name": ""
+  }
+}

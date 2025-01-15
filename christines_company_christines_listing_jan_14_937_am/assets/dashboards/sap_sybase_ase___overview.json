@@ -1,0 +1,3418 @@
+{
+  "title": "SAP Sybase ASE - Overview",
+  "description": "This dashboard provides overview and insights into SAP Sybase ASE Instance. It covers details about its network, server engine, and I/O performance.",
+  "widgets": [
+    {
+      "id": 902079652451184,
+      "definition": {
+        "type": "image",
+        "url": "https://www.sqldev.info/dbType/sybase.png",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 8717600646997552,
+      "definition": {
+        "type": "note",
+        "content": "## Overview\n\nThis dashboard provides overview and insights into SAP Sybase ASE Instance. It covers details about its network, server engine, and I/O performance.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 5867000249946022,
+      "definition": {
+        "type": "note",
+        "content": "## Widgets\n1. Total Bytes Sent \n2. Total Bytes Received \n3. Bytes Activity Overtime \n4. Total Packets Sent \n5. Total Packets Received \n6. Packets Activity Overtime \n7. Network Statistics \n8. Total Transactions \n9. Active Connections \n10. Total Deadlocks Occurred \n11. Engine Statistics \n12. Select Queries Executed \n13. Update Queries Executed \n14. Insert Queries Executed \n15. Delete Queries Executed \n16. Server Statistics \n17. Avg System Percent Busy \n18. Time-Series of System Percent Busy \n19. Avg I/O Percent Busy \n20. Time-Series of I/O Percent Busy \n21. Total Disk Reads per Second \n22. Total Disk Writes per Second \n23. Total Network Reads per Second \n24. Total Network Writes per Second \n25. Server Engine Information \n26. Overall Procedure Cache Used Percentage \n27. Overall Procedure Cache Used Memory \n28. Procedure Cache Used Statistics \n29. Total Reads \n30. Device I/O Statistics \n31. Total Writes \n32. I/O Queue by Type \n33. I/O Queue Statistics \n34. Total Rows Inserted \n35. DB Rows Statistics \n36. Total Rows Updated \n37. Total Rows Deleted \n38. Time-Series of Deadlocks and Total I/O(s) \n39. Deadlocks and Total I/O(s) Information \n40. Total Active Operations \n41. Total Lock Requests \n42. Total Physical Lock Requests \n43. DB Summary \n44. Forecast for Bytes Activity Overtime\n45. Forecast for Packets Activity Overtime\n44. Forecast for System Percent Busy\n45. Forecast for I/O Percent Busy\n46. Forecast for Active Connections\n47. Forecast for Procedure Cache Used Percentage",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 3807784640900926,
+      "definition": {
+        "title": "Network Information",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4566293191216600,
+            "definition": {
+              "title": "Total Bytes Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesSent{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 8566819013681332,
+            "definition": {
+              "title": "Total Bytes Received",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesReceived{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 1524486765256485,
+            "definition": {
+              "title": "Bytes Activity Overtime",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent Bytes",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Received Bytes",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Total Bytes",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query1 + query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesSent{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesReceived{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 711816349500577,
+            "definition": {
+              "title": "Total Packets Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsSent{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4171419182035304,
+            "definition": {
+              "title": "Total Packets Received",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsReceived{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 2,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 291211560530869,
+            "definition": {
+              "title": "Packets Activity Overtime",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent Packets",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Received Packets",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Total Packets",
+                      "formula": "query1 + query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsSent{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsReceived{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 2228645070634213,
+            "definition": {
+              "title": "Network Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:cds.sybase.monNetworkIO.BytesSent{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:cds.sybase.monNetworkIO.BytesReceived{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:cds.sybase.monNetworkIO.PacketsSent{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "avg:cds.sybase.monNetworkIO.PacketsReceived{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Bytes Sent",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Bytes Received",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Packets Sent",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Packets Received",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 1001590084552855,
+      "definition": {
+        "title": "Server Engine Information",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1200908265495484,
+            "definition": {
+              "title": "Total Transactions",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Transactions{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "transaction"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5868130720337991,
+            "definition": {
+              "title": "Active Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Connections{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "connection"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8181065153777275,
+            "definition": {
+              "title": "Total Deadlocks Occurred",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.NumDeadlocks{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "lock"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5763848171313940,
+            "definition": {
+              "title": "Engine Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monEngine.CPUTime{$Sybase_Host,$Instance_ID} by {host,instanceid,enginenumber,status}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monEngine.SystemCPUTime{$Sybase_Host,$Instance_ID} by {host,instanceid,enginenumber,status}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:cds.sybase.monEngine.MaxOutstandingIOs{$Sybase_Host,$Instance_ID} by {host,instanceid,enginenumber,status}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 1,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "CPU Time",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "System CPU Time",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Max Outstanding IOs",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      },
+                      "formula": "query5"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 8290262325341100,
+            "definition": {
+              "title": "Select Queries Executed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Selects{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#ebe9ec"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 1043217852391586,
+            "definition": {
+              "title": "Update Queries Executed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Updates{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": true
+                }
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 7,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 2134545583861208,
+            "definition": {
+              "title": "Insert Queries Executed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Inserts{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 7,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 1352272556636716,
+            "definition": {
+              "title": "Delete Queries Executed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Deletes{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 7,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 1104239027941598,
+            "definition": {
+              "title": "Server Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monState.Connections{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monState.Transactions{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monState.NumDeadlocks{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:cds.sybase.monState.Selects{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:cds.sybase.monState.Updates{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:cds.sybase.monState.Inserts{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query7",
+                      "query": "sum:cds.sybase.monState.Deletes{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 2,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Connections",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "connection"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Transactions",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "transaction"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Deadlocks",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "lock"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Selects",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Updates",
+                      "formula": "query5",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Inserts",
+                      "formula": "query6",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Deletes",
+                      "formula": "query7",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 7100719177561244,
+            "definition": {
+              "title": "Avg System Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:percent_system_busy}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 14,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 2412228032280384,
+            "definition": {
+              "title": "Time-Series of System Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Avg System Percent Busy",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID,statistic:percent_system_busy}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 14,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 3978677199261910,
+            "definition": {
+              "title": "Avg I/O Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:percent_i/o_busy}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 17,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 6864816504466156,
+            "definition": {
+              "title": "Time-Series of I/O Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Avg I/O Percent Busy",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID,statistic:percent_i/o_busy}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 17,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 7671022720688230,
+            "definition": {
+              "title": "Total Disk Reads per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:disk_reads_per_second}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#ebe9ec"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 20,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 8955622015574968,
+            "definition": {
+              "title": "Total Disk Writes per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:disk_writes_per_second}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 20,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6848775543047582,
+            "definition": {
+              "title": "Total Network Reads per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:network_reads_per_second}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 20,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 5144767638042686,
+            "definition": {
+              "title": "Total Network Writes per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:network_writes_per_second}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 20,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 3961445923539912,
+            "definition": {
+              "title": "Server Engine Information",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:percent_i/o_busy} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:percent_system_busy} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:disk_reads_per_second} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:disk_writes_per_second} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:network_reads_per_second} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID, statistic:network_writes_per_second} by {host,instanceid,enginenumber}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Avg IO Busy %",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Avg CPU Busy %",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Disk Reads/Second",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Disk Writes/Second",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Network Reads/Second",
+                      "formula": "query5",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Network Writes/Second",
+                      "formula": "query6",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 22,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 1315040807900790,
+            "definition": {
+              "title": "Overall Procedure Cache Used Percentage",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "(query2 / query1) * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monMemoryUsage.UsedSize{$Sybase_Host}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monMemoryUsage.TotalSize{$Sybase_Host}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 26,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 7679309722624064,
+            "definition": {
+              "title": "Overall Procedure Cache Used Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monMemoryUsage.UsedSize{$Sybase_Host}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 26,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 5052438784187964,
+            "definition": {
+              "title": "Procedure Cache Used Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monMemoryUsage.TotalSize{$Sybase_Host} by {host,pooltype,memorypoolname,configoption}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monMemoryUsage.UsedSize{$Sybase_Host} by {host,pooltype,memorypoolname,configoption}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monMemoryUsage.FreeSize{$Sybase_Host} by {host,pooltype,memorypoolname,configoption}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Total Size",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Used Size",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Free Size",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "% Procedure Cache Used",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "cell_display_mode": "bar",
+                      "formula": "(query2 / query1) * 100"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 28,
+              "width": 12,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 14,
+        "width": 12,
+        "height": 34
+      }
+    },
+    {
+      "id": 5791828827528921,
+      "definition": {
+        "title": "I/O Information",
+        "background_color": "orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 898887551547809,
+            "definition": {
+              "title": "Total Reads",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monDeviceIO.Reads{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4734502870208338,
+            "definition": {
+              "title": "Device I/O Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monDeviceIO.Reads{$Sybase_Host,$Instance_ID} by {host,instanceid,logicalname,physicalname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monDeviceIO.Writes{$Sybase_Host,$Instance_ID} by {host,instanceid,logicalname,physicalname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monDeviceIO.IOTime{$Sybase_Host,$Instance_ID} by {host,instanceid,logicalname,physicalname}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 2,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "I/O Reads",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "read"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "I/O Writes",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "I/O Time",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 9,
+              "height": 4
+            }
+          },
+          {
+            "id": 4711302628021161,
+            "definition": {
+              "title": "Total Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monDeviceIO.Writes{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "write"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4395157501969453,
+            "definition": {
+              "title": "I/O Queue by Type ",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 500,
+                        "order": "desc"
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:cds.sybase.monIOQueue.IOs{$Sybase_Host,$Instance_ID} by {iotype}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "style": {
+                    "palette": "datadog16"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 5128665482767270,
+            "definition": {
+              "title": "I/O Queue Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:cds.sybase.monIOQueue.IOs{$Sybase_Host,$Instance_ID} by {host,instanceid,iotype,logicalname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:cds.sybase.monIOQueue.IOTime{$Sybase_Host,$Instance_ID} by {host,instanceid,iotype,logicalname}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "text_formats": [],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Total I/O(s)",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Time",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 7808951911833365,
+            "definition": {
+              "title": "Total Rows Inserted",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsInserted{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 212974752770246,
+            "definition": {
+              "title": "DB Rows Statistics",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsInserted{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsUpdated{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsDeleted{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Rows Inserted",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Rows Updated",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Rows Deleted",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 2,
+              "y": 12,
+              "width": 10,
+              "height": 6
+            }
+          },
+          {
+            "id": 6652913311094692,
+            "definition": {
+              "title": "Total Rows Updated",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsUpdated{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 14,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 893142531152410,
+            "definition": {
+              "title": "Total Rows Deleted",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsDeleted{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "black_on_light_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 16,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 7787323218831040,
+            "definition": {
+              "title": "Time-Series of Deadlocks and Total I/O(s)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Deadlocks",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 6
+                      },
+                      "formula": "query4"
+                    },
+                    {
+                      "alias": "Rows Inserted",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Rows Updated",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Rows Deleted",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:cds.sybase.monState.NumDeadlocks{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsInserted{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsUpdated{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsDeleted{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 18,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 1954101132595476,
+            "definition": {
+              "title": "Deadlocks and Total I/O(s) Information",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:cds.sybase.monState.NumDeadlocks{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsInserted{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsUpdated{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.RowsDeleted{$Sybase_Host,$Instance_ID} by {host,instanceid}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Deadlocks",
+                      "cell_display_mode": "bar",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "lock"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Rows Inserted",
+                      "cell_display_mode": "bar",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Rows Updated",
+                      "cell_display_mode": "bar",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Rows Deleted",
+                      "cell_display_mode": "bar",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "row"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 22,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 4070881623070612,
+            "definition": {
+              "title": "Total Active Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.Operations{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 27,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8928375880736905,
+            "definition": {
+              "title": "Total Lock Requests",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.LockRequests{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 27,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6065920500299098,
+            "definition": {
+              "title": "Total Physical Lock Requests",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.PhysicalLocks{$Sybase_Host,$Instance_ID}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 27,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7303434423308336,
+            "definition": {
+              "title": "DB Summary",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.Operations{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.LockRequests{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.LogicalReads{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.PhysicalReads{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.PhysicalWrites{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.AvgIOServiceTime{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query7",
+                      "query": "sum:cds.sybase.monOpenObjectActivity.PhysicalLocks{$Sybase_Host,$Instance_ID} by {host,instanceid,dbname}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Operations",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "operation"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Lock Requests",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Logical Reads",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "buffer"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Physical Reads",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "buffer"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Physical Writes",
+                      "formula": "query5",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "buffer"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Average IO Service Time",
+                      "formula": "query6",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Physical Locks",
+                      "formula": "query7",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 29,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 48,
+        "width": 12,
+        "height": 34
+      }
+    },
+    {
+      "id": 6912061861322998,
+      "definition": {
+        "title": "Forecast Widgets",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2415162535585402,
+            "definition": {
+              "title": "Forecast for Bytes Activity Overtime",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Total Bytes",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "forecast(query1 + query2, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesSent{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.BytesReceived{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6147479282937942,
+            "definition": {
+              "title": "Forecast for Packets Activity Overtime",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Total Packets",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "packet"
+                        }
+                      },
+                      "formula": "forecast(query1 + query2, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsSent{$Sybase_Host,$Instance_ID}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monNetworkIO.PacketsReceived{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1838491181009158,
+            "definition": {
+              "title": "Forecast for System Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Avg System Percent Busy",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "forecast(query1, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID,statistic:percent_system_busy}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6174446141809980,
+            "definition": {
+              "title": "Forecast for I/O Percent Busy",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Avg I/O Percent Busy",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "forecast(query1, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:cds.sybase.monSysLoad.Avg_1min{$Sybase_Host,$Instance_ID,statistic:percent_i/o_busy}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 3498284694546576,
+            "definition": {
+              "title": "Forecast for Active Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Active Connections",
+                      "formula": "forecast(query1, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:cds.sybase.monState.Connections{$Sybase_Host,$Instance_ID}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8401530246516376,
+            "definition": {
+              "title": "Forecast for Procedure Cache Used Percentage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Procedure Cache Used Percentage",
+                      "formula": "forecast((query2 / query1) * 100, 'seasonal', 2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:cds.sybase.monMemoryUsage.UsedSize{$Sybase_Host}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:cds.sybase.monMemoryUsage.TotalSize{$Sybase_Host}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 8,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 82,
+        "width": 12,
+        "height": 13
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "Sybase_Host",
+      "prefix": "host",
+      "default": "*"
+    },
+    {
+      "name": "Instance_ID",
+      "prefix": "instanceid",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
