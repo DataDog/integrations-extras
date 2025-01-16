@@ -11,5 +11,5 @@ def test_generate_metrics(dd_agent_check, instance):
     Test that we collect the expected metrics.
     """
 
-    aggregator = dd_agent_check(instance, rate=True)
+    aggregator = dd_agent_check(instance)
     aggregator.assert_metric('proxmox.cpu_current', at_least=1)
