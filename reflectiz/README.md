@@ -95,7 +95,7 @@ This will fully remove the Reflectiz integration from your Datadog account.
 The Reflectiz integration sends different types of logs to Datadog, each associated with a specific service. These logs provide detailed insights into scans, app risks, and domain risks, helping you monitor your website's security effectively.
 
 #### 1. **Scan Logs**
-- **Log Name**: `reflectiz.v1.scan`
+- **Log Service Name**: `reflectiz.v1.scan`
 - **Tags**:
   - `reflectiz.site`: Identifies the site being scanned.
   - `reflectiz.scan`: Give an identifier to the scan.
@@ -104,7 +104,7 @@ The Reflectiz integration sends different types of logs to Datadog, each associa
 These logs trigger each time a scan was run on a website.
 
 #### 2. **Alert Logs**
-- **Log Name**: `reflectiz.v1.alerts`
+- **Log Service Name**: `reflectiz.v1.alerts`
 - **Tags**:
   - `reflectiz.site`: Identifies the site being scanned.
   - `reflectiz.scan`: Give an identifier to the scan.
@@ -116,7 +116,7 @@ These logs highlights alerts triggered during the site's scan.
 
 
 #### 3. **Rating Scan Logs**
-- **Log Name**: `reflectiz.v1.scan`
+- **Log Service Name**: `reflectiz.v1.scan`
 - **Tags**:
   - `reflectiz.site`: Identifies the site being scanned.
   - `reflectiz.scan`: Give an identifier to the scan.
@@ -125,7 +125,7 @@ These logs highlights alerts triggered during the site's scan.
 These logs trigger each time a scan was run on a website and the ratings was calculated (useful to filter the rating data).
 
 #### 4. **App Risks Logs**
-- **Log Name**: `reflectiz.v1.rating.app.risks`
+- **Log Service Name**: `reflectiz.v1.rating.app.risks`
 - **Tags**:
   - `reflectiz.site`: Indicates the site associated with the app.
   - `reflectiz.scan`: References the specific scan the log corresponds to.
@@ -135,7 +135,7 @@ These logs trigger each time a scan was run on a website and the ratings was cal
 These logs highlight risks related to specific applications on your site, helping you pinpoint vulnerabilities.
 
 #### 5. **Domain Risks Logs**
-- **Log Name**: `reflectiz.v1.rating.domain.risks`
+- **Log Service Name**: `reflectiz.v1.rating.domain.risks`
 - **Tags**:
   - `reflectiz.site`: Indicates the site associated with the domain.
   - `reflectiz.scan`: References the specific scan the log corresponds to.
