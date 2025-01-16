@@ -1,7 +1,7 @@
-# Changelog
+# CHANGELOG - Reflectiz
 
-## 1.0.0 / 2025-01-15
+## 1.0.0 / 2025-01-16
 
-### Added
+***Added***:
 
-* Initial release.
+* Initial Release
