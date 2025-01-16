@@ -1,0 +1,79 @@
+{
+  "manifest_version": "2.0.0",
+  "display_on_public_website": false,
+  "app_id": "reflectiz",
+  "app_uuid": "07002d82-a107-11ef-8f8b-da7ad0900002",
+  "support_type": "partner",
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "uninstallation": "README.md#Uninstallation",
+    "changelog": "CHANGELOG.md",
+    "description": "The Reflectiz integration provides security insights for your website.",
+    "title": "Reflectiz",
+    "logo_media": {
+      "light": "assets/logos/reflectiz-logo.png"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Web Exposure Alerts Dashboard",
+        "image_url": "images/dashboard_1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Web Exposure Rating Dashboard",
+        "image_url": "images/dashboard_2.png"
+      }
+    ],
+    "classifier_tags": ["Category::Security"]
+  },
+  "author": {
+    "homepage": "https://www.reflectiz.com/",
+    "name": "Reflectiz",
+    "sales_email": "info@reflectiz.com",
+    "support_email": "support@reflectiz.com",
+    "contact_link": "info@reflectiz.com"
+  },
+  "pricing": [],
+  "legal_terms": {
+    "eula": "assets/eula.pdf"
+  },
+  "assets": {
+    "dashboards": {
+      "web_exposure_alerts_dashboard": "assets/dashboards/WebExposureAlertsDashboard.json",
+      "web_exposure_rating_dashboard": "assets/dashboards/WebExposureRatingDashboard.json"
+    }
+  },
+  "resources": [
+    {
+      "resource_type": "blog",
+      "url": "https://www.reflectiz.com/blog/"
+    },
+    {
+      "resource_type": "other",
+      "url": "https://www.reflectiz.com/learning-hub/"
+    }
+  ],
+  "integration": {
+    "auto_install": false,
+    "configuration": {},
+    "events": {
+      "creates_events": false
+    },
+    "metrics": {
+      "check": "reflectiz.v1.rating.overall",
+      "metadata_path": "metadata.csv",
+      "prefix":"reflectiz."
+    },
+    "service_checks": {},
+    "source_type_name": "reflectiz",
+    "source_type_id": 0
+  },
+  "logs": {
+    "source": "reflectiz"
+  },
+  "published_app_uuid": "79767e7d-f5db-4528-aeea-1cd68649ccd8",
+  "oauth": "assets/oauth_clients.json"
+}

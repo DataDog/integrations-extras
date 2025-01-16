@@ -1,0 +1,1566 @@
+{
+    "title": "Web Exposure Rating Dashboard",
+    "description": "The Reflectiz Web Exposure Rating Dashboard is your centralized hub for an overview of your Reflectiz Rating Data. This dashboard offers actionable insights to help you manage and secure your websites effectively.",
+    "widgets": [
+        {
+            "id": 4723382333239446,
+            "definition": {
+                "type": "image",
+                "url": "https://storage.googleapis.com/reflectiz_dashboard_assets/icons/reflectiz-logo.svg",
+                "sizing": "cover",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+            }
+        },
+        {
+            "id": 8770568150645394,
+            "definition": {
+                "title": "Website Scan Overview",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6004667212429372,
+                        "definition": {
+                            "title": "Last Scan Per site",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.rating.scan"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.site",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "max",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.scan.number"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                },
+                                                {
+                                                    "facet": "reflectiz.scan",
+                                                    "limit": 1,
+                                                    "sort": {
+                                                        "aggregation": "max",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.scan.number"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "max",
+                                                "metric": "reflectiz.scan.number"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "order_by": [
+                                            {
+                                                "type": "group",
+                                                "name": "reflectiz.site",
+                                                "order": "asc"
+                                            }
+                                        ],
+                                        "count": 100
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "conditional_formats": [
+                                                {
+                                                    "comparator": ">=",
+                                                    "value": 0,
+                                                    "palette": "custom_text",
+                                                    "custom_fg_color": "#ffffff"
+                                                }
+                                            ],
+                                            "alias": " ",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5275395264445716,
+                        "definition": {
+                            "title": "Overall",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.overall{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "avg:reflectiz.v1.rating.industry_overall{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Last Rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Industry Average",
+                                            "formula": "query2"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 3,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5372163421999316,
+                        "definition": {
+                            "title": "Application",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.app{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "avg:reflectiz.v1.rating.industry_app{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Last Rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Industry Average",
+                                            "formula": "query2"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 2,
+                            "width": 3,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 505510616177146,
+                        "definition": {
+                            "title": "Domain",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.domain{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "avg:reflectiz.v1.rating.industry_domain{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Last Rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Industry Average",
+                                            "formula": "query2"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 4,
+                            "width": 3,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 2413695238159134,
+                        "definition": {
+                            "title": "Website Structure",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "avg:reflectiz.v1.rating.industry_site{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "text_formats": [
+                                        [
+                                            {
+                                                "match": {
+                                                    "type": "contains",
+                                                    "value": "_"
+                                                },
+                                                "replace": {
+                                                    "type": "substring",
+                                                    "with": " ",
+                                                    "substring": "_"
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Last Rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Industry Average",
+                                            "formula": "query2"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 4,
+                            "width": 3,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 7
+            }
+        },
+        {
+            "id": 8557320999995208,
+            "definition": {
+                "type": "note",
+                "content": "### About This Dashboard  \n\nWelcome to your Reflectiz **Web Exposure Rating Dashboard**, your centralized hub for an overview of your Reflectiz Rating Data. This dashboard offers actionable insights to help you manage and secure your websites effectively.  \n\n**To get the most accurate and relevant insights**:  \n- **Filter the dashboard by a specific site and scan** to narrow the data to your desired site.  \n  - In the \"Website Scan Overview\" under the \"Last Scan Per SIte\" table, select the latest scan for you desired site.\n  - Then select \"Template Variables\", and set both the reflectiz.site & reflectiz.scan variables\n- **Optional: By selecting a Datadog host, your can review risks associated with any website running on that host.**\n  - Select the host using the filter at the top left of the dashboard\n\n### About the Rating Feature  \n\nExposure Rating is Reflectiz’s innovative grading system to assess risk exposure for websites. With Reflectiz, you can obtain an Exposure Rating for every website, application, and domain in context within your web environments, benchmarked against industry leaders in your sector. \n\nThe Reflectiz Rating system provides a clear and intuitive score between **1 and 4**:  \n- **1** indicates significant risks that require immediate attention.  \n- **4** represents an optimal state with minimal risks.  \n\nEach rating is directly linked to detailed logs, allowing you to drill down into the **risks associated with specific apps or domains**. Simply click on a rating to view the related logs and address any highlighted issues proactively.  \n\nFor more in-depth analysis and additional platform features, visit the [Reflectiz Platform](https://dashboard.reflectiz.com/main/dashboard)\n\nStay informed and take control of your digital landscape with Reflectiz.  \n",
+                "background_color": "white",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 4334706944852306,
+            "definition": {
+                "title": "Website Exposure Rating Over Time",
+                "background_color": "green",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 8045991495905578,
+                        "definition": {
+                            "title": "Overall",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "on_right_yaxis": false,
+                                    "formulas": [
+                                        {
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.overall{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "order_reverse": false,
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.industry_overall{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 12,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 12,
+                "height": 4
+            }
+        },
+        {
+            "id": 7342490101492030,
+            "definition": {
+                "title": "Application Exposure Ratings",
+                "background_color": "purple",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2862856414223010,
+                        "definition": {
+                            "title": "Exposure Rating Per Application",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.app.specific{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site,reflectiz.app}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "text_formats": [
+                                        [],
+                                        [
+                                            {
+                                                "match": {
+                                                    "type": "contains",
+                                                    "value": "_"
+                                                },
+                                                "replace": {
+                                                    "type": "substring",
+                                                    "with": " ",
+                                                    "substring": "_"
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "asc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "link": "/logs?live=false&from_ts={{timestamp_widget_start}}&to_ts={{timestamp_widget_end}}&query=service%3Areflectiz.v1.rating.app.risks%20{{tags}}%20{{$reflectiz.scan}}%20{{$host}}&cols=host,reflectiz.scan",
+                                    "is_hidden": false
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "link": "/infrastructure/map?filter={{$site}}",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 5857755156837230,
+                        "definition": {
+                            "title": "Application Risk Factors",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.rating.app.risks $reflectiz.site $reflectiz.scan"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.rating.risk",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.app"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "reflectiz.app"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{tags}}%20{{$reflectiz.scan}}%20{{$reflectiz.site}}%20{{$host}}&cols=host,reflectiz.app&refresh_mode=sliding&=",
+                                    "is_hidden": false
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 3,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 2698530314167648,
+                        "definition": {
+                            "title": "Website Application Rating Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.app{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.app.specific{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 7,
+                            "y": 0,
+                            "width": 5,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 11,
+                "width": 12,
+                "height": 5
+            }
+        },
+        {
+            "id": 2574992622503050,
+            "definition": {
+                "title": "Domain Exposure Ratings",
+                "background_color": "orange",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2372516461793568,
+                        "definition": {
+                            "title": "Exposure Rating Per Domain",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.domain.specific{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site,reflectiz.domain}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "text_formats": [
+                                        [],
+                                        [
+                                            {
+                                                "match": {
+                                                    "type": "contains",
+                                                    "value": "_"
+                                                },
+                                                "replace": {
+                                                    "type": "substring",
+                                                    "with": " ",
+                                                    "substring": "_"
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "asc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "link": "/logs?live=false&from_ts={{timestamp_widget_start}}&to_ts={{timestamp_widget_end}}&query=service%3Areflectiz.v1.rating.domain.risks%20{{tags}}%20{{$reflectiz.scan}}%20{{$host}}&cols=host,reflectiz.scan&=",
+                                    "is_hidden": false
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 8984861446658380,
+                        "definition": {
+                            "title": "Domain Risk Factors",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.rating.domain.risks $reflectiz.site $reflectiz.scan"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.rating.risk",
+                                                    "limit": 30,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.domain"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "reflectiz.domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 30,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{tags}} {{$reflectiz.scan}} {{$reflectiz.site}} {{$host}}&cols=host%2Creflectiz.domain&refresh_mode=sliding&=",
+                                    "is_hidden": false
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 3,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 3860225726783252,
+                        "definition": {
+                            "title": "Website Domain Rating Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.domain{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.industry_domain{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 7,
+                            "y": 0,
+                            "width": 5,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 16,
+                "width": 12,
+                "height": 5,
+                "is_column_break": true
+            }
+        },
+        {
+            "id": 2112692568259670,
+            "definition": {
+                "title": "Website Structure Ratings",
+                "background_color": "yellow",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 3743884123931340,
+                        "definition": {
+                            "title": "Specific Site Category Rate",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site.specific{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site,reflectiz.structure.category}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "avg:reflectiz.v1.rating.site.numberOfExternalItems{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site,reflectiz.structure.category}",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "avg:reflectiz.v1.rating.site.industry_numberOfExternalItems{$reflectiz.site,$reflectiz.scan,$host} by {reflectiz.site,reflectiz.structure.category}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "text_formats": [
+                                        [],
+                                        [
+                                            {
+                                                "match": {
+                                                    "type": "contains",
+                                                    "value": "_"
+                                                },
+                                                "replace": {
+                                                    "type": "substring",
+                                                    "with": " ",
+                                                    "substring": "_"
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Quantity",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Industry Average",
+                                            "formula": "query3"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "never",
+                            "custom_links": [
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 2563108910818036,
+                        "definition": {
+                            "title": "Website Structure Rating Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Rate",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.industry_site{$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 4920827295690542,
+                        "definition": {
+                            "title": "Number of External Applications Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Number of External Applications",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site.numberOfExternalItems{reflectiz.structure.category:external_applications,$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site.industry_numberOfExternalItems{reflectiz.structure.category:external_applications,$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 299965366194288,
+                        "definition": {
+                            "title": "Number of External Domains Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Number of External Applications",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site.numberOfExternalItems{reflectiz.structure.category:external_domains,$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Industry Average",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.rating.site.industry_numberOfExternalItems{reflectiz.structure.category:external_domains,$reflectiz.site,$host} by {reflectiz.site}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "dashed",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 3,
+                            "width": 6,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 21,
+                "width": 12,
+                "height": 7
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "host",
+            "prefix": "host",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "reflectiz.site",
+            "prefix": "reflectiz.site",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "reflectiz.scan",
+            "prefix": "reflectiz.scan",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "template_variable_presets": [
+        {
+            "name": "Demo View - Dan",
+            "template_variables": [
+                {
+                    "name": "site",
+                    "value": "bank_of_america"
+                },
+                {
+                    "name": "scan",
+                    "value": "bank_of_america-26-11-2024t17h09"
+                }
+            ]
+        }
+    ],
+    "reflow_type": "fixed"
+}

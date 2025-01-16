@@ -1,0 +1,994 @@
+{
+    "title": "Web Exposure Alerts Dashboard",
+    "description": "The Reflectiz Web Exposure Alerts Dashboard is your centralized hub for an overview of your website security risk. This dashboard offers actionable insights based on the Reflectiz Alert System to help you manage and secure your websites effectively.",
+    "widgets": [
+        {
+            "id": 4371570216136478,
+            "definition": {
+                "type": "image",
+                "url": "https://storage.googleapis.com/reflectiz_dashboard_assets/icons/reflectiz-logo.svg",
+                "sizing": "cover",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+            }
+        },
+        {
+            "id": 6992456266808268,
+            "definition": {
+                "title": "Website Scan Overview",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 7201945346144072,
+                        "definition": {
+                            "title": "Last Scan Per site ",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.scan $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.site",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "max",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.scan.number"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                },
+                                                {
+                                                    "facet": "reflectiz.scan",
+                                                    "limit": 1,
+                                                    "sort": {
+                                                        "aggregation": "max",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.scan.number"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "max",
+                                                "metric": "reflectiz.scan.number"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "order_by": [
+                                            {
+                                                "type": "group",
+                                                "name": "reflectiz.site",
+                                                "order": "asc"
+                                            }
+                                        ],
+                                        "count": 100
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "conditional_formats": [
+                                                {
+                                                    "comparator": ">=",
+                                                    "value": 0,
+                                                    "palette": "custom_text",
+                                                    "custom_fg_color": "#ffffff"
+                                                }
+                                            ],
+                                            "alias": " ",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 8257795246937488,
+                        "definition": {
+                            "title": "Number of Alerts Per Site",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:reflectiz.v1.alerts.count{$host} by {reflectiz.site}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 8567490809621014,
+                        "definition": {
+                            "title": "Number of alerts by sites & severity",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:reflectiz.v1.alerts.count{$reflectiz.scan,$reflectiz.site,$host} by {reflectiz.site,reflectiz.alert.severity}",
+                                            "aggregator": "last"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 500,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "number",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "logs",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 3,
+                            "width": 3,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 7
+            }
+        },
+        {
+            "id": 338909376627642,
+            "definition": {
+                "type": "note",
+                "content": "### About This Dashboard  \n\nWelcome to your Reflectiz **Web Exposure Alerts Dashboard**, your centralized hub for an overview of your website security risk. This dashboard offers actionable insights based on the Reflectiz Alert System to help you manage and secure your websites effectively.  \n\n**To get the most accurate and relevant insights**:  \n- **Filter the dashboard by a specific site and scan** to narrow the data to your desired site.  \n  - In the \"Website Scan Overview\" under the \"Last Scan Per SIte\" table, select the latest scan for you desired site.\n  - Then select \"Template Variables\", and set both the reflectiz.site & reflectiz.scan variables.\n- **Optional: By selecting a Datadog host, your can review risks associated with any website running on that host.**\n  - Select the host using the filter at the top left of the dashboard   \n\n### About the Alert Feature  \n\nThe Reflectiz Platform regularly scans your website monitoring all first, third, and fourth-party applications and detects vulnerabilities and risks in your online ecosystem, providing complete visibility over your web threat exposure surface. It effectively prioritizes and remediates risks and compliance issues.\n\nFor more in-depth analysis and additional platform features, visit the [Reflectiz Platform](https://dashboard.reflectiz.com/main/dashboard)\n\nStay informed and take control of your website security with Reflectiz.  \n",
+                "background_color": "white",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 5656103133042632,
+            "definition": {
+                "title": "Alerts Overview",
+                "background_color": "vivid_green",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6807722813633424,
+                        "definition": {
+                            "title": "Alert Status Summary",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.alert.status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 6194218837872282,
+                        "definition": {
+                            "title": "Alert Status Over Time (History)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.alert.status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    }
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 4,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 7318093174580362,
+                        "definition": {
+                            "title": "Alert Severity Summary",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.alert.severity",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "custom_links": [
+                                {
+                                    "override_label": "containers",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "hosts",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "traces",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "profiles",
+                                    "is_hidden": true
+                                },
+                                {
+                                    "override_label": "metrics_summary",
+                                    "is_hidden": true
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 2,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 5909041544988910,
+                        "definition": {
+                            "title": "Alert Severity Over Time (History)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "style": {
+                                                "palette": "warm"
+                                            },
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.alert.severity",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "tags",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 0,
+                            "width": 4,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 2839974490210858,
+                        "definition": {
+                            "type": "note",
+                            "content": "Select any alert type and click on \"View related logs\" to get further detailed information.\n",
+                            "background_color": "green",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 3,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 6417883582867980,
+                        "definition": {
+                            "title": "Domain Related Alerts",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.domain",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 3,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 189217208134948,
+                        "definition": {
+                            "title": "Application Related Alerts",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.app",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    },
+                                                    "should_exclude_missing": true
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 3,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 6433964010879086,
+                        "definition": {
+                            "title": "Alert Category Summary",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "logs",
+                                            "search": {
+                                                "query": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host"
+                                            },
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "reflectiz.alert.category",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "order": "desc",
+                                                        "metric": "reflectiz.alert.id"
+                                                    }
+                                                }
+                                            ],
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "reflectiz.alert.id"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                },
+                                "palette": "dog_classic"
+                            }
+                        },
+                        "layout": {
+                            "x": 9,
+                            "y": 3,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 640414070843296,
+                        "definition": {
+                            "type": "note",
+                            "content": "Select any alert  to get further details.",
+                            "background_color": "yellow",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "bottom",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 5,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 2852668953694896,
+                        "definition": {
+                            "title": "Detailed List Of Alerts",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "event_list",
+                                    "query": {
+                                        "data_source": "logs_stream",
+                                        "query_string": "service:reflectiz.v1.alerts $reflectiz.scan $reflectiz.site $host",
+                                        "indexes": [],
+                                        "storage": "hot",
+                                        "sort": {
+                                            "column": "host",
+                                            "order": "desc"
+                                        }
+                                    },
+                                    "columns": [
+                                        {
+                                            "field": "status_line",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "host",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "reflectiz.site",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "reflectiz.alert.severity",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "reflectiz.alert.category",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "content",
+                                            "width": "auto"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "type": "list_stream"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 6,
+                            "width": 12,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 12,
+                "height": 11,
+                "is_column_break": true
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "host",
+            "prefix": "host",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "reflectiz.site",
+            "prefix": "reflectiz.site",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "reflectiz.scan",
+            "prefix": "reflectiz.scan",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
