@@ -1,0 +1,39 @@
+version: "3"
+
+# Simple service demonstrating the use of resilience4j
+services:
+  resilience4j-demo:
+    container_name: resilience4j
+    image: ghcr.io/willianccs/sample-demo-resilience4j-1.0@sha256:f2c814df19ff41eaf2e0f92ea0b5806cb1e6b9869db62d791ab2f51a3d2a0a84
+    ports:
+      - "9080:9080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    healthcheck:
+      test: curl --fail http://resilience4j-demo:9080/actuator/health || exit 1
+      interval: 40s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+
+  tester:
+    image: alpine
+    depends_on:
+      - resilience4j-demo
+    command: >
+      sh -c "
+        apk add --no-cache curl &&
+        echo 'Requests Success' &&
+        curl -s http://resilience4j-demo:9080/backendA/success &&
+        echo 'Requests Fail' &&
+        for i in 1 2 3 4; do
+          curl -s http://resilience4j-demo:9080/backendA/failure;
+        done &&
+        echo 'Validate Fallback' &&
+        curl -s http://resilience4j-demo:9080/backendA/fallback &&
+        echo 'Circuitbreaker closed' &&
+        for i in 1 2 3; do
+          curl -s http://resilience4j-demo:9080/backendA/success;
+        done
+      "
+    restart: always
