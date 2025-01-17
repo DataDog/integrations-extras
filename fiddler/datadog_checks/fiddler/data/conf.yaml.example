@@ -16,7 +16,7 @@ instances:
     ## @param url - string - required
     ## The Fiddler end point URL
     #
-  - url: <URL>
+  - url: https://example.fiddler.ai
 
     ## @param fiddler_api_key - string - required
     ## The API key for the Fiddler instance
@@ -27,6 +27,29 @@ instances:
     ## The orginization id for the Fiddler instance
     #
     organization: <ORG_ID>
+
+    ## @param bin_size - integer - optional - default: 3600
+    ## The bin size for the Fiddler instance. Options are 300, 3600, 86400, 604800, 2592000.
+    #
+    # bin_size: 3600
+
+    ## @param v1compat - boolean - optional - default: true
+    ## The v1compat to use old metrics names for the Fiddler instance
+    #
+    # v1compat: true
+
+    ## @param enabled_metrics - list of strings - optional
+    ## The enabled metric types for the Fiddler instance.
+    #
+    # enabled_metrics:
+    #   - drift
+    #   - traffic
+    #   - performance
+
+    ## @param delay - integer - optional - default: 300
+    ## The delay to fetch metrics in seconds for the Fiddler instance
+    #
+    # delay: 300
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
