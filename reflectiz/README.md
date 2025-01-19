@@ -5,19 +5,19 @@ Take your website's security monitoring to the next level with the **Reflectiz I
 ### Features of the integration
 
 - Web Exposure Rating: know your security posture
-    - Gain a clear and comprehensive security rating for your website components. The Reflecting Rating feature provides an at-a-glance evaluation of your website's security status, helping you understand where you stand and where improvements are needed.
+    - Gain a clear and comprehensive security rating for your website components. The Reflectiz Rating feature provides an at-a-glance evaluation of your website's security status, helping you understand where you stand and where improvements are needed.
 - Web Exposure Alerts: stay ahead of threats
     - Be informed in real time about potential risks and vulnerabilities. The integration generates detailed alerts that notify you of misconfigurations, suspicious activity, and emerging threats so that you can take immediate action.
 - Seamless integration in Datadog
-    - View both the Reflecting Rating and Risk Alerts directly within your Datadog environment. This allows you to monitor your website's security alongside performance and infrastructure metrics, all in one centralized platform.
+    - View both the Reflectiz Rating and Risk Alerts directly within your Datadog environment. This allows you to monitor your website's security alongside performance and infrastructure metrics, all in one centralized platform.
 - Prioritize what matters most
-    - With the Reflecting Rating and actionable alerts, you can easily identify and prioritize the most critical risks, focusing your efforts on the areas that need attention the most.
+    - With the Reflectiz Rating and actionable alerts, you can easily identify and prioritize the most critical risks, focusing your efforts on the areas that need attention the most.
 
 
 
 ## Setup
 
-Follow these steps to integrate Reflecting Rating with your Datadog account:
+Follow these steps to integrate Reflectiz with your Datadog account:
 
 ### In Datadog
 
