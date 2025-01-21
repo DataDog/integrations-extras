@@ -1,6 +1,6 @@
 {
-  "title": "Zilliz Cloud Dashboard ",
-  "description": "This dashboard provides a comprehensive overview of your Zilliz Cloud cluster's health across several key areas: resource utilization, performance, and data volume. You can clone this template dashboard and make changes by adding your own graph widgets or removing components.",
+  "title": "Zilliz Cloud Dashboard",
+  "description": "This dashboard provides a comprehensive overview of your Zilliz Cloud cluster's health across several key areas: resource utilization, performance, and data volume. You can clone this template dashboard and make changes by adding your own graph widgets or removing components. (cloned)",
   "widgets": [
     {
       "id": 8173685574333292,
@@ -215,7 +215,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.cluster.cu.computation.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.cluster.cu.computation.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -271,7 +271,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.cluster.cu.capacity.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.cluster.cu.capacity.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -329,7 +329,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.cluster.storage.bytes.current{$org_id, $project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.cluster.storage.bytes.current{$org_id, $project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -396,12 +396,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.requests.total{request_type:query,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{request_type:query,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "zilliz.requests.total{request_type:search,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{request_type:search,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -462,22 +462,22 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.requests.total{request_type:insert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{request_type:insert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "zilliz.requests.total{request_type:bulk_insert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "zilliz.requests.total{request_type:bulk_insert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "zilliz.requests.total{request_type:upsert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "zilliz.requests.total{request_type:upsert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "zilliz.requests.total{request_type:delete,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "zilliz.requests.total{request_type:delete,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -519,23 +519,35 @@
                   "formulas": [
                     {
                       "alias": "Query VPS",
-                      "formula": "per_second(query3)"
+                      "formula": "per_second(query3)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     },
                     {
                       "alias": "Search VPS",
-                      "formula": "per_second(query4)"
+                      "formula": "per_second(query4)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "zilliz.request.vectors.total{request_type:query,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:query,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "zilliz.request.vectors.total{request_type:search,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:search,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -577,41 +589,65 @@
                   "formulas": [
                     {
                       "alias": "Insert VPS",
-                      "formula": "per_second(query1)"
+                      "formula": "per_second(query1)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     },
                     {
                       "alias": "Bulk Insert VPS",
-                      "formula": "per_second(query2)"
+                      "formula": "per_second(query2)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     },
                     {
                       "alias": "Upsert VPS",
-                      "formula": "per_second(query3)"
+                      "formula": "per_second(query3)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     },
                     {
                       "alias": "Delete VPS",
-                      "formula": "per_second(query4)"
+                      "formula": "per_second(query4)",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "vectors/s"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.request.vectors.total{request_type:insert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:insert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "zilliz.request.vectors.total{request_type:bulk_insert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:bulk_insert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "zilliz.request.vectors.total{request_type:upsert,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:upsert,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "zilliz.request.vectors.total{request_type:delete,$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.vectors.total{request_type:delete,$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -657,6 +693,10 @@
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
                         }
                       },
                       "formula": "query1"
@@ -665,6 +705,10 @@
                       "alias": "Search (AVG)",
                       "number_format": {
                         "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
@@ -677,6 +721,10 @@
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
                         }
                       },
                       "formula": "query3"
@@ -685,6 +733,10 @@
                       "alias": "Search (P99)",
                       "number_format": {
                         "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
@@ -721,7 +773,7 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "area"
+                  "display_type": "line"
                 }
               ]
             },
@@ -757,6 +809,10 @@
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
                         }
                       },
                       "formula": "query1"
@@ -765,6 +821,10 @@
                       "alias": "Upsert (AVG)",
                       "number_format": {
                         "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
@@ -777,6 +837,10 @@
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
                         }
                       },
                       "formula": "query3"
@@ -784,6 +848,10 @@
                     {
                       "number_format": {
                         "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
@@ -797,6 +865,10 @@
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
                         }
                       },
                       "formula": "query5"
@@ -805,6 +877,10 @@
                       "alias": "Delete (P99)",
                       "number_format": {
                         "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        },
+                        "unit_scale": {
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
@@ -851,7 +927,7 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "area"
+                  "display_type": "line"
                 }
               ]
             },
@@ -889,7 +965,7 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query1 / query2"
+                      "formula": "100 * monotonic_diff(query1)/ monotonic_diff(query2)"
                     },
                     {
                       "alias": "Query",
@@ -899,29 +975,29 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query3 / query4"
+                      "formula": "100 * monotonic_diff(query3) / monotonic_diff(query4)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:search} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id , $cluster_id, status:fail, request_type:search} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:search} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, request_type:search} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:query} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, status:fail, request_type:query} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:query} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, request_type:query} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -969,7 +1045,7 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query1 / query2"
+                      "formula": "100 * monotonic_diff(query1) / monotonic_diff(query2)"
                     },
                     {
                       "alias": "Bulk Insert",
@@ -979,7 +1055,7 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query3 / query4"
+                      "formula": "100 * monotonic_diff(query3)/ monotonic_diff(query4)"
                     },
                     {
                       "alias": "Upsert",
@@ -989,7 +1065,7 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query5 / query6"
+                      "formula": "100 * monotonic_diff(query5) / monotonic_diff(query6)"
                     },
                     {
                       "alias": "Delete",
@@ -999,49 +1075,49 @@
                           "unit_name": "percent"
                         }
                       },
-                      "formula": "100 * query7 / query8"
+                      "formula": "100 * monotonic_diff(query7) / monotonic_diff(query8)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:insert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, status:fail , request_type:insert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:insert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, request_type:insert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:bulk_insert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id, $project_id, $cluster_id, status:fail, request_type:bulk_insert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:bulk_insert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id, $cluster_id, request_type:bulk_insert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:upsert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id, $cluster_id, status:fail, request_type:upsert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query6",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:upsert} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id, $cluster_id, request_type:upsert} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query7",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , status:fail , request_type:delete} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id, $cluster_id, status:fail, request_type:delete} by {cluster_id}.as_count().rollup(avg, 60)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query8",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:delete} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id, $cluster_id, request_type:delete} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1089,14 +1165,14 @@
                         }
                       },
                       "alias": "Slow Query Count",
-                      "formula": "per_second(query1) * 60"
+                      "formula": "monotonic_diff(query1)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.request.slow.queries.total{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "sum:zilliz.request.slow.queries.total{$org_id,$project_id,$cluster_id} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1151,7 +1227,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.cluster.write.performance.capacity.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.cluster.write.performance.capacity.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1199,14 +1275,14 @@
                         }
                       },
                       "alias": "Number of Flush Operations",
-                      "formula": "per_second(query1) * 60"
+                      "formula": "monotonic_diff(query1)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:flush , status:success} by {cluster_id}"
+                      "query": "sum:zilliz.requests.total{$org_id , $project_id , $cluster_id , request_type:flush , status:success} by {cluster_id}.as_count().rollup(avg, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1278,7 +1354,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.collections.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.collections.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1332,7 +1408,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.unloaded.collections.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.unloaded.collections.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1382,7 +1458,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.entities.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.entities.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1432,7 +1508,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "zilliz.loaded.entities.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+                      "query": "avg:zilliz.loaded.entities.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
                     }
                   ],
                   "response_format": "timeseries",

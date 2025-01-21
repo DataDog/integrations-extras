@@ -37,7 +37,7 @@ Modal does not include any events.
 
 ### Metrics
 
-There are no metrics collected for this integration.
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 
 ## Uninstallation
@@ -62,4 +62,5 @@ Need help? Contact [Modal support][3].
 [2]: https://app.datadoghq.com/integrations?integrationId=modal
 [3]: mailto:support@modal.com
 [4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Modal
+[5]: https://github.com/DataDog/integrations-extras/blob/master/modal/metadata.csv
 
