@@ -9,6 +9,6 @@
 
 ## 1.0.1 / 2025-01-20
 
-***Replaced***:
+***Changed***:
 
-* Replaced previous dashboard with a new version, 3.0
+* Changed previous dashboard with a new version, 3.0
