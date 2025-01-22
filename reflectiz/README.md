@@ -108,7 +108,7 @@ These logs focus on risks related to domains, providing a clear picture of domai
 
 
 ### Metrics
-See [metadata.csv][add link] for a list of metrics provided by this integration.
+See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ## Support
 For support or feature requests, contact Reflectiz through the following channels:
@@ -122,3 +122,4 @@ For support or feature requests, contact Reflectiz through the following channel
 [3]: mailto:inbound@reflectiz.com
 [4]: https://reflectiz.com
 [5]: https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz
+[6]: https://storage.googleapis.com/reflectiz_dashboard_assets/datadog-metadata.csv
