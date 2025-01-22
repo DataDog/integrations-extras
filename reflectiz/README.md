@@ -1,6 +1,8 @@
 ## Overview
 
-Take your website's security monitoring to the next level with the **Reflectiz Integration** for Datadog. This integration provides the **Web Exposure Rating** and **Web Exposure Alerts** features, giving you the tools to assess and respond to potential security risks on your website.
+Reflectiz’s innovative agentless solution monitors and detects vulnerabilities in all 1st, 3rd, and 4th party applications within your online ecosystems, offering complete visibility into your web risk exposure surface. It effectively prioritizes and remediates risks and compliance issues using its proprietary exposure rating system.
+With the **Reflectiz Integration** for Datadog, you can elevate your website's security to the next level. This integration introduces the **Web Exposure Rating** and **Web Exposure Alerts** features, enabling you to proactively assess and address potential security risks on your website.  
+The integration provides a combination of logs and metrics to support both rating and alerts.
 
 ### Features of the integration
 
@@ -26,7 +28,7 @@ Follow these steps to integrate Reflectiz with your Datadog account:
 1. Enter your Reflectiz credentials to access your account.
 2. Choose the appropriate license for the integration.
 
-Once you complete these steps, your Reflectiz Dashboards are available in Datadog.
+Once this flow is complete, Web Exposure Alerts and Rating data are available within the included dashboards.
 
 ### Link Reflectiz sites with hosts
 
@@ -44,7 +46,7 @@ Once you complete these steps, all Metrics and Logs sent by the Reflectiz integr
 To uninstall the Reflectiz integration from Datadog:
 
 - From the integration tile, select **Uninstall Integration**. 
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page](https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz).
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
 These steps fully remove the Reflectiz integration from your Datadog account.
 
@@ -119,3 +121,4 @@ For support or feature requests, contact Reflectiz through the following channel
 [2]: mailto:support@reflectiz.com
 [3]: mailto:inbound@reflectiz.com
 [4]: https://reflectiz.com
+[5]: https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz
