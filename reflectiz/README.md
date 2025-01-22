@@ -1,6 +1,6 @@
 ## Overview
 
-Reflectiz’s innovative agentless solution monitors and detects vulnerabilities in all 1st, 3rd, and 4th party applications within your online ecosystems, offering complete visibility into your web risk exposure surface. It effectively prioritizes and remediates risks and compliance issues using its proprietary exposure rating system.
+Reflectiz's innovative agentless solution monitors and detects vulnerabilities in all 1st, 3rd, and 4th party applications within your online ecosystems, offering complete visibility into your web risk exposure surface. It effectively prioritizes and remediates risks and compliance issues using its proprietary exposure rating system.  
 With the **Reflectiz Integration** for Datadog, you can elevate your website's security to the next level. This integration introduces the **Web Exposure Rating** and **Web Exposure Alerts** features, enabling you to proactively assess and address potential security risks on your website.  
 The integration provides a combination of logs and metrics to support both rating and alerts.
 
