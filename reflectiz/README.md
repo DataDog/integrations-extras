@@ -4,14 +4,10 @@ Take your website's security monitoring to the next level with the **Reflectiz I
 
 ### Features of the integration
 
-- Web Exposure Rating: know your security posture
-    - Gain a clear and comprehensive security rating for your website components. The Reflectiz Rating feature provides an at-a-glance evaluation of your website's security status, helping you understand where you stand and where improvements are needed.
-- Web Exposure Alerts: stay ahead of threats
-    - Be informed in real time about potential risks and vulnerabilities. The integration generates detailed alerts that notify you of misconfigurations, suspicious activity, and emerging threats so that you can take immediate action.
-- Seamless integration in Datadog
-    - View both the Reflectiz Rating and Risk Alerts directly within your Datadog environment. This allows you to monitor your website's security alongside performance and infrastructure metrics, all in one centralized platform.
-- Prioritize what matters most
-    - With the Reflectiz Rating and actionable alerts, you can easily identify and prioritize the most critical risks, focusing your efforts on the areas that need attention the most.
+- **Web Exposure Rating**: Gain a clear and comprehensive security rating for your website components. The Reflectiz Rating feature provides an at-a-glance evaluation of your website's security status, helping you understand where you stand and where improvements are needed.
+- **Web Exposure Alerts**: Be informed in real time about potential risks and vulnerabilities. The integration generates detailed alerts that notify you of misconfigurations, suspicious activity, and emerging threats so that you can take immediate action.
+- **Seamless integration with Datadog**: View both the Reflectiz Rating and Risk Alerts directly within your Datadog environment. This allows you to monitor your website's security alongside performance and infrastructure metrics, all in one centralized platform.
+- **Prioritize what matters most**: With the Reflectiz Rating and actionable alerts, you can easily identify and prioritize the most critical risks, focusing your efforts on the areas that need attention the most.
 
 
 
@@ -21,7 +17,7 @@ Follow these steps to integrate Reflectiz with your Datadog account:
 
 ### In Datadog
 
-1. Go to the **Integrations** section of your Datadog dashboard.
+1. Navigate to the **Integrations** tab in Datadog.
 2. Find the **Reflectiz** tile and click **Install Integration**.
 3. Click **Connect Accounts** to start the authorization process, which redirects you to the Reflectiz Platform.
 
@@ -47,10 +43,8 @@ Once you complete these steps, all Metrics and Logs sent by the Reflectiz integr
 
 To uninstall the Reflectiz integration from Datadog:
 
-1. Open your Datadog dashboard and navigate to the **Integrations** section.
-2. Find the **Reflectiz** tile in the list of installed integrations.
-3. Click on the integration tile and select **Uninstall Integration**.
-4. Delete the API key associated with Reflectiz from your Datadog account. This ensures the integration no longer has access to your data.
+- From the integration tile, select **Uninstall Integration**. 
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page](https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz).
 
 These steps fully remove the Reflectiz integration from your Datadog account.
 
@@ -112,7 +106,7 @@ These logs focus on risks related to domains, providing a clear picture of domai
 
 
 ### Metrics
-The Reflectiz integration does not include any metrics.
+See [metadata.csv][add link] for a list of metrics provided by this integration.
 
 ## Support
 For support or feature requests, contact Reflectiz through the following channels:

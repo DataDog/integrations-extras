@@ -1,6 +1,6 @@
 {
   "manifest_version": "2.0.0",
-  "display_on_public_website": false,
+  "display_on_public_website": true,
   "app_id": "reflectiz",
   "app_uuid": "79767e7d-f5db-4528-aeea-1cd68649ccd8",
   "tile": {
@@ -14,16 +14,24 @@
     "media": [
       {
         "media_type": "image",
-        "caption": "Web Exposure Alerts Dashboard",
-        "image_url": "images/dashboard_1.png"
+        "caption": "Web Exposure Rating Dashboard",
+        "image_url": "images/dashboard_2.png"
       },
       {
         "media_type": "image",
-        "caption": "Web Exposure Rating Dashboard",
-        "image_url": "images/dashboard_2.png"
+        "caption": "Web Exposure Alerts Dashboard",
+        "image_url": "images/dashboard_1.png"
       }
     ],
-    "classifier_tags": ["Category::Security", "Offering::Integration"]
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Security", 
+      "Submitted Data Type::Metrics”,
+      [..any other submitted data...]
+      "Offering::Integration"
+    ]
   },
   "author": {
     "homepage": "https://www.reflectiz.com/",
@@ -32,17 +40,13 @@
     "support_email": "support@reflectiz.com",
     "contact_link": "https://www.reflectiz.com/"
   },
-  "pricing": [],
-  "legal_terms": {
-    "eula": "assets/eula.pdf"
-  },
   "assets": {
     "dashboards": {
       "web exposure alerts dashboard": "assets/dashboards/WebExposureAlertsDashboard.json",
       "web exposure rating dashboard": "assets/dashboards/WebExposureRatingDashboard.json"
     },
     "integration": {
-      "auto_install": false,
+      "auto_install": true,
       "configuration": {},
       "events": {
         "creates_events": false
