@@ -7,8 +7,8 @@
 
 * adds ActiveLock integration.
 
-## 1.0.1 / 2025-01-20
+## 1.1.0 / 2025-01-27
 
-***Changed***:
+***Added***:
 
-* Changed previous dashboard with a new version, 3.0
+* Log widget in dashboard showing [insert details]
