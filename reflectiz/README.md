@@ -1,7 +1,9 @@
 ## Overview
 
 Reflectiz's innovative agentless solution monitors and detects vulnerabilities in all 1st, 3rd, and 4th party applications within your online ecosystems, offering complete visibility into your web risk exposure surface. It effectively prioritizes and remediates risks and compliance issues using its proprietary exposure rating system.  
+
 With the **Reflectiz Integration** for Datadog, you can elevate your website's security to the next level. This integration introduces the **Web Exposure Rating** and **Web Exposure Alerts** features, enabling you to proactively assess and address potential security risks on your website.  
+
 The integration provides a combination of logs and metrics to support both rating and alerts.
 
 ### Features of the integration
@@ -10,8 +12,6 @@ The integration provides a combination of logs and metrics to support both ratin
 - **Web Exposure Alerts**: Be informed in real time about potential risks and vulnerabilities. The integration generates detailed alerts that notify you of misconfigurations, suspicious activity, and emerging threats so that you can take immediate action.
 - **Seamless integration with Datadog**: View both the Reflectiz Rating and Risk Alerts directly within your Datadog environment. This allows you to monitor your website's security alongside performance and infrastructure metrics, all in one centralized platform.
 - **Prioritize what matters most**: With the Reflectiz Rating and actionable alerts, you can easily identify and prioritize the most critical risks, focusing your efforts on the areas that need attention the most.
-
-
 
 ## Setup
 
@@ -45,8 +45,9 @@ Once you complete these steps, all Metrics and Logs sent by the Reflectiz integr
 
 To uninstall the Reflectiz integration from Datadog:
 
-- From the integration tile, select **Uninstall Integration**. 
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
+From the integration tile, select **Uninstall Integration**. 
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
 These steps fully remove the Reflectiz integration from your Datadog account.
 
@@ -122,4 +123,4 @@ For support or feature requests, contact Reflectiz through the following channel
 [3]: mailto:inbound@reflectiz.com
 [4]: https://reflectiz.com
 [5]: https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz
-[6]: https://storage.googleapis.com/reflectiz_dashboard_assets/datadog-metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/reflectiz/metadata.csv
