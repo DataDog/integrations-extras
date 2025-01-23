@@ -1,0 +1,403 @@
+{
+  "title": "AppOmni Events Overview",
+  "description": "**AppOmni Events Overview Dashboard**\n\n- Displays all your SaaS events and alerts normalized in one dashboard.  \n\n- You can filter on event/alert, SaaS service type, user, and country",
+  "widgets": [
+    {
+      "id": 5412301703578204,
+      "definition": {
+        "type": "image",
+        "url": "/api/v2/images/38c33698-a40b-471e-bdab-76f554ac337d",
+        "url_dark_theme": "",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 3
+      }
+    },
+    {
+      "id": 518061327342746,
+      "definition": {
+        "title": "Events by Service",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": {
+                  "query": "$User_Name $Country_ISO_Code $SaaS_Service_Type $Event_or_Alert"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "service",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "storage": "hot"
+              }
+            ],
+            "style": {
+              "palette": "datadog16"
+            },
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 10,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend": {
+          "type": "automatic"
+        }
+      },
+      "layout": {
+        "x": 2,
+        "y": 0,
+        "width": 2,
+        "height": 3
+      }
+    },
+    {
+      "id": 1333822087124128,
+      "definition": {
+        "title": "Events by Service Type over Time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "$SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "service",
+                    "limit": 15,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "semantic",
+              "order_by": "values",
+              "color_order": "shuffled",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 7535885019244166,
+      "definition": {
+        "title": "Events Country Origin",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "geomap",
+        "requests": [
+          {
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "$SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@network.client.ip.ipAddress.country.iso_code",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "scalar",
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 100,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "style": {
+          "palette": "hostmap_blues",
+          "palette_flip": false
+        },
+        "view": {
+          "focus": "WORLD"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 6,
+        "height": 6
+      }
+    },
+    {
+      "id": 5495935400315332,
+      "definition": {
+        "title": "User and Service Event Count",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:appomni $SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@usr.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  },
+                  {
+                    "facet": "source",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "scalar",
+            "sort": {
+              "count": 100,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            },
+            "formulas": [
+              {
+                "cell_display_mode": "bar",
+                "formula": "query1"
+              }
+            ]
+          }
+        ],
+        "has_search_bar": "auto"
+      },
+      "layout": {
+        "x": 6,
+        "y": 3,
+        "width": 6,
+        "height": 6
+      }
+    },
+    {
+      "id": 7882315609713116,
+      "definition": {
+        "title": "Alert Severity",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "@appomni.event.kind:alert $Event_or_Alert $SaaS_Service_Type $User_Name"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@status",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    }
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "style": {
+              "palette": "semantic"
+            },
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 10,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "type": "sunburst",
+        "hide_total": false,
+        "legend": {
+          "type": "table"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 9,
+        "width": 12,
+        "height": 3
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "User_Name",
+      "prefix": "@usr.name",
+      "default": "*"
+    },
+    {
+      "name": "SaaS_Service_Type",
+      "prefix": "service",
+      "default": "*"
+    },
+    {
+      "name": "Country_ISO_Code",
+      "prefix": "@network.client.geoip.country.iso_code",
+      "default": "*"
+    },
+    {
+      "name": "Event_or_Alert",
+      "prefix": "@appomni.event.kind",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
