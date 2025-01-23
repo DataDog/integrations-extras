@@ -11,4 +11,4 @@
 
 ***Added***:
 
-* Log widget in dashboard showing [insert details]
+* Log widget in dashboard showing @action:lock items as Lock actions.
