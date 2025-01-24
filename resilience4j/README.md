@@ -25,7 +25,7 @@ To install the Resilience4j check on your host:
 
 ### Configuration
 
-1. Edit the `resilience4j/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Resilience4j performance data. See the [sample resilience4j/conf.yaml][4] for all available configuration options.
+1. Edit the `resilience4j/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Resilience4j performance data. See the [sample resilience4j/conf.yaml][4] for all available configuration options.
 
 2. [Restart the Agent][5].
 
