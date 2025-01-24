@@ -1,5 +1,3 @@
-version: "3"
-
 # Simple service demonstrating the use of resilience4j
 services:
   resilience4j-demo:
@@ -10,11 +8,11 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     healthcheck:
-      test: curl --fail http://resilience4j-demo:9080/actuator/health || exit 1
-      interval: 40s
-      timeout: 30s
+      test: curl --fail http://localhost:9080/actuator/health || exit 1
+      interval: 5s
+      timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 10s
 
   tester:
     image: alpine
@@ -23,6 +21,10 @@ services:
     command: >
       sh -c "
         apk add --no-cache curl &&
+        until curl --fail http://resilience4j-demo:9080/actuator/health; do
+          echo 'Waiting for resilience4j-demo to be healthy...';
+          sleep 5;
+        done;
         echo 'Requests Success' &&
         curl -s http://resilience4j-demo:9080/backendA/success &&
         echo 'Requests Fail' &&
@@ -34,6 +36,6 @@ services:
         echo 'Circuitbreaker closed' &&
         for i in 1 2 3; do
           curl -s http://resilience4j-demo:9080/backendA/success;
-        done
+        done &&
+        echo 'Finished resilience4j-demo tests'
       "
-    restart: always

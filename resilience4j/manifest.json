@@ -18,6 +18,12 @@
       "Supported OS::Linux",
       "Supported OS::macOS",
       "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://resilience4j.readme.io/docs/getting-started"
+      }
     ]
   },
   "assets": {
@@ -33,7 +39,7 @@
       },
       "metrics": {
         "prefix": "resilience4j.",
-        "check": "",
+        "check": "resilience4j.circuitbreaker.state",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
@@ -46,8 +52,7 @@
     "monitors": {
       "Circuit Breaker State Alert": "assets/monitors/circuitbreaker_state_open.json",
       "Circuit Breaker State Alert with Slow Calls": "assets/monitors/circuitbreaker_state_open_slow_calls.json"
-    },
-    "saved_views": {}
+    }
   },
   "author": {
     "support_email": "willianccs@gmail.com",

@@ -24,8 +24,9 @@ EXPECTED_PROMETHEUS_METRICS = {
     "resilience4j.timelimiter.calls",
 }
 
+
 @pytest.mark.integration
-def test_check(dd_run_check, aggregator, check):
+def test_check(dd_run_check, aggregator, check, mock_prometheus_metrics):
     dd_run_check(check)
     for metric_name in EXPECTED_PROMETHEUS_METRICS:
         aggregator.assert_metric(metric_name, at_least=0)

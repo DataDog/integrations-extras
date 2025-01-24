@@ -1,4 +1,4 @@
-from datadog_checks.base import OpenMetricsBaseCheck, ConfigurationError
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
 from .metrics import METRIC_MAP
 
