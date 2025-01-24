@@ -1,5 +1,9 @@
 # CHANGELOG - Redis Enterprise
 
+## 1.1.1 / 2025-01-21
+
+* Represent used memory in percent in Shard and Database dashboards
+
 ## 1.1.0 / 2024-10-06
 
 ***Changed***:

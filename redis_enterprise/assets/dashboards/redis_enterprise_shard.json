@@ -120,11 +120,23 @@
                       "name": "query1",
                       "query": "avg:rdse.redis_used_memory{$cluster, $bdb}",
                       "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.redis_maxmemory{$cluster, $bdb}",
+                      "aggregator": "avg"
                     }
                   ],
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1 / query2 * 100"
                     }
                   ]
                 }
