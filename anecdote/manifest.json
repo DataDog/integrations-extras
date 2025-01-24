@@ -1,0 +1,81 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "35d64545-cee9-4eb6-98be-65cb9fdd944a",
+  "app_id": "anecdote",
+  "display_on_public_website": true,
+   "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "uninstallation": "README.md#Uninstallation",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor bugs reported by your customers in your customer feedback in your DataDog dashboard.",
+    "title": "Anecdote",
+    "media":[
+  {
+    "media_type": "image",
+    "caption": "Overview of customer-reported bugs.",
+    "image_url": "images/1.png"
+  },
+  {
+    "media_type": "image",
+    "caption": "Prioritize bug resolution.",
+    "image_url": "images/2.png"
+  },
+  {
+    "media_type": "image",
+    "caption": "Metadata on customer feedback.",
+    "image_url": "images/4.png"
+  },
+  {
+    "media_type": "image",
+    "caption": "Real-time feedback alerts.",
+    "image_url": "images/3.png"
+  }
+]
+,
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Category::Log Collection",
+      "Submitted Data Type::Metrics",
+      "Category::Event Management",
+      "Submitted Data Type::Logs",
+      "Submitted Data Type::Events",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards":  {
+      "Anecdote: Bug Reports": "assets/dashboards/anecdote_bug_reports.json"
+    },
+    "oauth": "assets/oauth_clients.json",
+    "integration": {
+      "auto_install": true,
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "prefix": "anecdote.",
+        "check": "anecdote.feedback.App_Store"
+    },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_name": "Anecdote",
+      "source_type_id": 27474989
+    }
+  },
+  "author": {
+    "support_email": "hello@anec.app",
+    "name": "Anecdote",
+    "homepage": "https://anecdoteai.com/",
+    "sales_email": "abed@anec.app"
+  }
+}
