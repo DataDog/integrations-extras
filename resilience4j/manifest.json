@@ -8,34 +8,16 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "<FILL IN - A brief description of what this offering provides>",
+    "description": "Resilience4j is a lightweight fault tolerance library designed for functional programming. Resilience4j provides higher-order functions (decorators) to enhance any functional interface, lambda expression or method reference with a Circuit Breaker, Rate Limiter, Retry or Bulkhead.",
     "title": "Resilience4j",
-    "media": [
-      {
-        "media_type": "image",
-        "caption": "FILL IN Image 1 caption",
-        "image_url": "<FILL IN>"
-      },
-      {
-        "media_type": "image",
-        "caption": "FILL IN Image 2 caption",
-        "image_url": "<FILL IN>"
-      },
-      {
-        "media_type": "image",
-        "caption": "FILL IN Image 3 caption",
-        "image_url": "<FILL IN>"
-      }
-    ],
+    "media": [],
     "classifier_tags": [
-      "<Add relevant tags from this list: https://docs.datadoghq.com/developers/integrations/check_references/#classifier-tags>",
+      "Category::Metrics",
+      "Category::Alerting",
+      "Offering::Integration",
       "Supported OS::Linux",
-      "Supported OS::Windows",
       "Supported OS::macOS",
-      "Category::<FILL IN>",
-      "Offering::<FILL IN>",
-      "Queried Data Type::<FILL IN>",
-      "Submitted Data Type::<FILL IN>"
+      "Supported OS::Windows"
     ]
   },
   "assets": {
@@ -59,15 +41,18 @@
       }
     },
     "dashboards": {
-        "<FILL IN dashboard short_name ex: integration name overview>": "assets/dashboards/<FILL IN>.json"
+        "resilience4j-overview": "assets/dashboards/resilience4j_overview.json"
     },
-    "monitors": {},
+    "monitors": {
+      "Circuit Breaker State Alert": "assets/monitors/circuitbreaker_state_open.json",
+      "Circuit Breaker State Alert with Slow Calls": "assets/monitors/circuitbreaker_state_open_slow_calls.json"
+    },
     "saved_views": {}
   },
   "author": {
     "support_email": "willianccs@gmail.com",
     "name": "Willian César Cincerre da Silva",
-    "homepage": "",
-    "sales_email": ""
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "willian@appoena.io"
   }
 }
