@@ -2,15 +2,15 @@
 
 ## 4.0.0 / 2025-01-28
 
-***Changed***
-
-* Changed to using v3 queries and metrics APIs.
-* Updated configuration/spec.yaml to make the integration more configurable.
-
 ***Added***
 
 * Added new metric names to metadata
 * Added new dashboard to work with the new metric names
+
+***Changed***
+
+* Changed to using v3 queries and metrics APIs.
+* Updated configuration/spec.yaml to make the integration more configurable.
 
 ***Deprecated***
 
