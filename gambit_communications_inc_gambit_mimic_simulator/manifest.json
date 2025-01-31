@@ -43,24 +43,37 @@
       "Offering::Integration",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Queried Data Type::Traces",
-      "Queried Data Type::Incidents",
-      "Queried Data Type::Events",
-      "Queried Data Type::Metrics",
-      "Queried Data Type::Logs"
+      "Submitted Data Type::Metrics"
     ]
   },
   "oauth": {},
   "author": {
     "support_email": "support@gambitcomm.com",
     "name": "Gambit Communications Inc.",
-    "homepage": "http://www.gambitcomm.com",
+    "homepage": "https://www.gambitcomm.com",
     "sales_email": "sales@gambitcomm.com",
     "vendor_id": "gambit-communications-inc"
   },
   "assets": {
     "dashboards": {
-      "NetFlow VOIP Monitoring": "assets/dashboards/netflow_voip_monitoring.json"
+      "Call Monitoring": "assets/dashboards/call_monitoring.json",
+      "MIMIC Simulator": "assets/dashboards/mimic_simulator.json"
+    },
+    "integration": {
+      "source_type_name": "gambit_mimic_simulator",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "GambitMimic",
+        "check": [
+          "GambitMimic"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 34323011
     }
   }
 }
