@@ -76,7 +76,7 @@ RUN agent integration install -r -w <DESTINATION>/<WHEEL_PACKAGE_NAME> \
 
 Run the Agent's [status subcommand][5] and look for `typha` under the Checks section.
 
-For containerized environment:
+For a containerized environment, use the following command:
 
 ```sh
 kubectl exec -it <DATADOG_POD> -n <NAMESPACE> -- agent status
