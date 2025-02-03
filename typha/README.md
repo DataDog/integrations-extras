@@ -13,7 +13,7 @@ TYPHA_PROMETHEUSMETRICSENABLED: "true"
 TYPHA_PROMETHEUSMETRICSPORT: "9093"
 ```
 
-See the official [documentation][2] for more information.
+See [Configuring Typha][2] for more information.
 
 ## Setup
 
