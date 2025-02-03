@@ -74,7 +74,7 @@ RUN agent integration install -r -w <DESTINATION>/<WHEEL_PACKAGE_NAME> \
 
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `typha` under the Checks section.
+Run the Agent's [status subcommand][5] and look for `typha` under the Checks section.
 
 For containerized environment:
 
