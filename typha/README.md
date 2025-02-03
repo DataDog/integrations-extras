@@ -4,7 +4,7 @@
 
 This check monitors [Typha][1] to collect Prometheus metrics through the Datadog Agent.
 
-## Enabling Prometheus Metrics
+## Enabling Prometheus metrics
 
 To enable Prometheus metrics, configure the following variables in the `Typha` deployment:
 
