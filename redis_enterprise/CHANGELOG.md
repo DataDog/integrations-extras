@@ -4,7 +4,7 @@
 
 ***Changed***:
 
-* Represent used memory as a percentage percent in Shard and Database dashboards
+* Represent used memory as a percentage in Shard and Database dashboards
 
 ## 1.1.0 / 2024-10-06
 
