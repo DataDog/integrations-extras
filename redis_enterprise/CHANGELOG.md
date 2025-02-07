@@ -1,5 +1,15 @@
 # CHANGELOG - Redis Enterprise
 
+## 2.0.0 / 2025-02-28
+
+***Changed***:
+
+* Renamed Groups
+
+***Added***:
+
+* Added Security Dashboard
+
 ## 1.1.0 / 2024-10-06
 
 ***Changed***:
