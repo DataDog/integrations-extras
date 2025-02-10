@@ -1,0 +1,161 @@
+{
+  "title": "Downdetector Dashboard",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 7998092961513330,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "event_list",
+            "query": {
+              "query_string": "source:downdetector",
+              "data_source": "event_stream",
+              "event_size": "l"
+            },
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 9,
+        "height": 5
+      }
+    },
+    {
+      "id": 3616480667402272,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn2.downdetector.com/logo-dark.svg",
+        "sizing": "contain",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 9,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 2252714542318974,
+      "definition": {
+        "title": "Current outages",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "check_status",
+        "check": "downdetector",
+        "grouping": "cluster",
+        "group_by": [
+          "company"
+        ],
+        "tags": []
+      },
+      "layout": {
+        "x": 9,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 6372417587982684,
+      "definition": {
+        "title": "Outage list",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "@title",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": "source:downdetector status:error"
+                }
+              }
+            ],
+            "response_format": "scalar",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 25,
+                "palette": "white_on_red"
+              },
+              {
+                "comparator": ">",
+                "value": 15,
+                "palette": "white_on_yellow"
+              },
+              {
+                "comparator": "<",
+                "value": 15,
+                "palette": "white_on_green"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 50,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "style": {
+          "display": {
+            "type": "stacked",
+            "legend": "automatic"
+          },
+          "palette": "dog_classic",
+          "scaling": "relative"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 9,
+        "height": 3
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
