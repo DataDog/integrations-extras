@@ -4,17 +4,17 @@
 
 ***Changed***:
 
-* Changed to using v3 queries and metrics APIs. ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
-* Updated configuration/spec.yaml to make the integration more configurable. ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
+* Migrated to v3 queries and metrics APIs ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
+* Updated configuration/spec.yaml to make the integration more configurable ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
 
 ***Deprecated***:
 
-* Old metric names and v1compat flag in config are deprecated. ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
+* Deprecated old metric names and the v1compat flag in configuration ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
 
 ***Added***:
 
-* Added new metric names to metadata. ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
-* Added new dashboard to work with the new metric names. ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
+* Introduced new metric names ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
+* Added a new dashboard to support the new metric names ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
 
 ## 3.0.0 / 2024-03-06
 
