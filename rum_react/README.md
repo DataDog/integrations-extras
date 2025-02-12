@@ -2,65 +2,152 @@
 
 ## Overview
 
-With the Datadog [React integration][1], resolve performance issues quickly in React components by:
+With the Datadog RUM React integration, resolve performance issues quickly in React components by:
 
 - Debugging the root cause of performance bottlenecks, such as a slow server response time, render-blocking resource, or an error inside a component
-- Automatically correlating React performance data with user journeys, AJAX calls to the server side, and logs
-- Alerting your engineering teams when crucial performance metrics for React (such as Core Web Vitals) fall below a threshold that results in a poor user experience
-
+- Automatically correlating Web performance data with user journeys, HTTP calls, and logs
+- Alerting your engineering teams when crucial Web performance metrics (such as Core Web Vitals) fall below a threshold that results in a poor user experience
 
 Monitor your React applications from end-to-end by:
 
 - Tracking and visualizing user journeys across your entire stack
-- Debugging the root cause of slow load times, which may be an issue with your React code, network performance, or underlying infrastructure 
+- Debugging the root cause of slow load times, which may be an issue with your React code, network performance, or underlying infrastructure
 - Analyzing and contextualizing every user session with attributes such as user ID, email, name, and more
 - Unifying full-stack monitoring in one platform for frontend and backend development teams
 
 ## Setup
 
-### Collect RUM events 
+First, make sure to [setup Datadog RUM][1] in your application.
 
-To start collecting Real User Monitoring events from your React application, see [React Monitoring][2].
+Then, install the `@datadog/browser-rum-react` NPM package using your package manager of choice. For example:
 
-### Collect traces 
+```bash
+npm install @datadog/browser-rum-react
+```
 
-Your React application automatically sends traces to Datadog.
+Finally, pass the `reactPlugin` to the `plugins` option of the `datadogRum.init` method:
 
-### Collect logs 
+```javascript
+import { datadogRum } from '@datadog/browser-rum'
+import { reactPlugin } from '@datadog/browser-rum-react'
 
-To start forwarding your React application's logs to Datadog, see [React Log Collection][3].
+datadogRum.init({
+  ...
+  plugins: [reactPlugin()],
+})
+```
 
-## Data Collected
+## Error Tracking
+
+To track React component rendering errors, use one of the following:
+
+- An `ErrorBoundary` component (see [React documentation][1]) that catches errors and reports them to Datadog.
+- A function that you can use to report errors from your own `ErrorBoundary` component.
+
+#### `ErrorBoundary` usage
+
+```javascript
+import { ErrorBoundary } from '@datadog/browser-rum-react'
+
+function App() {
+  return (
+    <ErrorBoundary fallback={ErrorFallback}>
+      <MyComponent />
+    </ErrorBoundary>
+  )
+}
+
+function ErrorFallback({ resetError, error }: { resetError: () => void; error: unknown }) {
+  return (
+    <p>
+      Oops, something went wrong! <strong>{String(error)}</strong> <button onClick={resetError}>Retry</button>
+    </p>
+  )
+}
+```
+
+### Reporting React errors from your own `ErrorBoundary`
+
+```javascript
+import { addReactError } from '@datadog/browser-rum-react'
+
+class MyErrorBoundary extends React.Component {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    addReactError(error, errorInfo)
+  }
+
+  render() {
+    ...
+  }
+}
+```
+
+## React Router integration
+
+`react-router` v6 allows you to declare routes using the following methods:
+
+- Create routers with [`createMemoryRouter`][3], [`createHashRouter`][4], or [`createBrowserRouter`][5] functions.
+- Use the [`useRoutes`][6] hook.
+- Use the [`Routes`][7] component.
+
+To track route changes with the Datadog RUM Browser SDK, first initialize the `reactPlugin` with the `router: true` option, then replace those functions with their equivalent from `@datadog/browser-rum-react/react-router-v6`. Example:
+
+```javascript
+import { RouterProvider } from 'react-router-dom'
+import { datadogRum } from '@datadog/browser-rum'
+import { reactPlugin } from '@datadog/browser-rum-react'
+// Use "createBrowserRouter" from @datadog/browser-rum-react/react-router-v6 instead of react-router-dom:
+import { createBrowserRouter } from '@datadog/browser-rum-react/react-router-v6'
+
+datadogRum.init({
+  ...
+  plugins: [reactPlugin({ router: true })],
+})
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    ...
+  },
+])
+
+ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />)
+```
+
+## Go further with Datadog React integration
+
+### Traces
+
+Connect your RUM and trace data to get a complete view of your application's performance. See [Connect RUM and Traces][8].
+
+### Logs
+
+To start forwarding your React application's logs to Datadog, see [JavaScript Logs Collection][9].
 
 ### Metrics
 
-The React integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][4].
-
-### Events 
-
-For more information about events and attributes, see [RUM React Data Collected][5]. 
-
-### Service Checks 
-
-The React integration does not include any service checks.
+To generate custom metrics from your RUM application, see [Generate Metrics][10].
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][6]. 
+Need help? Contact [Datadog Support][11].
 
-## Further Reading 
+## Further Reading
 
-Additional helpful documentation, links, and articles: 
+Additional helpful documentation, links, and articles:
 
-- [React Monitoring][7]
+- [React Monitoring][12]
 
-
-
-[1]: https://app.datadoghq.com/integrations/rum-react 
-[2]: https://docs.datadoghq.com/real_user_monitoring/browser/ 
-[3]: https://docs.datadoghq.com/logs/log_collection/javascript/
-[4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
-[5]: https://docs.datadoghq.com/real_user_monitoring/browser/data_collected/
-[6]: https://docs.datadoghq.com/help/ 
-[7]: https://www.datadoghq.com/blog/datadog-rum-react-components/
-
+[1]: https://docs.datadoghq.com/real_user_monitoring/browser/setup/client
+[2]: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
+[3]: https://reactrouter.com/en/main/routers/create-memory-router
+[4]: https://reactrouter.com/en/main/routers/create-hash-router
+[5]: https://reactrouter.com/en/main/routers/create-browser-router
+[6]: https://reactrouter.com/en/main/hooks/use-routes
+[7]: https://reactrouter.com/en/main/components/routes
+[8]: https://docs.datadoghq.com/real_user_monitoring/platform/connect_rum_and_traces/?tab=browserrum
+[9]: https://docs.datadoghq.com/logs/log_collection/javascript/
+[10]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
+[11]: https://docs.datadoghq.com/help/
+[12]: https://www.datadoghq.com/blog/datadog-rum-react-components/
