@@ -1,8 +1,11 @@
 # CHANGELOG - React
 
+## 2.0.0
+
+- Add documentation for the RUM React integration plugin
+
 ## 1.0.0
 
-***Added***:
+**_Added_**:
 
-* Initial React RUM Integration Tile.
-
+- Initial React RUM Integration Tile.
