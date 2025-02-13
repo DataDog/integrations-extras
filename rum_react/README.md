@@ -17,31 +17,13 @@ Monitor your React applications from end-to-end by:
 
 ## Setup
 
-First, make sure to [setup Datadog RUM][1] in your application.
-
-Then, install the `@datadog/browser-rum-react` NPM package using your package manager of choice. For example:
-
-```bash
-npm install @datadog/browser-rum-react
-```
-
-Finally, pass the `reactPlugin` to the `plugins` option of the `datadogRum.init` method:
-
-```javascript
-import { datadogRum } from '@datadog/browser-rum'
-import { reactPlugin } from '@datadog/browser-rum-react'
-
-datadogRum.init({
-  ...
-  plugins: [reactPlugin()],
-})
-```
+Make sure to [setup Datadog RUM][1] in your application. When creating a new RUM application within the Datadog App, make sure to select React. You can also edit an existing RUM application and change its type to React. The Datadog App will then show you the instructions to setup the Browser SDK [RUM-React plugin][2].
 
 ## Error Tracking
 
 To track React component rendering errors, use one of the following:
 
-- An `ErrorBoundary` component (see [React documentation][1]) that catches errors and reports them to Datadog.
+- An `ErrorBoundary` component (see [React documentation][3]) that catches errors and reports them to Datadog.
 - A function that you can use to report errors from your own `ErrorBoundary` component.
 
 #### `ErrorBoundary` usage
@@ -86,9 +68,9 @@ class MyErrorBoundary extends React.Component {
 
 `react-router` v6 allows you to declare routes using the following methods:
 
-- Create routers with [`createMemoryRouter`][3], [`createHashRouter`][4], or [`createBrowserRouter`][5] functions.
-- Use the [`useRoutes`][6] hook.
-- Use the [`Routes`][7] component.
+- Create routers with [`createMemoryRouter`][4], [`createHashRouter`][5], or [`createBrowserRouter`][6] functions.
+- Use the [`useRoutes`][7] hook.
+- Use the [`Routes`][8] component.
 
 To track route changes with the Datadog RUM Browser SDK, first initialize the `reactPlugin` with the `router: true` option, then replace those functions with their equivalent from `@datadog/browser-rum-react/react-router-v6`. Example:
 
@@ -119,35 +101,36 @@ ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider rout
 
 ### Traces
 
-Connect your RUM and trace data to get a complete view of your application's performance. See [Connect RUM and Traces][8].
+Connect your RUM and trace data to get a complete view of your application's performance. See [Connect RUM and Traces][9].
 
 ### Logs
 
-To start forwarding your React application's logs to Datadog, see [JavaScript Logs Collection][9].
+To start forwarding your React application's logs to Datadog, see [JavaScript Logs Collection][10].
 
 ### Metrics
 
-To generate custom metrics from your RUM application, see [Generate Metrics][10].
+To generate custom metrics from your RUM application, see [Generate Metrics][11].
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][11].
+Need help? Contact [Datadog Support][12].
 
 ## Further Reading
 
 Additional helpful documentation, links, and articles:
 
-- [React Monitoring][12]
+- [React Monitoring][13]
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/browser/setup/client
-[2]: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
-[3]: https://reactrouter.com/en/main/routers/create-memory-router
-[4]: https://reactrouter.com/en/main/routers/create-hash-router
-[5]: https://reactrouter.com/en/main/routers/create-browser-router
-[6]: https://reactrouter.com/en/main/hooks/use-routes
-[7]: https://reactrouter.com/en/main/components/routes
-[8]: https://docs.datadoghq.com/real_user_monitoring/platform/connect_rum_and_traces/?tab=browserrum
-[9]: https://docs.datadoghq.com/logs/log_collection/javascript/
-[10]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
-[11]: https://docs.datadoghq.com/help/
-[12]: https://www.datadoghq.com/blog/datadog-rum-react-components/
+[2]: https://www.npmjs.com/package/@datadog/browser-rum-react
+[3]: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
+[4]: https://reactrouter.com/en/main/routers/create-memory-router
+[5]: https://reactrouter.com/en/main/routers/create-hash-router
+[6]: https://reactrouter.com/en/main/routers/create-browser-router
+[7]: https://reactrouter.com/en/main/hooks/use-routes
+[8]: https://reactrouter.com/en/main/components/routes
+[9]: https://docs.datadoghq.com/real_user_monitoring/platform/connect_rum_and_traces/?tab=browserrum
+[10]: https://docs.datadoghq.com/logs/log_collection/javascript/
+[11]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
+[12]: https://docs.datadoghq.com/help/
+[13]: https://www.datadoghq.com/blog/datadog-rum-react-components/
