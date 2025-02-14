@@ -18,7 +18,7 @@ To collect StarRocks [metrics][9] and logs:
 2. Install the CelerData check on your host with the following command:
 
    ```shell
-   datadog-agent integration install -t datadog-celerdata==1.0.1
+   datadog-agent integration install -t datadog-celerdata==1.1.0
    ```
 
 ### Configuration
