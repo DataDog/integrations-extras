@@ -5,8 +5,8 @@
 With the Datadog RUM React integration, resolve performance issues quickly in React components by:
 
 - Debugging the root cause of performance bottlenecks, such as a slow server response time, render-blocking resource, or an error inside a component
-- Automatically correlating Web performance data with user journeys, HTTP calls, and logs
-- Alerting your engineering teams when crucial Web performance metrics (such as Core Web Vitals) fall below a threshold that results in a poor user experience
+- Automatically correlating web performance data with user journeys, HTTP calls, and logs
+- Alerting your engineering teams when crucial web performance metrics (such as Core Web Vitals) fall below a threshold that results in a poor user experience
 
 Monitor your React applications from end-to-end by:
 
@@ -17,7 +17,7 @@ Monitor your React applications from end-to-end by:
 
 ## Setup
 
-Make sure to [setup Datadog RUM][1] in your application. When creating a new RUM application within the Datadog App, make sure to select React. You can also edit an existing RUM application and change its type to React. The Datadog App will then show you the instructions to setup the Browser SDK [RUM-React plugin][2].
+Make sure to [setup Datadog RUM][1] in your application. When creating a new RUM application within the Datadog App, make sure to select React. You can also edit an existing RUM application and change its type to React. The Datadog App then shows you the instructions to setup the Browser SDK [RUM-React plugin][2].
 
 ## Error Tracking
 
