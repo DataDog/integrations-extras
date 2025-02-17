@@ -53,3 +53,11 @@ instances:
     #   - <INCLUDE_REGEX>
     #   exclude:
     #   - <EXCLUDE_REGEX>
+    
+    ## @param filter_one_pod_per_replica - boolean - optional - default: false
+    ## If enabled, only one pod per replica (e.g., ReplicaSet) will be selected for metric collection.
+    ## This helps avoid duplicates when multiple pods are running on the same node.
+    ## 
+    ## Default is `false`, meaning all pods will be considered.
+    #
+    # filter_one_pod_per_replica: false
