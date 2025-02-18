@@ -5,7 +5,7 @@
 [Ocient][1] Hyperscale Data Warehouse is a data analytics software solutions company that enables all-the-time, compute-intensive analysis of large, complex datasets while optimizing for performance, cost, and energy efficiency.
 
 With industry-standard interfaces like SQL and JDBC, Ocient makes it easy for organizations to interact with data within its platform.
-The Ocient integration enables you to collect metrics related to query performance, disk usage, database tables, and more.
+This integration enables your Ocient Hyperscale Data Warehouse to send metrics to Datadog, including metrics related to query performance, disk usage, database tables, and more.
 
 ## Setup
 
