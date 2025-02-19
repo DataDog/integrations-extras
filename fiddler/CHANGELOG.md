@@ -6,9 +6,6 @@
 
 * Migrated to v3 queries and metrics APIs ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
 * Updated configuration/spec.yaml to make the integration more configurable ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
-
-***Deprecated***:
-
 * Deprecated old metric names and the v1compat flag in configuration ([#2592](https://github.com/DataDog/integrations-extras/pull/2592))
 
 ***Added***:
