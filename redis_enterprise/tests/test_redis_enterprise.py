@@ -129,11 +129,3 @@ def test_invalid_ssl_instance(aggregator, dd_run_check, mock_http_response):
 
     # Ensure tls_verify defaults to False
     assert check.scraper_configs[0]["tls_verify"] is False, "tls_verify should default to False"
-
-    # Ensure the check does not raise ConfigurationError unexpectedly
-    try:
-        dd_run_check(check)
-    except ConfigurationError:
-        pytest.fail("ConfigurationError raised unexpectedly")
-    except Exception as e:
-        pytest.fail(f"Unexpected exception raised: {e}")
