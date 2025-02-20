@@ -39,7 +39,7 @@ function App() {
   )
 }
 
-function ErrorFallback({ resetError, error }: { resetError: () => void; error: unknown }) {
+function ErrorFallback({ resetError, error }) {
   return (
     <p>
       Oops, something went wrong! <strong>{String(error)}</strong> <button onClick={resetError}>Retry</button>
@@ -54,7 +54,7 @@ function ErrorFallback({ resetError, error }: { resetError: () => void; error: u
 import { addReactError } from '@datadog/browser-rum-react'
 
 class MyErrorBoundary extends React.Component {
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch(error, errorInfo) {
     addReactError(error, errorInfo)
   }
 
