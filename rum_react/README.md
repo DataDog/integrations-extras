@@ -17,7 +17,7 @@ Monitor your React applications from end-to-end by:
 
 ## Setup
 
-Make sure to [setup Datadog RUM][1] in your application. When creating a new RUM application within the Datadog App, make sure to select React. You can also edit an existing RUM application and change its type to React. The Datadog App then shows you the instructions to setup the Browser SDK [RUM-React plugin][2].
+Start by setting up [Datadog RUM][1] in your React application. If you're creating a new RUM application in the Datadog App, select React as the application type. If you already have an existing RUM application, you can update its type to React instead. Once configured, the Datadog App will provide instructions for integrating the [RUM-React plugin][2] with the Browser SDK.
 
 ## Error Tracking
 
