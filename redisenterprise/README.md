@@ -4,7 +4,7 @@
 
 ## Overview
 
-**This integration is will be deprecated starting on September 1, 2024. Please use the latest [Redis Enterprise Datadog Integration][13] going forward. This new integration exposes all of the latest Redis Enterprise metrics and includes updated dashboards.**
+**This integration is will be deprecated starting on November 1, 2024. Please use the latest [Redis Enterprise Datadog Integration][13] going forward. This new integration exposes all of the latest Redis Enterprise metrics and includes updated dashboards.**
 
 This integration provides [Redis Enterprise][1] monitoring and metrics for Datadog.
 

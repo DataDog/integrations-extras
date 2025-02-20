@@ -1,0 +1,113 @@
+# HELP app_status_recovery_mode features enabled in qdrant server
+# TYPE app_status_recovery_mode gauge
+app_status_recovery_mode 0
+# HELP collections_total number of collections
+# TYPE collections_total gauge
+collections_total 1
+# HELP collections_vector_total total number of vectors in all collections
+# TYPE collections_vector_total gauge
+collections_vector_total 5417
+# HELP cluster_enabled is cluster support enabled
+# TYPE cluster_enabled gauge
+cluster_enabled 1
+# HELP cluster_peers_total total number of cluster peers
+# TYPE cluster_peers_total gauge
+cluster_peers_total 1
+# HELP cluster_term current cluster term
+# TYPE cluster_term counter
+cluster_term 15
+# HELP cluster_commit index of last committed (finalized) operation cluster peer is aware of
+# TYPE cluster_commit counter
+cluster_commit{peer_id="7921884851411016"} 2285
+# HELP cluster_pending_operations_total total number of pending operations for cluster peer
+# TYPE cluster_pending_operations_total gauge
+cluster_pending_operations_total 0
+# HELP cluster_voter is cluster peer a voter or learner
+# TYPE cluster_voter gauge
+cluster_voter 1
+# HELP rest_responses_total total number of responses
+# TYPE rest_responses_total counter
+rest_responses_total{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 9
+rest_responses_total{method="POST",endpoint="/collections/{name}/points/search",status="200"} 101
+rest_responses_total{method="PUT",endpoint="/collections/{name}/points",status="200"} 224
+rest_responses_total{method="POST",endpoint="/collections/{name}/points/count",status="200"} 15
+# HELP rest_responses_fail_total total number of failed responses
+# TYPE rest_responses_fail_total counter
+rest_responses_fail_total{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 0
+rest_responses_fail_total{method="POST",endpoint="/collections/{name}/points/search",status="200"} 0
+rest_responses_fail_total{method="PUT",endpoint="/collections/{name}/points",status="200"} 0
+rest_responses_fail_total{method="POST",endpoint="/collections/{name}/points/count",status="200"} 0
+# HELP rest_responses_avg_duration_seconds average response duration
+# TYPE rest_responses_avg_duration_seconds gauge
+rest_responses_avg_duration_seconds{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 0.001840878662109375
+rest_responses_avg_duration_seconds{method="POST",endpoint="/collections/{name}/points/search",status="200"} 0.003668298583984375
+rest_responses_avg_duration_seconds{method="PUT",endpoint="/collections/{name}/points",status="200"} 0.00682784912109375
+rest_responses_avg_duration_seconds{method="POST",endpoint="/collections/{name}/points/count",status="200"} 0.0007937852172851562
+# HELP rest_responses_min_duration_seconds minimum response duration
+# TYPE rest_responses_min_duration_seconds gauge
+rest_responses_min_duration_seconds{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 0.000383
+rest_responses_min_duration_seconds{method="POST",endpoint="/collections/{name}/points/search",status="200"} 0.000367
+rest_responses_min_duration_seconds{method="PUT",endpoint="/collections/{name}/points",status="200"} 0.001587
+rest_responses_min_duration_seconds{method="POST",endpoint="/collections/{name}/points/count",status="200"} 0.00024
+# HELP rest_responses_max_duration_seconds maximum response duration
+# TYPE rest_responses_max_duration_seconds gauge
+rest_responses_max_duration_seconds{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 0.003487
+rest_responses_max_duration_seconds{method="POST",endpoint="/collections/{name}/points/search",status="200"} 0.061462
+rest_responses_max_duration_seconds{method="PUT",endpoint="/collections/{name}/points",status="200"} 0.069317
+rest_responses_max_duration_seconds{method="POST",endpoint="/collections/{name}/points/count",status="200"} 0.002136
+# HELP rest_responses_duration_seconds response duration histogram
+# TYPE rest_responses_duration_seconds histogram
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/scroll",status="200",le="0.0001"} 0
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/scroll",status="200",le="0.0005"} 3
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/scroll",status="200",le="0.001"} 5
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/scroll",status="200",le="0.005"} 9
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/scroll",status="200",le="+Inf"} 9
+rest_responses_duration_seconds_sum{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 0.0118
+rest_responses_duration_seconds_count{method="POST",endpoint="/collections/{name}/points/scroll",status="200"} 9
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.0001"} 0
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.0005"} 41
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.001"} 67
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.005"} 79
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.01"} 91
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.05"} 100
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="0.1"} 101
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/search",status="200",le="+Inf"} 101
+rest_responses_duration_seconds_sum{method="POST",endpoint="/collections/{name}/points/search",status="200"} 0.3416
+rest_responses_duration_seconds_count{method="POST",endpoint="/collections/{name}/points/search",status="200"} 101
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="0.001"} 0
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="0.005"} 133
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="0.01"} 169
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="0.05"} 223
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="0.1"} 224
+rest_responses_duration_seconds_bucket{method="PUT",endpoint="/collections/{name}/points",status="200",le="+Inf"} 224
+rest_responses_duration_seconds_sum{method="PUT",endpoint="/collections/{name}/points",status="200"} 1.70627
+rest_responses_duration_seconds_count{method="PUT",endpoint="/collections/{name}/points",status="200"} 224
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/count",status="200",le="0.0001"} 0
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/count",status="200",le="0.0005"} 9
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/count",status="200",le="0.001"} 13
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/count",status="200",le="0.005"} 15
+rest_responses_duration_seconds_bucket{method="POST",endpoint="/collections/{name}/points/count",status="200",le="+Inf"} 15
+rest_responses_duration_seconds_sum{method="POST",endpoint="/collections/{name}/points/count",status="200"} 0.008975
+rest_responses_duration_seconds_count{method="POST",endpoint="/collections/{name}/points/count",status="200"} 15
+# HELP grpc_responses_total total number of responses
+# TYPE grpc_responses_total counter
+grpc_responses_total{endpoint="/qdrant.Points/Query"} 60
+# HELP grpc_responses_fail_total total number of failed responses
+# TYPE grpc_responses_fail_total counter
+grpc_responses_fail_total{endpoint="/qdrant.Points/Query"} 0
+# HELP grpc_responses_avg_duration_seconds average response duration
+# TYPE grpc_responses_avg_duration_seconds gauge
+grpc_responses_avg_duration_seconds{endpoint="/qdrant.Points/Query"} 0.00151775830078125
+# HELP grpc_responses_min_duration_seconds minimum response duration
+# TYPE grpc_responses_min_duration_seconds gauge
+grpc_responses_min_duration_seconds{endpoint="/qdrant.Points/Query"} 0.001059
+# HELP grpc_responses_max_duration_seconds maximum response duration
+# TYPE grpc_responses_max_duration_seconds gauge
+grpc_responses_max_duration_seconds{endpoint="/qdrant.Points/Query"} 0.004388
+# HELP grpc_responses_duration_seconds response duration histogram
+# TYPE grpc_responses_duration_seconds histogram
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="0.001"} 0
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="0.005"} 60
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="+Inf"} 60
+grpc_responses_duration_seconds_sum{endpoint="/qdrant.Points/Query"} 0.087005
+grpc_responses_duration_seconds_count{endpoint="/qdrant.Points/Query"} 60

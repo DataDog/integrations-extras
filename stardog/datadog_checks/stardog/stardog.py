@@ -116,7 +116,7 @@ class StardogCheck(AgentCheck):
         json_doc = response.json()
         try:
             tags = self.instance["tags"]
-            if type(tags) != list:
+            if not isinstance(tags, list):
                 self.log.warning("The tags list in the Stardog check is not configured properly")
                 tags = []
         except KeyError:

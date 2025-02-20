@@ -284,7 +284,7 @@ ListPodResourcesRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         'DESCRIPTOR': _LISTPODRESOURCESREQUEST,
-        '__module__': 'api_pb2'
+        '__module__': 'api_pb2',
         # @@protoc_insertion_point(class_scope:v1alpha1.ListPodResourcesRequest)
     },
 )
@@ -295,7 +295,7 @@ ListPodResourcesResponse = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         'DESCRIPTOR': _LISTPODRESOURCESRESPONSE,
-        '__module__': 'api_pb2'
+        '__module__': 'api_pb2',
         # @@protoc_insertion_point(class_scope:v1alpha1.ListPodResourcesResponse)
     },
 )
@@ -306,7 +306,7 @@ PodResources = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         'DESCRIPTOR': _PODRESOURCES,
-        '__module__': 'api_pb2'
+        '__module__': 'api_pb2',
         # @@protoc_insertion_point(class_scope:v1alpha1.PodResources)
     },
 )
@@ -317,7 +317,7 @@ ContainerResources = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         'DESCRIPTOR': _CONTAINERRESOURCES,
-        '__module__': 'api_pb2'
+        '__module__': 'api_pb2',
         # @@protoc_insertion_point(class_scope:v1alpha1.ContainerResources)
     },
 )
@@ -328,7 +328,7 @@ ContainerDevices = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         'DESCRIPTOR': _CONTAINERDEVICES,
-        '__module__': 'api_pb2'
+        '__module__': 'api_pb2',
         # @@protoc_insertion_point(class_scope:v1alpha1.ContainerDevices)
     },
 )

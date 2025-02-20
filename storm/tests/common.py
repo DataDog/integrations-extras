@@ -1,7 +1,6 @@
 # (C) Datadog, Inc. 2010-2016
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-# flake8: noqa E501
 
 from datadog_checks.dev import get_docker_hostname
 
@@ -243,7 +242,7 @@ TEST_STORM_TOPOLOGY_RESP = {
     "spouts": [
         {
             "errorWorkerLogLink": "http://1.2.3.4:9006/log?file=my_topology-1-1489183263%2F6707%2Fworker.log",
-            "lastError": "com.rabbitmq.client.ShutdownSignalException: clean connection shutdown; protocol method: #method<connection.close>(reply-code=200, reply-text=OK, class-id=0, method-id=0)\n\tat com.rabbitmq.client.impl.",
+            "lastError": "com.rabbitmq.client.ShutdownSignalException: clean connection shutdown; protocol method: #method<connection.close>(reply-code=200, reply-text=OK, class-id=0, method-id=0)\n\tat com.rabbitmq.client.impl.",  # noqa: E501
             "acked": 104673,
             "errorLapsedSecs": 38737,
             "errorPort": 6707,
@@ -374,9 +373,9 @@ TEST_STORM_TOPOLOGY_RESP = {
         "topology.worker.logwriter.childopts": "-Xmx64m",
         "storm.daemon.metrics.reporter.plugins": ["org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter"],
         "pacemaker.auth.method": "NONE",
-        "resource.aware.scheduler.priority.strategy": "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy",
+        "resource.aware.scheduler.priority.strategy": "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy",  # noqa: E501
         "topology.executor.send.buffer.size": 1024,
-        "topology.scheduler.strategy": "org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy",
+        "topology.scheduler.strategy": "org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy",  # noqa: E501
         "logviewer.port": 9006,
         "nimbus.code.sync.freq.secs": 120,
         "drpc.https.keystore.password": "",
@@ -418,7 +417,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "topology.multilang.serializer": "org.apache.storm.multilang.JsonSerializer",
         "storm.messaging.netty.server_worker_threads": 1,
         "nimbus.blobstore.class": "org.apache.storm.blobstore.LocalFsBlobStore",
-        "resource.aware.scheduler.eviction.strategy": "org.apache.storm.scheduler.resource.strategies.eviction.DefaultEvictionStrategy",
+        "resource.aware.scheduler.eviction.strategy": "org.apache.storm.scheduler.resource.strategies.eviction.DefaultEvictionStrategy",  # noqa: E501
         "topology.max.error.report.per.interval": 5,
         "storm.thrift.transport": "org.apache.storm.security.auth.SimpleTransportPlugin",
         "zmq.hwm": 0,
@@ -446,7 +445,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "storm.group.mapping.service.cache.duration.secs": 120,
         "topology.testing.always.try.serialize": False,
         "nimbus.monitor.freq.secs": 10,
-        "worker.childops": "-Xmx2048m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump",
+        "worker.childops": "-Xmx2048m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump",  # noqa: E501
         "storm.health.check.timeout.ms": 10000,
         "supervisor.supervisors": [],
         "topology.tasks": None,
@@ -455,7 +454,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "topology.workers": 6,
         "pacemaker.base.threads": 10,
         "storm.local.dir": "/var/lib/storm/data",
-        "worker.childopts": "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump",
+        "worker.childopts": "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump",  # noqa: E501
         "storm.auth.simple-white-list.users": [],
         "topology.disruptor.batch.timeout.millis": 1,
         "topology.message.timeout.secs": 300,

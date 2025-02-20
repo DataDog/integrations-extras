@@ -17,9 +17,36 @@ ssl._create_default_https_context = ssl._create_unverified_context
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
+    additional_metric_groups = ['RDSE.LISTENER', 'RDSE.PROXY']
+    instance = deepcopy(INSTANCE)
+    instance['extra_metrics'] = additional_metric_groups
+
+    check = RedisEnterpriseCheck(CHECK, {}, [instance])
+
+    dd_run_check(check)
+
+    metrics = DEFAULT_METRICS + additional_metric_groups
+    for g in metrics:
+        for m in METRICS_MAP[g]:
+            if m in EPHEMERAL:
+                continue
+            aggregator.assert_metric(m)
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_service_check(f'{RedisEnterpriseCheck.__NAMESPACE__}.more_groups', count=1)
+
+
+@pytest.mark.unit
+def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_response):
+    # add additional metric groups for validation
     additional_metric_groups = [
+        'RDSE.REPLICATION',
         'RDSE.LISTENER',
+        'RDSE.PROXY',
+        'RDSE.BIGSTORE',
+        'RDSE.FLASH',
+        'RDSE.SHARDREPL',
     ]
+
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
 

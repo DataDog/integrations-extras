@@ -119,9 +119,8 @@ class RiakReplCheck(AgentCheck):
                                 "riak_repl.realtime_queue_stats.consumers." + key, val, tags=tags + ['cluster:%s' % c]
                             )
 
-            if (
-                self.exists(stats['sinks'], ['sink_stats', 'rt_sink_connected_to'])
-                and type(stats['sinks']['sink_stats']['rt_sink_connected_to']) is dict
+            if self.exists(stats['sinks'], ['sink_stats', 'rt_sink_connected_to']) and isinstance(
+                stats['sinks']['sink_stats']['rt_sink_connected_to'], dict
             ):
                 for key, val in iteritems(stats['sinks']['sink_stats']['rt_sink_connected_to']):
                     if key in self.REALTIME_SINK_CONN:
