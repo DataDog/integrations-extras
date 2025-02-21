@@ -2,7 +2,10 @@
 
 ## Overview
 
-Gambit MIMIC is a dynamic, real-time, high-performance SNMP, Netflow, sFlow Simulator. All Netflow and sFlow exports are recorded by the simulator and replayed with flexible customization toward Datadog agent(s) and presented with all existing available metrics of Datadog, whether built-in or Datadog marketplace integrated.
+MIMIC Simulator is a dynamic, real-time, high-performance SNMP, Netflow, sFlow Simulator. All Netflow and sFlow exports are recorded by the simulator and replayed with flexible customization toward Datadog agent(s) and presented with all existing available metrics of Datadog, whether built-in or Datadog marketplace integrated.
+
+Large enterprises use MIMIC in the lab to customize Datadog dashboards, to test modifications with expected
+and unexpected scenarios, and to train operators prior to deployment in mission-critical production environments.
 
 ## Setup
 
