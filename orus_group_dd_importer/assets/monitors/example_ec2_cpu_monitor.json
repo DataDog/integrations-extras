@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "title": "Example EC2 CPU Monitor",
+  "tags": [
+    "integration:orus-group-dd-importer"
+  ],
+  "created_at": "2025-02-21",
+  "last_updated_at": "2025-02-21",
+  "description": "Our App mass imports as many monitors as you design.",
+  "definition": {
+    "id": 164700144,
+    "name": "AWS_EC2_VOL",
+    "type": "query alert",
+    "query": "avg(last_5m):avg:system.disk.free{*} < 500000000",
+    "message": "{{#is_warning}}WARNING: the disk only has 800BM remaning free space  {{host.name}}{{/is_warning}}{{#is_warning_recovery}}Disk space has recovered on: {{host.name}}{{/is_warning_recovery}}{{#is_alert}}ALERT: the disk only has 500BM remaning free space on host {{host.name}}{{/is_alert}}{{#is_alert_recovery}}Disk space has recovered on: {{host.name}}{{/is_alert_recovery}} @krw2006@gmail.com",
+    "tags": [
+      "CoolApp;EC2;prod"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 500000000
+      },
+      "notify_no_data": false,
+      "notify_audit": false,
+      "new_host_delay": 300,
+      "include_tags": true,
+      "silenced": {}
+    },
+    "priority": 3,
+    "restricted_roles": null
+  }
+}

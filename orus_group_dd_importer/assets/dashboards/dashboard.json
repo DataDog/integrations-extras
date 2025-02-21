@@ -1,0 +1,210 @@
+{
+  "title": "Dashboard",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 4091910780262068,
+      "definition": {
+        "title": "CPU by Name",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.cpu.user{env:dev} by {name}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 6002717080396566,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.cpu.user{*}",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area"
+        }
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "id": 3905806061789812,
+      "definition": {
+        "title": "Widget Monitor",
+        "type": "manage_status",
+        "display_format": "countsAndList",
+        "color_preference": "text",
+        "hide_zero_counts": true,
+        "show_status": true,
+        "last_triggered_format": "relative",
+        "query": "$name",
+        "sort": "status,asc",
+        "count": 50,
+        "start": 0,
+        "summary_type": "combined",
+        "show_priority": false,
+        "show_last_triggered": false
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": 6419026623543836,
+      "definition": {
+        "title": "Monitor Summary Widget",
+        "type": "manage_status",
+        "display_format": "countsAndList",
+        "color_preference": "text",
+        "hide_zero_counts": false,
+        "show_status": true,
+        "last_triggered_format": "relative",
+        "query": "$name",
+        "sort": "status,asc",
+        "count": 50,
+        "start": 0,
+        "summary_type": "groups",
+        "show_priority": false,
+        "show_last_triggered": false
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": 3765845026560866,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "alert_value",
+        "alert_id": "159002746",
+        "unit": "auto",
+        "text_align": "center",
+        "precision": 2
+      },
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 2,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "name",
+      "prefix": "name",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "template_variable_presets": [
+    {
+      "name": "dev-nick-dog-1",
+      "template_variables": [
+        {
+          "name": "env",
+          "value": "dev"
+        },
+        {
+          "name": "name",
+          "value": "nickdatadog-1"
+        }
+      ]
+    },
+    {
+      "name": "dev-trans",
+      "template_variables": [
+        {
+          "name": "env",
+          "value": "dev"
+        },
+        {
+          "name": "name",
+          "value": "datadogtransformer"
+        }
+      ]
+    },
+    {
+      "name": "dev-trans2",
+      "template_variables": [
+        {
+          "name": "env",
+          "value": "dev"
+        },
+        {
+          "name": "name",
+          "value": "datadogtransformer2"
+        }
+      ]
+    }
+  ],
+  "reflow_type": "fixed",
+  "tags": [
+    "team:devteam"
+  ]
+}
