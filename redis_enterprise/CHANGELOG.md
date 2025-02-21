@@ -1,5 +1,11 @@
 # CHANGELOG - Redis Enterprise
 
+## 2.0.0 / 2025-02-21
+
+***Changed***:
+
+* Update `tls_verify` handling in check code to ensure default is set to 'False'
+
 ## 1.1.1 / 2025-01-21
 
 ***Changed***:
