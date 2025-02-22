@@ -1,0 +1,13 @@
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
+zfs.dataset.available,gauge,,byte,,"The amount of space available to the dataset and all its children, assuming that there is no other activity in the pool",1,zfs,,
+zfs.dataset.compressratio,gauge,,fraction,,"The compression ratio achieved for this dataset, expressed as a multiplier",0,zfs,,
+zfs.dataset.used,gauge,,byte,,"The amount of space consumed by this dataset and all its descendents",-1,zfs,,
+zfs.dataset.usedbychildren,gauge,,byte,,"The amount of space used by children of this dataset, which would be freed if all the dataset's children were destroyed",-1,zfs,,
+zfs.dataset.usedbydataset,gauge,,byte,,"The amount of space used by this dataset itself, which would be freed if the dataset were destroyed (after first removing any refreservation and destroying any necessary snapshots or descendents).",-1,zfs,,
+zfs.dataset.usedbyrefreservation,gauge,,byte,,"The amount of space used by a refreservation set on this dataset, which would be freed if the refreservation was removed",-1,zfs,,
+zfs.dataset.usedbysnapshots,gauge,,byte,,"The amount of space consumed by snapshots of this dataset, which would be freed if all of this dataset's snapshots were destroyed",-1,zfs,,
+zfs.pool.allocated,gauge,,byte,,"Amount of storage space within the pool that has been physically allocated",1,zfs,,
+zfs.pool.capacity,gauge,,fraction,,"Percentage of pool space used",1,zfs,,
+zfs.pool.fragmentation,gauge,,,,"The amount of fragmentation in the pool",1,zfs,,
+zfs.pool.free,gauge,,byte,,"Amount of storage space within the pool that is not allocated",1,zfs,,
+zfs.pool.size,gauge,,byte,,"Total size of the storage pool",1,zfs,,
