@@ -26,4 +26,10 @@ OM_METRICS = [
     "qdrant.grpc.responses.fail.count",
     "qdrant.rest.responses.count",
     "qdrant.rest.responses.fail.count",
+    "qdrant.collection.hardware.metric.cpu",
+    "qdrant.memory.active.bytes",
+    "qdrant.memory.metadata.bytes",
+    "qdrant.memory.resident.bytes",
+    "qdrant.memory.retained.bytes",
+    "qdrant.memory.allocated.bytes",
 ]
