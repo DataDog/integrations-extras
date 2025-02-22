@@ -43,6 +43,10 @@ Akamai DataStream 2 does not include any events.
 
 Need help? Contact [Datadog support][1].
 
+### Logs
+
+Akamai DataStream 2 collects logs.
+
 ## Further Reading
 
 Additional helpful documentation, links, and articles:
