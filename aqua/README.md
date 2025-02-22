@@ -30,14 +30,25 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Aqua che
 
    ```yaml
    instances:
+     - url: https://api.cloudsploit.com
+       auth_method: saas
+       api_key: <AQUA_API_KEY>
+       api_secret: <AQUA_API_SECRET>
+       tags:
+         - environment:production
+   
      - url: http://your-aqua-instance.com
-       api_user: "<API_USERNAME>"
-       password: "<API_USER_PASSWORD>"
+       auth_method: onprem
+       api_user: <AQUA_USERNAME>
+       password: <AQUA_PASSWORD>
+       tags:
+         - environment:test
    ```
 
-    Change the `api_user` and `password` parameter values and configure them for your environment.
+   For SaaS, change the `api_key` and `api_secret` parameter values and configure them for your environment.
+   For On-Prem, change the `api_user` and `password` parameter values and configure them for your environment.
 
-2. [Restart the Agent][9].
+3. [Restart the Agent][9].
 
 #### Log collection
 
