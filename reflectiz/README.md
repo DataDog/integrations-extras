@@ -4,7 +4,7 @@ Reflectiz's innovative agentless solution monitors and detects vulnerabilities i
 
 This integration enhances your website's security by introducing **Web Exposure Rating** and **Web Exposure Alerts** in Datadog, enabling proactive assessment and mitigation of security risks.  
 
-The integration provides a combination of logs and metrics to support both rating and alerts.
+The integration provides a combination of logs and metrics to support both ratings and alerts.
 
 ### Features
 
