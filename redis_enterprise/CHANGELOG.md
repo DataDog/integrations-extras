@@ -4,7 +4,7 @@
 
 ***Changed***:
 
-* Update `tls_verify` handling in check code to ensure default is set to 'False'
+* Update `tls_verify` handling in check code to ensure default is set to 'True'
 
 ## 1.1.1 / 2025-01-21
 
