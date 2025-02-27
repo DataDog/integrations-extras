@@ -233,6 +233,8 @@ class UpboundUxpCheck(AgentCheck):
                     # name mapping requirements
                     {"go_memstats_heap_alloc_bytes"},
                 ]
+                # filter only one pod per replica (default is false)
+                "filter_one_pod_per_replica": false
             }
         ]
     ```
@@ -318,6 +320,12 @@ class UpboundUxpCheck(AgentCheck):
                 if self.metrics_default not in METRICS_DEFAULTS:
                     self.metrics_default = 'min'
 
+                self.filter_one_pod_per_replica = instance.get('filter_one_pod_per_replica')
+                if self.filter_one_pod_per_replica is None:
+                    self.filter_one_pod_per_replica = False
+                else:
+                    self._raise_if_type_err(self.filter_one_pod_per_replica, 'filter_one_pod_per_replica', 'bool')
+
                 # Determine which exposed metrics to observe and
                 # feed into DataDog. Note, this will work without
                 # pod annotations.
@@ -336,6 +344,7 @@ class UpboundUxpCheck(AgentCheck):
                 self.metrics_set = self._merge_conf()
                 if self.verbose:
                     self.log.debug(self.metrics_set)
+                    
 
         super(UpboundUxpCheck, self).__init__(name, init_config, instances)
 
@@ -513,7 +522,29 @@ class UpboundUxpCheck(AgentCheck):
             return
 
         port_forward_target = 8080
-        for pod in pods.items:
+        
+        # If the feature flag to filter one pod per replica is enabled
+        if self.filter_one_pod_per_replica:
+            selected_pods = {}
+
+            for pod in pods.items:                
+                # Identify the owner of the pod (Deployment, StatefulSet, etc.)
+                owner_references = pod.metadata.owner_references
+                owner_name = None
+                for owner in owner_references:
+                    if owner.kind == "ReplicaSet":
+                        owner_name = owner.name  # The name of the ReplicaSet
+                        break
+                
+                if owner_name:
+                    if owner_name not in selected_pods:
+                        selected_pods[owner_name] = pod
+
+            filtered_pods = list(selected_pods.values())
+        else:
+            filtered_pods = pods.items
+
+        for pod in filtered_pods:
             # Get Pod annotations to overwrite config file and
             # default metric set. If no pod annotations are present
             # then the upbound_uxp (auto_conf.yaml) config file
