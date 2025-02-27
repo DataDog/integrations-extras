@@ -17,7 +17,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
-    additional_metric_groups = ['RDSE.LISTENER', 'RDSE.PROXY']
+    # additional_metric_groups = ['REDIS2.NETWORK', 'REDIS2.MEMORY']
+    # additional_metric_groups = ['REDIS2.MEMORY', 'REDIS2.LDAP']
+    additional_metric_groups = ['REDIS2.DISK']
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
 
@@ -39,12 +41,15 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
 def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
-        'RDSE.REPLICATION',
-        'RDSE.LISTENER',
-        'RDSE.PROXY',
-        'RDSE.BIGSTORE',
-        'RDSE.FLASH',
-        'RDSE.SHARDREPL',
+        'REDIS2.REPLICATION',
+        'REDIS2.LDAP',
+        'REDIS2.NETWORK',
+        'REDIS2.MEMORY',
+        'REDIS2.X509',
+        'REDIS2.DISK',
+        'REDIS2.FILESYSTEM',
+        'REDIS2.PROCESS',
+        'REDIS2.PRESSURE',
     ]
 
     instance = deepcopy(INSTANCE)

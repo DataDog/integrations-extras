@@ -4,6 +4,8 @@
 
 ***Changed***:
 
+* Redis v2 metrics
+* Renamed prefix to rdse2
 * Renamed Groups
 
 ***Added***:
