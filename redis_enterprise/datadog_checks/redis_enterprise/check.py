@@ -18,7 +18,7 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
     def _parse_config(self):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get('openmetrics_endpoint')
-        tls_verify = self.instance.get("tls_verify", True)
+        self.instance.setdefault("tls_verify", True)
         metrics = self.get_default_config()
 
         additional = []
@@ -47,7 +47,6 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
             'namespace': self.__NAMESPACE__,
             'metrics': metrics,
             'metadata_label_map': {'version': 'version'},
-            'tls_verify': tls_verify,
         }
 
         config.update(self.instance)
