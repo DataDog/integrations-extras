@@ -517,7 +517,7 @@ namedprocess_namegroup_context_switches_total{cluster="cluster.local",ctxswitcht
 namedprocess_namegroup_context_switches_total{cluster="cluster.local",ctxswitchtype="nonvoluntary",db="1",exporter="process",groupname="redis-1",node="1",redis="1",role="master"} 16816
 namedprocess_namegroup_context_switches_total{cluster="cluster.local",ctxswitchtype="voluntary",db="1",exporter="process",groupname="redis-1",node="1",redis="1",role="master"} 350333
 # HELP namedprocess_namegroup_cpu_seconds_total Cpu user usage in seconds
-# TYPE namedprocess_namegroup_cpu_seconds_total gauge
+# TYPE namedprocess_namegroup_cpu_seconds_total counter
 namedprocess_namegroup_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="ccs-redis",mode="system",node="1"} 4.95
 namedprocess_namegroup_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="ccs-redis",mode="user",node="1"} 15.290000000000001
 namedprocess_namegroup_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="dmcproxy",mode="system",node="1"} 24.169999999999998
@@ -688,7 +688,7 @@ namedprocess_namegroup_thread_count{cluster="cluster.local",db="1",exporter="pro
 namedprocess_namegroup_thread_count{cluster="cluster.local",db="1",exporter="process",groupname="redis-1",node="1",redis="1",role="master",threadname="jemalloc_bg_thd"} 2
 namedprocess_namegroup_thread_count{cluster="cluster.local",db="1",exporter="process",groupname="redis-1",node="1",redis="1",role="master",threadname="redis-server-7."} 1
 # HELP namedprocess_namegroup_thread_cpu_seconds_total Cpu user/system usage in seconds
-# TYPE namedprocess_namegroup_thread_cpu_seconds_total gauge
+# TYPE namedprocess_namegroup_thread_cpu_seconds_total counter
 namedprocess_namegroup_thread_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="ccs-redis",mode="system",node="1",threadname="bio_aof"} 0
 namedprocess_namegroup_thread_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="ccs-redis",mode="system",node="1",threadname="bio_close_file"} 0
 namedprocess_namegroup_thread_cpu_seconds_total{cluster="cluster.local",exporter="process",groupname="ccs-redis",mode="system",node="1",threadname="bio_lazy_free"} 0
@@ -936,22 +936,22 @@ node_cpu_seconds_total{cluster="cluster.local",cpu="1",exporter="host",mode="ste
 node_cpu_seconds_total{cluster="cluster.local",cpu="1",exporter="host",mode="system",node="1"} 95.05
 node_cpu_seconds_total{cluster="cluster.local",cpu="1",exporter="host",mode="user",node="1"} 179.38
 # HELP node_disk_discard_time_seconds_total This is the total number of seconds spent by all discards.
-# TYPE node_disk_discard_time_seconds_total gauge
+# TYPE node_disk_discard_time_seconds_total counter
 node_disk_discard_time_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 1
 # HELP node_disk_discarded_sectors_total The total number of sectors discarded successfully.
-# TYPE node_disk_discarded_sectors_total gauge
+# TYPE node_disk_discarded_sectors_total counter
 node_disk_discarded_sectors_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 1
 # HELP node_disk_discards_completed_total The total number of discards completed successfully.
-# TYPE node_disk_discards_completed_total gauge
+# TYPE node_disk_discards_completed_total counter
 node_disk_discards_completed_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 1
 # HELP node_disk_discards_merged_total The total number of discards merged.
-# TYPE node_disk_discards_merged_total gauge
+# TYPE node_disk_discards_merged_total counter
 node_disk_discards_merged_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 1
 # HELP node_disk_flush_requests_time_seconds_total This is the total number of seconds spent by all flush requests.
-# TYPE node_disk_flush_requests_time_seconds_total gauge
+# TYPE node_disk_flush_requests_time_seconds_total counter
 node_disk_flush_requests_time_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 0.9540000000000001
 # HELP node_disk_flush_requests_total The total number of flush requests completed successfully
-# TYPE node_disk_flush_requests_total gauge
+# TYPE node_disk_flush_requests_total counter
 node_disk_flush_requests_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 40568
 # HELP node_disk_info Info of /sys/block/<block_device>.
 # TYPE node_disk_info gauge
@@ -960,34 +960,34 @@ node_disk_info{cluster="cluster.local",device="sda",exporter="host",major="8",mi
 # TYPE node_disk_io_now gauge
 node_disk_io_now{cluster="cluster.local",device="sda",exporter="host",node="1"} 0
 # HELP node_disk_io_time_seconds_total Total seconds spent doing I/Os.
-# TYPE node_disk_io_time_seconds_total gauge
+# TYPE node_disk_io_time_seconds_total counter
 node_disk_io_time_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 54.852000000000004
 # HELP node_disk_io_time_weighted_seconds_total The weighted # of seconds spent doing I/Os.
-# TYPE node_disk_io_time_weighted_seconds_total gauge
+# TYPE node_disk_io_time_weighted_seconds_total counter
 node_disk_io_time_weighted_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 200.935
 # HELP node_disk_read_bytes_total The total number of bytes read successfully.
-# TYPE node_disk_read_bytes_total gauge
+# TYPE node_disk_read_bytes_total counter
 node_disk_read_bytes_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 7.1542784e+08
 # HELP node_disk_read_time_seconds_total The total number of seconds spent by all reads.
-# TYPE node_disk_read_time_seconds_total gauge
+# TYPE node_disk_read_time_seconds_total counter
 node_disk_read_time_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 7.632000000000001
 # HELP node_disk_reads_completed_total The total number of reads completed successfully.
-# TYPE node_disk_reads_completed_total gauge
+# TYPE node_disk_reads_completed_total counter
 node_disk_reads_completed_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 14560
 # HELP node_disk_reads_merged_total The total number of reads merged.
-# TYPE node_disk_reads_merged_total gauge
+# TYPE node_disk_reads_merged_total counter
 node_disk_reads_merged_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 3705
 # HELP node_disk_write_time_seconds_total This is the total number of seconds spent by all writes.
-# TYPE node_disk_write_time_seconds_total gauge
+# TYPE node_disk_write_time_seconds_total counter
 node_disk_write_time_seconds_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 192.348
 # HELP node_disk_writes_completed_total The total number of writes completed successfully.
-# TYPE node_disk_writes_completed_total gauge
+# TYPE node_disk_writes_completed_total counter
 node_disk_writes_completed_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 94843
 # HELP node_disk_writes_merged_total The number of writes merged.
-# TYPE node_disk_writes_merged_total gauge
+# TYPE node_disk_writes_merged_total counter
 node_disk_writes_merged_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 59994
 # HELP node_disk_written_bytes_total The total number of bytes written successfully.
-# TYPE node_disk_written_bytes_total gauge
+# TYPE node_disk_written_bytes_total counter
 node_disk_written_bytes_total{cluster="cluster.local",device="sda",exporter="host",node="1"} 2.40204288e+09
 # HELP node_dmi_info A metric with a constant '1' value labeled by bios_date, bios_release, bios_vendor, bios_version, board_asset_tag, board_name, board_serial, board_vendor, board_version, chassis_asset_tag, chassis_serial, chassis_vendor, chassis_version, product_family, product_name, product_serial, product_sku, product_uuid, product_version, system_vendor if provided by DMI.
 # TYPE node_dmi_info gauge
@@ -1229,71 +1229,71 @@ node_memory_Writeback_bytes{cluster="cluster.local",exporter="host",node="1"} 0
 # TYPE node_metrics_up gauge
 node_metrics_up{cluster="cluster.local",node="1"} 1
 # HELP node_network_receive_bytes_total Network device statistic receive_bytes.
-# TYPE node_network_receive_bytes_total gauge
+# TYPE node_network_receive_bytes_total counter
 node_network_receive_bytes_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 2.20709828e+08
 node_network_receive_bytes_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 2.37916742e+08
 # HELP node_network_receive_compressed_total Network device statistic receive_compressed.
-# TYPE node_network_receive_compressed_total gauge
+# TYPE node_network_receive_compressed_total counter
 node_network_receive_compressed_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 1
 node_network_receive_compressed_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 1
 # HELP node_network_receive_drop_total Network device statistic receive_drop.
-# TYPE node_network_receive_drop_total gauge
+# TYPE node_network_receive_drop_total counter
 node_network_receive_drop_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 1
 node_network_receive_drop_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 1
 # HELP node_network_receive_errs_total Network device statistic receive_errs.
-# TYPE node_network_receive_errs_total gauge
+# TYPE node_network_receive_errs_total counter
 node_network_receive_errs_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_receive_errs_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_receive_fifo_total Network device statistic receive_fifo.
-# TYPE node_network_receive_fifo_total gauge
+# TYPE node_network_receive_fifo_total counter
 node_network_receive_fifo_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_receive_fifo_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_receive_frame_total Network device statistic receive_frame.
-# TYPE node_network_receive_frame_total gauge
+# TYPE node_network_receive_frame_total counter
 node_network_receive_frame_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_receive_frame_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_receive_multicast_total Network device statistic receive_multicast.
-# TYPE node_network_receive_multicast_total gauge
+# TYPE node_network_receive_multicast_total counter
 node_network_receive_multicast_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_receive_multicast_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_receive_nohandler_total Network device statistic receive_nohandler.
-# TYPE node_network_receive_nohandler_total gauge
+# TYPE node_network_receive_nohandler_total counter
 node_network_receive_nohandler_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_receive_nohandler_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_receive_packets_total Network device statistic receive_packets.
-# TYPE node_network_receive_packets_total gauge
+# TYPE node_network_receive_packets_total counter
 node_network_receive_packets_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 1.995615e+06
 node_network_receive_packets_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 477008
 # HELP node_network_transmit_bytes_total Network device statistic transmit_bytes.
-# TYPE node_network_transmit_bytes_total gauge
+# TYPE node_network_transmit_bytes_total counter
 node_network_transmit_bytes_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 7.9512936e+07
 node_network_transmit_bytes_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 2.37916742e+08
 # HELP node_network_transmit_carrier_total Network device statistic transmit_carrier.
-# TYPE node_network_transmit_carrier_total gauge
+# TYPE node_network_transmit_carrier_total counter
 node_network_transmit_carrier_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_carrier_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_colls_total Network device statistic transmit_colls.
-# TYPE node_network_transmit_colls_total gauge
+# TYPE node_network_transmit_colls_total counter
 node_network_transmit_colls_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_colls_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_compressed_total Network device statistic transmit_compressed.
-# TYPE node_network_transmit_compressed_total gauge
+# TYPE node_network_transmit_compressed_total counter
 node_network_transmit_compressed_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_compressed_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_drop_total Network device statistic transmit_drop.
-# TYPE node_network_transmit_drop_total gauge
+# TYPE node_network_transmit_drop_total counter
 node_network_transmit_drop_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_drop_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_errs_total Network device statistic transmit_errs.
-# TYPE node_network_transmit_errs_total gauge
+# TYPE node_network_transmit_errs_total counter
 node_network_transmit_errs_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_errs_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_fifo_total Network device statistic transmit_fifo.
-# TYPE node_network_transmit_fifo_total gauge
+# TYPE node_network_transmit_fifo_total counter
 node_network_transmit_fifo_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 0
 node_network_transmit_fifo_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 0
 # HELP node_network_transmit_packets_total Network device statistic transmit_packets.
-# TYPE node_network_transmit_packets_total gauge
+# TYPE node_network_transmit_packets_total counter
 node_network_transmit_packets_total{cluster="cluster.local",device="ens4",exporter="host",node="1"} 1.007961e+06
 node_network_transmit_packets_total{cluster="cluster.local",device="lo",exporter="host",node="1"} 477008
 # HELP node_os_info A metric with a constant '1' value labeled by build_id, id, id_like, image_id, image_version, name, pretty_name, variant, variant_id, version, version_codename, version_id.
@@ -1312,19 +1312,19 @@ node_persistent_storage_avail_bytes{cluster="cluster.local",exporter="net_store"
 # TYPE node_persistent_storage_free_bytes gauge
 node_persistent_storage_free_bytes{cluster="cluster.local",exporter="net_store",node="1"} 5.977665536e+09
 # HELP node_pressure_cpu_waiting_seconds_total Total time in seconds that processes have waited for CPU time
-# TYPE node_pressure_cpu_waiting_seconds_total gauge
+# TYPE node_pressure_cpu_waiting_seconds_total counter
 node_pressure_cpu_waiting_seconds_total{cluster="cluster.local",exporter="host",node="1"} 74.795569
 # HELP node_pressure_io_stalled_seconds_total Total time in seconds no process could make progress due to IO congestion
-# TYPE node_pressure_io_stalled_seconds_total gauge
+# TYPE node_pressure_io_stalled_seconds_total counter
 node_pressure_io_stalled_seconds_total{cluster="cluster.local",exporter="host",node="1"} 7.073282
 # HELP node_pressure_io_waiting_seconds_total Total time in seconds that processes have waited due to IO congestion
-# TYPE node_pressure_io_waiting_seconds_total gauge
+# TYPE node_pressure_io_waiting_seconds_total counter
 node_pressure_io_waiting_seconds_total{cluster="cluster.local",exporter="host",node="1"} 7.85692
 # HELP node_pressure_memory_stalled_seconds_total Total time in seconds no process could make progress due to memory congestion
-# TYPE node_pressure_memory_stalled_seconds_total gauge
+# TYPE node_pressure_memory_stalled_seconds_total counter
 node_pressure_memory_stalled_seconds_total{cluster="cluster.local",exporter="host",node="1"} 0
 # HELP node_pressure_memory_waiting_seconds_total Total time in seconds that processes have waited for memory
-# TYPE node_pressure_memory_waiting_seconds_total gauge
+# TYPE node_pressure_memory_waiting_seconds_total counter
 node_pressure_memory_waiting_seconds_total{cluster="cluster.local",exporter="host",node="1"} 0
 # HELP node_processes_max_processes Number of max PIDs limit
 # TYPE node_processes_max_processes gauge
@@ -1487,7 +1487,7 @@ node_vmstat_pswpout{cluster="cluster.local",exporter="host",node="1"} 0
 # TYPE primary_selections_total counter
 primary_selections_total{cluster="cluster.local",cluster_wd="1",exporter="cluster_wd",node="1"} 1
 # HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
-# TYPE process_cpu_seconds_total gauge
+# TYPE process_cpu_seconds_total counter
 process_cpu_seconds_total{cluster="cluster.local",exporter="cert",node="1"} 0.22
 process_cpu_seconds_total{cluster="cluster.local",exporter="host",node="1"} 0.58
 process_cpu_seconds_total{cluster="cluster.local",exporter="net_store",node="1"} 2.62

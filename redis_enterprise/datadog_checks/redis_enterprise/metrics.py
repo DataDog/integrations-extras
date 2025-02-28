@@ -105,14 +105,8 @@ REDIS_SHARD = {
     'redis_server_mem_not_counted_for_evict': 'redis_server_mem_not_counted_for_evict',
     'redis_server_mem_replication_backlog': 'redis_server_mem_replication_backlog',
     'redis_server_module_fork_in_progress': 'redis_server_module_fork_in_progress',
-    'namedprocess_namegroup_cpu_seconds_total': {
-        'name': 'namedprocess_namegroup_cpu_seconds_total',
-        'type': 'gauge',
-    },
-    'namedprocess_namegroup_thread_cpu_seconds_total': {
-        'name': 'namedprocess_namegroup_thread_cpu_seconds_total',
-        'type': 'gauge',
-    },
+    'namedprocess_namegroup_cpu_seconds': 'namedprocess_namegroup_cpu_seconds',
+    'namedprocess_namegroup_thread_cpu_seconds': 'namedprocess_namegroup_thread_cpu_seconds',
     'namedprocess_namegroup_open_filedesc': 'namedprocess_namegroup_open_filedesc',
     'namedprocess_namegroup_memory_bytes': 'namedprocess_namegroup_memory_bytes',
     'namedprocess_namegroup_oldest_start_time_seconds': 'namedprocess_namegroup_oldest_start_time_seconds',
@@ -196,46 +190,24 @@ REDIS_LDAP = {
     'directory_requests': 'directory_requests',
 }
 
-### THESE ARE ALL GAUGES OR SO SAYS DATADOG ###
 REDIS_NETWORK = {
-    'node_network_receive_bytes_total': {
-        'name': 'node_network_receive_bytes_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_compressed_total': {
-        'name': 'node_network_receive_compressed_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_drop_total': {
-        'name': 'node_network_receive_drop_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_errs_total': {
-        'name': 'node_network_receive_errs_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_fifo_total': {
-        'name': 'node_network_receive_fifo_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_frame_total': {
-        'name': 'node_network_receive_frame_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_multicast_total': {
-        'name': 'node_network_receive_multicast_total',
-        'type': 'gauge'
-    },
-    'node_network_receive_nohandler_total': 'node_network_receive_nohandler_total',
-    'node_network_receive_packets_total': 'node_network_receive_packets_total',
-    'node_network_transmit_bytes_total': 'node_network_transmit_bytes_total',
-    'node_network_transmit_carrier_total': 'node_network_transmit_carrier_total',
-    'node_network_transmit_colls_total': 'node_network_transmit_colls_total',
-    'node_network_transmit_compressed_total': 'node_network_transmit_compressed_total',
-    'node_network_transmit_drop_total': 'node_network_transmit_drop_total',
-    'node_network_transmit_errs_total': 'node_network_transmit_errs_total',
-    'node_network_transmit_fifo_total': 'node_network_transmit_fifo_total',
-    'node_network_transmit_packets_total': 'node_network_transmit_packets_total',
+    'node_network_receive_bytes': 'node_network_receive_bytes',
+    'node_network_receive_compressed': 'node_network_receive_compressed',
+    'node_network_receive_drop': 'node_network_receive_drop',
+    'node_network_receive_errs': 'node_network_receive_errs',
+    'node_network_receive_fifo': 'node_network_receive_fifo',
+    'node_network_receive_frame': 'node_network_receive_frame',
+    'node_network_receive_multicast': 'node_network_receive_multicast',
+    'node_network_receive_nohandler': 'node_network_receive_nohandler',
+    'node_network_receive_packets': 'node_network_receive_packets',
+    'node_network_transmit_bytes': 'node_network_transmit_bytes',
+    'node_network_transmit_carrier': 'node_network_transmit_carrier',
+    'node_network_transmit_colls': 'node_network_transmit_colls',
+    'node_network_transmit_compressed': 'node_network_transmit_compressed',
+    'node_network_transmit_drop': 'node_network_transmit_drop',
+    'node_network_transmit_errs': 'node_network_transmit_errs',
+    'node_network_transmit_fifo': 'node_network_transmit_fifo',
+    'node_network_transmit_packets': 'node_network_transmit_packets',
 }
 
 REDIS_MEMORY = {
@@ -312,35 +284,28 @@ REDIS_FILESYSTEM = {
     'node_filesystem_size_bytes': 'node_filesystem_size_bytes',
 }
 
-### THESE ARE ALL GAUGES OR SO SAYS DATADOG ###
 REDIS_DISK = {
-    'node_disk_discard_time_seconds_total': 'node_disk_discard_time_seconds_total',
-    'node_disk_discarded_sectors_total': 'node_disk_discarded_sectors_total',
-    'node_disk_discards_completed_total': 'node_disk_discards_completed_total',
-    'node_disk_discards_merged_total': 'node_disk_discards_merged_total',
-    'node_disk_flush_requests_time_seconds_total': 'node_disk_flush_requests_time_seconds_total',
-    'node_disk_flush_requests_total': 'node_disk_flush_requests_total',
+    'node_disk_discard_time_seconds': 'node_disk_discard_time_seconds',
+    'node_disk_discarded_sectors': 'node_disk_discarded_sectors',
+    'node_disk_discards_completed': 'node_disk_discards_completed',
+    'node_disk_discards_merged': 'node_disk_discards_merged',
+    'node_disk_flush_requests_time_seconds': 'node_disk_flush_requests_time_seconds',
+    'node_disk_flush_requests': 'node_disk_flush_requests',
     'node_disk_io_now': 'node_disk_io_now',
-    'node_disk_io_time_seconds_total': {
-        'name': 'node_disk_io_time_seconds_total',
-        'type': 'gauge',
-    },
-    'node_disk_io_time_weighted_seconds_total': {
-        'name': 'node_disk_io_time_weighted_seconds_total',
-        'type': 'gauge',
-    },
-    'node_disk_read_bytes_total': 'node_disk_read_bytes_total',
-    'node_disk_read_time_seconds_total': 'node_disk_read_time_seconds_total',
-    'node_disk_reads_completed_total': 'node_disk_reads_completed_total',
-    'node_disk_reads_merged_total': 'node_disk_reads_merged_total',
-    'node_disk_write_time_seconds_total': 'node_disk_write_time_seconds_total',
-    'node_disk_writes_completed_total': 'node_disk_writes_completed_total',
-    'node_disk_writes_merged_total': 'node_disk_writes_merged_total',
-    'node_disk_written_bytes_total': 'node_disk_written_bytes_total',
+    'node_disk_io_time_seconds': 'node_disk_io_time_seconds',
+    'node_disk_io_time_weighted_seconds': 'node_disk_io_time_weighted_seconds',
+    'node_disk_read_bytes': 'node_disk_read_bytes',
+    'node_disk_read_time_seconds': 'node_disk_read_time_seconds',
+    'node_disk_reads_completed': 'node_disk_reads_completed',
+    'node_disk_reads_merged': 'node_disk_reads_merged',
+    'node_disk_write_time_seconds': 'node_disk_write_time_seconds',
+    'node_disk_writes_completed': 'node_disk_writes_completed',
+    'node_disk_writes_merged': 'node_disk_writes_merged',
+    'node_disk_written_bytes': 'node_disk_written_bytes',
 }
 
 REDIS_PROCESS = {
-    'process_cpu_seconds_total': 'process_cpu_seconds_total',
+    'process_cpu_seconds': 'process_cpu_seconds',
     'process_exporter_build_info': 'process_exporter_build_info',
     'process_max_fds': 'process_max_fds',
     'process_open_fds': 'process_open_fds',
@@ -351,11 +316,11 @@ REDIS_PROCESS = {
 }
 
 REDIS_PRESSURE = {
-    'node_pressure_cpu_waiting_seconds_total': 'node_pressure_cpu_waiting_seconds_total',
-    'node_pressure_io_stalled_seconds_total': 'node_pressure_io_stalled_seconds_total',
-    'node_pressure_io_waiting_seconds_total': 'node_pressure_io_waiting_seconds_total',
-    'node_pressure_memory_stalled_seconds_total': 'node_pressure_memory_stalled_seconds_total',
-    'node_pressure_memory_waiting_seconds_total': 'node_pressure_memory_waiting_seconds_total',
+    'node_pressure_cpu_waiting_seconds': 'node_pressure_cpu_waiting_seconds',
+    'node_pressure_io_stalled_seconds': 'node_pressure_io_stalled_seconds',
+    'node_pressure_io_waiting_seconds': 'node_pressure_io_waiting_seconds',
+    'node_pressure_memory_stalled_seconds': 'node_pressure_memory_stalled_seconds',
+    'node_pressure_memory_waiting_seconds': 'node_pressure_memory_waiting_seconds',
 }
 
 REDIS_PROXY = {
