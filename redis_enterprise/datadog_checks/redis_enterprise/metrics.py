@@ -305,14 +305,13 @@ REDIS_DISK = {
 }
 
 REDIS_PROCESS = {
-    # 'process_cpu_seconds': 'process_cpu_seconds',
+    # 'node_processes_max_threads': 'process_cpu_seconds',
     'process_exporter_build_info': 'process_exporter_build_info',
-    # 'process_max_fds': 'process_max_fds',
-    # 'process_open_fds': 'process_open_fds',
-    # 'process_resident_memory_bytes': 'process_resident_memory_bytes',
-    # 'process_start_time_seconds': 'process_start_time_seconds',
-    # 'process_virtual_memory_bytes': 'process_virtual_memory_bytes',
-    # 'process_virtual_memory_max_bytes': 'process_virtual_memory_max_bytes',
+    # 'node_processes_max_processes': 'node_processes_max_processes',
+    # 'node_processes_pids': 'node_processes_pids',
+    # 'node_processes_state': 'node_processes_state',
+    # 'node_processes_threads': 'node_processes_threads',
+    # 'node_processes_threads_state': 'node_processes_threads_state',
 }
 
 REDIS_PRESSURE = {
