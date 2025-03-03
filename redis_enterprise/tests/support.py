@@ -20,16 +20,15 @@ EPHEMERAL = [
     'rdse2.node_available_flash_bytes',  # only present flash
     'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash
     'rdse2.node_bigstore_free_bytes',  # only present bigstore
-    'rdse2.node_cert_expires_in_seconds',
     'rdse2.node_provisional_flash_bytes',  # only present flash
     'rdse2.node_provisional_flash_no_overbooking_bytes',  # only present flash
-    'rdse2.redis_server_aof_delayed_fsync',  # only present flash
-    'rdse2.redis_server_master_link_status',  # only present HA
-    'rdse2.redis_server_master_sync_in_progress',  # only present HA
-    'rdse2.database_syncer_config',
-    'rdse2.database_syncer_flush_counter',
-    'rdse2.database_syncer_internal_state',
-    'rdse2.database_syncer_state',
+    'rdse2.x509_cert_expired',
+    'rdse2.x509_cert_expires_in_seconds',
+    'rdse2.x509_cert_not_after',
+    'rdse2.x509_cert_not_before',
+    'rdse2.x509_cert_valid_since_seconds',
+    'rdse2.x509_exporter_build_info',
+    'rdse2.x509_read_errors',
 ]
 
 # enterprise metrics use the namespace 'rdse'
@@ -38,14 +37,14 @@ METRICS_MAP = {
         'rdse2.generation',
         'rdse2.has_quorum',
         'rdse2.is_primary',
-        'rdse2.license_shards_limit',
+        # 'rdse2.license_shards_limit',
         'rdse2.total_live_nodes_count',
         'rdse2.total_nodes_count',
     ],
     'REDIS2.DATABASE': [
-        'rdse2.db_config.count',
+        # 'rdse2.db_config',
         'rdse2.db_memory_limit_bytes',
-        'rdse2.db_status',
+        # 'rdse2.db_status',
         'rdse2.endpoint_client_connection_expired.count',
         'rdse2.endpoint_client_connections.count',
         'rdse2.endpoint_client_disconnections.count',
@@ -310,14 +309,14 @@ METRICS_MAP = {
         'rdse2.node_filesystem_size_bytes',
     ],
     'REDIS2.PROCESS': [
-        'rdse2.process_cpu_seconds.count',
+        # 'rdse2.process_cpu_seconds.count',
         'rdse2.process_exporter_build_info',
-        'rdse2.process_max_fds',
-        'rdse2.process_open_fds',
-        'rdse2.process_resident_memory_bytes',
-        'rdse2.process_start_time_seconds',
-        'rdse2.process_virtual_memory_bytes',
-        'rdse2.process_virtual_memory_max_bytes',
+        # 'rdse2.process_max_fds',
+        # 'rdse2.process_open_fds',
+        # 'rdse2.process_resident_memory_bytes',
+        # 'rdse2.process_start_time_seconds',
+        # 'rdse2.process_virtual_memory_bytes',
+        # 'rdse2.process_virtual_memory_max_bytes',
     ],
     'REDIS2.PRESSURE': [
         'rdse2.node_pressure_cpu_waiting_seconds.count',

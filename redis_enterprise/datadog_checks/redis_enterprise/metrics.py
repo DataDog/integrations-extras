@@ -24,7 +24,7 @@ REDIS_CLUSTER = {
     'generation': 'generation',
     'has_quorum': 'has_quorum',
     'is_primary': 'is_primary',
-    'license_shards_limit': 'license_shards_limit',
+    # 'license_shards_limit': 'license_shards_limit',
     'total_live_nodes_count': 'total_live_nodes_count',
     'total_nodes_count': 'total_nodes_count',
 }
@@ -32,9 +32,9 @@ REDIS_CLUSTER = {
 # db_config{cluster="c36456.us-east5-mz.gcp.cloud.rlrcp.com",db="12880118",db_port="15213",db_version="7.4",instance="internal.c36456.us-east5-mz.gcp.cloud.rlrcp.com:8070",job="redis"}
 
 REDIS_DATABASE = {
-    'db_config': 'db_config',
+    # 'db_config': 'db_config',
     'db_memory_limit_bytes': 'db_memory_limit_bytes',
-    'db_status': 'db_status',
+    # 'db_status': 'db_status',
     'endpoint_client_connection_expired': 'endpoint_client_connection_expired',
     'endpoint_client_connections': 'endpoint_client_connections',
     'endpoint_client_disconnections': 'endpoint_client_disconnections',
@@ -305,14 +305,14 @@ REDIS_DISK = {
 }
 
 REDIS_PROCESS = {
-    'process_cpu_seconds': 'process_cpu_seconds',
+    # 'process_cpu_seconds': 'process_cpu_seconds',
     'process_exporter_build_info': 'process_exporter_build_info',
-    'process_max_fds': 'process_max_fds',
-    'process_open_fds': 'process_open_fds',
-    'process_resident_memory_bytes': 'process_resident_memory_bytes',
-    'process_start_time_seconds': 'process_start_time_seconds',
-    'process_virtual_memory_bytes': 'process_virtual_memory_bytes',
-    'process_virtual_memory_max_bytes': 'process_virtual_memory_max_bytes',
+    # 'process_max_fds': 'process_max_fds',
+    # 'process_open_fds': 'process_open_fds',
+    # 'process_resident_memory_bytes': 'process_resident_memory_bytes',
+    # 'process_start_time_seconds': 'process_start_time_seconds',
+    # 'process_virtual_memory_bytes': 'process_virtual_memory_bytes',
+    # 'process_virtual_memory_max_bytes': 'process_virtual_memory_max_bytes',
 }
 
 REDIS_PRESSURE = {
