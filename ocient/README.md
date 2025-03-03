@@ -9,11 +9,20 @@ This integration enables your Ocient Hyperscale Data Warehouse to send metrics t
 
 ## Setup
 
-Follow these instructions to install and configure this check for an Agent running on a host.
-
 ### Installation
 
-The Ocient check is included in the [Datadog Agent][2] package, so you don't need to install anything else on your Ocient server.
+1. Run the following command to install the Agent integration:
+- For the Datadog Agent v6:
+   ```shell
+   datadog-agent integration install -t datadog-ocient==1.0.0
+   ```
+- For the Datadog Agent v7:
+   ```shell
+   agent integration install -t datadog-ocient==1.0.0
+   ```
+   
+2. Configure the integration by setting `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][4] for more information.
+3. [Restart][5] the Agent.
 
 ### Configuration
 
@@ -54,7 +63,7 @@ Ocient does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][8].
+Need help? Contact [Ocient support][8].
 
 [1]: https://ocient.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
@@ -63,4 +72,4 @@ Need help? Contact [Datadog support][8].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ocient/metadata.csv
-[8]: https://docs.datadoghq.com/help/
+[8]: https://service.ocient.com/support/home
