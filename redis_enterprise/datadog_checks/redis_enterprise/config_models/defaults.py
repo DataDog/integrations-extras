@@ -105,7 +105,7 @@ def instance_tls_use_host_header():
 
 
 def instance_tls_verify():
-    return False
+    return True
 
 
 def instance_use_latest_spec():
