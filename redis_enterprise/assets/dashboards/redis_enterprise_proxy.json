@@ -1,6 +1,6 @@
 {
   "title": "Redis Enterprise - Proxy",
-  "description": "Redis Enterprise Proxy presents a single, usable endpoint that hides topological complexity",
+  "description": "[[suggested_dashboards]]",
   "widgets": [
     {
       "id": 4181575023845814,
@@ -47,12 +47,19 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -201,13 +208,20 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "listener ingress",
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -251,17 +265,30 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "ingress",
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     },
                     {
                       "alias": "egress",
-                      "formula": "query2 * -1"
+                      "formula": "query2 * -1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -328,12 +355,19 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "diff(query1)"
                     }
                   ],
                   "queries": [
@@ -377,12 +411,19 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -676,7 +717,7 @@
     {
       "id": 1107644513966124,
       "definition": {
-        "title": "Get/Set",
+        "title": "Commands",
         "background_color": "vivid_orange",
         "show_title": true,
         "type": "group",
@@ -685,7 +726,7 @@
           {
             "id": 4493462146648202,
             "definition": {
-              "title": "Get",
+              "title": "Get/Set",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -704,6 +745,10 @@
                     {
                       "alias": "GET",
                       "formula": "query1"
+                    },
+                    {
+                      "alias": "GET",
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
@@ -711,6 +756,11 @@
                       "data_source": "metrics",
                       "name": "query1",
                       "query": "avg:rdse.listener_cmd_get{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdsc.listener_cmd_set{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -728,18 +778,18 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 6,
+              "width": 4,
               "height": 3
             }
           },
           {
             "id": 2699327014422812,
             "definition": {
-              "title": "Set",
+              "title": "Flush/Touch",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
@@ -752,15 +802,24 @@
                 {
                   "formulas": [
                     {
-                      "alias": "SET",
+                      "alias": "Flush",
                       "formula": "query1"
+                    },
+                    {
+                      "alias": "Touch",
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdsc.listener_cmd_flush{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdsc.listener_cmd_touch{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -776,9 +835,68 @@
               ]
             },
             "layout": {
-              "x": 6,
+              "x": 4,
               "y": 0,
-              "width": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5763295485850238,
+            "definition": {
+              "title": "Authentication/Error",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Authentication",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Errors",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdsc.listener_auth_cmds{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdsc.listener_auth_errors{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
               "height": 3
             }
           }
