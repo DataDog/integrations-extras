@@ -305,7 +305,7 @@ REDIS_DISK = {
 }
 
 REDIS_PROCESS = {
-    'node_processes_max_threads': 'process_cpu_seconds',
+    'node_processes_max_threads': 'node_processes_max_threads',
     'process_exporter_build_info': 'process_exporter_build_info',
     'node_processes_max_processes': 'node_processes_max_processes',
     'node_processes_pids': 'node_processes_pids',

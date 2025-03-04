@@ -29,6 +29,12 @@ EPHEMERAL = [
     'rdse2.x509_cert_valid_since_seconds',
     'rdse2.x509_exporter_build_info',
     'rdse2.x509_read_errors',
+    'rdse2.process_max_fds',
+    'rdse2.process_open_fds',
+    'rdse2.process_resident_memory_bytes',
+    'rdse2.process_start_time_seconds',
+    'rdse2.process_virtual_memory_bytes',
+    'rdse2.process_virtual_memory_max_bytes',
 ]
 
 # enterprise metrics use the namespace 'rdse'
@@ -310,12 +316,12 @@ METRICS_MAP = {
     ],
     'REDIS2.PROCESS': [
         'rdse2.process_exporter_build_info',
-        'rdse2.process_max_fds',
-        'rdse2.process_open_fds',
-        'rdse2.process_resident_memory_bytes',
-        'rdse2.process_start_time_seconds',
-        'rdse2.process_virtual_memory_bytes',
-        'rdse2.process_virtual_memory_max_bytes',
+        'rdse2.node_processes_max_threads',
+        'rdse2.node_processes_max_processes',
+        'rdse2.node_processes_pids',
+        'rdse2.node_processes_state',
+        'rdse2.node_processes_threads',
+        'rdse2.node_processes_threads_state',
     ],
     'REDIS2.PRESSURE': [
         'rdse2.node_pressure_cpu_waiting_seconds.count',
