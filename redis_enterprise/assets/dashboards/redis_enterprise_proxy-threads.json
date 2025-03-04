@@ -1,6 +1,6 @@
 {
   "title": "Redis Enterprise - Proxy Threads",
-  "description": "Redis Enterprise Proxy Threads are the individual threads of the proxy process",
+  "description": "[[suggested_dashboards]]",
   "widgets": [
     {
       "id": 4181575023845814,
@@ -15,7 +15,7 @@
             "id": 7104524980730882,
             "definition": {
               "type": "note",
-              "content": "Redis Software allows multiple databases to be created. Each database gets an endpoint (a unique URL and port on the FQDN). This endpoint receives all the traffic for all operations for that database. By default, Redis Software binds this database endpoint to one of the proxies on a single node in the cluster. This proxy becomes an active proxy and receives all the operations for the given database. (Note that if the node with the active proxy fails, a new proxy on another node takes over as part of the failover process automatically.)",
+              "content": "Redis Software allows multiple databases to be created. Each database gets an endpoint (a unique URL and port on the FQDN). This endpoint receives all the traffic for all operations for that database. By default, Redis Software binds this database endpoint to one of the proxies on a single node in the cluster. This proxy becomes an active proxy and receives all the operations for the given database. (note that if the node with the active proxy fails, a new proxy on another node takes over as part of the failover process automatically).",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -65,29 +65,26 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "alias": "syystem",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "user",
-                      "formula": "query2"
+                      "formula": "derivative(query1)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:worker.*} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:worker.*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:worker-*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -142,24 +139,27 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "system",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "user",
-                      "formula": "query2"
+                      "formula": "derivative(query1)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:listener.*,mode:system} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:listener*,mode:system} by {node}"
                     },
                     {
                       "data_source": "metrics",
@@ -300,7 +300,13 @@
                   ],
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ]
                 }
@@ -322,7 +328,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 11,
         "width": 12,
         "height": 3,
         "is_column_break": true
@@ -352,60 +358,97 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "{{threadname}}",
-                      "formula": "query1"
+                      "formula": "derivative(query1)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     },
                     {
-                      "formula": "query2"
+                      "formula": "derivative(query2)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     },
                     {
-                      "formula": "query3"
+                      "formula": "derivative(query3)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     },
                     {
-                      "formula": "query4"
+                      "formula": "derivative(query4)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     },
                     {
-                      "formula": "query5"
+                      "formula": "derivative(query5)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     },
                     {
-                      "formula": "query6"
+                      "formula": "derivative(query6)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:anonymous*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:anonymous*} by {node}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:mgmt*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:mgmt*} by {node}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:directory*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:directory*} by {node}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:offloader*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:offloader*} by {node}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:dmcproxy*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:dmcproxy*} by {node}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query6",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:logger*} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:logger*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -431,7 +474,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 3,
+        "y": 14,
         "width": 12,
         "height": 4
       }
@@ -460,29 +503,20 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "alias": "system",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "user",
-                      "formula": "query2"
+                      "formula": "derivative(query2)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:cli_session.*,mode:system} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:cli_session.*,mode:user} by {node}"
+                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster,threadname:cli_session*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -508,7 +542,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 7,
+        "y": 18,
         "width": 12,
         "height": 4
       }
