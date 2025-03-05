@@ -1,0 +1,722 @@
+{
+    "title": "Fiddler Model Performance Overview 4.0.0",
+    "description": "This dashboard displays the model performance metrics that was pulled into DataDog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data.",
+    "widgets": [
+        {
+            "id": 325090501093728,
+            "definition": {
+                "title": "Fiddler Model Performance Dashboard",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2831545235878754,
+                        "definition": {
+                            "type": "image",
+                            "url": "https://global-uploads.webflow.com/5e067beb4c88a64e31622d4b/623e2b19056c2266cff2d854_fiddler-ai-logo.svg",
+                            "url_dark_theme": "https://global-uploads.webflow.com/5e067beb4c88a64e31622d4b/623e2b19056c2266cff2d854_fiddler-ai-logo.svg",
+                            "sizing": "contain",
+                            "has_background": false,
+                            "has_border": false,
+                            "vertical_align": "center",
+                            "horizontal_align": "center"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 8,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 6544225029855812,
+                        "definition": {
+                            "type": "note",
+                            "content": "This dashboard displays the model performance metrics that was pulled into DataDog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data.",
+                            "background_color": "blue",
+                            "font_size": "16",
+                            "text_align": "center",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7032118608350450,
+                        "definition": {
+                            "type": "note",
+                            "content": "- [Supported Metric Types](https://docs.fiddler.ai/product-guide/monitoring-platform/monitoring-charts-platform#supported-metric-types)\n- [Performance tracking](https://docs.fiddler.ai/product-guide/monitoring-platform/performance-tracking-platform#what-is-being-tracked)\n- [Fiddler docs](https://docs.fiddler.ai/)",
+                            "background_color": "white",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 8,
+                "height": 5
+            }
+        },
+        {
+            "id": 1741971994096136,
+            "definition": {
+                "title": "Overview",
+                "background_color": "white",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 7308748295452192,
+                        "definition": {
+                            "title": "Model Performance Metrics",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "style": {
+                                                "palette": "warm",
+                                                "palette_index": 4
+                                            },
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 12
+                                            },
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "green",
+                                                "palette_index": 4
+                                            },
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 2
+                                            },
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "cool",
+                                                "palette_index": 5
+                                            },
+                                            "formula": "query5"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 14
+                                            },
+                                            "formula": "query6"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 6
+                                            },
+                                            "formula": "query7"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.fpr{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.f1_score{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.tpr{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.accuracy{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query4"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.auc{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query5"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.precision{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query6"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.recall{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query7"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "green",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 8,
+                "y": 0,
+                "width": 4,
+                "height": 5
+            }
+        },
+        {
+            "id": 3955370034957714,
+            "definition": {
+                "title": "Statistics",
+                "background_color": "vivid_green",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6992204922851018,
+                        "definition": {
+                            "title": "Model Traffic",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        },
+                                        {
+                                            "comparator": "=",
+                                            "value": 0,
+                                            "palette": "white_on_yellow"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.traffic{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 1,
+                            "timeseries_background": {
+                                "yaxis": {},
+                                "type": "bars"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4400509785934314,
+                        "definition": {
+                            "title": "Feature Averages Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.average{$project,$model} by {feature}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 6
+            }
+        },
+        {
+            "id": 274546046144418,
+            "definition": {
+                "title": "Drift",
+                "background_color": "vivid_orange",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 8103514099406230,
+                        "definition": {
+                            "title": "JSD Drift",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.jsd{$feature} by {feature}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4725388101344652,
+                        "definition": {
+                            "title": "PSI Drift",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.psi{$feature} by {feature}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 6
+            }
+        },
+        {
+            "id": 707217570763612,
+            "definition": {
+                "title": "Model Performance",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 1178734875793448,
+                        "definition": {
+                            "title": "Model Accuracy",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0.8
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_yellow",
+                                            "value": 0.6
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.accuracy{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                            "timeseries_background": {
+                                "type": "area",
+                                "yaxis": {
+                                    "include_zero": false
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 260724710528526,
+                        "definition": {
+                            "title": "Model Precision",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:fiddler.precision{$project, $model}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                            "timeseries_background": {
+                                "type": "area"
+                            }
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 0,
+                            "width": 4,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 4105997882655344,
+                        "definition": {
+                            "title": "Model Performance Metrics",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "style": {
+                                                "palette": "warm",
+                                                "palette_index": 4
+                                            },
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 12
+                                            },
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "green",
+                                                "palette_index": 4
+                                            },
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 2
+                                            },
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "cool",
+                                                "palette_index": 5
+                                            },
+                                            "formula": "query5"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 14
+                                            },
+                                            "formula": "query6"
+                                        },
+                                        {
+                                            "style": {
+                                                "palette": "dd20",
+                                                "palette_index": 6
+                                            },
+                                            "formula": "query7"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "avg:fiddler.fpr{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.f1_score{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.tpr{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.accuracy{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query4"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.auc{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query5"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.precision{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query6"
+                                        },
+                                        {
+                                            "query": "avg:fiddler.recall{$project,$model}",
+                                            "data_source": "metrics",
+                                            "name": "query7"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "green",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 7,
+                            "y": 0,
+                            "width": 5,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 11,
+                "width": 12,
+                "height": 4
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "project",
+            "prefix": "project",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "model",
+            "prefix": "model",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "feature",
+            "prefix": "feature",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
