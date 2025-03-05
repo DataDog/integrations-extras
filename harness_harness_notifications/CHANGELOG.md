@@ -1,6 +1,6 @@
 # CHANGELOG - harness-notifications
         
-## 1.0.0 / 2025-03-04
+## 1.0.0 / 2025-03-05
 
 _**Added**_:
 
