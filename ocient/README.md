@@ -12,11 +12,7 @@ This integration enables your Ocient Hyperscale Data Warehouse to send metrics t
 ### Installation
 
 1. Run the following command to install the Agent integration:
-- For the Datadog Agent v6:
-   ```shell
-   datadog-agent integration install -t datadog-ocient==1.0.0
-   ```
-- For the Datadog Agent v7:
+
    ```shell
    agent integration install -t datadog-ocient==1.0.0
    ```
