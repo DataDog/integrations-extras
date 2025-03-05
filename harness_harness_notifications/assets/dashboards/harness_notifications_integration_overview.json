@@ -15,8 +15,8 @@
             "id": 2831545235878754,
             "definition": {
               "type": "image",
-              "url": "/api/v2/images/bdd2b17f-31e0-40d4-858a-60d0f48989c2",
-              "url_dark_theme": "/api/v2/images/fb3cfa8d-fa2a-4363-8706-80176fd77052",
+              "url": "https://developer.harness.io/img/icon_harness.svg",
+              "url_dark_theme": "https://developer.harness.io/img/icon_harness.svg",
               "sizing": "contain",
               "margin": "md",
               "has_background": false,
@@ -25,9 +25,9 @@
               "horizontal_align": "center"
             },
             "layout": {
-              "x": 2,
+              "x": 0,
               "y": 0,
-              "width": 8,
+              "width": 12,
               "height": 2
             }
           },
@@ -35,7 +35,7 @@
             "id": 6544225029855812,
             "definition": {
               "type": "note",
-              "content": "This dashboard provides a high-level overview of Notification events from Harness. ",
+              "content": "This dashboard provides a high-level overview of Notification events from Harness.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -79,6 +79,133 @@
         "x": 0,
         "y": 0,
         "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 2837500997301410,
+      "definition": {
+        "title": "Pipeline events count",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "a"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "a",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "event_type",
+                    "limit": 250,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "search": {
+                  "query": "source:harness_notifications"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 5
+      }
+    },
+    {
+      "id": 327730656389999,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "type": "query_table",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "events_query_1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "event_type",
+                    "limit": 250,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "search": {
+                  "query": "source:harness_notifications"
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "events_query_1"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
         "height": 5
       }
     }
