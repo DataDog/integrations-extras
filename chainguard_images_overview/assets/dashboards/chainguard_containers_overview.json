@@ -1,11 +1,11 @@
 {
-  "title": "Chainguard",
-  "description": "[[suggested_dashboards]]",
+  "title": "Chainguard Containers Overview",
+  "description": "Chainguard Containers are built from source code, scanned and patched for CVEs daily ",
   "widgets": [
     {
       "id": 3494248154671680,
       "definition": {
-        "title": "",
+        "title": "About Chainguard",
         "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
@@ -15,8 +15,8 @@
             "id": 2296567388649242,
             "definition": {
               "type": "image",
-              "url": "/api/v2/images/e82dae71-fee2-46c9-a538-039a8b42c4bd",
-              "url_dark_theme": "/api/v2/images/9caee208-d3ad-4b97-93d2-43b0dd28940c",
+              "url": "https://www.chainguard.dev/_next/image?url=%2Fchainguard-logo-light.png&w=256&q=75",
+              "url_dark_theme": "",
               "sizing": "contain",
               "margin": "md",
               "has_background": false,
@@ -35,9 +35,9 @@
             "id": 8629047527092916,
             "definition": {
               "type": "note",
-              "content": "Build better software with Chainguard’s minimal, zero-CVE Container Images and guarded protection under our remediation SLA.",
+              "content": "Build better software with Chainguard’s minimal, zero-CVE container images and guarded protection under our remediation SLA.",
               "background_color": "transparent",
-              "font_size": "18",
+              "font_size": "24",
               "text_align": "center",
               "vertical_align": "center",
               "show_tick": false,
@@ -49,6 +49,27 @@
               "x": 0,
               "y": 1,
               "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 1275352067923368,
+            "definition": {
+              "type": "note",
+              "content": "## [See the full Chainguard Images Directory here](https://images.chainguard.dev/directory)",
+              "background_color": "vivid_purple",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
               "height": 1
             }
           }
@@ -58,13 +79,13 @@
         "x": 0,
         "y": 0,
         "width": 6,
-        "height": 3
+        "height": 5
       }
     },
     {
       "id": 228280647238182,
       "definition": {
-        "title": "Chainguard Images compatibility",
+        "title": "Chainguard Containers Compatibility",
         "background_color": "green",
         "show_title": true,
         "type": "group",
@@ -73,7 +94,7 @@
           {
             "id": 647807269803552,
             "definition": {
-              "title": "Total running containers",
+              "title": "Total Running Containers",
               "title_size": "16",
               "title_align": "center",
               "type": "query_value",
@@ -110,7 +131,7 @@
           {
             "id": 8395876704459836,
             "definition": {
-              "title": "Chainguard compatible running containers",
+              "title": "Chainguard Compatible Running Containers",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -145,7 +166,7 @@
           {
             "id": 4312660052413712,
             "definition": {
-              "title": "Potential images to convert to Chainguard Images",
+              "title": "Potential Images To Convert To Chainguard Containers",
               "title_size": "16",
               "title_align": "left",
               "type": "toplist",
@@ -188,72 +209,7 @@
               "x": 0,
               "y": 1,
               "width": 6,
-              "height": 4
-            }
-          },
-          {
-            "id": 1275352067923368,
-            "definition": {
-              "type": "note",
-              "content": "## [See the full Chainguard Images Directory here](https://images.chainguard.dev/directory)",
-              "background_color": "vivid_purple",
-              "font_size": "14",
-              "text_align": "center",
-              "vertical_align": "center",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 5,
-              "width": 6,
-              "height": 1
-            }
-          },
-          {
-            "id": 8758955597320810,
-            "definition": {
-              "title": "Top 25 oldest running images",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "query": "max:contimage.max_image_age{status:running,$env,$cluster_name,$short_image} by {image_name}",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "aggregator": "max"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1 / (86400000)"
-                    }
-                  ],
-                  "sort": {
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ],
-                    "count": 25
-                  }
-                }
-              ],
-              "style": {}
-            },
-            "layout": {
-              "x": 0,
-              "y": 6,
-              "width": 6,
-              "height": 4
+              "height": 3
             }
           }
         ]
@@ -262,13 +218,13 @@
         "x": 6,
         "y": 0,
         "width": 6,
-        "height": 11
+        "height": 5
       }
     },
     {
       "id": 424311702618510,
       "definition": {
-        "title": "Chainguard Images coverage",
+        "title": "Chainguard Containers Coverage",
         "background_color": "blue",
         "show_title": true,
         "type": "group",
@@ -314,14 +270,14 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 2
             }
           },
           {
             "id": 5803969548554792,
             "definition": {
-              "title": "Chainguard image coverage ",
+              "title": "Chainguard Containers Coverage ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -380,9 +336,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 4,
               "y": 0,
-              "width": 4,
+              "width": 8,
               "height": 7
             }
           },
@@ -403,7 +359,7 @@
             "layout": {
               "x": 0,
               "y": 2,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -424,7 +380,7 @@
             "layout": {
               "x": 0,
               "y": 3,
-              "width": 2,
+              "width": 4,
               "height": 4
             }
           }
@@ -432,40 +388,152 @@
       },
       "layout": {
         "x": 0,
-        "y": 3,
-        "width": 6,
+        "y": 10,
+        "width": 12,
         "height": 8
       }
     },
     {
-      "id": 1568298405656474,
+      "id": 5627138521252312,
       "definition": {
-        "title": "Memory usage per container",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "hostmap",
-        "requests": {
-          "fill": {
-            "q": "avg:process.stat.container.memory.rss{*} by {host}"
+        "title": "Existing Container Trends",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1568298405656474,
+            "definition": {
+              "title": "Memory Usage Per Container",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "hostmap",
+              "requests": {
+                "fill": {
+                  "q": "avg:process.stat.container.memory.rss{*} by {host}"
+                }
+              },
+              "node_type": "container",
+              "no_metric_hosts": true,
+              "no_group_hosts": true,
+              "group": [
+                "git.repository_url"
+              ],
+              "scope": [],
+              "style": {
+                "palette": "green_to_orange",
+                "palette_flip": false
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 10
+            }
+          },
+          {
+            "id": 8758955597320810,
+            "definition": {
+              "title": "Top 25 Longest Running Containers",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "max:contimage.max_image_age{status:running,$env,$cluster_name,$short_image} by {image_name}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1 / (86400000)"
+                    }
+                  ],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ],
+                    "count": 25
+                  }
+                }
+              ],
+              "style": {}
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 6
+            }
+          },
+          {
+            "id": 3918404786219426,
+            "definition": {
+              "title": "Highest Used Images by Registry",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "type": "live",
+                "unit": "week",
+                "value": 1
+              },
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "count:container.cpu.usage{$env,$cluster_name,$short_image} by {image_name,git.repository_url}.fill(60)",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 20,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "timeshift(query1, 40)"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 4
+            }
           }
-        },
-        "node_type": "container",
-        "no_metric_hosts": true,
-        "no_group_hosts": true,
-        "group": [
-          "git.repository_url"
-        ],
-        "scope": [],
-        "style": {
-          "palette": "green_to_orange",
-          "palette_flip": false
-        }
+        ]
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 9
+        "y": 18,
+        "width": 12,
+        "height": 11
       }
     },
     {
@@ -483,7 +551,7 @@
               "type": "note",
               "content": "These widgets require the [Cloud Security Management product](https://docs.datadoghq.com/security/cloud_security_management/vulnerabilities/) to populate.",
               "background_color": "green",
-              "font_size": "14",
+              "font_size": "16",
               "text_align": "left",
               "vertical_align": "center",
               "show_tick": false,
@@ -496,6 +564,48 @@
               "y": 0,
               "width": 6,
               "height": 1
+            }
+          },
+          {
+            "id": 1818972211272584,
+            "definition": {
+              "title": "Distribution of Image Vulnerabilities",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:contimage.vuln_count{$env,$cluster_name,$short_image} by {image_name}"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst"
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 5
             }
           },
           {
@@ -567,106 +677,14 @@
               "width": 6,
               "height": 4
             }
-          },
-          {
-            "id": 1818972211272584,
-            "definition": {
-              "title": "Distribution of Image Vulnerabilities",
-              "title_size": "16",
-              "title_align": "left",
-              "requests": [
-                {
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:contimage.vuln_count{$env,$cluster_name,$short_image} by {image_name}"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "sort": {
-                    "count": 500,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  }
-                }
-              ],
-              "type": "sunburst"
-            },
-            "layout": {
-              "x": 0,
-              "y": 5,
-              "width": 6,
-              "height": 4
-            }
           }
         ]
       },
       "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 10
-      }
-    },
-    {
-      "id": 3918404786219426,
-      "definition": {
-        "title": "Highest Used Images by Registry",
-        "title_size": "16",
-        "title_align": "left",
-        "time": {
-          "type": "live",
-          "unit": "week",
-          "value": 1
-        },
-        "type": "query_table",
-        "requests": [
-          {
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "count:container.cpu.usage{$env,$cluster_name,$short_image} by {image_name,git.repository_url}.fill(60)",
-                "aggregator": "last"
-              }
-            ],
-            "response_format": "scalar",
-            "sort": {
-              "count": 20,
-              "order_by": [
-                {
-                  "type": "formula",
-                  "index": 0,
-                  "order": "desc"
-                }
-              ]
-            },
-            "formulas": [
-              {
-                "cell_display_mode": "bar",
-                "formula": "timeshift(query1, 40)"
-              }
-            ]
-          }
-        ],
-        "has_search_bar": "auto"
-      },
-      "layout": {
         "x": 0,
-        "y": 9,
-        "width": 6,
-        "height": 4
+        "y": 29,
+        "width": 12,
+        "height": 6
       }
     }
   ],

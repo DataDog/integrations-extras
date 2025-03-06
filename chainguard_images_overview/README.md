@@ -2,7 +2,9 @@
 
 ## Overview
 
-This integration includes an out-of-the-box dashboard that displays existing containers eligible for migration to Chainguard Containers. All Chainguard Containers are minimal, contain zero CVEs and come equipped with guarded protection under our remediation SLA. Additionally, Chainguard Containers are built from source code and scanned for CVEs regularly. 
+Chainguard allows developers to reduce engineering toil to manage CVEs, build on a secure foundation of open source software and also streamline compliance across the company against business-critical frameworks like FedRAMP, PCI-DSS, SOC2 and others. Our product, Chainguard Containers, are minimal, contain zero CVEs and come equipped with guarded protection under our remediation SLA. All 1200+ of our images are built from source, scanned and patched for CVEs regularly. 
+
+This integration includes an out-of-the-box dashboard that displays existing containers eligible for migration to Chainguard Containers. You can quickly see long-running containers which may be end-of-life and eligible for an update to a secure container. Additionally, if you're a customer of CSM Infrastructure Vulnerabilities, you can see which containers have the most CVEs, and in turn, should be migrated to Chainguard earlier. 
 
 ## Setup
 
