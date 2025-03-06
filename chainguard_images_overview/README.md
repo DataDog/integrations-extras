@@ -1,22 +1,25 @@
-# Chainguard Images Overview
+# Chainguard
 
 ## Overview
 
-The Chainguard Images dashboard shows existing containers which can be migrated to Chainguard images. All Chainguard Images are minimal, contain zero CVEs and come equipped with guarded protection under our remediation SLA.
+This integration includes an out-of-the-box dashboard that displays existing containers eligible for migration to Chainguard Containers. All Chainguard Containers are minimal, contain zero CVEs and come equipped with guarded protection under our remediation SLA. Additionally, Chainguard Containers are built from source code and scanned for CVEs regularly. 
 
 ## Setup
 
-The Chainguard Images Overview dashboard is available without any setup needed. The dashboard queries your existing Docker container metrics to visualize the data. 
+The included out-of-the-box dashboard automatically queries existing Docker container metrics collected by the Datadog Agent. No additional setup is required.
 
-In order to get started with a Chainguard Image, find your image in https://images.chainguard.dev/ and follow the directions to pull it
+To start using a Chainguard Image, visit [Chainguard Images][1], find your desired image, and follow the instructions to pull it.
 
 ## Uninstallation
 
-There are no uninstallation steps needed since the Chainguard Images Overview dashboard queries your existing Docker container metrics. 
+To remove the out-of-the-box dashboard, go to the Chainguard integration tile, navigate to the Configure tab, and click **Uninstall Integration**.
 
-On order to uninstall a Chainguard Image you're using, please remove all references to your Chainguard Image and revert back to the original image
+To uninstall a Chainguard Image, remove all references to it in your configuration and revert to the original image.
 
 ## Support
 
-Please reach out to our Support team following the instructions on this page: https://www.chainguard.dev/contact
+To reach our support team, please follow the instructions on our [Contact page][2].
 
+
+[1]: https://images.chainguard.dev
+[2]: https://www.chainguard.dev/contact
