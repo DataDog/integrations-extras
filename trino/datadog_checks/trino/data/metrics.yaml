@@ -120,18 +120,18 @@ jmx_metrics:
         WallInputBytesRate.OneMinute.P95:
           alias: trino.execution.wall_input_bytes_rate.one_minute.p95
   - include:
-      bean: trino.execution.executor:name=TaskExecutor
+      bean: trino.execution.executor.timesharing:name=TimeSharingTaskExecutor
       attribute:
         BlockedSplits:
-          alias: trino.execution.executor.blocked_splits
+          alias: trino.execution.executor.timesharing.blocked_splits
         ProcessorExecutor.QueuedTaskCount:
-          alias: trino.execution.executor.processor_executor.queued_task_count
+          alias: trino.execution.executor.timesharing.processor_executor.queued_task_count
         RunningSplits:
-          alias: trino.execution.executor.running_splits
+          alias: trino.execution.executor.timesharing.running_splits
         TotalSplits:
-          alias: trino.execution.executor.total_splits
+          alias: trino.execution.executor.timesharing.total_splits
         WaitingSplits:
-          alias: trino.execution.executor.waiting_splits
+          alias: trino.execution.executor.timesharing.waiting_splits
   - include:
       domain: trino.memory
       attribute:
