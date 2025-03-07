@@ -1,5 +1,11 @@
 # CHANGELOG - Redis Enterprise
 
+## 1.1.3 / 2025-03-07
+
+***Changed***:
+
+* Force metric types, e.g. specify milliseconds for lag, etc.
+
 ## 1.1.2 / 2025-02-28
 
 ***Changed***:
