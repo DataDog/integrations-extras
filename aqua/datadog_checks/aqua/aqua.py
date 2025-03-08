@@ -2,17 +2,15 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import simplejson as json
+import time
+import hmac
+import hashlib
 from six.moves.urllib.parse import urljoin
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 SEVERITIES = {'total': 'all', 'high': 'high', 'medium': 'medium', 'ok': 'ok', 'low': 'low'}
 STATUS_METRICS = [
-    # (
-    #     metric_name,
-    #     route,
-    #     statuses
-    # )
     (
         'aqua.audit.access',
         '/api/v1/audit/access_totals?alert=-1&limit=100&time=hour&type=all',
@@ -41,7 +39,6 @@ class AquaCheck(AgentCheck):
 
     def check(self, instance):
         instance_tags = instance.get("tags", [])
-
         self.validate_instance(instance)
 
         try:
@@ -51,6 +48,7 @@ class AquaCheck(AgentCheck):
             self.log.error("Failed to get Aqua token, skipping check. Error: %s", ex)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=instance_tags)
             return
+
         self._report_base_metrics(instance, token)
         self._report_connected_enforcers(instance, token)
 
@@ -63,20 +61,71 @@ class AquaCheck(AgentCheck):
         Validate that all required parameters are set in the instance.
         """
         missing = []
-        for option in ('api_user', 'password', 'url'):
+        for option in ('url',):
             if option not in instance:
                 missing.append(option)
+
+        if instance.get('auth_method') == 'onprem' and ('api_user' not in instance or 'password' not in instance):
+            missing.extend(['api_user', 'password'])
+
+        if instance.get('auth_method') == 'saas' and ('api_key' not in instance or 'api_secret' not in instance):
+            missing.extend(['api_key', 'api_secret'])
 
         if missing:
             last = missing.pop()
             missing = ', '.join(missing)
             missing += ', and {}'.format(last) if missing else last
-
             raise ConfigurationError('Aqua instance missing: {}'.format(missing))
 
     def get_aqua_token(self, instance):
         """
-        Retrieve the Aqua token for next queries.
+        Retrieve the Aqua token for the specified authentication method.
+        """
+        if instance.get("auth_method") == "saas":
+            return self._get_saas_token(instance)
+        elif instance.get("auth_method") == "onprem":
+            return self._get_onprem_token(instance)
+        else:
+            raise ConfigurationError("Invalid auth_method. Must be either 'saas' or 'onprem'.")
+
+    def _get_saas_token(self, instance):
+        """
+        Generate a SaaS Aqua token using HMAC.
+        """
+        api_key = instance["api_key"]
+        api_secret = instance["api_secret"]
+        url = urljoin(instance["url"], "/v2/tokens")
+        method = "POST"
+        body = {
+            "validity": 240,  # Lifetime of the token in minutes
+            "allowed_endpoints": ["GET"],  # Allowed API methods
+        }
+        timestamp = str(int(time.time()))  # Unix timestamp
+        path = "/v2/tokens"
+        body_json = json.dumps(body, separators=(",", ":"))
+
+        # String to sign
+        string_to_sign = f"{timestamp}{method}{path}{body_json}"
+        sig = hmac.new(
+            api_secret.encode("utf-8"),
+            msg=string_to_sign.encode("utf-8"),
+            digestmod=hashlib.sha256,
+        ).hexdigest()
+
+        headers = {
+            "Content-Type": "application/json",
+            "x-api-key": api_key,
+            "x-signature": sig,
+            "x-timestamp": timestamp,
+        }
+
+        res = self.http.post(url, json=body, extra_headers=headers)
+        res.raise_for_status()
+        return json.loads(res.text)["data"]
+
+    def _get_onprem_token(self, instance):
+        """
+        Retrieve the Aqua token for On-Prem authentication.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
         data = {"id": str(instance['api_user']), "password": str(instance['password'])}
