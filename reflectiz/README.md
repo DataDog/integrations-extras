@@ -41,7 +41,6 @@ Once you complete these steps, all metrics and logs are tagged with the appropri
 
 ## Uninstallation
 
-To uninstall the Reflectiz integration from Datadog:
 
 
 1. In Datadog, navigate to **Integrations** > select the Reflectiz tile > click **Uninstall Integration**.
