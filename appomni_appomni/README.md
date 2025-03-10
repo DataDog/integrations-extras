@@ -2,7 +2,17 @@
 
 ## Overview
 
-The AppOmni Threat Detection Datadog Integration centralizes and normalizes SaaS security logs, providing a unified view of events and alerts. This integration enhances visibility, enabling real-time monitoring and streamlined threat detection across your SaaS applications.
+**AppOmni** is a leading SaaS security platform that provides deep visibility, monitoring, and control over enterprise SaaS applications. It helps organizations secure their data by detecting misconfigurations, unauthorized access, and potential threats in SaaS cloud applications.
+
+The **AppOmni integration** centralizes your SaaS security logs within Datadog, giving you a unified view of security events and alerts. AppOmni normalizes security events across different SaaS applications, ensuring consistency in log structure and making it easier to correlate activities across platforms.
+
+AppOmni generates alerts based on multiple detection methods:
+
+-   **User and Entity Behavior Analytics (UEBA):** Detects anomalies in user activity by establishing baselines and identifying deviations that may indicate compromised accounts or insider threats.
+-   **Threshold-based Alerts:** Triggers notifications when predefined limits (e.g., excessive failed login attempts, high-volume data exports) are exceeded.
+-   **Sequence-based Detection:** Identifies complex attack patterns by analyzing the order and relationship of events, such as privilege escalation followed by sensitive data access.
+
+By integrating with Datadog, these insights enable security teams to detect, investigate, and respond to threats in real time, improving the overall security posture of their SaaS environments.
 
 ## Setup
 
@@ -64,7 +74,7 @@ Within Datadog, navigate to **Organization settings**, then click **API Keys**.
 
 ## Support
 
-Contact <support@appomni.com> for support requests.
+Contact support@appomni.com for support requests.
 
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/
