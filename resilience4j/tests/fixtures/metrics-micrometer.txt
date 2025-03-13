@@ -1,0 +1,93 @@
+# HELP resilience4j_circuitbreaker_buffered_calls The number of buffered failed calls stored in the ring buffer
+# TYPE resilience4j_circuitbreaker_buffered_calls gauge
+resilience4j_circuitbreaker_buffered_calls{kind="failed",name="backendA",} 0.0
+resilience4j_circuitbreaker_buffered_calls{kind="successful",name="backendA",} 0.0
+
+# HELP resilience4j_circuitbreaker_calls_total Total number of not permitted calls
+# TYPE resilience4j_circuitbreaker_calls_total counter
+resilience4j_circuitbreaker_calls_total{kind="not_permitted",name="backendA",} 1.0
+
+# HELP resilience4j_circuitbreaker_state The states of the circuit breaker
+# TYPE resilience4j_circuitbreaker_state gauge
+resilience4j_circuitbreaker_state{name="backendA",state="half_open",} 0.0
+resilience4j_circuitbreaker_state{name="backendA",state="forced_open",} 0.0
+resilience4j_circuitbreaker_state{name="backendA",state="disabled",} 0.0
+resilience4j_circuitbreaker_state{name="backendA",state="closed",} 1.0
+resilience4j_circuitbreaker_state{name="backendA",state="open",} 0.0
+resilience4j_circuitbreaker_state{name="backendA",} 0.0
+
+# HELP resilience4j_circuitbreaker_failure_rate The failure rate of the circuit breaker
+# TYPE resilience4j_circuitbreaker_failure_rate gauge
+resilience4j_circuitbreaker_failure_rate{name="backendA",} 20.0
+
+# HELP resilience4j_circuitbreaker_max_buffered_calls The maximum number of buffered calls which can be stored in the ring buffer
+# TYPE resilience4j_circuitbreaker_max_buffered_calls gauge
+resilience4j_circuitbreaker_max_buffered_calls{name="backendA",} 5.0
+
+# HELP resilience4j_circuitbreaker_calls_seconds_max Total duration of calls
+# TYPE resilience4j_circuitbreaker_calls_seconds_max gauge
+resilience4j_circuitbreaker_calls_seconds_max{kind="successful",name="backendA",} 0.0
+resilience4j_circuitbreaker_calls_seconds_max{kind="failed",name="backendA",} 0.0
+resilience4j_circuitbreaker_calls_seconds_max{kind="ignored",name="backendA",} 0.0
+
+resilience4j_circuitbreaker_calls_seconds_sum{kind="ignored",name="backendA",} 0.0
+
+# HELP resilience4j_circuitbreaker_calls_seconds Total number of successful calls
+# TYPE resilience4j_circuitbreaker_calls_seconds histogram
+resilience4j_circuitbreaker_calls_seconds_count{kind="successful",name="backendA",} 0.0
+resilience4j_circuitbreaker_calls_seconds_sum{kind="successful",name="backendA",} 0.0
+
+# HELP resilience4j_circuitbreaker_calls_seconds Total number of failed calls
+# TYPE resilience4j_circuitbreaker_calls_seconds histogram
+resilience4j_circuitbreaker_calls_seconds_count{kind="failed",name="backendA",} 0.0
+resilience4j_circuitbreaker_calls_seconds_sum{kind="failed",name="backendA",} 0.0
+
+# HELP resilience4j_bulkhead_available_concurrent_calls The number of available permissions
+# TYPE resilience4j_bulkhead_available_concurrent_calls gauge
+resilience4j_bulkhead_available_concurrent_calls{name="backendA",} 10.0
+
+# HELP resilience4j_bulkhead_max_allowed_concurrent_calls The maximum number available permissions
+# TYPE resilience4j_bulkhead_max_allowed_concurrent_calls gauge
+resilience4j_bulkhead_max_allowed_concurrent_calls{name="backendA",} 10.0
+
+# HELP resilience4j_bulkhead_queue_depth The number of tasks in the queue
+# TYPE resilience4j_bulkhead_queue_depth gauge
+resilience4j_bulkhead_queue_depth{name="backendA",} 10.0
+
+# HELP resilience4j_bulkhead_queue_capacity The maximum allowed size of the queue
+# TYPE resilience4j_bulkhead_queue_capacity gauge
+resilience4j_bulkhead_queue_capacity{name="backendA",} 50.0
+
+# HELP resilience4j_bulkhead_thread_pool_size The current size of the thread pool
+# TYPE resilience4j_bulkhead_thread_pool_size gauge
+resilience4j_bulkhead_thread_pool_size{name="backendA",} 10.0
+
+# HELP resilience4j_bulkhead_core_thread_pool_size The minimum size of the thread pool
+# TYPE resilience4j_bulkhead_core_thread_pool_size gauge
+resilience4j_bulkhead_core_thread_pool_size{name="backendA",} 5.0
+
+# HELP resilience4j_bulkhead_max_thread_pool_size The maximum allowed size of the thread pool
+# TYPE resilience4j_bulkhead_max_thread_pool_size gauge
+resilience4j_bulkhead_max_thread_pool_size{name="backendA",} 20.0
+
+# HELP resilience4j_retry_calls The number of successful calls without a retry attempt
+# TYPE resilience4j_retry_calls gauge
+resilience4j_retry_calls{kind="failed_with_retry",name="backendA",} 0.0
+resilience4j_retry_calls{kind="failed_without_retry",name="backendA",} 0.0
+resilience4j_retry_calls{kind="successful_without_retry",name="backendA",} 0.0
+resilience4j_retry_calls{kind="successful_with_retry",name="backendA",} 0.0
+
+# HELP resilience4j_ratelimiter_waiting_threads The number of waiting threads
+# TYPE resilience4j_ratelimiter_waiting_threads gauge
+resilience4j_ratelimiter_waiting_threads{name="backendA",} 0.0
+
+# HELP resilience4j_ratelimiter_available_permissions The number of available permissions
+# TYPE resilience4j_ratelimiter_available_permissions gauge
+resilience4j_ratelimiter_available_permissions{name="backendA",} 50.0
+
+# HELP resilience4j_timelimiter_calls_total The number of successful calls
+# TYPE resilience4j_timelimiter_calls_total counter
+resilience4j_timelimiter_calls_total{group="ClientgetOrderUUID",kind="timeout",name="backendA",} 0.0
+resilience4j_timelimiter_calls_total{group="ClientgetRouteByUUID",kind="failed",name="backendA",} 0.0
+resilience4j_timelimiter_calls_total{group="ClientgetDriverTrackUUID",kind="timeout",name="backendA",} 0.0
+resilience4j_timelimiter_calls_total{group="ClientgetDriverTrackUUID",kind="successful",name="backendA",} 0.0
