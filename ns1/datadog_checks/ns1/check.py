@@ -373,8 +373,8 @@ class Ns1Check(AgentCheck):
     def extract_billing(self, jsonResult):
         try:
             billing = {}
-            billing["usage"] = jsonResult["totals"]["queries"]
-            billing["limit"] = jsonResult["any"]["query_credit"]
+            billing["usage"] = jsonResult["usage"]["queries"]
+            billing["limit"] = jsonResult["included_units"]["queries"]
             return billing, True
         except Exception:
             return None, False
