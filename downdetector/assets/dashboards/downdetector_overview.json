@@ -1,0 +1,242 @@
+{
+  "title": "Downdetector Overview",
+  "description": "This should include the same copy as the high-level overview  in the About section of the dashboard including helpful links.\n\nClone this template dashboard to make changes and add your own graph widgets. ",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About <integration>",
+        "banner_img": "/api/v2/images/47365a99-3e5d-417f-99d8-bd9143359c76",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high-level overview of companies monitored in your Downdetector account.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading: (include any links that help explain data collected, or how to monitor the integration with Datadog. Should be a bulleted list\n\nPlease see Datadog [Dashboard Best Practices](https://datadoghq.dev/integrations-core/guidelines/dashboards/) to learn more. ",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 5
+      }
+    },
+    {
+      "id": 1741971994096136,
+      "definition": {
+        "title": "Overview",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 473581076943140,
+            "definition": {
+              "title": "Current Outages",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "check_status",
+              "check": "downdetector",
+              "grouping": "cluster",
+              "group_by": [
+                "company"
+              ],
+              "tags": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7493157102499174,
+            "definition": {
+              "type": "note",
+              "content": "This should include a brief, annotated \"overview\" section with the most important statistics, right at the top. \n\nex: [example overview](https://datadoghq.dev/integrations-core/guidelines/dashboards/#general)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 5
+      }
+    },
+    {
+      "id": 8605635925660096,
+      "definition": {
+        "title": "Outage List",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "@title",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": "source:downdetector status:error"
+                }
+              }
+            ],
+            "response_format": "scalar",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 25,
+                "palette": "white_on_red"
+              },
+              {
+                "comparator": ">",
+                "value": 15,
+                "palette": "white_on_yellow"
+              },
+              {
+                "comparator": "<",
+                "value": 15,
+                "palette": "white_on_green"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 50,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "style": {
+          "display": {
+            "type": "stacked",
+            "legend": "automatic"
+          },
+          "palette": "dog_classic",
+          "scaling": "relative"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 5441695628901596,
+      "definition": {
+        "title": "Outage Events",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "event_list",
+            "query": {
+              "query_string": "source:downdetector",
+              "data_source": "event_stream",
+              "event_size": "l"
+            },
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 13
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}

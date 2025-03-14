@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "title": "Outage detected at monitored company",
+  "title": "Outage detected at a monitor company",
   "tags": [
     "integration:downdetector"
   ],
-  "created_at": "2025-02-10",
-  "last_updated_at": "2025-02-10",
+  "created_at": "2025-03-14",
+  "last_updated_at": "2025-03-14",
   "description": "When Downdetector detects an outage, a check status is provided to Datadog for monitors to alert on.",
   "definition": {
     "id": 163638104,
     "name": "Outage detected at {{company.name}}",
     "type": "service check",
     "query": "\"downdetector\".over(\"*\").by(\"company\").last(2).count_by_status()",
-    "message": "Example",
+    "message": "An outage has been detected by Downdetector for {{company.name}}",
     "tags": [],
     "options": {
       "thresholds": {
