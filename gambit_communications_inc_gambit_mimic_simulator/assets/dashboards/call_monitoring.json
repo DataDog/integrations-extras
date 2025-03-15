@@ -1,0 +1,598 @@
+{
+  "title": "Call Monitoring",
+  "description": "This dashboard provides an overview of VOIP calls.\n\nTop conversation calls shown in a pie chart with source-destination IP address pairs as wedges, the larger call multimedia data volume the larger the wedge.\n\nThe front page of the dashboard shows a glance of number of calls/meetings occurring in real time. Also the front page includes time series of utilization of VOIP of the monitored network.\n\nThe metrics are most suitable for networks that export a unique flow ID per meeting/per call. \n\n",
+  "widgets": [
+    {
+      "id": 8686722288675258,
+      "definition": {
+        "title": "Overview",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2653281815203992,
+            "definition": {
+              "title": "Total Call/Meeting # of Records",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "label": "Records",
+                          "type": "custom_unit_label"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 7958217041811788,
+            "definition": {
+              "title": "Total Call/Meeting  # of Records",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 6652255485767128,
+            "definition": {
+              "title": "# devices sending NetFlow data ",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@exporter.ip"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$device.ip $device.name $exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center"
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 5184071854652002,
+            "definition": {
+              "title": "# devices sending NetFlow data ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@exporter.ip"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$device.ip $device.name $exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 9,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 6820980913001244,
+            "definition": {
+              "title": "Call/Meeting # of Records by Exporter ",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [
+                        {
+                          "facet": "@exporter.ip",
+                          "limit": 100,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 100,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {}
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3864890137082580,
+            "definition": {
+              "title": "Total Call/Meeting Multimedia Volume (Bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "label": "bytes",
+                          "type": "custom_unit_label"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "sum",
+                        "metric": "@bytes"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 5457095119768824,
+            "definition": {
+              "title": "Total Call/Meeting Multimedia Volume (Bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "sum",
+                        "metric": "@bytes"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 9,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 2587619620190594,
+            "definition": {
+              "title": "NetFlow Volume (# of Records) by Exporter ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [
+                        {
+                          "facet": "@exporter.ip",
+                          "limit": 100,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$exporter.ip $device.ip $device.name $source.ip $destination.ip $egress.interface.name $ingress.interface.name"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 6598417582615058,
+      "definition": {
+        "title": "Network Conversations",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8740800319820694,
+            "definition": {
+              "title": "Top Call/Meeting Data through Source → Device → Destination (Bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "sum",
+                        "metric": "@bytes"
+                      },
+                      "data_source": "network_device_flows",
+                      "group_by": [
+                        {
+                          "facet": "@source.ip",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "sum",
+                            "metric": "@bytes",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@device.ip",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "sum",
+                            "metric": "@bytes",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@destination.ip",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "sum",
+                            "metric": "@bytes",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "$device.ip $device.name $ingress.interface.name $egress.interface.name $exporter.ip $device.ip $device.name $source.ip $destination.ip"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "dogcat"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "device.name",
+      "prefix": "@device.name",
+      "default": "*"
+    },
+    {
+      "name": "device.ip",
+      "prefix": "@device.ip",
+      "default": "*"
+    },
+    {
+      "name": "exporter.ip",
+      "prefix": "@exporter.ip",
+      "default": "*"
+    },
+    {
+      "name": "source.ip",
+      "prefix": "@source.ip",
+      "default": "*"
+    },
+    {
+      "name": "destination.ip",
+      "prefix": "@destination.ip",
+      "default": "*"
+    },
+    {
+      "name": "egress.interface.name",
+      "prefix": "@egress.interface.name",
+      "default": "*"
+    },
+    {
+      "name": "ingress.interface.name",
+      "prefix": "@ingress.interface.name",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
