@@ -1,5 +1,9 @@
 # CHANGELOG - puma
 
+## Unreleased
+
+* Stop using simplejson and use the standard library instead
+
 ## 1.2.1 / 2023-10-05
 
 ***Fixed***:
