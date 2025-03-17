@@ -1,0 +1,77 @@
+{
+  "app_id": "authzed-dedicated",
+  "app_uuid": "01957258-b7bc-701c-b7f5-1ae15bba0209",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Authzed Dedicated",
+    "description": "Authzed Dedicated is an open-core database system for creating and managing security-critical application permissions.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Website hero",
+        "image_url": "images/hero.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The Authzed Dedicated management UI",
+        "image_url": "images/management-ui.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The SpiceDB schema playground",
+        "image_url": "images/playground.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard example",
+        "image_url": "images/dd-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Developer Tools",
+      "Category::Security",
+      "Category::Cloud",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Queried Data Type::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@authzed.com",
+    "name": "Authzed",
+    "homepage": "https://authzed.com",
+    "sales_email": "sales@authzed.com",
+    "vendor_id": "authzed"
+  },
+  "assets": {
+    "dashboards": {
+      "Authzed Dedicated Overview": "assets/dashboards/authzed_dedicated_overview.json"
+    },
+    "integration": {
+      "source_type_name": "authzed_dedicated",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "authzed",
+        "check": [
+          "up"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 42246681
+    }
+  }
+}
