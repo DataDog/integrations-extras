@@ -1,6 +1,6 @@
 # CHANGELOG - Aqua
 
-## Unreleased
+## 1.0.1 / 2025-03-17
 
 * Stop using simplejson and use the standard library instead
 
