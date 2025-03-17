@@ -3,7 +3,6 @@ import time
 
 import pytest
 import requests
-
 from mock import MagicMock, Mock
 
 from datadog_checks.base import ConfigurationError
