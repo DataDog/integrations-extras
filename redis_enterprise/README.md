@@ -29,7 +29,7 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. Leave `tls_verify` set to false.
 
 If you have more than one endpoint, it is necessary to create additional instances with the respective URLs.
-An example is given below, and is also noted in its own [example][5]:
+See the example below, which is also in [conf.yaml.multi.example][5]:
 
 ```instances:
   - openmetrics_endpoint: 'https://<host1>:8070/metrics'
