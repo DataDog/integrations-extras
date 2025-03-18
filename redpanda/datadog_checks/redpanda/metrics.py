@@ -84,6 +84,13 @@ REDPANDA_KAFKA_CONSUMER_GROUP_OFFSET = {
     'redpanda_kafka_consumer_group_committed_offset': 'kafka.group_offset',
 }
 
+# As of Redpanda v25.1, can be enabled by adding "consumer_lag"
+# to cluster config "enable_consumer_group_metrics"
+REDPANDA_KAFKA_CONSUMER_GROUP_LAG = {
+    'redpanda_kafka_consumer_group_lag_sum': 'kafka.group_lag_sum',
+    'redpanda_kafka_consumer_group_lag_max': 'kafka.group_lag_max',
+}
+
 REDPANDA_MEMORY = {
     'redpanda_memory_allocated_memory': 'memory.allocated_memory',
     'redpanda_memory_available_memory': 'memory.available_memory',
@@ -154,4 +161,5 @@ ADDITIONAL_METRICS_MAP = {
     'redpanda.pandaproxy': REDPANDA_PANDAPROXY,
     'redpanda.scheduler': REDPANDA_SCHEDULER,
     'redpanda.schemaregistry': REDPANDA_SCHEMA_REGISTRY,
+    'redpanda.kafka.consumer_group_lag': REDPANDA_KAFKA_CONSUMER_GROUP_LAG,
 }
