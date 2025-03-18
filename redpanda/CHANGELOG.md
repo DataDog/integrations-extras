@@ -1,5 +1,11 @@
 # CHANGELOG - redpanda
 
+## 2.1.0 / 2025-03-20
+
+***Added***:
+
+* Added metrics for consumer group lag.
+
 ## 2.0.0 / 2023-08-21
 
 ***Added***:
