@@ -20,39 +20,26 @@ By integrating with Datadog, these insights enable security teams to detect, inv
 
 Create a Datadog [API Key][1].  See the steps below:
 
-Within Datadog, navigate to **Organization settings**, then click **API Keys**.
+1. Log into Datadog.
+2. Navigate to **Organization settings**, then click **API Keys**.
+3. Click **New Key**.
+4. Provide a name for the API key.
+5. Click **Copy API key**, and save this key for later.
 
-1. Click **New Key**.
+1. ### Create a Datadog AppOmni Destination
 
-2. Provide a name for the API key.
-
-3. Click **Copy API key**, and save this key for later.
-
-### Create a Datadog AppOmni Destination
-
-1.  Log into AppOmni
-
-2. Navigate to **Threat Detection** and select **Destinations**.
-
-3.  Click **Add New Destination**.
-
-4.  Click the **Datadog Logs** card.
-
-5.  Enter a **Name** and **Description** (optional).
-
-6.  Ensure the following settings are checked:
-
-**SSL Verification**
-
-- Select **Hash Original Field** to replace the original event field from the monitored service with a SHA256 hash of that event, which reduces event size.
-
--   Check **Gzip Compress Payloads** to reduce data size.
-
-7.  Enter your **Datadog API Key**.
-
-8.  Select your **Datadog site**. Identify which site you are on using [the sites table][2].
-
-9.  Click **Save**.
+2. Log into AppOmni.
+3. Navigate to **Threat Detection** and select **Destinations**.
+4. Click **Add New Destination**.
+5. Click the **Datadog Logs** card.
+6. Enter a **Name** and **Description** (optional).
+7. Ensure the following settings are checked:
+- **SSL Verification**
+- Select **Hash Original Field** to replace the original event field from the monitored service with a       SHA256 hash of that event, which reduces event size.
+- Check **Gzip Compress Payloads** to reduce data size.
+- Enter your **Datadog API Key**.
+- Select your **Datadog site**. Identify which site you are on using [the sites table][2].
+- Click **Save**.
 
 
 ## Uninstallation
@@ -65,11 +52,11 @@ Within Datadog, navigate to **Organization settings**, then click **API Keys**.
 
 1. Navigate to **Threat Detection** and select **Destinations**.
 
-2.  Locate the **Datadog** destination and click on it.
+2. Locate the **Datadog** destination and click on it.
 
-3.  Click **Configuration**
+3. Click **Configuration**
 
-4.  Click **Delete**.
+4. Click **Delete**.
 
 
 ## Support
