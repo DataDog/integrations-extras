@@ -50,6 +50,76 @@
             }
           },
           {
+            "id": 6901400490045926,
+            "definition": {
+              "title": "Alerts by Service Type Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "@appomni.event.kind:alert $SaaS_Service_Type $User_Name $Event_or_Alert"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "service",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
             "id": 7882315609713116,
             "definition": {
               "title": "Alert Severity",
@@ -113,7 +183,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 1,
+              "y": 3,
               "width": 6,
               "height": 4
             }
@@ -132,7 +202,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:alert"
+                        "query": "@appomni.event.kind:alert $Event_or_Alert $SaaS_Service_Type $User_Name"
                       },
                       "indexes": [
                         "*"
@@ -188,7 +258,7 @@
             },
             "layout": {
               "x": 6,
-              "y": 1,
+              "y": 3,
               "width": 6,
               "height": 4
             }
@@ -207,7 +277,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:alert"
+                        "query": "@appomni.event.kind:alert $Event_or_Alert $SaaS_Service_Type $User_Name"
                       },
                       "indexes": [
                         "*"
@@ -263,7 +333,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 5,
+              "y": 7,
               "width": 12,
               "height": 4
             }
@@ -274,7 +344,7 @@
         "x": 0,
         "y": 1,
         "width": 12,
-        "height": 10
+        "height": 12
       }
     },
     {
@@ -321,7 +391,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:event $User_Name $Country_ISO_Code $SaaS_Service_Type $Event_or_Alert"
+                        "query": "@appomni.event.kind:event $User_Name $SaaS_Service_Type $Event_or_Alert"
                       },
                       "indexes": [
                         "*"
@@ -404,7 +474,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:event $SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                        "query": "@appomni.event.kind:event $SaaS_Service_Type $User_Name $Event_or_Alert"
                       },
                       "indexes": [
                         "*"
@@ -450,7 +520,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 11,
+        "y": 13,
         "width": 12,
         "height": 6
       }
@@ -499,7 +569,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:event $SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                        "query": "@appomni.event.kind:event $SaaS_Service_Type $User_Name $Event_or_Alert"
                       },
                       "indexes": [
                         "*"
@@ -507,7 +577,7 @@
                       "group_by": [
                         {
                           "facet": "@network.client.ip.ipAddress.country.iso_code",
-                          "limit": 10,
+                          "limit": 250,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc",
@@ -529,7 +599,7 @@
                     }
                   ],
                   "sort": {
-                    "count": 100,
+                    "count": 250,
                     "order_by": [
                       {
                         "type": "formula",
@@ -569,7 +639,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:event source:appomni $SaaS_Service_Type $User_Name $Country_ISO_Code $Event_or_Alert"
+                        "query": "@appomni.event.kind:event source:appomni $SaaS_Service_Type $User_Name $Event_or_Alert"
                       },
                       "indexes": [
                         "*"
@@ -634,7 +704,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 17,
+        "y": 19,
         "width": 12,
         "height": 8
       }
@@ -649,11 +719,6 @@
     {
       "name": "SaaS_Service_Type",
       "prefix": "service",
-      "default": "*"
-    },
-    {
-      "name": "Country_ISO_Code",
-      "prefix": "@network.client.geoip.country.iso_code",
       "default": "*"
     },
     {
