@@ -26,14 +26,14 @@ Create a Datadog [API Key][1].  See the steps below:
 4. Provide a name for the API key.
 5. Click **Copy API key**, and save this key for later.
 
-1. ### Create a Datadog AppOmni Destination
+### Create a Datadog AppOmni Destination
 
-2. Log into AppOmni.
-3. Navigate to **Threat Detection** and select **Destinations**.
-4. Click **Add New Destination**.
-5. Click the **Datadog Logs** card.
-6. Enter a **Name** and **Description** (optional).
-7. Ensure the following settings are checked:
+1. Log into AppOmni.
+2. Navigate to **Threat Detection** and select **Destinations**.
+3. Click **Add New Destination**.
+4. Click the **Datadog Logs** card.
+5. Enter a **Name** and **Description** (optional).
+6. Ensure the following settings are checked:
 - **SSL Verification**
 - Select **Hash Original Field** to replace the original event field from the monitored service with a       SHA256 hash of that event, which reduces event size.
 - Check **Gzip Compress Payloads** to reduce data size.
