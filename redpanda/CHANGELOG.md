@@ -1,5 +1,11 @@
 # CHANGELOG - redpanda
 
+## 3.0.0 / 2025-03-20
+
+***Removed***:
+
+* Removed kafka.group_offset from default metrics.
+
 ## 2.1.0 / 2025-03-20
 
 ***Added***:
