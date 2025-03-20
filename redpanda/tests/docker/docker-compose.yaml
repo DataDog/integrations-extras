@@ -27,5 +27,16 @@ services:
       - 8081
     networks:
       - redpandanet
+    configs:
+      - source: redpanda-bootstrap
+        target: /etc/redpanda/.bootstrap.yaml
 networks:
   redpandanet: {}
+configs:
+  redpanda-bootstrap:
+    content: |
+      consumer_group_lag_collection_interval_sec: 5
+      enable_consumer_group_metrics:
+        - group
+        - partition
+        - consumer_lag
