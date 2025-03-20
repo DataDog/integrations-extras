@@ -131,6 +131,27 @@ To enable logs, see [Kubernetes Log Collection][9].
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+### To support consumer lag metrics calculation
+
+Add the the agent configuration section:
+
+```yaml
+# Consumer lag join metrics support
+share_labels:        
+   redpanda_kafka_consumer_group_committed_offset: 
+   labels:
+   - redpanda_group
+   match:
+   - redpanda_topic
+   - redpanda_parition
+   redpanda_kafka_max_offset:
+   labels:
+   - consumer_metrics_1
+   match:
+   - redpanda_topic
+   - redpanda_partition
+```
+
 ### Events
 
 The Redpanda integration does not include any events.
