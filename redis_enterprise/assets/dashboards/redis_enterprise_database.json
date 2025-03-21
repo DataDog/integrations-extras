@@ -47,34 +47,42 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "alias": "used memory",
-                      "formula": "query1"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Used Memory (%)",
+                      "formula": "query3 / query2 * 100"
                     },
                     {
-                      "alias": "available memory",
-                      "formula": "query2 - query3"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Free Memory (%)",
+                      "formula": "(query2 - query3) * 100 / query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
-                      "name": "query1",
+                      "name": "query3",
                       "query": "avg:rdse.bdb_used_memory{$cluster, $database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
                       "query": "avg:rdse.bdb_memory_limit{$cluster, $database}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "query": "avg:rdse.bdb_used_memory{$cluster, $database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -85,7 +93,12 @@
                   },
                   "display_type": "line"
                 }
-              ]
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0",
+                "max": "100"
+              }
             },
             "layout": {
               "x": 6,
@@ -263,7 +276,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -487,7 +499,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 18,
         "width": 12,
         "height": 9,
         "is_column_break": true
@@ -517,7 +529,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -566,7 +577,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -604,7 +614,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 9,
+        "y": 27,
         "width": 12,
         "height": 9
       }
