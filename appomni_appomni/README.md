@@ -20,11 +20,11 @@ By integrating with Datadog, these insights enable security teams to detect, inv
 
 Create a Datadog [API Key][1].  See the steps below:
 
-2. Log into Datadog.
-3. Navigate to **Organization settings**, then click **API Keys**.
-4. Click **New Key**.
-5. Provide a name for the API key.
-6. Click **Copy API key**, and save this key for later.
+1. Log into Datadog.
+2. Navigate to **Organization settings**, then click **API Keys**.
+3. Click **New Key**.
+4. Provide a name for the API key.
+5. Click **Copy API key**, and save this key for later.
 
 ### Create a Datadog AppOmni Destination
 
