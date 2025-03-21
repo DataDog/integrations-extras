@@ -20,11 +20,11 @@ By integrating with Datadog, these insights enable security teams to detect, inv
 
 Create a Datadog [API Key][1].  See the steps below:
 
-1. Log into Datadog.
-2. Navigate to **Organization settings**, then click **API Keys**.
-3. Click **New Key**.
-4. Provide a name for the API key.
-5. Click **Copy API key**, and save this key for later.
+2. Log into Datadog.
+3. Navigate to **Organization settings**, then click **API Keys**.
+4. Click **New Key**.
+5. Provide a name for the API key.
+6. Click **Copy API key**, and save this key for later.
 
 ### Create a Datadog AppOmni Destination
 
@@ -33,13 +33,10 @@ Create a Datadog [API Key][1].  See the steps below:
 3. Click **Add New Destination**.
 4. Click the **Datadog Logs** card.
 5. Enter a **Name** and **Description** (optional).
-6. Ensure the following settings are checked:
-- **SSL Verification**
-- Select **Hash Original Field** to replace the original event field from the monitored service with a       SHA256 hash of that event, which reduces event size.
-- Check **Gzip Compress Payloads** to reduce data size.
-- Enter your **Datadog API Key**.
-- Select your **Datadog site**. Identify which site you are on using [the sites table][2].
-- Click **Save**.
+6. Ensure the following settings are checked:  **SSL Verification**, **Hash Original Field**, **Gzip Compress Payloads**.
+7. Enter your **Datadog API Key**.
+8. Select your **Datadog site**. Identify which site you are on using [the sites table][2].
+9. Click **Save**.
 
 
 ## Uninstallation
@@ -54,7 +51,7 @@ Create a Datadog [API Key][1].  See the steps below:
 
 2. Locate the **Datadog** destination and click on it.
 
-3. Click **Configuration**
+3. Click **Configuration**.
 
 4. Click **Delete**.
 
