@@ -1,11 +1,5 @@
 # CHANGELOG - Redis Enterprise
 
-## 1.1.3 / 2025-03-18
-
-***Changed***:
-
-* Enforced metric types in dashboards (e.g., specify milliseconds for lag)
-
 ## 1.1.2 / 2025-02-28
 
 ***Changed***:
