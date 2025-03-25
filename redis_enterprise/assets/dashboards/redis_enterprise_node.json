@@ -47,17 +47,30 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "used memory",
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     },
                     {
                       "alias": "free memory",
-                      "formula": "query2"
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -104,13 +117,20 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
                       "alias": "Node CPU",
-                      "formula": "query1 + query2"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1 + query2 * 100"
                     }
                   ],
                   "queries": [
@@ -148,6 +168,7 @@
               "title": "Node Latency",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -162,7 +183,13 @@
                   ],
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
                     }
                   ]
                 }
@@ -170,10 +197,10 @@
               "autoscale": true,
               "precision": 2,
               "timeseries_background": {
-                "type": "area",
                 "yaxis": {
                   "include_zero": false
-                }
+                },
+                "type": "area"
               }
             },
             "layout": {
@@ -263,7 +290,13 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -305,7 +338,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -347,6 +379,180 @@
               "width": 12,
               "height": 4
             }
+          },
+          {
+            "id": 8234244232090526,
+            "definition": {
+              "title": "Free Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.node_available_memory{$cluster}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.node_free_memory{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "(1 - query2 / query1) * 100",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 4183408001635884,
+            "definition": {
+              "title": "Master Shards",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_used_memory{$cluster, $node, role:master}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "count_nonzero(query1)"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 8,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 4625656583393914,
+            "definition": {
+              "title": "Replica Shards",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_used_memory{$cluster, $node, role:master}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "count_nonzero(query1)"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 8,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 3454087262439336,
+            "definition": {
+              "title": "Databases",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_up{$cluster, $node}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 8,
+              "width": 3,
+              "height": 3
+            }
           }
         ]
       },
@@ -354,7 +560,121 @@
         "x": 0,
         "y": 9,
         "width": 12,
-        "height": 9
+        "height": 12
+      }
+    },
+    {
+      "id": 6623656971820348,
+      "definition": {
+        "title": "Node Details",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5638763751268202,
+            "definition": {
+              "title": "Node Details",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.node_up{$cluster} by {cluster,node,cnm_version}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Up",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 1216278251152994,
+            "definition": {
+              "title": "Top 10 Shards by Used Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "top10(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_used_memory{$cluster, $node,redis:*} by {cluster,node,redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 21,
+        "width": 12,
+        "height": 9,
+        "is_column_break": true
       }
     },
     {
@@ -381,7 +701,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -446,11 +765,23 @@
                   "formulas": [
                     {
                       "alias": "user",
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     },
                     {
                       "alias": "system",
-                      "formula": "query2"
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -486,10 +817,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 30,
         "width": 12,
-        "height": 9,
-        "is_column_break": true
+        "height": 9
       }
     },
     {
@@ -508,13 +838,11 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
               "time": {},
               "type": "timeseries",
@@ -567,6 +895,22 @@
                     "line_width": "normal"
                   },
                   "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.node_total_req{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "display_type": "overlay"
                 }
               ]
             },
@@ -581,7 +925,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 9,
+        "y": 39,
         "width": 12,
         "height": 5
       }
@@ -593,7 +937,7 @@
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
-        "legend_layout": "auto",
+        "legend_layout": "horizontal",
         "legend_columns": [
           "avg",
           "min",
@@ -601,7 +945,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
