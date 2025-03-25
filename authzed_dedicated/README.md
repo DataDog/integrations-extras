@@ -1,14 +1,14 @@
-# Authzed Dedicated
+# AuthZed Dedicated
 
 ## Overview
 
 [Authzed Dedicated][1] is an open-core, [Google Zanzibar][2]-inspired database system for creating and managing security-critical application permissions.
 
-Developers create a schema that models their permissions requirements. Then, they use any of the official or community maintained client libraries to apply the schema to the database and insert data into the database. They can query the data to efficiently check permissions in their applications.
+Developers define a schema that models their permissions requirements. They then use any of the official or community-maintained client libraries to apply the schema and insert data into the database. They can query this data to efficiently check permissions within their applications.
 
-Authzed Dedicated metrics allow developers and SREs to monitor their Authzed Dedicated deployments, including request latency metrics, cache metrics such as size and hit/miss metrics, and datastore connection and query metrics. These metrics allow developers and SREs to diagnose performance problems and tune performance characteristics of their SpiceDB clusters.
+Authzed Dedicated metrics allow developers and SREs to monitor their deployments, including request latency, cache metrics (such as size and hit/miss rates), and datastore connection and query performance. These metrics help diagnose performance issues and fine-tune the performance of their SpiceDB clusters.
 
-Piping these metrics to Datadog allows Datadog users to leverage their existing metrics stack and correlate metrics from Authzed Dedicated with other events in their system.
+Sending these metrics to Datadog enables users to leverage their existing observability stack and correlate Authzed Dedicated metrics with other system events.
 
 ## Setup
 
@@ -38,10 +38,11 @@ This will disable the Datadog integration in your Authzed Dedicated cluster. Ple
 
 ## Support
 
-If you have problems with your integration, reach out to our support team via email. We'll respond with further instructions and troubleshooting steps.
+Need help? Contact [AuthZed support][5].
 
 
 [1]: https://authzed.com/products/authzed-dedicated
 [2]: https://authzed.com/zanzibar
 [3]: https://docs.datadoghq.com/getting_started/site/
 [4]: support@authzed.com
+[5]: mailto:support@authzed.com

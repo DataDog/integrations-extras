@@ -1,6 +1,6 @@
 # CHANGELOG - authzed-dedicated
         
-## 1.0.0 / 2025-03-17
+## 1.0.0 / 2025-03-25
 
 _**Added**_:
 
