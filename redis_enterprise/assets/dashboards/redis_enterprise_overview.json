@@ -240,6 +240,7 @@
                 "avg",
                 "value"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -248,7 +249,7 @@
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "microsecond"
+                          "unit_name": "millisecond"
                         }
                       },
                       "alias": "average",
@@ -258,7 +259,7 @@
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "microsecond"
+                          "unit_name": "millisecond"
                         }
                       },
                       "alias": "read",
@@ -268,7 +269,7 @@
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "microsecond"
+                          "unit_name": "millisecond"
                         }
                       },
                       "alias": "write",
@@ -548,7 +549,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -751,15 +751,6 @@
               "title_align": "left",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 500,
-                        "order": "desc"
-                      }
-                    }
-                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -771,6 +762,21 @@
                   "response_format": "scalar",
                   "style": {
                     "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
                   }
                 }
               ],
@@ -835,15 +841,6 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 500,
-                        "order": "desc"
-                      }
-                    }
-                  ],
                   "queries": [
                     {
                       "query": "avg:rdse.bdb_no_of_keys{$cluster} by {bdb_name}",
@@ -854,6 +851,21 @@
                   ],
                   "style": {
                     "palette": "semantic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
                   }
                 }
               ],
@@ -996,7 +1008,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 7,
+        "y": 33,
         "width": 12,
         "height": 5
       }
@@ -1127,6 +1139,7 @@
               "title": "Database Connections",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -1147,7 +1160,7 @@
                 }
               ],
               "autoscale": true,
-              "precision": 2,
+              "precision": 0,
               "timeseries_background": {
                 "type": "area",
                 "yaxis": {
@@ -1166,7 +1179,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 12,
+        "y": 38,
         "width": 12,
         "height": 6
       }
@@ -1339,7 +1352,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 18,
+        "y": 44,
         "width": 12,
         "height": 8
       }
