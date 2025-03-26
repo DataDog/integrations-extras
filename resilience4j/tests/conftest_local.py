@@ -14,7 +14,7 @@ def dd_environment():
 @pytest.fixture
 def instance():
     return {
-        "prometheus_url": "http://localhost:3000/metrics",
+        "openmetrics_endpoint": "http://localhost:3000/metrics",
     }
 
 

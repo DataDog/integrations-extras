@@ -7,4 +7,8 @@ files:
     - template: init_config/default
   - template: instances
     options:
-    - template: instances/default
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.value.example: http://localhost:9080/actuator/prometheus
+        openmetrics_endpoint.description: |
+          Endpoint exposing the Resilience4J prometheus metrics.

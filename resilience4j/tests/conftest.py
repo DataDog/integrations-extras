@@ -17,14 +17,14 @@ def dd_environment():
     compose_file = os.path.join(DOCKER_DIR, 'docker-compose.yaml')
 
     with docker_run(compose_file, conditions=[CheckDockerLogs(compose_file, 'Finished resilience4j-demo tests')]):
-        instances = {'instances': [{'prometheus_url': INSTANCE_URL}]}
+        instances = {'instances': [{'openmetrics_endpoint': INSTANCE_URL}]}
         yield instances
 
 
 @pytest.fixture
 def instance():
     return {
-        "prometheus_url": INSTANCE_URL,
+        "openmetrics_endpoint": INSTANCE_URL,
     }
 
 
