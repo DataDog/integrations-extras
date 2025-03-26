@@ -2,7 +2,7 @@
  
 ## Overview
  
-When you know there's a problem and you're not sure what caused it, [Zebrium][1] shows you the root cause directly on your Datadog dashboards. It works by using machine learning on logs, without the need for manual training or setting up any rules, and it achieves accuracy in less than 24 hours. 
+When you know there's a problem and you're not sure what caused it, [Zebrium][1] shows you the root cause directly on your Datadog dashboards. It works by using machine learning on logs, without the need for manual training or setting up any rules, and it achieves accuracy in less than 24 hours. Zebrium detection events and metrics are sent directly to Datadog.
 
 ## Setup
  
