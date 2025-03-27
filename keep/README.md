@@ -64,7 +64,7 @@ The Keep integration does not include any events.
 Need help? Contact [Keep's Support team][5].
 
 [1]: https://app.datadoghq.com/integrations/keephq
-[2]: /developers/authorization/oauth2_in_datadog/
+[2]: https://docs.datadoghq.com/developers/authorization/oauth2_in_datadog/
 [3]: https://app.datadoghq.com/organization-settings/api-keys
 [4]: https://app.datadoghq.com/integrations
 [5]: mailto:rnd@keephq.dev?subject=[Datadog]%20OAuth%20Integration%20Support

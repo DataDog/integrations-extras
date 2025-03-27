@@ -1,0 +1,198 @@
+{
+  "title": "Harness Notifications Integration Overview",
+  "description": "This dashboard provides a high-level overview of notification events from Harness.",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "Harness Notifications",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://developer.harness.io/img/icon_harness.svg",
+              "url_dark_theme": "https://developer.harness.io/img/icon_harness.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high-level overview of notification events from Harness.\n\n**Useful links**\n\n- [Send Harness pipeline notifications to Datadog](https://developer.harness.io/docs/continuous-delivery/x-platform-cd-features/cd-steps/notify-users-of-pipeline-events/#datadog-notifications).",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 327730656389999,
+      "definition": {
+        "title": "Event type and count table",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "type": "query_table",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "events_query_1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "event_type",
+                    "limit": 250,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "search": {
+                  "query": "source:harness_notifications"
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas": [
+              {
+                "alias": "Event Count",
+                "formula": "events_query_1"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 2837500997301410,
+      "definition": {
+        "title": "Pipeline events count graph",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "a"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "a",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "event_type",
+                    "limit": 250,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "search": {
+                  "query": "source:harness_notifications"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}

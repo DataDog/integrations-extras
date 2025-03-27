@@ -1,4 +1,5 @@
-import simplejson as json
+import json
+
 from six.moves.urllib.parse import urlparse
 
 from datadog_checks.base import AgentCheck, ConfigurationError

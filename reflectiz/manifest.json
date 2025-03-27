@@ -1,0 +1,67 @@
+{
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "app_id": "reflectiz",
+  "app_uuid": "79767e7d-f5db-4528-aeea-1cd68649ccd8",
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "uninstallation": "README.md#Uninstallation",
+    "changelog": "CHANGELOG.md",
+    "description": "The Reflectiz integration provides security insights for your website.",
+    "title": "Reflectiz",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Web Exposure Rating Dashboard",
+        "image_url": "images/dashboard_2.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Web Exposure Alerts Dashboard",
+        "image_url": "images/dashboard_1.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Security", 
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs",
+      "Offering::Integration"
+    ]
+  },
+  "author": {
+    "homepage": "https://www.reflectiz.com/",
+    "name": "Reflectiz",
+    "sales_email": "inbound@reflectiz.com",
+    "support_email": "support@reflectiz.com",
+    "contact_link": "https://www.reflectiz.com/"
+  },
+  "assets": {
+    "dashboards": {
+      "web exposure alerts dashboard": "assets/dashboards/WebExposureAlertsDashboard.json",
+      "web exposure rating dashboard": "assets/dashboards/WebExposureRatingDashboard.json"
+    },
+    "integration": {
+      "auto_install": true,
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "check": "reflectiz.v1.rating.overall",
+        "metadata_path": "metadata.csv",
+        "prefix":"reflectiz."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_name": "reflectiz",
+      "source_type_id": 5421
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}
