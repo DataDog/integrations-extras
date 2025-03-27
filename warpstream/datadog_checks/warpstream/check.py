@@ -54,7 +54,6 @@ class WarpstreamCheck(AgentCheck):
             raise
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
-            print("caca")
             self.gauge('can_connect', 0, tags=tags)
             self.service_check(
                 "can_connect",
