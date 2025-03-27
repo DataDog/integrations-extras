@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "2ad05cbb-e789-462d-837b-2bcc01b5f2f4",
+  "app_id": "warpstream",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send WarpStream Agent metrics to Datadog",
+    "title": "WarpStream",
+    "classifier_tags": [
+      "Category::Metrics",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "warpstream",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "warpstream.",
+        "check": "warpstream.can_connect",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10375,
+      "auto_install": true
+    },
+    "dashboards": {
+      "WarpStream Overview": "assets/dashboards/overview.json"
+    },
+    "logs": {}
+  },
+  "author": {
+    "support_email": "support@warpstreamlabs.com",
+    "name": "WarpStream",
+    "homepage": "https://www.warpstream.com/",
+    "sales_email": "tdoles@confluent.io"
+  }
+}
