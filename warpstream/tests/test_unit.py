@@ -14,21 +14,20 @@ from datadog_checks.warpstream import WarpstreamCheck
 from . import common
 
 @pytest.mark.parametrize(
-    'json_resp, expected_healthy_status, expected_healthy_value',
+    'status_code, expected_healthy_status, expected_healthy_value',
     [
-        ({'status': 'OK'}, AgentCheck.OK, 1),
-        #({'status': 'KO'}, AgentCheck.CRITICAL, 0),
-        #({}, AgentCheck.CRITICAL, 0),
+        (200, AgentCheck.OK, 1),
+        (500, AgentCheck.WARNING, 1),
     ],
 )
-def test_check(dd_run_check, aggregator, json_resp, expected_healthy_status, expected_healthy_value):
+def test_check(dd_run_check, aggregator, status_code, expected_healthy_status, expected_healthy_value):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     instance = common.FULL_CONFIG['instances'][0]
     check = WarpstreamCheck('warpstream', {}, [instance])
 
     with mock.patch('datadog_checks.base.utils.http.requests') as req:
-        mock_resp = mock.MagicMock(status_code=200)
-        mock_resp.json.side_effect = [json_resp]
+        print(status_code)
+        mock_resp = mock.MagicMock(status_code=status_code)
         req.get.return_value = mock_resp
 
         check.check(None)
