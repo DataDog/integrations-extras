@@ -1,28 +1,31 @@
-# Hawkeye by Neubird
+# Hawkeye by NeuBird
 
 ## Overview
 
-The Hawkeye App for Datadog help users accelerate their problem investigations by enabling automated investigations by Hawkeye. Connecting Datadog and Hawkeye will allow Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once the investigation is complete the link to the investigation analysis is added to Datadog.
+Hawkeye by NeuBird accelerates incident resolution by diagnosing incidents instantly and automating root cause analysis. Connecting Datadog and Hawkeye will allow Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once investigation is complete, a link to the investigation analysis is added directly to the related Datadog incident, speeding-up resolution and reducing mean time to recovery.
 
 ## Setup
 
-Here's how you can provide investigation results in Datadog with Hawkeye:
+1.  In Datadog, navigate to **Integrations**, select the Hawkeye tile and click **Install Integration**.
 
-1.  Click **Connect Accounts** to begin authorization of the Hawkeye integration from the Login page in Hawkeye.
-2.  Log in to your Hawkeye account on the Hawkeye application to be redirected to the Datadog authorization page.
-3.  Click **Authorize** to complete the integration process.
-4.  Once Datadog is integrated with your Hawkeye account, start pushing investigation results.
+2. Click **Connect Accounts** to start the authorization process. You will be redirected to Hawkeye to complete the setup.
+
+3.  Once authorized, Hawkeye will begin sending investigation results to Datadog.
+
 
 ## Uninstallation
 
-Once you uninstall this integration, any previous authorizations are revoked.
+In Datadog, navigate to **Integrations**, select the Hawkeye tile and click **Uninstall Integration**.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][1].
+- Once you uninstall this integration, any previous authorizations are revoked.
+
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][1].
+
 
 ## Support
 
-For support please see [https://neubird.ai/neubird-support/][2]
+Need help? Contact [NeuBird support][2].
 
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys?filter=Hawkeye
-[2]: url
+[2]: https://neubird.ai/neubird-support/

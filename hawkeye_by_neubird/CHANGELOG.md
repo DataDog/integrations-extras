@@ -1,8 +1,8 @@
-# CHANGELOG - hawkeye-by-neubird
-        
-## 1.0.0 / 2025-03-18
+# CHANGELOG - Hawkeye by NeuBird
+
+## 1.0.0 / 2025-03-28
 
 _**Added**_:
 
 * Initial Release
-This release enables automated sessions for triggered Datadog Monitors and provides a link to investigation summaries in Hawkeye.
+This release enables automated sessions for triggered Datadog Monitors and provides a link to the investigation summaries in Hawkeye.
