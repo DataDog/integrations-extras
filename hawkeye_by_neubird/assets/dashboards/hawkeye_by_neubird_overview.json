@@ -1,0 +1,82 @@
+{
+  "title": "Hawkeye by Neubird Overview",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 8931252417181702,
+      "definition": {
+        "type": "image",
+        "url": "https://neubird-marketing.s3.us-east-1.amazonaws.com/Hawkeye-logo.png",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "id": 4859173550379992,
+      "definition": {
+        "type": "note",
+        "content": "AI-driven incident response - . Hawkeye diagnoses IT incidents instantly and provides remediation  to help IT teams reduce MTTR and save time. View your Datadog Monitor Investigation summaries below.",
+        "background_color": "transparent",
+        "font_size": "12",
+        "text_align": "left",
+        "vertical_align": "bottom",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout": {
+        "x": 2,
+        "y": 0,
+        "width": 3,
+        "height": 1
+      }
+    },
+    {
+      "id": 1638224069194486,
+      "definition": {
+        "title": "Hawkeye Automated Sessions",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "type": "live",
+          "unit": "day",
+          "value": 2
+        },
+        "requests": [
+          {
+            "response_format": "event_list",
+            "query": {
+              "query_string": "source:neubird_hawkeye",
+              "data_source": "event_stream",
+              "event_size": "s"
+            },
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
