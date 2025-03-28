@@ -16,7 +16,7 @@ Integrate Vercel with Datadog to:
 
 ### Datadog
 
-To connect Datadog with Vercel, enable the integration and selct an API Key.
+To connect Datadog with Vercel, enable the integration and select an API Key.
 
 1. Open the Vercel integration tile.
 
