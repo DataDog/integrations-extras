@@ -104,3 +104,19 @@ def test_check(aggregator, instance):
     aggregator.assert_metric('nvml.compute_running_process', tags=expected_tags + ["pid:1"], count=1)
 
     aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.unit
+def test_is_nvml_library_available(instance):
+    check = NvmlCheck('nvml', {}, [instance])
+    res = check.is_nvml_library_available()
+    assert res is False
+
+
+@pytest.mark.unit
+def test_discover_instances(instance):
+    check = NvmlCheck('nvml', {}, [instance])
+    try:
+        check.discover_instances('1s')
+    except Exception as e:
+        pytest.Fail(f"Unexpected exception raised: {e}")
