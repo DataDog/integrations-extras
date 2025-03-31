@@ -40,7 +40,7 @@ See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-See [service_checks.json][8] for a list of service checks provided by this integration.
+The Resilience4j integration does not include any service checks.
 
 ### Events
 
@@ -57,4 +57,3 @@ Need help? Contact [Datadog support][3].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/resilience4j/metadata.csv
-[8]: https://github.com/DataDog/integrations-extras/blob/master/resilience4j/assets/service_checks.json
