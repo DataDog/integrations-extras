@@ -20,14 +20,14 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Qdrant c
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t qdrant==1.0.0
+   datadog-agent integration install -t qdrant==1.1.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
-1. Edit the `qdrant.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Qdrant [metrics](#metrics).
+1. Edit the `conf.d/qdrant.d/conf.yaml` file in your [Agent's configuration directory][7] to start collecting your Qdrant [metrics](#metrics)
 
 Most importantly, set the `openmetrics_endpoint` value to the [`/metrics` endpoint](https://qdrant.tech/documentation/guides/monitoring/#monitoring) of your Qdrant instance.
 
