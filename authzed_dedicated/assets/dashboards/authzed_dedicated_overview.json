@@ -1,6 +1,6 @@
 {
   "title": "Authzed Dedicated Overview",
-  "description": "[[suggested_dashboards]]",
+  "description": "This dashboard displays an overview of some of the most important metrics for the health, stability, and performance of your AuthZed Dedicated instances.",
   "widgets": [
     {
       "id": 512625727012637,
@@ -45,10 +45,10 @@
               "has_padding": false
             },
             "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 6,
-              "height": 1
+              "x": 7,
+              "y": 0,
+              "width": 5,
+              "height": 2
             }
           }
         ]
@@ -57,13 +57,14 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 4
+        "height": 3
       }
     },
     {
       "id": 3560130955990344,
       "definition": {
         "title": "Throughput",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -361,7 +362,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 4,
+        "y": 3,
         "width": 12,
         "height": 10
       }
@@ -370,6 +371,7 @@
       "id": 4793433791679627,
       "definition": {
         "title": "Latency",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1048,7 +1050,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 14,
+        "y": 13,
         "width": 12,
         "height": 16
       }
@@ -1057,6 +1059,7 @@
       "id": 1969543100199273,
       "definition": {
         "title": "Node",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1164,7 +1167,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 30,
+        "y": 29,
         "width": 12,
         "height": 4
       }
@@ -1173,6 +1176,7 @@
       "id": 595976397570301,
       "definition": {
         "title": "Datastore (RDS)",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1560,20 +1564,69 @@
               "width": 6,
               "height": 3
             }
+          },
+          {
+            "id": 7122639279356089,
+            "definition": {
+              "title": "Database Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:authzed.rds.database_connections{*} by {dimension_dbclusteridentifier}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 6,
+              "height": 3
+            }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 34,
+        "y": 33,
         "width": 12,
-        "height": 13
+        "height": 16
       }
     },
     {
       "id": 3632835489220587,
       "definition": {
         "title": "Datastore (CRDB)",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1867,6 +1920,54 @@
             }
           },
           {
+            "id": 6189914079824783,
+            "definition": {
+              "title": "Database Connections by Node",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:authzed.cockroachdb.database_connections{*} by {node}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
             "id": 3611417892124471,
             "definition": {
               "title": "Service Latency by Node",
@@ -1908,7 +2009,7 @@
               ]
             },
             "layout": {
-              "x": 0,
+              "x": 6,
               "y": 9,
               "width": 6,
               "height": 3
@@ -1918,7 +2019,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 47,
+        "y": 49,
         "width": 12,
         "height": 13
       }
@@ -1927,6 +2028,7 @@
       "id": 5729497535480649,
       "definition": {
         "title": "Materialize",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -2319,7 +2421,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 60,
+        "y": 62,
         "width": 12,
         "height": 13
       }
