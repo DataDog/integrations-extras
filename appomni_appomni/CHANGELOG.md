@@ -1,6 +1,6 @@
-# CHANGELOG - appomni
-        
-## 1.0.0 / 2025-03-21
+# CHANGELOG - AppOmni
+
+## 1.0.0 / 2025-04-01
 
 _**Added**_:
 
