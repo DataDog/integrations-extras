@@ -2,7 +2,7 @@
 
 ## Overview
 
-Hawkeye by NeuBird accelerates incident resolution by diagnosing incidents instantly and automating root cause analysis. Connecting Datadog and Hawkeye will allow Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once investigation is complete, a link to the investigation analysis is added directly to the related Datadog incident, speeding-up resolution and reducing mean time to recovery.
+Hawkeye by NeuBird accelerates incident resolution by diagnosing incidents instantly and automating root cause analysis. This integration allows Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once investigation is complete, a link to the investigation analysis is added directly to the related Datadog incident, speeding-up resolution and reducing mean time to recovery.
 
 ## Setup
 

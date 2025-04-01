@@ -1,6 +1,6 @@
 # CHANGELOG - Hawkeye by NeuBird
 
-## 1.0.0 / 2025-03-28
+## 1.0.0 / 2025-04-01
 
 _**Added**_:
 
