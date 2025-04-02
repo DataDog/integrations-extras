@@ -29,7 +29,7 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 5
+              "height": 2
             }
           },
           {
@@ -52,29 +52,36 @@
                 {
                   "formulas": [
                     {
-                      "alias": "used memory",
-                      "formula": "query1"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Used Memory (%)",
+                      "formula": "query3 / query2 * 100"
                     },
                     {
-                      "alias": "available memory",
-                      "formula": "query2 - query3"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Free Memory (%)",
+                      "formula": "(query2 - query3) * 100 / query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.bdb_used_memory{$cluster, $database}"
+                      "name": "query3",
+                      "query": "avg:rdse.bdb_used_memory{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.bdb_memory_limit{$cluster, $database}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "query": "avg:rdse.bdb_used_memory{$cluster, $database}"
+                      "query": "avg:rdse.bdb_memory_limit{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -85,13 +92,76 @@
                   },
                   "display_type": "line"
                 }
-              ]
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0",
+                "max": "100"
+              }
             },
             "layout": {
               "x": 6,
               "y": 0,
               "width": 6,
               "height": 4
+            }
+          },
+          {
+            "id": 897962579177052,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_up{*} by {cluster,bdb_name,bdb}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "asc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Up",
+                      "formula": "query1",
+                      "conditional_formats": [
+                        {
+                          "comparator": "=",
+                          "value": 1,
+                          "palette": "white_on_green"
+                        }
+                      ],
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 3
             }
           },
           {
@@ -126,12 +196,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_total_req{$cluster, $database}"
+                      "query": "avg:rdse.bdb_total_req{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.bdb_total_res{$cluster, $database}"
+                      "query": "avg:rdse.bdb_total_res{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -165,7 +235,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_no_of_keys{$cluster, $database}",
+                      "query": "avg:rdse.bdb_no_of_keys{$cluster,$database}",
                       "aggregator": "last"
                     }
                   ],
@@ -206,7 +276,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_conns{$cluster, $database}",
+                      "query": "avg:rdse.bdb_conns{$cluster,$database}",
                       "aggregator": "avg"
                     }
                   ],
@@ -263,7 +333,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -281,12 +350,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_read_hits{$cluster, $database}"
+                      "query": "avg:rdse.bdb_read_hits{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.bdb_read_misses{$cluster, $database}"
+                      "query": "avg:rdse.bdb_read_misses{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -338,12 +407,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_write_hits{$cluster, $database}"
+                      "query": "avg:rdse.bdb_write_hits{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.bdb_write_misses{$cluster, $database}"
+                      "query": "avg:rdse.bdb_write_misses{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -401,14 +470,20 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_used_memory{$cluster, $database} by {redis}"
+                      "query": "avg:rdse.redis_used_memory{$cluster,$database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -448,22 +523,34 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
                     },
                     {
-                      "formula": "query2"
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_avg_read_latency{$cluster, $database}"
+                      "query": "avg:rdse.bdb_avg_read_latency{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.bdb_avg_write_latency{$cluster, $database}"
+                      "query": "avg:rdse.bdb_avg_write_latency{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -487,7 +574,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 18,
         "width": 12,
         "height": 9,
         "is_column_break": true
@@ -517,7 +604,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -531,7 +617,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_expired_keys{$cluster, $database} by {redis}"
+                      "query": "avg:rdse.redis_expired_keys{$cluster,$database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -566,7 +652,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -580,7 +665,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_evicted_keys{$cluster, $database} by {redis}"
+                      "query": "avg:rdse.redis_evicted_keys{$cluster,$database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -604,7 +689,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 9,
+        "y": 27,
         "width": 12,
         "height": 9
       }
@@ -619,7 +704,7 @@
     },
     {
       "name": "database",
-      "prefix": "bdb_name",
+      "prefix": "bdb",
       "available_values": [],
       "default": "*"
     }

@@ -1,6 +1,6 @@
 {
-  "title": "Fiddler Model Performance",
-  "description": "## Fiddler Model Performance Dashboard\n\nThis dashboard displays the model performance metrics that was pulled into DataDog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data.",
+  "title": "Fiddler Model Performance 3.0.0",
+  "description": "## Fiddler Model Performance Dashboard\n\nThis dashboard displays the model performance metrics that were pulled into Datadog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data. (cloned)",
   "widgets": [
     {
       "id": 8730254853653876,
@@ -14,7 +14,12 @@
         "vertical_align": "center",
         "horizontal_align": "center"
       },
-      "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 2
+      }
     },
     {
       "id": 939346948899802,
@@ -30,7 +35,12 @@
         "tick_edge": "left",
         "has_padding": true
       },
-      "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 2
+      }
     },
     {
       "id": 3011627381688894,
@@ -38,14 +48,36 @@
         "title": "Model Accuracy",
         "title_size": "16",
         "title_align": "left",
+        "time": {},
         "type": "query_value",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1",
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit"
+                  }
+                }
+              }
+            ],
             "conditional_formats": [
-              { "comparator": ">", "palette": "white_on_green", "value": 0.8 },
-              { "comparator": ">", "palette": "white_on_yellow", "value": 0.6 },
-              { "comparator": ">", "palette": "white_on_red", "value": 0 }
+              {
+                "comparator": ">",
+                "palette": "white_on_green",
+                "value": 0.8
+              },
+              {
+                "comparator": ">",
+                "palette": "white_on_yellow",
+                "value": 0.6
+              },
+              {
+                "comparator": ">",
+                "palette": "white_on_red",
+                "value": 0
+              }
             ],
             "response_format": "scalar",
             "queries": [
@@ -61,11 +93,18 @@
         "autoscale": true,
         "precision": 2,
         "timeseries_background": {
-          "type": "area",
-          "yaxis": { "include_zero": false }
+          "yaxis": {
+            "include_zero": false
+          },
+          "type": "area"
         }
       },
-      "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
     },
     {
       "id": 52421755218508,
@@ -73,34 +112,39 @@
         "title": "Prediction Drift",
         "title_size": "16",
         "title_align": "left",
-        "type": "query_value",
+        "time": {},
+        "type": "timeseries",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
-            "conditional_formats": [
-              { "comparator": ">", "palette": "white_on_red", "value": 0.7 },
-              { "comparator": ">", "palette": "white_on_yellow", "value": 0.3 },
-              { "comparator": ">", "palette": "white_on_green", "value": 0 }
+            "formulas": [
+              {
+                "formula": "query1"
+              }
             ],
-            "response_format": "scalar",
             "queries": [
               {
-                "query": "avg:fiddler.histogram_drift{feature:prob_loan_status}",
+                "query": "avg:fiddler.histogram_drift{$project, $model} by {feature}",
                 "data_source": "metrics",
-                "name": "query1",
-                "aggregator": "avg"
+                "name": "query1"
               }
-            ]
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
           }
-        ],
-        "autoscale": true,
-        "precision": 2,
-        "timeseries_background": {
-          "type": "area",
-          "yaxis": { "include_zero": false }
-        }
+        ]
       },
-      "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
     },
     {
       "id": 1697409658936488,
@@ -108,13 +152,31 @@
         "title": "Model Traffic",
         "title_size": "16",
         "title_align": "left",
+        "time": {},
         "type": "query_value",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1",
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit"
+                  }
+                }
+              }
+            ],
             "conditional_formats": [
-              { "comparator": ">", "palette": "custom_bg", "value": 2 },
-              { "comparator": ">", "palette": "custom_bg", "value": 0 }
+              {
+                "comparator": ">",
+                "palette": "custom_bg",
+                "value": 2
+              },
+              {
+                "comparator": ">",
+                "palette": "custom_bg",
+                "value": 0
+              }
             ],
             "response_format": "scalar",
             "queries": [
@@ -128,10 +190,19 @@
           }
         ],
         "autoscale": true,
+        "text_align": "center",
         "precision": 1,
-        "timeseries_background": { "type": "bars", "yaxis": {} }
+        "timeseries_background": {
+          "yaxis": {},
+          "type": "bars"
+        }
       },
-      "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+      "layout": {
+        "x": 8,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
     },
     {
       "id": 5289184382622970,
@@ -141,11 +212,21 @@
         "title_align": "left",
         "show_legend": true,
         "legend_layout": "auto",
-        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
         "type": "timeseries",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "response_format": "timeseries",
             "queries": [
               {
@@ -162,7 +243,11 @@
             "display_type": "line"
           },
           {
-            "formulas": [{ "formula": "query0" }],
+            "formulas": [
+              {
+                "formula": "query0"
+              }
+            ],
             "response_format": "timeseries",
             "queries": [
               {
@@ -180,7 +265,12 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 4, "width": 6, "height": 3 }
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 6,
+        "height": 3
+      }
     },
     {
       "id": 3361228858411406,
@@ -190,18 +280,38 @@
         "title_align": "left",
         "show_legend": true,
         "legend_layout": "auto",
-        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
         "type": "timeseries",
         "requests": [
           {
             "formulas": [
-              { "formula": "query1" },
-              { "formula": "query2" },
-              { "formula": "query3" },
-              { "formula": "query4" },
-              { "formula": "query5" },
-              { "formula": "query6" },
-              { "formula": "query7" }
+              {
+                "formula": "query1"
+              },
+              {
+                "formula": "query2"
+              },
+              {
+                "formula": "query3"
+              },
+              {
+                "formula": "query4"
+              },
+              {
+                "formula": "query5"
+              },
+              {
+                "formula": "query6"
+              },
+              {
+                "formula": "query7"
+              }
             ],
             "response_format": "timeseries",
             "queries": [
@@ -250,7 +360,12 @@
           }
         ]
       },
-      "layout": { "x": 6, "y": 4, "width": 6, "height": 3 }
+      "layout": {
+        "x": 6,
+        "y": 4,
+        "width": 6,
+        "height": 3
+      }
     },
     {
       "id": 894816583866318,
@@ -260,36 +375,30 @@
         "title_align": "left",
         "show_legend": true,
         "legend_layout": "auto",
-        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
-            "response_format": "timeseries",
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "queries": [
               {
-                "query": "avg:fiddler.histogram_drift{feature:probability_churn}",
+                "query": "avg:fiddler.histogram_drift{feature:probability_churned}",
                 "data_source": "metrics",
                 "name": "query1"
               }
             ],
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "line"
-          },
-          {
-            "formulas": [{ "formula": "query0" }],
             "response_format": "timeseries",
-            "queries": [
-              {
-                "query": "avg:fiddler.histogram_drift{feature:prob_loan_status}",
-                "data_source": "metrics",
-                "name": "query0"
-              }
-            ],
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -299,7 +408,12 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 7, "width": 6, "height": 3 }
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 6,
+        "height": 3
+      }
     },
     {
       "id": 6241039958772764,
@@ -309,19 +423,30 @@
         "title_align": "left",
         "show_legend": true,
         "legend_layout": "auto",
-        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "formulas": [{ "formula": "query1" }],
-            "response_format": "timeseries",
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "queries": [
               {
-                "query": "avg:fiddler.output_average{$project,$model,$feature} by {feature}",
+                "query": "avg:fiddler.feature_average{$project,$model} by {feature}",
                 "data_source": "metrics",
                 "name": "query1"
               }
             ],
+            "response_format": "timeseries",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -331,7 +456,12 @@
           }
         ]
       },
-      "layout": { "x": 6, "y": 7, "width": 6, "height": 3 }
+      "layout": {
+        "x": 6,
+        "y": 7,
+        "width": 6,
+        "height": 3
+      }
     }
   ],
   "template_variables": [
