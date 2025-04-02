@@ -11,7 +11,7 @@ pytestmark = [
 ]
 
 
-def test_metrics_coverage(dd_run_check, aggregator, check, mock_prometheus_metrics):
+def test_metrics_coverage(dd_run_check, aggregator, check):
     """
     Test to ensure all expected Prometheus metrics are present.
     """
@@ -22,7 +22,7 @@ def test_metrics_coverage(dd_run_check, aggregator, check, mock_prometheus_metri
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
-def test_connect_ok(dd_run_check, aggregator, check, mock_prometheus_metrics):
+def test_connect_ok(dd_run_check, aggregator, check):
     """
     Test to ensure the service check health status is appropriately set.
     """
