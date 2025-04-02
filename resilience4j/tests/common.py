@@ -12,6 +12,7 @@ EXPECTED_PROMETHEUS_METRICS = {
     "resilience4j.bulkhead.queue.depth",
     "resilience4j.bulkhead.thread.pool.size",
     "resilience4j.circuitbreaker.buffered.calls",
+    "resilience4j.circuitbreaker.calls.seconds.bucket",
     "resilience4j.circuitbreaker.calls.seconds.count",
     "resilience4j.circuitbreaker.calls.seconds.max",
     "resilience4j.circuitbreaker.calls.seconds.sum",
@@ -21,6 +22,7 @@ EXPECTED_PROMETHEUS_METRICS = {
     "resilience4j.circuitbreaker.state",
     "resilience4j.ratelimiter.available.permissions",
     "resilience4j.ratelimiter.waiting.threads",
+    "resilience4j.retry.calls.count",
     "resilience4j.retry.calls",
     "resilience4j.timelimiter.calls",
 }
