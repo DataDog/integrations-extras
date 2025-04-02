@@ -1,39 +1,122 @@
 {
   "title": "LaunchDarkly",
-  "description": "The LaunchDarkly integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog. Additionally you can use the LaunchDarkly flags dashboard widget to seamlessly monitor and perform a feature go-live from a single window.",
+  "description": "The LaunchDarkly integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog. Additionally you can use the LaunchDarkly flags dashboard widget to seamlessly monitor and perform a feature go-live from a single window. (cloned)",
   "widgets": [
     {
-      "id": 6051850329724523,
+      "id": 8021451179097924,
       "definition": {
-        "type": "image",
-        "url": "https://static.launchdarkly.com/integrations/datadog/dashboard/header_light.png",
-        "url_dark_theme": "https://static.launchdarkly.com/integrations/datadog/dashboard/header.png",
-        "sizing": "cover",
-        "has_background": false,
-        "has_border": false,
-        "vertical_align": "center",
-        "horizontal_align": "center"
+        "title": "Overview",
+        "background_color": "gray",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6051850329724523,
+            "definition": {
+              "type": "image",
+              "url": "https://static.datadoghq.com/static/images/logos/launchdarkly_large.svg",
+              "url_dark_theme": "https://static.datadoghq.com/static/images/logos/launchdarkly_reversed_large.svg",
+              "sizing": "cover",
+              "margin": "md",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3979461125263392,
+            "definition": {
+              "type": "note",
+              "content": "### Track Change Events \nThe LaunchDarkly events integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems.\n\n### Toggle Feature flags\nLaunchDarkly's feature flag tracking integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. \n\n### Relay proxy metrics \nIf you are using the LaunchDarkly Relay Proxy, you can configure it to export metrics, such as active and cumulative connections, to Datadog.\n\n[Learn more about the LaunchDarkly Integration](https://launchdarkly.com/docs/integrations/datadog)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
       },
       "layout": {
         "x": 0,
         "y": 0,
         "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 5250128683109816,
+      "definition": {
+        "type": "note",
+        "content": "## Create, view, or toggle on or off LaunchDarkly feature flags\n\nControl feature flags directly within this dashboard. Narrow down your search by project or environment.",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 2,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 1261236294436942,
+      "definition": {
+        "type": "note",
+        "content": "## Track Feature Flag Change Events\n\nEvents are displayed in a list or as markers on your charts. These events help you correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.\n\nUtilize [template variables](https://docs.datadoghq.com/dashboards/template_variables) to dynamically override the **Launchdarkly environment** setting as you change dashboard views.",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
         "height": 2
       }
     },
     {
-      "id": 3385727926662895,
+      "id": 5922188908441656,
       "definition": {
         "type": "embedded_app",
-        "title": "LaunchDarkly",
-        "title_size": "16",
+        "title": "Manage Feature Flags",
+        "title_size": "13",
         "title_align": "left",
         "template_id": "embedded_launchdarkly_feature_flag_manager"
       },
       "layout": {
         "x": 0,
         "y": 2,
-        "width": 5,
+        "width": 6,
         "height": 7
       }
     },
@@ -43,58 +126,24 @@
         "title": "LaunchDarkly feature flag events",
         "title_size": "16",
         "title_align": "left",
-        "type": "event_stream",
-        "query": "sources:launchdarkly tags:environment_key:$ld-environment",
-        "tags_execution": "and",
-        "event_size": "l"
+        "requests": [
+          {
+            "query": {
+              "query_string": "sources:launchdarkly tags:environment_key:$ld-environment",
+              "data_source": "event_stream",
+              "event_size": "l"
+            },
+            "columns": [],
+            "response_format": "event_list"
+          }
+        ],
+        "type": "list_stream"
       },
       "layout": {
-        "x": 5,
+        "x": 6,
         "y": 2,
-        "width": 7,
+        "width": 6,
         "height": 7
-      }
-    },
-    {
-      "id": 5250128683109816,
-      "definition": {
-        "type": "note",
-        "content": "Customize the LaunchDarkly flags widget to show a subset feature flags that are relevant to your team, project, or service.\n\nOptionally, you can utilize a Datadog [template variable](https://docs.datadoghq.com/dashboards/template_variables) to dynamically override the **Launchdarkly environment** setting as you change dashboard views.",
-        "background_color": "gray",
-        "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "center",
-        "show_tick": true,
-        "tick_pos": "50%",
-        "tick_edge": "top",
-        "has_padding": true
-      },
-      "layout": {
-        "x": 0,
-        "y": 9,
-        "width": 5,
-        "height": 3
-      }
-    },
-    {
-      "id": 1261236294436942,
-      "definition": {
-        "type": "note",
-        "content": "Enable LaunchDarkly's [Datadog events integration](https://docs.launchdarkly.com/integrations/datadog/events) to send feature flag change events to Datadog. Events are displayed in a list or as markers on your charts. These events help you correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.",
-        "background_color": "gray",
-        "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "center",
-        "show_tick": true,
-        "tick_pos": "50%",
-        "tick_edge": "top",
-        "has_padding": true
-      },
-      "layout": {
-        "x": 5,
-        "y": 9,
-        "width": 7,
-        "height": 3
       }
     },
     {
@@ -108,7 +157,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 12,
+        "y": 9,
         "width": 12,
         "height": 1
       }
@@ -117,15 +166,14 @@
   "template_variables": [
     {
       "name": "ld-environment",
-      "default": "*",
       "available_values": [
         "production",
         "test"
-      ]
+      ],
+      "default": "*"
     }
   ],
   "layout_type": "ordered",
-  "is_read_only": false,
   "notify_list": [],
   "reflow_type": "fixed"
 }
