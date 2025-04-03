@@ -16,6 +16,8 @@ CONFTEST = "https://{}:{}/#/bootstrap".format(HOST, CONFTEST_PORT)
 
 ERSATZ_INSTANCE = {'openmetrics_endpoint': "https://localhost:8071/metrics", 'tags': ['instance']}
 
+SSL_INSTANCE = {"openmetrics_endpoint": "https://localhost:8071/metrics", "tls_verify": True}
+
 EPHEMERAL = [
     "rdsc.bdb_avg_read_latency",
     "rdsc.bdb_avg_read_latency_max",
