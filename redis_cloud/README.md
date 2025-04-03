@@ -92,7 +92,7 @@ Need help? Contact [Redis Field Engineering][9].
 [1]: https://redis.io/docs/latest/operate/rc/
 [2]: https://redis.io/docs/latest/operate/rs/
 [3]: https://app.datadoghq.com/integrations?integrationId=redis-enterprise
-[4]: https://docs.datadoghq.com/getting_started/integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/#configuring-agent-integrations
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/datadog_checks/redis_cloud/data/conf.yaml.example
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
