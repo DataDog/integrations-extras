@@ -118,30 +118,29 @@ facets:
     type: string
   - facetType: list
     groups:
-      - AppOmni
-    name: usr.name
+      - User
+    name: User Name
     path: usr.name
     source: log
-    type: string
 pipeline:
   type: pipeline
   name: AppOmni
   enabled: true
   filter:
-    query: source:source:appomni-appomni
+    query: source:appomni-appomni
   processors:
     - type: date-remapper
-      name: Date Time
+      name: [Define `@timestamp` as the official date of the log]
       enabled: true
       sources:
         - "@timestamp"
     - type: service-remapper
-      name: Service Remap
+      name: [Define `appomni.service.type` as the official service of the log]
       enabled: true
       sources:
         - appomni.service.type
     - type: attribute-remapper
-      name: event outcome
+      name: Map `evt.outcome` to `evt.outcome`
       enabled: true
       sources:
         - evt.outcome
@@ -151,7 +150,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: User Name
+      name: Map `usr.name`, `target.user.name`, `related.user.name`, `related.user` to `usr.name`
       enabled: true
       sources:
         - usr.name
@@ -185,7 +184,7 @@ pipeline:
       defaultLookup: Info
       type: lookup-processor
     - type: attribute-remapper
-      name: Status
+      name: Map `appomni.evt.severity` to `appomni.evt.severity`
       enabled: true
       sources:
         - appomni.evt.severity
@@ -195,7 +194,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Logger Name
+      name: Map `event.dataset`, `logger.name` to `logger.name`
       enabled: true
       sources:
         - event.dataset
@@ -206,7 +205,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Event Kind
+      name: Map `appomni.event.kind` to `appomni.event.kind`
       enabled: true
       sources:
         - appomni.event.kind
@@ -216,7 +215,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Event Action
+      name: Map `appomni.event.action` to `appomni.event.action`
       enabled: true
       sources:
         - appomni.event.action
@@ -226,7 +225,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Event Dataset
+      name: Map `appomni.event.dataset` to `appomni.event.dataset`
       enabled: true
       sources:
         - appomni.event.dataset
@@ -236,7 +235,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Event Code
+      name: Map `appomni.event.code` to `appomni.event.code`
       enabled: true
       sources:
         - appomni.event.code
@@ -246,7 +245,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Event Provider
+      name: Map `appomni.event.provider` to `appomni.event.provider`
       enabled: true
       sources:
         - appomni.event.provider
@@ -256,7 +255,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Rule Name
+      name: Map `appomni.rule.name` to `appomni.rule.name`
       enabled: true
       sources:
         - appomni.rule.name
@@ -266,7 +265,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: MITRE Rule Tactic Name
+      name: Map `mitre.attack.tactic.name` to `mitre.attack.tactic.name`
       enabled: true
       sources:
         - mitre.attack.tactic.name
@@ -276,7 +275,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: MITRE Rule Technique Name
+      name: Map `mitre.attack.technique.name` to `mitre.attack.technique.name`
       enabled: true
       sources:
         - mitre.attack.technique.name
@@ -286,7 +285,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: MITRE Rule Technique ID
+      name: Map `mitre.attack.technique.id` to `mitre.attack.technique.id`
       enabled: true
       sources:
         - mitre.attack.technique.id
@@ -296,7 +295,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: MITRE Rule Tactic ID
+      name: Map `mitre.attack.tactic.id` to `mitre.attack.tactic.id`
       enabled: true
       sources:
         - mitre.attack.tactic.id
@@ -306,7 +305,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: MITRE Framework
+      name: Map `mitre.attack.framework` to `mitre.attack.framework`
       enabled: true
       sources:
         - mitre.attack.framework
@@ -316,7 +315,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Event Category "
+      name: Map `evt.name` to `evt.name`
       enabled: true
       sources:
         - evt.name
@@ -326,7 +325,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: User Email
+      name: Map `usr.email` to `usr.email`
       enabled: true
       sources:
         - usr.email
@@ -336,7 +335,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: alert related events
+      name: Map `appomni.related.event` to `appomni.related.event`
       enabled: true
       sources:
         - appomni.related.event
