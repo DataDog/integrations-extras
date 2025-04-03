@@ -126,10 +126,11 @@
         "title": "LaunchDarkly feature flag events",
         "title_size": "16",
         "title_align": "left",
+        "time": {},
         "requests": [
           {
             "query": {
-              "query_string": "sources:launchdarkly tags:environment_key:$ld-environment",
+              "query_string": "sources:launchdarkly env:$ld-environment.value",
               "data_source": "event_stream",
               "event_size": "l"
             },
