@@ -128,7 +128,7 @@ pipeline:
   name: AppOmni
   enabled: true
   filter:
-    query: source:appomni
+    query: source:source:appomni-appomni
   processors:
     - type: date-remapper
       name: Date Time
@@ -144,7 +144,7 @@ pipeline:
       name: event outcome
       enabled: true
       sources:
-        - event.outcome
+        - evt.outcome
       sourceType: attribute
       target: evt.outcome
       targetType: attribute
@@ -154,7 +154,7 @@ pipeline:
       name: User Name
       enabled: true
       sources:
-        - user.name
+        - usr.name
         - target.user.name
         - related.user.name
         - related.user
@@ -188,7 +188,7 @@ pipeline:
       name: Status
       enabled: true
       sources:
-        - event.severity
+        - appomni.evt.severity
       sourceType: attribute
       target: appomni.evt.severity
       targetType: attribute
@@ -199,7 +199,7 @@ pipeline:
       enabled: true
       sources:
         - event.dataset
-        - appomni.event.dataset
+        - logger.name
       sourceType: attribute
       target: logger.name
       targetType: attribute
@@ -209,7 +209,7 @@ pipeline:
       name: Event Kind
       enabled: true
       sources:
-        - event.kind
+        - appomni.event.kind
       sourceType: attribute
       target: appomni.event.kind
       targetType: attribute
@@ -219,7 +219,7 @@ pipeline:
       name: Event Action
       enabled: true
       sources:
-        - event.action
+        - appomni.event.action
       sourceType: attribute
       target: appomni.event.action
       targetType: attribute
@@ -229,7 +229,7 @@ pipeline:
       name: Event Dataset
       enabled: true
       sources:
-        - event.dataset
+        - appomni.event.dataset
       sourceType: attribute
       target: appomni.event.dataset
       targetType: attribute
@@ -239,7 +239,7 @@ pipeline:
       name: Event Code
       enabled: true
       sources:
-        - event.code
+        - appomni.event.code
       sourceType: attribute
       target: appomni.event.code
       targetType: attribute
@@ -249,7 +249,7 @@ pipeline:
       name: Event Provider
       enabled: true
       sources:
-        - event.provider
+        - appomni.event.provider
       sourceType: attribute
       target: appomni.event.provider
       targetType: attribute
@@ -259,7 +259,7 @@ pipeline:
       name: Rule Name
       enabled: true
       sources:
-        - rule.name
+        - appomni.rule.name
       sourceType: attribute
       target: appomni.rule.name
       targetType: attribute
@@ -269,7 +269,7 @@ pipeline:
       name: MITRE Rule Tactic Name
       enabled: true
       sources:
-        - rule.threat.tactic.name
+        - mitre.attack.tactic.name
       sourceType: attribute
       target: mitre.attack.tactic.name
       targetType: attribute
@@ -279,7 +279,7 @@ pipeline:
       name: MITRE Rule Technique Name
       enabled: true
       sources:
-        - rule.threat.technique.name
+        - mitre.attack.technique.name
       sourceType: attribute
       target: mitre.attack.technique.name
       targetType: attribute
@@ -289,7 +289,7 @@ pipeline:
       name: MITRE Rule Technique ID
       enabled: true
       sources:
-        - rule.threat.technique.id
+        - mitre.attack.technique.id
       sourceType: attribute
       target: mitre.attack.technique.id
       targetType: attribute
@@ -299,7 +299,7 @@ pipeline:
       name: MITRE Rule Tactic ID
       enabled: true
       sources:
-        - rule.threat.tactic.id
+        - mitre.attack.tactic.id
       sourceType: attribute
       target: mitre.attack.tactic.id
       targetType: attribute
@@ -309,7 +309,7 @@ pipeline:
       name: MITRE Framework
       enabled: true
       sources:
-        - rule.threat.framework
+        - mitre.attack.framework
       sourceType: attribute
       target: mitre.attack.framework
       targetType: attribute
@@ -319,7 +319,7 @@ pipeline:
       name: "Event Category "
       enabled: true
       sources:
-        - event.category
+        - evt.name
       sourceType: attribute
       target: evt.name
       targetType: attribute
@@ -329,7 +329,7 @@ pipeline:
       name: User Email
       enabled: true
       sources:
-        - user.email
+        - usr.email
       sourceType: attribute
       target: usr.email
       targetType: attribute
@@ -339,7 +339,7 @@ pipeline:
       name: alert related events
       enabled: true
       sources:
-        - related.event
+        - appomni.related.event
       sourceType: attribute
       target: appomni.related.event
       targetType: attribute
