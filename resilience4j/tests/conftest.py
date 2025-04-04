@@ -3,11 +3,11 @@ import os
 import mock
 import pytest
 
-from datadog_checks.dev import docker_run, get_here
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 from datadog_checks.dev.conditions import CheckDockerLogs, CheckEndpoints
 from datadog_checks.resilience4j.check import Resilience4jCheck
 
-INSTANCE_URL = "http://localhost:9080/actuator/prometheus"
+INSTANCE_URL = "http://{}:9080/actuator/prometheus".format(get_docker_hostname())
 HERE = get_here()
 DOCKER_DIR = os.path.join(HERE, 'docker')
 
