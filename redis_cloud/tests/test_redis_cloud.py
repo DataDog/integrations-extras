@@ -89,6 +89,7 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
 
     aggregator.assert_service_check(f'{RedisCloudCheck.__NAMESPACE__}.node_imaginary', count=0)
 
+
 @pytest.mark.unit
 def test_invalid_ssl_instance(aggregator, dd_run_check, mock_http_response):
     # Create instance without tls_verify

@@ -46,7 +46,7 @@ class RedisCloudCheck(OpenMetricsBaseCheckV2):
             'namespace': self.__NAMESPACE__,
             'metrics': metrics,
             'metadata_label_map': {'version': 'version'},
-            'tls_verify': tls_verify
+            'tls_verify': tls_verify,
         }
 
         config.update(self.instance)
