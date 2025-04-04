@@ -96,7 +96,7 @@ def test_invalid_ssl_instance(aggregator, dd_run_check, mock_http_response):
     instance = deepcopy(SSL_INSTANCE)
     instance.pop('tls_verify')  # Simulating missing tls_verify in config
 
-    check = RedisEnterpriseCheck(CHECK, {}, [instance])
+    check = RedisCloudCheck(CHECK, {}, [instance])
     dd_run_check(check)
 
     # Ensure tls_verify defaults to False
