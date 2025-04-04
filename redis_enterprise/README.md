@@ -16,7 +16,7 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise==1.1.0
+   datadog-agent integration install -t datadog-redis_enterprise==1.1.2
    ```
    
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
@@ -27,6 +27,17 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 ### Configuration
 
 Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. Leave `tls_verify` set to false.
+
+If you have more than one endpoint, it is necessary to create additional instances with the respective URLs.
+See the example below, which is also in [conf.yaml.multi.example][5]:
+
+```instances:
+  - openmetrics_endpoint: 'https://<host1>:8070/metrics'
+    tls_verify: false
+
+  - openmetrics_endpoint: 'https://<host1>:8070/metrics'
+    tls_verify: false
+```
 
 There are two optional parameters: `extra_metrics` and `excluded_metrics`, as noted in the example configuration file.
 
@@ -58,7 +69,7 @@ the data collected page.
 1. Ensure you can ping the machine, particularly in a cloud environment. Run `wget --no-check-certificate <endpoint>` 
 or `curl -k <endpoint>` to ensure that you can receive metrics.
 
-2. Check the [status][5] of the Datadog agent.
+2. Check the [status][6] of the Datadog agent.
 
 
 ## Data Collected
@@ -69,7 +80,7 @@ data for replication, proxy, listener, etc. can be gathered; see the list in the
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this integration.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 
 ### Service Checks
@@ -84,13 +95,14 @@ Redis Enterprise does not include any events.
 
 ## Troubleshooting
 
-Need help? Please contact [Redis Support][8].
+Need help? Please contact [Redis Support][9] .
 
 [1]: https://redis.com/redis-enterprise-software/overview/
 [2]: https://docs.datadoghq.com/getting_started/integrations/
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [4]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/datadog_checks/redis_enterprise/data/conf.yaml.example
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/metadata.csv
-[7]: mailto:field.engineers@redis.com
-[8]: https://redis.io/support/
+[5]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/datadog_checks/redis_enterprise/data/conf.yaml.multi.example
+[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[7]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/metadata.csv
+[8]: mailto:field.engineers@redis.com
+[9]: https://redis.io/support/

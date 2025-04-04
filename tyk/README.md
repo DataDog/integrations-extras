@@ -50,7 +50,7 @@ pump.conf:
    "dogstatsd": {
       "type": "dogstatsd",
       "meta": {
-        "address": "dd-agent:8126",
+        "address": "dd-agent:8125",
         "namespace": "tyk",
         "async_uds": true,
         "async_uds_write_timeout_seconds": 2,
