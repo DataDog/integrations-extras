@@ -4,7 +4,7 @@ import mock
 import pytest
 
 from datadog_checks.dev import docker_run, get_here
-from datadog_checks.dev.conditions import CheckDockerLogs
+from datadog_checks.dev.conditions import CheckDockerLogs, CheckEndpoints
 from datadog_checks.resilience4j.check import Resilience4jCheck
 
 INSTANCE_URL = "http://localhost:9080/actuator/prometheus"
@@ -15,8 +15,12 @@ DOCKER_DIR = os.path.join(HERE, 'docker')
 @pytest.fixture(scope='session')
 def dd_environment():
     compose_file = os.path.join(DOCKER_DIR, 'docker-compose.yaml')
+    conditions = [
+        CheckDockerLogs(identifier="tester", patterns=["Finished resilience4j-demo tests"]),
+        CheckEndpoints(INSTANCE_URL, attempts=120),
+    ]
 
-    with docker_run(compose_file, conditions=[CheckDockerLogs(compose_file, 'Finished resilience4j-demo tests')]):
+    with docker_run(compose_file, sleep=5, conditions=conditions):
         instances = {'instances': [{'openmetrics_endpoint': INSTANCE_URL}]}
         yield instances
 

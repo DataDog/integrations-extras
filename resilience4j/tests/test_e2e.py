@@ -25,3 +25,8 @@ def test_resilience4j_e2e(dd_run_check, aggregator, check):
 
 def test_e2e(dd_agent_check):
     pass
+    # aggregator = dd_agent_check()
+    # for metric_name in EXPECTED_PROMETHEUS_METRICS:
+    #     aggregator.assert_metric(metric_name, at_least=0)
+    # aggregator.assert_all_metrics_covered()
+    # aggregator.assert_metrics_using_metadata(get_metadata_metrics())

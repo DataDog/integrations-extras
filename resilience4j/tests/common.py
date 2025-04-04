@@ -1,6 +1,6 @@
 # Constants
 
-INSTANCE = {"openmetrics_endpoint": "http://localhost:9080/actuator/prometheus"}
+INSTANCE = {"openmetrics_endpoint": "http://127.0.0.1:9080/actuator/prometheus"}
 
 BAD_HOSTNAME_INSTANCE = {"openmetrics_endpoint": "http://invalid-hostname"}
 
