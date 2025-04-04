@@ -14,11 +14,11 @@ init_config:
 instances:
 
     ## @param openmetrics_endpoint - string - required
-    ## Insert Description here for rdse OpenMetrics endpoint or link to docs
+    ## The endpoint should be the URL of the metric exporter of the enterprise instance
     #
   - openmetrics_endpoint: https://<host>:8070/metrics
 
-    ## @param tls_verify - boolean - optional - default: false
+    ## @param tls_verify - boolean - optional - default: true
     ## Instructs the check to validate the TLS certificate of services.
     #
     tls_verify: false
@@ -500,6 +500,16 @@ instances:
     #   - SSLv3
     #   - TLSv1.2
     #   - TLSv1.3
+
+    ## @param tls_ciphers - list of strings - optional
+    ## The list of ciphers suites to use when connecting to an endpoint. If not specified, 
+    ## `ALL` ciphers are used. For list of ciphers see: 
+    ## https://www.openssl.org/docs/man1.0.2/man1/ciphers.html
+    #
+    # tls_ciphers:
+    #   - TLS_AES_256_GCM_SHA384
+    #   - TLS_CHACHA20_POLY1305_SHA256
+    #   - TLS_AES_128_GCM_SHA256
 
     ## @param headers - mapping - optional
     ## The headers parameter allows you to send specific headers with every request.

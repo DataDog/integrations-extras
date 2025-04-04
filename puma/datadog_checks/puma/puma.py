@@ -1,4 +1,5 @@
-import simplejson as json
+import json
+
 from six.moves.urllib.parse import urlparse
 
 from datadog_checks.base import AgentCheck, ConfigurationError
@@ -24,7 +25,7 @@ class PumaCheck(AgentCheck):
         response, content_type, version = self._perform_service_check(instance, control_url)
         metrics = self._extract_metrics(response)
 
-        for (key, name, reporter) in METRICS:
+        for key, name, reporter in METRICS:
             reporter(self, 'puma.{}'.format(name), metrics[key], tags)
 
     def _extract_metrics(self, response):

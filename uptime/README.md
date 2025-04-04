@@ -2,10 +2,16 @@
 
 ## Overview
 
-Get events and metrics from your app in real time to:
+Uptime.com is a comprehensive website monitoring service that provides real-time alerts and detailed performance analytics for your web applications and APIs.
 
-- Track and notify of any downtime or interruptions.
-- Visualize response time metrics from synthetic requests.
+The Uptime.com integration with Datadog enhances your monitoring capabilities by combining Uptime.com's monitoring with Datadog's platform. Key functionality includes:
+
+- Uptime.com alerts automatically generate corresponding events in Datadog.
+- Datadog events can be assigned lower priority and commented on for tracking.
+- Check response times are tracked as metrics in Datadog.
+- Metrics update every 5 minutes with 5 data points from 1-minute interval checks.
+
+This integration enables you to proactively identify and resolve performance issues, minimizing downtime and improving overall site reliability.
 
 ![Uptime.com Graph][1]
 

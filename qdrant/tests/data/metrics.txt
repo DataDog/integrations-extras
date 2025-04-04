@@ -3,10 +3,10 @@
 app_status_recovery_mode 0
 # HELP collections_total number of collections
 # TYPE collections_total gauge
-collections_total 1
+collections_total 6
 # HELP collections_vector_total total number of vectors in all collections
 # TYPE collections_vector_total gauge
-collections_vector_total 5417
+collections_vector_total 31732
 # HELP cluster_enabled is cluster support enabled
 # TYPE cluster_enabled gauge
 cluster_enabled 1
@@ -15,10 +15,10 @@ cluster_enabled 1
 cluster_peers_total 1
 # HELP cluster_term current cluster term
 # TYPE cluster_term counter
-cluster_term 15
+cluster_term 26
 # HELP cluster_commit index of last committed (finalized) operation cluster peer is aware of
 # TYPE cluster_commit counter
-cluster_commit{peer_id="7921884851411016"} 2285
+cluster_commit{peer_id="7921884851411016"} 2425
 # HELP cluster_pending_operations_total total number of pending operations for cluster peer
 # TYPE cluster_pending_operations_total gauge
 cluster_pending_operations_total 0
@@ -91,23 +91,66 @@ rest_responses_duration_seconds_sum{method="POST",endpoint="/collections/{name}/
 rest_responses_duration_seconds_count{method="POST",endpoint="/collections/{name}/points/count",status="200"} 15
 # HELP grpc_responses_total total number of responses
 # TYPE grpc_responses_total counter
-grpc_responses_total{endpoint="/qdrant.Points/Query"} 60
+grpc_responses_total{endpoint="/qdrant.Points/Upsert"} 6
+grpc_responses_total{endpoint="/qdrant.Points/Query"} 1
+grpc_responses_total{endpoint="/qdrant.Points/Scroll"} 6
 # HELP grpc_responses_fail_total total number of failed responses
 # TYPE grpc_responses_fail_total counter
+grpc_responses_fail_total{endpoint="/qdrant.Points/Upsert"} 0
 grpc_responses_fail_total{endpoint="/qdrant.Points/Query"} 0
+grpc_responses_fail_total{endpoint="/qdrant.Points/Scroll"} 0
 # HELP grpc_responses_avg_duration_seconds average response duration
 # TYPE grpc_responses_avg_duration_seconds gauge
-grpc_responses_avg_duration_seconds{endpoint="/qdrant.Points/Query"} 0.00151775830078125
+grpc_responses_avg_duration_seconds{endpoint="/qdrant.Points/Upsert"} 0.0096579775390625
+grpc_responses_avg_duration_seconds{endpoint="/qdrant.Points/Query"} 0.001953
+grpc_responses_avg_duration_seconds{endpoint="/qdrant.Points/Scroll"} 0.0006911055297851563
 # HELP grpc_responses_min_duration_seconds minimum response duration
 # TYPE grpc_responses_min_duration_seconds gauge
-grpc_responses_min_duration_seconds{endpoint="/qdrant.Points/Query"} 0.001059
+grpc_responses_min_duration_seconds{endpoint="/qdrant.Points/Upsert"} 0.000996
+grpc_responses_min_duration_seconds{endpoint="/qdrant.Points/Query"} 0.001953
+grpc_responses_min_duration_seconds{endpoint="/qdrant.Points/Scroll"} 0.000309
 # HELP grpc_responses_max_duration_seconds maximum response duration
 # TYPE grpc_responses_max_duration_seconds gauge
-grpc_responses_max_duration_seconds{endpoint="/qdrant.Points/Query"} 0.004388
+grpc_responses_max_duration_seconds{endpoint="/qdrant.Points/Upsert"} 0.01462
+grpc_responses_max_duration_seconds{endpoint="/qdrant.Points/Query"} 0.001953
+grpc_responses_max_duration_seconds{endpoint="/qdrant.Points/Scroll"} 0.002253
 # HELP grpc_responses_duration_seconds response duration histogram
 # TYPE grpc_responses_duration_seconds histogram
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="0.0005"} 0
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="0.001"} 1
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="0.005"} 4
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="0.01"} 4
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="0.05"} 6
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Upsert",le="+Inf"} 6
+grpc_responses_duration_seconds_sum{endpoint="/qdrant.Points/Upsert"} 0.0332
+grpc_responses_duration_seconds_count{endpoint="/qdrant.Points/Upsert"} 6
 grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="0.001"} 0
-grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="0.005"} 60
-grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="+Inf"} 60
-grpc_responses_duration_seconds_sum{endpoint="/qdrant.Points/Query"} 0.087005
-grpc_responses_duration_seconds_count{endpoint="/qdrant.Points/Query"} 60
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="0.005"} 1
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Query",le="+Inf"} 1
+grpc_responses_duration_seconds_sum{endpoint="/qdrant.Points/Query"} 0.001953
+grpc_responses_duration_seconds_count{endpoint="/qdrant.Points/Query"} 1
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Scroll",le="0.0001"} 0
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Scroll",le="0.0005"} 2
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Scroll",le="0.001"} 5
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Scroll",le="0.005"} 6
+grpc_responses_duration_seconds_bucket{endpoint="/qdrant.Points/Scroll",le="+Inf"} 6
+grpc_responses_duration_seconds_sum{endpoint="/qdrant.Points/Scroll"} 0.004966
+grpc_responses_duration_seconds_count{endpoint="/qdrant.Points/Scroll"} 6
+# HELP collection_hardware_metric_cpu CPU measurements of a collection
+# TYPE collection_hardware_metric_cpu gauge
+collection_hardware_metric_cpu{id="rag2"} 159744
+# HELP memory_active_bytes Total number of bytes in active pages allocated by the application
+# TYPE memory_active_bytes gauge
+memory_active_bytes 211828736
+# HELP memory_allocated_bytes Total number of bytes allocated by the application
+# TYPE memory_allocated_bytes gauge
+memory_allocated_bytes 205169536
+# HELP memory_metadata_bytes Total number of bytes dedicated to metadata
+# TYPE memory_metadata_bytes gauge
+memory_metadata_bytes 7406976
+# HELP memory_resident_bytes Maximum number of bytes in physically resident data pages mapped
+# TYPE memory_resident_bytes gauge
+memory_resident_bytes 219181056
+# HELP memory_retained_bytes Total number of bytes in virtual memory mappings
+# TYPE memory_retained_bytes gauge
+memory_retained_bytes 146206720

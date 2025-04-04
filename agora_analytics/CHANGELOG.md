@@ -5,3 +5,7 @@
 ***Added***:
 
 * Initial Agora Integration
+
+## 1.0.1 / 2024-10-15
+
+* Update Dashboard Agora Analytics with new widgets for chat metrics

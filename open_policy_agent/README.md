@@ -1,4 +1,4 @@
-# Agent Check: open_policy_agent 
+# Agent Check: open_policy_agent
 
 ## Overview
 
@@ -22,7 +22,7 @@ To install the open_policy_agent check on your Kubernetes cluster:
 3. Update your `ddev` config with the `integrations-extras/` path:
 
    ```shell
-   ddev config set extras ./integrations-extras
+   ddev config set repos.extras ./integrations-extras
    ```
 
 4. To build the `open_policy_agent` package, run:

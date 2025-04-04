@@ -288,7 +288,7 @@ class CloudsmithCheck(AgentCheck):
                     {
                         "actor": i["actor"],
                         "actor_kind": i["actor_kind"],
-                        "city": i["actor_location"]["city"],
+                        "city": i["actor_location"]["city"] if i.get("actor_location") else None,
                         "event": i["event"],
                         "event_at": self.convert_time(i["event_at"]),
                         "object": i["object"],

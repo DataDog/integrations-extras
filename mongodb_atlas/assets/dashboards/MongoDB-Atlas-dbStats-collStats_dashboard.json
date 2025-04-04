@@ -1,0 +1,231 @@
+{
+  "description": null,
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "template_variables": [],
+  "title": "DB Stats + Collstats Dashboard",
+  "widgets": [
+    {
+      "definition": {
+        "background_color": "vivid_green",
+        "layout_type": "ordered",
+        "show_title": true,
+        "title": "dbStats",
+        "type": "group",
+        "widgets": [
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:mongodb.atlas.dbstats.collections{*}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "# of collections",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 1906095404858910,
+            "layout": {
+              "height": 3,
+              "width": 4,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 2,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:mongodb.atlas.dbstats.avg.object.size{*}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "avg object size",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 3604488985938846,
+            "layout": {
+              "height": 3,
+              "width": 4,
+              "x": 4,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 2,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:mongodb.atlas.dbstats.index.size{*}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "index size",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 8687938053301306,
+            "layout": {
+              "height": 3,
+              "width": 4,
+              "x": 8,
+              "y": 0
+            }
+          }
+        ]
+      },
+      "id": 7480463324232016,
+      "layout": {
+        "height": 4,
+        "width": 12,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "definition": {
+        "background_color": "vivid_green",
+        "layout_type": "ordered",
+        "show_title": true,
+        "title": "latencyStats",
+        "type": "group",
+        "widgets": [
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "display_type": "line",
+                  "formulas": [
+                    {
+                      "alias": "p50 reads",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "p95 reads",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "p99 reads",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p50{*}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p95{*}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p99{*}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": true,
+              "title": "number of read operations at p50, p95 and p99",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
+            },
+            "id": 5846352545448276,
+            "layout": {
+              "height": 5,
+              "width": 12,
+              "x": 0,
+              "y": 0
+            }
+          }
+        ]
+      },
+      "id": 7805862455900080,
+      "layout": {
+        "height": 6,
+        "is_column_break": true,
+        "width": 12,
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+    "title": "Onepane Overview",
+    "description": "Onepane acts as a central hub, bringing together information from various systems like Cloud, DevOps and Monitoring tools.\n  This unified view lets you see how changes and events from these systems correlate with incidents, significantly speeding up the process of identifying the root cause (RCA).",
+    "widgets": [
+        {
+            "id": 325090501093728,
+            "definition": {
+                "title": "About Onepane",
+                "banner_img": "https://uploads-ssl.webflow.com/658d711e61ba605e5e282b48/66b346b69b16877b3c4a0216_Frame%201000005274.png",
+                "show_title": false,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6544225029855812,
+                        "definition": {
+                            "type": "note",
+                            "content": "Onepane correlates Datadog incidents with code, configuration, and deployment changes, enabling quick root cause identification. This feature greatly reduces troubleshooting time and enhances operational efficiency.",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7032118608350450,
+                        "definition": {
+                            "type": "note",
+                            "content": "To integrate Onepane with Datadog, you need to obtain a site URL, create an API key, and generate an application key, ensuring a smooth integration process.  [Onepane Help Center](https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management).",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 5
+            }
+        },
+        {
+            "id": 6182012586724472,
+            "definition": {
+                "title": "Event Count Over Host",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "host",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "host:*"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 5
+            }
+        },
+        {
+            "id": 1931663425333650,
+            "definition": {
+                "title": "Alerts and recent deployment on related components",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Alerts",
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 5
+                                },
+                                "formula": "query1"
+                            },
+                            {
+                                "alias": "Deployment",
+                                "style": {
+                                    "palette": "cool",
+                                    "palette_index": 2
+                                },
+                                "formula": "query2"
+                            },
+                            {
+                                "style": {
+                                    "palette": "purple",
+                                    "palette_index": 2
+                                },
+                                "alias": "Events",
+                                "formula": "query3"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "source:alert"
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query2",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "tags:\"category::deployment\" tags:\"platform::onepane\""
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query3",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "-tags:\"category::deployment\" tags:\"platform::onepane\""
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "red",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "thick"
+                        },
+                        "display_type": "bars"
+                    }
+                ],
+                "markers": []
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 5,
+                "is_column_break": true
+            }
+        },
+        {
+            "id": 2235846038782874,
+            "definition": {
+                "title": "Recent Deployments Happens",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Deployments",
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "tags:\"category::deployment\" tags:\"platform::onepane\""
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "order_by": "values",
+                            "color_order": "shuffled",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 5,
+                "width": 12,
+                "height": 5
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}

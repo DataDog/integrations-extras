@@ -2,6 +2,8 @@
 
 ## Overview
 
+**Important**: starting October 10th 2024, this integration is no longer supported. You should use the [new integration](https://app.datadoghq.com/integrations/mergify-oauth).
+
 This integration monitors merge queue length for each configured repository in
 [Mergify][1] and tracks Mergify's global availability. By sending metrics to your
 Datadog account, you can set up monitors for anomaly alerts and analyze merge
@@ -49,6 +51,7 @@ Run the [Agent's status subcommand][5] and look for `mergify` under the Checks s
 See [metadata.csv][6] for a list of metrics provided by this check.
 
 For the metric `mergify.queue_checks_outcome`, the available `outcome_type` tags are :
+
 - `PR_DEQUEUED`: The number of PRs that have been manually removed from the queue
 - `PR_AHEAD_DEQUEUED`: The number of PRs that have been removed from the queue because a PR ahead of it was removed from the queue
 - `PR_AHEAD_FAILED_TO_MERGE`: The number of PRs that have been removed from the queue because a PR ahead of it failed to merge
@@ -64,7 +67,6 @@ For the metric `mergify.queue_checks_outcome`, the available `outcome_type` tags
 - `TARGET_BRANCH_MISSING`: The number of PRs that have been removed from the queue because the PR's target branch does not exist anymore
 - `PR_UNEXPECTEDLY_FAILED_TO_MERGE`: The number of PRs that have been removed from the queue because they unexpectedly failed to get merged
 - `BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS`: The number of PRs that have been removed from the queue because the maximum batch failure resolution attempts have been reached
-
 
 ### Service Checks
 

@@ -1,0 +1,242 @@
+{
+  "title": "Doppler Dashboard",
+  "description": "This dashboard provides a high-level overview of your workplace's Doppler activity.\n\nClone this template dashboard to make changes and add your own graph widgets.",
+  "widgets": [
+    {
+      "id": 2579449116060402,
+      "definition": {
+        "type": "image",
+        "url": "https://www.doppler.com/avatar/doppler_circle_800.png",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": { "x": 0, "y": 0, "width": 2, "height": 3 }
+    },
+    {
+      "id": 1029719899125074,
+      "definition": {
+        "type": "note",
+        "content": "[Doppler](https://doppler.com) is a secrets manager designed with both security and developer productivity in mind.\n\nThis dashboard provides a high-level overview of your Doppler [Activity Logs](https://docs.doppler.com/docs/workplace-logs), allowing you to identify patterns in:\n\n- Different types of activities\n- Temporal patterns in activities\n- Which users are performing activities\n\nRead the [Doppler Datadog docs](https://docs.doppler.com/docs/datadog) for more information.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": { "x": 2, "y": 0, "width": 10, "height": 3 }
+    },
+    {
+      "id": 4210531550520016,
+      "definition": {
+        "title": "Activity Logs by Type",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  {
+                    "facet": "@type",
+                    "limit": 10,
+                    "sort": { "order": "desc", "aggregation": "count" }
+                  }
+                ],
+                "search": { "query": "source:doppler" },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "datadog16",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 3, "width": 8, "height": 4 }
+    },
+    {
+      "id": 5108936822527020,
+      "definition": {
+        "title": "Activity Log Counts by Type",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  {
+                    "facet": "@type",
+                    "limit": 10,
+                    "sort": { "order": "desc", "aggregation": "count" }
+                  }
+                ],
+                "search": { "query": "source:doppler" },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "scalar",
+            "sort": {
+              "count": 10,
+              "order_by": [{ "type": "formula", "index": 0, "order": "desc" }]
+            },
+            "formulas": [
+              {
+                "cell_display_mode": "bar",
+                "alias": "Count",
+                "formula": "query1"
+              }
+            ]
+          }
+        ],
+        "has_search_bar": "auto"
+      },
+      "layout": { "x": 8, "y": 3, "width": 4, "height": 4 }
+    },
+    {
+      "id": 2954602671560148,
+      "definition": {
+        "type": "note",
+        "content": "Break down activity logs by type over time intervals to identify operational usage patterns.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "top",
+        "has_padding": true
+      },
+      "layout": { "x": 0, "y": 7, "width": 12, "height": 1 }
+    },
+    {
+      "id": 788257060754552,
+      "definition": {
+        "title": "Activity Logs by Timestamp",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "heatmap",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [],
+                "search": { "query": "source:doppler" },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": { "palette": "dog_classic" }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 8, "width": 8, "height": 3 }
+    },
+    {
+      "id": 7305773172963494,
+      "definition": {
+        "title": "Activity Log Counts by User",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  {
+                    "facet": "@usr.email",
+                    "limit": 10,
+                    "sort": { "order": "desc", "aggregation": "count" }
+                  }
+                ],
+                "search": { "query": "source:doppler" },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "scalar",
+            "sort": {
+              "count": 10,
+              "order_by": [{ "type": "formula", "index": 0, "order": "desc" }]
+            },
+            "formulas": [{ "cell_display_mode": "bar", "formula": "query1" }]
+          }
+        ],
+        "has_search_bar": "auto"
+      },
+      "layout": { "x": 8, "y": 8, "width": 4, "height": 3 }
+    },
+    {
+      "id": 924997396545434,
+      "definition": {
+        "type": "note",
+        "content": "View by timestamp to identify temporal usage patterns.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "top",
+        "has_padding": true
+      },
+      "layout": { "x": 0, "y": 11, "width": 8, "height": 1 }
+    },
+    {
+      "id": 8957740472282574,
+      "definition": {
+        "type": "note",
+        "content": "View by user who completed the Doppler action.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "top",
+        "has_padding": true
+      },
+      "layout": { "x": 8, "y": 11, "width": 4, "height": 1 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

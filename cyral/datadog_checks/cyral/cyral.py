@@ -51,7 +51,7 @@ class CyralCheck(OpenMetricsBaseCheck):
                 'namespace': self.NAMESPACE,
                 'metrics': [self.metrics_mapper],
                 'send_histograms_buckets': send_buckets,
-                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True)
+                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True),
                 # default to True to submit _count histogram/summary as monotonic
                 # counts to Datadog
             }

@@ -54,24 +54,24 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Zabbix c
 
 3. Set **Name** to `Datadog`, **Type** to `Webhook`, and input the following code as the **Script**:
 ``` 
-	try {
-		Zabbix.Log(4, '[datadog webhook] received value=' + value);
+try {
+	Zabbix.Log(4, '[datadog webhook] received value=' + value);
 
-		var params = JSON.parse(value);
-	    var req = new CurlHttpRequest();
-		req.AddHeader('Content-Type: application/json');
-	    var webhook_url = 'https://app.datadoghq.com/intake/webhook/zabbix?api_key=' + params.api_key;
-	    var webhook_data = value;
-	    var resp = req.Post(webhook_url, webhook_data);
-		if (req.Status() != 202) {
-			throw 'Response code: '+req.Status();
-		}
-		Zabbix.Log(4, '[datadog webhook] received response with status code ' + req.Status() + '\n' + resp);
-	} catch (error) {
-		Zabbix.Log(4, '[datadog webhook] event creation failed json : ' + webhook_data)
-		Zabbix.Log(4, '[datadog webhook] event creation failed : ' + error);
+	var params = JSON.parse(value);
+	var req = new HttpRequest();
+	req.addHeader('Content-Type: application/json');
+	var webhook_url = 'https://app.datadoghq.com/intake/webhook/zabbix?api_key=' + params.api_key;
+	var webhook_data = value;
+	var resp = req.post(webhook_url, webhook_data);
+	if (req.getStatus() != 202) {
+		throw 'Response code: '+req.getStatus();
 	}
-	return JSON.stringify({});
+	Zabbix.Log(4, '[datadog webhook] received response with status code ' + req.getStatus() + '\n' + resp);
+} catch (error) {
+	Zabbix.Log(4, '[datadog webhook] event creation failed json : ' + webhook_data)
+	Zabbix.Log(4, '[datadog webhook] event creation failed : ' + error);
+}
+return JSON.stringify({});
 
 ```
 4. Validate the Webhook is set up correctly by using the "Test" button.

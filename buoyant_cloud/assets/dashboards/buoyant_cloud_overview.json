@@ -168,7 +168,7 @@
             "response_format": "scalar",
             "queries": [
               {
-                "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.sum{$cluster,$namespace,$workload_name}",
+                "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.max{$cluster,$namespace,$workload_name}",
                 "data_source": "metrics",
                 "name": "query1",
                 "aggregator": "avg"
@@ -646,7 +646,7 @@
                   "response_format": "timeseries",
                   "queries": [
                     {
-                      "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.sum{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.max{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
                       "data_source": "metrics",
                       "name": "query1"
                     }

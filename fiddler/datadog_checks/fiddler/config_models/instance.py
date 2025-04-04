@@ -30,8 +30,11 @@ class InstanceConfig(BaseModel):
         arbitrary_types_allowed=True,
         frozen=True,
     )
+    bin_size: Optional[int] = None
+    delay: Optional[int] = None
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
+    enabled_metrics: Optional[tuple[str, ...]] = None
     fiddler_api_key: str
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
@@ -39,6 +42,7 @@ class InstanceConfig(BaseModel):
     service: Optional[str] = None
     tags: Optional[tuple[str, ...]] = None
     url: str
+    v1compat: Optional[bool] = None
 
     @model_validator(mode='before')
     def _initial_validation(cls, values):
