@@ -1,6 +1,8 @@
+from datadog_checks.dev import get_docker_hostname
+
 # Constants
 
-INSTANCE = {"openmetrics_endpoint": "http://localhost:9080/actuator/prometheus"}
+INSTANCE = {"openmetrics_endpoint": "http://{}:9080/actuator/prometheus".format(get_docker_hostname())}
 
 BAD_HOSTNAME_INSTANCE = {"openmetrics_endpoint": "http://invalid-hostname"}
 
