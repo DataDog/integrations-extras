@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.1.0 / 2024-11-15
+
+***Added***:
+
+* MongoDB Atlas Opcounter TTL Delete metric and dashboard
+
 ## 1.0.1 / 2023-07-19
 
 ***Added***:
