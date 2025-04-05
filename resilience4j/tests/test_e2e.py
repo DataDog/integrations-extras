@@ -1,9 +1,12 @@
-from datadog_checks.base.constants import ServiceCheck
-from datadog_checks.dev.utils import assert_service_checks
+import pytest
+
+from datadog_checks.base import AgentCheck
+
+pytestmark = [pytest.mark.e2e]
 
 
-def test_e2e_resilience4j(dd_agent_check, dd_environment):
-    # pass
-    aggregator = dd_agent_check()
-    aggregator.assert_service_check('resilience4j.openmetrics.health', status=ServiceCheck.OK, count=1)
-    assert_service_checks(aggregator)
+def test_e2e(dd_agent_check, aggregator, instance):
+
+    with pytest.raises(Exception):
+        dd_agent_check(instance, rate=True)
+    aggregator.assert_service_check('resilience4j.openmetrics.health', AgentCheck.CRITICAL)
