@@ -145,12 +145,12 @@ Need help? Contact [Datadog support][8].
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information
 [14]: https://tyk.io/docs/tyk-self-managed/install/
 [15]: https://tyk.io/docs/apim/open-source/installation/
-[16]: https://app.datadoghq.com/account/settings/agent/latest
+[16]: /account/settings/agent/latest
 [17]: https://docs.datadoghq.com/agent/
 [18]: https://github.com/TykTechnologies/tyk-pump#dogstatsd
 [19]: https://github.com/TykTechnologies/tyk-demo/blob/master/deployments/analytics-datadog/volumes/tyk-pump/pump-datadog.conf
 [20]: https://github.com/TykTechnologies/tyk-demo/tree/master/deployments/analytics-datadog
 [21]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#setup
-[22]: https://app.datadoghq.com/organization-settings/api-keys
+[22]: /organization-settings/api-keys
 [23]: https://tyk.io/docs/tyk-pump/
 [24]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#how-it-works

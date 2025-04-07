@@ -57,7 +57,7 @@ Additional helpful documentation, links, and articles:
 - [Monitor the state of your Tailscale private network with Datadog][7]
 
 [1]: https://tailscale.com/
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
 [4]: https://tailscale.com/kb/1203/audit-logging/
 [5]: https://tailscale.com/kb/1219/network-flow-logs/

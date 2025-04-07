@@ -52,9 +52,9 @@ See [metadata.csv][8] for a list of metrics provided by this integration.
 Need help? Contact [Datadog support][9].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/get_token.jpg
-[2]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[2]: /account/settings#integrations/webhooks
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/payload_header.jpg
-[4]: https://app.datadoghq.com/synthetics/list
+[4]: /synthetics/list
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test_params.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
 [8]: https://github.com/DataDog/integrations-extras/blob/master/appkeeper/metadata.csv
