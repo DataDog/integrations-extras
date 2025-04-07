@@ -1,21 +1,70 @@
+## All options defined here are available to all instances.
+#
 init_config:
 
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
 instances:
 
     ## @param url - string - required
-    ## The URL where nextcloud accepts HTTP requests.
+    ## The URL to the Nextcloud serverinfo info endpoint.
     ## This is used to fetch statistics.
     #
-  - url: http://localhost/ocs/v2.php/apps/serverinfo/api/v1/info?format=json
+  - url: http://localhost/ocs/v2.php/apps/serverinfo/api/v1/info
 
     ## @param username - string - required
-    ## User name and password, that must have admin access to Nextcloud in
-    ## order to reach the monitoring metrics endpoint
+    ## User name, that must have admin access to Nextcloud in order to reach the monitoring metrics endpoint
     #
     username: <USERNAME>
 
     ## @param password - string - required
-    ## User password, that must have admin access to Nextcloud in
-    ## order to reach the monitoring metrics endpoint
+    ## User password, that must have admin access to Nextcloud in order to reach the monitoring metrics endpoint
     #
     password: <PASSWORD>
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
+    #
+    # service: <SERVICE>
+
+    ## @param min_collection_interval - number - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 15
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>

@@ -1,0 +1,29 @@
+name: Nextcloud
+files:
+- name: nextcloud.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      description: |
+        The URL to the Nextcloud serverinfo info endpoint.
+        This is used to fetch statistics.
+      required: true
+      value:
+        type: string
+        example: http://localhost/ocs/v2.php/apps/serverinfo/api/v1/info
+    - name: username
+      description: User name, that must have admin access to Nextcloud in order to reach the monitoring metrics endpoint
+      required: true
+      value:
+        type: string
+    - name: password
+      description: User password, that must have admin access to Nextcloud in order to reach the monitoring metrics endpoint
+      required: true
+      value:
+        type: string
+      secret: true
+    - template: instances/default
