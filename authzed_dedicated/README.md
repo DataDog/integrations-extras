@@ -28,7 +28,7 @@ You should see metrics start to flow to Datadog shortly thereafter. If you don't
 
 ## Uninstallation
 
-The Datadog integration is available in the Authzed Dashboard under the **Settings** tab on a Permission System.
+The Datadog integration is available in the AuthZed Dashboard under the **Settings** tab on a Permission System.
 
 1.  Go to the dashboard homepage.
 2.  Select a Permission System for which to submit metrics.
