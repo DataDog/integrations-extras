@@ -41,10 +41,11 @@ class NextcloudCheck(AgentCheck):
 
     def check(self, _):
         url = self.instance['url']
+        params = {"format": "json"}
 
         try:
             self.log.debug("Checking against %s", url)
-            response = self.http.get(url, extra_headers=headers(self.agentConfig))
+            response = self.http.get(url, extra_headers=headers(self.agentConfig), params=params)
             if response.status_code != 200:
                 self.service_check(
                     NextcloudCheck.STATUS_CHECK, AgentCheck.CRITICAL, message="Problem requesting {}.".format(url)
