@@ -22,13 +22,6 @@ EPHEMERAL = [
     'rdse2.node_bigstore_free_bytes',  # only present bigstore
     'rdse2.node_provisional_flash_bytes',  # only present flash
     'rdse2.node_provisional_flash_no_overbooking_bytes',  # only present flash
-    'rdse2.x509_cert_expired',
-    'rdse2.x509_cert_expires_in_seconds',
-    'rdse2.x509_cert_not_after',
-    'rdse2.x509_cert_not_before',
-    'rdse2.x509_cert_valid_since_seconds',
-    'rdse2.x509_exporter_build_info',
-    'rdse2.x509_read_errors',
     'rdse2.process_max_fds',
     'rdse2.process_open_fds',
     'rdse2.process_resident_memory_bytes',
@@ -96,7 +89,13 @@ METRICS_MAP = {
         'rdse2.node_available_memory_bytes',
         'rdse2.node_available_memory_no_overbooking_bytes',
         'rdse2.node_bigstore_free_bytes',
-        'rdse2.node_cert_expires_in_seconds',
+        'rdse2.x509_cert_expires_in_seconds',
+        'rdse2.x509_exporter_build_info',
+        'rdse2.x509_read_errors',
+        'rdse2.x509_cert_valid_since_seconds',
+        'rdse2.x509_cert_not_before',
+        'rdse2.x509_cert_not_after',
+        'rdse2.x509_cert_expired',
         'rdse2.node_ephemeral_storage_avail_bytes',
         'rdse2.node_ephemeral_storage_free_bytes',
         'rdse2.node_memory_MemFree_bytes',
