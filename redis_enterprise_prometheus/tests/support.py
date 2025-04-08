@@ -440,7 +440,7 @@ METRICS_MAP = {
         'rdse2.redis_server_search_total_active_queries',
         'rdse2.redis_server_search_errors_indexing_failures',
         'rdse2.redis_server_search_errors_for_index_with_max_failures',
-    ]
+    ],
 }
 
 DEFAULT_METRICS = [
