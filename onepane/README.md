@@ -19,7 +19,7 @@ The integration tracks incident data, infrastructure events, and change data (su
 
 - Log in if you're not already logged in with **Onepane**.
 
-- Review the  the permissions and click the **Connect with datadog** button in the prompt.
+- Review the permissions and click the **Authorize with Datadog** button in the prompt.
 
     ![Onepane_prompt][10]
 
