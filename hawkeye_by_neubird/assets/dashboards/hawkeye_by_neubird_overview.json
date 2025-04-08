@@ -3,42 +3,59 @@
   "description": "he Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions.",
   "widgets": [
     {
-      "id": 8931252417181702,
+      "id": 8253039466437824,
       "definition": {
-        "type": "image",
-        "url": "https://neubird-marketing.s3.us-east-1.amazonaws.com/Hawkeye-logo.png",
-        "sizing": "contain",
-        "margin": "md",
-        "has_background": true,
-        "has_border": true,
-        "vertical_align": "center",
-        "horizontal_align": "center"
+        "title": "About",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8931252417181702,
+            "definition": {
+              "type": "image",
+              "url": "https://neubird-marketing.s3.us-east-1.amazonaws.com/Hawkeye-logo.png",
+              "sizing": "scale-down",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1
+            }
+          },
+          {
+            "id": 4859173550379992,
+            "definition": {
+              "type": "note",
+              "content": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions. Each monitor includes a link to the corresponding automated session summary.",
+              "background_color": "transparent",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout": {
+              "x": 1,
+              "y": 0,
+              "width": 10,
+              "height": 1
+            }
+          }
+        ]
       },
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 2,
-        "height": 2
-      }
-    },
-    {
-      "id": 4859173550379992,
-      "definition": {
-        "type": "note",
-        "content": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions. Each monitor includes a link to the corresponding automated session summary.",
-        "background_color": "transparent",
-        "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "center",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left",
-        "has_padding": false
-      },
-      "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 3,
+        "width": 12,
         "height": 2
       }
     },
@@ -54,13 +71,13 @@
           {
             "id": 1638224069194486,
             "definition": {
-              "title": "Hawkeye Automated Sessions",
+              "title": "Automated Monitor Investigation Sessions",
               "title_size": "16",
               "title_align": "left",
               "time": {
                 "type": "live",
-                "unit": "day",
-                "value": 2
+                "unit": "month",
+                "value": 3
               },
               "requests": [
                 {
