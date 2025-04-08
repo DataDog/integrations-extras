@@ -1,17 +1,5 @@
 # CHANGELOG - Redis Enterprise
 
-## 2.0.0 / 2025-02-28
-
-***Changed***:
-
-* Redis v2 metrics
-* Renamed prefix to rdse2
-* Renamed Groups
-
-***Added***:
-
-* Added Security Dashboard
-
 ## 1.1.2 / 2025-02-28
 
 ***Changed***:

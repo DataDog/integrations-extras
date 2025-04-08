@@ -1,8 +1,8 @@
+import json
 import time
 
 import pytest
 import requests
-import simplejson as json
 from mock import MagicMock, Mock
 
 from datadog_checks.base import ConfigurationError

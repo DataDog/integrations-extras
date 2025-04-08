@@ -16,6 +16,8 @@ CONFTEST = "https://{}:{}/#/bootstrap".format(HOST, CONFTEST_PORT)
 
 ERSATZ_INSTANCE = {'openmetrics_endpoint': "https://localhost:8071/v2", 'tags': ['instance']}
 
+SSL_INSTANCE = {"openmetrics_endpoint": "https://localhost:8071/metrics", "tls_verify": True}
+
 EPHEMERAL = [
     'rdse2.node_available_flash_bytes',  # only present flash
     'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash

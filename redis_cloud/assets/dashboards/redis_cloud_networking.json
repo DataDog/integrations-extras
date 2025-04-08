@@ -1,6 +1,6 @@
 {
   "title": "Redis Cloud - Networking",
-  "description": "Redis Cloud Nodes are the physical hardware that hosts database partitions",
+  "description": "Metrics specific to network performance in Redis clusters",
   "widgets": [
     {
       "id": 8148371123349408,
@@ -141,9 +141,10 @@
           {
             "id": 2062451612637888,
             "definition": {
-              "title": "File Descriptors",
+              "title": "Buffer Memory",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -152,7 +153,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.dmcproxy_process_open_fds{$cluster}",
+                      "query": "avg:rdsc.redis_mem_clients_normal{$cluster}",
                       "aggregator": "sum"
                     }
                   ],
