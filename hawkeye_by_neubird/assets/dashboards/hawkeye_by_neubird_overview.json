@@ -1,6 +1,6 @@
 {
   "title": "Hawkeye by Neubird Overview",
-  "description": "The Hawkeye dashboard will present you any triggered Monitor instances that have a Hawkeye automated session. Opening the monitor will provide you a link to the automated session summary.",
+  "description": "he Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions.",
   "widgets": [
     {
       "id": 8931252417181702,
@@ -25,11 +25,11 @@
       "id": 4859173550379992,
       "definition": {
         "type": "note",
-        "content": "AI-driven incident response - . Hawkeye diagnoses IT incidents instantly and provides remediation  to help IT teams reduce MTTR and save time. View your Datadog Monitor Investigation summaries below.",
+        "content": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions. Each monitor includes a link to the corresponding automated session summary.",
         "background_color": "transparent",
-        "font_size": "12",
+        "font_size": "14",
         "text_align": "left",
-        "vertical_align": "bottom",
+        "vertical_align": "center",
         "show_tick": false,
         "tick_pos": "50%",
         "tick_edge": "left",
@@ -39,38 +39,56 @@
         "x": 2,
         "y": 0,
         "width": 3,
-        "height": 1
+        "height": 2
       }
     },
     {
-      "id": 1638224069194486,
+      "id": 7519546929010915,
       "definition": {
-        "title": "Hawkeye Automated Sessions",
-        "title_size": "16",
-        "title_align": "left",
-        "time": {
-          "type": "live",
-          "unit": "day",
-          "value": 2
-        },
-        "requests": [
+        "title": "Investigated Monitors",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "event_list",
-            "query": {
-              "query_string": "source:neubird_hawkeye",
-              "data_source": "event_stream",
-              "event_size": "s"
+            "id": 1638224069194486,
+            "definition": {
+              "title": "Hawkeye Automated Sessions",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "type": "live",
+                "unit": "day",
+                "value": 2
+              },
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "query_string": "source:neubird_hawkeye",
+                    "data_source": "event_stream",
+                    "event_size": "s"
+                  },
+                  "columns": []
+                }
+              ],
+              "type": "list_stream"
             },
-            "columns": []
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 5
+            }
           }
-        ],
-        "type": "list_stream"
+        ]
       },
       "layout": {
         "x": 0,
         "y": 2,
         "width": 12,
-        "height": 5
+        "height": 6
       }
     }
   ],
