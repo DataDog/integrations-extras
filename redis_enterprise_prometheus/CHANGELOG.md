@@ -1,6 +1,6 @@
 # CHANGELOG - Redis Enterprise
 
-## 2.0.0 / 2025-02-28
+## 2.0.1 / 2025-02-28
 
 ***Added***:
 

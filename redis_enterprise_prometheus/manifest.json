@@ -1,6 +1,6 @@
 {
   "manifest_version": "2.0.0",
-  "app_uuid": "b569beaa-dbf6-4c40-a640-fab0ea2b9cab",
+  "app_uuid": "f065ce60-b831-4e7d-8521-1cde67a6c12a",
   "app_id": "redis-enterprise-prometheus",
   "display_on_public_website": true,
   "tile": {
@@ -8,8 +8,8 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Redis Enterprise Prometheus Datadog Integration",
-    "title": "Redis Enterprise Prometheus",
+    "description": "<FILL IN - A brief description of what this offering provides>",
+    "title": "redis_enterprise_prometheus",
     "media": [
       {
         "media_type":  "image",
@@ -23,21 +23,21 @@
       }
     ],
     "classifier_tags": [
+      "<Add relevant tags from this list: https://docs.datadoghq.com/developers/integrations/check_references/#classifier-tags>",
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
-      "Category::AI/ML",
-      "Category::Caching",
-      "Category::Data Stores",
-      "Offering::Integration",
-      "Submitted Data Type::Metrics"
+      "Category::<FILL IN>",
+      "Offering::<FILL IN>",
+      "Queried Data Type::<FILL IN>",
+      "Submitted Data Type::<FILL IN>"
     ]
   },
   "assets": {
     "integration": {
       "auto_install": true,
-      "source_type_id": 7769393,
-      "source_type_name": "Redis Enterprise Prometheus",
+      "source_type_id": 44087280,
+      "source_type_name": "redis_enterprise_prometheus",
       "configuration": {
         "spec": "assets/configuration/spec.yaml"
       },
@@ -45,7 +45,7 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "rdse2",
+        "prefix": "rdse2.",
         "check": "rdse2.endpoint_client_connections",
         "metadata_path": "metadata.csv"
       },
@@ -61,13 +61,14 @@
       "redis-enterprise-proxy-threads": "assets/dashboards/redis_enterprise_proxy-threads.json",
       "redis-enterprise-shard": "assets/dashboards/redis_enterprise_shard.json"
     },
-    "logs": {}
+    "monitors": {},
+    "saved_views": {}
   },
   "author": {
+    "support_email": "field.engineers@redis.com",
     "homepage": "https://redis.com/redis-enterprise-software/overview",
     "name": "Redis, Inc.",
     "sales_email": "press@redis.com",
     "support_email": "support@redis.com"
-  },
-  "oauth": {}
+  }
 }
