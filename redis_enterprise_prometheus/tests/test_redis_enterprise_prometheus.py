@@ -48,7 +48,7 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
         'REDIS2.FILESYSTEM',
         'REDIS2.PROCESS',
         'REDIS2.PRESSURE',
-        'REDIS2.SEARCH'
+        'REDIS2.SEARCH',
     ]
 
     instance = deepcopy(INSTANCE)
