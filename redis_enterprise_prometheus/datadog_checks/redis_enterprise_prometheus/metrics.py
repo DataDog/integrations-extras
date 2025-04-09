@@ -29,8 +29,6 @@ REDIS_CLUSTER = {
     'total_nodes_count': 'total_nodes_count',
 }
 
-# db_config{cluster="c36456.us-east5-mz.gcp.cloud.rlrcp.com",db="12880118",db_port="15213",db_version="7.4",instance="internal.c36456.us-east5-mz.gcp.cloud.rlrcp.com:8070",job="redis"}
-
 REDIS_DATABASE = {
     # 'db_config': 'db_config',
     'db_memory_limit_bytes': 'db_memory_limit_bytes',
@@ -82,7 +80,6 @@ REDIS_SHARD = {
     'redis_server_connected_clients': 'redis_server_connected_clients',
     'redis_server_connected_slaves': 'redis_server_connected_slaves',
     'redis_server_db0_avg_ttl': 'redis_server_db0_avg_ttl',
-    'redis_server_expired_keys': 'redis_server_expired_keys',
     'redis_server_db0_keys': 'redis_server_db0_keys',
     'redis_server_evicted_keys': 'redis_server_evicted_keys',
     'redis_server_expire_cycle_cpu_milliseconds': 'redis_server_expire_cycle_cpu_milliseconds',
