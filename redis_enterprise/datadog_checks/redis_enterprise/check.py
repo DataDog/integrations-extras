@@ -8,12 +8,11 @@ from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
 
     # This will be the prefix of every metric and service check the integration sends
-    __NAMESPACE__ = 'rdse2'
+    __NAMESPACE__ = 'rdse'
 
     def __init__(self, name, init_config, instances):
 
         super(RedisEnterpriseCheck, self).__init__(name, init_config, instances)
-        self.instance.setdefault("tls_verify", False)
         self.check_initializations.appendleft(self._parse_config)
 
     def _parse_config(self):

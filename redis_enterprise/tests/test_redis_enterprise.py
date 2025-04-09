@@ -17,7 +17,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
-    additional_metric_groups = ['REDIS2.DISK', 'REDIS2.REPLICATION']
+    additional_metric_groups = ['RDSE.LISTENER', 'RDSE.PROXY']
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
 
@@ -39,15 +39,12 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
 def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
-        'REDIS2.REPLICATION',
-        'REDIS2.LDAP',
-        'REDIS2.NETWORK',
-        'REDIS2.MEMORY',
-        'REDIS2.X509',
-        'REDIS2.DISK',
-        'REDIS2.FILESYSTEM',
-        'REDIS2.PROCESS',
-        'REDIS2.PRESSURE',
+        'RDSE.REPLICATION',
+        'RDSE.LISTENER',
+        'RDSE.PROXY',
+        'RDSE.BIGSTORE',
+        'RDSE.FLASH',
+        'RDSE.SHARDREPL',
     ]
 
     instance = deepcopy(INSTANCE)
@@ -70,7 +67,7 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
 @pytest.mark.unit
 def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     # validate exclude_metrics are not present in metrics
-    exclude_metrics = ['endpoint_client_connections', 'redis_server_up']
+    exclude_metrics = ['bdb_conns', 'bdb_up']
     instance = deepcopy(INSTANCE)
     instance['exclude_metrics'] = exclude_metrics
 
