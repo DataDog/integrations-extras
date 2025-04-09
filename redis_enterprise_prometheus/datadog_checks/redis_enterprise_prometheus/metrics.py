@@ -366,7 +366,8 @@ REDIS_PRESSURE = {
 REDIS_SEARCH = {
     'redis_server_search_number_of_indexes': 'redis_server_search_number_of_indexes',
     'redis_server_search_number_of_active_indexes': 'redis_server_search_number_of_active_indexes',
-    'redis_server_search_number_of_active_indexes_running_queries': 'redis_server_search_number_of_active_indexes_running_queries',
+    'redis_server_search_number_of_active_indexes_running_queries':
+        'redis_server_search_number_of_active_indexes_running_queries',
     'redis_server_search_number_of_active_indexes_indexing': 'redis_server_search_number_of_active_indexes_indexing',
     'redis_server_search_total_active_write_threads': 'redis_server_search_total_active_write_threads',
     'redis_server_search_fields_text_Text': 'redis_server_search_fields_text_Text',
