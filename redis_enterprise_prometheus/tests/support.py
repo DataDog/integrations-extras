@@ -16,49 +16,51 @@ CONFTEST = "https://{}:{}/#/bootstrap".format(HOST, CONFTEST_PORT)
 
 ERSATZ_INSTANCE = {'openmetrics_endpoint': "https://localhost:8071/v2", 'tags': ['instance']}
 
-EPHEMERAL = [
-    'rdse2.node_available_flash_bytes',  # only present flash
-    'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash
-    'rdse2.node_bigstore_free_bytes',  # only present bigstore
-    'rdse2.node_provisional_flash_bytes',  # only present flash
-    'rdse2.node_provisional_flash_no_overbooking_bytes',  # only present flash
-    'rdse2.process_max_fds',
-    'rdse2.process_open_fds',
-    'rdse2.process_resident_memory_bytes',
-    'rdse2.process_start_time_seconds',
-    'rdse2.process_virtual_memory_bytes',
-    'rdse2.process_virtual_memory_max_bytes',
-    ### until we have added the following metrics to metrics.txt these must be ephemeral ###
-    'rdse2.redis_server_search_number_of_active_indexes',
-    'rdse2.redis_server_search_number_of_active_indexes_running_queries',
-    'rdse2.redis_server_search_number_of_active_indexes_indexing',
-    'rdse2.redis_server_search_total_active_write_threads',
-    'rdse2.redis_server_search_fields_text_Sortable',
-    'rdse2.redis_server_search_fields_text_NoIndex',
-    'rdse2.redis_server_search_fields_numeric_Sortable',
-    'rdse2.redis_server_search_fields_numeric_NoIndex',
-    'rdse2.redis_server_search_fields_tag_Sortable',
-    'rdse2.redis_server_search_fields_tag_NoIndex',
-    'rdse2.redis_server_search_fields_tag_CaseSensitive',
-    'rdse2.redis_server_search_fields_geo_Sortable',
-    'rdse2.redis_server_search_fields_geo_NoIndex',
-    'rdse2.redis_server_search_fields_vector_Flat',
-    'rdse2.redis_server_search_fields_geoshape_Geoshape',
-    'rdse2.redis_server_search_fields_geoshape_Sortable',
-    'rdse2.redis_server_search_fields_geoshape_NoIndex',
-    'rdse2.redis_server_search_fields__IndexErrors',
-    'rdse2.redis_server_search_smallest_memory_index',
-    'rdse2.redis_server_search_largest_memory_index',
-    'rdse2.redis_server_search_used_memory_vector_index',
-    'rdse2.redis_server_search_total_docs_not_collected_by_gc',
-    'rdse2.redis_server_search_marked_deleted_vectors',
-    'rdse2.redis_server_search_total_queries_processed',
-    'rdse2.redis_server_search_total_query_commands',
-    'rdse2.redis_server_search_total_query_execution_time_ms',
-    'rdse2.redis_server_search_total_active_queries',
-    'rdse2.redis_server_search_errors_indexing_failures',
-    'rdse2.redis_server_search_errors_for_index_with_max_failures',
-],
+EPHEMERAL = (
+    [
+        'rdse2.node_available_flash_bytes',  # only present flash
+        'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash
+        'rdse2.node_bigstore_free_bytes',  # only present bigstore
+        'rdse2.node_provisional_flash_bytes',  # only present flash
+        'rdse2.node_provisional_flash_no_overbooking_bytes',  # only present flash
+        'rdse2.process_max_fds',
+        'rdse2.process_open_fds',
+        'rdse2.process_resident_memory_bytes',
+        'rdse2.process_start_time_seconds',
+        'rdse2.process_virtual_memory_bytes',
+        'rdse2.process_virtual_memory_max_bytes',
+        ### until we have added the following metrics to metrics.txt these must be ephemeral ###
+        'rdse2.redis_server_search_number_of_active_indexes',
+        'rdse2.redis_server_search_number_of_active_indexes_running_queries',
+        'rdse2.redis_server_search_number_of_active_indexes_indexing',
+        'rdse2.redis_server_search_total_active_write_threads',
+        'rdse2.redis_server_search_fields_text_Sortable',
+        'rdse2.redis_server_search_fields_text_NoIndex',
+        'rdse2.redis_server_search_fields_numeric_Sortable',
+        'rdse2.redis_server_search_fields_numeric_NoIndex',
+        'rdse2.redis_server_search_fields_tag_Sortable',
+        'rdse2.redis_server_search_fields_tag_NoIndex',
+        'rdse2.redis_server_search_fields_tag_CaseSensitive',
+        'rdse2.redis_server_search_fields_geo_Sortable',
+        'rdse2.redis_server_search_fields_geo_NoIndex',
+        'rdse2.redis_server_search_fields_vector_Flat',
+        'rdse2.redis_server_search_fields_geoshape_Geoshape',
+        'rdse2.redis_server_search_fields_geoshape_Sortable',
+        'rdse2.redis_server_search_fields_geoshape_NoIndex',
+        'rdse2.redis_server_search_fields__IndexErrors',
+        'rdse2.redis_server_search_smallest_memory_index',
+        'rdse2.redis_server_search_largest_memory_index',
+        'rdse2.redis_server_search_used_memory_vector_index',
+        'rdse2.redis_server_search_total_docs_not_collected_by_gc',
+        'rdse2.redis_server_search_marked_deleted_vectors',
+        'rdse2.redis_server_search_total_queries_processed',
+        'rdse2.redis_server_search_total_query_commands',
+        'rdse2.redis_server_search_total_query_execution_time_ms',
+        'rdse2.redis_server_search_total_active_queries',
+        'rdse2.redis_server_search_errors_indexing_failures',
+        'rdse2.redis_server_search_errors_for_index_with_max_failures',
+    ],
+)
 
 # enterprise metrics use the namespace 'rdse'
 METRICS_MAP = {
