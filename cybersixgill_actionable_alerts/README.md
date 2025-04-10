@@ -38,9 +38,9 @@ This integration sends API-type events to Datadog.
 ## Troubleshooting
 Need help? Contact [Cybersixgill support][4].
 
-[1]: https://app.datadoghq.com/account/settings/agent/latest
+[1]: /account/settings/agent/latest
 [2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/?tab=configurationtemplate#configure-the-developer-tool
-[3]: https://app.datadoghq.com/event/explorer
+[3]: /event/explorer
 [4]: mailto:support@cybersixgill.com
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cybersixgill_actionable_alerts/assets/service_checks.json
 

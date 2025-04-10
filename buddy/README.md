@@ -54,7 +54,7 @@ The Buddy check does not include any service checks.
 Need help? Contact [Datadog support][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[2]: /organization-settings/api-keys
 [3]: https://app.buddy.works/login
 [4]: https://buddy.works/knowledge/deployments/what-parameters-buddy-use
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png

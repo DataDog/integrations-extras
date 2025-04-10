@@ -70,4 +70,4 @@ Need help? Contact [Doppler support][3].
 [2]: https://docs.doppler.com/docs/workplace-logs
 [3]: https://support.doppler.com
 [4]: https://dashboard.doppler.com/workplace/settings
-[5]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: /organization-settings/api-keys

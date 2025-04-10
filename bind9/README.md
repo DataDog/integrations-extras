@@ -222,7 +222,7 @@ For any further assistance, contact [Datadog support][13].
 [12]: https://github.com/DataDog/integrations-extras/blob/master/bind9/assets/service_checks.json
 [13]: https://docs.datadoghq.com/help/
 [14]: https://docs.datadoghq.com/agent/guide/integration-management/?tab=linux#install
-[15]: https://app.datadoghq.com/logs/pipelines
+[15]: /logs/pipelines
 [16]: https://downloads.isc.org/isc/bind9/9.18.29/doc/arm/html/reference.html#namedconf-statement-category
 [17]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [18]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information

@@ -49,6 +49,6 @@ Need help? Contact [Webb.ai support][3].
 [1]: https://app.webb.ai/integrations
 [2]: https://app.webb.ai/
 [3]: mailto:support@webb.ai
-[4]: https://app.datadoghq.com/organization-settings/api-keys
-[5]: https://app.datadoghq.com/integrations
+[4]: /organization-settings/api-keys
+[5]: /integrations
 

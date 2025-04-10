@@ -60,4 +60,4 @@ Need help? Contact [Mergify support][1].
 [1]: https://mergify.com
 [2]: https://github.com/DataDog/integrations-extras/blob/master/mergify/metadata.csv
 [3]: https://dashboard.mergify.com
-[4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Mergify
+[4]: /organization-settings/api-keys?filter=Mergify

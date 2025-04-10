@@ -42,10 +42,10 @@ Additional helpful documentation, links, and articles:
 * [Sofy Documentation][7]
 
 
-[1]: https://app.datadoghq.com/integrations
+[1]: /integrations
 [2]: https://portal.sofy.ai
 [3]: https://portal.sofy.ai/app/user-settings?selectedTab=integration
-[4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Sofy
+[4]: /organization-settings/api-keys?filter=Sofy
 [5]: https://support.sofy.ai/support/tickets/new
 [6]: https://www.datadoghq.com/blog/sofy-mobile-tests/
 [7]: https://docs.sofy.ai

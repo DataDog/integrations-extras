@@ -36,7 +36,7 @@ Need help with the integration? Contact [PerfectScale support][8].
 [2]: https://app.perfectscale.io/account/login
 [3]: https://docs.perfectscale.io/getting-started/step-by-step-guide-to-onboard-a-cluster
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/perfectscale/images/perfectscale-connect-cluster.png
-[5]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: /organization-settings/api-keys
 [6]: https://docs.perfectscale.io/customizations/communication-and-messaging/datadog-alerts-integration
 [7]: https://docs.datadoghq.com/getting_started/site/
 [8]: mailto:support@perfectscale.io

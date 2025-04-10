@@ -173,11 +173,11 @@ Additional helpful documentation, links, and articles:
 [Jamf Documentation Integrating Datadog with Jamf Protect][9]
 
 [1]: https://www.jamf.com/products/jamf-protect/
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
 [4]: https://learn.jamf.com/bundle/jamf-protect-documentation/page/Audit_Logs.html
-[5]: https://app.datadoghq.com/logs
-[6]: https://app.datadoghq.com/integrations
+[5]: /logs
+[6]: /integrations
 [7]: https://docs.datadoghq.com/api/latest/logs/#send-logs
 [8]: https://docs.datadoghq.com/getting_started/site/
 [9]: https://learn.jamf.com/en-US/bundle/jamf-protect-documentation/page/SecurityIntegration_Datadog.html

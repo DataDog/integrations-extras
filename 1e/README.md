@@ -146,7 +146,7 @@ Need help? Contact [1E Support][1].
 
 [1]: https://www.1e.com/
 [2]: https://1eportal.force.com/s/
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys
 [4]: https://docs.datadoghq.com/getting_started/site/
 [5]: https://docs.datadoghq.com/
 [6]: https://docs.datadoghq.com/help/

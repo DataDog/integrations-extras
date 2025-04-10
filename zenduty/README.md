@@ -62,6 +62,6 @@ The Zenduty integration does not include any service checks.
 Need help? Contact [Datadog Support][4].
 
 [1]: https://www.zenduty.com
-[2]: https://app.datadoghq.com/integrations/webhooks?search=webhook
+[2]: /integrations/webhooks?search=webhook
 [3]: https://docs.zenduty.com/docs/datadog
 [4]: https://docs.datadoghq.com/help/

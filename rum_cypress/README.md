@@ -45,7 +45,7 @@ Additional helpful documentation, links, and articles:
 
 
 
-[1]: https://app.datadoghq.com/integrations/rum-cypress 
+[1]: /integrations/rum-cypress 
 [2]: https://docs.datadoghq.com/continuous_integration/guides/rum_integration/
 [3]: https://docs.datadoghq.com/continuous_integration/guides/rum_integration/#browser-tests-and-rum
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 

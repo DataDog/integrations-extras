@@ -121,7 +121,7 @@ Wayfinder does not include any events.
 Need help? Contact [Datadog support][3].
 
 [1]: https://www.appvia.io/product/
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: /account/settings#agent
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]:
     https://github.com/DataDog/integrations-extras/blob/master/wayfinder/datadog_checks/wayfinder/data/conf.yaml.example

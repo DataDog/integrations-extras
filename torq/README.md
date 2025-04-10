@@ -125,7 +125,7 @@ Need help? Contact [Datadog support][11].
 [2]: https://torq.io/get-started/
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook_config.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook_search.png
-[5]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[5]: /account/settings#integrations/webhooks
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_api_key_2.png
 [7]: https://docs.datadoghq.com/monitors/manage_monitor/
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_app_key_2.png

@@ -36,7 +36,7 @@ Additional helpful documentation, links, and articles:
 - [Watch the video][7]: Causely for asynchronous communication
 
 [1]: https://www.causely.ai
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[2]: /organization-settings/api-keys
 [3]: https://docs.datadoghq.com/monitors/
 [4]: https://docs.causely.ai/getting-started/overview/
 [5]: https://www.causely.ai/try

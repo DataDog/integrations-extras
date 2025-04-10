@@ -59,5 +59,5 @@ Need help? Contact [Cribl Support][8].
 [4]: https://docs.datadoghq.com/dashboards/#delete-dashboard
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cribl_stream/metadata.csv
 [6]: http://docs.cribl.io/logstream/sources-cribl-internal/
-[7]: https://app.datadoghq.com/organization-settings/api-keys
+[7]: /organization-settings/api-keys
 [8]: https://cribl.io/support

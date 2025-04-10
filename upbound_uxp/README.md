@@ -268,8 +268,8 @@ Upbound UXP does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: https://app.datadoghq.com/integrations/upbound-uxp
-[2]: https://app.datadoghq.com/account/settings#agent
+[1]: /integrations/upbound-uxp
+[2]: /account/settings#agent
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 [4]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/datadog_checks/upbound_uxp/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent

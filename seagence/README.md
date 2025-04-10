@@ -55,6 +55,6 @@ Additional helpful documentation, links, and articles:
 [2]: https://app.seagence.com/SeagenceWeb/
 [3]: https://seagence.com/product/getting-started/
 [4]: mailto:support@seagence.com
-[5]: https://app.datadoghq.com/integrations/seagence
-[6]: https://app.datadoghq.com/organization-settings/api-keys?filter=Seagence
+[5]: /integrations/seagence
+[6]: /organization-settings/api-keys?filter=Seagence
 [7]: https://www.datadoghq.com/blog/seagence-datadog-marketplace/

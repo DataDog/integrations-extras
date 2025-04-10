@@ -87,7 +87,7 @@ Robust Intelligence AI Firewall does not include any events.
 Need Help? Contact [Robust Intelligence Support][9].
 
 [1]: https://www.robustintelligence.com/platform/ai-firewall
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/robust_intelligence_ai_firewall/datadog_checks/robust_intelligence_ai_firewall/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent

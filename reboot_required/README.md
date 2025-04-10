@@ -56,13 +56,13 @@ See [service_checks.json][12] for a list of service checks provided by this inte
 Need help? Contact [Datadog support][11].
 
 
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [7]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[10]: https://app.datadoghq.com/monitors#/create
+[10]: /monitors#/create
 [11]: http://docs.datadoghq.com/help
 [12]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/assets/service_checks.json

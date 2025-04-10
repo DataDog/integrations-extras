@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Important**: starting October 10th 2024, this integration is no longer supported. You should use the [new integration](https://app.datadoghq.com/integrations/mergify-oauth).
+**Important**: starting October 10th 2024, this integration is no longer supported. You should use the [new integration](/integrations/mergify-oauth).
 
 This integration monitors merge queue length for each configured repository in
 [Mergify][1] and tracks Mergify's global availability. By sending metrics to your
@@ -81,7 +81,7 @@ Mergify does not include any events.
 Need help? Contact [Mergify support][1].
 
 [1]: https://mergify.com
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mergify/datadog_checks/mergify/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information

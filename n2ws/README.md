@@ -76,12 +76,12 @@ The N2WS Backup & Recovery integration does not include any service checks.
 - [Datadog support][8]
 
 
-[1]: https://app.datadoghq.com/account/settings#integrations/python
-[2]: https://app.datadoghq.com/metric/explorer
-[3]: https://app.datadoghq.com/account/settings#integrations/n2ws
+[1]: /account/settings#integrations/python
+[2]: /metric/explorer
+[3]: /account/settings#integrations/n2ws
 [4]: https://support.n2ws.com/portal/en/kb/articles/datadog-templates
 [5]: https://github.com/DataDog/integrations-extras/blob/master/n2ws/metadata.csv
 [6]: https://n2ws.com/support/documentation
 [7]: https://n2ws.com/support
 [8]: https://docs.datadoghq.com/help/
-[9]: https://app.datadoghq.com/account/settings#ubuntu
+[9]: /account/settings#ubuntu

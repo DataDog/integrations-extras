@@ -47,5 +47,5 @@ Need help? Contact [Datadog support][6].
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
 [3]: https://hasura.io/docs/latest/observability/integrations/datadog/
 [4]: https://docs.datadoghq.com/logs/explorer/facets/#create-facets
-[5]: http://app.datadoghq.com/logs
+[5]: /logs
 [6]: https://docs.datadoghq.com/help/

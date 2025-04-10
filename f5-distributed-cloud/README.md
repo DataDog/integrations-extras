@@ -98,7 +98,7 @@ Learn more about [F5 Distributed Cloud Services][3].
 [2]: https://www.f5.com/cloud/products/distributed-cloud-console
 [3]: https://www.f5.com/cloud
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
-[5]: https://app.datadoghq.com/logs
+[5]: /logs
 [6]: https://docs.cloud.f5.com/docs/support/support
 [7]: https://youtu.be/VUtXCUngiw8
 [8]: https://docs.datadoghq.com/logs/explorer/facets/

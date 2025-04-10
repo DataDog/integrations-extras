@@ -214,6 +214,6 @@ For support, contact [CloudQuery][4].
 [9]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
 [10]: https://docs.datadoghq.com/opentelemetry/interoperability/otlp_ingest_in_the_agent#enabling-otlp-ingestion-on-the-datadog-agent
 [11]: https://docs.datadoghq.com/agent/
-[12]: https://app.datadoghq.com/apm/traces
-[13]: https://app.datadoghq.com/metric/summary
-[14]: https://app.datadoghq.com/logs
+[12]: /apm/traces
+[13]: /metric/summary
+[14]: /logs

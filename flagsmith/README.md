@@ -20,7 +20,7 @@ In the [Flagsmith Dashboard][2], select the Integrations Menu and then add the D
 
 ### Flagsmith Dashboard widget
 
-1. On the [Flagsmith integration tile](https://app.datadoghq.com/integrations/flagsmith), make sure the integration is installed.
+1. On the [Flagsmith integration tile](/integrations/flagsmith), make sure the integration is installed.
 1. Make sure you are logged into Flagsmith with the account you want to see in Datadog.
 1. In Datadog, navigate to an existing dashboard or create a new one.
 1. Press the **Add Widgets** button to expose the widget drawer.
@@ -51,6 +51,6 @@ Need help? See the [Flagsmith documentation][4] or contact [Datadog Support][5].
 
 [1]: https://www.flagsmith.com/
 [2]: https://app.flagsmith.com/
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys
 [4]: https://docs.flagsmith.com/integrations/datadog/
 [5]: https://docs.datadoghq.com/help/

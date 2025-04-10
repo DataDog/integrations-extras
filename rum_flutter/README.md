@@ -60,7 +60,7 @@ Additional helpful documentation, links, and articles:
 - [Flutter Monitoring][5]
 
 
-[1]: https://app.datadoghq.com/integrations/rum-flutter 
+[1]: /integrations/rum-flutter 
 [2]: https://docs.datadoghq.com/real_user_monitoring/flutter/#setup
 [3]: https://docs.datadoghq.com/logs/log_collection/flutter/
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 

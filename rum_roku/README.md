@@ -54,7 +54,7 @@ Additional helpful documentation, links, and articles:
 - [RUM Roku Channel Monitoring][2] documentation
 - [Monitor your Roku channels with Datadog RUM][8] blog post
 
-[1]: https://app.datadoghq.com/integrations/rum-roku
+[1]: /integrations/rum-roku
 [2]: https://docs.datadoghq.com/real_user_monitoring/roku/
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=rokurum#setup-rum
 [4]: https://docs.datadoghq.com/logs/log_collection/roku/

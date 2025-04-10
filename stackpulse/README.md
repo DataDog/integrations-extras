@@ -96,7 +96,7 @@ Need help? Contact [Datadog support][11].
 [1]: https://stackpulse.com
 [2]: https://stackpulse.com/get-started/
 [3]: https://app.stackpulse.io/integrations/datadog?create=true
-[5]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[5]: /account/settings#integrations/webhooks
 [7]: https://docs.datadoghq.com/monitors/manage/
 [8]: https://app.stackpulse.io/integrations/datadog%20api%20keys?create=true
 [10]: https://github.com/stackpulse/steps/tree/master/steps/datadog/post-event
