@@ -1,0 +1,73 @@
+{
+  "app_id": "downdetector",
+  "app_uuid": "0193da66-1a4a-7d09-b520-469edb80cf24",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Downdetector",
+    "description": "Monitor service disruptions with real-time outage alerts from Downdetector",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Downdetector Overview dashboard",
+        "image_url": "images/Screenshot 2025-03-14 at 15.57.39.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Downdetector Explorer dashboard view",
+        "image_url": "images/DDE screenshot 1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Downdetector Explorer company view",
+        "image_url": "images/DDE screenshot 2.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Alerting",
+      "Category::Incidents",
+      "Category::Notifications",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Events"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@downdetector.com",
+    "name": "Ookla",
+    "homepage": "https://downdetector.com/for-business/",
+    "sales_email": "sales@ookla.com",
+    "vendor_id": "ookla"
+  },
+  "assets": {
+    "dashboards": {
+      "Downdetector Overview": "assets/dashboards/downdetector_overview.json"
+    },
+    "monitors": {
+      "Outage detected at a monitored company": "assets/monitors/outage_detected_at_a_monitored_company.json"
+    },
+    "integration": {
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "source_type_name": "downdetector",
+      "auto_install": true,
+      "process_signatures": [],
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 39203326,
+      "supports_ddr_coordinated_failover": false
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}
