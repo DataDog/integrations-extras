@@ -1,0 +1,94 @@
+{
+  "app_id": "warpstream",
+  "app_uuid": "01954cf7-1c47-75a3-818b-bf5ebeacb349",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Warpstream",
+    "description": "WarpStream is an Apache Kafka\u00ae compatible data streaming platform built directly on top of object storage",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "warpstream architecture",
+        "image_url": "images/Frame 1 (4).png"
+      },
+      {
+        "media_type": "video",
+        "caption": "intro video",
+        "image_url": "images/video.jpg",
+        "vimeo_id": 123
+      },
+      {
+        "media_type": "image",
+        "caption": "warpstream BYOC model",
+        "image_url": "images/Screenshot 2025-04-04 at 09.00.33.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Datadog dashboard",
+        "image_url": "images/Screenshot 2025-04-04 at 08.59.06.jpg"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AWS",
+      "Category::Azure",
+      "Category::Google Cloud",
+      "Category::Cloud",
+      "Category::Data Stores",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics"
+    ],
+    "resources": [
+      {
+        "url": "https://docs.warpstream.com/warpstream",
+        "resource_type": "documentation"
+      },
+      {
+        "url": "https://www.warpstream.com/blog/kafka-is-dead-long-live-kafka",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.warpstream.com/blog/the-original-sin-of-cloud-infrastructure",
+        "resource_type": "blog"
+      }
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@warpstreamlabs.com",
+    "name": "Confluent",
+    "homepage": "https://www.warpstream.com/",
+    "sales_email": "tdoles@confluent.io",
+    "vendor_id": "confluent"
+  },
+  "assets": {
+    "dashboards": {
+      "WarpStream Agent": "assets/dashboards/warpstream_agent.json"
+    },
+    "integration": {
+      "source_type_name": "warpstream",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "warpstream",
+        "check": [
+          "warpstream.can_connect"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 44100993,
+      "supports_ddr_coordinated_failover": false
+    }
+  }
+}
