@@ -1,5 +1,12 @@
 # CHANGELOG - Redis Cloud
 
+## 1.1.1 / 2025-04-03
+
+***Changed***:
+
+* Update `tls_verify` handling to ensure default is always 'False'
+* Point the configuration instructions at the configuration anchor and not the page.
+
 ## 1.1.0 / 2024-11-04
 
 ***Changed***:
