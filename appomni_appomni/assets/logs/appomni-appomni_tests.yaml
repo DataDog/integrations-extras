@@ -1,115 +1,39 @@
-id: "appomni-appomni"
+: appomni-appomni
 tests:
- -
-  sample: |-
-    {
-      "@timestamp" : "2025-01-23T21:05:49.315Z",
-      "appomni" : {
-        "alert" : {
-          "channel" : "prod"
-        },
-        "organization" : {
-          "id" : 25
-        },
-        "event" : {
-          "sortable_event_id" : "01JJAFRJ8345TFD7RSYPFG6HK4",
-          "sortable_ingest_id" : "01JJAG2QHJHEGBR2JJ5HPG46F4",
-          "id" : "5e2c0a65-5e08-56a3-8ff6-dd7614c4ea11",
-          "dataset" : "appomni_alert"
-        }
-      },
-      "related" : {
-        "identity" : [ "bb266b26-76a7-49b7-9c31-df989427453e" ],
-        "ip" : [ "174.85.87.80" ],
-        "services" : {
-          "id" : [ 11169 ],
-          "type" : [ "okta" ]
-        },
-        "event" : [ "6f63ac57-e033-50b3-979d-fd3d4d81f110" ],
-        "user" : [ "jtesarz@appomni.com" ]
-      },
-      "rule" : {
-        "name" : "MFA Modified for Admin User",
-        "ruleset" : "1423ff39-3250-4d53-aafb-142e740668bd",
-        "threat" : {
-          "framework" : "MITRE ATT&CK",
-          "technique" : {
-            "name" : [ "Account Manipulation" ],
-            "id" : [ "T1098" ]
-          },
-          "tactic" : {
-            "name" : [ "Persistence" ],
-            "id" : [ "TA0003" ]
-          }
-        },
-        "uuid" : "93075872-2e3f-401a-846c-7ad54dd30d07",
-        "version" : "1"
-      },
-      "event" : {
-        "severity" : 3,
-        "created" : "2025-01-23T21:11:22.418Z",
-        "kind" : "alert"
-      },
-      "message" : "MFA was modified for an admin user in 'Okta'",
-      "version" : "2.0.0"
-    }
-  result:
-    custom:
-      '@timestamp': "2025-01-23T21:05:49.315Z"
-      appomni:
-        alert:
-          channel: "prod"
-        event:
-          dataset: "appomni_alert"
-          id: "5e2c0a65-5e08-56a3-8ff6-dd7614c4ea11"
-          sortable_event_id: "01JJAFRJ8345TFD7RSYPFG6HK4"
-          sortable_ingest_id: "01JJAG2QHJHEGBR2JJ5HPG46F4"
-        organization:
-          id: 25
-      event:
-        created: "2025-01-23T21:11:22.418Z"
-        kind: "alert"
-        severity: 3
-      network:
-        client:
-          ip:
-            ipAddress:
-              invalidAddress: "[174.85.87.80]"
-      related:
-        event:
-         - "6f63ac57-e033-50b3-979d-fd3d4d81f110"
-        identity:
-         - "bb266b26-76a7-49b7-9c31-df989427453e"
-        ip:
-         - "174.85.87.80"
-        services:
-          id:
-           - 11169
-          type:
-           - "okta"
-      rule:
-        name: "MFA Modified for Admin User"
-        ruleset: "1423ff39-3250-4d53-aafb-142e740668bd"
-        threat:
-          framework: "MITRE ATT&CK"
-          tactic:
-            id:
-             - "TA0003"
-            name:
-             - "Persistence"
-          technique:
-            id:
-             - "T1098"
-            name:
-             - "Account Manipulation"
-        uuid: "93075872-2e3f-401a-846c-7ad54dd30d07"
-        version: "1"
-      status: "Low"
-      usr:
-        name:
-         - "jtesarz@appomni.com"
-      version: "2.0.0"
-    message: "MFA was modified for an admin user in 'Okta'"
-    tags:
-     - "source:LOGS_SOURCE"
-    timestamp: 1737666349315
+  - sample: >
+      {"@timestamp":"2025-01-23T21:24:40.428Z","appomni":{"event":{"collected_time":"2025-01-23T21:24:40.445Z","dataset":"ao_auditlogs","enrichments":["ao_identity","ipinfo","spur"],"id":"61820277-71aa-56b5-b4ee-14aedf362753","ingestion_time":"2025-01-23T21:24:40.482Z"},"organization":{"id":25},"service":{"account_id":"25","id":0,"name":"AppOmni","slug":"appomni","type":"appomni"}},"event":{"action":"login_user","category":["authentication"],"code":"user_login","created":"2025-01-23T21:24:40.445Z","dataset":"ao_auditlogs","id":"3f901a57-9abb-453a-a14b-03d74e78fce0","ingested":"2025-01-23T21:24:40.482Z","kind":"event","module":"appomni","original":"{\"action_at\":\"2025-01-23T21:24:40.428881+00:00\",\"action_data\":{\"md_kind\":\"core.aoaudit.auditdata\",\"md_version\":1,\"user_agent\":\"Mozilla/5.0
+      (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/131.0.0.0
+      Safari/537.36\",\"user_ip\":\"69.10.173.18\",\"user_username\":\"tim+bdemopingdom@appomni.com\"},\"action_type\":\"user_login\",\"log_id\":\"3f901a57-9abb-453a-a14b-03d74e78fce0\",\"org_id\":25,\"user_id\":8405}","outcome":"success","type":["access"]},"related":{"ip":["69.10.173.18"],"user":["tim+bdemopingdom@appomni.com"]},"source":{"host":{"type":"desktop"},"ip":"69.10.173.18"},"user":{"id":"8405","name":"tim+bdemopingdom@appomni.com","target":{"id":"8405","name":"tim+bdemopingdom@appomni.com"}},"user_agent":{"name":"Chrome","original":"Mozilla/5.0
+      (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/131.0.0.0
+      Safari/537.36","os":{"kernel":"10.0","name":"windows","type":"windows"},"version":"131.0.0.0"},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-23T21:24:34.249Z","appomni":{"event":{"collected_time":"2025-01-23T21:24:34.259Z","dataset":"ao_auditlogs","enrichments":["ao_identity","ipinfo","spur"],"id":"91081883-0797-5c8e-aa32-a2eb3000d817","ingestion_time":"2025-01-23T21:24:34.287Z"},"organization":{"id":25},"service":{"account_id":"25","id":0,"name":"AppOmni","slug":"appomni","type":"appomni"}},"event":{"action":"update_token","category":["authentication"],"code":"access_token_refreshed_refreshtoken","created":"2025-01-23T21:24:34.259Z","dataset":"ao_auditlogs","id":"ec0eae60-1823-44e5-8ce8-9d57964448b5","ingested":"2025-01-23T21:24:34.287Z","kind":"event","module":"appomni","original":"{\"action_at\":\"2025-01-23T21:24:34.249564+00:00\",\"action_data\":{\"md_kind\":\"core.aoaudit.auditdata\",\"md_version\":1},\"action_type\":\"access_token_refreshed_refreshtoken\",\"log_id\":\"ec0eae60-1823-44e5-8ce8-9d57964448b5\",\"org_id\":25,\"perspective_id\":67659,\"service_id\":15172,\"service_type\":\"crowdstrike\"}","type":["info"]},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-23T21:24:33.706Z","appomni":{"event":{"collected_time":"2025-01-23T21:24:33.731Z","dataset":"ao_auditlogs","enrichments":["ao_identity","ipinfo","spur"],"id":"cbcb836f-660a-5ec2-938c-c0e8be0b997a","ingestion_time":"2025-01-23T21:24:33.774Z"},"organization":{"id":25},"service":{"account_id":"25","id":0,"name":"AppOmni","slug":"appomni","type":"appomni"}},"event":{"action":"update_token","category":["authentication"],"code":"access_token_refreshed_refreshtoken","created":"2025-01-23T21:24:33.731Z","dataset":"ao_auditlogs","id":"76a57ddf-c3c3-48e9-9372-cfd8b159c420","ingested":"2025-01-23T21:24:33.774Z","kind":"event","module":"appomni","original":"{\"action_at\":\"2025-01-23T21:24:33.706724+00:00\",\"action_data\":{\"md_kind\":\"core.aoaudit.auditdata\",\"md_version\":1},\"action_type\":\"access_token_refreshed_refreshtoken\",\"log_id\":\"76a57ddf-c3c3-48e9-9372-cfd8b159c420\",\"org_id\":25,\"perspective_id\":67240,\"service_id\":15022,\"service_type\":\"crowdstrike\"}","type":["info"]},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-23T21:21:07.315Z","appomni":{"event":{"collected_time":"2025-01-23T21:21:07.323Z","dataset":"ao_auditlogs","enrichments":["ao_identity","ipinfo","spur"],"id":"073cca7c-06cb-5655-9a32-98c960b0074f","ingestion_time":"2025-01-23T21:21:07.448Z"},"organization":{"id":15},"service":{"account_id":"15","id":0,"name":"AppOmni","slug":"appomni","type":"appomni"}},"event":{"action":"update_token","category":["authentication"],"code":"access_token_refreshed_refreshtoken","created":"2025-01-23T21:21:07.323Z","dataset":"ao_auditlogs","id":"95a7d936-4ae0-45b3-a191-99ab1ea6471d","ingested":"2025-01-23T21:21:07.448Z","kind":"event","module":"appomni","original":"{\"action_at\":\"2025-01-23T21:21:07.315260+00:00\",\"action_data\":{\"md_kind\":\"core.aoaudit.auditdata\",\"md_version\":1},\"action_type\":\"access_token_refreshed_refreshtoken\",\"log_id\":\"95a7d936-4ae0-45b3-a191-99ab1ea6471d\",\"org_id\":15,\"perspective_id\":3230,\"service_id\":85,\"service_type\":\"crowdstrike\"}","type":["info"]},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-23T21:21:02.572Z","appomni":{"event":{"collected_time":"2025-01-23T21:21:02.885Z","dataset":"crowdstrike_audit_log","enrichments":["ao_identity","ipinfo","spur"],"id":"210f5201-6d94-5c1f-8bfd-03c014f45d2d","ingestion_time":"2025-01-23T21:21:13.052Z"},"organization":{"id":25},"service":{"account_id":"13ee224d-1dbf-44b8-b5bb-8a2764f65d48","id":15022,"name":"CrowdStrike - Prod","slug":"crowdstrike","type":"crowdstrike"},"source":{"id":"0cd7982b-cdcc-42be-ab1a-d5802b12f8ba"}},"event":{"action":"unknown","code":"logged","created":"2025-01-23T21:21:02.885Z","dataset":"crowdstrike_audit_log","ingested":"2025-01-23T21:21:13.052Z","kind":"event","module":"api_request","original":"{\"event\":{\"Attributes\":{\"APIClientID\":\"748fecc78d2d4bdf96620e16dbf937c8\",\"cid\":\"79d3841b572a44fea47fcd425fe2e660\",\"consumes\":\"[application/json]\",\"elapsed_microseconds\":\"64350\",\"elapsed_time\":\"64.350814ms\",\"produces\":\"[application/json]\",\"received_time\":\"2025-01-23T21:21:02.507620051Z\",\"request_accept\":\"application/json\",\"request_method\":\"GET\",\"request_path\":\"/alerts/queries/alerts/v2\",\"request_query\":\"filter=product%3A%27epp%27%2Bupdated_timestamp%3A%3E%272025-01-22T13%3A21%3A02.470833247-08%3A00%27&limit=60&offset=0&sort=updated_timestamp%7Casc\",\"request_uri_length\":\"172\",\"scopes\":\"alerts:read\",\"status_code\":\"200\",\"trace_id\":\"b28d9a40-19a5-4bf7-92e9-dcb64f6fddde\",\"user_agent\":\"Google-Chronicle-Security\",\"user_ip\":\"74.125.150.35\"},\"AuditKeyValues\":[{\"Key\":\"consumes\",\"ValueString\":\"[application/json]\"},{\"Key\":\"produces\",\"ValueString\":\"[application/json]\"},{\"Key\":\"request_path\",\"ValueString\":\"/alerts/queries/alerts/v2\"},{\"Key\":\"status_code\",\"ValueString\":\"200\"},{\"Key\":\"user_ip\",\"ValueString\":\"74.125.150.35\"},{\"Key\":\"APIClientID\",\"ValueString\":\"748fecc78d2d4bdf96620e16dbf937c8\"},{\"Key\":\"request_query\",\"ValueString\":\"filter=product%3A%27epp%27%2Bupdated_timestamp%3A%3E%272025-01-22T13%3A21%3A02.470833247-08%3A00%27&limit=60&offset=0&sort=updated_timestamp%7Casc\"},{\"Key\":\"request_uri_length\",\"ValueString\":\"172\"},{\"Key\":\"user_agent\",\"ValueString\":\"Google-Chronicle-Security\"},{\"Key\":\"elapsed_time\",\"ValueString\":\"64.350814ms\"},{\"Key\":\"cid\",\"ValueString\":\"79d3841b572a44fea47fcd425fe2e660\"},{\"Key\":\"request_method\",\"ValueString\":\"GET\"},{\"Key\":\"trace_id\",\"ValueString\":\"b28d9a40-19a5-4bf7-92e9-dcb64f6fddde\"},{\"Key\":\"elapsed_microseconds\",\"ValueString\":\"64350\"},{\"Key\":\"received_time\",\"ValueString\":\"2025-01-23T21:21:02.507620051Z\"},{\"Key\":\"request_accept\",\"ValueString\":\"application/json\"},{\"Key\":\"scopes\",\"ValueString\":\"alerts:read\"}],\"Message\":\"\",\"OperationName\":\"logged\",\"ServiceName\":\"api_request\",\"Source\":\"api_request\",\"SourceIp\":\"74.125.150.35\",\"Success\":true,\"UTCTimestamp\":1737667262,\"UserId\":\"\",\"UserIp\":\"74.125.150.35\"},\"metadata\":{\"customerIDString\":\"79d3841b572a44fea47fcd425fe2e660\",\"eventCreationTime\":1737667262572,\"eventType\":\"AuthActivityAuditEvent\",\"offset\":12043387,\"version\":\"1.0\"}}","outcome":"success","provider":"AuthActivityAuditEvent","start":"2025-01-23T21:21:02.000Z"},"related":{"ip":["74.125.150.35"]},"source":{"address":"74.125.150.35","as":{"country":"US","domain":"google.com","number":15169,"organization":{"name":"Google LLC"},"type":"hosting"},"geo":{"city_name":"The Dalles","country_iso_code":"US","location":{"lat":45.59456,"lon":-121.17868},"postal_code":"97058","region_name":"Oregon","timezone":"America/Los_Angeles"},"ip":"74.125.150.35"},"version":"2.0.0"}
+    result: null
+  - sample: >
+      {"@timestamp":"2025-01-23T21:05:49.315Z","appomni":{"alert":{"channel":"prod"},"event":{"dataset":"appomni_alert","id":"5e2c0a65-5e08-56a3-8ff6-dd7614c4ea11","sortable_event_id":"01JJAFRJ8345TFD7RSYPFG6HK4","sortable_ingest_id":"01JJAG2QHJHEGBR2JJ5HPG46F4"},"organization":{"id":25}},"event":{"created":"2025-01-23T21:11:22.418Z","kind":"alert","severity":3},"message":"MFA
+      was modified for an admin user in
+      'Okta'","related":{"event":["6f63ac57-e033-50b3-979d-fd3d4d81f110"],"identity":["bb266b26-76a7-49b7-9c31-df989427453e"],"ip":["174.85.87.80"],"services":{"id":[11169],"type":["okta"]},"user":["jtesarz@appomni.com"]},"rule":{"name":"MFA
+      Modified for Admin
+      User","ruleset":"1423ff39-3250-4d53-aafb-142e740668bd","threat":{"framework":"MITRE
+      ATT&CK","tactic":{"id":["TA0003"],"name":["Persistence"]},"technique":{"id":["T1098"],"name":["Account
+      Manipulation"]}},"uuid":"93075872-2e3f-401a-846c-7ad54dd30d07","version":"1"},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-21T19:42:46.000Z","appomni":{"alert":{"channel":"prod"},"event":{"dataset":"appomni_alert","id":"7ed70f39-7b57-529b-bc65-335b6446369c","sortable_event_id":"01JJ5671QGP5H8A9F5NAN2SEW3","sortable_ingest_id":"01JJ56R3VBV63Y98ZJV57MFWA1"},"organization":{"id":25}},"event":{"created":"2025-01-21T19:52:05.227Z","kind":"alert","severity":2},"message":"Salesforce external data source added by 'se+prod@appomni.com' in 'Salesforce'","related":{"event":["673639f0-798a-52d2-b5d4-7d484e60f0a2"],"identity":["f9eaf6ad-bf00-446f-a370-ad3515e20aae"],"services":{"id":[7717],"type":["sfdc"]},"user":["se+prod@appomni.com"]},"rule":{"name":"External Data Source Added","ruleset":"1423ff39-3250-4d53-aafb-142e740668bd","threat":{"framework":"MITRE ATT&CK","tactic":{"id":["TA0010","TA0040"],"name":["Exfiltration","Impact"]},"technique":{"id":["T1567","T1565"],"name":["Exfiltration Over Web Service","Data Manipulation"]}},"uuid":"7e23dcee-8fb3-499f-aaeb-2a582de4db75","version":"1"},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-21T19:35:25.000Z","appomni":{"alert":{"channel":"prod"},"event":{"dataset":"appomni_alert","id":"83568dda-767b-5c29-8409-46a92742d311","sortable_event_id":"01JJ55SK28G7XSPXVFN887TD49","sortable_ingest_id":"01JJ56T05FQS4TB3GG5XEB78DN"},"organization":{"id":25}},"event":{"created":"2025-01-21T19:53:06.991Z","kind":"alert","severity":1},"message":"URL changed for named credential by 'se+prod@appomni.com' in 'Salesforce'","related":{"event":["d121dba3-a869-52a6-9abc-4620fbf85f1e"],"identity":["f9eaf6ad-bf00-446f-a370-ad3515e20aae"],"services":{"id":[7717],"type":["sfdc"]},"user":["se+prod@appomni.com"]},"rule":{"name":"Named Credential URL Changed","ruleset":"1423ff39-3250-4d53-aafb-142e740668bd","threat":{"framework":"MITRE ATT&CK","tactic":{"id":["TA0006"],"name":["Credential Access"]},"technique":{"id":["T1528"],"name":["Steal Application Access Token"]}},"uuid":"02c8eb3e-4e34-4cea-b579-2807ad4e3c51","version":"1"},"version":"2.0.0"}
+
+      {"@timestamp":"2025-01-21T03:09:48.793Z","appomni":{"alert":{"channel":"prod"},"event":{"dataset":"appomni_alert","id":"b7d5f0a0-5da9-54fa-a2d5-11b8be16ef0b","sortable_event_id":"01JJ3DCWVS9M4GZRT9Z08W4HM0","sortable_ingest_id":"01JJ3DMTZJME0C8A28DQEEMTP2"},"organization":{"id":285}},"event":{"created":"2025-01-21T03:14:09.010Z","kind":"alert","severity":3},"message":"Webhook modified by 'mbrancato' in 'GitHub'","related":{"event":["30214a6a-3719-5b45-b6b9-100a0e2861fb"],"identity":["ee1e3cba-3ef5-4b2b-8bcf-b9be62976ed2"],"ip":["52.6.77.249"],"services":{"id":[12477],"type":["github"]},"user":["mbrancato"]},"rule":{"name":"Webhook Modified","ruleset":"1423ff39-3250-4d53-aafb-142e740668bd","threat":{"framework":"MITRE ATT&CK","tactic":{"id":["TA0005"],"name":["Defense Evasion"]},"technique":{"id":["T1562","T1564"],"name":["Impair Defenses","Hide Artifacts"]}},"uuid":"d19b0fa2-1ea2-444c-ba16-28fa610989c4","version":"1"},"version":"2.0.0"}
+    result: null
+
+# The `result` field should be left blank to start. Once you submit your log asset files with
+# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
+# run your raw logs against your pipeline and return the result. If the result output in the
+# validation is accurate, take the output and add it to the `result` field in your test YAML file.

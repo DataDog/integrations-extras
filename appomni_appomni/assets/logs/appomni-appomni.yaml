@@ -1,7 +1,7 @@
-id: appomni-appomni
+: appomni-appomni
 # See app_id in your integration's manifest.json file to learn more:
 # https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
-metric_id: appomni-appomni
+: appomni-appomni
 # If for some reason id must be different than app_id, add the app_id in this field instead.
 # If id and app_id already match, this field can be left blank.
 backend_only: false
@@ -31,35 +31,40 @@ facets:
     name: User Email
     path: usr.email
     source: log
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: Appomni rule name
     path: appomni.rule.name
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: appomni.event.action
     path: appomni.event.action
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: appomni.event.code
     path: appomni.event.code
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: appomni.event.kind
     path: appomni.event.kind
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: appomni.event.provider
@@ -74,46 +79,60 @@ facets:
     path: appomni.service.name
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: mitre.attack.tactic.id
     path: mitre.attack.tactic.id
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: mitre.attack.tactic.name
     path: mitre.attack.tactic.name
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: mitre.attack.technique.id
     path: mitre.attack.technique.id
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: mitre.attack.technique.name
     path: mitre.attack.technique.name
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: network.client.ip.ipAddress.country.iso_code
     path: network.client.ip.ipAddress.country.iso_code
     source: log
     type: string
-  - facetType: list
+  - description: ""
+    facetType: list
     groups:
       - AppOmni
     name: network.client.ip.ipAddress.country.name
     path: network.client.ip.ipAddress.country.name
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - AppOmni
+    name: usr.name
+    path: usr.name
     source: log
     type: string
 pipeline:
@@ -121,33 +140,34 @@ pipeline:
   name: AppOmni
   enabled: true
   filter:
-    query: source:appomni-appomni
+    query: source:appomni
   processors:
     - type: date-remapper
-      name: Define `@timestamp` as the official date of the log
+      name: Date Time
       enabled: true
       sources:
         - "@timestamp"
     - type: service-remapper
-      name: Define `appomni.service.type` as the official service of the log
+      name: Service Remap
       enabled: true
       sources:
         - appomni.service.type
+        - related.services.type.0
     - type: attribute-remapper
-      name: Map `evt.outcome` to `evt.outcome`
+      name: event outcome
       enabled: true
       sources:
-        - evt.outcome
+        - event.outcome
       sourceType: attribute
       target: evt.outcome
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `usr.name`, `target.user.name`, `related.user.name`, `related.user` to `usr.name`
+      name: User Name
       enabled: true
       sources:
-        - usr.name
+        - user.name
         - target.user.name
         - related.user.name
         - related.user
@@ -168,7 +188,7 @@ pipeline:
     - name: Alert Severity Lookup
       enabled: true
       source: event.severity
-      target: status
+      target: appomni.evt.severity
       lookupTable: |-
         0,Critical
         1,High
@@ -178,161 +198,161 @@ pipeline:
       defaultLookup: Info
       type: lookup-processor
     - type: attribute-remapper
-      name: Map `appomni.evt.severity` to `appomni.evt.severity`
+      name: Status
       enabled: true
       sources:
-        - appomni.evt.severity
+        - event.severity
       sourceType: attribute
       target: appomni.evt.severity
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `event.dataset`, `logger.name` to `logger.name`
+      name: Logger Name
       enabled: true
       sources:
         - event.dataset
-        - logger.name
+        - appomni.event.dataset
       sourceType: attribute
       target: logger.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.event.kind` to `appomni.event.kind`
+      name: Event Kind
       enabled: true
       sources:
-        - appomni.event.kind
+        - event.kind
       sourceType: attribute
       target: appomni.event.kind
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.event.action` to `appomni.event.action`
+      name: Event Action
       enabled: true
       sources:
-        - appomni.event.action
+        - event.action
       sourceType: attribute
       target: appomni.event.action
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.event.dataset` to `appomni.event.dataset`
+      name: Event Dataset
       enabled: true
       sources:
-        - appomni.event.dataset
+        - event.dataset
       sourceType: attribute
       target: appomni.event.dataset
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.event.code` to `appomni.event.code`
+      name: Event Code
       enabled: true
       sources:
-        - appomni.event.code
+        - event.code
       sourceType: attribute
       target: appomni.event.code
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.event.provider` to `appomni.event.provider`
+      name: Event Provider
       enabled: true
       sources:
-        - appomni.event.provider
+        - event.provider
       sourceType: attribute
       target: appomni.event.provider
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.rule.name` to `appomni.rule.name`
+      name: Rule Name
       enabled: true
       sources:
-        - appomni.rule.name
+        - rule.name
       sourceType: attribute
       target: appomni.rule.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `mitre.attack.tactic.name` to `mitre.attack.tactic.name`
+      name: MITRE Rule Tactic Name
       enabled: true
       sources:
-        - mitre.attack.tactic.name
+        - rule.threat.tactic.name
       sourceType: attribute
       target: mitre.attack.tactic.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `mitre.attack.technique.name` to `mitre.attack.technique.name`
+      name: MITRE Rule Technique Name
       enabled: true
       sources:
-        - mitre.attack.technique.name
+        - rule.threat.technique.name
       sourceType: attribute
       target: mitre.attack.technique.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `mitre.attack.technique.id` to `mitre.attack.technique.id`
+      name: MITRE Rule Technique ID
       enabled: true
       sources:
-        - mitre.attack.technique.id
+        - rule.threat.technique.id
       sourceType: attribute
       target: mitre.attack.technique.id
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `mitre.attack.tactic.id` to `mitre.attack.tactic.id`
+      name: MITRE Rule Tactic ID
       enabled: true
       sources:
-        - mitre.attack.tactic.id
+        - rule.threat.tactic.id
       sourceType: attribute
       target: mitre.attack.tactic.id
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `mitre.attack.framework` to `mitre.attack.framework`
+      name: MITRE Framework
       enabled: true
       sources:
-        - mitre.attack.framework
+        - rule.threat.framework
       sourceType: attribute
       target: mitre.attack.framework
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `evt.name` to `evt.name`
+      name: "Event Category "
       enabled: true
       sources:
-        - evt.name
+        - event.category
       sourceType: attribute
       target: evt.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `usr.email` to `usr.email`
+      name: User Email
       enabled: true
       sources:
-        - usr.email
+        - user.email
       sourceType: attribute
       target: usr.email
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `appomni.related.event` to `appomni.related.event`
+      name: alert related events
       enabled: true
       sources:
-        - appomni.related.event
+        - related.event
       sourceType: attribute
       target: appomni.related.event
       targetType: attribute
