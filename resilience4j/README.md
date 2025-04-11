@@ -48,7 +48,7 @@ Resilience4j does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact the [maintainer][8] of this integration.
 
 [1]: https://resilience4j.readme.io/docs/micrometer#prometheus
 [2]: https://app.datadoghq.com/account/settings/agent/latest
@@ -57,3 +57,4 @@ Need help? Contact [Datadog support][3].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/resilience4j/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/resilience4j/manifest.json
