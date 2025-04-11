@@ -47,6 +47,13 @@ def invalid_url_instance():
     return invalid_url_instance
 
 
+@pytest.fixture
+def apps_stats_instance():
+    instance = deepcopy(BASE_CONFIG)
+    instance['apps_stats'] = True
+    return instance
+
+
 def nextcloud_container():
     """
     Wait for nextcloud to start

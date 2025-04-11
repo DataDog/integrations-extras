@@ -8,8 +8,6 @@ class NextcloudCheck(AgentCheck):
     METRICS_PREFIX = "nextcloud"
     METRICS_GAUGES = [
         "nextcloud.system.freespace",
-        "nextcloud.system.apps.num_installed",
-        "nextcloud.system.apps.num_updates_available",
         "nextcloud.storage.num_users",
         "nextcloud.storage.num_files",
         "nextcloud.storage.num_storages",
@@ -30,6 +28,10 @@ class NextcloudCheck(AgentCheck):
         "activeUsers.last1hour",
         "activeUsers.last24hours",
     ]
+    OPTIONAL_APP_STATS_METRICS_GAUGES = [
+        "nextcloud.system.apps.num_installed",
+        "nextcloud.system.apps.num_updates_available",
+    ]
 
     # Tags that will be applied to all metrics
     GLOBAL_TAGS = [
@@ -41,7 +43,12 @@ class NextcloudCheck(AgentCheck):
 
     def check(self, _):
         url = self.instance['url']
-        params = {"format": "json"}
+        # getting app-related stats is disabled by default as
+        # this causes an additional external request to apps.nextcloud.com
+        get_apps_stats = self.instance.get('apps_stats')
+        params = {"format": "json", "skipApps": "false" if get_apps_stats else "true"}
+        metrics_to_parse = NextcloudCheck.METRICS_GAUGES if not get_apps_stats \
+                            else NextcloudCheck.METRICS_GAUGES + NextcloudCheck.OPTIONAL_APP_STATS_METRICS_GAUGES
 
         try:
             self.log.debug("Checking against %s", url)
@@ -55,7 +62,7 @@ class NextcloudCheck(AgentCheck):
             if json_response["ocs"]["meta"]["status"] == "ok":
                 self.service_check(NextcloudCheck.STATUS_CHECK, AgentCheck.OK)
                 self.parse_tags(json_response["ocs"]["data"])
-                self.parse_metrics(json_response["ocs"]["data"])
+                self.parse_metrics(json_response["ocs"]["data"], metrics_to_parse)
             else:
                 self.service_check(
                     NextcloudCheck.STATUS_CHECK,
@@ -84,7 +91,7 @@ class NextcloudCheck(AgentCheck):
             value = self.json_nested_get(json_data, tag["json_path"])
             self.tags.append("{}:{}".format(tag["name"], value))
 
-    def parse_metrics(self, json_data):
-        for metric in NextcloudCheck.METRICS_GAUGES:
+    def parse_metrics(self, json_data, expected_metrics):
+        for metric in expected_metrics:
             metric_display_name = self.get_metric_display_name(metric)
             self.gauge(metric_display_name, self.json_nested_get(json_data, metric), tags=self.tags)
