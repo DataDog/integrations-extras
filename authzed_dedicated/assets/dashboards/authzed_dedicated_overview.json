@@ -96,7 +96,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission, readrelationships, lookupsubjects, lookupresources, writerelationships, deleterelationships, readschema, writeschema)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission, readrelationships, lookupsubjects, lookupresources, writerelationships, deleterelationships, readschema, writeschema)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -144,7 +144,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.spicedb.middleware.consistency_assigned{container:spicedb} by {method}.as_rate()"
+                      "query": "sum:authzed_dedicated.spicedb.middleware.consistency_assigned{container:spicedb} by {method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -192,7 +192,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -240,7 +240,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{container:spicedb and grpc_method in (lookupsubjects, lookupresources)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{container:spicedb and grpc_method in (lookupsubjects, lookupresources)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -288,7 +288,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{container:spicedb and grpc_method in (readrelationships, writerelationships, deleterelationships)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{container:spicedb and grpc_method in (readrelationships, writerelationships, deleterelationships)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -412,17 +412,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:checkpermission}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:checkpermission}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:checkpermission}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:checkpermission}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:checkpermission}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:checkpermission}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -479,17 +479,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -534,11 +534,11 @@
                       "formula": "query1"
                     },
                     {
-                      "alias": "p95: WriteRelationships",
+                      "alias": "p95: ReadRelationships",
                       "formula": "query2"
                     },
                     {
-                      "alias": "p99: WriteRelationships",
+                      "alias": "p99: ReadRelationships",
                       "formula": "query3"
                     }
                   ],
@@ -546,17 +546,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:readrelationships}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:readrelationships}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:readrelationships}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:readrelationships}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:readrelationships}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:readrelationships}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -613,17 +613,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:writerelationships}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:writerelationships}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:writerelationships}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:writerelationships}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:writerelationships}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:writerelationships}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -680,17 +680,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:deleterelationships}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:deleterelationships}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:deleterelationships}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:deleterelationships}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:deleterelationships}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:deleterelationships}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -747,17 +747,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:expandpermissiontree}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:expandpermissiontree}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:expandpermissiontree}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:expandpermissiontree}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:expandpermissiontree}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:expandpermissiontree}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -814,17 +814,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:lookupresources}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:lookupresources}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:lookupresources}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:lookupresources}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:lookupresources}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:lookupresources}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -881,17 +881,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:lookupsubjects}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:lookupsubjects}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:lookupsubjects}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:lookupsubjects}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:lookupsubjects}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:lookupsubjects}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -948,17 +948,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:readschema}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:readschema}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:readschema}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:readschema}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:readschema}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:readschema}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1015,17 +1015,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed.grpc.server_handling{grpc_method:writeschema}"
+                      "query": "p50:authzed_dedicated.grpc.server_handling{grpc_method:writeschema}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed.grpc.server_handling{grpc_method:writeschema}"
+                      "query": "p95:authzed_dedicated.grpc.server_handling{grpc_method:writeschema}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed.grpc.server_handling{grpc_method:writeschema}"
+                      "query": "p99:authzed_dedicated.grpc.server_handling{grpc_method:writeschema}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1092,7 +1092,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.process.cpu{namespace:tenant} by {pod}.as_rate()"
+                      "query": "sum:authzed_dedicated.process.cpu{namespace:tenant} by {pod}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1142,7 +1142,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.process.virtual_memory{container:spicedb} by {pod}"
+                      "query": "avg:authzed_dedicated.process.virtual_memory{container:spicedb} by {pod}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1208,7 +1208,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.rds.system_cpu_usage{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_dedicated.rds.system_cpu_usage{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1256,7 +1256,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.rds.capacity_available{*} by {dimension_dbinstanceidentifier}"
+                      "query": "avg:authzed_dedicated.rds.capacity_available{*} by {dimension_dbinstanceidentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1304,7 +1304,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.rds.read_iops{*} by {dimension_dbclusteridentifier}"
+                      "query": "sum:authzed_dedicated.rds.read_iops{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1352,7 +1352,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.rds.write_iops{*} by {dimension_dbclusteridentifier}"
+                      "query": "sum:authzed_dedicated.rds.write_iops{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1400,7 +1400,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.rds.read_throughput{*} by {dimension_dbclusteridentifier}"
+                      "query": "sum:authzed_dedicated.rds.read_throughput{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1448,7 +1448,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.rds.write_throughput{*} by {dimension_dbclusteridentifier}"
+                      "query": "sum:authzed_dedicated.rds.write_throughput{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1496,7 +1496,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.rds.read_latency{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_dedicated.rds.read_latency{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1544,7 +1544,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.rds.write_latency{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_dedicated.rds.write_latency{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1592,7 +1592,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.rds.database_connections{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_dedicated.rds.database_connections{*} by {dimension_dbclusteridentifier}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1658,7 +1658,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.cockroachdb.system_cpu_usage{*} by {node}"
+                      "query": "avg:authzed_dedicated.cockroachdb.system_cpu_usage{*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1706,7 +1706,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.cockroachdb.capacity_available{*} by {node}"
+                      "query": "avg:authzed_dedicated.cockroachdb.capacity_available{*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1754,7 +1754,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.cockroachdb.read_iops{*} by {node}.as_count()"
+                      "query": "sum:authzed_dedicated.cockroachdb.read_iops{*} by {node}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1802,7 +1802,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.cockroachdb.write_iops{*} by {node}.as_count()"
+                      "query": "sum:authzed_dedicated.cockroachdb.write_iops{*} by {node}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1850,7 +1850,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.cockroachdb.read_throughput{*} by {node}.as_rate()"
+                      "query": "sum:authzed_dedicated.cockroachdb.read_throughput{*} by {node}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1898,7 +1898,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.cockroachdb.write_throughput{*} by {node}.as_count()"
+                      "query": "sum:authzed_dedicated.cockroachdb.write_throughput{*} by {node}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1946,7 +1946,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.cockroachdb.database_connections{*} by {node}"
+                      "query": "avg:authzed_dedicated.cockroachdb.database_connections{*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1994,7 +1994,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.cockroachdb.request_latency{*} by {node}"
+                      "query": "avg:authzed_dedicated.cockroachdb.request_latency{*} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2060,7 +2060,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2108,7 +2108,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
+                      "query": "sum:authzed_dedicated.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2156,7 +2156,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_dedicated.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2204,7 +2204,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
+                      "query": "sum:authzed_dedicated.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2252,7 +2252,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "count:authzed.materialize.updater.update_duration{*} by {authzed_com_permission_system}.as_count()"
+                      "query": "count:authzed_dedicated.materialize.updater.update_duration{*} by {authzed_com_permission_system}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2300,7 +2300,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed.materialize.updater.revision_processing_lag{*} by {authzed_com_permission_system}"
+                      "query": "avg:authzed_dedicated.materialize.updater.revision_processing_lag{*} by {authzed_com_permission_system}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2348,7 +2348,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.materialize.snapshotter.relationship_snapshot_total{*} by {authzed_com_permission_system}.as_count()"
+                      "query": "sum:authzed_dedicated.materialize.snapshotter.relationship_snapshot_total{*} by {authzed_com_permission_system}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2396,7 +2396,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed.materialize.hydrator.permission_hydrate{*} by {authzed_com_permission_system}.as_count()"
+                      "query": "sum:authzed_dedicated.materialize.hydrator.permission_hydrate{*} by {authzed_com_permission_system}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
