@@ -5,9 +5,9 @@ from copy import deepcopy
 import pytest
 
 from datadog_checks.dev import docker_run, get_here
-from datadog_checks.dev.conditions import WaitFor, CheckDockerLogs
+from datadog_checks.dev.conditions import WaitFor, WaitForPortListening
 
-from .common import BASE_CONFIG, CONTAINER_NAME, HOST, INVALID_URL, PASSWORD, USER, VALID_URL
+from .common import BASE_CONFIG, CONTAINER_NAME, HOST, INVALID_URL, PASSWORD, PORT, USER, VALID_URL
 
 
 @pytest.fixture(scope="session")
@@ -20,13 +20,7 @@ def dd_environment():
         compose_file=compose_file,
         env_vars={'NEXTCLOUD_ADMIN_USER': USER, 'NEXTCLOUD_ADMIN_PASSWORD': PASSWORD},
         conditions=[
-            CheckDockerLogs(
-                compose_file,
-                [
-                    "resuming normal operations",
-                    "Initializing finished"
-                ]
-            ),
+            WaitForPortListening(HOST, PORT),
             WaitFor(nextcloud_container, attempts=15),
             WaitFor(nextcloud_install, attempts=15),
             WaitFor(nextcloud_add_trusted_domain, attempts=15),

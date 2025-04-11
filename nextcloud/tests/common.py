@@ -9,7 +9,7 @@ CONTAINER_NAME = 'nextcloud-standalone'
 USER = 'admin'
 PASSWORD = 'admin'
 HOST = get_docker_hostname()
-PORT = '8080'
+PORT = 8080
 VALID_URL = 'http://{}:{}/ocs/v2.php/apps/serverinfo/api/v1/info'.format(HOST, PORT)
 INVALID_URL = 'http://{}:{}/ocs/v2.php'.format(HOST, PORT)
 
