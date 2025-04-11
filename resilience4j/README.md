@@ -18,7 +18,7 @@ To install the Resilience4j check on your host:
 
 3. [Download the Datadog Agent][2].
 
-4. Upload the build artifact to any host with an Agent and
+4. Upload the build artifact to any host with an Agent, and
  run `datadog-agent integration install -w
  path/to/resilience4j/dist/<ARTIFACT_NAME>.whl`.
 
