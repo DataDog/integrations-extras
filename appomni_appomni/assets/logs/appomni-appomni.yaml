@@ -1,7 +1,7 @@
-: appomni-appomni
+id: appomni
 # See app_id in your integration's manifest.json file to learn more:
 # https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
-: appomni-appomni
+metric_id: appomni
 # If for some reason id must be different than app_id, add the app_id in this field instead.
 # If id and app_id already match, this field can be left blank.
 backend_only: false
@@ -130,8 +130,8 @@ facets:
   - description: ""
     facetType: list
     groups:
-      - AppOmni
-    name: usr.name
+      - User
+    name: User Name
     path: usr.name
     source: log
     type: string
@@ -143,18 +143,18 @@ pipeline:
     query: source:appomni
   processors:
     - type: date-remapper
-      name: Date Time
+      name: Define `@timestamp` as the official date of the log
       enabled: true
       sources:
         - "@timestamp"
     - type: service-remapper
-      name: Service Remap
+      name: Define `appomni.service.type` as the official service of the log
       enabled: true
       sources:
         - appomni.service.type
         - related.services.type.0
     - type: attribute-remapper
-      name: event outcome
+      name: Map `evt.outcome` to `evt.outcome`
       enabled: true
       sources:
         - event.outcome
@@ -164,7 +164,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: User Name
+      name: Map `usr.name`, `target.user.name`, `related.user.name`, `related.user` to `usr.name`
       enabled: true
       sources:
         - user.name
@@ -208,7 +208,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Logger Name
+      name: Map `event.dataset`, `logger.name` to `logger.name`
       enabled: true
       sources:
         - event.dataset
