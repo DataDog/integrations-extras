@@ -4,7 +4,8 @@ from copy import deepcopy
 
 import pytest
 
-from datadog_checks.dev import WaitFor, docker_run
+from datadog_checks.dev import docker_run
+from datadog_checks.dev.conditions import WaitFor, CheckDockerLogs
 
 from .common import BASE_CONFIG, CONTAINER_NAME, HERE, HOST, INVALID_URL, PASSWORD, USER, VALID_URL
 
@@ -12,13 +13,20 @@ from .common import BASE_CONFIG, CONTAINER_NAME, HERE, HOST, INVALID_URL, PASSWO
 @pytest.fixture(scope="session")
 def dd_environment():
     """
-    Spin up and initialize couchbase
+    Spin up and initialize Nextcloud
     """
-
+    compose_file = os.path.join(HERE, 'compose', CONTAINER_NAME)
     with docker_run(
-        compose_file=os.path.join(HERE, 'compose', CONTAINER_NAME),
+        compose_file=compose_file,
         env_vars={'NEXTCLOUD_ADMIN_USER': USER, 'NEXTCLOUD_ADMIN_PASSWORD': PASSWORD},
         conditions=[
+            CheckDockerLogs(
+                compose_file,
+                [
+                    "resuming normal operations",
+                    "Initializing finished"
+                ]
+            ),
             WaitFor(nextcloud_container, attempts=15),
             WaitFor(nextcloud_install, attempts=15),
             WaitFor(nextcloud_add_trusted_domain, attempts=15),
