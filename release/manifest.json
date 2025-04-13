@@ -1,0 +1,67 @@
+{
+  "app_id": "release",
+  "app_uuid": "0195685c-1ed6-798f-8191-f043005e1a5e",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Release",
+    "description": "Real-time metrics integration that sends build and deployment data from Release for monitoring and visualization.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Release Build and Deploy Dashboard",
+        "image_url": "images/Screenshot 2025-04-12 at 9.58.24\u202fPM.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Containers",
+      "Category::Google Cloud",
+      "Category::AWS",
+      "Category::Developer Tools",
+      "Category::Configuration & Deployment",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Queried Data Type::Events",
+      "Submitted Data Type::Events",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@release.com",
+    "name": "Release",
+    "homepage": "https://release.com",
+    "sales_email": "sales@release.com",
+    "vendor_id": "release"
+  },
+  "assets": {
+    "dashboards": {
+      "Release Build & Deploy Metrics": "assets/dashboards/release_build___deploy_metrics.json"
+    },
+    "integration": {
+      "source_type_name": "release",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "release",
+        "check": [
+          "release.integration.heartbeat"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 44511419,
+      "supports_ddr_coordinated_failover": false
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}

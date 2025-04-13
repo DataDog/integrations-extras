@@ -1,0 +1,359 @@
+{
+  "title": "Release Build & Deploy Metrics",
+  "description": "Metrics for builds and deployments from Release",
+  "widgets": [
+    {
+      "id": 0,
+      "definition": {
+        "title": "Build Status",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.build.status{status:success} by {repository,branch}.as_count()"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.build.status{status:failed} by {repository,branch}.as_count()"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      }
+    },
+    {
+      "id": 1,
+      "definition": {
+        "title": "Average Build Duration",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:release.build.duration{*} by {repository,branch}"
+              }
+            ],
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Deploy Status",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.deploy.status{status:success} by {app}.as_count()"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.deploy.status{status:failed} by {app}.as_count()"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.deploy.status{status:rolled_back} by {app}.as_count()"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 6,
+        "height": 3
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Average Deploy Duration",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:release.deploy.duration{*} by {app}"
+              }
+            ],
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 3,
+        "width": 6,
+        "height": 3
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Total Builds",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.build.status{status:completed OR status:failed}.as_count()",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ],
+        "precision": 0
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Total Deploys",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.deploy.status{status:completed OR status:failed OR status:rolled_back}.as_count()",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ],
+        "precision": 0
+      },
+      "layout": {
+        "x": 3,
+        "y": 6,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "Build Success Rate",
+        "type": "query_value",
+        "requests": [
+          {
+            "conditional_formats": [
+              {
+                "comparator": "<",
+                "value": 80,
+                "palette": "red"
+              },
+              {
+                "comparator": ">",
+                "value": 90,
+                "palette": "green"
+              },
+              {
+                "comparator": "<=",
+                "value": 90,
+                "palette": "yellow"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.build.status{status:completed}.as_count()",
+                "aggregator": "avg"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:release.build.status{status:completed OR status:failed}.as_count()",
+                "aggregator": "avg"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "100 * query1 / query2"
+              }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "precision": 1
+      },
+      "layout": {
+        "x": 6,
+        "y": 6,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 7,
+      "definition": {
+        "title": "Deploy Success Rate",
+        "type": "query_value",
+        "requests": [
+          {
+            "conditional_formats": [
+              {
+                "comparator": "<",
+                "value": 80,
+                "palette": "red"
+              },
+              {
+                "comparator": ">",
+                "value": 90,
+                "palette": "green"
+              },
+              {
+                "comparator": "<=",
+                "value": 90,
+                "palette": "yellow"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:release.deploy.status{status:completed}.as_count()",
+                "aggregator": "avg"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:release.deploy.status{status:completed OR status:failed OR status:rolled_back}.as_count()",
+                "aggregator": "avg"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "100 * query1 / query2"
+              }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "precision": 1
+      },
+      "layout": {
+        "x": 9,
+        "y": 6,
+        "width": 3,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "workspace",
+      "prefix": "workspace",
+      "default": "*"
+    },
+    {
+      "name": "repository",
+      "prefix": "repository",
+      "default": "*"
+    },
+    {
+      "name": "app",
+      "prefix": "app",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
