@@ -1,7 +1,86 @@
 {
-  "title": "WarpStream Agent",
-  "description": "[[suggested_dashboards]]",
+  "title": "WarpStream Overview",
+  "description": "Monitor the health and performance of your WarpStream Agents",
   "widgets": [
+    {
+      "id": 1181382378819538,
+      "definition": {
+        "title": "About WarpStream",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6223228476027111,
+            "definition": {
+              "type": "image",
+              "url": "/api/v2/images/d459e352-326c-48b0-a144-a284172bf506",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 7491073564408021,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high level overview of your WarpStream agents.\nIt allows you to track the health of your agents deployments, as well as your Kafka-based applications.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 6100376364598993,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n- https://docs.warpstream.com/warpstream/byoc/monitor-the-warpstream-agents/important-metrics-and-logs",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5
+      }
+    },
     {
       "id": 6270738485521706,
       "definition": {
@@ -153,70 +232,6 @@
             }
           },
           {
-            "id": 2143763458615196,
-            "definition": {
-              "title": "Error Logs by Service",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "a"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "service",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "a",
-                      "search": {
-                        "query": "$env $service status:error"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "warm"
-                  },
-                  "display_type": "bars"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
             "id": 6951111177778210,
             "definition": {
               "title": "Memory usage by host",
@@ -258,7 +273,7 @@
               "custom_links": []
             },
             "layout": {
-              "x": 4,
+              "x": 0,
               "y": 2,
               "width": 4,
               "height": 2
@@ -268,7 +283,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 5,
         "width": 12,
         "height": 5
       }
@@ -285,7 +300,7 @@
           {
             "id": 262345380730676,
             "definition": {
-              "title": "Kafka Inflight Connections",
+              "title": "Kafka Inflight Connections by AZ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -426,7 +441,7 @@
           {
             "id": 5276542461782028,
             "definition": {
-              "title": "Kafka Requests",
+              "title": "Kafka Requests by Type/Outcome",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -520,7 +535,7 @@
           {
             "id": 8394554529723394,
             "definition": {
-              "title": "Kafka Latency",
+              "title": "Kafka Latency by Type",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -614,7 +629,7 @@
           {
             "id": 2361608786455328,
             "definition": {
-              "title": "Produce Batch Sizes",
+              "title": "Produce Batch Sizes by AZ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -802,7 +817,7 @@
           {
             "id": 730212706359752,
             "definition": {
-              "title": "Speculative retries",
+              "title": "Speculative retries by Name/Host",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -849,7 +864,7 @@
           {
             "id": 3942996347374670,
             "definition": {
-              "title": "Consumer Groups Lag",
+              "title": "Consumer Groups Lag by Topic",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -896,7 +911,7 @@
           {
             "id": 2096277892106720,
             "definition": {
-              "title": "Consumer Groups Lag in Seconds",
+              "title": "Consumer Groups Lag in Seconds by Topic",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -943,7 +958,7 @@
           {
             "id": 2597620413636628,
             "definition": {
-              "title": "Consumer Groups Lag by Topic-Partition",
+              "title": "Consumer Groups Lag by Topic/Partition",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -990,7 +1005,7 @@
           {
             "id": 5042859662452720,
             "definition": {
-              "title": "Consumer Groups Lag in Seconds by Topic-Partition",
+              "title": "Consumer Groups Lag in Seconds by Topic/Partition",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1037,7 +1052,7 @@
           {
             "id": 5321057773853008,
             "definition": {
-              "title": "Consumer Groups Max Offset",
+              "title": "Consumer Groups Max Offset by Topic",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1360,7 +1375,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 5,
+        "y": 10,
         "width": 12,
         "height": 15
       }
@@ -1377,7 +1392,7 @@
           {
             "id": 7561047216000612,
             "definition": {
-              "title": "Executed Jobs",
+              "title": "Executed Jobs by Type",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1417,469 +1432,6 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 5500570105666992,
-            "definition": {
-              "title": "Compactions by Status",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "status",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "$env service:warp-agent @stream_job_input.type:COMPACTION_JOB_TYPE status:info"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "semantic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
-                }
-              ]
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 6154741133420570,
-            "definition": {
-              "title": "Compactions by Status and Level",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "status",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        },
-                        {
-                          "facet": "@stream_job_input.compaction.compaction_level",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "$env $service service:warp-agent @stream_job_input.type:COMPACTION_JOB_TYPE status:info"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "semantic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
-                }
-              ]
-            },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 526077819969198,
-            "definition": {
-              "title": "P99 Compaction Duration by Level",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "pc99",
-                        "metric": "@duration_ms"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "status",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "pc99",
-                            "metric": "@duration_ms",
-                            "order": "desc"
-                          }
-                        },
-                        {
-                          "facet": "@stream_job_input.compaction.compaction_level",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "pc99",
-                            "metric": "@duration_ms",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "$env service:warp-agent @stream_job_input.type:COMPACTION_JOB_TYPE status:info"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "semantic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 3632330150540384,
-            "definition": {
-              "title": "Compaction File Output Size",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "avg",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "p99",
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "avg",
-                        "metric": "@stream_job_output.compaction.file_metadatas.index_offset"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "source",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "avg",
-                            "metric": "@stream_job_output.compaction.file_metadatas.index_offset",
-                            "order": "desc"
-                          }
-                        },
-                        {
-                          "facet": "@stream_job_input.compaction.compaction_level",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "avg",
-                            "metric": "@stream_job_output.compaction.file_metadatas.index_offset",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "$env $service status:info"
-                      },
-                      "storage": "hot"
-                    },
-                    {
-                      "compute": {
-                        "aggregation": "pc99",
-                        "metric": "@stream_job_output.compaction.file_metadatas.index_offset"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "source",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "pc99",
-                            "metric": "@stream_job_output.compaction.file_metadatas.index_offset",
-                            "order": "desc"
-                          }
-                        },
-                        {
-                          "facet": "@stream_job_input.compaction.compaction_level",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "pc99",
-                            "metric": "@stream_job_output.compaction.file_metadatas.index_offset",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query2",
-                      "search": {
-                        "query": "$env $service status:info"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 4,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 1127037207500336,
-            "definition": {
-              "title": "Compaction Files per Level (Indicator of Compaction Lag)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:warpstream.files_count{*} by {compaction_level}.weighted()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 8,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 2519482004458078,
-            "definition": {
-              "title": "Dead Files Scanner: Created vs. Deleted Files",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "Files Deleted",
-                      "formula": "query2"
-                    },
-                    {
-                      "alias": "Files Created",
-                      "formula": "(query1 + query3)"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:warpstream.agent_deadscanner_outcomes{$env,outcome:deleted}.as_count()"
-                    },
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "$env flush_end service:warp-agent"
-                      },
-                      "storage": "hot"
-                    },
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query3",
-                      "search": {
-                        "query": "$env service:warp-agent @stream_job_input.type:COMPACTION_JOB_TYPE"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 4,
               "width": 4,
               "height": 2
             }
@@ -1927,7 +1479,54 @@
             },
             "layout": {
               "x": 4,
-              "y": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1127037207500336,
+            "definition": {
+              "title": "Compaction Files per Level (Indicator of Compaction Lag)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:warpstream.files_count{*} by {compaction_level}.weighted()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
               "width": 4,
               "height": 2
             }
@@ -1936,9 +1535,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 20,
+        "y": 25,
         "width": 12,
-        "height": 7
+        "height": 3
       }
     },
     {
@@ -2501,9 +2100,9 @@
             }
           },
           {
-            "id": 3682163511252190,
+            "id": 4264862291363380,
             "definition": {
-              "title": "File Cache Per Request Bytes Read Average (Server)",
+              "title": "Flush File Size in Bytes - Uncompressed",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -2527,7 +2126,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:warpstream.agent_file_cache_server_get_stream_range_num_bytes_distribution{$env,$service,outcome:success} by {outcome,host}"
+                      "query": "sum:warpstream.agent_segment_batcher_flush_file_size_uncompressed_bytes{*}.as_count().rollup(count)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2640,109 +2239,14 @@
               "width": 4,
               "height": 2
             }
-          },
-          {
-            "id": 4264862291363380,
-            "definition": {
-              "title": "Flush File Size in Bytes - Uncompressed",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:warpstream.agent_segment_batcher_flush_file_size_uncompressed_bytes{*}.as_count().rollup(count)"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 8,
-              "y": 8,
-              "width": 4,
-              "height": 2
-            }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 27,
+        "y": 28,
         "width": 12,
         "height": 11
-      }
-    },
-    {
-      "id": 1057847225549548,
-      "definition": {
-        "title": "",
-        "title_size": "16",
-        "title_align": "left",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "legend_columns": [
-          "avg",
-          "min",
-          "max",
-          "value",
-          "sum"
-        ],
-        "type": "timeseries",
-        "requests": [
-          {
-            "formulas": [
-              {
-                "formula": "query1"
-              }
-            ],
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "sum:warpstream.loading_cache_loader_outcome{cache_name:footers ,$env,$service} by {outcome}.as_count()"
-              }
-            ],
-            "response_format": "timeseries",
-            "style": {
-              "order_by": "values",
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "line"
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 4,
-        "height": 2
       }
     }
   ],
