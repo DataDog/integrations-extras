@@ -59,7 +59,7 @@ Additional helpful documentation, links, and articles:
 - [Expo Monitoring][7]
 - [Expo Crash Reporting and Error Trackings][8]
 
-[1]: https://app.datadoghq.com/integrations/rum-expo
+[1]: /integrations/rum-expo
 [2]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/#setup
 [3]: https://docs.datadoghq.com/real_user_monitoring/reactnative/#manual-instrumentation
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics

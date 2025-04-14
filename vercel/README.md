@@ -78,7 +78,7 @@ Need help? Contact [Datadog support][8].
 [4]: https://vercel.com/docs/serverless-functions/introduction
 [5]: https://docs.datadoghq.com/logs/
 [6]: https://docs.datadoghq.com/synthetics/
-[7]: https://app.datadoghq.com/setup/vercel
+[7]: /setup/vercel
 [8]: https://docs.datadoghq.com/help/
 [9]: https://vercel.com/docs/functions
 [10]: https://vercel.com/docs/observability/log-drains
