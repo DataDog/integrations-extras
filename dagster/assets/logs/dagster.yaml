@@ -1,0 +1,50 @@
+: dagster
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
+: dagster
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
+backend_only: false
+facets:
+  - description: ""
+    facetType: list
+    groups:
+      - others
+    name: event_type
+    path: event_type
+    source: log
+    type: double
+pipeline:
+  type: pipeline
+  name: Dagster+
+  enabled: true
+  filter:
+    query: source:dagster-plus
+  processors:
+    - type: date-remapper
+      name: Use the timestamp on the event as the date of the event.
+      enabled: true
+      sources:
+        - timestamp
+    - name: Event type to status
+      enabled: true
+      source: event_type
+      target: status
+      lookupTable: |-
+        STEP_FAILURE, error
+        RESOURCE_INIT_FAILURE, error
+        STEP_RESTARTED, warn
+        ASSET_FAILED_TO_MATERIALIZE, error
+        RUN_FAILURE, error
+        RUN_CANCELED, warn
+        PIPELINE_FAILURE, error
+        PIPELINE_CANCELED, warn
+        HOOK_ERRORED, warn
+        ALERT_FAILURE, error
+      defaultLookup: info
+      type: lookup-processor
+    - type: status-remapper
+      name: Use status field as the status of the event
+      enabled: true
+      sources:
+        - status
