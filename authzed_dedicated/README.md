@@ -1,14 +1,14 @@
-# AuthZed Dedicated
+# AuthZed Cloud
 
 ## Overview
 
-[Authzed Dedicated][1] is an open-core, [Google Zanzibar][2]-inspired database system for creating and managing security-critical application permissions.
+[Authzed Cloud][1] is an open-core, [Google Zanzibar][2]-inspired database system for creating and managing security-critical application permissions.
 
 Developers define a schema that models their permissions requirements. They then use any of the official or community-maintained client libraries to apply the schema and insert data into the database. They can query this data to efficiently check permissions within their applications.
 
-Authzed Dedicated metrics allow developers and SREs to monitor their deployments, including request latency, cache metrics (such as size and hit/miss rates), and datastore connection and query performance. These metrics help diagnose performance issues and fine-tune the performance of their SpiceDB clusters.
+Authzed Cloud metrics allow developers and SREs to monitor their deployments, including request latency, cache metrics (such as size and hit/miss rates), and datastore connection and query performance. These metrics help diagnose performance issues and fine-tune the performance of their SpiceDB clusters.
 
-Sending these metrics to Datadog enables users to leverage their existing observability stack and correlate Authzed Dedicated metrics with other system events.
+Sending these metrics to Datadog enables users to leverage their existing observability stack and correlate Authzed Cloud metrics with other system events.
 
 ## Setup
 
@@ -36,7 +36,7 @@ The Datadog integration is available in the AuthZed Dashboard under the **Settin
 3.  Scroll down to the **Datadog Metrics** block of the settings UI.
 4.  Click **Remove**.
 
-This disables the Datadog integration in your AuthZed Dedicated cluster. Note that this could take several minutes.
+This disables the Datadog integration in your AuthZed Cloud cluster. Note that this could take several minutes.
 
 ## Support
 
