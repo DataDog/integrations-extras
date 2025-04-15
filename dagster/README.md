@@ -2,31 +2,33 @@
 
 ## Overview
 
-Dagster is a next-generation open source orchestration platform for the development, production, and observation of data assets. The Dagster+ integration provides the Dagster [EventLog][1] as Datadog logs, allowing you to build log pipelines, dashboards, and metrics based on Dagster events.
-
-[1]: https://docs.dagster.io/guides/monitor/logging
+Dagster is a next-generation open-source orchestration platform designed for building, running, and monitoring data asset workflows. The Dagster+ integration streams [event logs][1] to Datadog and includes an out-of-the-box log pipeline and dashboard.
 
 ## Setup
 
-1. Click the 'Connect Accounts' button to start the OAuth flow and connect your Dagster and Datadog accounts.
-2. Once directed to Dagster+, login with the account you'd like to use for the Datadog integration.
-3. When directed to Datadog, click **Authorize** to authorize Dagster+ to create an API key to send the logs to your Datadog account.
+1. Click **Connect Accounts** to launch the OAuth flow and link your Dagster and Datadog accounts.
+
+2. Log in to Dagster+ using the account you want to use for this integration.
+
+3. When redirected to Datadog, click **Authorize** to grant Dagster+ permission to create an API key for sending logs to your Datadog account.
 
 ### Validation
 
-Within the next ten minutes, the Dagster Overview Dashboard will begin showing new log events if there are any active Dagster jobs emitting events.
+Within 10 minutes of completing the integration setup, the Dagster Overview dashboard starts showing new log events, provided there are any active Dagster jobs emitting events.
 
 ## Uninstallation
 
- - Visit the Dagster+ integration tile and click the "Uninstall Integration" button.
- - Once this integration has been uninstalled, any previous authorizations are revoked.
- - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][2].
+1. Navigate to the Dagster+ integration tile and click **Uninstall Integration**.
 
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+2. After uninstalling the integration, all previous authorizations are revoked.
+
+3. Disable all API keys associated with this integration by searching for the integration name on the [API Keys page][2].
 
 ## Support
 
-For any issues, visit [our support page.][1]
+Need help? Contact [Dagster support][3].
 
 
-[1]: https://dagster.io/support
+[1]: https://docs.dagster.io/guides/monitor/logging
+[2]: https://github.com/DataDog/integrations-extras/blob/master/organization-settings/api-keys?filter=Dagster
+[3]: https://dagster.io/support
