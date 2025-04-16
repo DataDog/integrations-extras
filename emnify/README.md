@@ -26,4 +26,4 @@ Need help? Contact [EMnify support][3].
 [3]: https://support.emnify.com/hc/en-us
 [4]: https://docs.datadoghq.com/monitors/create/types/forecasts/?tab=linear
 [5]: https://docs.datadoghq.com/monitors/create/types/anomaly/
-[6]: https://app.datadoghq.com/dashboard/lists?q=emnify
+[6]: /dashboard/lists?q=emnify

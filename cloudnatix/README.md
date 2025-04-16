@@ -48,7 +48,7 @@ Additional helpful documentation, links, and articles:
 - [Optimize your infrastructure with CloudNatix and Datadog][8]
 
 [1]: https://cloudnatix.com/
-[2]: https://app.datadoghq.com/account/settings#agent/kubernetes
+[2]: /account/settings#agent/kubernetes
 [3]: https://docs.cloudnatix.com/docs/tutorial
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv

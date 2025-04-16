@@ -38,4 +38,4 @@ Need help? Contact [Datadog support][2].
 
 [1]: https://github.com/DataDog/integrations-extras/blob/master/unitq/metadata.csv
 [2]: https://docs.datadoghq.com/help/
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys

@@ -114,9 +114,9 @@ For support or feature requests, contact Reflectiz through the following channel
 - Sales: [inbound@reflectiz.com][3]
 - Website: [reflectiz.com][4]
 
-[1]: https://app.datadoghq.com/infrastructure
+[1]: /infrastructure
 [2]: mailto:support@reflectiz.com
 [3]: mailto:inbound@reflectiz.com
 [4]: https://reflectiz.com
-[5]: https://app.datadoghq.com/organization-settings/api-keys?filter=Reflectiz
+[5]: /organization-settings/api-keys?filter=Reflectiz
 [6]: https://github.com/DataDog/integrations-extras/blob/master/reflectiz/metadata.csv

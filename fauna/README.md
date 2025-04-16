@@ -65,8 +65,8 @@ Need help? Contact [Fauna support][6].
 
 [1]: https://docs.fauna.com/fauna/current/tools/query_log/reference/log_reference
 [2]: https://dashboard.fauna.com/resources/integrations
-[3]: https://app.datadoghq.com/integrations/fauna
+[3]: /integrations/fauna
 [4]: https://docs.datadoghq.com/logs/explorer/
-[5]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: /organization-settings/api-keys
 [6]: mailto:support@fauna.com
-[7]: https://app.datadoghq.com/dashboard/lists?q=Fauna%20Overview
+[7]: /dashboard/lists?q=Fauna%20Overview
