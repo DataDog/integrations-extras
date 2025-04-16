@@ -47,8 +47,11 @@ class NextcloudCheck(AgentCheck):
         # this causes an additional external request to apps.nextcloud.com
         get_apps_stats = self.instance.get('apps_stats')
         params = {"format": "json", "skipApps": "false" if get_apps_stats else "true"}
-        metrics_to_parse = NextcloudCheck.METRICS_GAUGES if not get_apps_stats \
-                            else NextcloudCheck.METRICS_GAUGES + NextcloudCheck.OPTIONAL_APP_STATS_METRICS_GAUGES
+        metrics_to_parse = (
+            NextcloudCheck.METRICS_GAUGES
+            if not get_apps_stats
+            else NextcloudCheck.METRICS_GAUGES + NextcloudCheck.OPTIONAL_APP_STATS_METRICS_GAUGES
+        )
 
         try:
             self.log.debug("Checking against %s", url)
