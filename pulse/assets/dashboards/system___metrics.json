@@ -1,0 +1,190 @@
+{
+  "title": "System - Metrics",
+  "description": "This dashboard aggregates [resource utilization metrics](https://www.datadoghq.com/blog/monitoring-101-collecting-data/#resource-metrics) from your entire infrastructure, or from any subset of hosts that you identify using the template variable selector at the upper left. For more details on the metrics collected:\n\n- [Datadog's system integration docs](https://docs.datadoghq.com/integrations/system/)\n\nClone this template dashboard to make changes and add your own graph widgets.",
+  "widgets": [
+    {
+      "id": 6524358898171957,
+      "definition": {
+        "title": "System load",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "system.load.1{$scope}"
+              }
+            ]
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "system.load.5{$scope}"
+              }
+            ]
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "system.load.15{$scope}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 6158777604003155,
+      "definition": {
+        "title": "CPU usage (%)",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "system.cpu.idle{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "system.cpu.system{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "system.cpu.iowait{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query4",
+                "query": "system.cpu.user{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query5",
+                "query": "system.cpu.stolen{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query6",
+                "query": "system.cpu.guest{$scope}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 7982331105861289,
+      "definition": {
+        "title": "I/O wait (%)",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "max:system.cpu.iowait{$scope}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 6845240197107927,
+      "definition": {
+        "title": "System memory",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:system.mem.usable{$scope}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:system.mem.total{$scope}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              },
+              {
+                "formula": "query2 - query1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 4758482954483789,
+      "definition": {
+        "title": "Network traffic (per sec)",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:system.net.bytes_rcvd{$scope}"
+              }
+            ]
+          },
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:system.net.bytes_sent{$scope}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "scope",
+      "prefix": null,
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "auto",
+  "tags": []
+}
