@@ -129,13 +129,12 @@ facets:
     name: User Name
     path: usr.name
     source: log
-    type: string
 pipeline:
   type: pipeline
   name: AppOmni
   enabled: true
   filter:
-    query: source:appomni
+    query: source:appomni-appomni
   processors:
     - type: date-remapper
       name: Define `@timestamp` as the official date of the log
@@ -354,7 +353,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `network.client.ip.ipAddress.country.iso_code` to `appomni.network.client.ip.ipAddress.country.iso_code.category`
+      name: Map `network.client.ip.ipAddress.country.iso_code.category` to `appomni.network.client.ip.ipAddress.country.iso_code.category`
       enabled: true
       sources:
         - network.client.ip.ipAddress.country.iso_code.category
