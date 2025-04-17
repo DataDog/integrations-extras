@@ -6,7 +6,7 @@ Dagster is a next-generation open-source orchestration platform designed for bui
 
 ## Setup
 
-1. Click **Connect Accounts** to launch the OAuth flow and link your Dagster and Datadog accounts.
+1. In Datadog, navigate to the Dagster integration tile and click **Connect Accounts** to launch the OAuth flow.
 
 2. Log in to Dagster+ using the account you want to use for this integration.
 
