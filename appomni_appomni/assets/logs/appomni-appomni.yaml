@@ -79,48 +79,48 @@ facets:
     facetType: list
     groups:
       - AppOmni
-    name: mitre.attack.tactic.id
-    path: mitre.attack.tactic.id
+    name: appomni.mitre.attack.tactic.id
+    path: appomni.mitre.attack.tactic.id
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
       - AppOmni
-    name: mitre.attack.tactic.name
-    path: mitre.attack.tactic.name
+    name: appomni.mitre.attack.tactic.name
+    path: appomni.mitre.attack.tactic.name
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
       - AppOmni
-    name: mitre.attack.technique.id
-    path: mitre.attack.technique.id
+    name: appomni.mitre.attack.technique.id
+    path: appomni.mitre.attack.technique.id
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
       - AppOmni
-    name: mitre.attack.technique.name
-    path: mitre.attack.technique.name
+    name: appomni.mitre.attack.technique.name
+    path: appomni.mitre.attack.technique.name
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
       - AppOmni
-    name: network.client.ip.ipAddress.country.iso_code
-    path: network.client.ip.ipAddress.country.iso_code
+    name: appomni.network.client.ip.ipAddress.country.iso_code
+    path: appomni.network.client.ip.ipAddress.country.iso_code
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
       - AppOmni
-    name: network.client.ip.ipAddress.country.name
-    path: network.client.ip.ipAddress.country.name
+    name: appomni.network.client.ip.ipAddress.country.name
+    path: appomni.network.client.ip.ipAddress.country.name
     source: log
     type: string
   - description: ""
@@ -274,52 +274,52 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `rule.threat.tactic.name` to `mitre.attack.tactic.name`
+      name: Map `rule.threat.tactic.name` to `appomni.mitre.attack.tactic.name`
       enabled: true
       sources:
         - rule.threat.tactic.name
       sourceType: attribute
-      target: mitre.attack.tactic.name
+      target: appomni.mitre.attack.tactic.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `rule.threat.technique.name` to `mitre.attack.technique.name`
+      name: Map `rule.threat.technique.name` to `appomni.mitre.attack.technique.name`
       enabled: true
       sources:
         - rule.threat.technique.name
       sourceType: attribute
-      target: mitre.attack.technique.name
+      target: appomni.mitre.attack.technique.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `rule.threat.technique.id` to `mitre.attack.technique.id`
+      name: Map `rule.threat.technique.id` to `appomni.mitre.attack.technique.id`
       enabled: true
       sources:
         - rule.threat.technique.id
       sourceType: attribute
-      target: mitre.attack.technique.id
+      target: appomni.mitre.attack.technique.id
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `rule.threat.tactic.id` to `mitre.attack.tactic.id`
+      name: Map `rule.threat.tactic.id` to `appomni.mitre.attack.tactic.id`
       enabled: true
       sources:
         - rule.threat.tactic.id
       sourceType: attribute
-      target: mitre.attack.tactic.id
+      target: appomni.mitre.attack.tactic.id
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `rule.threat.framework` to `mitre.attack.framework`
+      name: Map `rule.threat.framework` to `appomni.mitre.attack.framework`
       enabled: true
       sources:
         - rule.threat.framework
       sourceType: attribute
-      target: mitre.attack.framework
+      target: appomni.mitre.attack.framework
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
@@ -350,6 +350,26 @@ pipeline:
         - related.event
       sourceType: attribute
       target: appomni.related.event
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `network.client.ip.ipAddress.country.iso_code` to `appomni.network.client.ip.ipAddress.country.iso_code.category`
+      enabled: true
+      sources:
+        - network.client.ip.ipAddress.country.iso_code.category
+      sourceType: attribute
+      target: appomni.network.client.ip.ipAddress.country.iso_code.category
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `network.client.ip.ipAddress.country.name` to `appomni.network.client.ip.ipAddress.country.name`
+      enabled: true
+      sources:
+        - network.client.ip.ipAddress.country.name
+      sourceType: attribute
+      target: appomni.network.client.ip.ipAddress.country.name
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
