@@ -1,60 +1,72 @@
-id: dagster
+id: "dagster"
 tests:
-  - sample: >-
-      {
-      	"id": "AwAAAZZFZ6wDxNrBhwAAABhBWlpGWjZ3REFBQ2JORTJMS1RhLThRQUIAAAAkMDE5NjQ1NjctYWQ4My00NTgzLThmZTktYTQ3ZWNiMTY5M2JmAAAAAg",
-      	"content": {
-      		"timestamp": "2025-04-17T20:19:04.323Z",
-      		"tags": [
-      			"source:dagster-plus",
-      			"datadog.submission_auth:api_key"
-      		],
-      		"service": "dagster-plus",
-      		"message": "Finished initialization of resources [io_manager].",
-      		"attributes": {
-      			"run_id": "57d6a37d-5c29-4164-b80c-6ac1ccda6798",
-      			"event_type": "RESOURCE_INIT_SUCCESS",
-      			"job_name": "diamond_asset_job",
-      			"service": "dagster-plus",
-      			"dagster": {
-      				"event_type": "RESOURCE_INIT_SUCCESS"
-      			},
-      			"timestamp": "1744921143.890122",
-      			"deployment": "prod",
-      			"status": "info"
-      		}
-      	}
+ -
+  sample: |-
+    {
+      "id" : "AQAAAZZFaQ9F2IkRTQAAAAAxNzY4OTkyNDIw",
+      "content" : {
+        "service" : "dagster-plus",
+        "attributes" : {
+          "event_type" : "ASSET_FAILED_TO_MATERIALIZE",
+          "run_id" : "a32271b1-e8c1-46a8-92e1-e8ac16d13251",
+          "job_name" : "__ASSET_JOB",
+          "service" : "dagster-plus",
+          "asset_key" : "dwh_reporting/business_activity_logs/website_visits_cloud",
+          "dagster" : {
+            "event_type" : "ASSET_FAILED_TO_MATERIALIZE"
+          },
+          "deployment" : "prod",
+          "status" : "error",
+          "timestamp" : "1744921234.9526803"
+        },
+        "message" : "Asset [\"dwh_reporting\", \"business_activity_logs\", \"website_visits_cloud\"] failed to materialize",
+        "timestamp" : "2025-04-17T20:20:35.269Z",
+        "tags" : [ "source:dagster-plus", "datadog.submission_auth:api_key" ]
       }
-    result: null
-  - sample: >-
+    }
+  result:
+    custom:
+      content:
+        attributes:
+          asset_key: "dwh_reporting/business_activity_logs/website_visits_cloud"
+          dagster:
+            event_type: "ASSET_FAILED_TO_MATERIALIZE"
+          deployment: "prod"
+          event_type: "ASSET_FAILED_TO_MATERIALIZE"
+          job_name: "__ASSET_JOB"
+          run_id: "a32271b1-e8c1-46a8-92e1-e8ac16d13251"
+          service: "dagster-plus"
+          status: "error"
+          timestamp: "1744921234.9526803"
+        message: "Asset [\"dwh_reporting\", \"business_activity_logs\", \"website_visits_cloud\"] failed to materialize"
+        service: "dagster-plus"
+        tags:
+         - "source:dagster-plus"
+         - "datadog.submission_auth:api_key"
+        timestamp: "2025-04-17T20:20:35.269Z"
+      id: "AQAAAZZFaQ9F2IkRTQAAAAAxNzY4OTkyNDIw"
+    message: |-
       {
-      	"id": "AQAAAZZFaQ9F2IkRTQAAAAAxNzY4OTkyNDIw",
-      	"content": {
-      		"timestamp": "2025-04-17T20:20:35.269Z",
-      		"tags": [
-      			"source:dagster-plus",
-      			"datadog.submission_auth:api_key"
-      		],
-      		"service": "dagster-plus",
-      		"message": "Asset [\"dwh_reporting\", \"business_activity_logs\", \"website_visits_cloud\"] failed to materialize",
-      		"attributes": {
-      			"event_type": "ASSET_FAILED_TO_MATERIALIZE",
-      			"run_id": "a32271b1-e8c1-46a8-92e1-e8ac16d13251",
-      			"job_name": "__ASSET_JOB",
-      			"service": "dagster-plus",
-      			"asset_key": "dwh_reporting/business_activity_logs/website_visits_cloud",
-      			"dagster": {
-      				"event_type": "ASSET_FAILED_TO_MATERIALIZE"
-      			},
-      			"deployment": "prod",
-      			"status": "error",
-      			"timestamp": "1744921234.9526803"
-      		}
-      	}
+        "id" : "AQAAAZZFaQ9F2IkRTQAAAAAxNzY4OTkyNDIw",
+        "content" : {
+          "service" : "dagster-plus",
+          "attributes" : {
+            "event_type" : "ASSET_FAILED_TO_MATERIALIZE",
+            "run_id" : "a32271b1-e8c1-46a8-92e1-e8ac16d13251",
+            "job_name" : "__ASSET_JOB",
+            "service" : "dagster-plus",
+            "asset_key" : "dwh_reporting/business_activity_logs/website_visits_cloud",
+            "dagster" : {
+              "event_type" : "ASSET_FAILED_TO_MATERIALIZE"
+            },
+            "deployment" : "prod",
+            "status" : "error",
+            "timestamp" : "1744921234.9526803"
+          },
+          "message" : "Asset [\"dwh_reporting\", \"business_activity_logs\", \"website_visits_cloud\"] failed to materialize",
+          "timestamp" : "2025-04-17T20:20:35.269Z",
+          "tags" : [ "source:dagster-plus", "datadog.submission_auth:api_key" ]
+        }
       }
-    result: null
-
-# The `result` field should be left blank to start. Once you submit your log asset files with
-# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
-# run your raw logs against your pipeline and return the result. If the result output in the
-# validation is accurate, take the output and add it to the `result` field in your test YAML file.
+    tags:
+     - "source:dagster"
