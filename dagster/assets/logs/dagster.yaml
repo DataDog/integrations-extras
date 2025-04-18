@@ -22,7 +22,7 @@ pipeline:
     query: source:dagster-plus
   processors:
     - type: date-remapper
-      name: Use the timestamp on the event as the date of the event.
+      name: Define `timestamp` as the official date of the log
       enabled: true
       sources:
         - timestamp
@@ -44,12 +44,12 @@ pipeline:
       defaultLookup: info
       type: lookup-processor
     - type: status-remapper
-      name: Use status field as the status of the event
+      name: Define `status` as the official status of the log
       enabled: true
       sources:
         - status
     - type: attribute-remapper
-      name: Nest event_type to dagster.event_type
+      name: Map `event_type` to `dagster.event_type`
       enabled: true
       sources:
         - event_type
