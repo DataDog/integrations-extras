@@ -1,0 +1,100 @@
+{
+  "app_id": "inngest",
+  "app_uuid": "01960169-7c57-7080-bc2b-05f5bf2828ac",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Inngest",
+    "description": "AI and backend workflows, orchestrated at any scale",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Powerful tracing tools allow troubleshooting complex workflows.",
+        "image_url": "images/Frame 3.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Inngest Cloud provides an overview of your function invocations.",
+        "image_url": "images/Frame 1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Inngest Cloud shows you the status of individual function runs.",
+        "image_url": "images/Frame 2.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Message Queues",
+      "Category::Developer Tools",
+      "Category::Cloud",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics"
+    ],
+    "resources": [
+      {
+        "url": "https://www.inngest.com/blog/ai-orchestration-with-agentkit-step-ai",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.inngest.com/blog/how-durable-workflow-engines-work",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.inngest.com/blog/simplifying-queues-modern-kafka-alternative",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.inngest.com/blog/durable-functions-a-visual-javascript-primer",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.inngest.com/blog/nextjs-trpc-inngest",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.inngest.com/blog/principles-of-durable-execution",
+        "resource_type": "blog"
+      }
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "hello@inngest.com",
+    "name": "Inngest Inc.",
+    "homepage": "https://www.inngest.com/",
+    "sales_email": "sales@inngest.com",
+    "vendor_id": "inngest-inc"
+  },
+  "assets": {
+    "dashboards": {
+      "Inngest": "assets/dashboards/inngest.json"
+    },
+    "integration": {
+      "source_type_name": "inngest",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "inngest.",
+        "check": [
+          "inngest.metric_export_integration_healthy"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 45005455,
+      "supports_ddr_coordinated_failover": false
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}
