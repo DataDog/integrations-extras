@@ -207,7 +207,7 @@ Check that the `url` in `conf.yaml` is correct.
 
 If you need further help, contact [Datadog support][22].
 
-[1]: https://app.datadoghq.com/account/settings/agent/latest
+[1]: /account/settings/agent/latest
 [2]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [3]: https://docs.datadoghq.com/getting_started/integrations/
 [4]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
@@ -216,12 +216,12 @@ If you need further help, contact [Datadog support][22].
 [7]: https://docs.datadoghq.com/containers/docker/integrations
 [8]: https://docs.datadoghq.com/containers/kubernetes/integrations/
 [13]: https://github.com/DataDog/logstash-output-datadog_logs
-[14]: https://app.datadoghq.com/organization-settings/api-keys
+[14]: /organization-settings/api-keys
 [15]: https://docs.datadoghq.com/agent/proxy/#proxy-for-logs
 [16]: https://docs.datadoghq.com/logs/#edit-reserved-attributes
 [17]: https://docs.datadoghq.com/logs/processing/#integration-pipelines
 [18]: https://docs.datadoghq.com/getting_started/tagging/assigning_tags
-[19]: https://app.datadoghq.com/infrastructure
+[19]: /infrastructure
 [20]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [21]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [22]: http://docs.datadoghq.com/help

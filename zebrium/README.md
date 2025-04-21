@@ -20,7 +20,7 @@ Additional helpful documentation, links, and articles:
 - [Find the root cause faster with Datadog and Zebrium][5]
 
 [1]: https://www.zebrium.com
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[2]: /organization-settings/api-keys
 [3]: https://docs.zebrium.com/docs/monitoring/datadog_autodetect/
 [4]: http://docs.datadoghq.com/help
 [5]: https://www.datadoghq.com/blog/find-the-root-cause-faster-with-zebrium/

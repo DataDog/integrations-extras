@@ -55,10 +55,10 @@ Need help? Get support from the following sources:
 
 [1]: https://buoyant.io/cloud
 [2]: https://buoyant.cloud/notifications
-[3]: https://app.datadoghq.com/event/explorer
-[4]: https://app.datadoghq.com/metric/explorer
+[3]: /event/explorer
+[4]: /metric/explorer
 [5]: https://buoyant.cloud/settings
-[6]: https://app.datadoghq.com/organization-settings/api-keys?filter=Buoyant%20Cloud
+[6]: /organization-settings/api-keys?filter=Buoyant%20Cloud
 [7]: https://github.com/DataDog/integrations-extras/blob/master/buoyant_cloud/metadata.csv
 [8]: https://docs.buoyant.cloud
 [9]: https://slack.linkerd.io

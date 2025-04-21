@@ -93,7 +93,7 @@ Need help? Contact [Datadog support][12].
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [3]: https://docs.datadoghq.com/getting_started/site/
 [4]: https://docs.datadoghq.com/infrastructure/list/
-[5]: https://app.datadoghq.com/dashboard/lists
+[5]: /dashboard/lists
 [6]: https://docs.datadoghq.com/dashboards/configure/#configuration-actions
 [7]: https://docs.datadoghq.com/dashboards/#new-dashboard
 [8]: https://docs.datadoghq.com/integrations/cockroachdb_dedicated/#data-collected
