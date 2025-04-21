@@ -27,5 +27,5 @@ In Datadog, navigate to **Integrations**, select the Hawkeye tile, and click **U
 Need help? Contact [NeuBird support][2].
 
 
-[1]: https://app.datadoghq.com/organization-settings/api-keys?filter=Hawkeye
+[1]: /organization-settings/api-keys?filter=Hawkeye
 [2]: https://neubird.ai/neubird-support/
