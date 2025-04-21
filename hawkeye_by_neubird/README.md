@@ -2,20 +2,20 @@
 
 ## Overview
 
-Hawkeye by NeuBird accelerates incident resolution by diagnosing incidents instantly and automating root cause analysis. This integration allows Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once investigation is complete, a link to the investigation analysis is added directly to the related Datadog incident, speeding-up resolution and reducing mean time to recovery.
+Hawkeye by NeuBird accelerates incident resolution by diagnosing incidents and automating root cause analysis. This integration allows Hawkeye to look for triggered Datadog Monitors and then autonomously investigate the root cause. Once investigation is complete, a link to the investigation analysis is added directly to the related Datadog incident, speeding-up resolution and reducing mean time to recovery.
 
 ## Setup
 
-1.  In Datadog, navigate to **Integrations**, select the Hawkeye tile and click **Install Integration**.
+1.  In Datadog, navigate to **Integrations**, select the Hawkeye tile, and click **Install Integration**.
 
-2. Click **Connect Accounts** to start the authorization process. You will be redirected to Hawkeye to complete the setup.
+2. Click **Connect Accounts** to start the authorization process. You are redirected to Hawkeye to complete the setup.
 
-3.  Once authorized, Hawkeye will begin sending investigation results to Datadog.
+3.  Once authorized, Hawkeye begins sending investigation results to Datadog.
 
 
 ## Uninstallation
 
-In Datadog, navigate to **Integrations**, select the Hawkeye tile and click **Uninstall Integration**.
+In Datadog, navigate to **Integrations**, select the Hawkeye tile, and click **Uninstall Integration**.
 
 - Once you uninstall this integration, any previous authorizations are revoked.
 
