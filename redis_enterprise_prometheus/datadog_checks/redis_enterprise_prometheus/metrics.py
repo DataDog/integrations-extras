@@ -366,7 +366,7 @@ REDIS_PRESSURE = {
 REDIS_FLASH = {
     'node_available_flash_bytes': 'node_available_flash_bytes',
     'node_available_flash_no_overbooking_bytes': 'node_available_flash_no_overbooking_bytes',
-    'node_bigstore_free_bytes':  'node_bigstore_free_bytes',
+    'node_bigstore_free_bytes': 'node_bigstore_free_bytes',
     'node_provisional_flash_bytes': 'node_provisional_flash_bytes',
     'node_provisional_flash_no_overbooking_bytes': 'node_provisional_flash_no_overbooking_bytes',
 }

@@ -443,7 +443,6 @@ METRICS_MAP = {
         'rdse2.redis_server_search_errors_indexing_failures',
         'rdse2.redis_server_search_errors_for_index_with_max_failures',
     ],
-
     'REDIS2.FLASH': [
         'rdse2.node_available_flash_bytes',  # only present flash
         'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash
