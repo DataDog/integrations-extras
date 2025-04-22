@@ -363,6 +363,14 @@ REDIS_PRESSURE = {
     'node_pressure_memory_waiting_seconds': 'node_pressure_memory_waiting_seconds',
 }
 
+REDIS_FLASH = {
+    'node_available_flash_bytes': 'node_available_flash_bytes',
+    'node_available_flash_no_overbooking_bytes': 'node_available_flash_no_overbooking_bytes',
+    'node_bigstore_free_bytes':  'node_bigstore_free_bytes',
+    'node_provisional_flash_bytes': 'node_provisional_flash_bytes',
+    'node_provisional_flash_no_overbooking_bytes': 'node_provisional_flash_no_overbooking_bytes',
+}
+
 REDIS_SEARCH = {
     'redis_server_search_number_of_indexes': 'redis_server_search_number_of_indexes',
     'redis_server_search_number_of_active_indexes': 'redis_server_search_number_of_active_indexes',
@@ -428,5 +436,6 @@ ADDITIONAL_METRICS = {
     'REDIS2.FILESYSTEM': REDIS_FILESYSTEM,
     'REDIS2.PROCESS': REDIS_PROCESS,
     'REDIS2.PRESSURE': REDIS_PRESSURE,
+    'REDIS2.FLASH': REDIS_FLASH,
     'REDIS2.SEARCH': REDIS_SEARCH,
 }

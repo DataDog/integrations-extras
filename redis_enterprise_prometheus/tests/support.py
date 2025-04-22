@@ -116,11 +116,11 @@ METRICS_MAP = {
         'rdse2.endpoint_write_responses.count',
     ],
     'REDIS2.NODE': [
-        'rdse2.node_available_flash_bytes',
-        'rdse2.node_available_flash_no_overbooking_bytes',
+        # 'rdse2.node_available_flash_bytes', # MOVED TO FLASH
+        # 'rdse2.node_available_flash_no_overbooking_bytes', # MOVED TO FLASH
         'rdse2.node_available_memory_bytes',
         'rdse2.node_available_memory_no_overbooking_bytes',
-        'rdse2.node_bigstore_free_bytes',
+        # 'rdse2.node_bigstore_free_bytes', # MOVED TO FLASH
         'rdse2.x509_cert_expires_in_seconds',
         'rdse2.x509_exporter_build_info',
         'rdse2.x509_read_errors',
@@ -133,8 +133,8 @@ METRICS_MAP = {
         'rdse2.node_memory_MemFree_bytes',
         'rdse2.node_persistent_storage_avail_bytes',
         'rdse2.node_persistent_storage_free_bytes',
-        'rdse2.node_provisional_flash_bytes',
-        'rdse2.node_provisional_flash_no_overbooking_bytes',
+        # 'rdse2.node_provisional_flash_bytes', # MOVED TO FLASH
+        # 'rdse2.node_provisional_flash_no_overbooking_bytes', # MOVED TO FLASH
         'rdse2.node_provisional_memory_bytes',
         'rdse2.node_provisional_memory_no_overbooking_bytes',
         'rdse2.node_metrics_up',
@@ -442,6 +442,14 @@ METRICS_MAP = {
         'rdse2.redis_server_search_total_active_queries',
         'rdse2.redis_server_search_errors_indexing_failures',
         'rdse2.redis_server_search_errors_for_index_with_max_failures',
+    ],
+
+    'REDIS2.FLASH': [
+        'rdse2.node_available_flash_bytes',  # only present flash
+        'rdse2.node_available_flash_no_overbooking_bytes',  # only present flash
+        'rdse2.node_bigstore_free_bytes',  # only present bigstore
+        'rdse2.node_provisional_flash_bytes',  # only present flash
+        'rdse2.node_provisional_flash_no_overbooking_bytes',  # only present flash
     ],
 }
 

@@ -28,7 +28,7 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     metrics = DEFAULT_METRICS + additional_metric_groups
     for g in metrics:
         for m in METRICS_MAP[g]:
-            if m in EPHEMERAL:
+            if m in EPHEMERAL[0]:
                 continue
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
@@ -61,7 +61,7 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
     metrics = DEFAULT_METRICS + additional_metric_groups
     for g in metrics:
         for m in METRICS_MAP[g]:
-            if m in EPHEMERAL:
+            if m in EPHEMERAL[0]:
                 continue
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
