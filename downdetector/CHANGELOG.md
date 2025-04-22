@@ -1,6 +1,6 @@
 # CHANGELOG - Downdetector
 
-## 1.0.0 / 2025-04-16
+## 1.0.0 / 2025-04-22
 
 _**Added**_:
 

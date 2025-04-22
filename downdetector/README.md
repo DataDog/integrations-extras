@@ -8,10 +8,9 @@ This integration provides real-time Downdetector outage alerts as events in Data
 
 ## Setup
 
-1. Log in to your [Downdetector account][1] or [sign up][2].
-2. Navigate to **Alerts** > **Integrations** and click the **+** in the top right.
-3. Select **Add Datadog** and complete the authorization in Datadog. Once authorized, you'll be redirected back to Downdetector.
-4. Navigate to **Alerts** > **Manage** to edit existing monitors or click **+** to create a new one.
+1. In Datadog, navigate to **Integrations**, select the Downdetector tile, and click **Install Integration**.
+2. Click **Connect Accounts** to start the authorization process. You will be redirected to Downdetector to complete the setup.
+3. In Downdetector, navigate to **Alerts** > **Manage** to edit existing monitors or click **+** to create a new one.
 5. In the monitor creation modal, select the newly created Datadog integration under the **Alert Settings** tab.
 
 
@@ -19,15 +18,13 @@ This integration provides real-time Downdetector outage alerts as events in Data
 
 1. Navigate to **Alerts** > **Integrations** in Downdetector.
 2. Click the trash icon next to the Datadog integration.
-3. In Datadog, navigate to the [Downdetector][3] integration tile and click **Uninstall**. After you uninstall this integration, any previous authorizations are revoked.
-4. Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][4].
+3. In Datadog, navigate to the [Downdetector][1] integration tile and click **Uninstall**. After you uninstall this integration, any previous authorizations are revoked.
+4. Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][2].
 
 ## Support
 
 Contact support@downdetector.com for support requests.
 
 
-[1]: https://enterprise.downdetector.com/
-[2]: <https://downdetector.com/for-business/>
-[3]: https://app.datadoghq.com/integrations/downdetector
-[4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Downdetector
+[1]: https://app.datadoghq.com/integrations/downdetector
+[2]: https://app.datadoghq.com/organization-settings/api-keys?filter=Downdetector
