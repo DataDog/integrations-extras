@@ -26,5 +26,5 @@ This integration provides real-time Downdetector outage alerts as events in Data
 Contact support@downdetector.com for support requests.
 
 
-[1]: https://app.datadoghq.com/integrations/downdetector
-[2]: https://app.datadoghq.com/organization-settings/api-keys?filter=Downdetector
+[1]: /integrations/downdetector
+[2]: /organization-settings/api-keys?filter=Downdetector
