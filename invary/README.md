@@ -51,6 +51,6 @@ The Invary Runtime Integrity integration does not include any events.
 Need help? Contact [Invary Support][3].
 
 [1]: https://developers.invary.com/
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[2]: /organization-settings/api-keys
 [3]: mailto:support@invary.com
 

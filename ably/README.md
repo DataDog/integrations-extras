@@ -77,5 +77,5 @@ Need help? Contact [Ably support][10].
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ably/images/uninstall-integration.png
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ably/metadata.csv
 [8]: https://ably.com/docs/general/statistics
-[9]: https://app.datadoghq.com/organization-settings/api-keys?filter=Ably
+[9]: /organization-settings/api-keys?filter=Ably
 [10]: https://ably.com/support

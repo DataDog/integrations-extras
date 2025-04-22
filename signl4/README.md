@@ -168,5 +168,5 @@ Need help? Contact [SIGNL4 Support][8].
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/signl4/images/signl4-datadog-connector-app.png
 [7]: https://www.signl4.com/blog/portfolio_item/datadog_mobile_alerting/
 [8]: mailto:success@signl4.com
-[9]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[9]: /account/settings#integrations/webhooks
 

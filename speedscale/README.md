@@ -50,5 +50,5 @@ Need help? Contact [Datadog support][4].
 
 [1]: https://docs.speedscale.com/reference/integrations/datadog/
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/
-[3]: https://app.datadoghq.com/event/stream
+[3]: /event/stream
 [4]: https://docs.datadoghq.com/help/

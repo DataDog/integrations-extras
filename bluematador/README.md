@@ -39,5 +39,5 @@ Need help? Contact the [maintainer][5] of this integration.
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/eventstream.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/dashboard.png
 [3]: https://www.bluematador.com/monitored-events
-[4]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: /organization-settings/api-keys
 [5]: https://github.com/DataDog/integrations-extras/blob/master/bluematador/manifest.json

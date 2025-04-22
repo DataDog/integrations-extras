@@ -54,5 +54,5 @@ Need help? Contact [CloudAEye support](mailto:support@cloudaeye.com).
 
 
 [1]: https://console.cloudaeye.com/integrations/datadog
-[2]: https://app.datadoghq.com/organization-settings/oauth-applications
-[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=CloudAEye
+[2]: /organization-settings/oauth-applications
+[3]: /organization-settings/api-keys?filter=CloudAEye
