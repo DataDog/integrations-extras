@@ -106,6 +106,6 @@ Need help? Contact [AlertNow support](mailto:support@opsnow.com).
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/integration_card_datadog.png
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/create_integration_datadog_en.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/datadog_integration_detail.png
-[5]: https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#integrations/webhooks
+[5]: /account/login?next=%2Faccount%2Fsettings#integrations/webhooks
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/datadog_webhook.png
 [7]: https://docs.datadoghq.com/monitors/

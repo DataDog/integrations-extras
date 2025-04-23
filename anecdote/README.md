@@ -64,5 +64,5 @@ Need help? Contact [Anecdote Support][2].
 
 [1]: https://app.anecdoteai.com
 [2]: mailto:hello@anec.app
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys
 

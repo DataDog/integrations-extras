@@ -50,5 +50,5 @@ Additional helpful documentation, links, and articles:
 [1]: https://isdown.app
 [2]: mailto:support@isdown.app
 [3]: assets/service_checks.json
-[4]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: /organization-settings/api-keys
 [5]: https://www.datadoghq.com/blog/track-provider-outages-isdown-datadog/

@@ -50,6 +50,6 @@ Need help? Contact [Datadog support][1].
 [1]: https://docs.datadoghq.com/help/
 [2]: https://www.perimeterx.com/
 [3]: https://edocs.humansecurity.com/docs/configuring-the-export-via-portal
-[4]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: /organization-settings/api-keys
 [5]: mailto:support@perimeterx.com
 [6]: https://docs.perimeterx.com/pxconsole/docs/data-schema-metrics

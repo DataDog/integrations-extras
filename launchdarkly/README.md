@@ -82,7 +82,7 @@ Learn more about [LaunchDarkly][1] and the [Datadog events integration][4].
 
 [1]: https://launchdarkly.com
 [2]: https://docs.launchdarkly.com/home/relay-proxy
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys
 [4]: https://docs.launchdarkly.com/integrations/datadog/events
 [5]: https://github.com/launchdarkly/ld-relay/blob/v6/docs/metrics.md
 [6]: https://github.com/launchdarkly/ld-relay/blob/v6/docs/endpoints.md
