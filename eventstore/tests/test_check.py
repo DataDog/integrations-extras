@@ -61,6 +61,7 @@ def test_integration(aggregator, instance):
 
     for endpoint in instance['endpoints']:
         for metric in init_config['metric_definitions'][endpoint]:
-            aggregator.assert_metric(metric['metric_name'], tags=['test:tag'])
+            aggregator.assert_metric(metric['metric_name'], tags=[])
+            aggregator.assert_metric_has_tag(metric['metric_name'], 'test:tag')
 
     aggregator.assert_all_metrics_covered()
