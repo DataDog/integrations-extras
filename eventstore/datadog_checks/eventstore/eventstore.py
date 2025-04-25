@@ -52,6 +52,7 @@ class EventStoreCheck(AgentCheck):
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
         metric_def = copy.deepcopy(metrics)
+        self.instance_tags = instance.get('tags', [])
 
         try:
             r = self.http.get(url)
@@ -323,9 +324,9 @@ class EventStoreCheck(AgentCheck):
         metric_name = metric['metric_name']
         if metric_type == 'gauge':
             self.log.debug("Sending gauge %s v: %s t: %s", metric_name, value, tags)
-            self.gauge(metric_name, value, tags)
+            self.gauge(metric_name, value, tags+self.instance_tags)
         elif metric_type == 'histogram':
             self.log.debug("Sending histogram %s v: %s t: %s", metric_name, value, tags)
-            self.histogram(metric_name, value, tags)
+            self.histogram(metric_name, value, tags+self.instance_tags)
         else:
             self.log.info('Unable to send metric %s due to invalid metric type of %s', metric_name, metric_type)
