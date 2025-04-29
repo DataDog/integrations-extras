@@ -14,7 +14,7 @@ Send key metrics about your Inngest functions and their underlying steps directl
 
 3. After authorization, your Production environment will start sending metrics.
 
-4. To enable additional environments, visit **Inngest Cloud → Integrations → Datadog**.
+4. To enable additional environments, visit **Inngest Cloud** > **Integrations** > **Datadog**.
 
 
 ## Uninstallation
