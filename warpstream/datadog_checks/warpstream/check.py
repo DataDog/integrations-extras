@@ -1,15 +1,7 @@
-# (C) Datadog, Inc. 2025-present
-# All rights reserved
-# Licensed under a 3-clause BSD style license (see LICENSE)
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
-
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
-
 
 class WarpstreamCheck(AgentCheck):
 
