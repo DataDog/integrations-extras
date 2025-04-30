@@ -69,9 +69,26 @@ REDPANDA_KAFKA = {
     'redpanda_kafka_request_latency_seconds': 'kafka.request_latency_seconds',
     'redpanda_kafka_request_bytes': 'kafka.request_bytes',
     'redpanda_kafka_under_replicated_replicas': 'kafka.under_replicated_replicas',
-    'redpanda_kafka_consumer_group_committed_offset': 'kafka.group_offset',
+}
+
+# As of Redpanda v25.1, can be disabled by removing "group"
+# from cluster config "enable_consumer_group_metrics"
+REDPANDA_KAFKA_CONSUMER_GROUP_INFO = {
     'redpanda_kafka_consumer_group_consumers': 'kafka.group_count',
     'redpanda_kafka_consumer_group_topics': 'kafka.group_topic_count',
+}
+
+# As of Redpanda v25.1, can be disabled by removing "partition"
+# from cluster config "enable_consumer_group_metrics"
+REDPANDA_KAFKA_CONSUMER_GROUP_OFFSET = {
+    'redpanda_kafka_consumer_group_committed_offset': 'kafka.group_offset',
+}
+
+# As of Redpanda v25.1, can be enabled by adding "consumer_lag"
+# to cluster config "enable_consumer_group_metrics"
+REDPANDA_KAFKA_CONSUMER_GROUP_LAG = {
+    'redpanda_kafka_consumer_group_lag_sum': 'kafka.group_lag_sum',
+    'redpanda_kafka_consumer_group_lag_max': 'kafka.group_lag_max',
 }
 
 REDPANDA_MEMORY = {
@@ -128,6 +145,8 @@ INSTANCE_DEFAULT_METRICS = [
     REDPANDA_CLUSTER_PARTITION,
     REDPANDA_IO_QUEUE,
     REDPANDA_KAFKA,
+    REDPANDA_KAFKA_CONSUMER_GROUP_INFO,
+    REDPANDA_KAFKA_CONSUMER_GROUP_LAG,
     REDPANDA_MEMORY,
     REDPANDA_RAFT,
     REDPANDA_REACTOR,
@@ -142,4 +161,5 @@ ADDITIONAL_METRICS_MAP = {
     'redpanda.pandaproxy': REDPANDA_PANDAPROXY,
     'redpanda.scheduler': REDPANDA_SCHEDULER,
     'redpanda.schemaregistry': REDPANDA_SCHEMA_REGISTRY,
+    'redpanda.kafka.consumer_group_offset': REDPANDA_KAFKA_CONSUMER_GROUP_OFFSET,
 }

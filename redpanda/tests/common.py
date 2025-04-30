@@ -81,12 +81,20 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.kafka.request_latency_seconds.count',
         'redpanda.kafka.request_bytes.count',
         'redpanda.kafka.under_replicated_replicas',
-        'redpanda.kafka.group_offset',
-        'redpanda.kafka.group_count',
-        'redpanda.kafka.group_topic_count',
         'redpanda.kafka.partition_committed_offset',
         'redpanda.kafka.partitions',
         'redpanda.kafka.replicas',
+    ],
+    'redpanda.kafka.consumer_group_info': [
+        'redpanda.kafka.group_count',
+        'redpanda.kafka.group_topic_count',
+    ],
+    'redpanda.kafka.consumer_group_offset': [
+        'redpanda.kafka.group_offset',
+    ],
+    'redpanda.kafka.consumer_group_lag': [
+        'redpanda.kafka.group_lag_sum',
+        'redpanda.kafka.group_lag_max',
     ],
     'redpanda.memory': [
         'redpanda.memory.allocated_memory',
@@ -139,6 +147,8 @@ INSTANCE_DEFAULT_GROUPS = [
     'redpanda.cluster',
     'redpanda.io_queue',
     'redpanda.kafka',
+    'redpanda.kafka.consumer_group_info',
+    'redpanda.kafka.consumer_group_lag',
     'redpanda.memory',
     'redpanda.partitions',
     'redpanda.raft',
@@ -150,6 +160,7 @@ INSTANCE_DEFAULT_GROUPS = [
 INSTANCE_ADDITIONAL_GROUPS = [
     'redpanda.cloud',
     'redpanda.controller',
+    'redpanda.kafka.consumer_group_offset',
     'redpanda.node_status',
     'redpanda.pandaproxy',
     'redpanda.scheduler',
