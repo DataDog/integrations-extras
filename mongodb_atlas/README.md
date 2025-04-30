@@ -48,7 +48,7 @@ Additional helpful documentation, links, and articles:
 - [Monitor MongoDB Atlas with Datadog][6]
 - [MongoDB Atlas for Government][7]
 
-[1]: https://app.datadoghq.com/organization-settings/api-keys
+[1]: /organization-settings/api-keys
 [2]: https://docs.atlas.mongodb.com/tutorial/monitoring-integrations/#procedure
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv
 [4]: https://www.mongodb.com/docs/atlas/configure-alerts/#std-label-notification-options

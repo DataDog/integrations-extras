@@ -1,0 +1,30 @@
+# This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/actions/stale
+name: Mark and close stale pull requests
+
+on:
+  schedule:
+  - cron: '20 21 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-pr-message: "This pull request has not been updated for more than 21 days. If there are no updates to this PR within 7 days, it will be closed. If you'd like to re-open this PR after it's been closed, you can start from the latest master branch or pull the latest changes into your branch and create a new pull request."
+        close-pr-message: "This pull request was not updated after an additional 7 days of no activity. If you would like to continue work on this PR, please re-open this PR or create a fresh branch off of the latest master branch."
+        stale-pr-label: 'stale'
+        days-before-stale: 21
+        days-before-close: 7
+        exempt-pr-labels: 'no-stale,product/logs-pipeline-requested'
+        remove-stale-when-updated: true
+        delete-branch: false

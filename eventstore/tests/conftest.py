@@ -28,4 +28,5 @@ def instance():
         'json_path': ['*', '*.*', '*.*.*', '*.*.*.*'],
         'user': 'admin',
         'password': 'changeit',
+        'tags': ['test:tag'],
     }

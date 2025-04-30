@@ -55,7 +55,7 @@ Need help? Contact [Datadog Support][6].
 
 
 
-[1]: https://app.datadoghq.com/integrations/rum-angular
+[1]: /integrations/rum-angular
 [2]: https://docs.datadoghq.com/real_user_monitoring/browser/ 
 [3]: https://docs.datadoghq.com/logs/log_collection/javascript/
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
