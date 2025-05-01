@@ -388,10 +388,12 @@ def members_resp_bad():
         ]
     }
 
+
 # Alias fixture for good vulnerability policy response
 @pytest.fixture()
 def vuln_policy_violation_resp_good(license_policy_violation_resp):
     return license_policy_violation_resp
+
 
 # Alias fixture for good members response
 @pytest.fixture()
