@@ -36,12 +36,19 @@ def test_check(
     usage_resp_good,
     entitlements_test_json,
     audit_log_resp_good,
+    members_resp,
+    mocker,
 ):
 
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    check.get_usage_info = MagicMock(return_value=usage_resp_good)
-    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
-    check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
+    mocker.patch.object(check, 'get_api_json', side_effect=[
+        usage_resp_good,
+        entitlements_test_json,
+        audit_log_resp_good,
+        [],
+        [],
+        members_resp,
+    ])
 
     check.check(None)
 
@@ -104,13 +111,17 @@ def test_vulnerability_and_license_violations(
     audit_log_resp_good,
     license_policy_violation_resp,
     license_policy_violation_resp_bad,
+    mocker,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    check.get_usage_info = MagicMock(return_value=usage_resp_good)
-    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
-    check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
-    check.get_vuln_policy_violation_info = MagicMock(return_value=license_policy_violation_resp_bad)
-    check.get_license_policy_violation_info = MagicMock(return_value=license_policy_violation_resp)
+    mocker.patch.object(check, 'get_api_json', side_effect=[
+        usage_resp_good,
+        entitlements_test_json,
+        audit_log_resp_good,
+        license_policy_violation_resp_bad,
+        license_policy_violation_resp,
+        [],
+    ])
 
     check.check(None)
 
@@ -130,12 +141,17 @@ def test_member_metrics_and_events(
     entitlements_test_json,
     audit_log_resp_good,
     members_resp,
+    mocker,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    check.get_usage_info = MagicMock(return_value=usage_resp_good)
-    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
-    check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
-    check.get_members_info = MagicMock(return_value=members_resp)
+    mocker.patch.object(check, 'get_api_json', side_effect=[
+        usage_resp_good,
+        entitlements_test_json,
+        audit_log_resp_good,
+        [],
+        [],
+        members_resp,
+    ])
 
     check.check(None)
 
