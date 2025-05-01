@@ -1,6 +1,6 @@
 # CHANGELOG - Cloudsmith
 
-## [1.0.0] - 2025-05-01
+### 1.0.0 / 2025-05-01
 
 ### Added
 - Initial production release of the Cloudsmith Datadog integration.

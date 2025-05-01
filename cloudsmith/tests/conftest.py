@@ -331,11 +331,9 @@ def license_policy_violation_resp():
                     "identifier": "KKE2ZsziqPSc",
                     "name": "ruby-example",
                     "version": "1.0.0",
-                    "url": "https://api.cloudsmith.io/v1/packages/ranjantestenv/testrepo/KKE2ZsziqPSc/"
+                    "url": "https://api.cloudsmith.io/v1/packages/ranjantestenv/testrepo/KKE2ZsziqPSc/",
                 },
-                "policy": {
-                    "name": "TestPolicy"
-                }
+                "policy": {"name": "TestPolicy"},
             }
         ]
     }
@@ -372,7 +370,7 @@ def members_resp():
                 "user_name": "Test User",
                 "user_url": "https://api.cloudsmith.io/v1/users/profile/test-user/",
                 "visibility": "Private",
-                "is_active": True
+                "is_active": True,
             }
         ]
     }
