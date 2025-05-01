@@ -113,7 +113,7 @@ class CloudsmithCheck(AgentCheck):
 
     # Get stats from REST API as json
     def get_api_json(self, url):
- 
+
         try:
             key = self.api_key
             headers = {"X-Api-Key": key, "content-type": "application/json"}
@@ -277,10 +277,12 @@ class CloudsmithCheck(AgentCheck):
             self.log.warning("Error while parsing JSON for usage information")
 
         # Add GB values
-        storage_used_gb = round(storage_used_bytes / (1024 ** 3), 2) if storage_used_bytes != -1 else -1
-        storage_plan_limit_gb = round(storage_plan_limit_bytes / (1024 ** 3), 2) if storage_plan_limit_bytes != -1 else -1
-        bandwidth_used_gb = round(bandwidth_used_bytes / (1024 ** 3), 2) if bandwidth_used_bytes != -1 else -1
-        bandwidth_plan_limit_gb = round(bandwidth_plan_limit_bytes / (1024 ** 3), 2) if bandwidth_plan_limit_bytes != -1 else -1
+        storage_used_gb = round(storage_used_bytes / (1024**3), 2) if storage_used_bytes != -1 else -1
+        storage_plan_limit_gb = round(storage_plan_limit_bytes / (1024**3), 2) if storage_plan_limit_bytes != -1 else -1
+        bandwidth_used_gb = round(bandwidth_used_bytes / (1024**3), 2) if bandwidth_used_bytes != -1 else -1
+        bandwidth_plan_limit_gb = (
+            round(bandwidth_plan_limit_bytes / (1024**3), 2) if bandwidth_plan_limit_bytes != -1 else -1
+        )
 
         if storage_mark == self.OK:
             if storage_used >= CRITICAL_QUOTA:
@@ -345,10 +347,7 @@ class CloudsmithCheck(AgentCheck):
         # Get raw results first
         raw_results = self.get_vulnerabilities_info()
 
-        filtered_results = [
-            r for r in raw_results
-            if r.get("package")
-        ]
+        filtered_results = [r for r in raw_results if r.get("package")]
 
         if not filtered_results:
             self.log.warning("No filtered vulnerabilities found, using unfiltered results.")
@@ -371,7 +370,6 @@ class CloudsmithCheck(AgentCheck):
                     }
                 )
 
-        
         return parsed
 
     def get_vuln_policy_violation_info(self):
@@ -384,7 +382,7 @@ class CloudsmithCheck(AgentCheck):
             if not response_json:
                 self.log.warning("No policy violation data found or API call failed.")
                 break
-            
+
             all_results.extend(response_json.get("results", []))
             url = response_json.get("next")  # Follow pagination if there are more results
 
@@ -433,47 +431,62 @@ class CloudsmithCheck(AgentCheck):
         response_json = self.get_members_info()
         parsed = []
         for item in response_json.get("results", []):
-            parsed.append({
-                "user_name": item.get("user_name", "unknown"),
-                "user_id": item.get("user_id", "unknown"),
-                "user": item.get("user", "unknown"),
-                "email": item.get("email", "unknown"),
-                "role": item.get("role", "unknown"),
-                "is_active": item.get("is_active", False),
-                "has_two_factor": item.get("has_two_factor", False),
-                "last_login_at": self.convert_time(item["last_login_at"]) if item.get("last_login_at") else int(time.time()),
-                "joined_at": self.convert_time(item["joined_at"]) if item.get("joined_at") else int(time.time()),
-                "last_login_method": item.get("last_login_method", "unknown"),
-            })
+            parsed.append(
+                {
+                    "user_name": item.get("user_name", "unknown"),
+                    "user_id": item.get("user_id", "unknown"),
+                    "user": item.get("user", "unknown"),
+                    "email": item.get("email", "unknown"),
+                    "role": item.get("role", "unknown"),
+                    "is_active": item.get("is_active", False),
+                    "has_two_factor": item.get("has_two_factor", False),
+                    "last_login_at": (
+                        self.convert_time(item["last_login_at"]) if item.get("last_login_at") else int(time.time())
+                    ),
+                    "joined_at": self.convert_time(item["joined_at"]) if item.get("joined_at") else int(time.time()),
+                    "last_login_method": item.get("last_login_method", "unknown"),
+                }
+            )
         return parsed
 
     def get_parsed_vuln_policy_violation_info(self):
         response_json = self.get_vuln_policy_violation_info()
         parsed = []
         for item in response_json.get("results", []):
-            parsed.append({
-                "package": item["package"]["name"] if item.get("package") else "unknown",
-                "policy": item.get("policy", {}).get("name", "unknown"),
-                "violations": item["vulnerability_scan_results"]["num_vulnerabilities"] if item.get("vulnerability_scan_results") else 0,
-                "last_detected": self.convert_time(item.get("event_at")) if item.get("event_at") else int(time.time())
-            })
+            parsed.append(
+                {
+                    "package": item["package"]["name"] if item.get("package") else "unknown",
+                    "policy": item.get("policy", {}).get("name", "unknown"),
+                    "violations": (
+                        item["vulnerability_scan_results"]["num_vulnerabilities"]
+                        if item.get("vulnerability_scan_results")
+                        else 0
+                    ),
+                    "last_detected": (
+                        self.convert_time(item.get("event_at")) if item.get("event_at") else int(time.time())
+                    ),
+                }
+            )
         return parsed
 
     def get_parsed_license_policy_violation_info(self):
         response_json = self.get_license_policy_violation_info()
         parsed = []
         for item in response_json.get("results", []):
-            parsed.append({
-                "package": item["package"]["name"] if item.get("package") else "unknown",
-                "policy": item.get("policy", {}).get("name", "unknown"),
-                "violations": 1,
-                "reason": "; ".join(item.get("reasons", [])),
-                "last_detected": self.convert_time(item.get("event_at")) if item.get("event_at") else int(time.time())
-            })
+            parsed.append(
+                {
+                    "package": item["package"]["name"] if item.get("package") else "unknown",
+                    "policy": item.get("policy", {}).get("name", "unknown"),
+                    "violations": 1,
+                    "reason": "; ".join(item.get("reasons", [])),
+                    "last_detected": (
+                        self.convert_time(item.get("event_at")) if item.get("event_at") else int(time.time())
+                    ),
+                }
+            )
         return parsed
 
     def check(self, _):
-
 
         usage_info = {
             "storage_mark": CloudsmithCheck.UNKNOWN,
@@ -531,30 +544,34 @@ class CloudsmithCheck(AgentCheck):
         else:
             vulnerabilities_info = self.get_parsed_vulnerabilities_info()
         policy_violations_info = self.get_parsed_vuln_policy_violation_info()
-        for v in policy_violations_info[:self.MAX_EVENTS]:
-            self.event({
-                "timestamp": v["last_detected"],
-                "event_type": "vulnerability_policy_violation",
-                "msg_title": f"{v['violations']} policy violations for {v['package']}",
-                "msg_text": f"Policy `{v['policy']}` triggered {v['violations']} violation(s).",
-                "aggregation_key": "vulnerability_policy_violation",
-                "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"]
-            })
+        for v in policy_violations_info[: self.MAX_EVENTS]:
+            self.event(
+                {
+                    "timestamp": v["last_detected"],
+                    "event_type": "vulnerability_policy_violation",
+                    "msg_title": f"{v['violations']} policy violations for {v['package']}",
+                    "msg_text": f"Policy `{v['policy']}` triggered {v['violations']} violation(s).",
+                    "aggregation_key": "vulnerability_policy_violation",
+                    "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
+                }
+            )
         license_violations_info = self.get_parsed_license_policy_violation_info()
-        for v in license_violations_info[:self.MAX_EVENTS]:
-            self.event({
-                "timestamp": v["last_detected"],
-                "event_type": "license_policy_violation",
-                "msg_title": f"License policy violation for {v['package']}",
-                "msg_text": f"Policy `{v['policy']}` triggered a license violation.\nReason: {v['reason']}",
-                "aggregation_key": "license_policy_violation",
-                "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"]
-            })
+        for v in license_violations_info[: self.MAX_EVENTS]:
+            self.event(
+                {
+                    "timestamp": v["last_detected"],
+                    "event_type": "license_policy_violation",
+                    "msg_title": f"License policy violation for {v['package']}",
+                    "msg_text": f"Policy `{v['policy']}` triggered a license violation.\nReason: {v['reason']}",
+                    "aggregation_key": "license_policy_violation",
+                    "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
+                }
+            )
         # Only send new vulnerabilities as events based on LAST_VULNERABILITY_STAMP
-        
+
         if vulnerabilities_info and len(vulnerabilities_info) > 0:
             new_vulns = [v for v in vulnerabilities_info if v["created_at"] > LAST_VULNERABILITY_STAMP]
-            for v in new_vulns[:self.MAX_EVENTS]:
+            for v in new_vulns[: self.MAX_EVENTS]:
                 self.event(
                     {
                         "timestamp": v["created_at"],
@@ -604,7 +621,7 @@ class CloudsmithCheck(AgentCheck):
         # this is to prevent duplicate events as we pull down the entire audit log
 
         if LAST_AUDIT_LOG_STAMP < audit_log_info[0]["event_at"]:
-            for a in audit_log_info[:self.MAX_EVENTS]:
+            for a in audit_log_info[: self.MAX_EVENTS]:
                 if a["event_at"] > LAST_AUDIT_LOG_STAMP:
                     self.event(
                         {
@@ -639,22 +656,24 @@ class CloudsmithCheck(AgentCheck):
         )
         members_info = self.get_parsed_members_info()
         for m in members_info:
-            self.gauge("cloudsmith.member.active", 1 if m["is_active"] else 0, tags=self.tags + [
-                f"user:{m['user']}",
-                f"role:{m['role']}",
-                f"2fa:{m['has_two_factor']}"
-            ])
+            self.gauge(
+                "cloudsmith.member.active",
+                1 if m["is_active"] else 0,
+                tags=self.tags + [f"user:{m['user']}", f"role:{m['role']}", f"2fa:{m['has_two_factor']}"],
+            )
         # Deduplicate by user (slug), not user_name or user_id
         unique_members = {m["user"]: m for m in members_info if "user" in m}.values()
         member_summary = "\n".join(
             f"{m.get('user_name', 'unknown')} ({m.get('role', 'unknown')}), 2FA: {m.get('has_two_factor', False)}, Last Login: {datetime.utcfromtimestamp(m.get('last_login_at', int(time.time()))).isoformat()}, Slug: {m.get('user', 'unknown')}"
             for m in unique_members
         )
-        self.event({
-            "timestamp": int(time.time()),
-            "event_type": "org_member_summary",
-            "msg_title": f"Organization Member Summary ({len(unique_members)} members)",
-            "msg_text": member_summary,
-            "aggregation_key": "org_members",
-            "tags": self.tags,
-        })
+        self.event(
+            {
+                "timestamp": int(time.time()),
+                "event_type": "org_member_summary",
+                "msg_title": f"Organization Member Summary ({len(unique_members)} members)",
+                "msg_text": member_summary,
+                "aggregation_key": "org_members",
+                "tags": self.tags,
+            }
+        )
