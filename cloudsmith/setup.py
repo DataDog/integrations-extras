@@ -52,8 +52,8 @@ setup(
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='Ciara Carey',
-    author_email='ccarey@cloudsmith.io',
+    author='Ranjan Singh',
+    author_email='rsingh@cloudsmith.io',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
