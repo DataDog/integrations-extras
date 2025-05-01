@@ -317,3 +317,75 @@ def vulnerabilitiy_resp_json_bad():
         }
     ]
     return vulnerabilitiy_resp_json_bad
+
+
+# Fixture for /license-policy-violation/ API response
+@pytest.fixture()
+def license_policy_violation_resp():
+    return {
+        "results": [
+            {
+                "event_at": "2025-04-29T18:04:36.943606Z",
+                "reasons": ["The package has a license which is on this policies deny list."],
+                "package": {
+                    "identifier": "KKE2ZsziqPSc",
+                    "name": "ruby-example",
+                    "version": "1.0.0",
+                    "url": "https://api.cloudsmith.io/v1/packages/ranjantestenv/testrepo/KKE2ZsziqPSc/"
+                },
+                "policy": {
+                    "name": "TestPolicy"
+                }
+            }
+        ]
+    }
+
+
+# Bad fixture for /license-policy-violation/ API response
+@pytest.fixture()
+def license_policy_violation_resp_bad():
+    return {
+        "results": [
+            {
+                # Missing 'package' and 'policy'
+                "event_at": None,
+                "reasons": [],
+            }
+        ]
+    }
+
+
+# Fixture for /orgs/{org}/members/ API response
+@pytest.fixture()
+def members_resp():
+    return {
+        "results": [
+            {
+                "email": "test@cloudsmith.io",
+                "has_two_factor": True,
+                "joined_at": "2024-09-02T16:10:29.693984Z",
+                "last_login_at": "2025-04-28T16:27:21.857505Z",
+                "last_login_method": "SAML",
+                "role": "Owner",
+                "user": "test-user",
+                "user_id": "abc123",
+                "user_name": "Test User",
+                "user_url": "https://api.cloudsmith.io/v1/users/profile/test-user/",
+                "visibility": "Private",
+                "is_active": True
+            }
+        ]
+    }
+
+
+# Bad fixture for /orgs/{org}/members/ API response
+@pytest.fixture()
+def members_resp_bad():
+    return {
+        "results": [
+            {
+                "email": "test@cloudsmith.io",
+                # Missing most user-related fields
+            }
+        ]
+    }
