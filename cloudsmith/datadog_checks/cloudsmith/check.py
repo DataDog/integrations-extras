@@ -664,7 +664,10 @@ class CloudsmithCheck(AgentCheck):
         # Deduplicate by user (slug), not user_name or user_id
         unique_members = {m["user"]: m for m in members_info if "user" in m}.values()
         member_summary = "\n".join(
-            f"{m.get('user_name', 'unknown')} ({m.get('role', 'unknown')}), 2FA: {m.get('has_two_factor', False)}, Last Login: {datetime.utcfromtimestamp(m.get('last_login_at', int(time.time()))).isoformat()}, Slug: {m.get('user', 'unknown')}"
+            f"{m.get('user_name', 'unknown')} ({m.get('role', 'unknown')}), "
+            f"2FA: {m.get('has_two_factor', False)}, "
+            f"Last Login: {datetime.utcfromtimestamp(m.get('last_login_at', int(time.time()))).isoformat()}, "
+            f"Slug: {m.get('user', 'unknown')}"
             for m in unique_members
         )
         self.event(
