@@ -102,15 +102,15 @@ def test_vulnerability_and_license_violations(
     usage_resp_good,
     entitlements_test_json,
     audit_log_resp_good,
-    vuln_policy_violation_resp_good,
-    license_policy_violation_resp_good,
+    license_policy_violation_resp,
+    license_policy_violation_resp_bad,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_usage_info = MagicMock(return_value=usage_resp_good)
     check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
     check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
-    check.get_vuln_policy_violation_info = MagicMock(return_value=vuln_policy_violation_resp_good)
-    check.get_license_policy_violation_info = MagicMock(return_value=license_policy_violation_resp_good)
+    check.get_vuln_policy_violation_info = MagicMock(return_value=license_policy_violation_resp_bad)
+    check.get_license_policy_violation_info = MagicMock(return_value=license_policy_violation_resp)
 
     check.check(None)
 
@@ -129,17 +129,17 @@ def test_member_metrics_and_events(
     usage_resp_good,
     entitlements_test_json,
     audit_log_resp_good,
-    members_resp_good,
+    members_resp,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_usage_info = MagicMock(return_value=usage_resp_good)
     check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
     check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
-    check.get_members_info = MagicMock(return_value=members_resp_good)
+    check.get_members_info = MagicMock(return_value=members_resp)
 
     check.check(None)
 
-    for member in members_resp_good["results"]:
+    for member in members_resp["results"]:
         expected_value = 1 if member["is_active"] else 0
         aggregator.assert_metric(
             "cloudsmith.member.active",
