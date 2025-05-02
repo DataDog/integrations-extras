@@ -27,8 +27,8 @@ class NextcloudCheck(AgentCheck):
         "server.php.upload_max_filesize",
         "server.database.size",
         "activeUsers.last5minutes",
-        "activeUsers.last1hour",
         "activeUsers.last24hours",
+        "activeUsers.last1hour",
     ]
 
     # Tags that will be applied to all metrics
