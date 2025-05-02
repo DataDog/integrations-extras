@@ -30,4 +30,4 @@ Need help? Contact [Notion Support][3].
 [1]: https://docs.datadoghq.com/security/cloud_siem/
 [2]: https://www.notion.so/help/audit-log
 [3]: mailto:team@makenotion.com
-[4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Notion
+[4]: /organization-settings/api-keys?filter=Notion

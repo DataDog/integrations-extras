@@ -58,7 +58,7 @@ Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailt
 [4]: https://apptrail.com/docs/consumers/guide/event-delivery/working-with-trails#creating-a-trail
 [5]: https://portal.apptrail.com/trails
 [6]: https://docs.datadoghq.com/getting_started/site/
-[7]: https://app.datadoghq.com/organization-settings/api-keys
+[7]: /organization-settings/api-keys
 [10]: https://apptrail.com/docs/consumers/guide/event-format
 [11]: https://apptrail.com/docs/consumers/guide/event-delivery/#trails
 [12]: https://apptrail.com/docs/consumers/guide/event-delivery/working-with-trails#selecting-events-using-trail-rules
