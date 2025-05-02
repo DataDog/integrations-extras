@@ -36,6 +36,12 @@ Run the [Agent's status subcommand][10] and look for `nextcloud` under the Check
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
+#### Optional metrics
+
+The `nextcloud.system.apps.*` metrics are optional and enabled with the `apps_stats` configuration key. Beginning with Nextcloud 28, the monitoring endpoint no longer provides information about available app updates, as gathering the data always involves at least one external request to apps.nextcloud.com.
+
+It is still possible to ask the monitoring endpoint to [show new app updates][14] by using the URL parameter `skipApps=false`. However, Nextcloud recommends to not check this endpoint too often.
+
 ### Events
 
 Nextcloud does not include any events.
@@ -60,3 +66,4 @@ Need help? Contact [Datadog support][12].
 [11]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/metadata.csv
 [12]: https://docs.datadoghq.com/help/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/assets/service_checks.json
+[14]: https://github.com/nextcloud/serverinfo#api
