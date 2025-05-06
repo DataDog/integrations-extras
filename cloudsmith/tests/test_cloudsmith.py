@@ -41,14 +41,18 @@ def test_check(
 ):
 
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    mocker.patch.object(check, 'get_api_json', side_effect=[
-        usage_resp_good,
-        entitlements_test_json,
-        audit_log_resp_good,
-        [],
-        [],
-        members_resp,
-    ])
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            [],
+            [],
+            members_resp,
+        ],
+    )
 
     check.check(None)
 
@@ -114,14 +118,18 @@ def test_vulnerability_and_license_violations(
     mocker,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    mocker.patch.object(check, 'get_api_json', side_effect=[
-        usage_resp_good,
-        entitlements_test_json,
-        audit_log_resp_good,
-        license_policy_violation_resp_bad,
-        license_policy_violation_resp,
-        [],
-    ])
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            license_policy_violation_resp_bad,
+            license_policy_violation_resp,
+            [],
+        ],
+    )
 
     check.check(None)
 
@@ -144,14 +152,18 @@ def test_member_metrics_and_events(
     mocker,
 ):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    mocker.patch.object(check, 'get_api_json', side_effect=[
-        usage_resp_good,
-        entitlements_test_json,
-        audit_log_resp_good,
-        [],
-        [],
-        members_resp,
-    ])
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            [],
+            [],
+            members_resp,
+        ],
+    )
 
     check.check(None)
 
