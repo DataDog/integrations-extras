@@ -35,7 +35,7 @@ STATUS_METRICS = [
 
 class AquaCheck(AgentCheck):
     """
-    Collect metric from Aqua.
+    Collect metrics from Aqua.
     """
 
     SERVICE_CHECK_NAME = 'aqua.can_connect'
