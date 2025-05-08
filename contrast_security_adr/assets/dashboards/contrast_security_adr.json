@@ -1,0 +1,416 @@
+{
+  "title": "Contrast Security ADR",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 6181128480564103,
+      "definition": {
+        "type": "image",
+        "url": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_color.png",
+        "url_dark_theme": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_reverse.png",
+        "sizing": "contain",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 2
+      }
+    },
+    {
+      "id": 1782623543348740,
+      "definition": {
+        "title": "Attacks Blocked",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:contrastadr"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@result",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  },
+                  {
+                    "facet": "@application.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "style": {
+              "palette": "datadog16"
+            },
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 100,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend": {
+          "type": "automatic"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 2595467198821652,
+      "definition": {
+        "title": "Attacks by Applications",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:contrastadr @application.name:*"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@application.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "style": {
+              "palette": "datadog16"
+            },
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 10,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend": {
+          "type": "automatic"
+        }
+      },
+      "layout": {
+        "x": 6,
+        "y": 2,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 1701489096793870,
+      "definition": {
+        "title": "Attacks by Type",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:contrastadr @rule:*"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@rule",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  },
+                  {
+                    "facet": "@application.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "response_format": "scalar",
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 100,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "style": {
+          "display": {
+            "type": "stacked",
+            "legend": "automatic"
+          },
+          "palette": "datadog16"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 4349148145843182,
+      "definition": {
+        "title": "Attacks by Type and Time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:contrastadr"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@rule",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  },
+                  {
+                    "facet": "@application.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 2205300797772388,
+      "definition": {
+        "title": "Top 10 most attacked URIs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:contrastadr"
+                },
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@attackPayload.url",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  },
+                  {
+                    "facet": "@application.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc",
+                      "metric": "count"
+                    },
+                    "should_exclude_missing": true
+                  }
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "sort": {
+              "count": 100,
+              "order_by": [
+                {
+                  "type": "formula",
+                  "index": 0,
+                  "order": "desc"
+                }
+              ]
+            }
+          }
+        ],
+        "style": {
+          "display": {
+            "type": "stacked",
+            "legend": "automatic"
+          }
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}

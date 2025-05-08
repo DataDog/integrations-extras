@@ -1,0 +1,308 @@
+id: contrast-security-adr
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
+metric_id: contrast-security-adr
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
+backend_only: false
+facets:
+  - groups:
+      - Web Access
+    name: Client IP
+    path: network.client.ip
+    source: log
+  - groups:
+      - Web Access
+    name: Method
+    path: http.method
+    source: log
+  - groups:
+      - Web Access
+    name: URL scheme
+    path: http.url_details.scheme
+    source: log
+  - groups:
+      - Web Access
+    name: Version
+    path: http.version
+    source: log
+  - groups:
+      - Event
+    name: Event Outcome
+    path: evt.outcome
+    source: log
+  - groups:
+      - Web Access
+    name: URL Path
+    path: http.url_details.path
+    source: log
+  - groups:
+      - Web Access
+    name: Referer
+    path: http.referer
+    source: log
+  - groups:
+      - Web Access
+    name: URL Host
+    path: http.url_details.host
+    source: log
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: apiUri
+    path: apiUri
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: db.statement
+    path: db.statement
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: detectedTime
+    path: detectedTime
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.headers.host
+    path: request.headers.host
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.headers.referer
+    path: request.headers.referer
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.headers.user-agent
+    path: request.headers.user-agent
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.method
+    path: request.method
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.protocol
+    path: request.protocol
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.protocolVersion
+    path: request.protocolVersion
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.queryString
+    path: request.queryString
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: result
+    path: result
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: sourceip
+    path: sourceip
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: sourceIp.string
+    path: sourceIp.string
+    source: log
+    type: string
+pipeline:
+  type: pipeline
+  name: Contrast ADR Pipeline
+  enabled: true
+  filter:
+    query: source:contrastadr
+  processors:
+    - type: attribute-remapper
+      name: "Remapper: Map `sourceIp.string` to `network.client.ip`"
+      enabled: true
+      sources:
+        - sourceip.string
+      sourceType: attribute
+      target: network.client.ip
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map  `request.method` to `http.method`"
+      enabled: true
+      sources:
+        - request.method
+      sourceType: attribute
+      target: http.method
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `request.protocol` to `http.url_details.scheme`"
+      enabled: true
+      sources:
+        - request.protocol
+      sourceType: attribute
+      target: http.url_details.scheme
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `request.queryString` to `http.url_details.queryString`"
+      enabled: true
+      sources:
+        - request.queryString
+      sourceType: attribute
+      target: http.url_details.queryString
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `request.protocolVersion` to `http.version`"
+      enabled: true
+      sources:
+        - request.protocolVersion
+      sourceType: attribute
+      target: http.version
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `detectedTime` to `timestamp`"
+      enabled: true
+      sources:
+        - detectedTime
+      sourceType: attribute
+      target: timestamp
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `result` to `evt.outcome` "
+      enabled: true
+      sources:
+        - result
+      sourceType: attribute
+      target: evt.outcome
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: url-parser
+      name: "URL Parser : Map `apiUri` to `http.url_details.path`"
+      enabled: true
+      sources:
+        - apiUri
+      target: http.url_details.path
+      normalizeEndingSlashes: false
+    - type: attribute-remapper
+      name: " Remapper: Map `request.headers.referer` to `http.referer`"
+      enabled: true
+      sources:
+        - request.headers.referer
+      sourceType: attribute
+      target: http.referer
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map `request.headers.host` to `http.url_details.host`"
+      enabled: true
+      sources:
+        - request.headers.host
+      sourceType: attribute
+      target: http.url_details.host
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper: Map ` request.headers` to `http.request.headers`"
+      enabled: true
+      sources:
+        - request.headers
+      sourceType: attribute
+      target: http.request.headers
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: " Remapper :  Map ` request.headers.user-agent` to `http.user-agent`"
+      enabled: true
+      sources:
+        - request.headers.user-agent
+      sourceType: attribute
+      target: http.user-agent
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: " Remapper : Remapper: Map `contrast_incident.incident_id` to
+        `resource.id`"
+      enabled: true
+      sources:
+        - contrast_incident.incident_id
+      sourceType: attribute
+      target: resource.id
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper : Remapper: Map `contrast_incident.incident_url` to
+        `resource.url`"
+      enabled: true
+      sources:
+        - contrast_incident.incident_url
+      sourceType: attribute
+      target: resource.url
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: "Remapper : Map `contrast_incident.incident_score` to `syslog.severity`"
+      enabled: true
+      sources:
+        - contrast_incident.incident_score
+      sourceType: attribute
+      target: syslog.severity
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
