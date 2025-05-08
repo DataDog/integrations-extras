@@ -36,12 +36,23 @@ def test_check(
     usage_resp_good,
     entitlements_test_json,
     audit_log_resp_good,
+    members_resp,
+    mocker,
 ):
 
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    check.get_usage_info = MagicMock(return_value=usage_resp_good)
-    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
-    check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            [],
+            [],
+            members_resp,
+        ],
+    )
 
     check.check(None)
 
@@ -94,3 +105,79 @@ def test_check_badly_formatted_json(aggregator, instance_good, entitlements_test
     aggregator.assert_metric("cloudsmith.token_bandwidth_total", -1, count=1)
     aggregator.assert_metric("cloudsmith.token_count", -1, count=1)
     aggregator.assert_metric("cloudsmith.token_download_total", -1, count=1)
+
+
+def test_vulnerability_and_license_violations(
+    aggregator,
+    instance_good,
+    usage_resp_good,
+    entitlements_test_json,
+    audit_log_resp_good,
+    license_policy_violation_resp,
+    license_policy_violation_resp_bad,
+    mocker,
+):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            license_policy_violation_resp_bad,
+            license_policy_violation_resp,
+            [],
+        ],
+    )
+
+    check.check(None)
+
+    aggregator.assert_metric("cloudsmith.bandwidth_used", 0.0)
+    aggregator.assert_metric("cloudsmith.storage_used", 0.914)
+    aggregator.assert_metric("cloudsmith.token_bandwidth_total", 37802418)
+    aggregator.assert_metric("cloudsmith.token_count", 119)
+    aggregator.assert_metric("cloudsmith.token_download_total", 240)
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+
+def test_member_metrics_and_events(
+    aggregator,
+    instance_good,
+    usage_resp_good,
+    entitlements_test_json,
+    audit_log_resp_good,
+    members_resp,
+    mocker,
+):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    mocker.patch.object(
+        check,
+        'get_api_json',
+        side_effect=[
+            usage_resp_good,
+            entitlements_test_json,
+            audit_log_resp_good,
+            [],
+            [],
+            members_resp,
+        ],
+    )
+
+    check.check(None)
+
+    for member in members_resp["results"]:
+        expected_value = 1 if member["is_active"] else 0
+        aggregator.assert_metric(
+            "cloudsmith.member.active",
+            expected_value,
+            tags=[
+                f"user:{member['user']}",
+                f"role:{member['role']}",
+                f"2fa:{member['has_two_factor']}",
+            ],
+        )
+
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
