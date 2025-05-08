@@ -1,6 +1,6 @@
 {
   "title": "Pulse Overview",
-  "description": "This should include the same copy as the high-level overview  in the About section of the dashboard including helpful links.\n\nClone this template dashboard to make changes and add your own graph widgets. ",
+  "description": "This dashboard provides a high-level overview of alerts triggered by Pulse.",
   "widgets": [
     {
       "id": 325090501093728,
@@ -35,7 +35,7 @@
             "id": 6544225029855812,
             "definition": {
               "type": "note",
-              "content": "This dashboard provides a high-level overview of alerts triggered by Pulse.",
+              "content": "This dashboard provides a high-level overview of alerts triggered by Pulse. Pulse is a monitoring and optimization platform for Elasticsearch and OpenSearch clusters. It detects performance issues, tracks resource usage, and sends intelligent alerts to Datadog so teams can centralize incident response.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -112,9 +112,32 @@
                   "response_format": "timeseries",
                   "queries": [
                     {
+                      "data_source": "events",
                       "name": "count_by_cluster",
-                      "data_source": "metrics",
-                      "query": "count:datadog.events{source:pulse} by {device_name}"
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cluster_name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:elasticsearch service:pulse"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "count_by_cluster"
                     }
                   ],
                   "style": {
@@ -155,9 +178,32 @@
                   "response_format": "timeseries",
                   "queries": [
                     {
+                      "data_source": "events",
                       "name": "query1",
-                      "data_source": "metrics",
-                      "query": "count:datadog.events{source:pulse} by {alert_type}"
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:elasticsearch service:pulse"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
                     }
                   ],
                   "style": {
@@ -206,10 +252,27 @@
                 {
                   "queries": [
                     {
-                      "data_source": "metrics",
+                      "data_source": "events",
                       "name": "query1",
-                      "query": "count:datadog.events{source:pulse} by {device_name}",
-                      "aggregator": "avg"
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cluster_name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:elasticsearch service:pulse"
+                      }
                     }
                   ],
                   "response_format": "scalar",
@@ -255,10 +318,27 @@
                 {
                   "queries": [
                     {
-                      "data_source": "metrics",
+                      "data_source": "events",
                       "name": "query1",
-                      "query": "count:datadog.events{source:pulse} by {alert_type}",
-                      "aggregator": "avg"
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:elasticsearch service:pulse"
+                      }
                     }
                   ],
                   "response_format": "scalar",
