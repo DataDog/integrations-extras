@@ -1,0 +1,6 @@
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric,sample_tags
+release.build.status,gauge,,,,"Indicates the status of a build (started/completed/failed)",0,release,build_status,,repository:example-repo|branch:main|workspace:example|user:john|build_id:12345|app:myapp|commit:abcd123|status:completed
+release.build.duration,gauge,,second,,"The duration of a build in seconds",-1,release,build_duration,,repository:example-repo|branch:main|workspace:example|user:john|build_id:12345|app:myapp|commit:abcd123
+release.deploy.status,gauge,,,,"Indicates the status of a deployment (started/completed/failed/rolled_back)",0,release,deploy_status,,environment:production|space_id:123|app:myapp|app_id:456|workspace:example|user:john|deployment_type:full|permanent:true|production:true|status:completed
+release.deploy.duration,gauge,,second,,"The duration of a deployment in seconds",-1,release,deploy_duration,,environment:production|space_id:123|app:myapp|app_id:456|workspace:example|user:john|deployment_type:full|permanent:true|production:true
+release.integration.heartbeat,gauge,,,,"Indicates that the Datadog integration is active and sending metrics",1,release,integration_heartbeat,,workspace:example|integration_type:build_metrics|status:active 
