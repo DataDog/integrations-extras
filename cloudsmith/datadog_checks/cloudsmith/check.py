@@ -113,7 +113,6 @@ class CloudsmithCheck(AgentCheck):
 
     # Get stats from REST API as json
     def get_api_json(self, url):
-
         try:
             key = self.api_key
             headers = {"X-Api-Key": key, "content-type": "application/json"}
@@ -487,7 +486,6 @@ class CloudsmithCheck(AgentCheck):
         return parsed
 
     def check(self, _):
-
         usage_info = {
             "storage_mark": CloudsmithCheck.UNKNOWN,
             "storage_used": -1,
@@ -598,13 +596,25 @@ class CloudsmithCheck(AgentCheck):
         self.gauge("storage_used", usage_info["storage_used"], tags=self.tags)
         self.gauge("bandwidth_used", usage_info["bandwidth_used"], tags=self.tags)
         self.gauge("storage_used_bytes", usage_info["storage_used_bytes"], tags=self.tags)
-        self.gauge("storage_plan_limit_bytes", usage_info["storage_plan_limit_bytes"], tags=self.tags)
+        self.gauge(
+            "storage_plan_limit_bytes",
+            usage_info["storage_plan_limit_bytes"],
+            tags=self.tags,
+        )
         self.gauge("bandwidth_used_bytes", usage_info["bandwidth_used_bytes"], tags=self.tags)
-        self.gauge("bandwidth_plan_limit_bytes", usage_info["bandwidth_plan_limit_bytes"], tags=self.tags)
+        self.gauge(
+            "bandwidth_plan_limit_bytes",
+            usage_info["bandwidth_plan_limit_bytes"],
+            tags=self.tags,
+        )
         self.gauge("storage_used_gb", usage_info["storage_used_gb"], tags=self.tags)
         self.gauge("storage_plan_limit_gb", usage_info["storage_plan_limit_gb"], tags=self.tags)
         self.gauge("bandwidth_used_gb", usage_info["bandwidth_used_gb"], tags=self.tags)
-        self.gauge("bandwidth_plan_limit_gb", usage_info["bandwidth_plan_limit_gb"], tags=self.tags)
+        self.gauge(
+            "bandwidth_plan_limit_gb",
+            usage_info["bandwidth_plan_limit_gb"],
+            tags=self.tags,
+        )
         self.gauge("token_count", entitlement_info["token_count"], tags=self.tags)
         self.gauge(
             "token_bandwidth_total",
@@ -659,7 +669,12 @@ class CloudsmithCheck(AgentCheck):
             self.gauge(
                 "cloudsmith.member.active",
                 1 if m["is_active"] else 0,
-                tags=self.tags + [f"user:{m['user']}", f"role:{m['role']}", f"2fa:{m['has_two_factor']}"],
+                tags=self.tags
+                + [
+                    f"user:{m['user']}",
+                    f"role:{m['role']}",
+                    f"2fa:{m['has_two_factor']}",
+                ],
             )
         # Deduplicate by user (slug), not user_name or user_id
         unique_members = {m["user"]: m for m in members_info if "user" in m}.values()

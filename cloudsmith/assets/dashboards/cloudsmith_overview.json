@@ -6,7 +6,7 @@
       "id": 2,
       "definition": {
         "title": "Cloudsmith",
-        "banner_img": "https://raw.githubusercontent.com/ciaracarey/test_cs_images/main/datadog-cloudsmith-logo-634x251.png",
+        "banner_img": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/cloudsmith/images/CloudsmithLogo.png",
         "show_title": false,
         "type": "group",
         "layout_type": "ordered",
@@ -130,10 +130,98 @@
               "precision": 2
             },
             "layout": { "x": 0, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 9000000000000001,
+            "definition": {
+              "title": "Active Members",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.member.active{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 9000000000000002,
+            "definition": {
+              "title": "Storage Used (GB)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.storage_used_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "GB",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": { "x": 0, "y": 4, "width": 6, "height": 3 }
+          },
+          {
+            "id": 9000000000000003,
+            "definition": {
+              "title": "Bandwidth Used (GB)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth_used_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "GB",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": { "x": 6, "y": 4, "width": 6, "height": 3 }
           }
         ]
       },
-      "layout": { "x": 6, "y": 0, "width": 6, "height": 5 }
+      "layout": { "x": 6, "y": 0, "width": 12, "height": 7 }
     },
     {
       "id": 7490658912792070,
@@ -155,7 +243,7 @@
         ],
         "type": "list_stream"
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+      "layout": { "x": 0, "y": 7, "width": 12, "height": 4 }
     },
     {
       "id": 3,
@@ -289,7 +377,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 11,
         "width": 12,
         "height": 5,
         "is_column_break": true
@@ -315,7 +403,73 @@
         ],
         "type": "list_stream"
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+      "layout": { "x": 0, "y": 16, "width": 12, "height": 4 }
+    },
+    {
+      "id": 9000000000000004,
+      "definition": {
+        "title": "Organization Members Summary",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "requests": [
+          {
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:org_members",
+              "event_size": "s"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 20, "width": 12, "height": 4 }
+    },
+    {
+      "id": 9000000000000005,
+      "definition": {
+        "title": "Vulnerability Policy Violations",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "requests": [
+          {
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:vulnerability_policy_violation",
+              "event_size": "s"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 24, "width": 12, "height": 4 }
+    },
+    {
+      "id": 9000000000000006,
+      "definition": {
+        "title": "License Policy Violations",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "requests": [
+          {
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:license_policy_violation",
+              "event_size": "s"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 28, "width": 12, "height": 4 }
     }
   ],
   "template_variables": [],
