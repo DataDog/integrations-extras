@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2025-05-08
 
-_**New**_:
+_**Added**_:
 
 * Initial Release
