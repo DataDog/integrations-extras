@@ -1,22 +1,22 @@
- {
-  "title": "Redis Enterprise - Proxy",
-  "description": "Redis Enterprise Proxy presents a single, usable endpoint that hides topological complexity",
+{
+  "title": "Redis Enterprise: Prometheus - Active-Active",
+  "description": "Redis Enterprise Active-Active provides details on the status of replication",
   "widgets": [
     {
-      "id": 4181575023845814,
+      "id": 1612047639653128,
       "definition": {
-        "title": "Proxy Overview",
-        "background_color": "vivid_blue",
+        "title": "Summary",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 7104524980730882,
+            "id": 2915118368107020,
             "definition": {
               "type": "note",
-              "content": "Redis Enterprise Proxy is an entity with negligible latency that mediates between applications and the database. It exposes the database endpoint to database clients while masking behind-the-scenes activities that the Redis Enterprise cluster performs. This allows developers to focus on how an application is using the data, instead of worrying about frequent changes in database topology.\n\nThe proxy employs a multi-threaded architecture. It can easily scale up by using more available cores. It is designed to cope with high traffic by using multiplexing and pipelining. When thousands of clients are connected to Redis Enterprise simultaneously, the proxy consolidates all of the incoming requests into a set of inner pipelines and distributes them to the relevant database shard. Net result: Requests are processed much faster, allowing high throughput with low latency.",
-              "background_color": "white",
+              "content": "In Redis Enterprise, Active-Active geo-distribution is based on CRDT technology. The Redis Enterprise implementation of CRDT is called an Active-Active database (formerly known as CRDB). With Active-Active databases, applications can read and write to the same data set from different geographical locations seamlessly and with latency less than one millisecond (ms), without changing the way the application connects to the database.\n\nActive-Active databases also provide disaster recovery and accelerated data read-access for geographically distributed users.",
+              "background_color": "vivid_blue",
               "font_size": "14",
               "text_align": "left",
               "vertical_align": "top",
@@ -28,149 +28,33 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
-              "height": 3
+              "width": 6,
+              "height": 4
             }
           },
           {
-            "id": 4369424159881430,
+            "id": 2930533713442618,
             "definition": {
-              "title": "Proxy Memory Usage",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.dmcproxy_process_resident_memory_bytes{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 3
-            }
-          },
-          {
-            "id": 3018908171808098,
-            "definition": {
-              "title": "Proxy Client Connections",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_conns{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 2976279033317650,
-      "definition": {
-        "title": "Network",
-        "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 5129890666020128,
-            "definition": {
-              "title": "Endpoints",
+              "title": "Replication Status",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_conns{$cluster}",
-                      "aggregator": "last"
+                      "query": "avg:rdse.bdb_crdt_syncer_status{$cluster}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "scalar"
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
                 }
               ],
               "autoscale": true,
@@ -180,378 +64,227 @@
               }
             },
             "layout": {
-              "x": 0,
+              "x": 6,
               "y": 0,
               "width": 2,
-              "height": 3
+              "height": 2
             }
           },
           {
-            "id": 2418700679517252,
+            "id": 2755812436657366,
             "definition": {
-              "title": "Endpoints Total Ingress",
+              "title": "Replication Lag",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
+              "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "listener ingress",
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_ingress_bytes{$cluster} by {node}"
+                      "query": "avg:rdse.redis_crdt_peer_lag{$cluster}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
                 }
-              ]
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
-              "x": 2,
+              "x": 8,
               "y": 0,
-              "width": 5,
-              "height": 3
+              "width": 2,
+              "height": 2
             }
           },
           {
-            "id": 1368636092995330,
+            "id": 8236114950898096,
             "definition": {
-              "title": "Ingress/Egress by Node",
+              "title": "Pending Garbage Collection",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
+              "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "ingress",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "egress",
-                      "formula": "query2 * -1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.node_ingress_bytes{$cluster} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse.node_egress_bytes{$cluster} by {node}"
+                      "query": "avg:rdse.redis_crdt_gc_collected{$cluster}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 7,
-              "y": 0,
-              "width": 5,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 4,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 7717974699945770,
-      "definition": {
-        "title": "CPU/Threads",
-        "background_color": "vivid_yellow",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 1205350136707792,
-            "definition": {
-              "title": "Thread Utilization",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
                   "formulas": [
                     {
                       "formula": "query1"
                     }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster} by {threadname}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                  ]
                 }
-              ]
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
-              "x": 0,
+              "x": 10,
               "y": 0,
-              "width": 6,
-              "height": 3
+              "width": 2,
+              "height": 2
             }
           },
           {
-            "id": 1641628053179844,
+            "id": 6968331984484540,
             "definition": {
-              "title": "CPU Utilization",
+              "title": "Raw DB Size",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
+              "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.dmcproxy_process_cpu_usage_percent{$cluster , $node}"
+                      "query": "avg:rdse.redis_crdt_raw_dbsize{role:master , $cluster}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
                 }
-              ]
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
               "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 8,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 5217564291542670,
-      "definition": {
-        "title": "Total Operations",
-        "background_color": "vivid_pink",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6812333349868960,
-            "definition": {
-              "title": "Requests",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_total_req{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
+              "y": 2,
+              "width": 2,
+              "height": 2
             }
           },
           {
-            "id": 7356449359833222,
+            "id": 6989215750840428,
             "definition": {
-              "title": "Responses",
+              "title": "Replication Backlog",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
+              "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_total_res{$cluster} by {node}"
+                      "query": "avg:rdse.redis_crdt_backlog_histlen{role:master , $cluster}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
                 }
-              ]
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
+              "x": 8,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 3111427893009204,
+            "definition": {
+              "title": "Pending Max Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_crdt_syncer_egress_bytes_max{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 10,
+              "y": 2,
+              "width": 2,
+              "height": 2
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 12,
+        "y": 0,
         "width": 12,
-        "height": 4
+        "height": 5
       }
     },
     {
-      "id": 5330583329708778,
+      "id": 2721361520379598,
       "definition": {
-        "title": "Read/Write Requests/Responses",
+        "title": "Lag",
         "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 5368842331723112,
+            "id": 300596519375860,
             "definition": {
-              "title": "Read",
+              "title": "Synchronization Lag",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -565,24 +298,14 @@
                 {
                   "formulas": [
                     {
-                      "alias": "requests",
                       "formula": "query1"
-                    },
-                    {
-                      "alias": "responses",
-                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_read_req{$cluster} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse.listener_read_res{$cluster} by {node}"
+                      "query": "avg:rdse.bdb_crdt_syncer_local_ingress_lag_time{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -601,16 +324,16 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           },
           {
-            "id": 2048427695631512,
+            "id": 7680670658379236,
             "definition": {
-              "title": "Write",
+              "title": "Merge Requests",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -624,24 +347,14 @@
                 {
                   "formulas": [
                     {
-                      "alias": "requests",
                       "formula": "query1"
-                    },
-                    {
-                      "alias": "responses",
-                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_write_req{$cluster} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse.listener_write_res{$cluster} by {node}"
+                      "query": "avg:rdse.redis_crdt_merge_reqs{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -660,32 +373,31 @@
               "x": 6,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 16,
+        "y": 5,
         "width": 12,
-        "height": 4,
-        "is_column_break": true
+        "height": 5
       }
     },
     {
-      "id": 1107644513966124,
+      "id": 3129203195092272,
       "definition": {
-        "title": "Get/Set",
-        "background_color": "vivid_orange",
+        "title": "Ingress",
+        "background_color": "green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 4493462146648202,
+            "id": 7889024152378106,
             "definition": {
-              "title": "Get",
+              "title": "Ingress",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -702,7 +414,6 @@
                 {
                   "formulas": [
                     {
-                      "alias": "GET",
                       "formula": "query1"
                     }
                   ],
@@ -710,7 +421,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_cmd_get{$cluster}"
+                      "query": "avg:rdse.bdb_crdt_syncer_ingress_bytes{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -729,13 +440,13 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           },
           {
-            "id": 2699327014422812,
+            "id": 445842004133046,
             "definition": {
-              "title": "Set",
+              "title": "Ingress (de-compressed)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -752,7 +463,6 @@
                 {
                   "formulas": [
                     {
-                      "alias": "SET",
                       "formula": "query1"
                     }
                   ],
@@ -760,7 +470,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdse.bdb_crdt_syncer_ingress_bytes_decompressed{crdt_replica_id:2, $cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -779,16 +489,133 @@
               "x": 6,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 20,
+        "y": 0,
         "width": 12,
-        "height": 4
+        "height": 5,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 8072238870944916,
+      "definition": {
+        "title": "Egress",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4267779925837744,
+            "definition": {
+              "title": "Egress",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_crdt_syncer_egress_bytes{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 108369510108736,
+            "definition": {
+              "title": "Egress (de-compressed)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_crdt_syncer_egress_bytes_decompressed{crdt_replica_id:2 , $cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 12,
+        "height": 5
       }
     }
   ],
@@ -796,12 +623,6 @@
     {
       "name": "cluster",
       "prefix": "cluster",
-      "available_values": [],
-      "default": "*"
-    },
-    {
-      "name": "node",
-      "prefix": "node",
       "available_values": [],
       "default": "*"
     }
