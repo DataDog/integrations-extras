@@ -25,7 +25,7 @@
       "id": 2,
       "definition": {
         "title": "Cloudsmith",
-        "banner_img": "https://raw.githubusercontent.com/ciaracarey/test_cs_images/main/datadog-cloudsmith-logo-634x251.png",
+        "banner_img": "https://raw.githubusercontent.com/opswithranjan/CloudsmithLogo/main/CloudsmithLogo.jpeg",
         "show_title": false,
         "type": "group",
         "layout_type": "ordered",
@@ -69,7 +69,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "width": 6,
         "height": 7
       }
@@ -305,9 +305,9 @@
       },
       "layout": {
         "x": 6,
-        "y": 1,
+        "y": 0,
         "width": 6,
-        "height": 9
+        "height": 7
       }
     },
     {
@@ -324,58 +324,40 @@
       },
       "layout": {
         "x": 0,
-        "y": 8,
+        "y": 0,
         "width": 12,
         "height": 1
       }
     },
     {
-      "id": 7490658912792070,
+      "id": 8941949979904031,
       "definition": {
         "title": "Audit Logs",
         "title_size": "16",
         "title_align": "left",
-        "type": "query_table",
+        "time": {},
         "requests": [
           {
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "sum:cloudsmith.cloudsmith.member.active{*}",
-                "aggregator": "avg"
-              }
-            ],
-            "response_format": "scalar",
-            "sort": {
-              "count": 500,
-              "order_by": [
-                {
-                  "type": "formula",
-                  "index": 0,
-                  "order": "desc"
-                }
-              ]
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:audit_log",
+              "event_size": "s"
             },
-            "formulas": [
-              {
-                "cell_display_mode": "number",
-                "formula": "query1"
-              }
-            ]
+            "response_format": "event_list",
+            "columns": []
           }
         ],
-        "has_search_bar": "auto"
+        "type": "list_stream"
       },
       "layout": {
         "x": 0,
         "y": 1,
         "width": 12,
-        "height": 4
+        "height": 5
       }
     },
     {
-      "id": 8941949979904031,
+      "id": 3366550224422239,
       "definition": {
         "title": "Org Members Summary",
         "title_size": "16",
@@ -395,28 +377,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 5,
+        "y": 6,
         "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 99905,
-      "definition": {
-        "type": "note",
-        "content": "## Token Metrics",
-        "background_color": "purple",
-        "font_size": "16",
-        "text_align": "left",
-        "vertical_align": "center",
-        "show_tick": false,
-        "has_padding": true
-      },
-      "layout": {
-        "x": 0,
-        "y": 9,
-        "width": 12,
-        "height": 1
+        "height": 5
       }
     },
     {
@@ -592,7 +555,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 10,
+        "y": 0,
         "width": 12,
         "height": 5,
         "is_column_break": true
@@ -612,7 +575,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 5,
+        "y": 0,
         "width": 12,
         "height": 1
       }
@@ -638,7 +601,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 6,
+        "y": 1,
         "width": 12,
         "height": 4
       }
@@ -664,7 +627,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 10,
+        "y": 5,
         "width": 12,
         "height": 4
       }
@@ -690,7 +653,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 14,
+        "y": 9,
         "width": 12,
         "height": 4
       }
