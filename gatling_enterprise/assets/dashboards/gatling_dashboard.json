@@ -1,0 +1,1091 @@
+{
+  "title": "Gatling Dashboard",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 6992023539648720,
+      "definition": {
+        "type": "image",
+        "url": "https://cloud.dev.gatling.io/images/logo-9e83219b25be.svg",
+        "sizing": "contain",
+        "margin": "lg",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "left"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 1
+      }
+    },
+    {
+      "id": 1045514116077364,
+      "definition": {
+        "type": "note",
+        "content": "### [Try Gatling Enterprise](https://auth.gatling.io/auth/realms/gatling/protocol/openid-connect/registrations?client_id=gatling-enterprise-cloud-public&response_type=code&scope=openid&redirect_uri=https%3A%2F%2Fcloud.gatling.io%2Fr%2Fgatling)",
+        "background_color": "white",
+        "font_size": "12",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 2,
+        "height": 1
+      }
+    },
+    {
+      "id": 473699138100217,
+      "definition": {
+        "type": "note",
+        "content": "### [Book a demo](https://gatling.io/book-a-demo)",
+        "background_color": "vivid_purple",
+        "font_size": "12",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 0,
+        "width": 2,
+        "height": 1
+      }
+    },
+    {
+      "id": 7370756598089115,
+      "definition": {
+        "title": "Requests & Response",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3008594268646964,
+            "definition": {
+              "title": "Response Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.request.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.request.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:gatling.response.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:gatling.response.count.ok{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:gatling.response.count.ko{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "text_formats": [
+                    [
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": ""
+                        },
+                        "palette": "white_on_green"
+                      }
+                    ]
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Requests",
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "trend",
+                      "cell_display_mode_options": {
+                        "trend_type": "area",
+                        "y_scale": "shared"
+                      },
+                      "alias": "Requests trend",
+                      "formula": "query2"
+                    },
+                    {
+                      "conditional_formats": [
+                        {
+                          "comparator": ">",
+                          "value": 0,
+                          "palette": "custom_bg",
+                          "custom_bg_color": "#f0f0f0"
+                        }
+                      ],
+                      "cell_display_mode": "bar",
+                      "alias": "Responses TOTAL",
+                      "formula": "query3"
+                    },
+                    {
+                      "conditional_formats": [
+                        {
+                          "comparator": ">",
+                          "value": 0,
+                          "palette": "black_on_light_green"
+                        }
+                      ],
+                      "cell_display_mode": "bar",
+                      "alias": "Responses OK",
+                      "formula": "query4"
+                    },
+                    {
+                      "conditional_formats": [
+                        {
+                          "comparator": ">",
+                          "value": 0,
+                          "palette": "black_on_light_red"
+                        }
+                      ],
+                      "cell_display_mode": "bar",
+                      "alias": "Responses KO",
+                      "formula": "query5"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 5401173901579301,
+            "definition": {
+              "title": "Requests & Responses",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:gatling.response.count{$team,$scenario,$run_id ,status:ko}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.count{$team,$scenario,$run_id, status:ok}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "alias": "Responses KO",
+                      "formula": "query0"
+                    },
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
+                      "alias": "Responses OK",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "dotted",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:gatling.request.count{$team, $scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Requests Total",
+                      "style": {
+                        "palette": "gray",
+                        "palette_index": 7
+                      },
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": [
+                {
+                  "value": "y = 0",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 4237144784864192,
+      "definition": {
+        "title": "Response Time",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2778987739040392,
+            "definition": {
+              "title": "Response Times",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.response_time.min{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.response.response_time.min{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:gatling.response.response_time.max{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:gatling.response.response_time.max{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query7",
+                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id,$status} by {scenario}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "text_formats": [
+                    [
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": ""
+                        },
+                        "palette": "white_on_green"
+                      }
+                    ]
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Min",
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "trend",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Min trend",
+                      "formula": "query2"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Max",
+                      "formula": "query3"
+                    },
+                    {
+                      "cell_display_mode": "trend",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Max trend",
+                      "formula": "query4"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 95%",
+                      "formula": "query5"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99%",
+                      "formula": "query6"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99,9%",
+                      "formula": "query7"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6301245904833860,
+            "definition": {
+              "title": "Response Time Min & Max",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.response_time.max{$team,$status, $run_id, $scenario}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.response.response_time.min{$team,$status, $run_id, $scenario}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Max",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 3
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time Min",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6207704916358066,
+            "definition": {
+              "title": "Response Time 95%",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id ,status:ok}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id ,status:ko}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 95% OK",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 95% KO",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:gatling.response.response_time.p95{$team,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "gray",
+                        "palette_index": 7
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 95% ",
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8620964102150810,
+            "definition": {
+              "title": "Response Time 99%",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id ,status:ok}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id ,status:ko}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99% OK",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99% KO",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:gatling.response.response_time.p99{$team,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "gray",
+                        "palette_index": 7
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99%",
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 845761690736680,
+            "definition": {
+              "title": "Response Time 99,9%",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id ,status:ok}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id ,status:ko}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99,9% OK",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99,9% KO",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "gray",
+                        "palette_index": 7
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Response time 99,9% ",
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 6281766984152793,
+      "definition": {
+        "title": "Users",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8200144975921843,
+            "definition": {
+              "title": "User Start & End",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.user.start_count{$team,$scenario,$status,$run_id}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling.user.end_count{$team,$scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 6
+                      },
+                      "alias": "User Start",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 0
+                      },
+                      "alias": "User End",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 5251714040783000,
+            "definition": {
+              "title": "Concurrent Users",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling.user.concurrent{$team,$scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 5
+                      },
+                      "alias": "Concurent Users",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "team",
+      "prefix": "team",
+      "default": "*"
+    },
+    {
+      "name": "scenario",
+      "prefix": "scenario",
+      "default": "*"
+    },
+    {
+      "name": "status",
+      "prefix": "status",
+      "default": "*"
+    },
+    {
+      "name": "run_id",
+      "prefix": "run_id",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "template_variable_presets": [
+    {
+      "name": "Gatling Tags",
+      "description": "",
+      "template_variables": [
+        {
+          "name": "team",
+          "value": "*"
+        },
+        {
+          "name": "scenario",
+          "value": "*"
+        },
+        {
+          "name": "status",
+          "value": "*"
+        },
+        {
+          "name": "run_id",
+          "value": "*"
+        }
+      ]
+    }
+  ],
+  "reflow_type": "fixed",
+  "tags": []
+}
