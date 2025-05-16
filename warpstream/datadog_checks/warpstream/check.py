@@ -1,4 +1,3 @@
-
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
