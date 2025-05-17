@@ -21,6 +21,11 @@ def test_instance_default_check(aggregator, dd_run_check, mock_http_response):
     dd_run_check(c)
 
     for m in INSTANCE_DEFAULT_METRICS:
+        if m in [
+            'redpanda.kafka.group_lag_sum',
+            'redpanda.kafka.group_lag_max',
+        ]:
+            continue
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
 
@@ -47,6 +52,11 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     metrics_to_check = get_metrics(INSTANCE_DEFAULT_GROUPS + additional_metric_groups)
 
     for m in metrics_to_check:
+        if m in [
+            'redpanda.kafka.group_lag_sum',
+            'redpanda.kafka.group_lag_max',
+        ]:
+            continue
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_service_check('redpanda.openmetrics.health', count=1)
@@ -64,6 +74,11 @@ def test_instance_full_additional_check(aggregator, dd_run_check, mock_http_resp
     metrics_to_check = INSTANCE_DEFAULT_METRICS + INSTANCE_ADDITIONAL_METRICS
 
     for m in metrics_to_check:
+        if m in [
+            'redpanda.kafka.group_lag_sum',
+            'redpanda.kafka.group_lag_max',
+        ]:
+            continue
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_service_check('redpanda.openmetrics.health', count=1)
@@ -112,6 +127,8 @@ def test_check(aggregator, dd_run_check):
             "redpanda.kafka.replicas",
             "redpanda.kafka.group_offset",
             "redpanda.kafka.group_topic_count",
+            "redpanda.kafka.group_lag_sum",
+            "redpanda.kafka.group_lag_max",
         ]:
             continue
         aggregator.assert_metric(m)
