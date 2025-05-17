@@ -1,0 +1,81 @@
+{
+  "app_id": "gravitee",
+  "app_uuid": "0196aad1-ada8-7064-951a-d8d2f5931688",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Gravitee",
+    "description": "Tracks API request metrics and logs, as well as gateway metrics",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Gravitee API Usage",
+        "image_url": "images/gravitee-apiusage-datadog-dashboard-screenshot.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Gravitee Gateway Usage",
+        "image_url": "images/gravitee-gateway-datadog-dashboard-screenshot.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Category::Log Collection",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Events",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
+    ],
+    "resources": [
+      {
+        "url": "https://documentation.gravitee.io/apim/gravitee-gateway/reporters/datadog-reporter",
+        "resource_type": "documentation"
+      },
+      {
+        "url": "https://www.gravitee.io/plugins/gravitee-reporter-datadog",
+        "resource_type": "other"
+      }
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "contact@graviteesource.com",
+    "name": "Gravitee",
+    "homepage": "https://www.gravitee.io/",
+    "sales_email": "contact@graviteesource.com",
+    "vendor_id": "gravitee"
+  },
+  "assets": {
+    "dashboards": {
+      "Gravitee APIM": "assets/dashboards/gravitee_apim.json"
+    },
+    "logs": {
+      "source": "gravitee"
+    },
+    "integration": {
+      "source_type_name": "gravitee",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "gravitee.apim",
+        "check": [
+          "gravitee.apim.api_request_count"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 47483218,
+      "supports_ddr_coordinated_failover": false
+    }
+  }
+}
