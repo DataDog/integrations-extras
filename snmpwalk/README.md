@@ -11,7 +11,7 @@ This integration provides insight into SNMP walk states in real time to:
 
 The SNMP walk check is not included in the [Datadog Agent][2] package, so you need to install it.
 
-You can also use the [snmpwalk][11] command as an alternative to this integration:
+You can also use the [`snmp walk`][11] command as an alternative to this integration:
 
 ```
 sudo -u dd-agent datadog-agent snmp walk
