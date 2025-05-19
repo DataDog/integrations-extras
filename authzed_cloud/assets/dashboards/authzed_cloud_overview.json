@@ -1592,13 +1592,14 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed_cloud.rds.database_connections{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_cloud.rds.database_connections{dimension_dbinstanceidentifier:*} by {dimension_dbinstanceidentifier}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "order_by": "values",
+                    "order_reverse": false,
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -2427,13 +2428,7 @@
       }
     }
   ],
-  "template_variables": [
-    {
-      "name": "authzed_com_permission_system",
-      "prefix": "authzed_com_permission_system",
-      "default": "*"
-    }
-  ],
+  "template_variables": [],
   "layout_type": "ordered",
   "notify_list": [],
   "reflow_type": "fixed",
