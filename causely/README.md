@@ -2,9 +2,9 @@
 
 ## Overview
 
-The [Causal AI platform][1] automatically captures, represents and analyzes causality. It enables self-managed, resilient applications by bridging observability with automated orchestration. 
+The [Causal AI platform][1] supercharges your observability stack by leveraging built-in intelligence to analyze your telemetry data. It enables self-managed, resilient applications by integrating observability with automated orchestration.
 
-Instead of flood of alerts, Causely tells you exactly what you need to know about all active and emerging application failures. With Causely, understand why a failure happened, what the root cause was, and how to fix it.
+Causely delivers instant value with no complex setup or configuration. It helps shift your organization from a reactive to a proactive mode of operation. Instead of flood of alerts, Causely tells you exactly what you need to know about all active and emerging application failures. With Causely, understand why a failure happened, what the root cause was, and how to fix it.
 
 Use Causely to:
 
@@ -26,7 +26,7 @@ Causely identified and remediated root causes display in your Causely dashboard.
 
 ## Support
 
-Need help? Contact [Causely support](mailto:support@causely.io).
+Need help? Contact [Causely support](mailto:support@causely.ai).
 
 ## Further reading
 
@@ -35,10 +35,10 @@ Additional helpful documentation, links, and articles:
 - [Read the blog][6]: DevOps may have cheated death, but do we all need to work for the king of the underworld?
 - [Watch the video][7]: Causely for asynchronous communication
 
-[1]: https://www.causely.io
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[1]: https://www.causely.ai
+[2]: /organization-settings/api-keys
 [3]: https://docs.datadoghq.com/monitors/
-[4]: https://github.com/Causely/documentation/blob/main/install_agents.md
-[5]: https://www.causely.io/demo/
-[6]: https://www.causely.io/blog/devops-may-have-cheated-death-but-do-we-all-need-to-work-for-the-king-of-the-underworld/
-[7]: https://www.causely.io/video/causely-for-asynchronous-communication/
+[4]: https://docs.causely.ai/getting-started/overview/
+[5]: https://www.causely.ai/try
+[6]: https://www.causely.ai/blog/devops-may-have-cheated-death-but-do-we-all-need-to-work-for-the-king-of-the-underworld/
+[7]: https://www.causely.ai/blog/causely-for-asynchronous-communication

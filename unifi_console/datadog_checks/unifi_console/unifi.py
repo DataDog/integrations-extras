@@ -80,6 +80,7 @@ class Unifi:
             err_msg = "Connection to {} failed: {}".format(self.__path(APILoginPath), e)
             raise APIConnectionError(err_msg) from None
 
+    @smart_retry
     def status(self) -> ControllerInfo:
         resp = self._get_json(APIStatusPath)
         return ControllerInfo(resp)

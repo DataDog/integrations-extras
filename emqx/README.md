@@ -60,7 +60,7 @@ Need help? Contact [EMQX support][8].
 
 [1]: https://github.com/emqx/emqx
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
-[3]: https://app.datadoghq.com/account/settings/agent/latest
+[3]: /account/settings/agent/latest
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/emqx/metadata.csv

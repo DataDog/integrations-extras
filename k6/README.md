@@ -48,7 +48,7 @@ For the detailed instructions, follow the [k6 documentation][2].
     Once the Datadog Agent service is running, run the k6 test and send the metrics to the Agent with:
 
     ```shell
-    K6_STATSD_ENABLE_TAGS=true k6 run --out statsd script.js
+    K6_STATSD_ENABLE_TAGS=true k6 run --out xk6-output-statsd script.js
     ```
 
 4. Visualize the k6 metrics in Datadog.
@@ -83,8 +83,8 @@ The k6 integration does not include any events.
 Need help? Read the [k6 Datadog documentation][2] or contact [k6 support][10].
 
 [1]: https://k6.io/open-source
-[2]: https://k6.io/docs/results-visualization/datadog
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[2]: https://grafana.com/docs/k6/latest/results-output/real-time/datadog/
+[3]: /organization-settings/api-keys
 [4]: https://github.com/DataDog/integrations-extras/blob/master/k6/metadata.csv
 [5]: https://docs.datadoghq.com/metrics/explorer/
 [6]: https://docs.datadoghq.com/monitors/

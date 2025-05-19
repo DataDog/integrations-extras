@@ -14,6 +14,11 @@ jobs:
       # Options
       standard: true
     secrets: inherit
+    permissions:
+       # needed for codecov in test-target.yml, allows the action to get a JWT signed by Github
+       id-token: write
+       # needed for compute-matrix in test-target.yml
+       contents: read
 
   publish-test-results:
     needs:
@@ -21,6 +26,11 @@ jobs:
     if: success() || failure()
     concurrency:
       group: test-results
+
+    permissions: # For test-results-master.yml
+      checks: write
+      pull-requests: write
+      contents: write
 
     uses: DataDog/integrations-core/.github/workflows/test-results-master.yml@master
     secrets: inherit

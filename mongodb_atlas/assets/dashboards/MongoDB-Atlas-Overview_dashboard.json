@@ -585,6 +585,12 @@
                                             "aggregator": "avg"
                                         },
                                         {
+                                            "query": "sum:mongodb.atlas.opcounters.ttldeleted{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query8",
+                                            "aggregator": "avg"
+                                        },
+                                        {
                                             "query": "sum:mongodb.atlas.opcounters.command{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query6",
@@ -662,6 +668,11 @@
                                             "query": "sum:mongodb.atlas.opcounters.update{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query3"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.ttldeleted{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query4"
                                         }
                                     ],
                                     "style": {

@@ -21,7 +21,7 @@ class FiddlerCheck(AgentCheck):
         self.organization = self.instance.get('organization')
         self.token = self.instance.get('fiddler_api_key')
         self.timeout = self.instance.get('timeout', 300)
-        self.v1compat = self.instance.get('v1compat', True)
+        self.v1compat = self.instance.get('v1compat', False)
         self.enabled_metrics = self.instance.get(
             'enabled_metrics', ['drift', 'traffic', 'performance', 'statistic', 'service_metrics']
         )
@@ -56,73 +56,78 @@ class FiddlerCheck(AgentCheck):
 
         return response
 
-    def _list_projects(self) -> List[str]:
+    def _list_models(self) -> List[str]:
         """
-        List all projects in the organization.
+        List all models in the organization.
 
         Returns:
-        List[str]: A list of project names.
+        List[str]: A list of model identifiers.
         """
-        endpoint = f'v2/list-projects/{self.organization}'
-        response = self._call(endpoint)
-
-        if response.status_code != 200:
-            self.log.info('Failed to GET projects. Status Code : %s', {response.status_code})
-            return []
-
-        # Extract project names
-        project_names = [project["name"] for project in response.json()["data"]["projects"]]
-
-        # Output the project names
-        return project_names
-
-    def _list_models(self, project: str) -> List[str]:
-        """
-        List all models in a project.
-
-        Parameters:
-        project (str): The name of the project.
-
-        Returns:
-        List[str]: A list of model names.
-        """
-        endpoint = f'v2/models?organization_name={self.organization}&project_name={project}'
+        endpoint = 'v3/models'
         response = self._call(endpoint)
 
         if response.status_code != 200:
             self.log.info('Failed to GET models. Status Code : %s', {response.status_code})
             return []
 
-        # Extract model names
-        model_names = [item["name"] for item in response.json()["data"]["items"]]
+        # Extract model compact
+        model_compact = [
+            {'id': item['id'], 'name': item['name'], 'project': item['project']}
+            for item in response.json()['data']['items']
+        ]
 
-        return model_names
+        return model_compact
 
-    def _get_metrics(self, project: str, model: str) -> (list, list):
+    def _get_baseline_id(self, model_id: str, baseline_name: str) -> str:
+        """
+        Get the baseline id for a specific model.
+
+        Parameters:
+        model_id (str): The model identifier.
+        baseline_name (str): The baseline name.
+
+        Returns:
+        str: The baseline id for the specified model.
+        """
+        endpoint = f"v3/models/{model_id}/baselines"
+        response = self._call(endpoint)
+        if response.status_code != 200:
+            self.log.info('Failed to GET baselines query. Status Code : %s', {response.status_code})
+            return ""
+
+        self.log.info('BASELINE Response : %s', response.json())
+
+        for baseline in response.json()['data']['items']:
+            if baseline['name'] == baseline_name:
+                return baseline['id']
+        if response.json()['data']['items']:
+            return response.json()['data']['items'][0]['id']
+        return ""
+
+    def _get_metrics(self, model: dict) -> tuple[list, list]:
         """
         Retrieve metrics for a specific model.
 
         Parameters:
-        project (str): The name of the project.
-        model (str): The name of the model.
+        model (dict): Model identifier dict containing the model name and id.
 
         Returns:
         list: The metrics data for the specified model.
         list: The outputs for the specified model.
 
         """
-        endpoint = f'v2/metrics/{self.organization}:{project}:{model}'
+        endpoint = f"v3/models/{model['id']}/metrics"
         response = self._call(endpoint)
         if response.status_code != 200:
             self.log.info('Failed to GET metrics query. Status Code : %s', {response.status_code})
             return [], []
 
-        self.log.debug('METRICS Response : %s', response.json())
+        self.log.info('METRICS Response : %s', response.json())
 
         outputs = []
         for column in response.json()['data']['columns']:
             if column.get('group', '') == 'Outputs':
-                outputs.append(column['key'])
+                outputs.append(column['id'])
 
         return response.json()['data']['metrics'], outputs
 
@@ -150,7 +155,7 @@ class FiddlerCheck(AgentCheck):
         return tags
 
     def _process_v1compat_query_result(
-        self, project: str, model: str, result: Dict[str, Any], outputs: list
+        self, project_name: str, model_name: str, result: Dict[str, Any], outputs: list
     ) -> List[Tuple[str, Any, List[str]]]:
         """
         Convert metrics to a format compatible with v1 and v2.
@@ -164,25 +169,23 @@ class FiddlerCheck(AgentCheck):
         List[Tuple[str, Any, List[str]]]: Processed metrics in a compatible format.
         """
 
-        metric_type = result['metric_type']
         metric = result.get('metric')
         value_list = result['data'][-1] if result['data'] else 0
         gauge_results = []
 
-        # metric name mapping from 23.7 -> 23.5 format
+        # mapping to old metric names for backward compatibility
         metric_mapping = {
             'traffic': 'traffic_count',
             'jsd': 'histogram_drift',
             'expected_calibration_error': 'expected_callibration_error',
             'calibrated_threshold': 'callibrated_threshold',
             'geometric_mean': 'g_mean',
-            'log_loss': 'binary_cross_enrtopy',
+            'log_loss': 'binary_cross_entropy',
             'recall': 'tpr',
             'ndcg_mean': 'mean_ndcg',
         }
         metric = metric_mapping.get(metric, metric)
 
-        # di metric name mapping from 23.7 -> 23.5 format
         di_metric_mapping = {
             'null_violation_count': 'is_null_violation',
             'range_violation_count': 'is_range_violation',
@@ -197,14 +200,16 @@ class FiddlerCheck(AgentCheck):
             col_name_list = col_name.split(',')
 
             # Determine the column name based on metric type and structure
-            if metric_type == 'data_integrity' and len(col_name_list) == 2:
+            if metric in di_metric_mapping and len(col_name_list) == 2:
                 fixed_metric_name = di_metric_mapping.get(col_name_list[0], col_name_list[0])
                 col_name = f'{col_name_list[1]}/{fixed_metric_name}'
             elif len(col_name_list) >= 2:
                 col_name = col_name_list[1]
+            elif len(col_name_list) == 1:
+                col_name = None
 
             # Create appropriate tags
-            tags = self._create_tags(project, model, col_name if metric_type != 'performance' else None)
+            tags = self._create_tags(project_name, model_name, col_name)
 
             # Determine the metric name and append to results
             if metric == 'average':
@@ -240,23 +245,24 @@ class FiddlerCheck(AgentCheck):
             # skip timestamp
             if col_name == 'timestamp':
                 continue
-
+            col_name_list = col_name.split(',')
+            if len(col_name_list) == 1:
+                col_name = None
             tags = self._create_tags(project, model, col_name)
             gauge_results.append((metric, value_list[col_idx], tags))
 
         return gauge_results
 
-    def _run_queries(self, project: str, model: str) -> (Dict[str, Any], list):
+    def _run_queries(self, model: dict) -> tuple[dict[str, Any], list]:
         """
         Run queries for a given model within a specified time range.
 
         Parameters:
-        project (str): The project name.
-        model (str): The model object containing details like organization_name, project_name, and name.
-        bin_size (int): The size of the time bin in seconds for the query.
+        model (dict): The model identifier dict containing the model name and id.
 
         Returns:
         Dict[str, Any]: The JSON response from the query execution.
+        list: The outputs for the specified model.
         """
 
         start_time_epoch = (time.time() * 1000) - (self.bin_size * 1000) - (self.delay * 1000)
@@ -264,6 +270,10 @@ class FiddlerCheck(AgentCheck):
 
         start_time = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(start_time_epoch / 1000))
         end_time = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(end_time_epoch / 1000))
+        model_name = model.get('name')
+        model_id = model.get('id')
+        project_name = model.get('project', {}).get('name')
+        project_id = model.get('project', {}).get('id')
 
         bin_size_str = 'Five_Minute'
         if self.bin_size == 3600:
@@ -275,29 +285,36 @@ class FiddlerCheck(AgentCheck):
         elif self.bin_size == 2592000:
             bin_size_str = 'Month'
 
-        metrics, outputs = self._get_metrics(project, model)
+        metrics, outputs = self._get_metrics(model)
         if len(metrics) == 0:
             return {}, []
 
         queries = []
+        default_baseline_name = "default_static_baseline"
+        baseline_id = ""
         for metric in metrics:
             metric_type = metric['type']
             if metric_type not in self.enabled_metrics:
                 continue
 
-            if metric.get('needs_categories', False):
+            if metric.get('requires_categories', False):
                 continue
+
+            if metric.get('requires_baseline', False):
+                baseline_id = self._get_baseline_id(model_id, default_baseline_name)
+                if not baseline_id:
+                    continue
 
             queries.append(
                 {
-                    'query_key': metric['key'],
+                    'query_key': metric.get('id'),
                     'categories': [],
-                    'columns': metric['columns'],
+                    'columns': metric.get('columns'),
                     'viz_type': 'line',
-                    'metric': metric['key'],
-                    'metric_type': metric['type'],
-                    'model_name': model,
-                    'baseline_name': 'DEFAULT',
+                    'metric': metric.get('id'),
+                    'metric_type': metric.get('type'),
+                    'model_id': model_id,
+                    'baseline_id': baseline_id,
                 }
             )
 
@@ -310,23 +327,26 @@ class FiddlerCheck(AgentCheck):
                 },
                 'time_zone': 'UTC',
             },
-            'organization_name': self.organization,
-            'project_name': project,
+            'project_id': project_id,
             'query_type': 'MONITORING',
             'queries': queries,
         }
-        self.log.info('Running query for Project:%s Model:%s', project, model)
-        result = self._call('v2/queries', json_request)
-        if result.status_code != 200:
+
+        self.log.info('Running query for Project: %s Model: %s', project_name, model_name)
+        self.log.info('Query request : %s', json_request)
+        resp = self._call('v3/queries', json_request)
+        if resp.status_code != 200:
             self.log.info(
-                'Failed to run query for Project:%s Model:%s Status Code : %s', project, model, result.status_code
+                'Failed to run query for Project: %s Model: %s Status Code : %s',
+                project_name,
+                model_name,
+                resp.status_code,
             )
             return {}, []
 
-        self.log.debug('Query request : %s', json_request)
-        self.log.debug('Query result : %s', result.json())
+        self.log.info('Query request : %s', json_request)
 
-        return result.json(), outputs
+        return resp.json(), outputs
 
     def _parse_query_results(self, query_results: Dict[str, Any], outputs: list) -> List[Tuple[str, Any, List[str]]]:
         """
@@ -340,21 +360,24 @@ class FiddlerCheck(AgentCheck):
         """
 
         all_gauge_results = []
-        if len(query_results) == 0:
+        results = query_results.get('data', {}).get('results', {})
+        if not query_results['data']['results']:
             return []
-
-        for result in query_results['data']['results']:
-            for v in result.values():
-                if self.v1compat:
-                    all_gauge_results.extend(
-                        self._process_v1compat_query_result(
-                            query_results['data']['project_name'], v['model_name'], v, outputs
-                        )
+        self.log.info('Query results : %s', results)
+        for v in results.values():
+            if self.v1compat:
+                all_gauge_results.extend(
+                    self._process_v1compat_query_result(
+                        project_name=query_results['data']['project']['name'],
+                        model_name=v['model']['name'],
+                        result=v,
+                        outputs=outputs,
                     )
-                else:
-                    all_gauge_results.extend(
-                        self._process_query_result(query_results['data']['project_name'], v['model_name'], v)
-                    )
+                )
+            else:
+                all_gauge_results.extend(
+                    self._process_query_result(query_results['data']['project']['name'], v['model']['name'], v)
+                )
 
         self.log.info('Parsed query results : %s', all_gauge_results)
 
@@ -362,20 +385,20 @@ class FiddlerCheck(AgentCheck):
 
     def _run(self):
         """
-        Run the check and collect metrics from all projects and models.
+        Run the check and collect metrics from all models.
         """
         all_gauge_results = []
-        for project in self._list_projects():
-            for model in self._list_models(project):
-                try:
-                    self.log.info('Running check for Project:%s Model:%s', project, model)
-                    query_results, outputs = self._run_queries(project, model)
-                    if query_results:
-                        all_gauge_results.extend(self._parse_query_results(query_results, outputs))
-                except Exception as e:
-                    self.log.error('FiddlerCheck encountered an error: %s', e)
+        for model in self._list_models():
+            try:
+                self.log.info('Running check for  Model: %s', model['name'])
+                query_results, outputs = self._run_queries(model)
+                if query_results:
+                    all_gauge_results.extend(self._parse_query_results(query_results, outputs))
+            except Exception as e:
+                self.log.error('FiddlerCheck encountered an error: %s', e)
 
         self.log.info('FiddlerCheck run complete: %s', len(all_gauge_results))
+        self.log.info('FiddlerCheck results: %s', all_gauge_results)
         return all_gauge_results
 
     def check(self, _):
