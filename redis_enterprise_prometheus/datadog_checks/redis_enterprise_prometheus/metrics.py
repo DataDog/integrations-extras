@@ -30,7 +30,7 @@ REDIS_CLUSTER = {
 }
 
 REDIS_DATABASE = {
-    # 'db_config': 'db_config',
+    'db_config': 'db_config',
     'db_memory_limit_bytes': 'db_memory_limit_bytes',
     # 'db_status': 'db_status',
     'endpoint_client_connection_expired': 'endpoint_client_connection_expired',

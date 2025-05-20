@@ -73,7 +73,7 @@ METRICS_MAP = {
         'rdse2.total_nodes_count',
     ],
     'REDIS2.DATABASE': [
-        # 'rdse2.db_config',
+        'rdse2.db_config',
         'rdse2.db_memory_limit_bytes',
         # 'rdse2.db_status',
         'rdse2.endpoint_client_connection_expired.count',
