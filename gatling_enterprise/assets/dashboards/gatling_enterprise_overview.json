@@ -1,5 +1,5 @@
 {
-  "title": "Gatling Dashboard",
+  "title": "Gatling Enterprise Overview",
   "description": "[[suggested_dashboards]]",
   "widgets": [
     {
@@ -17,49 +17,7 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 8,
-        "height": 1
-      }
-    },
-    {
-      "id": 1045514116077364,
-      "definition": {
-        "type": "note",
-        "content": "### [Try Gatling Enterprise](https://auth.gatling.io/auth/realms/gatling/protocol/openid-connect/registrations?client_id=gatling-enterprise-cloud-public&response_type=code&scope=openid&redirect_uri=https%3A%2F%2Fcloud.gatling.io%2Fr%2Fgatling)",
-        "background_color": "white",
-        "font_size": "12",
-        "text_align": "center",
-        "vertical_align": "center",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "bottom",
-        "has_padding": true
-      },
-      "layout": {
-        "x": 8,
-        "y": 0,
-        "width": 2,
-        "height": 1
-      }
-    },
-    {
-      "id": 473699138100217,
-      "definition": {
-        "type": "note",
-        "content": "### [Book a demo](https://gatling.io/book-a-demo)",
-        "background_color": "vivid_purple",
-        "font_size": "12",
-        "text_align": "center",
-        "vertical_align": "center",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "bottom",
-        "has_padding": true
-      },
-      "layout": {
-        "x": 10,
-        "y": 0,
-        "width": 2,
+        "width": 3,
         "height": 1
       }
     },
@@ -67,7 +25,7 @@
       "id": 7370756598089115,
       "definition": {
         "title": "Requests & Response",
-        "background_color": "white",
+        "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -75,7 +33,7 @@
           {
             "id": 3008594268646964,
             "definition": {
-              "title": "Response Count",
+              "title": "Responses Count",
               "title_size": "16",
               "title_align": "left",
               "type": "query_table",
@@ -85,31 +43,31 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.request.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.request.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:gatling.response.count{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:gatling.response.count.ok{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$start_date,$load_generator,status:ok} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:gatling.response.count.ko{$team,$scenario,$run_id} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$load_generator,$start_date,status:ko} by {scenario}.as_count()",
                       "aggregator": "sum"
                     }
                   ],
@@ -195,8 +153,8 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 12,
-              "height": 2
+              "width": 9,
+              "height": 3
             }
           },
           {
@@ -222,12 +180,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling.response.count{$team,$scenario,$run_id ,status:ko}.as_count()"
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ko,$test,$start_date,$load_generator}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.count{$team,$scenario,$run_id, status:ok}.as_count()"
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ok,$test,$start_date,$load_generator}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -262,7 +220,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling.request.count{$team, $scenario,$status,$run_id}.as_count()"
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -294,25 +252,67 @@
             },
             "layout": {
               "x": 0,
-              "y": 2,
-              "width": 12,
+              "y": 3,
+              "width": 9,
               "height": 2
             }
           }
         ]
       },
       "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 9,
+        "height": 6
+      }
+    },
+    {
+      "id": 7574051825949752,
+      "definition": {
+        "type": "note",
+        "content": "Gatling Enterprise is a load testing platform designed to help teams validate application scalability and performance under real-world traffic conditions.\n\nWith the Datadog integration, teams can investigate performance issues by correlating load test metrics (e.g., response times, throughput, errors) with infrastructure data tracked in Datadog.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
         "x": 0,
         "y": 1,
-        "width": 12,
-        "height": 5
+        "width": 3,
+        "height": 4
+      }
+    },
+    {
+      "id": 1045514116077364,
+      "definition": {
+        "type": "note",
+        "content": "### [Log in Gatling](http://auth.gatling.io/auth/realms/gatling/protocol/openid-connect/auth?client_id=gatling-enterprise-cloud-public&response_type=code&scope=openid&redirect_uri=https%3A%2F%2Fcloud.gatling.io%2Fr%2Fgatling)",
+        "background_color": "white",
+        "font_size": "12",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 3,
+        "height": 1
       }
     },
     {
       "id": 4237144784864192,
       "definition": {
         "title": "Response Time",
-        "background_color": "white",
+        "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -330,44 +330,44 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.response_time.min{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.response.response_time.min{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:gatling.response.response_time.max{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:gatling.response.response_time.max{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query6",
-                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query7",
-                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id,$status} by {scenario}",
-                      "aggregator": "avg"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "aggregator": "sum"
                     }
                   ],
                   "response_format": "scalar",
@@ -505,12 +505,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.response_time.max{$team,$status, $run_id, $scenario}"
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$status,$scenario,$test,$start_date,$load_generator}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.response.response_time.min{$team,$status, $run_id, $scenario}"
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$status,$scenario,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -583,12 +583,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id ,status:ok}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.response.response_time.p95{$team, $scenario,$run_id ,status:ko}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -635,7 +635,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling.response.response_time.p95{$team,$scenario,$status,$run_id}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -693,12 +693,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id ,status:ok}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.response.response_time.p99{$team, $scenario,$run_id ,status:ko}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -745,7 +745,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling.response.response_time.p99{$team,$scenario,$status,$run_id}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -803,12 +803,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id ,status:ok}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$run_id ,status:ko}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -855,7 +855,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling.response.response_time.p999{$team, $scenario,$status,$run_id}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$start_date,$load_generator}"
                     }
                   ],
                   "formulas": [
@@ -894,7 +894,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 6,
+        "y": 12,
         "width": 12,
         "height": 7
       }
@@ -903,7 +903,7 @@
       "id": 6281766984152793,
       "definition": {
         "title": "Users",
-        "background_color": "white",
+        "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -911,7 +911,7 @@
           {
             "id": 8200144975921843,
             "definition": {
-              "title": "User Start & End",
+              "title": "Users Start & End",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -931,12 +931,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.user.start_count{$team,$scenario,$status,$run_id}.as_count()"
+                      "query": "sum:gatling_enterprise.user.start_count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling.user.end_count{$team,$scenario,$status,$run_id}.as_count()"
+                      "query": "sum:gatling_enterprise.user.end_count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -945,7 +945,7 @@
                         "palette": "purple",
                         "palette_index": 6
                       },
-                      "alias": "User Start",
+                      "alias": "Users Start",
                       "formula": "query1"
                     },
                     {
@@ -953,7 +953,7 @@
                         "palette": "purple",
                         "palette_index": 0
                       },
-                      "alias": "User End",
+                      "alias": "Users End",
                       "formula": "query2"
                     }
                   ],
@@ -998,7 +998,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling.user.concurrent{$team,$scenario,$status,$run_id}.as_count()"
+                      "query": "sum:gatling_enterprise.user.concurrent{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -1032,7 +1032,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 13,
+        "y": 19,
         "width": 12,
         "height": 5
       }
@@ -1045,6 +1045,21 @@
       "default": "*"
     },
     {
+      "name": "test",
+      "prefix": "test",
+      "default": "*"
+    },
+    {
+      "name": "start_date",
+      "prefix": "start_date",
+      "default": "*"
+    },
+    {
+      "name": "load_generator",
+      "prefix": "load_generator",
+      "default": "*"
+    },
+    {
       "name": "scenario",
       "prefix": "scenario",
       "default": "*"
@@ -1052,11 +1067,6 @@
     {
       "name": "status",
       "prefix": "status",
-      "default": "*"
-    },
-    {
-      "name": "run_id",
-      "prefix": "run_id",
       "default": "*"
     }
   ],
