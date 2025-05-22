@@ -77,7 +77,6 @@ def vulnerabilitiy_resp_json():
 
 class CloudsmithCheck(AgentCheck):
     MAX_EVENTS = 100
-    __NAMESPACE__ = "cloudsmith"
 
     def __init__(self, name, init_config, instances):
         super(CloudsmithCheck, self).__init__(name, init_config, instances)
@@ -121,7 +120,7 @@ class CloudsmithCheck(AgentCheck):
             error_message = "Request timeout: {}, {}".format(url, e)
             self.log.warning(error_message)
             self.service_check(
-                "can_connect",
+                "cloudsmith.can_connect",
                 AgentCheck.CRITICAL,
                 message=error_message,
             )
@@ -131,7 +130,7 @@ class CloudsmithCheck(AgentCheck):
             error_message = "Request failed: {}, {}".format(url, e)
             self.log.warning(error_message)
             self.service_check(
-                "can_connect",
+                "cloudsmith.can_connect",
                 AgentCheck.CRITICAL,
                 message=error_message,
             )
@@ -141,7 +140,7 @@ class CloudsmithCheck(AgentCheck):
             error_message = "JSON Parse failed: {}, {}".format(url, e)
             self.log.warning(error_message)
             self.service_check(
-                "can_connect",
+                "cloudsmith.can_connect",
                 AgentCheck.CRITICAL,
                 message=error_message,
             )
@@ -150,7 +149,7 @@ class CloudsmithCheck(AgentCheck):
         except ValueError as e:
             error_message = str(e)
             self.log.warning(error_message)
-            self.service_check("can_connect", AgentCheck.CRITICAL, message=error_message)
+            self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
             raise
 
         # if status is 401 and url includes the words "audit-log" or "vulnerabilities", then return mock data
@@ -161,10 +160,10 @@ class CloudsmithCheck(AgentCheck):
             error_message = f"""Expected status code 200 for url {url}, but got status code:
             {response.status_code} check your config information"""
             self.log.warning(error_message)
-            self.service_check("can_connect", AgentCheck.CRITICAL, message=error_message)
+            self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
             raise CheckException(error_message)
         else:
-            self.service_check("can_connect", AgentCheck.OK)
+            self.service_check("cloudsmith.can_connect", AgentCheck.OK)
 
         return response.json()
 
@@ -593,36 +592,36 @@ class CloudsmithCheck(AgentCheck):
         # There are different types of metrics that you can submit (gauge, event).
         # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
 
-        self.gauge("storage_used", usage_info["storage_used"], tags=self.tags)
-        self.gauge("bandwidth_used", usage_info["bandwidth_used"], tags=self.tags)
-        self.gauge("storage_used_bytes", usage_info["storage_used_bytes"], tags=self.tags)
+        self.gauge("cloudsmith.storage_used", usage_info["storage_used"], tags=self.tags)
+        self.gauge("cloudsmith.bandwidth_used", usage_info["bandwidth_used"], tags=self.tags)
+        self.gauge("cloudsmith.storage_used_bytes", usage_info["storage_used_bytes"], tags=self.tags)
         self.gauge(
-            "storage_plan_limit_bytes",
+            "cloudsmith.storage_plan_limit_bytes",
             usage_info["storage_plan_limit_bytes"],
             tags=self.tags,
         )
-        self.gauge("bandwidth_used_bytes", usage_info["bandwidth_used_bytes"], tags=self.tags)
+        self.gauge("cloudsmith.bandwidth_used_bytes", usage_info["bandwidth_used_bytes"], tags=self.tags)
         self.gauge(
-            "bandwidth_plan_limit_bytes",
+            "cloudsmith.bandwidth_plan_limit_bytes",
             usage_info["bandwidth_plan_limit_bytes"],
             tags=self.tags,
         )
-        self.gauge("storage_used_gb", usage_info["storage_used_gb"], tags=self.tags)
-        self.gauge("storage_plan_limit_gb", usage_info["storage_plan_limit_gb"], tags=self.tags)
-        self.gauge("bandwidth_used_gb", usage_info["bandwidth_used_gb"], tags=self.tags)
+        self.gauge("cloudsmith.storage_used_gb", usage_info["storage_used_gb"], tags=self.tags)
+        self.gauge("cloudsmith.storage_plan_limit_gb", usage_info["storage_plan_limit_gb"], tags=self.tags)
+        self.gauge("cloudsmith.bandwidth_used_gb", usage_info["bandwidth_used_gb"], tags=self.tags)
         self.gauge(
-            "bandwidth_plan_limit_gb",
+            "cloudsmith.bandwidth_plan_limit_gb",
             usage_info["bandwidth_plan_limit_gb"],
             tags=self.tags,
         )
-        self.gauge("token_count", entitlement_info["token_count"], tags=self.tags)
+        self.gauge("cloudsmith.token_count", entitlement_info["token_count"], tags=self.tags)
         self.gauge(
-            "token_bandwidth_total",
+            "cloudsmith.token_bandwidth_total",
             entitlement_info["token_bandwidth_total"],
             tags=self.tags,
         )
         self.gauge(
-            "token_download_total",
+            "cloudsmith.token_download_total",
             entitlement_info["token_download_total"],
             tags=self.tags,
         )
@@ -653,14 +652,14 @@ class CloudsmithCheck(AgentCheck):
 
         storage_msg = "Percentage storage used: {}%".format(usage_info["storage_used"])
         self.service_check(
-            "storage",
+            "cloudsmith.storage",
             usage_info["storage_mark"],
             message=storage_msg if usage_info["storage_mark"] != AgentCheck.OK else "",
         )
 
         bandwith_msg = "Percentage bandwidth used: {}%".format(usage_info["bandwidth_used"])
         self.service_check(
-            "bandwidth",
+            "cloudsmith.bandwidth",
             usage_info["bandwidth_mark"],
             message=bandwith_msg if usage_info["bandwidth_mark"] != AgentCheck.OK else "",
         )
@@ -676,6 +675,39 @@ class CloudsmithCheck(AgentCheck):
                     f"2fa:{m['has_two_factor']}",
                 ],
             )
+
+        # Submit additional member metrics (role, login method, 2FA)
+        # Initialize counters
+        role_counts = {
+            "owner": 0,
+            "manager": 0,
+            "admin": 0,
+            "readonly": 0,
+        }
+        login_method_counts = {
+            "saml": 0,
+            "password": 0,
+        }
+        two_factor_enabled_count = 0
+
+        for m in members_info:
+            role = m.get("role", "").lower()
+            login_method = m.get("last_login_method", "").lower()
+            if role in role_counts:
+                role_counts[role] += 1
+            if login_method in login_method_counts:
+                login_method_counts[login_method] += 1
+            if m.get("has_two_factor"):
+                two_factor_enabled_count += 1
+
+        self.gauge("cloudsmith.member.has_2fa.count", two_factor_enabled_count, tags=self.tags)
+        self.gauge("cloudsmith.member.owner.count", role_counts["owner"], tags=self.tags)
+        self.gauge("cloudsmith.member.manager.count", role_counts["manager"], tags=self.tags)
+        self.gauge("cloudsmith.member.admin.count", role_counts["admin"], tags=self.tags)
+        self.gauge("cloudsmith.member.readonly.count", role_counts["readonly"], tags=self.tags)
+        self.gauge("cloudsmith.member.saml.count", login_method_counts["saml"], tags=self.tags)
+        self.gauge("cloudsmith.member.password.count", login_method_counts["password"], tags=self.tags)
+
         # Deduplicate by user (slug), not user_name or user_id
         unique_members = {m["user"]: m for m in members_info if "user" in m}.values()
         member_summary = "\n".join(
@@ -695,3 +727,7 @@ class CloudsmithCheck(AgentCheck):
                 "tags": self.tags,
             }
         )
+
+        # Add violation count gauges for license and vulnerability policy violations
+        self.gauge("cloudsmith.license_policy_violation.count", len(license_violations_info), tags=self.tags)
+        self.gauge("cloudsmith.vulnerability_policy_violation.count", len(policy_violations_info), tags=self.tags)

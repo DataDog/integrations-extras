@@ -1,7 +1,10 @@
+import json
 import time
+from urllib.error import HTTPError
 
 import pytest
 from mock import MagicMock
+from requests.exceptions import InvalidURL, Timeout
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.cloudsmith import CloudsmithCheck
@@ -109,7 +112,7 @@ def test_check(
     aggregator.assert_metric("cloudsmith.storage_used_bytes", 914000000, count=1)
     aggregator.assert_metric("cloudsmith.storage_used_gb", 0.914, count=1)
     aggregator.assert_metric(
-        "cloudsmith.cloudsmith.member.active",
+        "cloudsmith.member.active",
         1,
         tags=[
             "user:testuser",
@@ -120,6 +123,19 @@ def test_check(
         ],
         count=1,
     )
+    # Assert new metrics added for members and policy violations
+    for metric in [
+        "cloudsmith.license_policy_violation.count",
+        "cloudsmith.vulnerability_policy_violation.count",
+        "cloudsmith.member.has_2fa.count",
+        "cloudsmith.member.saml.count",
+        "cloudsmith.member.password.count",
+        "cloudsmith.member.owner.count",
+        "cloudsmith.member.manager.count",
+        "cloudsmith.member.admin.count",
+        "cloudsmith.member.readonly.count",
+    ]:
+        aggregator.assert_metric(metric)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
@@ -287,6 +303,19 @@ def test_vulnerability_and_license_violations(
     aggregator.assert_metric("cloudsmith.storage_plan_limit_bytes", -1)
     aggregator.assert_metric("cloudsmith.storage_plan_limit_gb", -1)
     aggregator.assert_metric("cloudsmith.storage_used_gb", -1)
+    # Assert new metrics added for members and policy violations
+    for metric in [
+        "cloudsmith.license_policy_violation.count",
+        "cloudsmith.vulnerability_policy_violation.count",
+        "cloudsmith.member.has_2fa.count",
+        "cloudsmith.member.saml.count",
+        "cloudsmith.member.password.count",
+        "cloudsmith.member.owner.count",
+        "cloudsmith.member.manager.count",
+        "cloudsmith.member.admin.count",
+        "cloudsmith.member.readonly.count",
+    ]:
+        aggregator.assert_metric(metric)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
@@ -333,7 +362,7 @@ def test_member_metrics_and_events(
 
     for _member in members_resp["results"]:
         aggregator.assert_metric(
-            "cloudsmith.cloudsmith.member.active",
+            "cloudsmith.member.active",
             1,
             tags=[
                 "user:testuser",
@@ -359,5 +388,94 @@ def test_member_metrics_and_events(
     aggregator.assert_metric("cloudsmith.storage_plan_limit_bytes", -1)
     aggregator.assert_metric("cloudsmith.storage_plan_limit_gb", -1)
 
+    # Assert new metrics added for members and policy violations
+    for metric in [
+        "cloudsmith.license_policy_violation.count",
+        "cloudsmith.vulnerability_policy_violation.count",
+        "cloudsmith.member.has_2fa.count",
+        "cloudsmith.member.saml.count",
+        "cloudsmith.member.password.count",
+        "cloudsmith.member.owner.count",
+        "cloudsmith.member.manager.count",
+        "cloudsmith.member.admin.count",
+        "cloudsmith.member.readonly.count",
+    ]:
+        aggregator.assert_metric(metric)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+
+def test_get_parsed_usage_info_missing_keys(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    check.get_usage_info = MagicMock(return_value={})  # Simulate missing 'usage' key
+    result = check.get_parsed_usage_info()
+    assert result["storage_used"] == -1
+    assert result["bandwidth_used"] == -1
+    assert result["storage_used_bytes"] == -1
+    assert result["bandwidth_used_bytes"] == -1
+
+
+def test_get_parsed_license_policy_violation_info_structure(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    check.get_license_policy_violation_info = MagicMock(
+        return_value={
+            "results": [
+                {
+                    "package": {"name": "pkg"},
+                    "policy": {"name": "GPL"},
+                    "reasons": ["GPL-2.0", "GPL-3.0"],
+                    "event_at": "2023-01-01T00:00:00.000000Z",
+                }
+            ]
+        }
+    )
+    parsed = check.get_parsed_license_policy_violation_info()
+    assert parsed[0]["policy"] == "GPL"
+    assert "GPL-2.0" in parsed[0]["reason"]
+
+
+def test_filter_vulnerabilities_multiple_severities(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    data = [
+        {"max_severity": "Critical"},
+        {"max_severity": "Medium"},
+        {"max_severity": "Low"},
+    ]
+    result = check.filter_vulnerabilities(data, ["Critical", "Medium"])
+    assert len(result) == 2
+    assert result[0]["max_severity"] == "Critical"
+    assert result[1]["max_severity"] == "Medium"
+
+
+
+
+def test_get_api_json_exceptions(instance_good, mocker):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    # Timeout
+    mocker.patch("datadog_checks.base.utils.http.requests.get", side_effect=Timeout("timeout"))
+    with pytest.raises(Timeout):
+        check.get_api_json("https://api.cloudsmith.io/v1/timeout")
+
+    # HTTPError
+    mocker.patch(
+        "datadog_checks.base.utils.http.requests.get", side_effect=HTTPError("url", 500, "Internal Error", {}, None)
+    )
+    with pytest.raises(HTTPError):
+        check.get_api_json("https://api.cloudsmith.io/v1/http-error")
+
+    # InvalidURL
+    mocker.patch("datadog_checks.base.utils.http.requests.get", side_effect=InvalidURL("bad url"))
+    with pytest.raises(InvalidURL):
+        check.get_api_json("https://api.cloudsmith.io/v1/invalid")
+
+    # JSONDecodeError
+    class MockBadResponse:
+        status_code = 200
+
+        def json(self):
+            raise json.JSONDecodeError("Expecting value", "doc", 0)
+
+    mocker.patch("datadog_checks.base.utils.http.requests.get", return_value=MockBadResponse())
+    with pytest.raises(json.JSONDecodeError):
+        check.get_api_json("https://api.cloudsmith.io/v1/bad-json")
