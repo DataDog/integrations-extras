@@ -1,35 +1,80 @@
-id: dagster-plus
+id: "dagster-plus"
 tests:
-  - sample: >-
+  - sample: |-
       {
-        "run_id": "a3bcb088-1640-40dc-9701-4b554c0b9cac",
-        "timestamp": "1747684829.8596163",
-        "event_type": "STEP_WORKER_STARTED",
-        "job_name": "diamond_asset_job",
-        "message": "Executing step \"diamond_final_asset\" in subprocess.",
-        "deployment": "prod",
-        "service": "dagster-plus"
+        "run_id" : "a3bcb088-1640-40dc-9701-4b554c0b9cac",
+        "event_type" : "STEP_WORKER_STARTED",
+        "job_name" : "diamond_asset_job",
+        "service" : "dagster-plus",
+        "message" : "Executing step \"diamond_final_asset\" in subprocess.",
+        "timestamp" : "1747684829.8596163",
+        "deployment" : "prod"
       }
-    result: null
-  - sample: >-
+    result:
+      custom:
+        dagster:
+          event_type: "STEP_WORKER_STARTED"
+        deployment: "prod"
+        event_type: "STEP_WORKER_STARTED"
+        job_name: "diamond_asset_job"
+        run_id: "a3bcb088-1640-40dc-9701-4b554c0b9cac"
+        service: "dagster-plus"
+        status: "info"
+        timestamp: "1747684829.8596163"
+      message: 'Executing step "diamond_final_asset" in subprocess.'
+      status: "info"
+      tags:
+        - "source:LOGS_SOURCE"
+      timestamp: 1
+  - sample: |-
       {
-        "run_id": "ff550567-4f6f-4aa0-a7b1-548d97a99170",
-        "timestamp": "1747684973.981837",
-        "event_type": "STEP_FAILURE",
-        "job_name": "__ASSET_JOB",
-        "message": "Execution of step \"dbt_non_partitioned_models\" failed.",
-        "deployment": "prod",
-        "service": "dagster-plus"
+        "run_id" : "ff550567-4f6f-4aa0-a7b1-548d97a99170",
+        "event_type" : "STEP_FAILURE",
+        "job_name" : "__ASSET_JOB",
+        "service" : "dagster-plus",
+        "message" : "Execution of step \"dbt_non_partitioned_models\" failed.",
+        "timestamp" : "1747684973.981837",
+        "deployment" : "prod"
       }
-    result: null
-  - sample: >-
+    result:
+      custom:
+        dagster:
+          event_type: "STEP_FAILURE"
+        deployment: "prod"
+        event_type: "STEP_FAILURE"
+        job_name: "__ASSET_JOB"
+        run_id: "ff550567-4f6f-4aa0-a7b1-548d97a99170"
+        service: "dagster-plus"
+        status: "error"
+        timestamp: "1747684973.981837"
+      message: 'Execution of step "dbt_non_partitioned_models" failed.'
+      status: "error"
+      tags:
+        - "source:LOGS_SOURCE"
+      timestamp: 1
+  - sample: |-
       {
-        "run_id": "a3bcb088-1640-40dc-9701-4b554c0b9cac",
-        "timestamp": "1747684824.7399628",
-        "event_type": "ENGINE_EVENT",
-        "job_name": "diamond_asset_job",
-        "message": "Starting run metrics thread with container_metrics_enabled=True and python_metrics_enabled=False",
-        "deployment": "prod",
-        "service": "dagster-plus"
+        "run_id" : "a3bcb088-1640-40dc-9701-4b554c0b9cac",
+        "event_type" : "ENGINE_EVENT",
+        "job_name" : "diamond_asset_job",
+        "service" : "dagster-plus",
+        "message" : "Starting run metrics thread with container_metrics_enabled=True and python_metrics_enabled=False",
+        "timestamp" : "1747684824.7399628",
+        "deployment" : "prod"
       }
-    result: null
+    result:
+      custom:
+        dagster:
+          event_type: "ENGINE_EVENT"
+        deployment: "prod"
+        event_type: "ENGINE_EVENT"
+        job_name: "diamond_asset_job"
+        run_id: "a3bcb088-1640-40dc-9701-4b554c0b9cac"
+        service: "dagster-plus"
+        status: "info"
+        timestamp: "1747684824.7399628"
+      message: "Starting run metrics thread with container_metrics_enabled=True and python_metrics_enabled=False"
+      status: "info"
+      tags:
+        - "source:LOGS_SOURCE"
+      timestamp: 1

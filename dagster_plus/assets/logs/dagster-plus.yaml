@@ -6,8 +6,8 @@ facets:
     facetType: list
     groups:
       - others
-    name: dagster.event_type
-    path: dagster.event_type
+    name: dagster-plus.event_type
+    path: dagster-plus.event_type
     source: log
     type: string
 pipeline:
@@ -45,12 +45,12 @@ pipeline:
       sources:
         - status
     - type: attribute-remapper
-      name: Map `event_type` to `dagster.event_type`
+      name: Map `event_type` to `dagster-plus.event_type`
       enabled: true
       sources:
         - event_type
       sourceType: attribute
-      target: dagster.event_type
+      target: dagster-plus.event_type
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
