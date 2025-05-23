@@ -24,8 +24,8 @@ control-plane {
       id = "prl_example"
       # ... other configuration for your location
       system-properties {
-        "gatling.enterprise.dd.api.key" = "<your api key>" # fill your API key here
-        "gatling.enterprise.dd.site" = "datadoghq.com"  # replace with your Datadog site
+        "gatling.enterprise.dd.api.key" = "YOUR_API_KEY" # Fill your API key here
+        "gatling.enterprise.dd.site" = "datadoghq.com"  # Replace with your Datadog site
       }
     }
   ]
@@ -38,17 +38,19 @@ control-plane {
 
 1. In Datadog, navigate to **Integrations**, select the Gatling Enterprise tile, and click **Uninstall Integration**.
 
-2. In your Gatling control-plane installation, edit your [configuration file][3]. In the section `system-properties`, remove the lines containing `gatling.enterprise.dd`.\
+2. In your Gatling control-plane installation, edit your [configuration file][5]. In the section `system-properties`, remove the lines containing `gatling.enterprise.dd`.
    
-3. Deploy and restart your control plane
+3. Deploy and restart your control plane.
 
 ## Support
 
-Need help? Contact [Gatling Enterprise support][4].
+Need help? Contact [Gatling Enterprise support][6].
 
 
 
 [1]: https://gatling.io/products
 [2]: https://docs.gatling.io/reference/install/cloud/private-locations/introduction/
-[3]: <https://docs.gatling.io/reference/install/cloud/private-locations/introduction/>
-[4]: https://gatlingcorp.atlassian.net/servicedesk/customer/portal/8
+[3]: https://docs.datadoghq.com/account_management/api-app-keys/
+[4]: https://docs.datadoghq.com/getting_started/site/
+[5]: https://docs.gatling.io/reference/install/cloud/private-locations/introduction
+[6]: https://gatlingcorp.atlassian.net/servicedesk/customer/portal/8
