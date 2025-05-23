@@ -1,0 +1,38 @@
+{
+    "version": 2,
+    "created_at": "2025-01-24",
+    "last_updated_at": "2025-01-24",
+    "title": "Circuit Breaker State Alert",
+    "tags": [
+      "integration:resilience4j"
+    ],
+    "description": "This monitor alerts when the Circuit Breaker state changes.",
+    "definition": {
+      "message": "More than 50% of services are impacted by the circuit breaker state.\n\nService: {{name.name}}\n\nState: {{state.name}}",
+      "name": "[Resilience4j] Circuit Breaker State Alert for {{name.name}} with state {{state.name}}",
+      "options": {
+        "escalation_message": "The circuit breaker `{{name.name}}` has been `{{state.name}}` for more than **30 minutes**.",
+        "include_tags": true,
+        "new_group_delay": 300,
+        "notify_audit": false,
+        "on_missing_data": "default",
+        "renotify_interval": 30,
+        "renotify_statuses": [
+          "alert"
+        ],
+        "require_full_window": false,
+        "thresholds": {
+          "critical": 50,
+          "critical_recovery": 0,
+          "warning": 15,
+          "warning_recovery": 10
+        },
+        "timeout_h": 0
+      },
+      "query": "sum(last_5m):max:resilience4j.circuitbreaker.state{state IN (open,half_open,forced_open)} by {name,state} / max:kubernetes.pods.running{*} * 100 >= 50",
+      "tags": [
+        "integration:resilience4j"
+      ],
+      "type": "query alert"
+    }
+  }

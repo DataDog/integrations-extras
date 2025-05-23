@@ -1,0 +1,1283 @@
+{
+    "slug": "pagerduty_incident_manager",
+    "name": "Manage PagerDuty Incidents",
+    "description": "Trigger, acknowledge and resolve incidents from PagerDuty",
+    "tags": ["paging"],
+    "tile_background": "four-callout-table",
+    "tile_icon_action_fqn": "com.datadoghq.pagerduty.listServices",
+    "definition": {
+        "name": "Manage PagerDuty Incidents",
+        "description": "Trigger, acknowledge and resolve incidents from PagerDuty",
+        "queries": [
+            {
+                "name": "listIncidents",
+                "type": "action",
+                "properties": {
+                    "outputs": "${((outputs) => {\nconst now = new Date();\n// a human readable format\nconst calculateTimeDifference = (time) => {\n\n    const then = new Date(time);\n    const difference = now.getTime() - then.getTime();\n    const seconds = Math.floor(difference / 1000);\n    const minutes = Math.floor(seconds / 60);\n    if (minutes < 1) {\n        return 'just now';\n    }\n    if (minutes < 60) {\n        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;\n    }\n    const hours = Math.floor(minutes / 60);\n    if (hours < 24) {\n        return `${hours} hour${hours > 1 ? 's' : ''} ago`;\n    }\n    const days = Math.floor(hours / 24);\n    return `${days} day${days > 1 ? 's' : ''} ago`;\n};\n\nreturn outputs.body?.incidents?.filter( i => {\n    const createdTime = new Date(i.created_at).getTime();\n    return  createdTime >= time.value.start && createdTime <= time.value.end;\n    \n}).map(i => {\n    return {\n        ...i,\n        teams: i.teams.map(t => t.name),\n        duration: calculateTimeDifference(i.created_at),\n        title: {\n            href: i.html_url,\n            label: i.title\n        }\n    }\n})\n\n\n})(self.rawOutputs)}",
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "url": "https://api.pagerduty.com/incidents?${(Array.isArray(service.value) ? service.value : []).map(s => 'service_ids%5B%5D='.concat(s)).join('&')}&incidents?${(Array.isArray(service.value) ? service.value : []).map(s => 'service_ids%5B%5D='.concat(s)).join('&')}&${(Array.isArray(team.value) ? team.value : []).map(s => 'team_ids%5B%5D='.concat(s)).join('&')}&${(Array.isArray(status.value) ? status.value : []).map(s => 'statuses%5B%5D='.concat(s)).join('&')}",
+                            "urlParams": [
+                                {
+                                    "key": "date_range",
+                                    "value": "all"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                },
+                                {
+                                    "key": "sort_by",
+                                    "value": "created_at:desc"
+                                },
+                                {
+                                    "key": "include[]",
+                                    "value": "services"
+                                },
+                                {
+                                    "key": "include[]",
+                                    "value": "teams"
+                                },
+                                {
+                                    "key": "include[]",
+                                    "value": "users"
+                                }
+                            ],
+                            "verb": "GET"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "listServices",
+                "type": "action",
+                "properties": {
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "url": "https://api.pagerduty.com/services",
+                            "urlParams": [
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                }
+                            ],
+                            "verb": "GET"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "listTeams",
+                "type": "action",
+                "properties": {
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "url": "https://api.pagerduty.com/teams",
+                            "verb": "GET"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "triggerIncident",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": true,
+                    "showToastOnError": true,
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "body": {
+                                "incident": {
+                                    "service": {
+                                        "id": "${serviceInput.value}",
+                                        "type": "service_reference"
+                                    },
+                                    "title": "${summary.value}",
+                                    "type": "incident"
+                                }
+                            },
+                            "requestHeaders": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": ["application/json"]
+                                }
+                            ],
+                            "url": "https://api.pagerduty.com/incidents",
+                            "verb": "POST"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "acknowledgeIncident",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": true,
+                    "showToastOnError": true,
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "body": {
+                                "incidents": [
+                                    {
+                                        "id": "${table0.selectedRow?.content.id}",
+                                        "status": "acknowledged",
+                                        "type": "incident_reference"
+                                    }
+                                ]
+                            },
+                            "requestHeaders": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": ["application/json"]
+                                }
+                            ],
+                            "url": "https://api.pagerduty.com/incidents",
+                            "verb": "PUT"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "resolveIncident",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": true,
+                    "showToastOnError": true,
+                    "spec": {
+                        "fqn": "com.datadoghq.http.request",
+                        "inputs": {
+                            "body": {
+                                "incidents": [
+                                    {
+                                        "id": "${table0.selectedRow?.content.id}",
+                                        "status": "resolved",
+                                        "type": "incident_reference"
+                                    }
+                                ]
+                            },
+                            "requestHeaders": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": ["application/json"]
+                                }
+                            ],
+                            "url": "https://api.pagerduty.com/incidents",
+                            "verb": "PUT"
+                        }
+                    },
+                    "connectionId": "INTEGRATION_DEMO"
+                }
+            }
+        ],
+        "components": [
+            {
+                "events": [],
+                "name": "grid0",
+                "properties": {
+                    "children": [
+                        {
+                            "events": [],
+                            "name": "gridCell0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "table0",
+                                        "properties": {
+                                            "columns": [
+                                                {
+                                                    "dataPath": "incident_number",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "isSoft": true,
+                                                        "options": [],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "incident_number",
+                                                    "id": "9c310baa-ac71-495c-97f2-6a92653dae50"
+                                                },
+                                                {
+                                                    "dataPath": "title",
+                                                    "header": "title",
+                                                    "id": "0c21fc7c-44da-4a41-8b9e-56caa8cde4eb",
+                                                    "isHidden": false,
+                                                    "formatter": {
+                                                        "type": "link"
+                                                    }
+                                                },
+                                                {
+                                                    "dataPath": "description",
+                                                    "header": "description",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "status",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "isSoft": true,
+                                                        "options": [
+                                                            {
+                                                                "level": "success",
+                                                                "value": "resolved"
+                                                            },
+                                                            {
+                                                                "level": "warning",
+                                                                "value": "acknowledged"
+                                                            },
+                                                            {
+                                                                "level": "danger",
+                                                                "value": "triggered"
+                                                            }
+                                                        ],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "status",
+                                                    "id": "af6dc2fd-b6f4-4bc0-8fc0-ede2335b99d1"
+                                                },
+                                                {
+                                                    "dataPath": "duration",
+                                                    "disableSortBy": false,
+                                                    "header": "Created",
+                                                    "id": "d9ba251f-ef78-42fb-819c-5c507266884a"
+                                                },
+                                                {
+                                                    "dataPath": "priority",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "options": [
+                                                            {
+                                                                "level": "danger",
+                                                                "value": "High"
+                                                            },
+                                                            {
+                                                                "level": "warning",
+                                                                "value": "Medium"
+                                                            }
+                                                        ],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "priority",
+                                                    "id": "a3435129-a033-4510-87f2-2ba63ee82a15",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "assigned_via",
+                                                    "header": "assigned_via",
+                                                    "id": "b14825b2-f982-4a02-b3a5-5fdd7fc65b26",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "acknowledgements",
+                                                    "header": "acknowledgements",
+                                                    "id": "d3fd6096-977d-40bb-bbd6-25367e14a93d",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "alert_counts",
+                                                    "header": "alert_counts",
+                                                    "id": "836fb280-c207-40dc-bb67-52825a1b448a",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "alert_grouping",
+                                                    "header": "alert_grouping",
+                                                    "id": "e2106c46-5a92-4ecb-a5b7-738185e72d9b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "assignments",
+                                                    "header": "assignments",
+                                                    "id": "a0c266db-6b51-4eaa-b085-8d770e26070d",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "basic_alert_grouping",
+                                                    "header": "basic_alert_grouping",
+                                                    "id": "d5080755-c3d1-44e2-880f-e2e1b464a37d",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "created_at",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "type": "none"
+                                                    },
+                                                    "header": "created_at",
+                                                    "id": "37b28742-4bf8-4e8c-b146-ea2c4e1ee621",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "escalation_policy",
+                                                    "header": "escalation_policy",
+                                                    "id": "02e03e60-2056-4b81-8156-69feeee6f44b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "first_trigger_log_entry",
+                                                    "header": "first_trigger_log_entry",
+                                                    "id": "c9cf1099-610b-442a-b82d-923fac88191f",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "id",
+                                                    "header": "id",
+                                                    "id": "75ba977f-0dba-4cee-838a-f13dde8b83dd",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "incident_key",
+                                                    "header": "incident_key",
+                                                    "id": "5e88755b-e135-4362-bf69-1df2d22b7c9f",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "incidents_responders",
+                                                    "header": "incidents_responders",
+                                                    "id": "daa76f4a-42d9-4be1-908a-427011459000",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "is_mergeable",
+                                                    "header": "is_mergeable",
+                                                    "id": "51267ddf-673a-4610-904f-32fb1ed54773",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "last_status_change_at",
+                                                    "header": "last_status_change_at",
+                                                    "id": "1f005aaa-400e-4c53-850b-122033e1e904",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "last_status_change_by",
+                                                    "header": "last_status_change_by",
+                                                    "id": "cbe31fff-1019-461a-ae3d-02c9c0742088",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "pending_actions",
+                                                    "header": "pending_actions",
+                                                    "id": "89f6616a-c0e5-469c-8aa2-547c940d9fee",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "resolved_at",
+                                                    "header": "resolved_at",
+                                                    "id": "44ad2fc4-ae9a-4c33-81fc-2f82afb7d6f7",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "responder_requests",
+                                                    "header": "responder_requests",
+                                                    "id": "e9b8cf13-cfdc-48ce-99e4-079c7365c3d3",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "self",
+                                                    "header": "self",
+                                                    "id": "0269a555-b439-4dab-b9e0-7ccae04a99cc",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "service.summary",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "isSoft": true,
+                                                        "options": [],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "service",
+                                                    "id": "bed13b7a-3d17-4ecf-a2ee-f3ee4c2c04c2"
+                                                },
+                                                {
+                                                    "dataPath": "subscriber_requests",
+                                                    "header": "subscriber_requests",
+                                                    "id": "72c81a5c-0d4b-4ccd-919d-25a222a6982a",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "summary",
+                                                    "header": "summary",
+                                                    "id": "26f17ba2-186e-47c0-9248-0419f9891041",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "teams",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "type": "tags"
+                                                    },
+                                                    "header": "teams",
+                                                    "id": "5ae98d9b-d762-4ad1-afe8-326327330015",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "type",
+                                                    "header": "type",
+                                                    "id": "828b9dad-c924-4707-a45e-042c55e74e07",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "updated_at",
+                                                    "header": "updated_at",
+                                                    "id": "d00920f5-9542-49bd-a997-d2ac98c53cee",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "urgency",
+                                                    "header": "urgency",
+                                                    "id": "5cdb3b9f-c266-42b4-bfbd-4c45e5126d33",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "html_url",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "label": "Open in PagerDuty",
+                                                        "type": "link"
+                                                    },
+                                                    "header": "Open",
+                                                    "id": "273b3cbc-5ffc-40ac-9cbb-614a646a0308",
+                                                    "isHidden": true
+                                                }
+                                            ],
+                                            "data": "${listIncidents?.outputs}",
+                                            "isLoading": "${listIncidents.isLoading}",
+                                            "isScrollable": "vertical",
+                                            "isVisible": "true",
+                                            "isWrappable": true,
+                                            "pageSize": "10",
+                                            "paginationType": "client_side",
+                                            "rowButtons": [
+                                                {
+                                                    "events": [
+                                                        {
+                                                            "name": "click",
+                                                            "queryName": "acknowledgeIncident",
+                                                            "type": "triggerQuery"
+                                                        }
+                                                    ],
+                                                    "name": "button1",
+                                                    "properties": {
+                                                        "isBorderless": false,
+                                                        "isDisabled": false,
+                                                        "isPrimary": false,
+                                                        "isVisible": true,
+                                                        "label": "☑️ Acknowledge"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                {
+                                                    "events": [
+                                                        {
+                                                            "name": "click",
+                                                            "queryName": "resolveIncident",
+                                                            "type": "triggerQuery"
+                                                        }
+                                                    ],
+                                                    "name": "button2",
+                                                    "properties": {
+                                                        "isBorderless": false,
+                                                        "isDisabled": false,
+                                                        "isPrimary": false,
+                                                        "isVisible": true,
+                                                        "label": "✅ Resolve"
+                                                    },
+                                                    "type": "button"
+                                                }
+                                            ],
+                                            "summary": false,
+                                            "totalCount": "100"
+                                        },
+                                        "type": "table"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 91,
+                                        "width": 12,
+                                        "x": 0,
+                                        "y": 36
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "time",
+                                        "properties": {
+                                            "defaultRange": {
+                                                "msPeriod": 86400000,
+                                                "type": "relative"
+                                            },
+                                            "isVisible": "true"
+                                        },
+                                        "type": "dateRangePicker"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 5,
+                                        "width": 3,
+                                        "x": 7,
+                                        "y": 6
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell2",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "service",
+                                        "properties": {
+                                            "defaultValue": "",
+                                            "isDisabled": "${listServices.isLoading}",
+                                            "isMultiselect": true,
+                                            "isVisible": "true",
+                                            "label": "Service",
+                                            "options": "${listServices.outputs?.body?.services?.map(s => ({label:s.name, value:s.id}))}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 11,
+                                        "width": 6,
+                                        "x": 6,
+                                        "y": 15
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell3",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "team",
+                                        "properties": {
+                                            "defaultValue": "",
+                                            "isDisabled": "${listTeams.isLoading}",
+                                            "isMultiselect": true,
+                                            "isVisible": "true",
+                                            "label": "Team",
+                                            "options": "${listTeams.outputs?.body?.teams?.map(s => ({label:s.name, value:s.id}))}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 6,
+                                        "x": 0,
+                                        "y": 15
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell4",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "status",
+                                        "properties": {
+                                            "defaultValue": "",
+                                            "isDisabled": false,
+                                            "isMultiselect": true,
+                                            "isVisible": "true",
+                                            "label": "Status",
+                                            "options": "['triggered', 'acknowledged', 'resolved']"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 8,
+                                        "width": 2,
+                                        "x": 5,
+                                        "y": 3
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listIncidents.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Total",
+                                            "size": "sm",
+                                            "style": "blue",
+                                            "unit": "incidents",
+                                            "value": "${listIncidents?.outputs?.length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 3,
+                                        "x": 0,
+                                        "y": 26
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5_copy",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0_copy",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listIncidents.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Resolved",
+                                            "size": "sm",
+                                            "style": "green",
+                                            "unit": "incidents",
+                                            "value": "${listIncidents?.outputs?.filter(o => o.status === 'resolved').length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 3,
+                                        "x": 3,
+                                        "y": 26
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5_copy1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0_copy1",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listIncidents.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Acknowledged",
+                                            "size": "sm",
+                                            "style": "gray",
+                                            "unit": "incidents",
+                                            "value": "${listIncidents?.outputs?.filter(o => o.status === 'acknowledged').length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 3,
+                                        "x": 6,
+                                        "y": 26
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5_copy2",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0_copy2",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listIncidents.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Triggered",
+                                            "size": "sm",
+                                            "style": "pink",
+                                            "unit": "incidents",
+                                            "value": "${listIncidents?.outputs?.filter(o => o.status === 'triggered').length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 3,
+                                        "x": 9,
+                                        "y": 26
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell6",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text0",
+                                        "properties": {
+                                            "content": "# PagerDuty Incident Manager",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "top"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 5,
+                                        "width": 4,
+                                        "x": 0,
+                                        "y": 5
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell7",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [
+                                            {
+                                                "modalName": "modal0",
+                                                "name": "click",
+                                                "type": "openModal"
+                                            }
+                                        ],
+                                        "name": "button0",
+                                        "properties": {
+                                            "integrationIcon": "pagerduty",
+                                            "isBorderless": false,
+                                            "isDisabled": "false",
+                                            "isLoading": "false",
+                                            "isPrimary": false,
+                                            "isVisible": "true",
+                                            "label": "Trigger Incident",
+                                            "level": "default"
+                                        },
+                                        "type": "button"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 2,
+                                        "x": 10,
+                                        "y": 7
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [
+                                {
+                                    "componentName": "summary",
+                                    "name": "open",
+                                    "stateFunction": "setValue",
+                                    "type": "setComponentState",
+                                    "value": "${undefined}"
+                                },
+                                {
+                                    "componentName": "serviceInput",
+                                    "name": "open",
+                                    "stateFunction": "setValue",
+                                    "type": "setComponentState",
+                                    "value": "${undefined}"
+                                }
+                            ],
+                            "name": "modal0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "grid1",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell9",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "serviceInput",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isMultiselect": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Service*",
+                                                                    "options": "${listServices.outputs?.body?.services?.map(s => ({label:s.name, value:s.id}))}"
+                                                                },
+                                                                "type": "select"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 9,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 0
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell10",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "summary",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Summary*",
+                                                                    "placeholder": ""
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 10
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell12",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "name": "click",
+                                                                        "queryName": "triggerIncident",
+                                                                        "type": "triggerQuery"
+                                                                    }
+                                                                ],
+                                                                "name": "button3",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "${!serviceInput.value?.length || !summary.value?.length}",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": true,
+                                                                    "isVisible": "true",
+                                                                    "label": "Trigger",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 2,
+                                                                "x": 10,
+                                                                "y": 24
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell13",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "modalName": "modal0",
+                                                                        "name": "click",
+                                                                        "type": "closeModal"
+                                                                    }
+                                                                ],
+                                                                "name": "button4",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "false",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Cancel",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 2,
+                                                                "x": 8,
+                                                                "y": 24
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell8",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "text1",
+                                                                "properties": {
+                                                                    "content": "---",
+                                                                    "contentType": "markdown",
+                                                                    "isVisible": "true",
+                                                                    "textAlign": "left",
+                                                                    "verticalAlign": "top"
+                                                                },
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 18
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                }
+                                            ]
+                                        },
+                                        "type": "grid"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "size": "sm",
+                                "title": "Trigger Incident"
+                            },
+                            "type": "modal"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell11",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text2",
+                                        "properties": {
+                                            "content": "Create, monitor, acknowledge and resolve incidents from Datadog",
+                                            "contentType": "plain_text",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "top"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 4,
+                                        "x": 0,
+                                        "y": 10
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        }
+                    ]
+                },
+                "type": "grid"
+            }
+        ],
+        "rootInstanceName": "grid0"
+    },
+    "mocked_outputs": {
+        "listIncidents": {
+            "body": {
+                "incidents": [
+                    {
+                        "acknowledgements": [],
+                        "alert_counts": {},
+                        "alert_grouping": null,
+                        "assigned_via": "escalation_policy",
+                        "assignments": [],
+                        "basic_alert_grouping": null,
+                        "created_at": "2024-05-22T15:30:47.651Z",
+                        "description": "Critical server outage affecting production environment",
+                        "escalation_policy": {},
+                        "first_trigger_log_entry": {},
+                        "html_url": "https://datadog.pagerduty.com/incidents/P1D1",
+                        "id": 123,
+                        "incident_key": "4f534a76-86c6-4a3a-97c0-9be317e15699",
+                        "incident_number": 7503,
+                        "incidents_responders": [],
+                        "is_mergeable": false,
+                        "last_status_change_at": "2024-05-22T16:45:00.000Z",
+                        "last_status_change_by": {},
+                        "pending_actions": [],
+                        "priority": null,
+                        "resolved_at": null,
+                        "responder_requests": [],
+                        "self": "https://api.pagerduty.com/incidents/P1D1",
+                        "service": {
+                            "html_url": "https://datadog.pagerduty.com/service-directory/2978",
+                            "id": "D1F4G8H7",
+                            "name": "Platform",
+                            "summary": "Platform"
+                        },
+                        "status": "triggered",
+                        "subscriber_requests": [],
+                        "summary": "Server Outage",
+                        "teams": [],
+                        "title": "Server Outage",
+                        "type": "incident",
+                        "updated_at": "2024-05-22T16:45:00.000Z",
+                        "urgency": "high"
+                    },
+                    {
+                        "acknowledgements": [],
+                        "alert_counts": {},
+                        "alert_grouping": null,
+                        "assigned_via": "escalation_policy",
+                        "assignments": [],
+                        "basic_alert_grouping": null,
+                        "created_at": "2024-05-22T14:15:32.123Z",
+                        "description": "Database connection issues affecting multiple services",
+                        "escalation_policy": {},
+                        "first_trigger_log_entry": {},
+                        "html_url": "https://datadog.pagerduty.com/incidents/P1D2",
+                        "id": 124,
+                        "incident_key": "5e645b87-97d7-5b4b-a8d1-ace428f26788",
+                        "incident_number": 7504,
+                        "incidents_responders": [],
+                        "is_mergeable": false,
+                        "last_status_change_at": "2024-05-22T15:30:00.000Z",
+                        "last_status_change_by": {},
+                        "pending_actions": [],
+                        "priority": null,
+                        "resolved_at": null,
+                        "responder_requests": [],
+                        "self": "https://api.pagerduty.com/incidents/P1D2",
+                        "service": {
+                            "html_url": "https://datadog.pagerduty.com/service-directory/2979",
+                            "id": "D1F4G8H8",
+                            "name": "Monitoring",
+                            "summary": "Monitoring"
+                        },
+                        "status": "acknowledged",
+                        "subscriber_requests": [],
+                        "summary": "Database Connection Failure",
+                        "teams": [],
+                        "title": "Database Connection Failure",
+                        "type": "incident",
+                        "updated_at": "2024-05-22T15:30:00.000Z",
+                        "urgency": "high"
+                    },
+                    {
+                        "acknowledgements": [],
+                        "alert_counts": {},
+                        "alert_grouping": null,
+                        "assigned_via": "escalation_policy",
+                        "assignments": [],
+                        "basic_alert_grouping": null,
+                        "created_at": "2024-05-22T12:20:15.789Z",
+                        "description": "Security breach detected in authentication system",
+                        "escalation_policy": {},
+                        "first_trigger_log_entry": {},
+                        "html_url": "https://datadog.pagerduty.com/incidents/P1D3",
+                        "id": 125,
+                        "incident_key": "6f756c98-a8e8-6c5c-b9e2-bdf539f37899",
+                        "incident_number": 7505,
+                        "incidents_responders": [],
+                        "is_mergeable": false,
+                        "last_status_change_at": "2024-05-22T14:45:00.000Z",
+                        "last_status_change_by": {},
+                        "pending_actions": [],
+                        "priority": null,
+                        "resolved_at": "2024-05-22T14:45:00.000Z",
+                        "responder_requests": [],
+                        "self": "https://api.pagerduty.com/incidents/P1D3",
+                        "service": {
+                            "html_url": "https://datadog.pagerduty.com/service-directory/2980",
+                            "id": "D1F4G8H9",
+                            "name": "Alerting",
+                            "summary": "Alerting"
+                        },
+                        "status": "resolved",
+                        "subscriber_requests": [],
+                        "summary": "Security Breach Detected",
+                        "teams": [],
+                        "title": "Security Breach Detected",
+                        "type": "incident",
+                        "updated_at": "2024-05-22T14:45:00.000Z",
+                        "urgency": "high"
+                    }
+                ],
+                "limit": 100,
+                "more": true,
+                "offset": 0,
+                "total": 20
+            },
+            "headers": {},
+            "status": 200
+        },
+        "listServices": {
+            "body": {
+                "limit": 100,
+                "more": true,
+                "offset": 0,
+                "services": [
+                    {
+                        "id": "111",
+                        "name": "Alerting"
+                    },
+                    {
+                        "id": "222",
+                        "name": "Monitoring"
+                    },
+                    {
+                        "id": "333",
+                        "name": "Platform"
+                    },
+                    {
+                        "id": "444",
+                        "name": "Mobile Apps"
+                    }
+                ],
+                "total": 4
+            },
+            "headers": {},
+            "status": 200
+        },
+        "listTeams": {
+            "body": {
+                "limit": 100,
+                "more": true,
+                "offset": 0,
+                "services": [
+                    {
+                        "id": "111",
+                        "name": "Dashboards"
+                    },
+                    {
+                        "id": "222",
+                        "name": "Apps"
+                    },
+                    {
+                        "id": "333",
+                        "name": "Networking"
+                    },
+                    {
+                        "id": "444",
+                        "name": "Backend Core"
+                    }
+                ],
+                "total": 4
+            },
+            "headers": {},
+            "status": 200
+        },
+        "triggerIncident": {
+            "body": {},
+            "headers": {},
+            "status": 200
+        },
+        "acknowledgeIncident": {
+            "body": {},
+            "headers": {},
+            "status": 200
+        }
+    },
+    "embedded_workflow_blueprints": {},
+    "embedded_datastore_blueprints": {}
+}

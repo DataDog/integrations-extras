@@ -1,0 +1,631 @@
+
+{
+    "slug": "pagerduty_trigger_incident",
+    "name": "Trigger Incident in Pagerduty",
+    "description": "Select a service & trigger an incident",
+    "tags": ["paging", "datadog"],
+    "tile_background": "table",
+    "definition": {
+        "name": "Trigger Incident in Pagerduty",
+        "description": "Select a service & trigger an incident",
+        "favorite": false,
+        "queries": [
+            {
+                "name": "triggerIncident0",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": true,
+                    "spec": {
+                        "fqn": "com.datadoghq.pagerduty.trigger_incident",
+                        "inputs": {
+                            "serviceId": "${getServiceId.outputs}",
+                            "severity": "${select1.value}",
+                            "source": "${textInput0_copy.value}",
+                            "summary": "${textArea0.value}"
+                        }
+                    }
+                },
+                "events": [
+                    {
+                        "modalName": "confirmation",
+                        "name": "executionFinished",
+                        "type": "openModal"
+                    }
+                ]
+            },
+            {
+                "name": "listServiceDefinitions0",
+                "type": "action",
+                "properties": {
+                    "spec": {
+                        "connectionId": "INTEGRATION_DEMO",
+                        "fqn": "com.datadoghq.dd.service_catalog.listServiceDefinitions",
+                        "inputs": {
+                            "limit": 1000
+                        }
+                    }
+                }
+            },
+            {
+                "name": "getServiceNames",
+                "type": "dataTransform",
+                "properties": {
+                    "outputs": "${(() => {// Write the body of your\n// transform function here.\n\n// Remember to return a value. \n\nreturn listServiceDefinitions0.outputs.data.map(output => output.attributes.schema['dd-service']);})()}"
+                }
+            },
+            {
+                "name": "getServiceLink",
+                "type": "dataTransform",
+                "properties": {
+                    "outputs": "${(() => {// Write the body of your\n// transform function here.\n\n// Remember to return a value. \n\nfunction getPagerDutyLink(ddService, data) {\n    // Iterate over the data array to find the matching dd-service\n    for (let i = 0; i < data.length; i++) {\n        if (data[i].attributes.schema['dd-service'] === ddService) {\n            // Return the corresponding PagerDuty link and exit the function\n            return data[i].attributes.schema.integrations.pagerduty;\n        }\n    }\n    // If no matching service is found, return null or an appropriate message\n    return null;\n}\n\nreturn getPagerDutyLink(select0.value,listServiceDefinitions0.outputs.data)\n})()}"
+                }
+            },
+            {
+                "name": "getServiceId",
+                "type": "dataTransform",
+                "properties": {
+                    "outputs": "${(() => {function parseExample(url) {\n    // Create a URL object from the given string\n    const urlObj = new URL(url);\n\n    // Get the pathname from the URL object\n    const pathname = urlObj.pathname;\n\n    // Split the pathname into parts using '/' as a delimiter\n    const parts = pathname.split('/');\n\n    // The last part of the array will be \"example0\"\n    const example = parts[parts.length - 1];\n\n    return example;\n}\n\n// Example usage\nreturn parseExample(getServiceLink.outputs[0].attributes.schema.integrations.pagerduty)})()}"
+                }
+            }
+        ],
+        "components": [
+            {
+                "events": [],
+                "name": "grid0",
+                "properties": {
+                    "children": [
+                        {
+                            "events": [],
+                            "name": "confirmation",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "grid2",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell8",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "text4",
+                                                                "properties": {
+                                                                    "content": "## ✅ You've successfully created a new incident in Pagerduty",
+                                                                    "contentType": "markdown",
+                                                                    "isVisible": true,
+                                                                    "textAlign": "center",
+                                                                    "verticalAlign": "top"
+                                                                },
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 10
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell10",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "name": "click",
+                                                                        "type": "openUrl",
+                                                                        "url": "${getServiceLink?.outputs[0].attributes.schema.integrations.pagerduty}"
+                                                                    }
+                                                                ],
+                                                                "name": "button1",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": false,
+                                                                    "isLoading": false,
+                                                                    "isPrimary": true,
+                                                                    "isVisible": true,
+                                                                    "label": "Open",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 4,
+                                                                "x": 4,
+                                                                "y": 20
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                }
+                                            ]
+                                        },
+                                        "type": "grid"
+                                    }
+                                ],
+                                "isVisible": true,
+                                "size": "sm",
+                                "title": "Incident created"
+                            },
+                            "type": "modal"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell9",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [
+                                            {
+                                                "name": "click",
+                                                "queryName": "triggerIncident0",
+                                                "type": "triggerQuery"
+                                            }
+                                        ],
+                                        "name": "button0",
+                                        "properties": {
+                                            "isBorderless": false,
+                                            "isDisabled": false,
+                                            "isLoading": "${triggerIncident0?.isLoading}",
+                                            "isPrimary": true,
+                                            "isVisible": true,
+                                            "label": "Trigger Incident",
+                                            "level": "success"
+                                        },
+                                        "type": "button"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 6,
+                                        "x": 3,
+                                        "y": 79
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "header",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "grid1",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell7",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "text0",
+                                                                            "properties": {
+                                                                                "content": "![](https://app-builder-demo.s3.amazonaws.com/pagerDuty/pagerduty-round.png)",
+                                                                                "contentType": "markdown",
+                                                                                "isVisible": true,
+                                                                                "textAlign": "left",
+                                                                                "verticalAlign": "top"
+                                                                            },
+                                                                            "type": "text"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 14,
+                                                                            "width": 2,
+                                                                            "x": 5,
+                                                                            "y": 0
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell7",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "text0",
+                                                                            "properties": {
+                                                                                "content": "![](https://app-builder-demo.s3.amazonaws.com/pagerDuty/pagerduty-round.png)",
+                                                                                "contentType": "markdown",
+                                                                                "isVisible": true,
+                                                                                "textAlign": "left",
+                                                                                "verticalAlign": "top"
+                                                                            },
+                                                                            "type": "text"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 14,
+                                                                            "width": 2,
+                                                                            "x": 5,
+                                                                            "y": 0
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell11",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "text1",
+                                                                            "properties": {
+                                                                                "content": "# &nbsp; Trigger Incident in PagerDuty\n&nbsp; Hey ${global?.user.name} 👋,\nselect a service below and fill out the form to trigger an incident in PagerDuty.",
+                                                                                "contentType": "markdown",
+                                                                                "isVisible": true,
+                                                                                "textAlign": "center",
+                                                                                "verticalAlign": "center"
+                                                                            },
+                                                                            "type": "text"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 15,
+                                                                            "width": 12,
+                                                                            "x": 0,
+                                                                            "y": 14
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell11",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "text1",
+                                                                            "properties": {
+                                                                                "content": "# &nbsp; Trigger Incident in Pagerduty\n&nbsp; Hey ${global?.user.name} 👋,\nselect a service below, fill out the form, and  submit to trigger an incident in Pagerduty.",
+                                                                                "contentType": "markdown",
+                                                                                "isVisible": true,
+                                                                                "textAlign": "center",
+                                                                                "verticalAlign": "center"
+                                                                            },
+                                                                            "type": "text"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 15,
+                                                                            "width": 12,
+                                                                            "x": 0,
+                                                                            "y": 14
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "grid"
+                                                }
+                                            ],
+                                            "hasBackground": false,
+                                            "isVisible": true
+                                        },
+                                        "type": "container"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 34,
+                                        "width": 6,
+                                        "x": 3,
+                                        "y": 0
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "form",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "grid3",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell2",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "select0",
+                                                                            "properties": {
+                                                                                "defaultValue": "",
+                                                                                "isDisabled": false,
+                                                                                "isMultiselect": "false",
+                                                                                "isVisible": true,
+                                                                                "label": "Service*",
+                                                                                "options": "${getServiceNames?.outputs}",
+                                                                                "placeholder": "Select a service"
+                                                                            },
+                                                                            "type": "select"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 7,
+                                                                            "width": 7,
+                                                                            "x": 0,
+                                                                            "y": 0
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell3",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "select1",
+                                                                            "properties": {
+                                                                                "defaultValue": "",
+                                                                                "isDisabled": false,
+                                                                                "isMultiselect": "false",
+                                                                                "isVisible": true,
+                                                                                "label": "Severity*",
+                                                                                "options": "[\n    {\n        \"label\": \"Critical\",\n        \"value\": \"critical\"\n    },\n    {\n        \"label\": \"Error\",\n        \"value\": \"error\"\n    },\n    {\n        \"label\": \"Warning\",\n        \"value\": \"warning\"\n    },\n    {\n        \"label\": \"Info\",\n        \"value\": \"info\"\n    }\n]",
+                                                                                "placeholder": "Select a severity"
+                                                                            },
+                                                                            "type": "select"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 7,
+                                                                            "width": 12,
+                                                                            "x": 0,
+                                                                            "y": 8
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell4_copy",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "textInput0_copy",
+                                                                            "properties": {
+                                                                                "defaultValue": "",
+                                                                                "isDisabled": false,
+                                                                                "isVisible": true,
+                                                                                "label": "Source*",
+                                                                                "placeholder": "Indicate the source of the incident"
+                                                                            },
+                                                                            "type": "textInput"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 7,
+                                                                            "width": 12,
+                                                                            "x": 0,
+                                                                            "y": 16
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell6",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "text3",
+                                                                            "properties": {
+                                                                                "content": "${\n  getServiceLink?.outputs\n    ? `Service Link: [Open In Pagerduty](${getServiceLink.outputs})`\n    : `Select a Service to View a Link`\n}",
+                                                                                "contentType": "markdown",
+                                                                                "isVisible": true,
+                                                                                "textAlign": "left",
+                                                                                "verticalAlign": "center"
+                                                                            },
+                                                                            "type": "text"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 4,
+                                                                            "width": 5,
+                                                                            "x": 7,
+                                                                            "y": 3
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            },
+                                                            {
+                                                                "events": [],
+                                                                "name": "gridCell0",
+                                                                "properties": {
+                                                                    "children": [
+                                                                        {
+                                                                            "events": [],
+                                                                            "name": "textArea0",
+                                                                            "properties": {
+                                                                                "defaultValue": "",
+                                                                                "isDisabled": false,
+                                                                                "isVisible": true,
+                                                                                "label": "Summary*",
+                                                                                "placeholder": "Provide a summary of the incident"
+                                                                            },
+                                                                            "type": "textArea"
+                                                                        }
+                                                                    ],
+                                                                    "isVisible": "true",
+                                                                    "layout": {
+                                                                        "default": {
+                                                                            "height": 14,
+                                                                            "width": 12,
+                                                                            "x": 0,
+                                                                            "y": 24
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "gridCell"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "grid"
+                                                }
+                                            ],
+                                            "hasBackground": true,
+                                            "isVisible": true
+                                        },
+                                        "type": "container"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 44,
+                                        "width": 6,
+                                        "x": 3,
+                                        "y": 34
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        }
+                    ]
+                },
+                "type": "grid"
+            }
+        ],
+        "rootInstanceName": "grid0"
+    },
+    "mocked_outputs": {
+        "listServiceDefinitions0": {
+            "data": [
+                {
+                    "attributes": {
+                        "schema": {
+                            "dd-service": "example-service-0",
+                            "integrations": {
+                                "pagerduty": "https://pagerduty.com/service-directory/example0"
+                            }
+                        }
+                    },
+                    "id": "ab038cfe-872b-49a9-af27-82b885f15695",
+                    "type": "service-definition"
+                },
+                {
+                    "attributes": {
+                        "schema": {
+                            "dd-service": "example-service-1",
+                            "integrations": {
+                                "pagerduty": "https://pagerduty.com/service-directory/example1"
+                            }
+                        }
+                    },
+                    "id": "2",
+                    "type": "service-definition"
+                },
+                {
+                    "attributes": {
+                        "schema": {
+                            "dd-service": "example-service-2",
+                            "integrations": {
+                                "pagerduty": "https://pagerduty.com/service-directory/example2"
+                            }
+                        }
+                    },
+                    "id": "3",
+                    "type": "service-definition"
+                },
+                {
+                    "attributes": {
+                        "schema": {
+                            "dd-service": "example-service-3",
+                            "integrations": {
+                                "pagerduty": "https://pagerduty.com/service-directory/example3"
+                            }
+                        }
+                    },
+                    "id": "4",
+                    "type": "service-definition"
+                },
+                {
+                    "attributes": {
+                        "schema": {
+                            "dd-service": "example-service-4",
+                            "integrations": {
+                                "pagerduty": "https://pagerduty.com/service-directory/example4"
+                            }
+                        }
+                    },
+                    "id": "5",
+                    "type": "service-definition"
+                }
+            ]
+        }
+    },
+    "tile_icon_action_fqn": "",
+    "embedded_workflow_blueprints": {},
+    "embedded_datastore_blueprints": {}
+}

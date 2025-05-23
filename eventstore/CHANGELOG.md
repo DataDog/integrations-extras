@@ -1,5 +1,11 @@
 # CHANGELOG - eventstore
 
+## 2.1.0
+
+***Added***:
+
+* Allow tags to be added from config to metrics
+
 ## 2.0.0
 
 ***Removed***:

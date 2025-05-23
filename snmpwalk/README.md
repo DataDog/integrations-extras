@@ -2,14 +2,20 @@
 
 ## Overview
 
-Get metrics from SNMP walk service in real time to:
+This integration provides insight into SNMP walk states in real time to:
 
-- Visualize and monitor SNMP walk states
-- Be notified about SNMP walk failovers and events.
+- Visualize and monitor SNMP walk states.
+- Be notified about SNMP walk failovers.
 
 ## Setup
 
 The SNMP walk check is not included in the [Datadog Agent][2] package, so you need to install it.
+
+You can also use the [`snmp walk`][11] command as an alternative to this integration:
+
+```
+sudo -u dd-agent datadog-agent snmp walk
+```
 
 ### Installation
 
@@ -31,13 +37,13 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the SNMP wal
 
 ## Validation
 
-[Run the Agent's `status` subcommand][9] and look for `snmpwalk` under the Checks section.
+[Run the Agent's `status` subcommand][9] and look for `snmpwalk` under the Checks section. 
 
 ## Data Collected
 
 ### Metrics
 
-The SNMP walk check does not include any metrics.
+The SNMP walk integration does not include any metrics.
 
 ### Events
 
@@ -45,7 +51,7 @@ The SNMP walk check does not include any events.
 
 ### Service Checks
 
-See [service_checks.json][11] for a list of service checks provided by this integration.
+The SNMP walk integration does not include any service checks.
 
 ## Troubleshooting
 
@@ -60,4 +66,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: http://docs.datadoghq.com/help
-[11]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/assets/service_checks.json
+[11]: https://docs.datadoghq.com/network_monitoring/devices/troubleshooting/?tab=linux#device-not-visible-in-datadog

@@ -28,3 +28,16 @@ def test_valid_check(aggregator, instance):
         aggregator.assert_metric(check.get_metric_display_name(gauge), tags=check.tags)
 
     aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.usefixtures('dd_environment')
+@pytest.mark.integration
+def test_apps_stats(aggregator, apps_stats_instance):
+    check = NextcloudCheck('nextcloud', {}, [apps_stats_instance])
+    check.check({})
+    aggregator.assert_service_check(NextcloudCheck.STATUS_CHECK, check.OK)
+
+    for gauge in NextcloudCheck.METRICS_GAUGES + NextcloudCheck.OPTIONAL_APP_STATS_METRICS_GAUGES:
+        aggregator.assert_metric(check.get_metric_display_name(gauge), tags=check.tags)
+
+    aggregator.assert_all_metrics_covered()
