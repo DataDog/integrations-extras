@@ -1,0 +1,1251 @@
+{
+    "slug": "launchdarkly_feature_flag_manager",
+    "name": "LaunchDarkly Feature Flag Manager",
+    "description": "Create, view, or toggle on or off LaunchDarkly feature flags",
+    "definition": {
+        "name": "LaunchDarkly Feature Flag Manager",
+        "description": "Create, view, or toggle on or off LaunchDarkly feature flags",
+        "queries": [
+            {
+                "name": "listProjects",
+                "type": "action",
+                "properties": {
+                    "spec": {
+                        "fqn": "com.datadoghq.launchdarkly.listProjects",
+                        "inputs": {},
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "listEnvironments",
+                "type": "action",
+                "properties": {
+                    "spec": {
+                        "fqn": "com.datadoghq.launchdarkly.listEnvironments",
+                        "inputs": {
+                            "projectKey": "${select0.value}"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "listFeatureFlags",
+                "type": "action",
+                "properties": {
+                    "condition": "${select0.value && select1.value}",
+                    "outputs": "${((outputs) => {// Use `outputs` to reference the query's unformatted output.\n\n// TODO: Apply transformations to the raw query output\n\n\nreturn outputs?.items?.map(o => ({\n    key: o.key,\n    name: o.name,\n    kind: o.kind,\n    value: o.environments[select1.value]?.on ? \"on\" : \"off\",\n    maintainer: `${o._maintainer?.firstName} ${o._maintainer?.lastName}`,\n    creationDate: new Date(o.creationDate ).toLocaleString()\n}))})(self.rawOutputs)}",
+                    "spec": {
+                        "fqn": "com.datadoghq.launchdarkly.listFeatureFlags",
+                        "inputs": {
+                            "env": "${select1.value}",
+                            "filters": [
+                                "${search0.value?.length? `query:${search0.value}` : `filterEnv:${select1.value}`}"
+                            ],
+                            "projectKey": "${select0.value}"
+                        },
+                        "connectionId": "INTEGRATION_DEMO"
+                    }
+                }
+            },
+            {
+                "name": "toggleFeatureFlag",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": false,
+                    "showToastOnError": true,
+                    "spec": {
+                        "connectionId": "eab6ebcd-e659-458c-9727-b839ee83e680",
+                        "fqn": "com.datadoghq.launchdarkly.toggleFeatureFlag",
+                        "inputs": {
+                            "comment": "${textInput0.value}",
+                            "environmentKey": "${select1.value}",
+                            "featureFlagKey": "${table0.selectedRow?.content.key}",
+                            "instruction": "${table0.selectedRow?.content.value === 'on' ? 'turn_off' : 'turn_on'}",
+                            "projectKey": "${select0.value}"
+                        }
+                    }
+                },
+                "events": [
+                    {
+                        "callback": "${() => ((outputs, error) => {\n// Use `outputs` to reference query output on success.\n// Use `error` to reference error on query failure.\n\n// Write a function body that will run after a query finishes\nmodal0.setIsOpen(false);\nlistFeatureFlags.fetch();\ntextInput0.setValue(\"\");\ntextInput1.setValue(\"\");\n\n})(self.outputs, self.error)}",
+                        "name": "executionFinished",
+                        "type": "custom"
+                    }
+                ]
+            },
+            {
+                "name": "createFeatureFlag",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "showToastOnError": true,
+                    "spec": {
+                        "connectionId": "eab6ebcd-e659-458c-9727-b839ee83e680",
+                        "fqn": "com.datadoghq.launchdarkly.createFeatureFlag",
+                        "inputs": {
+                            "description": "${textInput5.value}",
+                            "key": "${textInput4.value}",
+                            "name": "${textInput3.value}",
+                            "projectKey": "${select0.value}"
+                        }
+                    }
+                },
+                "events": [
+                    {
+                        "callback": "${() => ((outputs, error) => {\n// Use `outputs` to reference query output on success.\n// Use `error` to reference error on query failure.\n\n// Write a function body that will run after a query finishes\nmodal1.setIsOpen(false);\nlistFeatureFlags.fetch();\ntextInput3.setValue(\"\");\ntextInput4.setValue(\"\");\ntextInput5.setValue(\"\");\n\n})(self.outputs, self.error)}",
+                        "name": "executionFinished",
+                        "type": "custom"
+                    }
+                ]
+            }
+        ],
+        "components": [
+            {
+                "events": [],
+                "name": "grid0",
+                "properties": {
+                    "children": [
+                        {
+                            "events": [],
+                            "name": "gridCell0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "select0",
+                                        "properties": {
+                                            "defaultValue": "${self.options && self.options[0].value}",
+                                            "isDisabled": "${listFeatureFlags?. isLoading}",
+                                            "isMultiselect": "false",
+                                            "isVisible": "true",
+                                            "label": "Project",
+                                            "options": "${listProjects.outputs?.projects?.map(i => ({label:i.name, value: i.key}))}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 8,
+                                        "width": 3,
+                                        "x": 1,
+                                        "y": 34
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "select1",
+                                        "properties": {
+                                            "defaultValue": "${self.options && self.options[0].value}",
+                                            "isDisabled": false,
+                                            "isMultiselect": "false",
+                                            "isVisible": "${select0.value}",
+                                            "label": "Environment",
+                                            "options": "${listEnvironments.outputs?.environments?.map(i => ({label:i.name, value: i.key}))}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 8,
+                                        "width": 3,
+                                        "x": 1,
+                                        "y": 42
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell2",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "table0",
+                                        "properties": {
+                                            "columns": [
+                                                {
+                                                    "dataPath": "key",
+                                                    "header": "key",
+                                                    "id": "df04645b-43e3-482a-928b-47fa9f959042",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "name",
+                                                    "disableSortBy": false,
+                                                    "header": "Flag",
+                                                    "id": "2d2c41cb-00cd-4c0a-83c8-ce7ac9707c1b"
+                                                },
+                                                {
+                                                    "dataPath": "kind",
+                                                    "header": "kind",
+                                                    "id": "d001628a-e31f-4a08-b799-77e9d60e3c6a",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "maintainer",
+                                                    "header": "maintainer",
+                                                    "id": "898b320d-bd74-4a85-b7e2-6df6ee0c9aab",
+                                                    "isHidden": false
+                                                },
+                                                {
+                                                    "dataPath": "creationDate",
+                                                    "disableSortBy": false,
+                                                    "header": "creation Date",
+                                                    "id": "e8808e2c-d412-47ea-842c-46d7b3470478"
+                                                },
+                                                {
+                                                    "dataPath": "value",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "isSoft": true,
+                                                        "options": [
+                                                            {
+                                                                "level": "success",
+                                                                "value": "on"
+                                                            },
+                                                            {
+                                                                "level": "warning",
+                                                                "value": "off"
+                                                            }
+                                                        ],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "value",
+                                                    "id": "a909c379-e566-49b7-9a34-8d80d86f2fa6"
+                                                }
+                                            ],
+                                            "data": "${listFeatureFlags?.outputs}",
+                                            "isLoading": "${listFeatureFlags?. isLoading}",
+                                            "isScrollable": "vertical",
+                                            "isVisible": "${select0.value && select1.value}",
+                                            "isWrappable": false,
+                                            "pageSize": "10",
+                                            "paginationType": "client_side",
+                                            "rowButtons": [
+                                                {
+                                                    "events": [
+                                                        {
+                                                            "modalName": "modal0",
+                                                            "name": "click",
+                                                            "type": "openModal"
+                                                        }
+                                                    ],
+                                                    "name": "button0",
+                                                    "properties": {
+                                                        "isBorderless": false,
+                                                        "isDisabled": false,
+                                                        "isPrimary": false,
+                                                        "isVisible": true,
+                                                        "label": "Toggle"
+                                                    },
+                                                    "type": "button"
+                                                }
+                                            ],
+                                            "summary": false
+                                        },
+                                        "type": "table"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 53,
+                                        "width": 7,
+                                        "x": 4,
+                                        "y": 26
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "modal0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "grid1",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell5",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "textInput0",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Comment *"
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 15
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell6",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "text2",
+                                                                "properties": {
+                                                                    "content": " **Required field*",
+                                                                    "contentType": "markdown",
+                                                                    "isVisible": "true"
+                                                                },
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 4,
+                                                                "x": 0,
+                                                                "y": 45
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell7",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "modalName": "modal0",
+                                                                        "name": "click",
+                                                                        "type": "closeModal"
+                                                                    }
+                                                                ],
+                                                                "name": "button1",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "false",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Cancel",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 2,
+                                                                "x": 6,
+                                                                "y": 45
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell8",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "name": "click",
+                                                                        "queryName": "toggleFeatureFlag",
+                                                                        "type": "triggerQuery"
+                                                                    }
+                                                                ],
+                                                                "name": "button2",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "${!textInput0.value || (textInput1.value  != select1.value)}",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": true,
+                                                                    "isVisible": "true",
+                                                                    "label": "Save with Comment",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 4,
+                                                                "x": 8,
+                                                                "y": 45
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell9",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "textInput1",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Confirm * (type the environment name to confirm)"
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 26
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell11",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "calloutValue1",
+                                                                "properties": {
+                                                                    "isDisabled": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Flag",
+                                                                    "size": "sm",
+                                                                    "style": "green",
+                                                                    "unit": "",
+                                                                    "value": "${table0.selectedRow?.content.name}"
+                                                                },
+                                                                "type": "calloutValue"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 10,
+                                                                "width": 4,
+                                                                "x": 0,
+                                                                "y": 3
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell11_copy",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "calloutValue1_copy",
+                                                                "properties": {
+                                                                    "isDisabled": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Environment",
+                                                                    "size": "sm",
+                                                                    "style": "orange",
+                                                                    "unit": "",
+                                                                    "value": "${select1.value}"
+                                                                },
+                                                                "type": "calloutValue"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 10,
+                                                                "width": 4,
+                                                                "x": 4,
+                                                                "y": 3
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell12",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "calloutValue2",
+                                                                "properties": {
+                                                                    "isDisabled": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Change To",
+                                                                    "size": "sm",
+                                                                    "style": "pink",
+                                                                    "unit": "",
+                                                                    "value": "${table0.selectedRow?.content.value === \"on\" ? 'off' : 'on'}"
+                                                                },
+                                                                "type": "calloutValue"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 10,
+                                                                "width": 4,
+                                                                "x": 8,
+                                                                "y": 3
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                }
+                                            ]
+                                        },
+                                        "type": "grid"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "size": "md",
+                                "title": "Update targeting"
+                            },
+                            "type": "modal"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell10",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [
+                                            {
+                                                "modalName": "modal1",
+                                                "name": "click",
+                                                "type": "openModal"
+                                            }
+                                        ],
+                                        "name": "button3",
+                                        "properties": {
+                                            "isBorderless": false,
+                                            "isDisabled": "false",
+                                            "isLoading": "false",
+                                            "isPrimary": true,
+                                            "isVisible": "${select0.value && select1.value}",
+                                            "label": "Create flag",
+                                            "level": "default"
+                                        },
+                                        "type": "button"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 2,
+                                        "x": 9,
+                                        "y": 15
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "modal1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "grid2",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell13",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "text4",
+                                                                "properties": {
+                                                                    "content": "A feature flag lets you control who can see a particular feature in your app.\n\n",
+                                                                    "contentType": "plain_text",
+                                                                    "isVisible": "true"
+                                                                },
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 3,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 2
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell14",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "componentName": "textInput4",
+                                                                        "name": "change",
+                                                                        "stateFunction": "setValue",
+                                                                        "type": "setComponentState",
+                                                                        "value": "${textInput3.value?.split(' ')\n      .map(word => word.toLowerCase())\n      .join('_')}"
+                                                                    }
+                                                                ],
+                                                                "name": "textInput3",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Name *"
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 6,
+                                                                "x": 0,
+                                                                "y": 8
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell15",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "textInput4",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Key *"
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 6,
+                                                                "x": 0,
+                                                                "y": 17
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell16",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "textInput5",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Description (optional)"
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 25
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell17",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "text5",
+                                                                "properties": {
+                                                                    "content": " **Required field*",
+                                                                    "contentType": "markdown",
+                                                                    "isVisible": "true"
+                                                                },
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 4,
+                                                                "x": 0,
+                                                                "y": 46
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell18",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "name": "click",
+                                                                        "queryName": "createFeatureFlag",
+                                                                        "type": "triggerQuery"
+                                                                    }
+                                                                ],
+                                                                "name": "button4",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "${! textInput3.value || ! textInput4.value}",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": true,
+                                                                    "isVisible": "true",
+                                                                    "label": "Save",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 2,
+                                                                "x": 10,
+                                                                "y": 46
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell19",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "modalName": "modal1",
+                                                                        "name": "click",
+                                                                        "type": "closeModal"
+                                                                    }
+                                                                ],
+                                                                "name": "button5",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "false",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Cancel",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 2,
+                                                                "x": 8,
+                                                                "y": 46
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                }
+                                            ]
+                                        },
+                                        "type": "grid"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "size": "md",
+                                "title": "Create a feature flag"
+                            },
+                            "type": "modal"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell20",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "search0",
+                                        "properties": {
+                                            "defaultValue": "",
+                                            "hasShadow": "true",
+                                            "isLoading": "false",
+                                            "isVisible": "${select0.value && select1.value}",
+                                            "placeholder": "Find a flag by name or key",
+                                            "showSubmitButton": "true",
+                                            "size": "md"
+                                        },
+                                        "type": "search"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 6,
+                                        "width": 3,
+                                        "x": 1,
+                                        "y": 27
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell21",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text6",
+                                        "properties": {
+                                            "content": "![](https://app-builder-demo.s3.amazonaws.com/LaunchDarkly/ld-40.svg)",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "center",
+                                            "verticalAlign": "center"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 8,
+                                        "width": 1,
+                                        "x": 1,
+                                        "y": 12
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell22",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text7",
+                                        "properties": {
+                                            "content": "# LaunchDarkly Feature Flag Manager",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "center"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 6,
+                                        "width": 5,
+                                        "x": 2,
+                                        "y": 13
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell23",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0",
+                                        "properties": {
+                                            "isDisabled": "",
+                                            "isLoading": "${listFeatureFlags?. isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Total",
+                                            "size": "sm",
+                                            "style": "green",
+                                            "unit": "Flags",
+                                            "value": "${listFeatureFlags.outputs?.length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 3,
+                                        "x": 1,
+                                        "y": 58
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell25",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text10",
+                                        "properties": {
+                                            "content": "---",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "top"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 10,
+                                        "x": 1,
+                                        "y": 20
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell26",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text11",
+                                        "properties": {
+                                            "content": "---",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "top"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 5,
+                                        "width": 3,
+                                        "x": 1,
+                                        "y": 51
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        }
+                    ]
+                },
+                "type": "grid"
+            }
+        ],
+        "rootInstanceName": "grid0"
+    },
+    "mocked_outputs": {
+        "listProjects": {
+            "projects": [
+                {
+                    "_id": "111",
+                    "key": "apps",
+                    "name": "Apps"
+                },
+                {
+                    "_id": "222",
+                    "key": "dashboards",
+                    "name": "Dashboards"
+                }
+            ]
+        },
+        "listEnvironments": {
+            "environments": [
+                {
+                    "_id": "111",
+                    "key": "test",
+                    "name": "Test"
+                }
+            ]
+        },
+        "listFeatureFlags": {
+            "items": [
+                {
+                    "key": "experimentation_flag_v2",
+                    "name": "Experimentation Flag v2",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Elena",
+                        "lastName": "Rodriguez"
+                    },
+                    "creationDate": "11/2/2023, 3:00:48 PM"
+                },
+                {
+                    "key": "datadog_demo",
+                    "name": "Datadog Demo",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": true
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Carlos",
+                        "lastName": "Martinez"
+                    },
+                    "creationDate": "11/2/2023, 3:00:59 PM"
+                },
+                {
+                    "key": "experimentation_flag_string",
+                    "name": "Experimentation Flag String",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Isabella",
+                        "lastName": "Chen"
+                    },
+                    "creationDate": "11/2/2023, 3:01:21 PM"
+                },
+                {
+                    "key": "flipflag_version_2_100_rollout",
+                    "name": "flipflag version 2 100%rollout",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Raj",
+                        "lastName": "Patel"
+                    },
+                    "creationDate": "11/2/2023, 3:01:44 PM"
+                },
+                {
+                    "key": "json_demo_api",
+                    "name": "Json demo api",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Sophia",
+                        "lastName": "Lee"
+                    },
+                    "creationDate": "11/2/2023, 3:01:52 PM"
+                },
+                {
+                    "key": "integration_manifests",
+                    "name": "Integration manifests",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Miguel",
+                        "lastName": "Hernandez"
+                    },
+                    "creationDate": "11/2/2023, 3:02:00 PM"
+                },
+                {
+                    "key": "experimentation_flag_rollout",
+                    "name": "Experimentation Flag Rollout",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Lily",
+                        "lastName": "Wang"
+                    },
+                    "creationDate": "11/2/2023, 3:03:52 PM"
+                },
+                {
+                    "key": "enable_toggle_runner",
+                    "name": "Enable Toggle Runner",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": true
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Andre",
+                        "lastName": "Silva"
+                    },
+                    "creationDate": "11/2/2023, 3:04:15 PM"
+                },
+                {
+                    "key": "regional_divider",
+                    "name": "Regional Divider",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": true
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Hannah",
+                        "lastName": "Kim"
+                    },
+                    "creationDate": "11/2/2023, 3:04:26 PM"
+                },
+                {
+                    "key": "new_manifest_split",
+                    "name": "new manifest split",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Lucas",
+                        "lastName": "Santos"
+                    },
+                    "creationDate": "11/2/2023, 3:04:37 PM"
+                },
+                {
+                    "key": "rtl_support",
+                    "name": "RTL support",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Aisha",
+                        "lastName": "Khan"
+                    },
+                    "creationDate": "11/2/2023, 3:04:47 PM"
+                },
+                {
+                    "key": "design_enhancements",
+                    "name": "Design Enhancements",
+                    "kind": "boolean",
+                    "environments": {
+                        "test": {
+                            "on": false
+                        }
+                    },
+                    "_maintainer": {
+                        "firstName": "Jordan",
+                        "lastName": "Miller"
+                    },
+                    "creationDate": "11/2/2023, 3:04:58 PM"
+                }
+            ]
+        },
+        "toggleFeatureFlag": {},
+        "createFeatureFlag": {}
+    },
+    "tile_background": "bento-box-table",
+    "tile_icon_action_fqn": "",
+    "tags": ["software_delivery"],
+    "embedded_workflow_blueprints": {},
+    "embedded_datastore_blueprints": {}
+}
