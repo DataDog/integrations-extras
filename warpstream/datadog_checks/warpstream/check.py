@@ -2,6 +2,7 @@ from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
+
 class WarpstreamCheck(AgentCheck):
 
     # This will be the prefix of every metric and service check the integration sends
