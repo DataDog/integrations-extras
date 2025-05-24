@@ -1,3 +1,3 @@
 from .conftest import *
 
-__all__ = ['conftest']
+__all__ = ["conftest"]
