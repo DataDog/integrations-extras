@@ -405,7 +405,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "source:cloudsmith @aggregation_key:audit_log",
+                    "query_string": "@aggregation_key:audit_log",
                     "event_size": "s"
                   },
                   "response_format": "event_list",
@@ -431,7 +431,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "source:cloudsmith @aggregation_key:org_members",
+                    "query_string": "@aggregation_key:org_members",
                     "event_size": "s"
                   },
                   "response_format": "event_list",
@@ -491,7 +491,7 @@
                 }
               ],
               "autoscale": true,
-              "precision": 2
+              "precision": 0
             },
             "layout": {
               "x": 0,
@@ -626,7 +626,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.cloudsmith.member.active{*}",
+                      "query": "sum:cloudsmith.member.active{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -662,7 +662,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.cloudsmith.member.owner.count{*}",
+                      "query": "sum:cloudsmith.member.owner.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -698,7 +698,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.cloudsmith.member.has_2fa.count{*}",
+                      "query": "avg:cloudsmith.member.has_2fa.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -752,7 +752,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.cloudsmith.license_policy_violation.count{*}",
+                      "query": "sum:cloudsmith.license_policy_violation.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -788,7 +788,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.cloudsmith.vulnerability_policy_violation.count{*}",
+                      "query": "sum:cloudsmith.vulnerability_policy_violation.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -816,7 +816,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "source:cloudsmith @aggregation_key:vulnerabilitiy_policy_violation",
+                    "query_string": "@aggregation_key:vulnerabilitiy_policy_violation",
                     "event_size": "s"
                   },
                   "response_format": "event_list",
@@ -842,7 +842,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "source:cloudsmith @aggregation_key:vulnerabilities",
+                    "query_string": "@aggregation_key:vulnerabilities",
                     "event_size": "s"
                   },
                   "response_format": "event_list",
@@ -868,7 +868,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "source:cloudsmith @aggregation_key:license_policy_violation",
+                    "query_string": "@aggregation_key:license_policy_violation",
                     "event_size": "s"
                   },
                   "response_format": "event_list",

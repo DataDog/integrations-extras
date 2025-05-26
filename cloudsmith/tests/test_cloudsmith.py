@@ -447,8 +447,6 @@ def test_filter_vulnerabilities_multiple_severities(instance_good):
     assert result[1]["max_severity"] == "Medium"
 
 
-
-
 def test_get_api_json_exceptions(instance_good, mocker):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
 
