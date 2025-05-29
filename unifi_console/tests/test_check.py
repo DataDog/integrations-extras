@@ -8,6 +8,7 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.unifi_console.check import UnifiConsoleCheck
 from datadog_checks.unifi_console.errors import APIConnectionError
 from datadog_checks.unifi_console.types import ControllerInfo, Count, Gauge, Rate
+from datadog_checks.dev.utils import get_metadata_metrics
 from tests.common import HERE
 
 
@@ -32,6 +33,7 @@ def test_metrics_submission(aggregator, dd_run_check, instance):
                 )
     aggregator.assert_metric('unifi_console.healthy', metric_type=aggregator.GAUGE)
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
 @pytest.mark.usefixtures("mock_api")
