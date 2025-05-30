@@ -1,0 +1,73 @@
+{
+  "app_id": "gatling-enterprise",
+  "app_uuid": "019662ce-ced4-7e23-9738-bd4c09f38b64",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Gatling Enterprise",
+    "description": "Collect load testing metrics from Gatling Enterprise",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Gatling Enterprise Overview dashboard - Responses and Requests",
+        "image_url": "images/app.datadoghq.com_dashboard_n9p-inx-6jn_gatling-enterprise-overview_fromUser=false&refresh_mode=sliding&from_ts=1747402829806&to_ts=1747403729806&live=true (2) 1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Gatling Enterprise Overview dashboard - Response Time",
+        "image_url": "images/app.datadoghq.com_dashboard_n9p-inx-6jn_gatling-enterprise-overview_fromUser=false&refresh_mode=sliding&from_ts=1747402829806&to_ts=1747403729806&live=true (2) 1-1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Gatling Enterprise Overview dashboard - Users",
+        "image_url": "images/app.datadoghq.com_dashboard_n9p-inx-6jn_gatling-enterprise-overview_fromUser=false&refresh_mode=sliding&from_ts=1747402829806&to_ts=1747403729806&live=true (2) 1-2.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Developer Tools",
+      "Category::Testing",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "contact@gatling.io",
+    "name": "Gatling Corp",
+    "homepage": "https://gatling.io",
+    "sales_email": "contact@gatling.io",
+    "vendor_id": "gatling-corp"
+  },
+  "assets": {
+    "dashboards": {
+      "Gatling Enterprise Overview": "assets/dashboards/gatling_enterprise_overview.json"
+    },
+    "integration": {
+      "source_type_name": "gatling-enterprise",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "gatling_enterprise",
+        "check": [
+          "gatling_enterprise.user.start_count"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 45953787,
+      "supports_ddr_coordinated_failover": false
+    }
+  }
+}
