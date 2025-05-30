@@ -12,7 +12,7 @@ Akamas collects Kubernetes-related metrics from Datadog, covering both infrastru
 
 1.  Log into your Akamas Insights instance.
 2.  Navigate to **Datasources** > **Datadog**.
-3.  Specify the [Datadog site parameter][1] (e.g. US1, EU1).
+3.  Specify the [Datadog site parameter][1] (for example, US1 or EU1).
 4.  Enter your Datadog API key and Application key.
 5.  Click **Test Connection** to verify the integration is working.
 
