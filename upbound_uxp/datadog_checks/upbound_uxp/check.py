@@ -393,7 +393,7 @@ class UpboundUxpCheck(AgentCheck):
                 for k in metric:
                     if k not in m:
                         m.append(k)
-                        if type(k) is int:
+                        if isinstance(k) is int:
                             if metric[k] is not None:
                                 self.metrics_map[k] = metric[k]
 
