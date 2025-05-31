@@ -29,6 +29,7 @@ def test_metrics_for_puma_in_cluster_mode(aggregator, instance):
                 {
                     'last_status': {
                         'backlog': 0,
+                        'busy_threads': 6,
                         'max_threads': 20,
                         'pool_capacity': 15,
                         'running': 20,
@@ -38,6 +39,7 @@ def test_metrics_for_puma_in_cluster_mode(aggregator, instance):
                 {
                     'last_status': {
                         'backlog': 1,
+                        'busy_threads': 4,
                         'max_threads': 20,
                         'pool_capacity': 15,
                         'running': 20,
@@ -58,6 +60,7 @@ def test_metrics_for_puma_in_cluster_mode(aggregator, instance):
     aggregator.assert_metric('puma.workers', value=2.0, tags=[])
     aggregator.assert_metric('puma.backlog', value=1.0, tags=[])
     aggregator.assert_metric('puma.booted_workers', value=2.0, tags=[])
+    aggregator.assert_metric('puma.busy_threads', value=10.0, tags=[])
     aggregator.assert_metric('puma.pool_capacity', value=30.0, tags=[])
     aggregator.assert_metric('puma.running', value=40.0, tags=[])
     aggregator.assert_metric('puma.requests_count', value=270.0, tags=[])
@@ -71,7 +74,9 @@ def test_metrics_for_puma_in_single_mode(aggregator, instance):
         'content-type': 'application/json',
     }
 
-    content = json.dumps({"backlog": 1, "running": 2, "pool_capacity": 15, "max_threads": 20, "requests_count": 120})
+    content = json.dumps(
+        {"backlog": 1, "busy_threads": 6, "running": 2, "pool_capacity": 15, "max_threads": 20, "requests_count": 120}
+    )
 
     response = Mock(headers=headers, content=content)
 
@@ -81,6 +86,7 @@ def test_metrics_for_puma_in_single_mode(aggregator, instance):
 
     aggregator.assert_metric('puma.max_threads', value=20.0, tags=[])
     aggregator.assert_metric('puma.backlog', value=1.0, tags=[])
+    aggregator.assert_metric('puma.busy_threads', value=6.0, tags=[])
     aggregator.assert_metric('puma.pool_capacity', value=15.0, tags=[])
     aggregator.assert_metric('puma.running', value=2.0, tags=[])
     aggregator.assert_metric('puma.requests_count', value=120.0, tags=[])
@@ -107,6 +113,7 @@ def test_check(aggregator, instance, test_server):
     aggregator.assert_metric('puma.workers', value=2.0, tags=[])
     aggregator.assert_metric('puma.backlog', value=0.0, tags=[])
     aggregator.assert_metric('puma.booted_workers', value=2.0, tags=[])
+    aggregator.assert_metric('puma.busy_threads', value=0.0, tags=[])
     aggregator.assert_metric('puma.pool_capacity', value=10.0, tags=[])
     aggregator.assert_metric('puma.running', value=10.0, tags=[])
     aggregator.assert_metric('puma.requests_count', value=1.0, tags=[])

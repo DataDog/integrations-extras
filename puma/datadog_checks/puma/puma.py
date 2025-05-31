@@ -7,6 +7,7 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 METRICS = [
     ('backlog', 'backlog', AgentCheck.gauge),
     ('booted_workers', 'booted_workers', AgentCheck.gauge),
+    ('busy_threads', 'busy_threads', AgentCheck.gauge),
     ('max_threads', 'max_threads', AgentCheck.gauge),
     ('pool_capacity', 'pool_capacity', AgentCheck.gauge),
     ('requests_count', 'requests_count', AgentCheck.gauge),
@@ -32,6 +33,7 @@ class PumaCheck(AgentCheck):
         metrics = {
             'backlog': 0,
             'booted_workers': 0,
+            'busy_threads': 0,
             'max_threads': 0,
             'pool_capacity': 0,
             'requests_count': 0,
@@ -46,6 +48,7 @@ class PumaCheck(AgentCheck):
             for worker in response['worker_status']:
                 last_status = worker.get('last_status')
                 metrics['backlog'] += int(last_status.get('backlog', 0))
+                metrics['busy_threads'] += int(last_status.get('busy_threads', 0))
                 metrics['max_threads'] += int(last_status.get('max_threads', 0))
                 metrics['pool_capacity'] += int(last_status.get('pool_capacity', 0))
                 metrics['requests_count'] += int(last_status.get('requests_count', 0))
@@ -53,6 +56,7 @@ class PumaCheck(AgentCheck):
 
         else:  # Puma is not clustered
             metrics['backlog'] = int(response.get('backlog', 0))
+            metrics['busy_threads'] = int(response.get('busy_threads', 0))
             metrics['max_threads'] = int(response.get('max_threads', 0))
             metrics['pool_capacity'] = int(response.get('pool_capacity', 0))
             metrics['requests_count'] = int(response.get('requests_count', 0))
