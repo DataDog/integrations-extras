@@ -1,0 +1,40 @@
+id: dagster-plus
+tests:
+  - sample: >-
+      {
+        "run_id": "a3bcb088-1640-40dc-9701-4b554c0b9cac",
+        "timestamp": "1747684829.8596163",
+        "event_type": "STEP_WORKER_STARTED",
+        "job_name": "diamond_asset_job",
+        "message": "Executing step \"diamond_final_asset\" in subprocess.",
+        "deployment": "prod",
+        "service": "dagster-plus"
+      }
+    result: null
+  - sample: >-
+      {
+        "run_id": "ff550567-4f6f-4aa0-a7b1-548d97a99170",
+        "timestamp": "1747684973.981837",
+        "event_type": "STEP_FAILURE",
+        "job_name": "__ASSET_JOB",
+        "message": "Execution of step \"dbt_non_partitioned_models\" failed.",
+        "deployment": "prod",
+        "service": "dagster-plus"
+      }
+    result: null
+  - sample: >-
+      {
+        "run_id": "a3bcb088-1640-40dc-9701-4b554c0b9cac",
+        "timestamp": "1747684824.7399628",
+        "event_type": "ENGINE_EVENT",
+        "job_name": "diamond_asset_job",
+        "message": "Starting run metrics thread with container_metrics_enabled=True and python_metrics_enabled=False",
+        "deployment": "prod",
+        "service": "dagster-plus"
+      }
+    result: null
+
+# The `result` field should be left blank to start. Once you submit your log asset files with
+# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
+# run your raw logs against your pipeline and return the result. If the result output in the
+# validation is accurate, take the output and add it to the `result` field in your test YAML file.
