@@ -6,7 +6,7 @@
       "id": 7207015794187642,
       "definition": {
         "title": "EMQX",
-        "banner_img": "https://github.com/emqx/emqx/assets/3116225/8abf42ac-c54d-4f4c-9427-0609f91f4f48",
+        "banner_img": "https://raw.githubusercontent.com/ysfscream/images/main/emqx-with-watermark.png",
         "show_title": false,
         "type": "group",
         "layout_type": "ordered",
@@ -16,10 +16,10 @@
             "definition": {
               "type": "note",
               "content": "**EMQX**\n\nThis dashboard provides an overview of your EMQX environment. It monitors node status, provides information on message status, and provides insight into various other EMQX setup observability measures.\n",
-              "background_color": "white",
+              "background_color": "gray",
               "font_size": "14",
               "text_align": "left",
-              "vertical_align": "top",
+              "vertical_align": "center",
               "show_tick": false,
               "tick_pos": "50%",
               "tick_edge": "left",
@@ -36,12 +36,12 @@
             "id": 216422308007800,
             "definition": {
               "type": "note",
-              "content": "**Useful Links**\n\n* [EMQX Documentation](https://www.emqx.io/docs/en/latest/)",
-              "background_color": "white",
-              "font_size": "16",
+              "content": "**Explore More**\n\n- [EMQX Documentation](https://docs.emqx.com/en/enterprise/latest/)\n- [EMQX Blog](https://www.emqx.com/en/blog/category/emqx?utm_source=emqx-enterprise-dashboard&utm_medium=referral&utm_campaign=emqx-enterprise-dashboard-header-to-contact)\n- [Contact us](https://www.emqx.com/en/contact)",
+              "background_color": "green",
+              "font_size": "14",
               "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
+              "vertical_align": "center",
+              "show_tick": true,
               "tick_pos": "50%",
               "tick_edge": "left",
               "has_padding": true
@@ -63,86 +63,36 @@
       }
     },
     {
-      "id": 6493071019343302,
+      "id": 6548754800687862,
       "definition": {
-        "title": "Overview",
-        "background_color": "vivid_green",
+        "title": "Open Metrics Health",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "check_status",
+        "check": "emqx.openmetrics.health",
+        "grouping": "cluster",
+        "group_by": [],
+        "tags": []
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": 563655229273760,
+      "definition": {
+        "title": "Node Status",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 6548754800687862,
-            "definition": {
-              "title": "OpenMetrics Health",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "check_status",
-              "check": "emqx.openmetrics.health",
-              "grouping": "cluster",
-              "group_by": [],
-              "tags": []
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 1
-            }
-          },
-          {
-            "id": 8775764009775376,
-            "definition": {
-              "title": "Total Connections",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.connections.count{*}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "text_align": "left",
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": true
-                }
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 1,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
             "id": 7986851613976362,
             "definition": {
-              "title": "NodeRunning",
+              "title": "Running",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -150,13 +100,13 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
-                      "name": "query1",
+                      "name": "query2",
                       "query": "sum:emqx.cluster.nodes_running{*}",
                       "aggregator": "last"
                     }
@@ -164,973 +114,509 @@
                   "response_format": "scalar",
                   "conditional_formats": [
                     {
-                      "comparator": ">",
+                      "comparator": ">=",
                       "value": 0,
-                      "palette": "white_on_green"
+                      "palette": "black_on_light_green"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "text_align": "left",
-              "precision": 0
+              "text_align": "center",
+              "precision": 2
             },
             "layout": {
-              "x": 3,
-              "y": 1,
+              "x": 0,
+              "y": 0,
               "width": 3,
-              "height": 2
+              "height": 3
             }
           },
           {
-            "id": 7907186936481438,
+            "id": 1349316727855318,
             "definition": {
-              "title": "Active Topics",
+              "title": "Stopped",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "max:emqx.topics.count{*}",
-                      "aggregator": "last"
+                      "query": "avg:emqx.cluster.nodes_stopped{*}",
+                      "aggregator": "avg"
                     }
                   ],
-                  "response_format": "scalar",
                   "conditional_formats": [
                     {
                       "comparator": ">",
                       "value": 0,
-                      "palette": "white_on_yellow"
+                      "palette": "red_on_white",
+                      "custom_bg_color": "#ead7d7"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "custom_bg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "text_align": "left",
-              "precision": 0,
+              "precision": 2
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 2,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 8775764009775376,
+      "definition": {
+        "title": "Total Connections",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:emqx.connections.count{*}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#ac66e5"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "precision": 0,
+        "timeseries_background": {
+          "yaxis": {
+            "include_zero": true
+          },
+          "type": "area"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 7907186936481438,
+      "definition": {
+        "title": "Active Topics",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "max:emqx.topics.count{*}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "white_on_yellow"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "precision": 0,
+        "timeseries_background": {
+          "yaxis": {
+            "include_zero": true
+          },
+          "type": "area"
+        }
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 6659538848858876,
+      "definition": {
+        "title": "Active Subscriptions",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:emqx.suboptions.count{*}",
+                "aggregator": "last"
+              }
+            ],
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#499edf",
+                "custom_fg_color": "#ffffff"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "yaxis": {
+            "include_zero": true
+          },
+          "type": "area"
+        }
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 4921491767856188,
+      "definition": {
+        "title": "Total & Live Connections & Sessions",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Total Connections",
+                "formula": "query1"
+              },
+              {
+                "alias": "Live Connections",
+                "formula": "query2"
+              },
+              {
+                "alias": "Sessions",
+                "formula": "query3"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:emqx.connections.count{*}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:emqx.live.connections.count{*}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "sum:emqx.sessions.count{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "purple",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 6321125189665220,
+      "definition": {
+        "title": "Total & Shared Topics",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Total Topics",
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 3
+                },
+                "formula": "query1"
+              },
+              {
+                "alias": "Shared Topics",
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 14
+                },
+                "formula": "query2"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:emqx.topics.count{*}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:emqx.subscriptions.shared.count{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 5535076984298912,
+      "definition": {
+        "title": "Subscriptions",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Total Subscriptions",
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:emqx.suboptions.count{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 2,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 1041766596384838,
+      "definition": {
+        "title": "Messages",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8186603942134526,
+            "definition": {
+              "title": "Total Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.messages.sent.count{*}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
               "timeseries_background": {
                 "yaxis": {
-                  "include_zero": true
+                  "include_zero": false
                 },
                 "type": "area"
               }
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 0,
               "width": 3,
               "height": 2
             }
           },
           {
-            "id": 5755844764213238,
+            "id": 7071966318947712,
             "definition": {
-              "title": "NodeStopped",
+              "title": "Total Received",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:emqx.cluster.nodes_stopped{*}",
-                      "aggregator": "last"
+                      "query": "sum:emqx.messages.received.count{*}.as_count()",
+                      "aggregator": "sum"
                     }
                   ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
+                  "formulas": [
                     {
-                      "comparator": ">",
-                      "value": 0,
-                      "palette": "white_on_red"
+                      "formula": "query1"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "text_align": "left",
-              "precision": 0
+              "text_align": "center",
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": false
+                },
+                "type": "area"
+              }
             },
             "layout": {
               "x": 3,
-              "y": 3,
+              "y": 0,
               "width": 3,
               "height": 2
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 6
-      }
-    },
-    {
-      "id": 6926066852348632,
-      "definition": {
-        "title": "Connection",
-        "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 4921491767856188,
-            "definition": {
-              "title": "Total",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.connections.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          },
-          {
-            "id": 75224410457318,
-            "definition": {
-              "title": "Live",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.live.connections.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 4
-      }
-    },
-    {
-      "id": 4227062342987608,
-      "definition": {
-        "title": "Topic",
-        "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6321125189665220,
-            "definition": {
-              "title": "Total",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "max:emqx.topics.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          },
-          {
-            "id": 787243739713940,
-            "definition": {
-              "title": "Shared",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "max:emqx.subscriptions.shared.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 4
-      }
-    },
-    {
-      "id": 4304861274401612,
-      "definition": {
-        "title": "Session",
-        "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 7444813799301036,
-            "definition": {
-              "title": "Session",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.sessions.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 10,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 5452359803509378,
-      "definition": {
-        "title": "Erlang VM CPU",
-        "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 237808831118572,
-            "definition": {
-              "title": "CPU",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.vm.cpu.use{*}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.vm.cpu.idle{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 4
-      }
-    },
-    {
-      "id": 826149674564790,
-      "definition": {
-        "title": "Erlang VM Memory",
-        "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 3392903050467734,
-            "definition": {
-              "title": "Memory",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.vm.total_memory{*}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.vm.used_memory{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 4
-      }
-    },
-    {
-      "id": 4127073997388922,
-      "definition": {
-        "title": "Erlang VM Queue",
-        "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6314028427079226,
-            "definition": {
-              "title": "RunQueue",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.vm.run_queue{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 4993294375621736,
-            "definition": {
-              "title": "ProcessMessageQueue",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.vm.process.messages_in_queues{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 18,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 4821194243442554,
-      "definition": {
-        "title": "Retainer&Delayed",
-        "background_color": "green",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 3524025874235638,
-            "definition": {
-              "title": "Retained",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.retained.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 797533532139574,
-            "definition": {
-              "title": "Delayed",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.delayed.count{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 22,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 1041766596384838,
-      "definition": {
-        "title": "Message",
-        "background_color": "vivid_orange",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6427746273706400,
-            "definition": {
-              "title": "Sent&Received",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.messages.sent.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.messages.received.count{*}.as_rate()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 6345887888631736,
-            "definition": {
-              "title": "Delayed&Retained",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query3"
-                    },
-                    {
-                      "formula": "query4"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "query": "sum:emqx.messages.delayed.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query4",
-                      "query": "sum:emqx.messages.retained.count{*}.as_rate()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 8258900270719774,
-            "definition": {
-              "title": "Publish&Delivered",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    },
-                    {
-                      "formula": "query3"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:emqx.messages.publish.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.messages.delivered.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "query": "sum:emqx.messages.forward.count{*}.as_rate()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 3,
-              "width": 6,
-              "height": 3
             }
           },
           {
             "id": 6404940602055702,
             "definition": {
-              "title": "Delivery Dropped",
+              "title": "Delivery Dropped Rate",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -1144,21 +630,27 @@
                 {
                   "formulas": [
                     {
+                      "alias": "Total Dropped",
                       "formula": "query1"
                     },
                     {
+                      "alias": "Dropped Expired",
                       "formula": "query2"
                     },
                     {
+                      "alias": "Dropped No Local",
                       "formula": "query3"
                     },
                     {
+                      "alias": "Dropped QoS 0",
                       "formula": "query4"
                     },
                     {
+                      "alias": "Dropped Queue Full",
                       "formula": "query5"
                     },
                     {
+                      "alias": "Dropped Too Large",
                       "formula": "query6"
                     }
                   ],
@@ -1196,7 +688,7 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
+                    "palette": "red",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -1206,36 +698,18 @@
             },
             "layout": {
               "x": 6,
-              "y": 3,
+              "y": 0,
               "width": 6,
               "height": 3
             }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 26,
-        "width": 12,
-        "height": 7
-      }
-    },
-    {
-      "id": 4367043005703234,
-      "definition": {
-        "title": "Client",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
+          },
           {
-            "id": 3196258991351022,
+            "id": 6427746273706400,
             "definition": {
-              "title": "Connected&Disconnected",
+              "title": "Sent & Received Rate",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -1249,9 +723,288 @@
                 {
                   "formulas": [
                     {
+                      "alias": "Sent",
                       "formula": "query1"
                     },
                     {
+                      "alias": "Received",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.messages.sent.count{*}.as_rate()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:emqx.messages.received.count{*}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 821116083880016,
+            "definition": {
+              "title": "Traffic Statistics Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Received Bytes",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Sent Bytes",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.bytes.received.count{*}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:emqx.bytes.sent.count{*}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "green",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3524025874235638,
+            "definition": {
+              "title": "Retained & Delayed Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Retained Messages",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Delayed Messages",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.retained.count{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:emqx.delayed.count{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 730773798559952,
+            "definition": {
+              "title": "Total Sent Bytes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.bytes.sent.count{*}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "bars",
+                "yaxis": {}
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6620912273492890,
+            "definition": {
+              "title": "Total Received Byte",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.bytes.received.count{*}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {},
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 6,
+              "width": 3,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 11,
+        "width": 12,
+        "height": 9
+      }
+    },
+    {
+      "id": 4367043005703234,
+      "definition": {
+        "title": "Client",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3196258991351022,
+            "definition": {
+              "title": "Connected & Disconnected Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connected",
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 4
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Disconnected",
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
                       "formula": "query2"
                     }
                   ],
@@ -1269,7 +1022,7 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
+                    "palette": "purple",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -1280,17 +1033,17 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 6,
+              "width": 12,
               "height": 3
             }
           },
           {
             "id": 2765688793246244,
             "definition": {
-              "title": "Sub&UnSub",
+              "title": "Subscribe & Unsubscribe Rate",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -1304,9 +1057,11 @@
                 {
                   "formulas": [
                     {
+                      "alias": "Subscribe",
                       "formula": "query1"
                     },
                     {
+                      "alias": "Unsubscrible",
                       "formula": "query2"
                     }
                   ],
@@ -1333,8 +1088,8 @@
               ]
             },
             "layout": {
-              "x": 6,
-              "y": 0,
+              "x": 0,
+              "y": 3,
               "width": 6,
               "height": 3
             }
@@ -1342,10 +1097,10 @@
           {
             "id": 2124244821789758,
             "definition": {
-              "title": "AuthN&AuthZ",
+              "title": "AuthN & AuthZ Rate",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -1359,9 +1114,11 @@
                 {
                   "formulas": [
                     {
+                      "alias": "AuthN",
                       "formula": "query1"
                     },
                     {
+                      "alias": "AuthZ",
                       "formula": "query2"
                     }
                   ],
@@ -1388,16 +1145,148 @@
               ]
             },
             "layout": {
-              "x": 0,
+              "x": 6,
               "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 4127073997388922,
+      "definition": {
+        "title": "Erlang Metrics",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 237808831118572,
+            "definition": {
+              "title": "Erlang VM CPU",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "CPU Used",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "CPU Idle",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.vm.cpu.use{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:emqx.vm.cpu.idle{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
               "width": 6,
               "height": 3
             }
           },
           {
-            "id": 5966228037678998,
+            "id": 3392903050467734,
             "definition": {
-              "title": "Delivery Dropped",
+              "title": "Erlang VM Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Total Memory",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Used Memory",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.vm.total_memory{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:emqx.vm.used_memory{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6314028427079226,
+            "definition": {
+              "title": "Erlang VM Run Queue",
               "title_size": "16",
               "title_align": "left",
               "show_legend": false,
@@ -1414,59 +1303,68 @@
                 {
                   "formulas": [
                     {
+                      "alias": "Run Queue",
                       "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    },
-                    {
-                      "formula": "query3"
-                    },
-                    {
-                      "formula": "query4"
-                    },
-                    {
-                      "formula": "query5"
-                    },
-                    {
-                      "formula": "query6"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:emqx.delivery.dropped.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:emqx.delivery.dropped.expired.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "query": "sum:emqx.delivery.dropped.no_local.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query4",
-                      "query": "sum:emqx.delivery.dropped.qos0.msg.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query5",
-                      "query": "sum:emqx.delivery.dropped.queue_full.count{*}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query6",
-                      "query": "sum:emqx.delivery.dropped.too_large.count{*}.as_rate()"
+                      "query": "sum:emqx.vm.run_queue{*}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4993294375621736,
+            "definition": {
+              "title": "Erlang VM Process Message Queue",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Process Messages in Queues",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:emqx.vm.process.messages_in_queues{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -1485,82 +1383,66 @@
       },
       "layout": {
         "x": 0,
-        "y": 33,
+        "y": 27,
         "width": 12,
         "height": 7
       }
     },
     {
-      "id": 2515606819723116,
+      "id": 3258928244810856,
       "definition": {
-        "title": "Mria",
-        "background_color": "gray",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
+        "title": "Mria (Built-in Database) Status",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
           {
-            "id": 3258928244810856,
-            "definition": {
-              "title": "Mria(BuiltInDataBase) Status",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:emqx.mria.last_intercepted_trans{*}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:emqx.mria.server.mql{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
+            "formulas": [
+              {
+                "alias": "Last Intercepted trans",
+                "formula": "query1"
+              },
+              {
+                "alias": "Server MQL",
+                "formula": "query2"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "avg:emqx.mria.last_intercepted_trans{*}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "avg:emqx.mria.server.mql{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 2
-            }
+            "display_type": "line"
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 40,
+        "y": 0,
         "width": 12,
-        "height": 3
+        "height": 2
       }
     }
   ],

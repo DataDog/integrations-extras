@@ -28,12 +28,12 @@ The integration of EMQX with Datadog enriches monitoring capabilities, providing
 
 Manually install the EMQX check (note that [instructions may change based on your environment][2]):
 
-Run `datadog-agent integration install -t datadog-emqx==1.1.0`.
+Run `datadog-agent integration install -t datadog-emqx==1.2.0`.
 
 ### Configuration
 
 1. Edit the `emqx/conf.yaml` file, located in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting your EMQX performance data.
-   
+
 2. [Restart the Agent][4].
 
 ### Validation
