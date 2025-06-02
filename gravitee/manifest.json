@@ -4,8 +4,8 @@
   "manifest_version": "2.0.0",
   "display_on_public_website": true,
   "tile": {
-    "title": "Gravitee",
-    "description": "Tracks API request metrics and logs, as well as gateway metrics",
+    "title": "Gravitee APIM",
+    "description": "Collect API request metrics, logs, and gateway-level metrics from Gravitee APIM (API Management)",
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "uninstallation": "README.md#Uninstallation",
@@ -14,13 +14,13 @@
     "media": [
       {
         "media_type": "image",
-        "caption": "Gravitee API Usage",
-        "image_url": "images/gravitee-apiusage-datadog-dashboard-screenshot.png"
+        "caption": "See all metrics of Gravitee API usage in the integration dashboard.",
+        "image_url": "images/gravitee-apim-datadog-dashboard-apiusage-screenshot.png"
       },
       {
         "media_type": "image",
-        "caption": "Gravitee Gateway Usage",
-        "image_url": "images/gravitee-gateway-datadog-dashboard-screenshot.png"
+        "caption": "See all Gravitee Gateway metrics & usage in the integration dashboard.",
+        "image_url": "images/gravitee-apim-datadog-dashboard-gatewayperformance-screenshot.png"
       }
     ],
     "classifier_tags": [
@@ -63,6 +63,7 @@
     "integration": {
       "source_type_name": "gravitee",
       "auto_install": true,
+      "configuration": {},
       "process_signatures": [],
       "metrics": {
         "prefix": "gravitee.apim",
@@ -70,6 +71,9 @@
           "gravitee.apim.api_request_count"
         ],
         "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": true
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
