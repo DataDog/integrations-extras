@@ -1,13 +1,17 @@
 id: dagster-plus
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
 metric_id: dagster-plus
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
 backend_only: false
 facets:
   - description: ""
     facetType: list
     groups:
       - others
-    name: dagster-plus.event_type
-    path: dagster-plus.event_type
+    name: dagster.event_type
+    path: dagster.event_type
     source: log
     type: string
 pipeline:
@@ -18,7 +22,7 @@ pipeline:
     query: source:dagster-plus
   processors:
     - type: date-remapper
-      name: Define `timestamp` as the official date of the log
+      name: Use the timestamp on the event as the date of the event.
       enabled: true
       sources:
         - timestamp
@@ -40,17 +44,22 @@ pipeline:
       defaultLookup: info
       type: lookup-processor
     - type: status-remapper
-      name: Define `status` as the official status of the log
+      name: Use status field as the status of the event
       enabled: true
       sources:
         - status
     - type: attribute-remapper
-      name: Map `event_type` to `dagster-plus.event_type`
+      name: Nest event_type to dagster.event_type
       enabled: true
       sources:
         - event_type
       sourceType: attribute
-      target: dagster-plus.event_type
+      target: dagster.event_type
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
+    - type: service-remapper
+      name: Service Remapper
+      enabled: true
+      sources:
+        - service
