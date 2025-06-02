@@ -2,7 +2,7 @@
 
 ## Overview
 
-Pulse is a monitoring and optimization platform for Elasticsearch and OpenSearch clusters. It detects issues, tracks performance, delivers smart alerts, and recommendations to keep your search infrastructure healthy.
+Pulse is a monitoring and optimization platform for Elasticsearch and OpenSearch clusters. It detects issues, tracks performance, and delivers smart alerts and recommendations to keep your search infrastructure healthy.
 
 The integration ingests Pulse alerts as Datadog Events, enabling teams to centralize alert management, correlate issues with metrics and logs, and streamline incident response.
 
