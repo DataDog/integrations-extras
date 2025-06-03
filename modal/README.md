@@ -51,7 +51,7 @@ revoked and logs/metrics stop being emitted to Datadog.
    click **Uninstall Integration**.
 3. Confirm that you want to uninstall the integration.
 4. Ensure that all API keys associated with this integration have been
-   disabled by searching for the integration name on the [API Keys](/organization-settings/api-keys?filter=Modal)
+   disabled by searching for the integration name on the [API Keys][6]
    page.
 
 ## Troubleshooting
@@ -63,4 +63,5 @@ Need help? Contact [Modal support][3].
 [3]: mailto:support@modal.com
 [4]: /organization-settings/api-keys?filter=Modal
 [5]: https://github.com/DataDog/integrations-extras/blob/master/modal/metadata.csv
+[6]: /organization-settings/api-keys?filter=Modal
 
