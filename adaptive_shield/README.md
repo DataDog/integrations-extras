@@ -15,7 +15,7 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 
 When you uninstall this integration, any previous authorizations are revoked. 
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](/organization-settings/api-keys?filter=Adaptive%20Shield).
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][3].
 
 
 ## Support
@@ -23,3 +23,4 @@ Need help? Contact [Adaptive Shield support][2].
 
 [1]: https://dashboard.adaptive-shield.com/settings/alerts/add/63230b73c9624b93dadf38d4
 [2]: mailto:support@adaptive-shield.com
+[3]: /organization-settings/api-keys?filter=Adaptive%20Shield
