@@ -1,5 +1,11 @@
 # CHANGELOG - CloudZero
 
+## 1.2.0 / 2025-05-27
+
+***Added***:
+
+* Updates scopes required for changes in DataDog API permissions 
+
 ## 1.1.0 / 2024-07-17
 
 ***Added***:
