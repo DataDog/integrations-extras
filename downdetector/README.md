@@ -2,7 +2,7 @@
 
 ## Overview
 
-wndetector provides early alerting on service issues - often before internal monitoring tools.
+provides early alerting on service issues - often before internal monitoring tools.
 
 This integration provides real-time Downdetector outage alerts as events in Datadog, enabling you to visualize and correlate service disruptions with your stack. It provides incident start and end notifications, along with details on the affected service, current measurements, baseline, top indicators, cities, and providers.
 
