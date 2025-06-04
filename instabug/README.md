@@ -4,9 +4,9 @@
 
 [Instabug][1] is a mobile-focused platform that empowers mobile teams to monitor, prioritize, and debug performance and stability issues throughout the mobile app development lifecycle.
 
-The Instabug integration for Datadog provides comprehensive mobile app monitoring and analytics through the Datadog App Builder. The integration offers:
+The Instabug integration for Datadog provides comprehensive mobile app monitoring and analytics through Datadog App Builder. The integration offers:
 
-- Frustration-free sessions tracking and analysis
+- Session tracking and analysis
 - Crash-free session and user metrics with historical trends 
 - Detailed app performance metrics including:
   - Cold and hot app launch times
@@ -23,17 +23,17 @@ The Instabug integration for Datadog provides comprehensive mobile app monitorin
 
 - A Datadog account with access to App Builder
 - An Instabug account with access to your project's App Health dashboard
-- Instabug API token and email (Contact [Instabug Support][2] to obtain these)
+- An Instabug API token and email (Contact [Instabug Support][2] to obtain these)
 
 ### Installation
 
 1. Contact [Instabug Support][2] to get your API credentials and follow [the SDK integration guide][4] to add Instabug to your mobile app.
 2. In Datadog, navigate to [App Builder Blueprints][3].
 3. Search for and select the **Instabug blueprint**.
-4. Under "Setup your connection":
+4. Under **Setup your connection**:
    - If you have an existing Instabug connection, select it from the dropdown
    - To create a new connection:
-     1. Click **+ New Connection** and select "HTTP Connection"
+     1. Click **+ New Connection** and select `HTTP Connection`
      2. Configure the following:
         - Base URL: `https://dashboard-api.instabug.com`
         - Authentication Type: Token Auth
@@ -45,11 +45,11 @@ The Instabug integration for Datadog provides comprehensive mobile app monitorin
           authorization: Token token="{{ token }}", email="{{ email }}"
           ```
      3. Click **Next** and set appropriate access permissions
-     4. Click **Create**
-5. Click **Open in Editor**
-6. Click **Save as a new app**
+     4. Click **Create**.
+5. Click **Open in Editor**.
+6. Click **Save as a new app**.
 7. Click **Publish** and confirm access settings
-8. Your Instabug integration will now be available in the [App Builder List][6].
+8. Your Instabug integration is then available in the [App Builder List][6].
 
 ## Data Collected
 The Instabug integration does not include any metrics.
