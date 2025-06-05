@@ -23,7 +23,7 @@ The Instabug integration for Datadog provides comprehensive mobile app monitorin
 
 - A Datadog account with access to App Builder
 - An Instabug account with access to your project's App Health dashboard
-- An Instabug API token and email (Contact [Instabug Support][2] to obtain these)
+- An Instabug API token and email (contact [Instabug Support][2] to obtain these)
 
 ### Installation
 
@@ -33,7 +33,7 @@ The Instabug integration for Datadog provides comprehensive mobile app monitorin
 4. Under **Setup your connection**:
    - If you have an existing Instabug connection, select it from the dropdown
    - To create a new connection:
-     1. Click **+ New Connection** and select `HTTP Connection`
+     1. Click **+ New Connection** and select `HTTP Connection`.
      2. Configure the following:
         - Base URL: `https://dashboard-api.instabug.com`
         - Authentication Type: Token Auth
@@ -44,11 +44,11 @@ The Instabug integration for Datadog provides comprehensive mobile app monitorin
           ```
           authorization: Token token="{{ token }}", email="{{ email }}"
           ```
-     3. Click **Next** and set appropriate access permissions
+     3. Click **Next** and set appropriate access permissions.
      4. Click **Create**.
 5. Click **Open in Editor**.
 6. Click **Save as a new app**.
-7. Click **Publish** and confirm access settings
+7. Click **Publish** and confirm access settings.
 8. Your Instabug integration is then available in the [App Builder List][6].
 
 ## Data Collected
