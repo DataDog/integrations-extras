@@ -1,974 +1,230 @@
-id: contrast-security-adr
+id: "contrast-security-adr"
 tests:
-  - sample: "{\"eventUuid\": \"a6aab11a-de46-4154-bd09-ee966ee0af33\",
-      \"organizationUuid\": \"969321ad-da28-4c8a-9bac-18ca5553b301\",
-      \"productName\": \"ContrastADR\", \"server\": {\"name\": \"3e31b90dd191\",
-      \"id\": 30035}, \"application\": {\"id\":
-      \"3bc81309-ab9b-45c1-8944-6d6242fa835f\", \"name\": \"Vulnpy_NS_test1\",
-      \"agentLanguage\": \"python\"}, \"sourceIp\": \"192.168.65.1\",
-      \"cloudResourceId\": null, \"cloudProvider\": \"UNKNOWN\", \"result\":
-      \"EXPLOITED\", \"rule\": \"sql-injection\", \"severity\": \"CRITICAL\",
-      \"detectedTime\": \"2025-05-16T09:29:22.037Z\", \"uiUrl\":
-      \"https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/9693\
-      21ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee\
-      966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-st\
-      artDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;application\
-      Id=3bc81309-ab9b-45c1-8944-6d6242fa835f\", \"apiUri\":
-      \"/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications\
-      /3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd\
-      09-ee966ee0af33\", \"mitreTactics\": [{\"id\": \"TA0001\", \"name\":
-      \"Initial Access\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0001/\"}, {\"id\": \"TA0002\",
-      \"name\": \"Execution\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0002/\"}, {\"id\": \"TA0003\",
-      \"name\": \"Persistence\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0003/\"}, {\"id\": \"TA0004\",
-      \"name\": \"Privilege Escalation\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0004/\"}, {\"id\": \"TA0005\",
-      \"name\": \"Defense Evasion\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0005/\"}, {\"id\": \"TA0006\",
-      \"name\": \"Credential Access\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0006/\"}, {\"id\": \"TA0007\",
-      \"name\": \"Discovery\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0007/\"}, {\"id\": \"TA0009\",
-      \"name\": \"Collection\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0009/\"}, {\"id\": \"TA0010\",
-      \"name\": \"Exfiltration\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0010/\"}], \"mitreCapec\": [],
-      \"environment\": \"DEVELOPMENT\", \"attackPayload\": {\"attackerInput\":
-      {\"confirmedAttack\": false, \"effectiveAttack\": false,
-      \"applicableAttack\": false, \"patternsMatched\": [\"\"], \"name\":
-      \"d','4'),('e\", \"type\": \"QUERYSTRING\", \"documentType\": \"NORMAL\",
-      \"documentPath\": \"\"}, \"url\": \"/vulnpy/sqli/sqlite3-execute/\",
-      \"standardNormalizedUri\": \"\", \"value\": \"d','4'),('e\"},
-      \"virtualPatchUuid\": null, \"denyListUuid\": null}"
-    result: null
-  - sample: "{\"eventUuid\":\"a60df1e9-450b-4929-8ec4-51bf7ee4713e\",\"organization\
-      Uuid\":\"3ccd2a09-b356-42c4-9c0c-80128513ff3b\",\"productName\":\"Contras\
-      tADR\",\"server\":{\"id\":\"85950\",\"name\":\"45811b80836d\"},\"applicat\
-      ion\":{\"id\":\"fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf\",\"name\":\"Northst\
-      ar_test3\",\"agentLanguage\":\"java\"},\"sourceIp\":\"192.168.65.1\",\"cl\
-      oudResourceId\":null,\"cloudProvider\":\"UNKNOWN\",\"result\":\"exploited\
-      \",\"rule\":\"sql-injection\",\"severity\":\"critical\",\"detectedTime\":\
-      \"2025-05-12T08:28:43.963Z\",\"uiUrl\":\"https://teamserver-staging.conts\
-      ec.com/Contrast/static/ng/index.html#/3ccd2a09-b356-42c4-9c0c-80128513ff3\
-      b/attack-events/a60df1e9-450b-4929-8ec4-51bf7ee4713e?groupBy=&amp;dateRan\
-      ge-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747038463963&amp;dateR\
-      ange-endDate=1747038583963&amp;applicationId=fa2884b7-d471-4c6f-b40b-aa23\
-      d2d9c7bf\",\"apiUri\":\"/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-801\
-      28513ff3b/applications/fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf/attack-events\
-      /a60df1e9-450b-4929-8ec4-51bf7ee4713e\",\"mitreTactics\":[{\"id\":\"TA0001\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0001/\"},{\"id\":\"TA0002\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0002/\"},{\"id\":\"TA0003\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0003/\"},{\"id\":\"TA0004\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0004/\"},{\"id\":\"TA0005\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0005/\"},{\"id\":\"TA0006\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0006/\"},{\"id\":\"TA0007\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0007/\"},{\"id\":\"TA0009\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0009/\"},{\"id\":\"TA0010\
-      \",\"url\":\"https://attack.mitre.org/tactics/TA0010/\"}],\"mitreCapec\":\
-      [],\"environment\":\"development\",\"attackPayload\":{\"attackerInput\":{\
-      \"confirmedAttack\":false,\"effectiveAttack\":false,\"applicableAttack\":\
-      false,\"patternsMatched\":[\"TRUING_STRING_INJ,PIDS-SQLI-42A\"],\"name\":\
-      \"lastName\",\"inputType\":\"PARAMETER_VALUE\",\"documentType\":\"NORMAL\
-      \",\"documentPath\":\"\"},\"value\":\"Davis' OR
-      '122'='122\"},\"virtualPatchUuid\":null,\"denyListUuid\":null,\"ruleUuid\
-      \":\"sql-injection\",\"url\":\"/owners\",\"agentVersion\":\"6.16.0\",\"ho\
-      st\":{\"operatingSystem\":\"Linux 6.10.14-linuxkit
-      aarch64\",\"runtimePath\":\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java\",\
-      \"runtimeVersion\":\"OpenJDK Runtime Environment
-      1.8.0_212-b04\",\"hostname\":\"45811b80836d\",\"isDocker\":true},\"request\
-      \":{\"method\":\"GET\",\"protocol\":\"http\",\"protocolVersion\":\"1.1\",\
-      \"headers\":{\"accept\":[\"text/html,application/xhtml+xml,application/xm\
-      l;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exc\
-      hange;v=b3;q=0.7\"],\"accept-encoding\":[\"gzip, deflate, br,
-      zstd\"],\"accept-language\":[\"en-GB,en-US;q=0.9,en;q=0.8\"],\"connection\
-      \":[\"keep-alive\"],\"host\":[\"localhost:8087\"],\"referer\":[\"http://l\
-      ocalhost:8087/owners/find\"],\"sec-ch-ua\":[\"\\\"Chromium\\\";v=\\\"136\\\
-      \", \\\"Google Chrome\\\";v=\\\"136\\\",
-      \\\"Not.A/Brand\\\";v=\\\"99\\\"\"],\"sec-ch-ua-mobile\":[\"?0\"],\"sec-c\
-      h-ua-platform\":[\"\\\"macOS\\\"\"],\"sec-fetch-dest\":[\"document\"],\"s\
-      ec-fetch-mode\":[\"navigate\"],\"sec-fetch-site\":[\"same-origin\"],\"sec\
-      -fetch-user\":[\"?1\"],\"upgrade-insecure-requests\":[\"1\"],\"user-agent\
-      \":[\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
-      (KHTML, like Gecko) Chrome/136.0.0.0
-      Safari/537.36\"]},\"parameters\":{\"lastName\":[\"contrast-redacted-name\
-      \"]},\"body\":\"\",\"queryString\":\"lastName=contrast-redacted-name\"},\
-      \"vectorAnalysis\":{\"vectorFields\":{\"ruleUuid\":\"sql-injection\",\"qu\
-      ery\":\"SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets
-      WHERE owner.lastName = 'Davis' OR
-      '122'='122'\"},\"callLocation\":\"org.hibernate.jpa.spi.AbstractEntityMan\
-      agerImpl.createQuery(AbstractEntityManagerImpl.java:305)\"},\"codeLocation\
-      \":{\"file\":\"SessionImpl.java\",\"method\":\"createQuery()\",\"stack\":\
-      [{\"type\":\"frameSink\",\"description\":\"org.hibernate.internal.Session\
-      Impl.createQuery(SessionImpl.java:-1)\",\"fileName\":\"SessionImpl.java\",\
-      \"lineNumber\":-1,\"methodName\":\"createQuery\",\"className\":\"org.hibe\
-      rnate.internal.SessionImpl\",\"shortSummary\":\"createQuery() @
-      SessionImpl.java:-1\"},{\"type\":\"frameCommon\",\"description\":\"org.hi\
-      bernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManag\
-      erImpl.java:305)\",\"fileName\":\"AbstractEntityManagerImpl.java\",\"line\
-      Number\":305,\"methodName\":\"createQuery\",\"className\":\"org.hibernate\
-      .jpa.spi.AbstractEntityManagerImpl\",\"shortSummary\":\"createQuery() @
-      AbstractEntityManagerImpl.java:305\"},{\"type\":\"frameCommon\",\"descrip\
-      tion\":\"sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccesso\
-      rImpl.java:-2)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNum\
-      ber\":-2,\"methodName\":\"invoke0\",\"className\":\"sun.reflect.NativeMet\
-      hodAccessorImpl\",\"shortSummary\":\"invoke0() @
-      NativeMethodAccessorImpl.java:-2\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorIm\
-      pl.java:62)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\
-      \":62,\"methodName\":\"invoke\",\"className\":\"sun.reflect.NativeMethodA\
-      ccessorImpl\",\"shortSummary\":\"invoke() @
-      NativeMethodAccessorImpl.java:62\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAc\
-      cessorImpl.java:43)\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\
-      \"lineNumber\":43,\"methodName\":\"invoke\",\"className\":\"sun.reflect.D\
-      elegatingMethodAccessorImpl\",\"shortSummary\":\"invoke() @
-      DelegatingMethodAccessorImpl.java:43\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"java.lang.reflect.Method.invoke(Method.java:498)\",\"fileName\
-      \":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"classNa\
-      me\":\"java.lang.reflect.Method\",\"shortSummary\":\"invoke() @
-      Method.java:498\"},{\"type\":\"frameCommon\",\"description\":\"org.spring\
-      framework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvoc\
-      ationHandler.invoke(ExtendedEntityManagerCreator.java:347)\",\"fileName\":\
-      \"ExtendedEntityManagerCreator.java\",\"lineNumber\":347,\"methodName\":\
-      \"invoke\",\"className\":\"org.springframework.orm.jpa.ExtendedEntityMana\
-      gerCreator$ExtendedEntityManagerInvocationHandler\",\"shortSummary\":\"in\
-      voke() @
-      ExtendedEntityManagerCreator.java:347\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"com.sun.proxy.$Proxy161.createQuery(Unknown
-      Source:-1)\",\"fileName\":\"com.sun.proxy.$Proxy161\",\"lineNumber\":-1,\
-      \"methodName\":\"createQuery\",\"className\":\"com.sun.proxy.$Proxy161\",\
-      \"shortSummary\":\"createQuery() @
-      com.sun.proxy.$Proxy161:-1\"},{\"type\":\"frameCommon\",\"description\":\
-      \"sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.j\
-      ava:-2)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-\
-      2,\"methodName\":\"invoke0\",\"className\":\"sun.reflect.NativeMethodAcce\
-      ssorImpl\",\"shortSummary\":\"invoke0() @
-      NativeMethodAccessorImpl.java:-2\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorIm\
-      pl.java:62)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\
-      \":62,\"methodName\":\"invoke\",\"className\":\"sun.reflect.NativeMethodA\
-      ccessorImpl\",\"shortSummary\":\"invoke() @
-      NativeMethodAccessorImpl.java:62\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAc\
-      cessorImpl.java:43)\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\
-      \"lineNumber\":43,\"methodName\":\"invoke\",\"className\":\"sun.reflect.D\
-      elegatingMethodAccessorImpl\",\"shortSummary\":\"invoke() @
-      DelegatingMethodAccessorImpl.java:43\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"java.lang.reflect.Method.invoke(Method.java:498)\",\"fileName\
-      \":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"classNa\
-      me\":\"java.lang.reflect.Method\",\"shortSummary\":\"invoke() @
-      Method.java:498\"},{\"type\":\"frameCommon\",\"description\":\"org.spring\
-      framework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocatio\
-      nHandler.invoke(SharedEntityManagerCreator.java:298)\",\"fileName\":\"Sha\
-      redEntityManagerCreator.java\",\"lineNumber\":298,\"methodName\":\"invoke\
-      \",\"className\":\"org.springframework.orm.jpa.SharedEntityManagerCreator\
-      $SharedEntityManagerInvocationHandler\",\"shortSummary\":\"invoke() @
-      SharedEntityManagerCreator.java:298\"},{\"type\":\"frameCommon\",\"descri\
-      ption\":\"com.sun.proxy.$Proxy161.createQuery(Unknown
-      Source:-1)\",\"fileName\":\"com.sun.proxy.$Proxy161\",\"lineNumber\":-1,\
-      \"methodName\":\"createQuery\",\"className\":\"com.sun.proxy.$Proxy161\",\
-      \"shortSummary\":\"createQuery() @
-      com.sun.proxy.$Proxy161:-1\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl.f\
-      indByLastName(OwnerRepositoryCustomImpl.java:24)\",\"fileName\":\"OwnerRe\
-      positoryCustomImpl.java\",\"lineNumber\":24,\"methodName\":\"findByLastNa\
-      me\",\"className\":\"org.springframework.samples.petclinic.owner.OwnerRep\
-      ositoryCustomImpl\",\"shortSummary\":\"findByLastName() @
-      OwnerRepositoryCustomImpl.java:24\"},{\"type\":\"frameCommon\",\"descript\
-      ion\":\"org.springframework.samples.petclinic.owner.OwnerRepositoryCustom\
-      Impl$$FastClassBySpringCGLIB$$aa7eaa60.invoke(&lt;generated&gt;:-1)\",\"f\
-      ileName\":\"&lt;generated&gt;\",\"lineNumber\":-1,\"methodName\":\"invoke\
-      \",\"className\":\"org.springframework.samples.petclinic.owner.OwnerRepos\
-      itoryCustomImpl$$FastClassBySpringCGLIB$$aa7eaa60\",\"shortSummary\":\"in\
-      voke() @
-      &lt;generated&gt;:-1\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\",\"f\
-      ileName\":\"MethodProxy.java\",\"lineNumber\":204,\"methodName\":\"invoke\
-      \",\"className\":\"org.springframework.cglib.proxy.MethodProxy\",\"shortS\
-      ummary\":\"invoke() @
-      MethodProxy.java:204\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJo\
-      inpoint(CglibAopProxy.java:738)\",\"fileName\":\"CglibAopProxy.java\",\"l\
-      ineNumber\":738,\"methodName\":\"invokeJoinpoint\",\"className\":\"org.sp\
-      ringframework.aop.framework.CglibAopProxy$CglibMethodInvocation\",\"short\
-      Summary\":\"invokeJoinpoint() @
-      CglibAopProxy.java:738\"},{\"type\":\"frameCommon\",\"description\":\"org\
-      .springframework.aop.framework.ReflectiveMethodInvocation.proceed(Reflect\
-      iveMethodInvocation.java:157)\",\"fileName\":\"ReflectiveMethodInvocation\
-      .java\",\"lineNumber\":157,\"methodName\":\"proceed\",\"className\":\"org\
-      .springframework.aop.framework.ReflectiveMethodInvocation\",\"shortSummary\
-      \":\"proceed() @
-      ReflectiveMethodInvocation.java:157\"},{\"type\":\"frameCommon\",\"descri\
-      ption\":\"org.springframework.transaction.interceptor.TransactionIntercep\
-      tor$1.proceedWithInvocation(TransactionInterceptor.java:99)\",\"fileName\
-      \":\"TransactionInterceptor.java\",\"lineNumber\":99,\"methodName\":\"pro\
-      ceedWithInvocation\",\"className\":\"org.springframework.transaction.inte\
-      rceptor.TransactionInterceptor$1\",\"shortSummary\":\"proceedWithInvocati\
-      on() @
-      TransactionInterceptor.java:99\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.transaction.interceptor.TransactionAspectSupport\
-      .invokeWithinTransaction(TransactionAspectSupport.java:282)\",\"fileName\
-      \":\"TransactionAspectSupport.java\",\"lineNumber\":282,\"methodName\":\"\
-      invokeWithinTransaction\",\"className\":\"org.springframework.transaction\
-      .interceptor.TransactionAspectSupport\",\"shortSummary\":\"invokeWithinTr\
-      ansaction() @
-      TransactionAspectSupport.java:282\"},{\"type\":\"frameCommon\",\"descript\
-      ion\":\"org.springframework.transaction.interceptor.TransactionIntercepto\
-      r.invoke(TransactionInterceptor.java:96)\",\"fileName\":\"TransactionInte\
-      rceptor.java\",\"lineNumber\":96,\"methodName\":\"invoke\",\"className\":\
-      \"org.springframework.transaction.interceptor.TransactionInterceptor\",\"\
-      shortSummary\":\"invoke() @
-      TransactionInterceptor.java:96\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.aop.framework.ReflectiveMethodInvocation.proceed\
-      (ReflectiveMethodInvocation.java:179)\",\"fileName\":\"ReflectiveMethodIn\
-      vocation.java\",\"lineNumber\":179,\"methodName\":\"proceed\",\"className\
-      \":\"org.springframework.aop.framework.ReflectiveMethodInvocation\",\"sho\
-      rtSummary\":\"proceed() @
-      ReflectiveMethodInvocation.java:179\"},{\"type\":\"frameCommon\",\"descri\
-      ption\":\"org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedI\
-      nterceptor.intercept(CglibAopProxy.java:673)\",\"fileName\":\"CglibAopPro\
-      xy.java\",\"lineNumber\":673,\"methodName\":\"intercept\",\"className\":\
-      \"org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedIntercept\
-      or\",\"shortSummary\":\"intercept() @
-      CglibAopProxy.java:673\"},{\"type\":\"frameCommon\",\"description\":\"org\
-      .springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$Enhan\
-      cerBySpringCGLIB$$10a622c9.findByLastName(&lt;generated&gt;:-1)\",\"fileN\
-      ame\":\"&lt;generated&gt;\",\"lineNumber\":-1,\"methodName\":\"findByLast\
-      Name\",\"className\":\"org.springframework.samples.petclinic.owner.OwnerR\
-      epositoryCustomImpl$$EnhancerBySpringCGLIB$$10a622c9\",\"shortSummary\":\
-      \"findByLastName() @
-      &lt;generated&gt;:-1\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.samples.petclinic.owner.OwnerController.processFindForm(Ow\
-      nerController.java:90)\",\"fileName\":\"OwnerController.java\",\"lineNumb\
-      er\":90,\"methodName\":\"processFindForm\",\"className\":\"org.springfram\
-      ework.samples.petclinic.owner.OwnerController\",\"shortSummary\":\"proces\
-      sFindForm() @
-      OwnerController.java:90\"},{\"type\":\"frameCommon\",\"description\":\"su\
-      n.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:\
-      -2)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"\
-      methodName\":\"invoke0\",\"className\":\"sun.reflect.NativeMethodAccessor\
-      Impl\",\"shortSummary\":\"invoke0() @
-      NativeMethodAccessorImpl.java:-2\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorIm\
-      pl.java:62)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\
-      \":62,\"methodName\":\"invoke\",\"className\":\"sun.reflect.NativeMethodA\
-      ccessorImpl\",\"shortSummary\":\"invoke() @
-      NativeMethodAccessorImpl.java:62\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAc\
-      cessorImpl.java:43)\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\
-      \"lineNumber\":43,\"methodName\":\"invoke\",\"className\":\"sun.reflect.D\
-      elegatingMethodAccessorImpl\",\"shortSummary\":\"invoke() @
-      DelegatingMethodAccessorImpl.java:43\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"java.lang.reflect.Method.invoke(Method.java:498)\",\"fileName\
-      \":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"classNa\
-      me\":\"java.lang.reflect.Method\",\"shortSummary\":\"invoke() @
-      Method.java:498\"},{\"type\":\"frameCommon\",\"description\":\"org.spring\
-      framework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHan\
-      dlerMethod.java:205)\",\"fileName\":\"InvocableHandlerMethod.java\",\"lin\
-      eNumber\":205,\"methodName\":\"doInvoke\",\"className\":\"org.springframe\
-      work.web.method.support.InvocableHandlerMethod\",\"shortSummary\":\"doInv\
-      oke() @
-      InvocableHandlerMethod.java:205\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.method.support.InvocableHandlerMethod.invoke\
-      ForRequest(InvocableHandlerMethod.java:133)\",\"fileName\":\"InvocableHan\
-      dlerMethod.java\",\"lineNumber\":133,\"methodName\":\"invokeForRequest\",\
-      \"className\":\"org.springframework.web.method.support.InvocableHandlerMe\
-      thod\",\"shortSummary\":\"invokeForRequest() @
-      InvocableHandlerMethod.java:133\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.servlet.mvc.method.annotation.ServletInvocab\
-      leHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)\",\
-      \"fileName\":\"ServletInvocableHandlerMethod.java\",\"lineNumber\":97,\"m\
-      ethodName\":\"invokeAndHandle\",\"className\":\"org.springframework.web.s\
-      ervlet.mvc.method.annotation.ServletInvocableHandlerMethod\",\"shortSumma\
-      ry\":\"invokeAndHandle() @
-      ServletInvocableHandlerMethod.java:97\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"org.springframework.web.servlet.mvc.method.annotation.Request\
-      MappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.ja\
-      va:827)\",\"fileName\":\"RequestMappingHandlerAdapter.java\",\"lineNumber\
-      \":827,\"methodName\":\"invokeHandlerMethod\",\"className\":\"org.springf\
-      ramework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter\",\
-      \"shortSummary\":\"invokeHandlerMethod() @
-      RequestMappingHandlerAdapter.java:827\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"org.springframework.web.servlet.mvc.method.annotation.Request\
-      MappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:73\
-      8)\",\"fileName\":\"RequestMappingHandlerAdapter.java\",\"lineNumber\":73\
-      8,\"methodName\":\"handleInternal\",\"className\":\"org.springframework.w\
-      eb.servlet.mvc.method.annotation.RequestMappingHandlerAdapter\",\"shortSu\
-      mmary\":\"handleInternal() @
-      RequestMappingHandlerAdapter.java:738\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"org.springframework.web.servlet.mvc.method.AbstractHandlerMet\
-      hodAdapter.handle(AbstractHandlerMethodAdapter.java:85)\",\"fileName\":\"\
-      AbstractHandlerMethodAdapter.java\",\"lineNumber\":85,\"methodName\":\"ha\
-      ndle\",\"className\":\"org.springframework.web.servlet.mvc.method.Abstrac\
-      tHandlerMethodAdapter\",\"shortSummary\":\"handle() @
-      AbstractHandlerMethodAdapter.java:85\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"org.springframework.web.servlet.DispatcherServlet.doDispatch(D\
-      ispatcherServlet.java:967)\",\"fileName\":\"DispatcherServlet.java\",\"li\
-      neNumber\":967,\"methodName\":\"doDispatch\",\"className\":\"org.springfr\
-      amework.web.servlet.DispatcherServlet\",\"shortSummary\":\"doDispatch() @
-      DispatcherServlet.java:967\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherS\
-      ervlet.java:901)\",\"fileName\":\"DispatcherServlet.java\",\"lineNumber\"\
-      :901,\"methodName\":\"doService\",\"className\":\"org.springframework.web\
-      .servlet.DispatcherServlet\",\"shortSummary\":\"doService() @
-      DispatcherServlet.java:901\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.servlet.FrameworkServlet.processRequest(Framewo\
-      rkServlet.java:970)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\
-      \":970,\"methodName\":\"processRequest\",\"className\":\"org.springframew\
-      ork.web.servlet.FrameworkServlet\",\"shortSummary\":\"processRequest() @
-      FrameworkServlet.java:970\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.j\
-      ava:861)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\":861,\"me\
-      thodName\":\"doGet\",\"className\":\"org.springframework.web.servlet.Fram\
-      eworkServlet\",\"shortSummary\":\"doGet() @
-      FrameworkServlet.java:861\"},{\"type\":\"frameCommon\",\"description\":\"\
-      javax.servlet.http.HttpServlet.service(HttpServlet.java:635)\",\"fileName\
-      \":\"HttpServlet.java\",\"lineNumber\":635,\"methodName\":\"service\",\"c\
-      lassName\":\"javax.servlet.http.HttpServlet\",\"shortSummary\":\"service()
-      @
-      HttpServlet.java:635\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java\
-      :846)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\":846,\"metho\
-      dName\":\"service\",\"className\":\"org.springframework.web.servlet.Frame\
-      workServlet\",\"shortSummary\":\"service() @
-      FrameworkServlet.java:846\"},{\"type\":\"frameCommon\",\"description\":\"\
-      javax.servlet.http.HttpServlet.service(HttpServlet.java:742)\",\"fileName\
-      \":\"HttpServlet.java\",\"lineNumber\":742,\"methodName\":\"service\",\"c\
-      lassName\":\"javax.servlet.http.HttpServlet\",\"shortSummary\":\"service()
-      @
-      HttpServlet.java:742\"},{\"type\":\"frameCommon\",\"description\":\"org.a\
-      pache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFi\
-      lterChain.java:231)\",\"fileName\":\"ApplicationFilterChain.java\",\"line\
-      Number\":231,\"methodName\":\"internalDoFilter\",\"className\":\"org.apac\
-      he.catalina.core.ApplicationFilterChain\",\"shortSummary\":\"internalDoFi\
-      lter() @
-      ApplicationFilterChain.java:231\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:5\
-      2)\",\"fileName\":\"WsFilter.java\",\"lineNumber\":52,\"methodName\":\"do\
-      Filter\",\"className\":\"org.apache.tomcat.websocket.server.WsFilter\",\"\
-      shortSummary\":\"doFilter() @
-      WsFilter.java:52\"},{\"type\":\"frameCommon\",\"description\":\"org.apach\
-      e.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilter\
-      Chain.java:193)\",\"fileName\":\"ApplicationFilterChain.java\",\"lineNumb\
-      er\":193,\"methodName\":\"internalDoFilter\",\"className\":\"org.apache.c\
-      atalina.core.ApplicationFilterChain\",\"shortSummary\":\"internalDoFilter\
-      () @
-      ApplicationFilterChain.java:193\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.d\
-      oFilter(ResourceUrlEncodingFilter.java:59)\",\"fileName\":\"ResourceUrlEn\
-      codingFilter.java\",\"lineNumber\":59,\"methodName\":\"doFilter\",\"class\
-      Name\":\"org.springframework.web.servlet.resource.ResourceUrlEncodingFilt\
-      er\",\"shortSummary\":\"doFilter() @
-      ResourceUrlEncodingFilter.java:59\"},{\"type\":\"frameCommon\",\"descript\
-      ion\":\"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(\
-      ApplicationFilterChain.java:193)\",\"fileName\":\"ApplicationFilterChain.\
-      java\",\"lineNumber\":193,\"methodName\":\"internalDoFilter\",\"className\
-      \":\"org.apache.catalina.core.ApplicationFilterChain\",\"shortSummary\":\
-      \"internalDoFilter() @
-      ApplicationFilterChain.java:193\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.boot.web.filter.ApplicationContextHeaderFilter.d\
-      oFilterInternal(ApplicationContextHeaderFilter.java:55)\",\"fileName\":\"\
-      ApplicationContextHeaderFilter.java\",\"lineNumber\":55,\"methodName\":\"\
-      doFilterInternal\",\"className\":\"org.springframework.boot.web.filter.Ap\
-      plicationContextHeaderFilter\",\"shortSummary\":\"doFilterInternal() @
-      ApplicationContextHeaderFilter.java:55\"},{\"type\":\"frameCommon\",\"des\
-      cription\":\"org.springframework.web.filter.OncePerRequestFilter.doFilter\
-      (OncePerRequestFilter.java:107)\",\"fileName\":\"OncePerRequestFilter.java\
-      \",\"lineNumber\":107,\"methodName\":\"doFilter\",\"className\":\"org.spr\
-      ingframework.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilte\
-      r() @
-      OncePerRequestFilter.java:107\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(App\
-      licationFilterChain.java:193)\",\"fileName\":\"ApplicationFilterChain.java\
-      \",\"lineNumber\":193,\"methodName\":\"internalDoFilter\",\"className\":\
-      \"org.apache.catalina.core.ApplicationFilterChain\",\"shortSummary\":\"in\
-      ternalDoFilter() @
-      ApplicationFilterChain.java:193\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilte\
-      rInternal(WebRequestTraceFilter.java:110)\",\"fileName\":\"WebRequestTrac\
-      eFilter.java\",\"lineNumber\":110,\"methodName\":\"doFilterInternal\",\"c\
-      lassName\":\"org.springframework.boot.actuate.trace.WebRequestTraceFilter\
-      \",\"shortSummary\":\"doFilterInternal() @
-      WebRequestTraceFilter.java:110\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePer\
-      RequestFilter.java:107)\",\"fileName\":\"OncePerRequestFilter.java\",\"li\
-      neNumber\":107,\"methodName\":\"doFilter\",\"className\":\"org.springfram\
-      ework.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter() @
-      OncePerRequestFilter.java:107\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(App\
-      licationFilterChain.java:193)\",\"fileName\":\"ApplicationFilterChain.java\
-      \",\"lineNumber\":193,\"methodName\":\"internalDoFilter\",\"className\":\
-      \"org.apache.catalina.core.ApplicationFilterChain\",\"shortSummary\":\"in\
-      ternalDoFilter() @
-      ApplicationFilterChain.java:193\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.filter.RequestContextFilter.doFilterInternal\
-      (RequestContextFilter.java:99)\",\"fileName\":\"RequestContextFilter.java\
-      \",\"lineNumber\":99,\"methodName\":\"doFilterInternal\",\"className\":\"\
-      org.springframework.web.filter.RequestContextFilter\",\"shortSummary\":\"\
-      doFilterInternal() @
-      RequestContextFilter.java:99\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerReq\
-      uestFilter.java:107)\",\"fileName\":\"OncePerRequestFilter.java\",\"lineN\
-      umber\":107,\"methodName\":\"doFilter\",\"className\":\"org.springframewo\
-      rk.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter() @
-      OncePerRequestFilter.java:107\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(App\
-      licationFilterChain.java:193)\",\"fileName\":\"ApplicationFilterChain.java\
-      \",\"lineNumber\":193,\"methodName\":\"internalDoFilter\",\"className\":\
-      \"org.apache.catalina.core.ApplicationFilterChain\",\"shortSummary\":\"in\
-      ternalDoFilter() @
-      ApplicationFilterChain.java:193\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.doFilter(Application\
-      FilterChain.java:166)\",\"fileName\":\"ApplicationFilterChain.java\",\"li\
-      neNumber\":166,\"methodName\":\"doFilter\",\"className\":\"org.apache.cat\
-      alina.core.ApplicationFilterChain\",\"shortSummary\":\"doFilter() @
-      ApplicationFilterChain.java:166\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.filter.HttpPutFormContentFilter.doFilterInte\
-      rnal(HttpPutFormContentFilter.java:105)\",\"fileName\":\"HttpPutFormConte\
-      ntFilter.java\",\"lineNumber\":105,\"methodName\":\"doFilterInternal\",\"\
-      className\":\"org.springframework.web.filter.HttpPutFormContentFilter\",\
-      \"shortSummary\":\"doFilterInternal() @
-      HttpPutFormContentFilter.java:105\"},{\"type\":\"frameCommon\",\"descript\
-      ion\":\"org.springframework.web.filter.OncePerRequestFilter.doFilter(Once\
-      PerRequestFilter.java:107)\",\"fileName\":\"OncePerRequestFilter.java\",\
-      \"lineNumber\":107,\"methodName\":\"doFilter\",\"className\":\"org.spring\
-      framework.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter()
-      @
-      OncePerRequestFilter.java:107\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(App\
-      licationFilterChain.java:193)\",\"fileName\":\"ApplicationFilterChain.java\
-      \",\"lineNumber\":193,\"methodName\":\"internalDoFilter\",\"className\":\
-      \"org.apache.catalina.core.ApplicationFilterChain\",\"shortSummary\":\"in\
-      ternalDoFilter() @ ApplicationFilterChain.java:193\"}]}}"
-    result: null
-  - sample: '{"eventUuid":"b38320a0-042c-4aa1-98bf-332d603d7efd","organizationUuid":"969321ad-da28-4c8a-9bac-18ca5553b301","productName":"ContrastADR","server":{"id":"29119","name":"JavaThing"},"application":{"id":"225fe54e-aa41-4475-bac4-8e1f065dc9b8","name":"JavaUpload","agentLanguage":"java"},"sourceIp":"192.168.65.1","cloudResourceId":null,"cloudProvider":"UNKNOWN","result":"suspicious","rule":"unsafe-file-upload","severity":"medium","detectedTime":"2025-05-19T16:24:54.978Z","uiUrl":"https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747671834978&dateRange-endDate=1747671954978&applicationId=225fe54e-aa41-4475-bac4-8e1f065dc9b8","apiUri":"/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/225fe54e-aa41-4475-bac4-8e1f065dc9b8/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd","mitreTactics":[{"id":"TA0042","url":"https://attack.mitre.org/tactics/TA0042/"},{"id":"TA0001","url":"https://attack.mitre.org/tactics/TA0001/"},{"id":"TA0002","url":"https://attack.mitre.org/tactics/TA0002/"},{"id":"TA0003","url":"https://attack.mitre.org/tactics/TA0003/"},{"id":"TA0004","url":"https://attack.mitre.org/tactics/TA0004/"},{"id":"TA0005","url":"https://attack.mitre.org/tactics/TA0005/"},{"id":"TA0006","url":"https://attack.mitre.org/tactics/TA0006/"},{"id":"TA0011","url":"https://attack.mitre.org/tactics/TA0011/"}],"mitreCapec":[],"environment":"development","attackPayload":{"attackerInput":{"confirmedAttack":false,"effectiveAttack":false,"applicableAttack":false,"patternsMatched":["PIDS-UNSAFE-UPLOAD-100"],"name":"filename","inputType":"MULTIPART_NAME","documentType":"NORMAL","documentPath":""},"value":"war-and-peace.pdf.exe"},"virtualPatchUuid":null,"denyListUuid":null,"ruleUuid":"unsafe-file-upload","url":"/java-file-upload-example-0.0.1-SNAPSHOT/FileUploadServlet","agentVersion":"6.15.0","host":{"operatingSystem":"Mac
-      OS X 15.4.1
-      aarch64","runtimePath":"/Users/wilhadden/.sdkman/candidates/java/21.0.6-tem/bin/java","runtimeVersion":"OpenJDK
-      Runtime Environment
-      21.0.6+7-LTS","hostname":"WHADDEN-GJCYM9MW4R"},"request":{"method":"POST","protocol":"http","protocolVersion":"1.1","headers":{"accept":["text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"],"accept-encoding":["gzip,
-      deflate, br,
-      zstd"],"accept-language":["en-GB,en-US;q=0.9,en;q=0.8"],"cache-control":["max-age=0"],"connection":["keep-alive"],"content-length":["7212154"],"content-type":["multipart/form-data;
-      boundary=----WebKitFormBoundaryvYIImUamWAleQIh3"],"host":["localhost:8080"],"origin":["http://localhost:8080"],"referer":["http://localhost:8080/java-file-upload-example-0.0.1-SNAPSHOT/"],"sec-ch-ua":["\"Chromium\";v=\"136\",
-      \"Google Chrome\";v=\"136\",
-      \"Not.A/Brand\";v=\"99\""],"sec-ch-ua-mobile":["?0"],"sec-ch-ua-platform":["\"macOS\""],"sec-fetch-dest":["document"],"sec-fetch-mode":["navigate"],"sec-fetch-site":["same-origin"],"sec-fetch-user":["?1"],"upgrade-insecure-requests":["1"],"user-agent":["Mozilla/5.0
-      (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)
-      Chrome/136.0.0.0 Safari/537.36"]},"parameters":{}}}'
-    result: null
-  - sample: "{\"eventUuid\":\"4351ba8f-647d-4247-a0e6-97205472c659\",\"organization\
-      Uuid\":\"3ccd2a09-b356-42c4-9c0c-80128513ff3b\",\"productName\":\"Contras\
-      tADR\",\"server\":{\"id\":\"85722\",\"name\":\"QA\"},\"application\":{\"id\
-      \":\"4019cce7-812a-494e-870d-29d401cc637d\",\"name\":\"webgoat-ns-demo2\",\
-      \"agentLanguage\":\"java\"},\"sourceIp\":\"192.168.65.1\",\"cloudResource\
-      Id\":null,\"cloudProvider\":\"UNKNOWN\",\"result\":\"exploited\",\"rule\":\
-      \"sql-injection\",\"severity\":\"critical\",\"detectedTime\":\"2025-05-08\
-      T14:27:30.391Z\",\"uiUrl\":\"https://teamserver-staging.contsec.com/Contr\
-      ast/static/ng/index.html#/3ccd2a09-b356-42c4-9c0c-80128513ff3b/attack-eve\
-      nts/4351ba8f-647d-4247-a0e6-97205472c659?groupBy=&amp;dateRange-type=CUST\
-      OM_DATE_RANGE&amp;dateRange-startDate=1746714390391&amp;dateRange-endDate\
-      =1746714510391&amp;applicationId=4019cce7-812a-494e-870d-29d401cc637d\",\
-      \"apiUri\":\"/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-80128513ff3b/a\
-      pplications/4019cce7-812a-494e-870d-29d401cc637d/attack-events/4351ba8f-6\
-      47d-4247-a0e6-97205472c659\",\"mitreTactics\":[{\"id\":\"TA0001\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0001/\"},{\"id\":\"TA0002\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0002/\"},{\"id\":\"TA0003\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0003/\"},{\"id\":\"TA0004\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0004/\"},{\"id\":\"TA0005\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0005/\"},{\"id\":\"TA0006\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0006/\"},{\"id\":\"TA0007\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0007/\"},{\"id\":\"TA0009\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0009/\"},{\"id\":\"TA0010\",\"url\":\
-      \"https://attack.mitre.org/tactics/TA0010/\"}],\"mitreCapec\":[],\"enviro\
-      nment\":\"development\",\"attackPayload\":{\"attackerInput\":{\"confirmed\
-      Attack\":false,\"effectiveAttack\":false,\"applicableAttack\":false,\"pat\
-      ternsMatched\":[\"PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI\
-      -4002\"],\"name\":\"userid_6a\",\"inputType\":\"PARAMETER_VALUE\",\"docum\
-      entType\":\"NORMAL\",\"documentPath\":\"\"},\"value\":\"' or 1=1; select *
-      from user_system_data;
-      --\"},\"virtualPatchUuid\":null,\"denyListUuid\":null,\"ruleUuid\":\"sql-\
-      injection\",\"url\":\"/WebGoat/SqlInjectionAdvanced/attack6a\",\"request\
-      \":{\"method\":\"POST\",\"protocol\":\"http\",\"protocolVersion\":\"1.1\",\
-      \"headers\":{\"Accept\":[\"*/*\"],\"Accept-Encoding\":[\"gzip, deflate,
-      br,
-      zstd\"],\"Accept-Language\":[\"en-GB,en-US;q=0.9,en;q=0.8\"],\"Connection\
-      \":[\"keep-alive\"],\"Content-Length\":[\"60\"],\"Content-Type\":[\"appli\
-      cation/x-www-form-urlencoded;
-      charset=UTF-8\"],\"Cookie\":[\"JSESSIONID=oRiKB5G3LhY9Dj0fv1FRMo4rzuF2YCR\
-      qpOpSgNTb\"],\"Host\":[\"localhost:8080\"],\"Origin\":[\"http://localhost\
-      :8080\"],\"Referer\":[\"http://localhost:8080/WebGoat/start.mvc\"],\"sec-\
-      ch-ua\":[\"\\\"Chromium\\\";v=\\\"136\\\", \\\"Google
-      Chrome\\\";v=\\\"136\\\",
-      \\\"Not.A/Brand\\\";v=\\\"99\\\"\"],\"sec-ch-ua-mobile\":[\"?0\"],\"sec-c\
-      h-ua-platform\":[\"\\\"macOS\\\"\"],\"Sec-Fetch-Dest\":[\"empty\"],\"Sec-\
-      Fetch-Mode\":[\"cors\"],\"Sec-Fetch-Site\":[\"same-origin\"],\"User-Agent\
-      \":[\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
-      (KHTML, like Gecko) Chrome/136.0.0.0
-      Safari/537.36\"],\"X-Requested-With\":[\"XMLHttpRequest\"]},\"parameters\
-      \":{\"userid_6a\":[\"' or 1=1; select * from user_system_data;
-      --\"]},\"queryString\":\"\"},\"vectorAnalysis\":{\"vectorFields\":{\"rule\
-      Uuid\":\"sql-injection\",\"query\":\"SELECT * FROM user_data WHERE
-      last_name = '' or 1=1; select * from user_system_data;
-      --'\"},\"callLocation\":\"org.owasp.webgoat.sql_injection.advanced.SqlInj\
-      ectionLesson6a.injectableQuery(SqlInjectionLesson6a.java:67)\"},\"codeLoc\
-      ation\":{\"file\":\"org.hsqldb.jdbc.JDBCStatement\",\"method\":\"executeQ\
-      uery()\",\"stack\":[{\"type\":\"frameSink\",\"description\":\"org.hsqldb.\
-      jdbc.JDBCStatement.executeQuery(Unknown
-      Source:-1)\",\"fileName\":\"org.hsqldb.jdbc.JDBCStatement\",\"lineNumber\
-      \":-1,\"methodName\":\"executeQuery\",\"className\":\"org.hsqldb.jdbc.JDB\
-      CStatement\",\"shortSummary\":\"executeQuery() @
-      org.hsqldb.jdbc.JDBCStatement:-1\"},{\"type\":\"frameCustom\",\"descripti\
-      on\":\"org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.inje\
-      ctableQuery(SqlInjectionLesson6a.java:67)\",\"fileName\":\"SqlInjectionLe\
-      sson6a.java\",\"lineNumber\":67,\"methodName\":\"injectableQuery\",\"clas\
-      sName\":\"org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a\",\
-      \"shortSummary\":\"injectableQuery() @
-      SqlInjectionLesson6a.java:67\"},{\"type\":\"frameCustom\",\"description\":\
-      \"org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.completed\
-      (SqlInjectionLesson6a.java:52)\",\"fileName\":\"SqlInjectionLesson6a.java\
-      \",\"lineNumber\":52,\"methodName\":\"completed\",\"className\":\"org.owa\
-      sp.webgoat.sql_injection.advanced.SqlInjectionLesson6a\",\"shortSummary\":\
-      \"completed() @
-      SqlInjectionLesson6a.java:52\"},{\"type\":\"frameCommon\",\"description\":\
-      \"jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAcces\
-      sorImpl.java:-2)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineN\
-      umber\":-2,\"methodName\":\"invoke0\",\"className\":\"jdk.internal.reflec\
-      t.NativeMethodAccessorImpl\",\"shortSummary\":\"invoke0() @
-      NativeMethodAccessorImpl.java:-2\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodA\
-      ccessorImpl.java:77)\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"l\
-      ineNumber\":77,\"methodName\":\"invoke\",\"className\":\"jdk.internal.ref\
-      lect.NativeMethodAccessorImpl\",\"shortSummary\":\"invoke() @
-      NativeMethodAccessorImpl.java:77\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Delegatin\
-      gMethodAccessorImpl.java:43)\",\"fileName\":\"DelegatingMethodAccessorImp\
-      l.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"className\":\"jdk.\
-      internal.reflect.DelegatingMethodAccessorImpl\",\"shortSummary\":\"invoke\
-      () @
-      DelegatingMethodAccessorImpl.java:43\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"java.lang.reflect.Method.invoke(Method.java:569)\",\"fileName\
-      \":\"Method.java\",\"lineNumber\":569,\"methodName\":\"invoke\",\"classNa\
-      me\":\"java.lang.reflect.Method\",\"shortSummary\":\"invoke() @
-      Method.java:569\"},{\"type\":\"frameCommon\",\"description\":\"org.spring\
-      framework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHan\
-      dlerMethod.java:197)\",\"fileName\":\"InvocableHandlerMethod.java\",\"lin\
-      eNumber\":197,\"methodName\":\"doInvoke\",\"className\":\"org.springframe\
-      work.web.method.support.InvocableHandlerMethod\",\"shortSummary\":\"doInv\
-      oke() @
-      InvocableHandlerMethod.java:197\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.method.support.InvocableHandlerMethod.invoke\
-      ForRequest(InvocableHandlerMethod.java:141)\",\"fileName\":\"InvocableHan\
-      dlerMethod.java\",\"lineNumber\":141,\"methodName\":\"invokeForRequest\",\
-      \"className\":\"org.springframework.web.method.support.InvocableHandlerMe\
-      thod\",\"shortSummary\":\"invokeForRequest() @
-      InvocableHandlerMethod.java:141\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.servlet.mvc.method.annotation.ServletInvocab\
-      leHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)\",\
-      \"fileName\":\"ServletInvocableHandlerMethod.java\",\"lineNumber\":106,\"\
-      methodName\":\"invokeAndHandle\",\"className\":\"org.springframework.web.\
-      servlet.mvc.method.annotation.ServletInvocableHandlerMethod\",\"shortSumm\
-      ary\":\"invokeAndHandle() @
-      ServletInvocableHandlerMethod.java:106\"},{\"type\":\"frameCommon\",\"des\
-      cription\":\"org.springframework.web.servlet.mvc.method.annotation.Reques\
-      tMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.j\
-      ava:894)\",\"fileName\":\"RequestMappingHandlerAdapter.java\",\"lineNumber\
-      \":894,\"methodName\":\"invokeHandlerMethod\",\"className\":\"org.springf\
-      ramework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter\",\
-      \"shortSummary\":\"invokeHandlerMethod() @
-      RequestMappingHandlerAdapter.java:894\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"org.springframework.web.servlet.mvc.method.annotation.Request\
-      MappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:80\
-      8)\",\"fileName\":\"RequestMappingHandlerAdapter.java\",\"lineNumber\":80\
-      8,\"methodName\":\"handleInternal\",\"className\":\"org.springframework.w\
-      eb.servlet.mvc.method.annotation.RequestMappingHandlerAdapter\",\"shortSu\
-      mmary\":\"handleInternal() @
-      RequestMappingHandlerAdapter.java:808\"},{\"type\":\"frameCommon\",\"desc\
-      ription\":\"org.springframework.web.servlet.mvc.method.AbstractHandlerMet\
-      hodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\"fileName\":\"\
-      AbstractHandlerMethodAdapter.java\",\"lineNumber\":87,\"methodName\":\"ha\
-      ndle\",\"className\":\"org.springframework.web.servlet.mvc.method.Abstrac\
-      tHandlerMethodAdapter\",\"shortSummary\":\"handle() @
-      AbstractHandlerMethodAdapter.java:87\"},{\"type\":\"frameCommon\",\"descr\
-      iption\":\"org.springframework.web.servlet.DispatcherServlet.doDispatch(D\
-      ispatcherServlet.java:1060)\",\"fileName\":\"DispatcherServlet.java\",\"l\
-      ineNumber\":1060,\"methodName\":\"doDispatch\",\"className\":\"org.spring\
-      framework.web.servlet.DispatcherServlet\",\"shortSummary\":\"doDispatch()
-      @
-      DispatcherServlet.java:1060\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherS\
-      ervlet.java:962)\",\"fileName\":\"DispatcherServlet.java\",\"lineNumber\"\
-      :962,\"methodName\":\"doService\",\"className\":\"org.springframework.web\
-      .servlet.DispatcherServlet\",\"shortSummary\":\"doService() @
-      DispatcherServlet.java:962\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.servlet.FrameworkServlet.processRequest(Framewo\
-      rkServlet.java:1006)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\
-      \":1006,\"methodName\":\"processRequest\",\"className\":\"org.springframe\
-      work.web.servlet.FrameworkServlet\",\"shortSummary\":\"processRequest() @
-      FrameworkServlet.java:1006\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServle\
-      t.java:909)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\":909,\
-      \"methodName\":\"doPost\",\"className\":\"org.springframework.web.servlet\
-      .FrameworkServlet\",\"shortSummary\":\"doPost() @
-      FrameworkServlet.java:909\"},{\"type\":\"frameCommon\",\"description\":\"\
-      javax.servlet.http.HttpServlet.service(HttpServlet.java:517)\",\"fileName\
-      \":\"HttpServlet.java\",\"lineNumber\":517,\"methodName\":\"service\",\"c\
-      lassName\":\"javax.servlet.http.HttpServlet\",\"shortSummary\":\"service()
-      @
-      HttpServlet.java:517\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java\
-      :883)\",\"fileName\":\"FrameworkServlet.java\",\"lineNumber\":883,\"metho\
-      dName\":\"service\",\"className\":\"org.springframework.web.servlet.Frame\
-      workServlet\",\"shortSummary\":\"service() @
-      FrameworkServlet.java:883\"},{\"type\":\"frameCommon\",\"description\":\"\
-      javax.servlet.http.HttpServlet.service(HttpServlet.java:584)\",\"fileName\
-      \":\"HttpServlet.java\",\"lineNumber\":584,\"methodName\":\"service\",\"c\
-      lassName\":\"javax.servlet.http.HttpServlet\",\"shortSummary\":\"service()
-      @
-      HttpServlet.java:584\"},{\"type\":\"frameCommon\",\"description\":\"io.un\
-      dertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:\
-      74)\",\"fileName\":\"ServletHandler.java\",\"lineNumber\":74,\"methodName\
-      \":\"handleRequest\",\"className\":\"io.undertow.servlet.handlers.Servlet\
-      Handler\",\"shortSummary\":\"handleRequest() @
-      ServletHandler.java:74\"},{\"type\":\"frameCommon\",\"description\":\"io.\
-      undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHa\
-      ndler.java:129)\",\"fileName\":\"FilterHandler.java\",\"lineNumber\":129,\
-      \"methodName\":\"doFilter\",\"className\":\"io.undertow.servlet.handlers.\
-      FilterHandler$FilterChainImpl\",\"shortSummary\":\"doFilter() @
-      FilterHandler.java:129\"},{\"type\":\"frameCommon\",\"description\":\"org\
-      .springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilte\
-      r(FilterChainProxy.java:327)\",\"fileName\":\"FilterChainProxy.java\",\"l\
-      ineNumber\":327,\"methodName\":\"doFilter\",\"className\":\"org.springfra\
-      mework.security.web.FilterChainProxy$VirtualFilterChain\",\"shortSummary\
-      \":\"doFilter() @
-      FilterChainProxy.java:327\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.access.intercept.FilterSecurityIntercept\
-      or.invoke(FilterSecurityInterceptor.java:115)\",\"fileName\":\"FilterSecu\
-      rityInterceptor.java\",\"lineNumber\":115,\"methodName\":\"invoke\",\"cla\
-      ssName\":\"org.springframework.security.web.access.intercept.FilterSecuri\
-      tyInterceptor\",\"shortSummary\":\"invoke() @
-      FilterSecurityInterceptor.java:115\"},{\"type\":\"frameCommon\",\"descrip\
-      tion\":\"org.springframework.security.web.access.intercept.FilterSecurity\
-      Interceptor.doFilter(FilterSecurityInterceptor.java:81)\",\"fileName\":\"\
-      FilterSecurityInterceptor.java\",\"lineNumber\":81,\"methodName\":\"doFil\
-      ter\",\"className\":\"org.springframework.security.web.access.intercept.F\
-      ilterSecurityInterceptor\",\"shortSummary\":\"doFilter() @
-      FilterSecurityInterceptor.java:81\"},{\"type\":\"frameCommon\",\"descript\
-      ion\":\"org.springframework.security.web.FilterChainProxy$VirtualFilterCh\
-      ain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy\
-      .java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"or\
-      g.springframework.security.web.FilterChainProxy$VirtualFilterChain\",\"sh\
-      ortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.access.ExceptionTranslationFilter.doFilt\
-      er(ExceptionTranslationFilter.java:119)\",\"fileName\":\"ExceptionTransla\
-      tionFilter.java\",\"lineNumber\":119,\"methodName\":\"doFilter\",\"classN\
-      ame\":\"org.springframework.security.web.access.ExceptionTranslationFilter\
-      \",\"shortSummary\":\"doFilter() @
-      ExceptionTranslationFilter.java:119\"},{\"type\":\"frameCommon\",\"descri\
-      ption\":\"org.springframework.security.web.access.ExceptionTranslationFil\
-      ter.doFilter(ExceptionTranslationFilter.java:113)\",\"fileName\":\"Except\
-      ionTranslationFilter.java\",\"lineNumber\":113,\"methodName\":\"doFilter\
-      \",\"className\":\"org.springframework.security.web.access.ExceptionTrans\
-      lationFilter\",\"shortSummary\":\"doFilter() @
-      ExceptionTranslationFilter.java:113\"},{\"type\":\"frameCommon\",\"descri\
-      ption\":\"org.springframework.security.web.FilterChainProxy$VirtualFilter\
-      Chain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainPro\
-      xy.java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"\
-      org.springframework.security.web.FilterChainProxy$VirtualFilterChain\",\"\
-      shortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.session.SessionManagementFilter.doFilter\
-      (SessionManagementFilter.java:126)\",\"fileName\":\"SessionManagementFilt\
-      er.java\",\"lineNumber\":126,\"methodName\":\"doFilter\",\"className\":\"\
-      org.springframework.security.web.session.SessionManagementFilter\",\"shor\
-      tSummary\":\"doFilter() @
-      SessionManagementFilter.java:126\"},{\"type\":\"frameCommon\",\"descripti\
-      on\":\"org.springframework.security.web.session.SessionManagementFilter.d\
-      oFilter(SessionManagementFilter.java:81)\",\"fileName\":\"SessionManageme\
-      ntFilter.java\",\"lineNumber\":81,\"methodName\":\"doFilter\",\"className\
-      \":\"org.springframework.security.web.session.SessionManagementFilter\",\
-      \"shortSummary\":\"doFilter() @
-      SessionManagementFilter.java:81\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\
-      .doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy.ja\
-      va\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"org.s\
-      pringframework.security.web.FilterChainProxy$VirtualFilterChain\",\"short\
-      Summary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.authentication.AnonymousAuthenticationFi\
-      lter.doFilter(AnonymousAuthenticationFilter.java:105)\",\"fileName\":\"An\
-      onymousAuthenticationFilter.java\",\"lineNumber\":105,\"methodName\":\"do\
-      Filter\",\"className\":\"org.springframework.security.web.authentication.\
-      AnonymousAuthenticationFilter\",\"shortSummary\":\"doFilter() @
-      AnonymousAuthenticationFilter.java:105\"},{\"type\":\"frameCommon\",\"des\
-      cription\":\"org.springframework.security.web.FilterChainProxy$VirtualFil\
-      terChain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChain\
-      Proxy.java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\
-      \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\",\
-      \"shortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.servletapi.SecurityContextHolderAwareReq\
-      uestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)\",\
-      \"fileName\":\"SecurityContextHolderAwareRequestFilter.java\",\"lineNumber\
-      \":149,\"methodName\":\"doFilter\",\"className\":\"org.springframework.se\
-      curity.web.servletapi.SecurityContextHolderAwareRequestFilter\",\"shortSu\
-      mmary\":\"doFilter() @
-      SecurityContextHolderAwareRequestFilter.java:149\"},{\"type\":\"frameComm\
-      on\",\"description\":\"org.springframework.security.web.FilterChainProxy$\
-      VirtualFilterChain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"F\
-      ilterChainProxy.java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"c\
-      lassName\":\"org.springframework.security.web.FilterChainProxy$VirtualFil\
-      terChain\",\"shortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doF\
-      ilter(RequestCacheAwareFilter.java:63)\",\"fileName\":\"RequestCacheAware\
-      Filter.java\",\"lineNumber\":63,\"methodName\":\"doFilter\",\"className\":\
-      \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter\",\
-      \"shortSummary\":\"doFilter() @
-      RequestCacheAwareFilter.java:63\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\
-      .doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy.ja\
-      va\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"org.s\
-      pringframework.security.web.FilterChainProxy$VirtualFilterChain\",\"short\
-      Summary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.authentication.AbstractAuthenticationPro\
-      cessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:218)\",\
-      \"fileName\":\"AbstractAuthenticationProcessingFilter.java\",\"lineNumber\
-      \":218,\"methodName\":\"doFilter\",\"className\":\"org.springframework.se\
-      curity.web.authentication.AbstractAuthenticationProcessingFilter\",\"shor\
-      tSummary\":\"doFilter() @
-      AbstractAuthenticationProcessingFilter.java:218\"},{\"type\":\"frameCommon\
-      \",\"description\":\"org.springframework.security.web.authentication.Abst\
-      ractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcess\
-      ingFilter.java:212)\",\"fileName\":\"AbstractAuthenticationProcessingFilt\
-      er.java\",\"lineNumber\":212,\"methodName\":\"doFilter\",\"className\":\"\
-      org.springframework.security.web.authentication.AbstractAuthenticationPro\
-      cessingFilter\",\"shortSummary\":\"doFilter() @
-      AbstractAuthenticationProcessingFilter.java:212\"},{\"type\":\"frameCommon\
-      \",\"description\":\"org.springframework.security.web.FilterChainProxy$Vi\
-      rtualFilterChain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"Fil\
-      terChainProxy.java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"cla\
-      ssName\":\"org.springframework.security.web.FilterChainProxy$VirtualFilte\
-      rChain\",\"shortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.authentication.logout.LogoutFilter.doFil\
-      ter(LogoutFilter.java:103)\",\"fileName\":\"LogoutFilter.java\",\"lineNum\
-      ber\":103,\"methodName\":\"doFilter\",\"className\":\"org.springframework\
-      .security.web.authentication.logout.LogoutFilter\",\"shortSummary\":\"doF\
-      ilter() @
-      LogoutFilter.java:103\"},{\"type\":\"frameCommon\",\"description\":\"org.\
-      springframework.security.web.authentication.logout.LogoutFilter.doFilter(\
-      LogoutFilter.java:89)\",\"fileName\":\"LogoutFilter.java\",\"lineNumber\"\
-      :89,\"methodName\":\"doFilter\",\"className\":\"org.springframework.secur\
-      ity.web.authentication.logout.LogoutFilter\",\"shortSummary\":\"doFilter()
-      @
-      LogoutFilter.java:89\"},{\"type\":\"frameCommon\",\"description\":\"org.s\
-      pringframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(\
-      FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy.java\",\"lin\
-      eNumber\":336,\"methodName\":\"doFilter\",\"className\":\"org.springframe\
-      work.security.web.FilterChainProxy$VirtualFilterChain\",\"shortSummary\":\
-      \"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter\
-      (HeaderWriterFilter.java:90)\",\"fileName\":\"HeaderWriterFilter.java\",\
-      \"lineNumber\":90,\"methodName\":\"doHeadersAfter\",\"className\":\"org.s\
-      pringframework.security.web.header.HeaderWriterFilter\",\"shortSummary\":\
-      \"doHeadersAfter() @
-      HeaderWriterFilter.java:90\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInte\
-      rnal(HeaderWriterFilter.java:75)\",\"fileName\":\"HeaderWriterFilter.java\
-      \",\"lineNumber\":75,\"methodName\":\"doFilterInternal\",\"className\":\"\
-      org.springframework.security.web.header.HeaderWriterFilter\",\"shortSumma\
-      ry\":\"doFilterInternal() @
-      HeaderWriterFilter.java:75\"},{\"type\":\"frameCommon\",\"description\":\
-      \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerReq\
-      uestFilter.java:119)\",\"fileName\":\"OncePerRequestFilter.java\",\"lineN\
-      umber\":119,\"methodName\":\"doFilter\",\"className\":\"org.springframewo\
-      rk.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter() @
-      OncePerRequestFilter.java:119\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\
-      .doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy.ja\
-      va\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"org.s\
-      pringframework.security.web.FilterChainProxy$VirtualFilterChain\",\"short\
-      Summary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.context.SecurityContextPersistenceFilter\
-      .doFilter(SecurityContextPersistenceFilter.java:110)\",\"fileName\":\"Sec\
-      urityContextPersistenceFilter.java\",\"lineNumber\":110,\"methodName\":\"\
-      doFilter\",\"className\":\"org.springframework.security.web.context.Secur\
-      ityContextPersistenceFilter\",\"shortSummary\":\"doFilter() @
-      SecurityContextPersistenceFilter.java:110\"},{\"type\":\"frameCommon\",\"\
-      description\":\"org.springframework.security.web.context.SecurityContextP\
-      ersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)\",\"f\
-      ileName\":\"SecurityContextPersistenceFilter.java\",\"lineNumber\":80,\"m\
-      ethodName\":\"doFilter\",\"className\":\"org.springframework.security.web\
-      .context.SecurityContextPersistenceFilter\",\"shortSummary\":\"doFilter()
-      @
-      SecurityContextPersistenceFilter.java:80\"},{\"type\":\"frameCommon\",\"d\
-      escription\":\"org.springframework.security.web.FilterChainProxy$VirtualF\
-      ilterChain.doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterCha\
-      inProxy.java\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\
-      \":\"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\
-      \",\"shortSummary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.context.request.async.WebAsyncManagerInt\
-      egrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)\
-      \",\"fileName\":\"WebAsyncManagerIntegrationFilter.java\",\"lineNumber\":\
-      55,\"methodName\":\"doFilterInternal\",\"className\":\"org.springframewor\
-      k.security.web.context.request.async.WebAsyncManagerIntegrationFilter\",\
-      \"shortSummary\":\"doFilterInternal() @
-      WebAsyncManagerIntegrationFilter.java:55\"},{\"type\":\"frameCommon\",\"d\
-      escription\":\"org.springframework.web.filter.OncePerRequestFilter.doFilt\
-      er(OncePerRequestFilter.java:119)\",\"fileName\":\"OncePerRequestFilter.j\
-      ava\",\"lineNumber\":119,\"methodName\":\"doFilter\",\"className\":\"org.\
-      springframework.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFi\
-      lter() @
-      OncePerRequestFilter.java:119\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.security.web.FilterChainProxy$VirtualFilterChain\
-      .doFilter(FilterChainProxy.java:336)\",\"fileName\":\"FilterChainProxy.ja\
-      va\",\"lineNumber\":336,\"methodName\":\"doFilter\",\"className\":\"org.s\
-      pringframework.security.web.FilterChainProxy$VirtualFilterChain\",\"short\
-      Summary\":\"doFilter() @
-      FilterChainProxy.java:336\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.FilterChainProxy.doFilterInternal(Filter\
-      ChainProxy.java:211)\",\"fileName\":\"FilterChainProxy.java\",\"lineNumber\
-      \":211,\"methodName\":\"doFilterInternal\",\"className\":\"org.springfram\
-      ework.security.web.FilterChainProxy\",\"shortSummary\":\"doFilterInternal\
-      () @
-      FilterChainProxy.java:211\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.security.web.FilterChainProxy.doFilter(FilterChainPro\
-      xy.java:183)\",\"fileName\":\"FilterChainProxy.java\",\"lineNumber\":183,\
-      \"methodName\":\"doFilter\",\"className\":\"org.springframework.security.\
-      web.FilterChainProxy\",\"shortSummary\":\"doFilter() @
-      FilterChainProxy.java:183\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(Deleg\
-      atingFilterProxy.java:358)\",\"fileName\":\"DelegatingFilterProxy.java\",\
-      \"lineNumber\":358,\"methodName\":\"invokeDelegate\",\"className\":\"org.\
-      springframework.web.filter.DelegatingFilterProxy\",\"shortSummary\":\"inv\
-      okeDelegate() @
-      DelegatingFilterProxy.java:358\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.filter.DelegatingFilterProxy.doFilter(Delega\
-      tingFilterProxy.java:271)\",\"fileName\":\"DelegatingFilterProxy.java\",\
-      \"lineNumber\":271,\"methodName\":\"doFilter\",\"className\":\"org.spring\
-      framework.web.filter.DelegatingFilterProxy\",\"shortSummary\":\"doFilter()
-      @
-      DelegatingFilterProxy.java:271\"},{\"type\":\"frameCommon\",\"description\
-      \":\"io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:6\
-      1)\",\"fileName\":\"ManagedFilter.java\",\"lineNumber\":61,\"methodName\":\
-      \"doFilter\",\"className\":\"io.undertow.servlet.core.ManagedFilter\",\"s\
-      hortSummary\":\"doFilter() @
-      ManagedFilter.java:61\"},{\"type\":\"frameCommon\",\"description\":\"io.u\
-      ndertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHan\
-      dler.java:131)\",\"fileName\":\"FilterHandler.java\",\"lineNumber\":131,\
-      \"methodName\":\"doFilter\",\"className\":\"io.undertow.servlet.handlers.\
-      FilterHandler$FilterChainImpl\",\"shortSummary\":\"doFilter() @
-      FilterHandler.java:131\"},{\"type\":\"frameCommon\",\"description\":\"org\
-      .springframework.web.filter.RequestContextFilter.doFilterInternal(Request\
-      ContextFilter.java:100)\",\"fileName\":\"RequestContextFilter.java\",\"li\
-      neNumber\":100,\"methodName\":\"doFilterInternal\",\"className\":\"org.sp\
-      ringframework.web.filter.RequestContextFilter\",\"shortSummary\":\"doFilt\
-      erInternal() @
-      RequestContextFilter.java:100\"},{\"type\":\"frameCommon\",\"description\
-      \":\"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePer\
-      RequestFilter.java:119)\",\"fileName\":\"OncePerRequestFilter.java\",\"li\
-      neNumber\":119,\"methodName\":\"doFilter\",\"className\":\"org.springfram\
-      ework.web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter() @
-      OncePerRequestFilter.java:119\"},{\"type\":\"frameCommon\",\"description\
-      \":\"io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:6\
-      1)\",\"fileName\":\"ManagedFilter.java\",\"lineNumber\":61,\"methodName\":\
-      \"doFilter\",\"className\":\"io.undertow.servlet.core.ManagedFilter\",\"s\
-      hortSummary\":\"doFilter() @
-      ManagedFilter.java:61\"},{\"type\":\"frameCommon\",\"description\":\"io.u\
-      ndertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHan\
-      dler.java:131)\",\"fileName\":\"FilterHandler.java\",\"lineNumber\":131,\
-      \"methodName\":\"doFilter\",\"className\":\"io.undertow.servlet.handlers.\
-      FilterHandler$FilterChainImpl\",\"shortSummary\":\"doFilter() @
-      FilterHandler.java:131\"},{\"type\":\"frameCommon\",\"description\":\"org\
-      .springframework.web.filter.FormContentFilter.doFilterInternal(FormConten\
-      tFilter.java:93)\",\"fileName\":\"FormContentFilter.java\",\"lineNumber\"\
-      :93,\"methodName\":\"doFilterInternal\",\"className\":\"org.springframewo\
-      rk.web.filter.FormContentFilter\",\"shortSummary\":\"doFilterInternal() @
-      FormContentFilter.java:93\"},{\"type\":\"frameCommon\",\"description\":\"\
-      org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerReque\
-      stFilter.java:119)\",\"fileName\":\"OncePerRequestFilter.java\",\"lineNum\
-      ber\":119,\"methodName\":\"doFilter\",\"className\":\"org.springframework\
-      .web.filter.OncePerRequestFilter\",\"shortSummary\":\"doFilter() @
-      OncePerRequestFilter.java:119\"}]}}"
-    result: null
-  - sample: "{\"eventUuid\": \"0e9f65d8-793c-4c0a-84c7-1a8a6e672784\",
-      \"organizationUuid\": \"c0e9700e-3268-4a2a-898c-3f639f9a6f0e\",
-      \"productName\": \"ContrastADR\", \"server\": {\"name\": \"TM-ADR-PROD\",
-      \"id\": 28791}, \"application\": {\"id\":
-      \"5c0faae1-6cad-402b-95bc-ce80c4b23e58\", \"name\":
-      \"TM-ADR-Web-Application\", \"agentLanguage\": \"java\"}, \"sourceIp\":
-      \"172.19.0.9\", \"cloudResourceId\": null, \"cloudProvider\": \"UNKNOWN\",
-      \"result\": \"BLOCKED\", \"rule\": \"sql-injection\", \"severity\":
-      \"INFORMATIONAL\", \"detectedTime\": \"2025-05-15T14:51:47.128Z\",
-      \"uiUrl\":
-      \"https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/c0e9\
-      700e-3268-4a2a-898c-3f639f9a6f0e/attack-events/0e9f65d8-793c-4c0a-84c7-1a\
-      8a6e672784?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=\
-      1747320647128&dateRange-endDate=1747320767128&applicationId=5c0faae1-6cad\
-      -402b-95bc-ce80c4b23e58\", \"apiUri\":
-      \"/api/v4/organizations/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/applications\
-      /5c0faae1-6cad-402b-95bc-ce80c4b23e58/attack-events/0e9f65d8-793c-4c0a-84\
-      c7-1a8a6e672784\", \"mitreTactics\": [{\"id\": \"TA0001\", \"name\":
-      \"Initial Access\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0001/\"}, {\"id\": \"TA0002\",
-      \"name\": \"Execution\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0002/\"}, {\"id\": \"TA0003\",
-      \"name\": \"Persistence\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0003/\"}, {\"id\": \"TA0004\",
-      \"name\": \"Privilege Escalation\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0004/\"}, {\"id\": \"TA0005\",
-      \"name\": \"Defense Evasion\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0005/\"}, {\"id\": \"TA0006\",
-      \"name\": \"Credential Access\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0006/\"}, {\"id\": \"TA0007\",
-      \"name\": \"Discovery\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0007/\"}, {\"id\": \"TA0009\",
-      \"name\": \"Collection\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0009/\"}, {\"id\": \"TA0010\",
-      \"name\": \"Exfiltration\", \"url\":
-      \"https://attack.mitre.org/tactics/TA0010/\"}], \"mitreCapec\": [],
-      \"environment\": \"PRODUCTION\", \"attackPayload\": {\"attackerInput\":
-      {\"confirmedAttack\": false, \"effectiveAttack\": false,
-      \"applicableAttack\": false, \"patternsMatched\": [\"PIDS-SQLI-44D\",
-      \"TRUING_STRING_INJ\", \"CS-HCS-1\", \"PIDS-SQLI-44F\", \"PIDS-SQLI-44E\",
-      \"PIDS-SQLI-4001\"], \"name\": \"lastName\", \"type\":
-      \"PARAMETER_VALUE\", \"documentType\": \"NORMAL\", \"documentPath\":
-      \"\"}, \"url\": \"/customers\", \"standardNormalizedUri\": \"/customers\",
-      \"value\": \"' OR \\\"1\\\" = \\\"1\\\" -- \"}, \"virtualPatchUuid\":
-      null, \"denyListUuid\": null}"
-    result: null
-
-# The `result` field should be left blank to start. Once you submit your log asset files with
-# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
-# run your raw logs against your pipeline and return the result. If the result output in the
-# validation is accurate, take the output and add it to the `result` field in your test YAML file.
+ -
+  sample: |-
+    {
+      "severity" : "CRITICAL",
+      "detectedTime" : "2025-05-16T09:29:22.037Z",
+      "server" : {
+        "name" : "3e31b90dd191",
+        "id" : 30035
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "d','4'),('e",
+          "applicableAttack" : false,
+          "patternsMatched" : [ "" ],
+          "type" : "QUERYSTRING",
+          "documentPath" : ""
+        },
+        "standardNormalizedUri" : "",
+        "value" : "d','4'),('e",
+        "url" : "/vulnpy/sqli/sqlite3-execute/"
+      },
+      "rule" : "sql-injection",
+      "eventUuid" : "a6aab11a-de46-4154-bd09-ee966ee0af33",
+      "productName" : "ContrastADR",
+      "result" : "EXPLOITED",
+      "environment" : "DEVELOPMENT",
+      "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+      "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33",
+      "mitreTactics" : [ {
+        "name" : "Initial Access",
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "name" : "Execution",
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "name" : "Persistence",
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "name" : "Privilege Escalation",
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "name" : "Defense Evasion",
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "name" : "Credential Access",
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "name" : "Discovery",
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "name" : "Collection",
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "name" : "Exfiltration",
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "Vulnpy_NS_test1",
+        "agentLanguage" : "python",
+        "id" : "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+      },
+      "sourceIp" : "192.168.65.1",
+      "cloudProvider" : "UNKNOWN",
+      "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+    }
+  result:
+    custom:
+      apiUri: "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33"
+      application:
+        agentLanguage: "python"
+        id: "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+        name: "Vulnpy_NS_test1"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          name: "d','4'),('e"
+          patternsMatched:
+           - ""
+          type: "QUERYSTRING"
+        standardNormalizedUri: ""
+        url: "/vulnpy/sqli/sqlite3-execute/"
+        value: "d','4'),('e"
+      cloudProvider: "UNKNOWN"
+      detectedTime: "2025-05-16T09:29:22.037Z"
+      environment: "DEVELOPMENT"
+      eventUuid: "a6aab11a-de46-4154-bd09-ee966ee0af33"
+      mitreTactics:
+       -
+        name: "Initial Access"
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        name: "Execution"
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        name: "Persistence"
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        name: "Privilege Escalation"
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        name: "Defense Evasion"
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        name: "Credential Access"
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        name: "Discovery"
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        name: "Collection"
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        name: "Exfiltration"
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      organizationUuid: "969321ad-da28-4c8a-9bac-18ca5553b301"
+      productName: "ContrastADR"
+      result: "EXPLOITED"
+      rule: "sql-injection"
+      server:
+        id: 30035
+        name: "3e31b90dd191"
+      severity: "CRITICAL"
+      sourceIp: "192.168.65.1"
+      uiUrl: "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+    message: |-
+      {
+        "severity" : "CRITICAL",
+        "detectedTime" : "2025-05-16T09:29:22.037Z",
+        "server" : {
+          "name" : "3e31b90dd191",
+          "id" : 30035
+        },
+        "attackPayload" : {
+          "attackerInput" : {
+            "confirmedAttack" : false,
+            "documentType" : "NORMAL",
+            "effectiveAttack" : false,
+            "name" : "d','4'),('e",
+            "applicableAttack" : false,
+            "patternsMatched" : [ "" ],
+            "type" : "QUERYSTRING",
+            "documentPath" : ""
+          },
+          "standardNormalizedUri" : "",
+          "value" : "d','4'),('e",
+          "url" : "/vulnpy/sqli/sqlite3-execute/"
+        },
+        "rule" : "sql-injection",
+        "eventUuid" : "a6aab11a-de46-4154-bd09-ee966ee0af33",
+        "productName" : "ContrastADR",
+        "result" : "EXPLOITED",
+        "environment" : "DEVELOPMENT",
+        "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+        "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33",
+        "mitreTactics" : [ {
+          "name" : "Initial Access",
+          "id" : "TA0001",
+          "url" : "https://attack.mitre.org/tactics/TA0001/"
+        }, {
+          "name" : "Execution",
+          "id" : "TA0002",
+          "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "name" : "Persistence",
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "name" : "Privilege Escalation",
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "name" : "Defense Evasion",
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
+        }, {
+          "name" : "Credential Access",
+          "id" : "TA0006",
+          "url" : "https://attack.mitre.org/tactics/TA0006/"
+        }, {
+          "name" : "Discovery",
+          "id" : "TA0007",
+          "url" : "https://attack.mitre.org/tactics/TA0007/"
+        }, {
+          "name" : "Collection",
+          "id" : "TA0009",
+          "url" : "https://attack.mitre.org/tactics/TA0009/"
+        }, {
+          "name" : "Exfiltration",
+          "id" : "TA0010",
+          "url" : "https://attack.mitre.org/tactics/TA0010/"
+        } ],
+        "application" : {
+          "name" : "Vulnpy_NS_test1",
+          "agentLanguage" : "python",
+          "id" : "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+        },
+        "sourceIp" : "192.168.65.1",
+        "cloudProvider" : "UNKNOWN",
+        "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+      }
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1

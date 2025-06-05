@@ -181,10 +181,10 @@ pipeline:
   name: " Contrast ADR Pipeline"
   enabled: true
   filter:
-    query: source:contrastadr
+    query: source:contrast-security-adr
   processors:
     - type: attribute-remapper
-      name: "Remapper: Map `event.sourceIp` to `network.client.ip`"
+      name: "Map `event.sourceIp` to `network.client.ip`"
       enabled: true
       sources:
         - event.sourceIp
@@ -194,7 +194,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: " Remapper: Map `event.request.method` to `http.method`"
+      name: "Map `event.request.method` to `http.method`"
       enabled: true
       sources:
         - event.request.method
@@ -204,7 +204,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.request.protocol` to `http.url_details.scheme`"
+      name: "Map `event.request.protocol` to `http.url_details.scheme`"
       enabled: true
       sources:
         - event.request.protocol
@@ -214,8 +214,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.request.queryString` to
-        `http.url_details.queryString`"
+      name: "Map `event.request.queryString` to `http.url_details.queryString`"
       enabled: true
       sources:
         - event.request.queryString
@@ -225,7 +224,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.request.protocolVersion` to `http.version`"
+      name: "Map `event.request.protocolVersion` to `http.version`"
       enabled: true
       sources:
         - event.request.protocolVersion
@@ -235,12 +234,12 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: date-remapper
-      name: "Remapper: Map `event.detectedTime` "
+      name: "Define `event.detectedTime` as the official date of the log"
       enabled: true
       sources:
         - event.detectedTime
     - type: attribute-remapper
-      name: "Remapper: Map `event.result` to `evt.outcome`"
+      name: "Map `event.result` to `evt.outcome`"
       enabled: true
       sources:
         - event.result
@@ -257,7 +256,7 @@ pipeline:
       target: http.url_details.path
       normalizeEndingSlashes: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.request.headers.referer` to `http.referer`"
+      name: "Map `event.request.headers.referer` to `http.referer`"
       enabled: true
       sources:
         - event.request.headers.referer
@@ -267,7 +266,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.request.headers.host` to `http.url_details.host`"
+      name: "Map `event.request.headers.host` to `http.url_details.host`"
       enabled: true
       sources:
         - event.request.headers.host
@@ -277,7 +276,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map ` event.request.headers` to `http.request.headers`"
+      name: "Map `event.request.headers` to `http.request.headers`"
       enabled: true
       sources:
         - event.request.headers
@@ -287,7 +286,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper : Map `event.request.headers.user-agent` to `http.user-agent`"
+      name: "Map `event.request.headers.user-agent` to `http.user-agent`"
       enabled: true
       sources:
         - event.request.headers.user-agent
@@ -297,7 +296,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.rule` to `evt.name`"
+      name: "Map `event.rule` to `evt.name`"
       enabled: true
       sources:
         - event.rule
@@ -307,8 +306,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.host.operatingSystem` to
-        `http.useragent_details.os.family`"
+      name: "Map `event.host.operatingSystem` to `http.useragent_details.os.family`"
       enabled: true
       sources:
         - event.host.operatingSystem
@@ -318,7 +316,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.host.hostname` to `network.host.name`"
+      name: "Map `event.host.hostname` to `network.host.name`"
       enabled: true
       sources:
         - event.host.hostname
@@ -328,7 +326,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: "Remapper: Map `event.agentVersion` to `version`"
+      name: "Map `event.agentVersion` to `version`"
       enabled: true
       sources:
         - event.agentVersion
