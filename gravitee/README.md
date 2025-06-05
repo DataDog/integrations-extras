@@ -10,7 +10,7 @@ This integration includes a pre-built Datadog dashboard to support comprehensive
 
 ## Setup
 
-### Download and Install
+### Download and install
 
 1. Download the Datadog Reporter plugin [here][1].
 2. Add the downloaded ZIP file to your [Gateway(s)][2] `{GRAVITEE_HOME}/plugins` folder.
@@ -28,7 +28,7 @@ gateway:
 
 ### Configuration
 
-1. To configure the Datadog Reporter plugin on the Gateway, enable the `reporters` section in your Gravitee `values.yaml` file. This will look something like:
+1. To configure the Datadog Reporter plugin on the Gateway, enable the `reporters` section in your Gravitee `values.yaml` file. See the example below:
 
 ```yaml
 reporters:
@@ -60,6 +60,8 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ## Uninstallation
 
+### Uninstall
+
 ### In Gravitee
 
 1. To delete the Reporter, delete the `gravitee-reporter-datadog-4.3.0.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
@@ -70,9 +72,9 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ## Support
 
-Need help? Contact [Gravitee support][8].
+Need help? Contact [Gravitee support][8]
 
-We rely on your feedback and feature requests to improve this dashboard. Please send feedback to <contact@graviteesource.com>.
+Have feedback about the integration? Email Gravitee at <contact@graviteesource.com>
 
 
 [1]: https://download.gravitee.io/#graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/
