@@ -60,8 +60,6 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ## Uninstallation
 
-### Uninstall
-
 ### In Gravitee
 
 1. To delete the Reporter, delete the `gravitee-reporter-datadog-4.3.0.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
@@ -72,9 +70,9 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ## Support
 
-Need help? Contact [Gravitee support][8]
+Need help? Contact [Gravitee support][8].
 
-Have feedback about the integration? Email Gravitee at <contact@graviteesource.com>
+Have feedback about the integration? Email Gravitee at <contact@graviteesource.com>.
 
 
 [1]: https://download.gravitee.io/#graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/
