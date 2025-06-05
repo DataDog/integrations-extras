@@ -1,0 +1,3273 @@
+id: "contrast-security-adr"
+tests:
+ -
+  sample: |-
+    {
+      "severity" : "CRITICAL",
+      "detectedTime" : "2025-05-16T09:29:22.037Z",
+      "server" : {
+        "name" : "3e31b90dd191",
+        "id" : 30035
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "d','4'),('e",
+          "applicableAttack" : false,
+          "patternsMatched" : [ "" ],
+          "type" : "QUERYSTRING",
+          "documentPath" : ""
+        },
+        "standardNormalizedUri" : "",
+        "value" : "d','4'),('e",
+        "url" : "/vulnpy/sqli/sqlite3-execute/"
+      },
+      "rule" : "sql-injection",
+      "eventUuid" : "a6aab11a-de46-4154-bd09-ee966ee0af33",
+      "productName" : "ContrastADR",
+      "result" : "EXPLOITED",
+      "environment" : "DEVELOPMENT",
+      "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+      "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33",
+      "mitreTactics" : [ {
+        "name" : "Initial Access",
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "name" : "Execution",
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "name" : "Persistence",
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "name" : "Privilege Escalation",
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "name" : "Defense Evasion",
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "name" : "Credential Access",
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "name" : "Discovery",
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "name" : "Collection",
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "name" : "Exfiltration",
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "Vulnpy_NS_test1",
+        "agentLanguage" : "python",
+        "id" : "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+      },
+      "sourceIp" : "192.168.65.1",
+      "cloudProvider" : "UNKNOWN",
+      "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+    }
+  result:
+    custom:
+      apiUri: "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33"
+      application:
+        agentLanguage: "python"
+        id: "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+        name: "Vulnpy_NS_test1"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          name: "d','4'),('e"
+          patternsMatched:
+           - ""
+          type: "QUERYSTRING"
+        standardNormalizedUri: ""
+        url: "/vulnpy/sqli/sqlite3-execute/"
+        value: "d','4'),('e"
+      cloudProvider: "UNKNOWN"
+      detectedTime: "2025-05-16T09:29:22.037Z"
+      environment: "DEVELOPMENT"
+      eventUuid: "a6aab11a-de46-4154-bd09-ee966ee0af33"
+      mitreTactics:
+       -
+        name: "Initial Access"
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        name: "Execution"
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        name: "Persistence"
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        name: "Privilege Escalation"
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        name: "Defense Evasion"
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        name: "Credential Access"
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        name: "Discovery"
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        name: "Collection"
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        name: "Exfiltration"
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      organizationUuid: "969321ad-da28-4c8a-9bac-18ca5553b301"
+      productName: "ContrastADR"
+      result: "EXPLOITED"
+      rule: "sql-injection"
+      server:
+        id: 30035
+        name: "3e31b90dd191"
+      severity: "CRITICAL"
+      sourceIp: "192.168.65.1"
+      uiUrl: "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+    message: |-
+      {
+        "severity" : "CRITICAL",
+        "detectedTime" : "2025-05-16T09:29:22.037Z",
+        "server" : {
+          "name" : "3e31b90dd191",
+          "id" : 30035
+        },
+        "attackPayload" : {
+          "attackerInput" : {
+            "confirmedAttack" : false,
+            "documentType" : "NORMAL",
+            "effectiveAttack" : false,
+            "name" : "d','4'),('e",
+            "applicableAttack" : false,
+            "patternsMatched" : [ "" ],
+            "type" : "QUERYSTRING",
+            "documentPath" : ""
+          },
+          "standardNormalizedUri" : "",
+          "value" : "d','4'),('e",
+          "url" : "/vulnpy/sqli/sqlite3-execute/"
+        },
+        "rule" : "sql-injection",
+        "eventUuid" : "a6aab11a-de46-4154-bd09-ee966ee0af33",
+        "productName" : "ContrastADR",
+        "result" : "EXPLOITED",
+        "environment" : "DEVELOPMENT",
+        "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+        "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/3bc81309-ab9b-45c1-8944-6d6242fa835f/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33",
+        "mitreTactics" : [ {
+          "name" : "Initial Access",
+          "id" : "TA0001",
+          "url" : "https://attack.mitre.org/tactics/TA0001/"
+        }, {
+          "name" : "Execution",
+          "id" : "TA0002",
+          "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "name" : "Persistence",
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "name" : "Privilege Escalation",
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "name" : "Defense Evasion",
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
+        }, {
+          "name" : "Credential Access",
+          "id" : "TA0006",
+          "url" : "https://attack.mitre.org/tactics/TA0006/"
+        }, {
+          "name" : "Discovery",
+          "id" : "TA0007",
+          "url" : "https://attack.mitre.org/tactics/TA0007/"
+        }, {
+          "name" : "Collection",
+          "id" : "TA0009",
+          "url" : "https://attack.mitre.org/tactics/TA0009/"
+        }, {
+          "name" : "Exfiltration",
+          "id" : "TA0010",
+          "url" : "https://attack.mitre.org/tactics/TA0010/"
+        } ],
+        "application" : {
+          "name" : "Vulnpy_NS_test1",
+          "agentLanguage" : "python",
+          "id" : "3bc81309-ab9b-45c1-8944-6d6242fa835f"
+        },
+        "sourceIp" : "192.168.65.1",
+        "cloudProvider" : "UNKNOWN",
+        "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/a6aab11a-de46-4154-bd09-ee966ee0af33?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747387702037&amp;dateRange-endDate=1747387822037&amp;applicationId=3bc81309-ab9b-45c1-8944-6d6242fa835f"
+      }
+    tags:
+     - "source:LOGS_SOURCE"
+
+ -
+  sample: |-
+    {
+      "severity" : "critical",
+      "detectedTime" : "2025-05-12T08:28:43.963Z",
+      "server" : {
+        "name" : "45811b80836d",
+        "id" : "85950"
+      },
+      "request" : {
+        "headers" : {
+          "sec-fetch-mode" : [ "navigate" ],
+          "referer" : [ "http://localhost:8087/owners/find" ],
+          "sec-fetch-site" : [ "same-origin" ],
+          "accept-language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+          "sec-fetch-user" : [ "?1" ],
+          "accept" : [ "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" ],
+          "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+          "sec-ch-ua-mobile" : [ "?0" ],
+          "sec-ch-ua-platform" : [ "\"macOS\"" ],
+          "host" : [ "localhost:8087" ],
+          "upgrade-insecure-requests" : [ "1" ],
+          "connection" : [ "keep-alive" ],
+          "accept-encoding" : [ "gzip, deflate, br, zstd" ],
+          "sec-fetch-dest" : [ "document" ],
+          "user-agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ]
+        },
+        "protocol" : "http",
+        "method" : "GET",
+        "protocolVersion" : "1.1",
+        "body" : "",
+        "queryString" : "lastName=contrast-redacted-name",
+        "parameters" : {
+          "lastName" : [ "contrast-redacted-name" ]
+        }
+      },
+      "vectorAnalysis" : {
+        "vectorFields" : {
+          "ruleUuid" : "sql-injection",
+          "query" : "SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = 'Davis' OR '122'='122'"
+        },
+        "callLocation" : "org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:305)"
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "lastName",
+          "applicableAttack" : false,
+          "inputType" : "PARAMETER_VALUE",
+          "patternsMatched" : [ "TRUING_STRING_INJ,PIDS-SQLI-42A" ],
+          "documentPath" : ""
+        },
+        "value" : "Davis' OR '122'='122"
+      },
+      "rule" : "sql-injection",
+      "eventUuid" : "a60df1e9-450b-4929-8ec4-51bf7ee4713e",
+      "productName" : "ContrastADR",
+      "url" : "/owners",
+      "result" : "exploited",
+      "environment" : "development",
+      "organizationUuid" : "3ccd2a09-b356-42c4-9c0c-80128513ff3b",
+      "apiUri" : "/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-80128513ff3b/applications/fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf/attack-events/a60df1e9-450b-4929-8ec4-51bf7ee4713e",
+      "mitreTactics" : [ {
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "Northstar_test3",
+        "agentLanguage" : "java",
+        "id" : "fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf"
+      },
+      "sourceIp" : "192.168.65.1",
+      "codeLocation" : {
+        "stack" : [ {
+          "fileName" : "SessionImpl.java",
+          "shortSummary" : "createQuery() @ SessionImpl.java:-1",
+          "description" : "org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:-1)",
+          "methodName" : "createQuery",
+          "className" : "org.hibernate.internal.SessionImpl",
+          "type" : "frameSink",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "AbstractEntityManagerImpl.java",
+          "shortSummary" : "createQuery() @ AbstractEntityManagerImpl.java:305",
+          "description" : "org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:305)",
+          "methodName" : "createQuery",
+          "className" : "org.hibernate.jpa.spi.AbstractEntityManagerImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 305
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke0() @ NativeMethodAccessorImpl.java:-2",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)",
+          "methodName" : "invoke0",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : -2
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ NativeMethodAccessorImpl.java:62",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 62
+        }, {
+          "fileName" : "DelegatingMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ DelegatingMethodAccessorImpl.java:43",
+          "description" : "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.DelegatingMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 43
+        }, {
+          "fileName" : "Method.java",
+          "shortSummary" : "invoke() @ Method.java:498",
+          "description" : "java.lang.reflect.Method.invoke(Method.java:498)",
+          "methodName" : "invoke",
+          "className" : "java.lang.reflect.Method",
+          "type" : "frameCommon",
+          "lineNumber" : 498
+        }, {
+          "fileName" : "ExtendedEntityManagerCreator.java",
+          "shortSummary" : "invoke() @ ExtendedEntityManagerCreator.java:347",
+          "description" : "org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:347)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler",
+          "type" : "frameCommon",
+          "lineNumber" : 347
+        }, {
+          "fileName" : "com.sun.proxy.$Proxy161",
+          "shortSummary" : "createQuery() @ com.sun.proxy.$Proxy161:-1",
+          "description" : "com.sun.proxy.$Proxy161.createQuery(Unknown Source:-1)",
+          "methodName" : "createQuery",
+          "className" : "com.sun.proxy.$Proxy161",
+          "type" : "frameCommon",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke0() @ NativeMethodAccessorImpl.java:-2",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)",
+          "methodName" : "invoke0",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : -2
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ NativeMethodAccessorImpl.java:62",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 62
+        }, {
+          "fileName" : "DelegatingMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ DelegatingMethodAccessorImpl.java:43",
+          "description" : "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.DelegatingMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 43
+        }, {
+          "fileName" : "Method.java",
+          "shortSummary" : "invoke() @ Method.java:498",
+          "description" : "java.lang.reflect.Method.invoke(Method.java:498)",
+          "methodName" : "invoke",
+          "className" : "java.lang.reflect.Method",
+          "type" : "frameCommon",
+          "lineNumber" : 498
+        }, {
+          "fileName" : "SharedEntityManagerCreator.java",
+          "shortSummary" : "invoke() @ SharedEntityManagerCreator.java:298",
+          "description" : "org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:298)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler",
+          "type" : "frameCommon",
+          "lineNumber" : 298
+        }, {
+          "fileName" : "com.sun.proxy.$Proxy161",
+          "shortSummary" : "createQuery() @ com.sun.proxy.$Proxy161:-1",
+          "description" : "com.sun.proxy.$Proxy161.createQuery(Unknown Source:-1)",
+          "methodName" : "createQuery",
+          "className" : "com.sun.proxy.$Proxy161",
+          "type" : "frameCommon",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "OwnerRepositoryCustomImpl.java",
+          "shortSummary" : "findByLastName() @ OwnerRepositoryCustomImpl.java:24",
+          "description" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl.findByLastName(OwnerRepositoryCustomImpl.java:24)",
+          "methodName" : "findByLastName",
+          "className" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 24
+        }, {
+          "fileName" : "&lt;generated&gt;",
+          "shortSummary" : "invoke() @ &lt;generated&gt;:-1",
+          "description" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$FastClassBySpringCGLIB$$aa7eaa60.invoke(&lt;generated&gt;:-1)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$FastClassBySpringCGLIB$$aa7eaa60",
+          "type" : "frameCommon",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "MethodProxy.java",
+          "shortSummary" : "invoke() @ MethodProxy.java:204",
+          "description" : "org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.cglib.proxy.MethodProxy",
+          "type" : "frameCommon",
+          "lineNumber" : 204
+        }, {
+          "fileName" : "CglibAopProxy.java",
+          "shortSummary" : "invokeJoinpoint() @ CglibAopProxy.java:738",
+          "description" : "org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:738)",
+          "methodName" : "invokeJoinpoint",
+          "className" : "org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation",
+          "type" : "frameCommon",
+          "lineNumber" : 738
+        }, {
+          "fileName" : "ReflectiveMethodInvocation.java",
+          "shortSummary" : "proceed() @ ReflectiveMethodInvocation.java:157",
+          "description" : "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)",
+          "methodName" : "proceed",
+          "className" : "org.springframework.aop.framework.ReflectiveMethodInvocation",
+          "type" : "frameCommon",
+          "lineNumber" : 157
+        }, {
+          "fileName" : "TransactionInterceptor.java",
+          "shortSummary" : "proceedWithInvocation() @ TransactionInterceptor.java:99",
+          "description" : "org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)",
+          "methodName" : "proceedWithInvocation",
+          "className" : "org.springframework.transaction.interceptor.TransactionInterceptor$1",
+          "type" : "frameCommon",
+          "lineNumber" : 99
+        }, {
+          "fileName" : "TransactionAspectSupport.java",
+          "shortSummary" : "invokeWithinTransaction() @ TransactionAspectSupport.java:282",
+          "description" : "org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:282)",
+          "methodName" : "invokeWithinTransaction",
+          "className" : "org.springframework.transaction.interceptor.TransactionAspectSupport",
+          "type" : "frameCommon",
+          "lineNumber" : 282
+        }, {
+          "fileName" : "TransactionInterceptor.java",
+          "shortSummary" : "invoke() @ TransactionInterceptor.java:96",
+          "description" : "org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.transaction.interceptor.TransactionInterceptor",
+          "type" : "frameCommon",
+          "lineNumber" : 96
+        }, {
+          "fileName" : "ReflectiveMethodInvocation.java",
+          "shortSummary" : "proceed() @ ReflectiveMethodInvocation.java:179",
+          "description" : "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)",
+          "methodName" : "proceed",
+          "className" : "org.springframework.aop.framework.ReflectiveMethodInvocation",
+          "type" : "frameCommon",
+          "lineNumber" : 179
+        }, {
+          "fileName" : "CglibAopProxy.java",
+          "shortSummary" : "intercept() @ CglibAopProxy.java:673",
+          "description" : "org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673)",
+          "methodName" : "intercept",
+          "className" : "org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor",
+          "type" : "frameCommon",
+          "lineNumber" : 673
+        }, {
+          "fileName" : "&lt;generated&gt;",
+          "shortSummary" : "findByLastName() @ &lt;generated&gt;:-1",
+          "description" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$EnhancerBySpringCGLIB$$10a622c9.findByLastName(&lt;generated&gt;:-1)",
+          "methodName" : "findByLastName",
+          "className" : "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$EnhancerBySpringCGLIB$$10a622c9",
+          "type" : "frameCommon",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "OwnerController.java",
+          "shortSummary" : "processFindForm() @ OwnerController.java:90",
+          "description" : "org.springframework.samples.petclinic.owner.OwnerController.processFindForm(OwnerController.java:90)",
+          "methodName" : "processFindForm",
+          "className" : "org.springframework.samples.petclinic.owner.OwnerController",
+          "type" : "frameCommon",
+          "lineNumber" : 90
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke0() @ NativeMethodAccessorImpl.java:-2",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)",
+          "methodName" : "invoke0",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : -2
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ NativeMethodAccessorImpl.java:62",
+          "description" : "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 62
+        }, {
+          "fileName" : "DelegatingMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ DelegatingMethodAccessorImpl.java:43",
+          "description" : "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)",
+          "methodName" : "invoke",
+          "className" : "sun.reflect.DelegatingMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 43
+        }, {
+          "fileName" : "Method.java",
+          "shortSummary" : "invoke() @ Method.java:498",
+          "description" : "java.lang.reflect.Method.invoke(Method.java:498)",
+          "methodName" : "invoke",
+          "className" : "java.lang.reflect.Method",
+          "type" : "frameCommon",
+          "lineNumber" : 498
+        }, {
+          "fileName" : "InvocableHandlerMethod.java",
+          "shortSummary" : "doInvoke() @ InvocableHandlerMethod.java:205",
+          "description" : "org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)",
+          "methodName" : "doInvoke",
+          "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 205
+        }, {
+          "fileName" : "InvocableHandlerMethod.java",
+          "shortSummary" : "invokeForRequest() @ InvocableHandlerMethod.java:133",
+          "description" : "org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133)",
+          "methodName" : "invokeForRequest",
+          "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 133
+        }, {
+          "fileName" : "ServletInvocableHandlerMethod.java",
+          "shortSummary" : "invokeAndHandle() @ ServletInvocableHandlerMethod.java:97",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)",
+          "methodName" : "invokeAndHandle",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 97
+        }, {
+          "fileName" : "RequestMappingHandlerAdapter.java",
+          "shortSummary" : "invokeHandlerMethod() @ RequestMappingHandlerAdapter.java:827",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)",
+          "methodName" : "invokeHandlerMethod",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 827
+        }, {
+          "fileName" : "RequestMappingHandlerAdapter.java",
+          "shortSummary" : "handleInternal() @ RequestMappingHandlerAdapter.java:738",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)",
+          "methodName" : "handleInternal",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 738
+        }, {
+          "fileName" : "AbstractHandlerMethodAdapter.java",
+          "shortSummary" : "handle() @ AbstractHandlerMethodAdapter.java:85",
+          "description" : "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)",
+          "methodName" : "handle",
+          "className" : "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 85
+        }, {
+          "fileName" : "DispatcherServlet.java",
+          "shortSummary" : "doDispatch() @ DispatcherServlet.java:967",
+          "description" : "org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967)",
+          "methodName" : "doDispatch",
+          "className" : "org.springframework.web.servlet.DispatcherServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 967
+        }, {
+          "fileName" : "DispatcherServlet.java",
+          "shortSummary" : "doService() @ DispatcherServlet.java:901",
+          "description" : "org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)",
+          "methodName" : "doService",
+          "className" : "org.springframework.web.servlet.DispatcherServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 901
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "processRequest() @ FrameworkServlet.java:970",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)",
+          "methodName" : "processRequest",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 970
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "doGet() @ FrameworkServlet.java:861",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)",
+          "methodName" : "doGet",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 861
+        }, {
+          "fileName" : "HttpServlet.java",
+          "shortSummary" : "service() @ HttpServlet.java:635",
+          "description" : "javax.servlet.http.HttpServlet.service(HttpServlet.java:635)",
+          "methodName" : "service",
+          "className" : "javax.servlet.http.HttpServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 635
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "service() @ FrameworkServlet.java:846",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)",
+          "methodName" : "service",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 846
+        }, {
+          "fileName" : "HttpServlet.java",
+          "shortSummary" : "service() @ HttpServlet.java:742",
+          "description" : "javax.servlet.http.HttpServlet.service(HttpServlet.java:742)",
+          "methodName" : "service",
+          "className" : "javax.servlet.http.HttpServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 742
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:231",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 231
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "WsFilter.java",
+          "shortSummary" : "doFilter() @ WsFilter.java:52",
+          "description" : "org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.tomcat.websocket.server.WsFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 52
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "ResourceUrlEncodingFilter.java",
+          "shortSummary" : "doFilter() @ ResourceUrlEncodingFilter.java:59",
+          "description" : "org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:59)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.servlet.resource.ResourceUrlEncodingFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 59
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "ApplicationContextHeaderFilter.java",
+          "shortSummary" : "doFilterInternal() @ ApplicationContextHeaderFilter.java:55",
+          "description" : "org.springframework.boot.web.filter.ApplicationContextHeaderFilter.doFilterInternal(ApplicationContextHeaderFilter.java:55)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.boot.web.filter.ApplicationContextHeaderFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 55
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:107",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 107
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "WebRequestTraceFilter.java",
+          "shortSummary" : "doFilterInternal() @ WebRequestTraceFilter.java:110",
+          "description" : "org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilterInternal(WebRequestTraceFilter.java:110)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.boot.actuate.trace.WebRequestTraceFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 110
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:107",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 107
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "RequestContextFilter.java",
+          "shortSummary" : "doFilterInternal() @ RequestContextFilter.java:99",
+          "description" : "org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.web.filter.RequestContextFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 99
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:107",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 107
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "doFilter() @ ApplicationFilterChain.java:166",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)",
+          "methodName" : "doFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 166
+        }, {
+          "fileName" : "HttpPutFormContentFilter.java",
+          "shortSummary" : "doFilterInternal() @ HttpPutFormContentFilter.java:105",
+          "description" : "org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.web.filter.HttpPutFormContentFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 105
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:107",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 107
+        }, {
+          "fileName" : "ApplicationFilterChain.java",
+          "shortSummary" : "internalDoFilter() @ ApplicationFilterChain.java:193",
+          "description" : "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)",
+          "methodName" : "internalDoFilter",
+          "className" : "org.apache.catalina.core.ApplicationFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 193
+        } ],
+        "file" : "SessionImpl.java",
+        "method" : "createQuery()"
+      },
+      "ruleUuid" : "sql-injection",
+      "cloudProvider" : "UNKNOWN",
+      "host" : {
+        "runtimeVersion" : "OpenJDK Runtime Environment 1.8.0_212-b04",
+        "hostname" : "45811b80836d",
+        "runtimePath" : "/usr/lib/jvm/java-1.8-openjdk/jre/bin/java",
+        "isDocker" : true,
+        "operatingSystem" : "Linux 6.10.14-linuxkit aarch64"
+      },
+      "agentVersion" : "6.16.0",
+      "uiUrl" : "https://teamserver-staging.contsec.com/Contrast/static/ng/index.html#/3ccd2a09-b356-42c4-9c0c-80128513ff3b/attack-events/a60df1e9-450b-4929-8ec4-51bf7ee4713e?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1747038463963&amp;dateRange-endDate=1747038583963&amp;applicationId=fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf"
+    }
+  result:
+    custom:
+      agentVersion: "6.16.0"
+      apiUri: "/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-80128513ff3b/applications/fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf/attack-events/a60df1e9-450b-4929-8ec4-51bf7ee4713e"
+      application:
+        agentLanguage: "java"
+        id: "fa2884b7-d471-4c6f-b40b-aa23d2d9c7bf"
+        name: "Northstar_test3"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          inputType: "PARAMETER_VALUE"
+          name: "lastName"
+          patternsMatched:
+           - "TRUING_STRING_INJ,PIDS-SQLI-42A"
+        value: "Davis' OR '122'='122"
+      cloudProvider: "UNKNOWN"
+      codeLocation:
+        file: "SessionImpl.java"
+        method: "createQuery()"
+        stack:
+         -
+          fileName: "SessionImpl.java"
+          shortSummary: "createQuery() @ SessionImpl.java:-1"
+          description: "org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:-1)"
+          methodName: "createQuery"
+          className: "org.hibernate.internal.SessionImpl"
+          type: "frameSink"
+          lineNumber: -1
+         -
+          fileName: "AbstractEntityManagerImpl.java"
+          shortSummary: "createQuery() @ AbstractEntityManagerImpl.java:305"
+          description: "org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:305)"
+          methodName: "createQuery"
+          className: "org.hibernate.jpa.spi.AbstractEntityManagerImpl"
+          type: "frameCommon"
+          lineNumber: 305
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke0() @ NativeMethodAccessorImpl.java:-2"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)"
+          methodName: "invoke0"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: -2
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke() @ NativeMethodAccessorImpl.java:62"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)"
+          methodName: "invoke"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 62
+         -
+          fileName: "DelegatingMethodAccessorImpl.java"
+          shortSummary: "invoke() @ DelegatingMethodAccessorImpl.java:43"
+          description: "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)"
+          methodName: "invoke"
+          className: "sun.reflect.DelegatingMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 43
+         -
+          fileName: "Method.java"
+          shortSummary: "invoke() @ Method.java:498"
+          description: "java.lang.reflect.Method.invoke(Method.java:498)"
+          methodName: "invoke"
+          className: "java.lang.reflect.Method"
+          type: "frameCommon"
+          lineNumber: 498
+         -
+          fileName: "ExtendedEntityManagerCreator.java"
+          shortSummary: "invoke() @ ExtendedEntityManagerCreator.java:347"
+          description: "org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:347)"
+          methodName: "invoke"
+          className: "org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler"
+          type: "frameCommon"
+          lineNumber: 347
+         -
+          fileName: "com.sun.proxy.$Proxy161"
+          shortSummary: "createQuery() @ com.sun.proxy.$Proxy161:-1"
+          description: "com.sun.proxy.$Proxy161.createQuery(Unknown Source:-1)"
+          methodName: "createQuery"
+          className: "com.sun.proxy.$Proxy161"
+          type: "frameCommon"
+          lineNumber: -1
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke0() @ NativeMethodAccessorImpl.java:-2"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)"
+          methodName: "invoke0"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: -2
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke() @ NativeMethodAccessorImpl.java:62"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)"
+          methodName: "invoke"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 62
+         -
+          fileName: "DelegatingMethodAccessorImpl.java"
+          shortSummary: "invoke() @ DelegatingMethodAccessorImpl.java:43"
+          description: "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)"
+          methodName: "invoke"
+          className: "sun.reflect.DelegatingMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 43
+         -
+          fileName: "Method.java"
+          shortSummary: "invoke() @ Method.java:498"
+          description: "java.lang.reflect.Method.invoke(Method.java:498)"
+          methodName: "invoke"
+          className: "java.lang.reflect.Method"
+          type: "frameCommon"
+          lineNumber: 498
+         -
+          fileName: "SharedEntityManagerCreator.java"
+          shortSummary: "invoke() @ SharedEntityManagerCreator.java:298"
+          description: "org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:298)"
+          methodName: "invoke"
+          className: "org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler"
+          type: "frameCommon"
+          lineNumber: 298
+         -
+          fileName: "com.sun.proxy.$Proxy161"
+          shortSummary: "createQuery() @ com.sun.proxy.$Proxy161:-1"
+          description: "com.sun.proxy.$Proxy161.createQuery(Unknown Source:-1)"
+          methodName: "createQuery"
+          className: "com.sun.proxy.$Proxy161"
+          type: "frameCommon"
+          lineNumber: -1
+         -
+          fileName: "OwnerRepositoryCustomImpl.java"
+          shortSummary: "findByLastName() @ OwnerRepositoryCustomImpl.java:24"
+          description: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl.findByLastName(OwnerRepositoryCustomImpl.java:24)"
+          methodName: "findByLastName"
+          className: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl"
+          type: "frameCommon"
+          lineNumber: 24
+         -
+          fileName: "&lt;generated&gt;"
+          shortSummary: "invoke() @ &lt;generated&gt;:-1"
+          description: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$FastClassBySpringCGLIB$$aa7eaa60.invoke(&lt;generated&gt;:-1)"
+          methodName: "invoke"
+          className: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$FastClassBySpringCGLIB$$aa7eaa60"
+          type: "frameCommon"
+          lineNumber: -1
+         -
+          fileName: "MethodProxy.java"
+          shortSummary: "invoke() @ MethodProxy.java:204"
+          description: "org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)"
+          methodName: "invoke"
+          className: "org.springframework.cglib.proxy.MethodProxy"
+          type: "frameCommon"
+          lineNumber: 204
+         -
+          fileName: "CglibAopProxy.java"
+          shortSummary: "invokeJoinpoint() @ CglibAopProxy.java:738"
+          description: "org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:738)"
+          methodName: "invokeJoinpoint"
+          className: "org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation"
+          type: "frameCommon"
+          lineNumber: 738
+         -
+          fileName: "ReflectiveMethodInvocation.java"
+          shortSummary: "proceed() @ ReflectiveMethodInvocation.java:157"
+          description: "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)"
+          methodName: "proceed"
+          className: "org.springframework.aop.framework.ReflectiveMethodInvocation"
+          type: "frameCommon"
+          lineNumber: 157
+         -
+          fileName: "TransactionInterceptor.java"
+          shortSummary: "proceedWithInvocation() @ TransactionInterceptor.java:99"
+          description: "org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)"
+          methodName: "proceedWithInvocation"
+          className: "org.springframework.transaction.interceptor.TransactionInterceptor$1"
+          type: "frameCommon"
+          lineNumber: 99
+         -
+          fileName: "TransactionAspectSupport.java"
+          shortSummary: "invokeWithinTransaction() @ TransactionAspectSupport.java:282"
+          description: "org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:282)"
+          methodName: "invokeWithinTransaction"
+          className: "org.springframework.transaction.interceptor.TransactionAspectSupport"
+          type: "frameCommon"
+          lineNumber: 282
+         -
+          fileName: "TransactionInterceptor.java"
+          shortSummary: "invoke() @ TransactionInterceptor.java:96"
+          description: "org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)"
+          methodName: "invoke"
+          className: "org.springframework.transaction.interceptor.TransactionInterceptor"
+          type: "frameCommon"
+          lineNumber: 96
+         -
+          fileName: "ReflectiveMethodInvocation.java"
+          shortSummary: "proceed() @ ReflectiveMethodInvocation.java:179"
+          description: "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)"
+          methodName: "proceed"
+          className: "org.springframework.aop.framework.ReflectiveMethodInvocation"
+          type: "frameCommon"
+          lineNumber: 179
+         -
+          fileName: "CglibAopProxy.java"
+          shortSummary: "intercept() @ CglibAopProxy.java:673"
+          description: "org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673)"
+          methodName: "intercept"
+          className: "org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor"
+          type: "frameCommon"
+          lineNumber: 673
+         -
+          fileName: "&lt;generated&gt;"
+          shortSummary: "findByLastName() @ &lt;generated&gt;:-1"
+          description: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$EnhancerBySpringCGLIB$$10a622c9.findByLastName(&lt;generated&gt;:-1)"
+          methodName: "findByLastName"
+          className: "org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl$$EnhancerBySpringCGLIB$$10a622c9"
+          type: "frameCommon"
+          lineNumber: -1
+         -
+          fileName: "OwnerController.java"
+          shortSummary: "processFindForm() @ OwnerController.java:90"
+          description: "org.springframework.samples.petclinic.owner.OwnerController.processFindForm(OwnerController.java:90)"
+          methodName: "processFindForm"
+          className: "org.springframework.samples.petclinic.owner.OwnerController"
+          type: "frameCommon"
+          lineNumber: 90
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke0() @ NativeMethodAccessorImpl.java:-2"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)"
+          methodName: "invoke0"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: -2
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke() @ NativeMethodAccessorImpl.java:62"
+          description: "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)"
+          methodName: "invoke"
+          className: "sun.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 62
+         -
+          fileName: "DelegatingMethodAccessorImpl.java"
+          shortSummary: "invoke() @ DelegatingMethodAccessorImpl.java:43"
+          description: "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)"
+          methodName: "invoke"
+          className: "sun.reflect.DelegatingMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 43
+         -
+          fileName: "Method.java"
+          shortSummary: "invoke() @ Method.java:498"
+          description: "java.lang.reflect.Method.invoke(Method.java:498)"
+          methodName: "invoke"
+          className: "java.lang.reflect.Method"
+          type: "frameCommon"
+          lineNumber: 498
+         -
+          fileName: "InvocableHandlerMethod.java"
+          shortSummary: "doInvoke() @ InvocableHandlerMethod.java:205"
+          description: "org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)"
+          methodName: "doInvoke"
+          className: "org.springframework.web.method.support.InvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 205
+         -
+          fileName: "InvocableHandlerMethod.java"
+          shortSummary: "invokeForRequest() @ InvocableHandlerMethod.java:133"
+          description: "org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133)"
+          methodName: "invokeForRequest"
+          className: "org.springframework.web.method.support.InvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 133
+         -
+          fileName: "ServletInvocableHandlerMethod.java"
+          shortSummary: "invokeAndHandle() @ ServletInvocableHandlerMethod.java:97"
+          description: "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)"
+          methodName: "invokeAndHandle"
+          className: "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 97
+         -
+          fileName: "RequestMappingHandlerAdapter.java"
+          shortSummary: "invokeHandlerMethod() @ RequestMappingHandlerAdapter.java:827"
+          description: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)"
+          methodName: "invokeHandlerMethod"
+          className: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          type: "frameCommon"
+          lineNumber: 827
+         -
+          fileName: "RequestMappingHandlerAdapter.java"
+          shortSummary: "handleInternal() @ RequestMappingHandlerAdapter.java:738"
+          description: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)"
+          methodName: "handleInternal"
+          className: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          type: "frameCommon"
+          lineNumber: 738
+         -
+          fileName: "AbstractHandlerMethodAdapter.java"
+          shortSummary: "handle() @ AbstractHandlerMethodAdapter.java:85"
+          description: "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)"
+          methodName: "handle"
+          className: "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter"
+          type: "frameCommon"
+          lineNumber: 85
+         -
+          fileName: "DispatcherServlet.java"
+          shortSummary: "doDispatch() @ DispatcherServlet.java:967"
+          description: "org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967)"
+          methodName: "doDispatch"
+          className: "org.springframework.web.servlet.DispatcherServlet"
+          type: "frameCommon"
+          lineNumber: 967
+         -
+          fileName: "DispatcherServlet.java"
+          shortSummary: "doService() @ DispatcherServlet.java:901"
+          description: "org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)"
+          methodName: "doService"
+          className: "org.springframework.web.servlet.DispatcherServlet"
+          type: "frameCommon"
+          lineNumber: 901
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "processRequest() @ FrameworkServlet.java:970"
+          description: "org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)"
+          methodName: "processRequest"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 970
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "doGet() @ FrameworkServlet.java:861"
+          description: "org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)"
+          methodName: "doGet"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 861
+         -
+          fileName: "HttpServlet.java"
+          shortSummary: "service() @ HttpServlet.java:635"
+          description: "javax.servlet.http.HttpServlet.service(HttpServlet.java:635)"
+          methodName: "service"
+          className: "javax.servlet.http.HttpServlet"
+          type: "frameCommon"
+          lineNumber: 635
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "service() @ FrameworkServlet.java:846"
+          description: "org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)"
+          methodName: "service"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 846
+         -
+          fileName: "HttpServlet.java"
+          shortSummary: "service() @ HttpServlet.java:742"
+          description: "javax.servlet.http.HttpServlet.service(HttpServlet.java:742)"
+          methodName: "service"
+          className: "javax.servlet.http.HttpServlet"
+          type: "frameCommon"
+          lineNumber: 742
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:231"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 231
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "WsFilter.java"
+          shortSummary: "doFilter() @ WsFilter.java:52"
+          description: "org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)"
+          methodName: "doFilter"
+          className: "org.apache.tomcat.websocket.server.WsFilter"
+          type: "frameCommon"
+          lineNumber: 52
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "ResourceUrlEncodingFilter.java"
+          shortSummary: "doFilter() @ ResourceUrlEncodingFilter.java:59"
+          description: "org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:59)"
+          methodName: "doFilter"
+          className: "org.springframework.web.servlet.resource.ResourceUrlEncodingFilter"
+          type: "frameCommon"
+          lineNumber: 59
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "ApplicationContextHeaderFilter.java"
+          shortSummary: "doFilterInternal() @ ApplicationContextHeaderFilter.java:55"
+          description: "org.springframework.boot.web.filter.ApplicationContextHeaderFilter.doFilterInternal(ApplicationContextHeaderFilter.java:55)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.boot.web.filter.ApplicationContextHeaderFilter"
+          type: "frameCommon"
+          lineNumber: 55
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:107"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 107
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "WebRequestTraceFilter.java"
+          shortSummary: "doFilterInternal() @ WebRequestTraceFilter.java:110"
+          description: "org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilterInternal(WebRequestTraceFilter.java:110)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.boot.actuate.trace.WebRequestTraceFilter"
+          type: "frameCommon"
+          lineNumber: 110
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:107"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 107
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "RequestContextFilter.java"
+          shortSummary: "doFilterInternal() @ RequestContextFilter.java:99"
+          description: "org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.web.filter.RequestContextFilter"
+          type: "frameCommon"
+          lineNumber: 99
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:107"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 107
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "doFilter() @ ApplicationFilterChain.java:166"
+          description: "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)"
+          methodName: "doFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 166
+         -
+          fileName: "HttpPutFormContentFilter.java"
+          shortSummary: "doFilterInternal() @ HttpPutFormContentFilter.java:105"
+          description: "org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.web.filter.HttpPutFormContentFilter"
+          type: "frameCommon"
+          lineNumber: 105
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:107"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 107
+         -
+          fileName: "ApplicationFilterChain.java"
+          shortSummary: "internalDoFilter() @ ApplicationFilterChain.java:193"
+          description: "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)"
+          methodName: "internalDoFilter"
+          className: "org.apache.catalina.core.ApplicationFilterChain"
+          type: "frameCommon"
+          lineNumber: 193
+      detectedTime: "2025-05-12T08:28:43.963Z"
+      environment: "development"
+      eventUuid: "a60df1e9-450b-4929-8ec4-51bf7ee4713e"
+      host:
+        hostname: "45811b80836d"
+        isDocker: true
+        operatingSystem: "Linux 6.10.14-linuxkit aarch64"
+        runtimePath: "/usr/lib/jvm/java-1.8-openjdk/jre/bin/java"
+        runtimeVersion: "OpenJDK Runtime Environment 1.8.0_212-b04"
+      mitreTactics:
+       -
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      organizationUuid: "3ccd2a09-b356-42c4-9c0c-80128513ff3b"
+      productName: "ContrastADR"
+      request:
+        body: ""
+        headers:
+          accept:
+           - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+          accept-encoding:
+           - "gzip, deflate, br, zstd"
+          accept-language:
+           - "en-GB,en-US;q=0.9,en;q=0.8"
+          connection:
+           - "keep-alive"
+          host:
+           - "localhost:8087"
+          referer:
+           - "http://localhost:8087/owners/find"
+          sec-ch-ua:
+           - "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+          sec-ch-ua-mobile:
+           - "?0"
+          sec-ch-ua-platform:
+           - "\"macOS\""
+          sec-fetch-dest:
+           - "document"
+          sec-fetch-mode:
+           - "navigate"
+          sec-fetch-site:
+           - "same-origin"
+          sec-fetch-user:
+           - "?1"
+          upgrade-insecure-requests:
+           - "1"
+          user-agent:
+           - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        method: "GET"
+        parameters:
+          lastName:
+           - "contrast-redacted-name"
+        protocol: "http"
+        protocolVersion: "1.1"
+        queryString: "lastName=contrast-redacted-name"
+      result: "exploited"
+
+ -
+  sample: |-
+    {
+      "severity" : "medium",
+      "detectedTime" : "2025-05-19T16:24:54.978Z",
+      "server" : {
+        "name" : "JavaThing",
+        "id" : "29119"
+      },
+      "request" : {
+        "headers" : {
+          "sec-fetch-mode" : [ "navigate" ],
+          "content-length" : [ "7212154" ],
+          "referer" : [ "http://localhost:8080/java-file-upload-example-0.0.1-SNAPSHOT/" ],
+          "sec-fetch-site" : [ "same-origin" ],
+          "accept-language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+          "origin" : [ "http://localhost:8080" ],
+          "sec-fetch-user" : [ "?1" ],
+          "accept" : [ "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" ],
+          "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+          "sec-ch-ua-mobile" : [ "?0" ],
+          "sec-ch-ua-platform" : [ "\"macOS\"" ],
+          "host" : [ "localhost:8080" ],
+          "upgrade-insecure-requests" : [ "1" ],
+          "connection" : [ "keep-alive" ],
+          "content-type" : [ "multipart/form-data; boundary=----WebKitFormBoundaryvYIImUamWAleQIh3" ],
+          "cache-control" : [ "max-age=0" ],
+          "accept-encoding" : [ "gzip, deflate, br, zstd" ],
+          "sec-fetch-dest" : [ "document" ],
+          "user-agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ]
+        },
+        "protocol" : "http",
+        "method" : "POST",
+        "protocolVersion" : "1.1"
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "filename",
+          "applicableAttack" : false,
+          "inputType" : "MULTIPART_NAME",
+          "patternsMatched" : [ "PIDS-UNSAFE-UPLOAD-100" ],
+          "documentPath" : ""
+        },
+        "value" : "war-and-peace.pdf.exe"
+      },
+      "rule" : "unsafe-file-upload",
+      "eventUuid" : "b38320a0-042c-4aa1-98bf-332d603d7efd",
+      "productName" : "ContrastADR",
+      "url" : "/java-file-upload-example-0.0.1-SNAPSHOT/FileUploadServlet",
+      "result" : "suspicious",
+      "environment" : "development",
+      "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+      "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/225fe54e-aa41-4475-bac4-8e1f065dc9b8/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd",
+      "mitreTactics" : [ {
+        "id" : "TA0042",
+        "url" : "https://attack.mitre.org/tactics/TA0042/"
+      }, {
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "id" : "TA0011",
+        "url" : "https://attack.mitre.org/tactics/TA0011/"
+      } ],
+      "application" : {
+        "name" : "JavaUpload",
+        "agentLanguage" : "java",
+        "id" : "225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+      },
+      "sourceIp" : "192.168.65.1",
+      "ruleUuid" : "unsafe-file-upload",
+      "cloudProvider" : "UNKNOWN",
+      "host" : {
+        "runtimeVersion" : "OpenJDK Runtime Environment 21.0.6+7-LTS",
+        "hostname" : "WHADDEN-GJCYM9MW4R",
+        "runtimePath" : "/Users/wilhadden/.sdkman/candidates/java/21.0.6-tem/bin/java",
+        "operatingSystem" : "Mac OS X 15.4.1 aarch64"
+      },
+      "agentVersion" : "6.15.0",
+      "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747671834978&dateRange-endDate=1747671954978&applicationId=225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+    }
+  result:
+    custom:
+      agentVersion: "6.15.0"
+      apiUri: "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/225fe54e-aa41-4475-bac4-8e1f065dc9b8/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd"
+      application:
+        agentLanguage: "java"
+        id: "225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+        name: "JavaUpload"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          inputType: "MULTIPART_NAME"
+          name: "filename"
+          patternsMatched:
+           - "PIDS-UNSAFE-UPLOAD-100"
+        value: "war-and-peace.pdf.exe"
+      cloudProvider: "UNKNOWN"
+      detectedTime: "2025-05-19T16:24:54.978Z"
+      environment: "development"
+      eventUuid: "b38320a0-042c-4aa1-98bf-332d603d7efd"
+      host:
+        hostname: "WHADDEN-GJCYM9MW4R"
+        operatingSystem: "Mac OS X 15.4.1 aarch64"
+        runtimePath: "/Users/wilhadden/.sdkman/candidates/java/21.0.6-tem/bin/java"
+        runtimeVersion: "OpenJDK Runtime Environment 21.0.6+7-LTS"
+      mitreTactics:
+       -
+        id: "TA0042"
+        url: "https://attack.mitre.org/tactics/TA0042/"
+       -
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        id: "TA0011"
+        url: "https://attack.mitre.org/tactics/TA0011/"
+      organizationUuid: "969321ad-da28-4c8a-9bac-18ca5553b301"
+      productName: "ContrastADR"
+      request:
+        headers:
+          accept:
+           - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+          accept-encoding:
+           - "gzip, deflate, br, zstd"
+          accept-language:
+           - "en-GB,en-US;q=0.9,en;q=0.8"
+          cache-control:
+           - "max-age=0"
+          connection:
+           - "keep-alive"
+          content-length:
+           - "7212154"
+          content-type:
+           - "multipart/form-data; boundary=----WebKitFormBoundaryvYIImUamWAleQIh3"
+          host:
+           - "localhost:8080"
+          origin:
+           - "http://localhost:8080"
+          referer:
+           - "http://localhost:8080/java-file-upload-example-0.0.1-SNAPSHOT/"
+          sec-ch-ua:
+           - "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+          sec-ch-ua-mobile:
+           - "?0"
+          sec-ch-ua-platform:
+           - "\"macOS\""
+          sec-fetch-dest:
+           - "document"
+          sec-fetch-mode:
+           - "navigate"
+          sec-fetch-site:
+           - "same-origin"
+          sec-fetch-user:
+           - "?1"
+          upgrade-insecure-requests:
+           - "1"
+          user-agent:
+           - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        method: "POST"
+        protocol: "http"
+        protocolVersion: "1.1"
+      result: "suspicious"
+      rule: "unsafe-file-upload"
+      ruleUuid: "unsafe-file-upload"
+      server:
+        id: "29119"
+        name: "JavaThing"
+      severity: "medium"
+      sourceIp: "192.168.65.1"
+      uiUrl: "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747671834978&dateRange-endDate=1747671954978&applicationId=225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+      url: "/java-file-upload-example-0.0.1-SNAPSHOT/FileUploadServlet"
+    message: |-
+      {
+        "severity" : "medium",
+        "detectedTime" : "2025-05-19T16:24:54.978Z",
+        "server" : {
+          "name" : "JavaThing",
+          "id" : "29119"
+        },
+        "request" : {
+          "headers" : {
+            "sec-fetch-mode" : [ "navigate" ],
+            "content-length" : [ "7212154" ],
+            "referer" : [ "http://localhost:8080/java-file-upload-example-0.0.1-SNAPSHOT/" ],
+            "sec-fetch-site" : [ "same-origin" ],
+            "accept-language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+            "origin" : [ "http://localhost:8080" ],
+            "sec-fetch-user" : [ "?1" ],
+            "accept" : [ "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" ],
+            "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+            "sec-ch-ua-mobile" : [ "?0" ],
+            "sec-ch-ua-platform" : [ "\"macOS\"" ],
+            "host" : [ "localhost:8080" ],
+            "upgrade-insecure-requests" : [ "1" ],
+            "connection" : [ "keep-alive" ],
+            "content-type" : [ "multipart/form-data; boundary=----WebKitFormBoundaryvYIImUamWAleQIh3" ],
+            "cache-control" : [ "max-age=0" ],
+            "accept-encoding" : [ "gzip, deflate, br, zstd" ],
+            "sec-fetch-dest" : [ "document" ],
+            "user-agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ]
+          },
+          "protocol" : "http",
+          "method" : "POST",
+          "protocolVersion" : "1.1"
+        },
+        "attackPayload" : {
+          "attackerInput" : {
+            "confirmedAttack" : false,
+            "documentType" : "NORMAL",
+            "effectiveAttack" : false,
+            "name" : "filename",
+            "applicableAttack" : false,
+            "inputType" : "MULTIPART_NAME",
+            "patternsMatched" : [ "PIDS-UNSAFE-UPLOAD-100" ],
+            "documentPath" : ""
+          },
+          "value" : "war-and-peace.pdf.exe"
+        },
+        "rule" : "unsafe-file-upload",
+        "eventUuid" : "b38320a0-042c-4aa1-98bf-332d603d7efd",
+        "productName" : "ContrastADR",
+        "url" : "/java-file-upload-example-0.0.1-SNAPSHOT/FileUploadServlet",
+        "result" : "suspicious",
+        "environment" : "development",
+        "organizationUuid" : "969321ad-da28-4c8a-9bac-18ca5553b301",
+        "apiUri" : "/api/v4/organizations/969321ad-da28-4c8a-9bac-18ca5553b301/applications/225fe54e-aa41-4475-bac4-8e1f065dc9b8/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd",
+        "mitreTactics" : [ {
+          "id" : "TA0042",
+          "url" : "https://attack.mitre.org/tactics/TA0042/"
+        }, {
+          "id" : "TA0001",
+          "url" : "https://attack.mitre.org/tactics/TA0001/"
+        }, {
+          "id" : "TA0002",
+          "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
+        }, {
+          "id" : "TA0006",
+          "url" : "https://attack.mitre.org/tactics/TA0006/"
+        }, {
+          "id" : "TA0011",
+          "url" : "https://attack.mitre.org/tactics/TA0011/"
+        } ],
+        "application" : {
+          "name" : "JavaUpload",
+          "agentLanguage" : "java",
+          "id" : "225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+        },
+        "sourceIp" : "192.168.65.1",
+        "ruleUuid" : "unsafe-file-upload",
+        "cloudProvider" : "UNKNOWN",
+        "host" : {
+          "runtimeVersion" : "OpenJDK Runtime Environment 21.0.6+7-LTS",
+          "hostname" : "WHADDEN-GJCYM9MW4R",
+          "runtimePath" : "/Users/wilhadden/.sdkman/candidates/java/21.0.6-tem/bin/java",
+          "operatingSystem" : "Mac OS X 15.4.1 aarch64"
+        },
+        "agentVersion" : "6.15.0",
+        "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/969321ad-da28-4c8a-9bac-18ca5553b301/attack-events/b38320a0-042c-4aa1-98bf-332d603d7efd?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747671834978&dateRange-endDate=1747671954978&applicationId=225fe54e-aa41-4475-bac4-8e1f065dc9b8"
+      }
+    tags:
+     - "source:LOGS_SOURCE"
+ -
+  sample: |-
+    {
+      "severity" : "critical",
+      "detectedTime" : "2025-05-08T14:27:30.391Z",
+      "server" : {
+        "name" : "QA",
+        "id" : "85722"
+      },
+      "request" : {
+        "headers" : {
+          "Cookie" : [ "JSESSIONID=oRiKB5G3LhY9Dj0fv1FRMo4rzuF2YCRqpOpSgNTb" ],
+          "Origin" : [ "http://localhost:8080" ],
+          "Accept" : [ "*/*" ],
+          "X-Requested-With" : [ "XMLHttpRequest" ],
+          "Connection" : [ "keep-alive" ],
+          "Referer" : [ "http://localhost:8080/WebGoat/start.mvc" ],
+          "User-Agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ],
+          "Sec-Fetch-Dest" : [ "empty" ],
+          "Sec-Fetch-Site" : [ "same-origin" ],
+          "Host" : [ "localhost:8080" ],
+          "Accept-Encoding" : [ "gzip, deflate, br, zstd" ],
+          "Sec-Fetch-Mode" : [ "cors" ],
+          "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+          "sec-ch-ua-mobile" : [ "?0" ],
+          "sec-ch-ua-platform" : [ "\"macOS\"" ],
+          "Accept-Language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+          "Content-Length" : [ "60" ],
+          "Content-Type" : [ "application/x-www-form-urlencoded; charset=UTF-8" ]
+        },
+        "protocol" : "http",
+        "method" : "POST",
+        "protocolVersion" : "1.1",
+        "queryString" : "",
+        "parameters" : {
+          "userid_6a" : [ "' or 1=1; select * from user_system_data; --" ]
+        }
+      },
+      "vectorAnalysis" : {
+        "vectorFields" : {
+          "ruleUuid" : "sql-injection",
+          "query" : "SELECT * FROM user_data WHERE last_name = '' or 1=1; select * from user_system_data; --'"
+        },
+        "callLocation" : "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.injectableQuery(SqlInjectionLesson6a.java:67)"
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "userid_6a",
+          "applicableAttack" : false,
+          "inputType" : "PARAMETER_VALUE",
+          "patternsMatched" : [ "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4002" ],
+          "documentPath" : ""
+        },
+        "value" : "' or 1=1; select * from user_system_data; --"
+      },
+      "rule" : "sql-injection",
+      "eventUuid" : "4351ba8f-647d-4247-a0e6-97205472c659",
+      "productName" : "ContrastADR",
+      "url" : "/WebGoat/SqlInjectionAdvanced/attack6a",
+      "result" : "exploited",
+      "environment" : "development",
+      "organizationUuid" : "3ccd2a09-b356-42c4-9c0c-80128513ff3b",
+      "apiUri" : "/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-80128513ff3b/applications/4019cce7-812a-494e-870d-29d401cc637d/attack-events/4351ba8f-647d-4247-a0e6-97205472c659",
+      "mitreTactics" : [ {
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "webgoat-ns-demo2",
+        "agentLanguage" : "java",
+        "id" : "4019cce7-812a-494e-870d-29d401cc637d"
+      },
+      "sourceIp" : "192.168.65.1",
+      "codeLocation" : {
+        "stack" : [ {
+          "fileName" : "org.hsqldb.jdbc.JDBCStatement",
+          "shortSummary" : "executeQuery() @ org.hsqldb.jdbc.JDBCStatement:-1",
+          "description" : "org.hsqldb.jdbc.JDBCStatement.executeQuery(Unknown Source:-1)",
+          "methodName" : "executeQuery",
+          "className" : "org.hsqldb.jdbc.JDBCStatement",
+          "type" : "frameSink",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "SqlInjectionLesson6a.java",
+          "shortSummary" : "injectableQuery() @ SqlInjectionLesson6a.java:67",
+          "description" : "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.injectableQuery(SqlInjectionLesson6a.java:67)",
+          "methodName" : "injectableQuery",
+          "className" : "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a",
+          "type" : "frameCustom",
+          "lineNumber" : 67
+        }, {
+          "fileName" : "SqlInjectionLesson6a.java",
+          "shortSummary" : "completed() @ SqlInjectionLesson6a.java:52",
+          "description" : "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.completed(SqlInjectionLesson6a.java:52)",
+          "methodName" : "completed",
+          "className" : "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a",
+          "type" : "frameCustom",
+          "lineNumber" : 52
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke0() @ NativeMethodAccessorImpl.java:-2",
+          "description" : "jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)",
+          "methodName" : "invoke0",
+          "className" : "jdk.internal.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : -2
+        }, {
+          "fileName" : "NativeMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ NativeMethodAccessorImpl.java:77",
+          "description" : "jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)",
+          "methodName" : "invoke",
+          "className" : "jdk.internal.reflect.NativeMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 77
+        }, {
+          "fileName" : "DelegatingMethodAccessorImpl.java",
+          "shortSummary" : "invoke() @ DelegatingMethodAccessorImpl.java:43",
+          "description" : "jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)",
+          "methodName" : "invoke",
+          "className" : "jdk.internal.reflect.DelegatingMethodAccessorImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 43
+        }, {
+          "fileName" : "Method.java",
+          "shortSummary" : "invoke() @ Method.java:569",
+          "description" : "java.lang.reflect.Method.invoke(Method.java:569)",
+          "methodName" : "invoke",
+          "className" : "java.lang.reflect.Method",
+          "type" : "frameCommon",
+          "lineNumber" : 569
+        }, {
+          "fileName" : "InvocableHandlerMethod.java",
+          "shortSummary" : "doInvoke() @ InvocableHandlerMethod.java:197",
+          "description" : "org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)",
+          "methodName" : "doInvoke",
+          "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 197
+        }, {
+          "fileName" : "InvocableHandlerMethod.java",
+          "shortSummary" : "invokeForRequest() @ InvocableHandlerMethod.java:141",
+          "description" : "org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)",
+          "methodName" : "invokeForRequest",
+          "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 141
+        }, {
+          "fileName" : "ServletInvocableHandlerMethod.java",
+          "shortSummary" : "invokeAndHandle() @ ServletInvocableHandlerMethod.java:106",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)",
+          "methodName" : "invokeAndHandle",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod",
+          "type" : "frameCommon",
+          "lineNumber" : 106
+        }, {
+          "fileName" : "RequestMappingHandlerAdapter.java",
+          "shortSummary" : "invokeHandlerMethod() @ RequestMappingHandlerAdapter.java:894",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)",
+          "methodName" : "invokeHandlerMethod",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 894
+        }, {
+          "fileName" : "RequestMappingHandlerAdapter.java",
+          "shortSummary" : "handleInternal() @ RequestMappingHandlerAdapter.java:808",
+          "description" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)",
+          "methodName" : "handleInternal",
+          "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 808
+        }, {
+          "fileName" : "AbstractHandlerMethodAdapter.java",
+          "shortSummary" : "handle() @ AbstractHandlerMethodAdapter.java:87",
+          "description" : "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)",
+          "methodName" : "handle",
+          "className" : "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter",
+          "type" : "frameCommon",
+          "lineNumber" : 87
+        }, {
+          "fileName" : "DispatcherServlet.java",
+          "shortSummary" : "doDispatch() @ DispatcherServlet.java:1060",
+          "description" : "org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)",
+          "methodName" : "doDispatch",
+          "className" : "org.springframework.web.servlet.DispatcherServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 1060
+        }, {
+          "fileName" : "DispatcherServlet.java",
+          "shortSummary" : "doService() @ DispatcherServlet.java:962",
+          "description" : "org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)",
+          "methodName" : "doService",
+          "className" : "org.springframework.web.servlet.DispatcherServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 962
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "processRequest() @ FrameworkServlet.java:1006",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)",
+          "methodName" : "processRequest",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 1006
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "doPost() @ FrameworkServlet.java:909",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)",
+          "methodName" : "doPost",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 909
+        }, {
+          "fileName" : "HttpServlet.java",
+          "shortSummary" : "service() @ HttpServlet.java:517",
+          "description" : "javax.servlet.http.HttpServlet.service(HttpServlet.java:517)",
+          "methodName" : "service",
+          "className" : "javax.servlet.http.HttpServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 517
+        }, {
+          "fileName" : "FrameworkServlet.java",
+          "shortSummary" : "service() @ FrameworkServlet.java:883",
+          "description" : "org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)",
+          "methodName" : "service",
+          "className" : "org.springframework.web.servlet.FrameworkServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 883
+        }, {
+          "fileName" : "HttpServlet.java",
+          "shortSummary" : "service() @ HttpServlet.java:584",
+          "description" : "javax.servlet.http.HttpServlet.service(HttpServlet.java:584)",
+          "methodName" : "service",
+          "className" : "javax.servlet.http.HttpServlet",
+          "type" : "frameCommon",
+          "lineNumber" : 584
+        }, {
+          "fileName" : "ServletHandler.java",
+          "shortSummary" : "handleRequest() @ ServletHandler.java:74",
+          "description" : "io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)",
+          "methodName" : "handleRequest",
+          "className" : "io.undertow.servlet.handlers.ServletHandler",
+          "type" : "frameCommon",
+          "lineNumber" : 74
+        }, {
+          "fileName" : "FilterHandler.java",
+          "shortSummary" : "doFilter() @ FilterHandler.java:129",
+          "description" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)",
+          "methodName" : "doFilter",
+          "className" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 129
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:327",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 327
+        }, {
+          "fileName" : "FilterSecurityInterceptor.java",
+          "shortSummary" : "invoke() @ FilterSecurityInterceptor.java:115",
+          "description" : "org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)",
+          "methodName" : "invoke",
+          "className" : "org.springframework.security.web.access.intercept.FilterSecurityInterceptor",
+          "type" : "frameCommon",
+          "lineNumber" : 115
+        }, {
+          "fileName" : "FilterSecurityInterceptor.java",
+          "shortSummary" : "doFilter() @ FilterSecurityInterceptor.java:81",
+          "description" : "org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.access.intercept.FilterSecurityInterceptor",
+          "type" : "frameCommon",
+          "lineNumber" : 81
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "ExceptionTranslationFilter.java",
+          "shortSummary" : "doFilter() @ ExceptionTranslationFilter.java:119",
+          "description" : "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.access.ExceptionTranslationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 119
+        }, {
+          "fileName" : "ExceptionTranslationFilter.java",
+          "shortSummary" : "doFilter() @ ExceptionTranslationFilter.java:113",
+          "description" : "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.access.ExceptionTranslationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 113
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "SessionManagementFilter.java",
+          "shortSummary" : "doFilter() @ SessionManagementFilter.java:126",
+          "description" : "org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.session.SessionManagementFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 126
+        }, {
+          "fileName" : "SessionManagementFilter.java",
+          "shortSummary" : "doFilter() @ SessionManagementFilter.java:81",
+          "description" : "org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.session.SessionManagementFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 81
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "AnonymousAuthenticationFilter.java",
+          "shortSummary" : "doFilter() @ AnonymousAuthenticationFilter.java:105",
+          "description" : "org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.authentication.AnonymousAuthenticationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 105
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "SecurityContextHolderAwareRequestFilter.java",
+          "shortSummary" : "doFilter() @ SecurityContextHolderAwareRequestFilter.java:149",
+          "description" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 149
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "RequestCacheAwareFilter.java",
+          "shortSummary" : "doFilter() @ RequestCacheAwareFilter.java:63",
+          "description" : "org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.savedrequest.RequestCacheAwareFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 63
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "AbstractAuthenticationProcessingFilter.java",
+          "shortSummary" : "doFilter() @ AbstractAuthenticationProcessingFilter.java:218",
+          "description" : "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:218)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 218
+        }, {
+          "fileName" : "AbstractAuthenticationProcessingFilter.java",
+          "shortSummary" : "doFilter() @ AbstractAuthenticationProcessingFilter.java:212",
+          "description" : "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 212
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "LogoutFilter.java",
+          "shortSummary" : "doFilter() @ LogoutFilter.java:103",
+          "description" : "org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.authentication.logout.LogoutFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 103
+        }, {
+          "fileName" : "LogoutFilter.java",
+          "shortSummary" : "doFilter() @ LogoutFilter.java:89",
+          "description" : "org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.authentication.logout.LogoutFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 89
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "HeaderWriterFilter.java",
+          "shortSummary" : "doHeadersAfter() @ HeaderWriterFilter.java:90",
+          "description" : "org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)",
+          "methodName" : "doHeadersAfter",
+          "className" : "org.springframework.security.web.header.HeaderWriterFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 90
+        }, {
+          "fileName" : "HeaderWriterFilter.java",
+          "shortSummary" : "doFilterInternal() @ HeaderWriterFilter.java:75",
+          "description" : "org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.security.web.header.HeaderWriterFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 75
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:119",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 119
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "SecurityContextPersistenceFilter.java",
+          "shortSummary" : "doFilter() @ SecurityContextPersistenceFilter.java:110",
+          "description" : "org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.context.SecurityContextPersistenceFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 110
+        }, {
+          "fileName" : "SecurityContextPersistenceFilter.java",
+          "shortSummary" : "doFilter() @ SecurityContextPersistenceFilter.java:80",
+          "description" : "org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.context.SecurityContextPersistenceFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 80
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "WebAsyncManagerIntegrationFilter.java",
+          "shortSummary" : "doFilterInternal() @ WebAsyncManagerIntegrationFilter.java:55",
+          "description" : "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 55
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:119",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 119
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:336",
+          "description" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 336
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilterInternal() @ FilterChainProxy.java:211",
+          "description" : "org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.security.web.FilterChainProxy",
+          "type" : "frameCommon",
+          "lineNumber" : 211
+        }, {
+          "fileName" : "FilterChainProxy.java",
+          "shortSummary" : "doFilter() @ FilterChainProxy.java:183",
+          "description" : "org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.FilterChainProxy",
+          "type" : "frameCommon",
+          "lineNumber" : 183
+        }, {
+          "fileName" : "DelegatingFilterProxy.java",
+          "shortSummary" : "invokeDelegate() @ DelegatingFilterProxy.java:358",
+          "description" : "org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)",
+          "methodName" : "invokeDelegate",
+          "className" : "org.springframework.web.filter.DelegatingFilterProxy",
+          "type" : "frameCommon",
+          "lineNumber" : 358
+        }, {
+          "fileName" : "DelegatingFilterProxy.java",
+          "shortSummary" : "doFilter() @ DelegatingFilterProxy.java:271",
+          "description" : "org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.DelegatingFilterProxy",
+          "type" : "frameCommon",
+          "lineNumber" : 271
+        }, {
+          "fileName" : "ManagedFilter.java",
+          "shortSummary" : "doFilter() @ ManagedFilter.java:61",
+          "description" : "io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)",
+          "methodName" : "doFilter",
+          "className" : "io.undertow.servlet.core.ManagedFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 61
+        }, {
+          "fileName" : "FilterHandler.java",
+          "shortSummary" : "doFilter() @ FilterHandler.java:131",
+          "description" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)",
+          "methodName" : "doFilter",
+          "className" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 131
+        }, {
+          "fileName" : "RequestContextFilter.java",
+          "shortSummary" : "doFilterInternal() @ RequestContextFilter.java:100",
+          "description" : "org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.web.filter.RequestContextFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 100
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:119",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 119
+        }, {
+          "fileName" : "ManagedFilter.java",
+          "shortSummary" : "doFilter() @ ManagedFilter.java:61",
+          "description" : "io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)",
+          "methodName" : "doFilter",
+          "className" : "io.undertow.servlet.core.ManagedFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 61
+        }, {
+          "fileName" : "FilterHandler.java",
+          "shortSummary" : "doFilter() @ FilterHandler.java:131",
+          "description" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)",
+          "methodName" : "doFilter",
+          "className" : "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl",
+          "type" : "frameCommon",
+          "lineNumber" : 131
+        }, {
+          "fileName" : "FormContentFilter.java",
+          "shortSummary" : "doFilterInternal() @ FormContentFilter.java:93",
+          "description" : "org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)",
+          "methodName" : "doFilterInternal",
+          "className" : "org.springframework.web.filter.FormContentFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 93
+        }, {
+          "fileName" : "OncePerRequestFilter.java",
+          "shortSummary" : "doFilter() @ OncePerRequestFilter.java:119",
+          "description" : "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.web.filter.OncePerRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 119
+        } ],
+        "file" : "org.hsqldb.jdbc.JDBCStatement",
+        "method" : "executeQuery()"
+      },
+      "ruleUuid" : "sql-injection",
+      "cloudProvider" : "UNKNOWN",
+      "uiUrl" : "https://teamserver-staging.contsec.com/Contrast/static/ng/index.html#/3ccd2a09-b356-42c4-9c0c-80128513ff3b/attack-events/4351ba8f-647d-4247-a0e6-97205472c659?groupBy=&amp;dateRange-type=CUSTOM_DATE_RANGE&amp;dateRange-startDate=1746714390391&amp;dateRange-endDate=1746714510391&amp;applicationId=4019cce7-812a-494e-870d-29d401cc637d"
+    }
+  result:
+    custom:
+      apiUri: "/api/v4/organizations/3ccd2a09-b356-42c4-9c0c-80128513ff3b/applications/4019cce7-812a-494e-870d-29d401cc637d/attack-events/4351ba8f-647d-4247-a0e6-97205472c659"
+      application:
+        agentLanguage: "java"
+        id: "4019cce7-812a-494e-870d-29d401cc637d"
+        name: "webgoat-ns-demo2"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          inputType: "PARAMETER_VALUE"
+          name: "userid_6a"
+          patternsMatched:
+           - "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4002"
+        value: "' or 1=1; select * from user_system_data; --"
+      cloudProvider: "UNKNOWN"
+      codeLocation:
+        file: "org.hsqldb.jdbc.JDBCStatement"
+        method: "executeQuery()"
+        stack:
+         -
+          fileName: "org.hsqldb.jdbc.JDBCStatement"
+          shortSummary: "executeQuery() @ org.hsqldb.jdbc.JDBCStatement:-1"
+          description: "org.hsqldb.jdbc.JDBCStatement.executeQuery(Unknown Source:-1)"
+          methodName: "executeQuery"
+          className: "org.hsqldb.jdbc.JDBCStatement"
+          type: "frameSink"
+          lineNumber: -1
+         -
+          fileName: "SqlInjectionLesson6a.java"
+          shortSummary: "injectableQuery() @ SqlInjectionLesson6a.java:67"
+          description: "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.injectableQuery(SqlInjectionLesson6a.java:67)"
+          methodName: "injectableQuery"
+          className: "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a"
+          type: "frameCustom"
+          lineNumber: 67
+         -
+          fileName: "SqlInjectionLesson6a.java"
+          shortSummary: "completed() @ SqlInjectionLesson6a.java:52"
+          description: "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.completed(SqlInjectionLesson6a.java:52)"
+          methodName: "completed"
+          className: "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a"
+          type: "frameCustom"
+          lineNumber: 52
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke0() @ NativeMethodAccessorImpl.java:-2"
+          description: "jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)"
+          methodName: "invoke0"
+          className: "jdk.internal.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: -2
+         -
+          fileName: "NativeMethodAccessorImpl.java"
+          shortSummary: "invoke() @ NativeMethodAccessorImpl.java:77"
+          description: "jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)"
+          methodName: "invoke"
+          className: "jdk.internal.reflect.NativeMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 77
+         -
+          fileName: "DelegatingMethodAccessorImpl.java"
+          shortSummary: "invoke() @ DelegatingMethodAccessorImpl.java:43"
+          description: "jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)"
+          methodName: "invoke"
+          className: "jdk.internal.reflect.DelegatingMethodAccessorImpl"
+          type: "frameCommon"
+          lineNumber: 43
+         -
+          fileName: "Method.java"
+          shortSummary: "invoke() @ Method.java:569"
+          description: "java.lang.reflect.Method.invoke(Method.java:569)"
+          methodName: "invoke"
+          className: "java.lang.reflect.Method"
+          type: "frameCommon"
+          lineNumber: 569
+         -
+          fileName: "InvocableHandlerMethod.java"
+          shortSummary: "doInvoke() @ InvocableHandlerMethod.java:197"
+          description: "org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)"
+          methodName: "doInvoke"
+          className: "org.springframework.web.method.support.InvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 197
+         -
+          fileName: "InvocableHandlerMethod.java"
+          shortSummary: "invokeForRequest() @ InvocableHandlerMethod.java:141"
+          description: "org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)"
+          methodName: "invokeForRequest"
+          className: "org.springframework.web.method.support.InvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 141
+         -
+          fileName: "ServletInvocableHandlerMethod.java"
+          shortSummary: "invokeAndHandle() @ ServletInvocableHandlerMethod.java:106"
+          description: "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)"
+          methodName: "invokeAndHandle"
+          className: "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"
+          type: "frameCommon"
+          lineNumber: 106
+         -
+          fileName: "RequestMappingHandlerAdapter.java"
+          shortSummary: "invokeHandlerMethod() @ RequestMappingHandlerAdapter.java:894"
+          description: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)"
+          methodName: "invokeHandlerMethod"
+          className: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          type: "frameCommon"
+          lineNumber: 894
+         -
+          fileName: "RequestMappingHandlerAdapter.java"
+          shortSummary: "handleInternal() @ RequestMappingHandlerAdapter.java:808"
+          description: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)"
+          methodName: "handleInternal"
+          className: "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          type: "frameCommon"
+          lineNumber: 808
+         -
+          fileName: "AbstractHandlerMethodAdapter.java"
+          shortSummary: "handle() @ AbstractHandlerMethodAdapter.java:87"
+          description: "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)"
+          methodName: "handle"
+          className: "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter"
+          type: "frameCommon"
+          lineNumber: 87
+         -
+          fileName: "DispatcherServlet.java"
+          shortSummary: "doDispatch() @ DispatcherServlet.java:1060"
+          description: "org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)"
+          methodName: "doDispatch"
+          className: "org.springframework.web.servlet.DispatcherServlet"
+          type: "frameCommon"
+          lineNumber: 1060
+         -
+          fileName: "DispatcherServlet.java"
+          shortSummary: "doService() @ DispatcherServlet.java:962"
+          description: "org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)"
+          methodName: "doService"
+          className: "org.springframework.web.servlet.DispatcherServlet"
+          type: "frameCommon"
+          lineNumber: 962
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "processRequest() @ FrameworkServlet.java:1006"
+          description: "org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)"
+          methodName: "processRequest"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 1006
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "doPost() @ FrameworkServlet.java:909"
+          description: "org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)"
+          methodName: "doPost"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 909
+         -
+          fileName: "HttpServlet.java"
+          shortSummary: "service() @ HttpServlet.java:517"
+          description: "javax.servlet.http.HttpServlet.service(HttpServlet.java:517)"
+          methodName: "service"
+          className: "javax.servlet.http.HttpServlet"
+          type: "frameCommon"
+          lineNumber: 517
+         -
+          fileName: "FrameworkServlet.java"
+          shortSummary: "service() @ FrameworkServlet.java:883"
+          description: "org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)"
+          methodName: "service"
+          className: "org.springframework.web.servlet.FrameworkServlet"
+          type: "frameCommon"
+          lineNumber: 883
+         -
+          fileName: "HttpServlet.java"
+          shortSummary: "service() @ HttpServlet.java:584"
+          description: "javax.servlet.http.HttpServlet.service(HttpServlet.java:584)"
+          methodName: "service"
+          className: "javax.servlet.http.HttpServlet"
+          type: "frameCommon"
+          lineNumber: 584
+         -
+          fileName: "ServletHandler.java"
+          shortSummary: "handleRequest() @ ServletHandler.java:74"
+          description: "io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)"
+          methodName: "handleRequest"
+          className: "io.undertow.servlet.handlers.ServletHandler"
+          type: "frameCommon"
+          lineNumber: 74
+         -
+          fileName: "FilterHandler.java"
+          shortSummary: "doFilter() @ FilterHandler.java:129"
+          description: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)"
+          methodName: "doFilter"
+          className: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl"
+          type: "frameCommon"
+          lineNumber: 129
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:327"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 327
+         -
+          fileName: "FilterSecurityInterceptor.java"
+          shortSummary: "invoke() @ FilterSecurityInterceptor.java:115"
+          description: "org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)"
+          methodName: "invoke"
+          className: "org.springframework.security.web.access.intercept.FilterSecurityInterceptor"
+          type: "frameCommon"
+          lineNumber: 115
+         -
+          fileName: "FilterSecurityInterceptor.java"
+          shortSummary: "doFilter() @ FilterSecurityInterceptor.java:81"
+          description: "org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.access.intercept.FilterSecurityInterceptor"
+          type: "frameCommon"
+          lineNumber: 81
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "ExceptionTranslationFilter.java"
+          shortSummary: "doFilter() @ ExceptionTranslationFilter.java:119"
+          description: "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.access.ExceptionTranslationFilter"
+          type: "frameCommon"
+          lineNumber: 119
+         -
+          fileName: "ExceptionTranslationFilter.java"
+          shortSummary: "doFilter() @ ExceptionTranslationFilter.java:113"
+          description: "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.access.ExceptionTranslationFilter"
+          type: "frameCommon"
+          lineNumber: 113
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "SessionManagementFilter.java"
+          shortSummary: "doFilter() @ SessionManagementFilter.java:126"
+          description: "org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.session.SessionManagementFilter"
+          type: "frameCommon"
+          lineNumber: 126
+         -
+          fileName: "SessionManagementFilter.java"
+          shortSummary: "doFilter() @ SessionManagementFilter.java:81"
+          description: "org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.session.SessionManagementFilter"
+          type: "frameCommon"
+          lineNumber: 81
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "AnonymousAuthenticationFilter.java"
+          shortSummary: "doFilter() @ AnonymousAuthenticationFilter.java:105"
+          description: "org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.authentication.AnonymousAuthenticationFilter"
+          type: "frameCommon"
+          lineNumber: 105
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "SecurityContextHolderAwareRequestFilter.java"
+          shortSummary: "doFilter() @ SecurityContextHolderAwareRequestFilter.java:149"
+          description: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"
+          type: "frameCommon"
+          lineNumber: 149
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "RequestCacheAwareFilter.java"
+          shortSummary: "doFilter() @ RequestCacheAwareFilter.java:63"
+          description: "org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.savedrequest.RequestCacheAwareFilter"
+          type: "frameCommon"
+          lineNumber: 63
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "AbstractAuthenticationProcessingFilter.java"
+          shortSummary: "doFilter() @ AbstractAuthenticationProcessingFilter.java:218"
+          description: "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:218)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter"
+          type: "frameCommon"
+          lineNumber: 218
+         -
+          fileName: "AbstractAuthenticationProcessingFilter.java"
+          shortSummary: "doFilter() @ AbstractAuthenticationProcessingFilter.java:212"
+          description: "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter"
+          type: "frameCommon"
+          lineNumber: 212
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "LogoutFilter.java"
+          shortSummary: "doFilter() @ LogoutFilter.java:103"
+          description: "org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.authentication.logout.LogoutFilter"
+          type: "frameCommon"
+          lineNumber: 103
+         -
+          fileName: "LogoutFilter.java"
+          shortSummary: "doFilter() @ LogoutFilter.java:89"
+          description: "org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.authentication.logout.LogoutFilter"
+          type: "frameCommon"
+          lineNumber: 89
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "HeaderWriterFilter.java"
+          shortSummary: "doHeadersAfter() @ HeaderWriterFilter.java:90"
+          description: "org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)"
+          methodName: "doHeadersAfter"
+          className: "org.springframework.security.web.header.HeaderWriterFilter"
+          type: "frameCommon"
+          lineNumber: 90
+         -
+          fileName: "HeaderWriterFilter.java"
+          shortSummary: "doFilterInternal() @ HeaderWriterFilter.java:75"
+          description: "org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.security.web.header.HeaderWriterFilter"
+          type: "frameCommon"
+          lineNumber: 75
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:119"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 119
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "SecurityContextPersistenceFilter.java"
+          shortSummary: "doFilter() @ SecurityContextPersistenceFilter.java:110"
+          description: "org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.context.SecurityContextPersistenceFilter"
+          type: "frameCommon"
+          lineNumber: 110
+         -
+          fileName: "SecurityContextPersistenceFilter.java"
+          shortSummary: "doFilter() @ SecurityContextPersistenceFilter.java:80"
+          description: "org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.context.SecurityContextPersistenceFilter"
+          type: "frameCommon"
+          lineNumber: 80
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "WebAsyncManagerIntegrationFilter.java"
+          shortSummary: "doFilterInternal() @ WebAsyncManagerIntegrationFilter.java:55"
+          description: "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter"
+          type: "frameCommon"
+          lineNumber: 55
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:119"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 119
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:336"
+          description: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 336
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilterInternal() @ FilterChainProxy.java:211"
+          description: "org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.security.web.FilterChainProxy"
+          type: "frameCommon"
+          lineNumber: 211
+         -
+          fileName: "FilterChainProxy.java"
+          shortSummary: "doFilter() @ FilterChainProxy.java:183"
+          description: "org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.FilterChainProxy"
+          type: "frameCommon"
+          lineNumber: 183
+         -
+          fileName: "DelegatingFilterProxy.java"
+          shortSummary: "invokeDelegate() @ DelegatingFilterProxy.java:358"
+          description: "org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)"
+          methodName: "invokeDelegate"
+          className: "org.springframework.web.filter.DelegatingFilterProxy"
+          type: "frameCommon"
+          lineNumber: 358
+         -
+          fileName: "DelegatingFilterProxy.java"
+          shortSummary: "doFilter() @ DelegatingFilterProxy.java:271"
+          description: "org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.DelegatingFilterProxy"
+          type: "frameCommon"
+          lineNumber: 271
+         -
+          fileName: "ManagedFilter.java"
+          shortSummary: "doFilter() @ ManagedFilter.java:61"
+          description: "io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)"
+          methodName: "doFilter"
+          className: "io.undertow.servlet.core.ManagedFilter"
+          type: "frameCommon"
+          lineNumber: 61
+         -
+          fileName: "FilterHandler.java"
+          shortSummary: "doFilter() @ FilterHandler.java:131"
+          description: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)"
+          methodName: "doFilter"
+          className: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl"
+          type: "frameCommon"
+          lineNumber: 131
+         -
+          fileName: "RequestContextFilter.java"
+          shortSummary: "doFilterInternal() @ RequestContextFilter.java:100"
+          description: "org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.web.filter.RequestContextFilter"
+          type: "frameCommon"
+          lineNumber: 100
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:119"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 119
+         -
+          fileName: "ManagedFilter.java"
+          shortSummary: "doFilter() @ ManagedFilter.java:61"
+          description: "io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)"
+          methodName: "doFilter"
+          className: "io.undertow.servlet.core.ManagedFilter"
+          type: "frameCommon"
+          lineNumber: 61
+         -
+          fileName: "FilterHandler.java"
+          shortSummary: "doFilter() @ FilterHandler.java:131"
+          description: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)"
+          methodName: "doFilter"
+          className: "io.undertow.servlet.handlers.FilterHandler$FilterChainImpl"
+          type: "frameCommon"
+          lineNumber: 131
+         -
+          fileName: "FormContentFilter.java"
+          shortSummary: "doFilterInternal() @ FormContentFilter.java:93"
+          description: "org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)"
+          methodName: "doFilterInternal"
+          className: "org.springframework.web.filter.FormContentFilter"
+          type: "frameCommon"
+          lineNumber: 93
+         -
+          fileName: "OncePerRequestFilter.java"
+          shortSummary: "doFilter() @ OncePerRequestFilter.java:119"
+          description: "org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)"
+          methodName: "doFilter"
+          className: "org.springframework.web.filter.OncePerRequestFilter"
+          type: "frameCommon"
+          lineNumber: 119
+      detectedTime: "2025-05-08T14:27:30.391Z"
+      environment: "development"
+      eventUuid: "4351ba8f-647d-4247-a0e6-97205472c659"
+      mitreTactics:
+       -
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      organizationUuid: "3ccd2a09-b356-42c4-9c0c-80128513ff3b"
+      productName: "ContrastADR"
+      request:
+        headers:
+          Accept:
+           - "*/*"
+          Accept-Encoding:
+           - "gzip, deflate, br, zstd"
+ -
+  sample: |-
+    {
+      "severity" : "INFORMATIONAL",
+      "detectedTime" : "2025-05-15T14:51:47.128Z",
+      "server" : {
+        "name" : "TM-ADR-PROD",
+        "id" : 28791
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "lastName",
+          "applicableAttack" : false,
+          "patternsMatched" : [ "PIDS-SQLI-44D", "TRUING_STRING_INJ", "CS-HCS-1", "PIDS-SQLI-44F", "PIDS-SQLI-44E", "PIDS-SQLI-4001" ],
+          "type" : "PARAMETER_VALUE",
+          "documentPath" : ""
+        },
+        "standardNormalizedUri" : "/customers",
+        "value" : "' OR \"1\" = \"1\" -- ",
+        "url" : "/customers"
+      },
+      "rule" : "sql-injection",
+      "eventUuid" : "0e9f65d8-793c-4c0a-84c7-1a8a6e672784",
+      "productName" : "ContrastADR",
+      "result" : "BLOCKED",
+      "environment" : "PRODUCTION",
+      "organizationUuid" : "c0e9700e-3268-4a2a-898c-3f639f9a6f0e",
+      "apiUri" : "/api/v4/organizations/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/applications/5c0faae1-6cad-402b-95bc-ce80c4b23e58/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784",
+      "mitreTactics" : [ {
+        "name" : "Initial Access",
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "name" : "Execution",
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "name" : "Persistence",
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "name" : "Privilege Escalation",
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "name" : "Defense Evasion",
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "name" : "Credential Access",
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "name" : "Discovery",
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "name" : "Collection",
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "name" : "Exfiltration",
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "TM-ADR-Web-Application",
+        "agentLanguage" : "java",
+        "id" : "5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+      },
+      "sourceIp" : "172.19.0.9",
+      "cloudProvider" : "UNKNOWN",
+      "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747320647128&dateRange-endDate=1747320767128&applicationId=5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+    }
+  result:
+    custom:
+      apiUri: "/api/v4/organizations/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/applications/5c0faae1-6cad-402b-95bc-ce80c4b23e58/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784"
+      application:
+        agentLanguage: "java"
+        id: "5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+        name: "TM-ADR-Web-Application"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: ""
+          documentType: "NORMAL"
+          effectiveAttack: false
+          name: "lastName"
+          patternsMatched:
+           - "PIDS-SQLI-44D"
+           - "TRUING_STRING_INJ"
+           - "CS-HCS-1"
+           - "PIDS-SQLI-44F"
+           - "PIDS-SQLI-44E"
+           - "PIDS-SQLI-4001"
+          type: "PARAMETER_VALUE"
+        standardNormalizedUri: "/customers"
+        url: "/customers"
+        value: "' OR \"1\" = \"1\" -- "
+      cloudProvider: "UNKNOWN"
+      detectedTime: "2025-05-15T14:51:47.128Z"
+      environment: "PRODUCTION"
+      eventUuid: "0e9f65d8-793c-4c0a-84c7-1a8a6e672784"
+      mitreTactics:
+       -
+        name: "Initial Access"
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        name: "Execution"
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        name: "Persistence"
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        name: "Privilege Escalation"
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        name: "Defense Evasion"
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        name: "Credential Access"
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        name: "Discovery"
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        name: "Collection"
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        name: "Exfiltration"
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      organizationUuid: "c0e9700e-3268-4a2a-898c-3f639f9a6f0e"
+      productName: "ContrastADR"
+      result: "BLOCKED"
+      rule: "sql-injection"
+      server:
+        id: 28791
+        name: "TM-ADR-PROD"
+      severity: "INFORMATIONAL"
+      sourceIp: "172.19.0.9"
+      uiUrl: "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747320647128&dateRange-endDate=1747320767128&applicationId=5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+    message: |-
+      {
+        "severity" : "INFORMATIONAL",
+        "detectedTime" : "2025-05-15T14:51:47.128Z",
+        "server" : {
+          "name" : "TM-ADR-PROD",
+          "id" : 28791
+        },
+        "attackPayload" : {
+          "attackerInput" : {
+            "confirmedAttack" : false,
+            "documentType" : "NORMAL",
+            "effectiveAttack" : false,
+            "name" : "lastName",
+            "applicableAttack" : false,
+            "patternsMatched" : [ "PIDS-SQLI-44D", "TRUING_STRING_INJ", "CS-HCS-1", "PIDS-SQLI-44F", "PIDS-SQLI-44E", "PIDS-SQLI-4001" ],
+            "type" : "PARAMETER_VALUE",
+            "documentPath" : ""
+          },
+          "standardNormalizedUri" : "/customers",
+          "value" : "' OR \"1\" = \"1\" -- ",
+          "url" : "/customers"
+        },
+        "rule" : "sql-injection",
+        "eventUuid" : "0e9f65d8-793c-4c0a-84c7-1a8a6e672784",
+        "productName" : "ContrastADR",
+        "result" : "BLOCKED",
+        "environment" : "PRODUCTION",
+        "organizationUuid" : "c0e9700e-3268-4a2a-898c-3f639f9a6f0e",
+        "apiUri" : "/api/v4/organizations/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/applications/5c0faae1-6cad-402b-95bc-ce80c4b23e58/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784",
+        "mitreTactics" : [ {
+          "name" : "Initial Access",
+          "id" : "TA0001",
+          "url" : "https://attack.mitre.org/tactics/TA0001/"
+        }, {
+          "name" : "Execution",
+          "id" : "TA0002",
+          "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "name" : "Persistence",
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "name" : "Privilege Escalation",
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "name" : "Defense Evasion",
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
+        }, {
+          "name" : "Credential Access",
+          "id" : "TA0006",
+          "url" : "https://attack.mitre.org/tactics/TA0006/"
+        }, {
+          "name" : "Discovery",
+          "id" : "TA0007",
+          "url" : "https://attack.mitre.org/tactics/TA0007/"
+        }, {
+          "name" : "Collection",
+          "id" : "TA0009",
+          "url" : "https://attack.mitre.org/tactics/TA0009/"
+        }, {
+          "name" : "Exfiltration",
+          "id" : "TA0010",
+          "url" : "https://attack.mitre.org/tactics/TA0010/"
+        } ],
+        "application" : {
+          "name" : "TM-ADR-Web-Application",
+          "agentLanguage" : "java",
+          "id" : "5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+        },
+        "sourceIp" : "172.19.0.9",
+        "cloudProvider" : "UNKNOWN",
+        "uiUrl" : "https://apptwo.contrastsecurity.com/Contrast/static/ng/index.html#/c0e9700e-3268-4a2a-898c-3f639f9a6f0e/attack-events/0e9f65d8-793c-4c0a-84c7-1a8a6e672784?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747320647128&dateRange-endDate=1747320767128&applicationId=5c0faae1-6cad-402b-95bc-ce80c4b23e58"
+      }
+    tags:
+     - "source:LOGS_SOURCE"
