@@ -4,13 +4,10 @@
 
 ***Added***:
 
-* Metrics support for configured quota limits.
-* Dashboard color updated to reflect Cloudsmith brand blue.
-
-***Fixed***:
-
-* API token no longer in risk via emitted events.
-* Logic improved to prevent duplicate license policy violation events.
+* Metrics support for configured quota limits ([#2713](https://github.com/DataDog/integrations-extras/pull/2713))
+* Dashboard color updated to reflect Cloudsmith brand blue ([#2713](https://github.com/DataDog/integrations-extras/pull/2713))
+* API token no longer in risk via emitted events ([#2713](https://github.com/DataDog/integrations-extras/pull/2713))
+* Logic improved to prevent duplicate license policy violation events ([#2713](https://github.com/DataDog/integrations-extras/pull/2713))
 
 ### 1.0.0 / 2025-06-06
 
