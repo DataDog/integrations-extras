@@ -1,12 +1,12 @@
 {
   "title": "Cloudsmith Overview",
-  "description": "Monitor your Cloudsmith repository usage, member activity, and security posture with key metrics like storage/bandwidth consumption, token usage, and policy violations. Ideal for tracking plan limits and enforcing best practices across your organization.",
+  "description": "Monitor your Cloudsmith repository usage, member activity, and security posture with key metrics like storage/bandwidth consumption, token usage, and policy violations. Ideal for tracking plan limits and enforcing best practices across your organization. (cloned)",
   "widgets": [
     {
       "id": 2,
       "definition": {
         "title": "About Cloudsmith",
-        "background_color": "vivid_purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -36,11 +36,13 @@
             "definition": {
               "type": "note",
               "content": "This dashboard provides deep visibility into your Cloudsmith organization by tracking usage metrics such as storage consumption, bandwidth utilization, and token activity. It also highlights member access patterns and policy violations, offering a central view of operational and security health across your repositories.",
-              "background_color": "white",
+              "background_color": "blue",
               "font_size": "14",
               "text_align": "left",
               "vertical_align": "top",
               "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
               "has_padding": true
             },
             "layout": {
@@ -55,7 +57,7 @@
             "definition": {
               "type": "note",
               "content": "**Further Reading:**\n- [Cloudsmith Documentation](https://help.cloudsmith.io/docs/welcome-to-cloudsmith-docs)\n- [Datadog Integration on Cloudsmith](https://help.cloudsmith.io/docs/datadog)",
-              "background_color": "white",
+              "background_color": "blue",
               "font_size": "14",
               "text_align": "left",
               "vertical_align": "top",
@@ -82,7 +84,7 @@
       "id": 1,
       "definition": {
         "title": "Usage Overview",
-        "background_color": "vivid_green",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -119,7 +121,7 @@
                       "query": "avg:cloudsmith.storage_used{*}",
                       "data_source": "metrics",
                       "name": "query1",
-                      "aggregator": "avg"
+                      "aggregator": "last"
                     }
                   ]
                 }
@@ -135,45 +137,9 @@
             }
           },
           {
-            "id": 5746781690109876,
-            "definition": {
-              "title": "Storage Used (GiB)",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "query": "sum:cloudsmith.storage_used_gb{*}",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "aggregator": "avg"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "text_align": "center",
-              "precision": 2
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
             "id": 41510224971209,
             "definition": {
-              "title": "Storage Plan Allowence (GiB)",
+              "title": "Storage Plan Allowence",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -181,7 +147,13 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      }
                     }
                   ],
                   "response_format": "scalar",
@@ -199,7 +171,7 @@
               "precision": 2
             },
             "layout": {
-              "x": 8,
+              "x": 4,
               "y": 0,
               "width": 4,
               "height": 2
@@ -246,16 +218,16 @@
               "precision": 2
             },
             "layout": {
-              "x": 0,
-              "y": 2,
+              "x": 8,
+              "y": 0,
               "width": 4,
               "height": 2
             }
           },
           {
-            "id": 1115597404915387,
+            "id": 5746781690109876,
             "definition": {
-              "title": "Bandwidth Used (GiB)",
+              "title": "Storage Used",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -263,13 +235,61 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      }
                     }
                   ],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.bandwidth_used_gb{*}",
+                      "query": "sum:cloudsmith.storage_used_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 1
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2681525144572276,
+            "definition": {
+              "title": "Bandwidth Plan Allowence",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.bandwidth_plan_limit_gb{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -288,9 +308,9 @@
             }
           },
           {
-            "id": 2681525144572276,
+            "id": 1115597404915387,
             "definition": {
-              "title": "Bandwidth Plan Allowence (GiB)",
+              "title": "Bandwidth Used",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -298,13 +318,101 @@
                 {
                   "formulas": [
                     {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth_used_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2447736159824506,
+            "definition": {
+              "title": "Storage Plan+Overage Allowance",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      },
                       "formula": "query1"
                     }
                   ],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.bandwidth_plan_limit_gb{*}",
+                      "query": "avg:cloudsmith.storage_configured_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4298255399604444,
+            "definition": {
+              "title": "Bandwidth Plan+Overage Allowance",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "gigabyte"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.bandwidth_configured_gb{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -317,7 +425,7 @@
             },
             "layout": {
               "x": 8,
-              "y": 2,
+              "y": 4,
               "width": 4,
               "height": 2
             }
@@ -372,8 +480,63 @@
             },
             "layout": {
               "x": 0,
-              "y": 4,
-              "width": 12,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4400593597358365,
+            "definition": {
+              "title": "Bandwidth Used",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.bandwidth_used_gb{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
               "height": 3
             }
           }
@@ -383,14 +546,14 @@
         "x": 0,
         "y": 5,
         "width": 12,
-        "height": 8
+        "height": 10
       }
     },
     {
       "id": 50,
       "definition": {
         "title": "Audit Logs",
-        "background_color": "vivid_yellow",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -451,7 +614,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 13,
+        "y": 15,
         "width": 12,
         "height": 11
       }
@@ -460,7 +623,7 @@
       "id": 3,
       "definition": {
         "title": "Token Overview",
-        "background_color": "vivid_pink",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -604,7 +767,7 @@
       "id": 7325778829482119,
       "definition": {
         "title": "Members Statistics",
-        "background_color": "purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -641,7 +804,7 @@
               "x": 0,
               "y": 0,
               "width": 4,
-              "height": 3
+              "height": 2
             }
           },
           {
@@ -650,7 +813,6 @@
               "title": "Org Owners",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -677,7 +839,7 @@
               "x": 4,
               "y": 0,
               "width": 4,
-              "height": 3
+              "height": 2
             }
           },
           {
@@ -686,7 +848,6 @@
               "title": "Members with Active 2FA",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -713,7 +874,7 @@
               "x": 8,
               "y": 0,
               "width": 4,
-              "height": 3
+              "height": 2
             }
           }
         ]
@@ -722,14 +883,14 @@
         "x": 0,
         "y": 3,
         "width": 12,
-        "height": 4
+        "height": 3
       }
     },
     {
       "id": 51,
       "definition": {
         "title": "Security and Policy Violations",
-        "background_color": "vivid_orange",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -740,28 +901,33 @@
               "title": "Licence Policy Violations",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "entry"
+                        }
+                      }
                     }
                   ],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.license_policy_violation.count{*}",
+                      "query": "avg:cloudsmith.license_policy_violation.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
-                      "aggregator": "avg"
+                      "aggregator": "last"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "precision": 1
+              "precision": 0
             },
             "layout": {
               "x": 0,
@@ -776,19 +942,24 @@
               "title": "Vulnerability Policy Violations",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "entry"
+                        }
+                      }
                     }
                   ],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.vulnerability_policy_violation.count{*}",
+                      "query": "avg:cloudsmith.vulnerability_policy_violation.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -816,7 +987,7 @@
                 {
                   "query": {
                     "data_source": "event_stream",
-                    "query_string": "@aggregation_key:vulnerabilitiy_policy_violation",
+                    "query_string": "@aggregation_key:vulnerability_policy_violation",
                     "event_size": "s"
                   },
                   "response_format": "event_list",
@@ -828,32 +999,6 @@
             "layout": {
               "x": 0,
               "y": 3,
-              "width": 12,
-              "height": 4
-            }
-          },
-          {
-            "id": 1391671782281332,
-            "definition": {
-              "title": "Security Scan Result",
-              "title_size": "16",
-              "title_align": "left",
-              "requests": [
-                {
-                  "query": {
-                    "data_source": "event_stream",
-                    "query_string": "@aggregation_key:vulnerabilities",
-                    "event_size": "s"
-                  },
-                  "response_format": "event_list",
-                  "columns": []
-                }
-              ],
-              "type": "list_stream"
-            },
-            "layout": {
-              "x": 0,
-              "y": 7,
               "width": 12,
               "height": 4
             }
@@ -879,6 +1024,32 @@
             },
             "layout": {
               "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 1391671782281332,
+            "definition": {
+              "title": "Security Scan Result",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "query": {
+                    "data_source": "event_stream",
+                    "query_string": "@aggregation_key:vulnerabilities",
+                    "event_size": "s"
+                  },
+                  "response_format": "event_list",
+                  "columns": []
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
               "y": 11,
               "width": 12,
               "height": 4
@@ -888,7 +1059,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 7,
+        "y": 6,
         "width": 12,
         "height": 16
       }

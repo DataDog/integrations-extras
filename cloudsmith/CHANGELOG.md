@@ -1,5 +1,17 @@
 # CHANGELOG - Cloudsmith
 
+### 1.1.0 / 2025-06-10
+
+***Added***:
+
+* Metrics support for configured quota limits.
+* Dashboard color updated to reflect Cloudsmith brand blue.
+
+***Fixed***:
+
+* API token no longer in risk via emitted events.
+* Logic improved to prevent duplicate license policy violation events.
+
 ### 1.0.0 / 2025-06-06
 
 ***Added***:

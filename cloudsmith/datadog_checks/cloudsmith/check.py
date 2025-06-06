@@ -21,6 +21,7 @@ LAST_VULNERABILITY_STAMP = 0
 LAST_AUDIT_LOG_STAMP = 0
 AUDIT_LOG_LAST_RUN = 0
 VULNERABILITY_LAST_RUN = 0
+LICENSE_VIOLATION_LAST_RUN = 0
 
 
 def audit_log_resp_good():
@@ -244,17 +245,27 @@ class CloudsmithCheck(AgentCheck):
         bandwidth_used = -1
         storage_mark = self.UNKNOWN
         bandwidth_mark = self.UNKNOWN
-        storage_used_bytes = -1
+        storage_peak_bytes = -1
+        storage_configured_bytes = -1
         storage_plan_limit_bytes = -1
         bandwidth_used_bytes = -1
         bandwidth_plan_limit_bytes = -1
+        bandwidth_configured_bytes = -1
 
         if "usage" in response_json and "raw" in response_json["usage"]:
+            # Extract raw bytes and plan limits using peak instead of used
+            storage_peak_bytes = response_json["usage"]["raw"]["storage"].get("peak", -1)
+            storage_configured_bytes = response_json["usage"]["raw"]["storage"].get("configured", -1)
+            storage_plan_limit_bytes = response_json["usage"]["raw"]["storage"].get("plan_limit", -1)
+            bandwidth_used_bytes = response_json["usage"]["raw"]["bandwidth"].get("used", -1)
+            bandwidth_plan_limit_bytes = response_json["usage"]["raw"]["bandwidth"].get("plan_limit", -1)
+            bandwidth_configured_bytes = response_json["usage"]["raw"]["bandwidth"].get("configured", -1)
+
             if (
                 "storage" in response_json["usage"]["raw"]
                 and "percentage_used" in response_json["usage"]["raw"]["storage"]
             ):
-                storage_used = response_json["usage"]["raw"]["storage"]["percentage_used"]
+                # compute storage_used below, but keep this for mark logic
                 storage_mark = self.OK
             else:
                 self.log.warning("Error when parsing JSON for storage usage")
@@ -266,20 +277,27 @@ class CloudsmithCheck(AgentCheck):
                 bandwidth_mark = self.OK
             else:
                 self.log.warning("Error when parsing JSON for bandwidth usage")
-            # New: extract raw bytes and plan limits
-            storage_used_bytes = response_json["usage"]["raw"]["storage"].get("used", -1)
-            storage_plan_limit_bytes = response_json["usage"]["raw"]["storage"].get("plan_limit", -1)
-            bandwidth_used_bytes = response_json["usage"]["raw"]["bandwidth"].get("used", -1)
-            bandwidth_plan_limit_bytes = response_json["usage"]["raw"]["bandwidth"].get("plan_limit", -1)
         else:
             self.log.warning("Error while parsing JSON for usage information")
 
-        # Add GB values
-        storage_used_gb = round(storage_used_bytes / (1024**3), 2) if storage_used_bytes != -1 else -1
+        # Update GB conversions using peak
+        storage_used_gb = round(storage_peak_bytes / (1024**3), 2) if storage_peak_bytes != -1 else -1
         storage_plan_limit_gb = round(storage_plan_limit_bytes / (1024**3), 2) if storage_plan_limit_bytes != -1 else -1
         bandwidth_used_gb = round(bandwidth_used_bytes / (1024**3), 2) if bandwidth_used_bytes != -1 else -1
         bandwidth_plan_limit_gb = (
             round(bandwidth_plan_limit_bytes / (1024**3), 2) if bandwidth_plan_limit_bytes != -1 else -1
+        )
+        # New: configured values in GB
+        storage_configured_gb = round(storage_configured_bytes / (1024**3), 2) if storage_configured_bytes != -1 else -1
+        bandwidth_configured_gb = (
+            round(bandwidth_configured_bytes / (1024**3), 2) if bandwidth_configured_bytes != -1 else -1
+        )
+
+        # Update percentage used: peak / configured * 100
+        storage_used = (
+            round((storage_peak_bytes / storage_configured_bytes) * 100, 3)
+            if (storage_peak_bytes != -1 and storage_configured_bytes != -1)
+            else -1
         )
 
         if storage_mark == self.OK:
@@ -299,7 +317,8 @@ class CloudsmithCheck(AgentCheck):
             "storage_used": storage_used,
             "bandwidth_mark": bandwidth_mark,
             "bandwidth_used": bandwidth_used,
-            "storage_used_bytes": storage_used_bytes,
+            # Note: for bytes, we keep the peak value for storage, and used for bandwidth
+            "storage_used_bytes": storage_peak_bytes,
             "storage_plan_limit_bytes": storage_plan_limit_bytes,
             "bandwidth_used_bytes": bandwidth_used_bytes,
             "bandwidth_plan_limit_bytes": bandwidth_plan_limit_bytes,
@@ -307,6 +326,11 @@ class CloudsmithCheck(AgentCheck):
             "storage_plan_limit_gb": storage_plan_limit_gb,
             "bandwidth_used_gb": bandwidth_used_gb,
             "bandwidth_plan_limit_gb": bandwidth_plan_limit_gb,
+            # Add configured bytes and GB
+            "storage_configured_bytes": storage_configured_bytes,
+            "bandwidth_configured_bytes": bandwidth_configured_bytes,
+            "storage_configured_gb": storage_configured_gb,
+            "bandwidth_configured_gb": bandwidth_configured_gb,
         }
         return usage_info
 
@@ -451,15 +475,15 @@ class CloudsmithCheck(AgentCheck):
         response_json = self.get_vuln_policy_violation_info()
         parsed = []
         for item in response_json.get("results", []):
+            scan = item.get("vulnerability_scan_results")
+            if not scan or not scan.get("has_vulnerabilities", False):
+                continue
+
             parsed.append(
                 {
                     "package": item["package"]["name"] if item.get("package") else "unknown",
                     "policy": item.get("policy", {}).get("name", "unknown"),
-                    "violations": (
-                        item["vulnerability_scan_results"]["num_vulnerabilities"]
-                        if item.get("vulnerability_scan_results")
-                        else 0
-                    ),
+                    "violations": scan.get("num_vulnerabilities", 0),
                     "last_detected": (
                         self.convert_time(item.get("event_at")) if item.get("event_at") else int(time.time())
                     ),
@@ -542,20 +566,34 @@ class CloudsmithCheck(AgentCheck):
             vulnerabilities_info = self.get_parsed_vulnerabilities_info()
         policy_violations_info = self.get_parsed_vuln_policy_violation_info()
         for v in policy_violations_info[: self.MAX_EVENTS]:
-            self.event(
-                {
-                    "timestamp": v["last_detected"],
-                    "event_type": "vulnerability_policy_violation",
-                    "msg_title": f"{v['violations']} policy violations for {v['package']}",
-                    "msg_text": f"Policy `{v['policy']}` triggered {v['violations']} violation(s).",
-                    "aggregation_key": "vulnerability_policy_violation",
-                    "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
-                }
-            )
+            event = {
+                "timestamp": v["last_detected"],
+                "event_type": "vulnerability_policy_violation",
+                "msg_title": f"{v['violations']} policy violations for {v['package']}",
+                "msg_text": (
+                    f"Package: {v['package']}\n"
+                    f"Policy: `{v['policy']}`\n"
+                    f"Violations: {v['violations']}\n"
+                    f"Detected at: {datetime.utcfromtimestamp(v['last_detected']).isoformat()}"
+                ),
+                "aggregation_key": "vulnerability_policy_violation",
+                "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
+                "host": self.hostname,
+            }
+            # Ensure tag and source_type_name
+            if "tags" not in event or not isinstance(event["tags"], list):
+                event["tags"] = self.tags + ["source:cloudsmith"]
+            elif "source:cloudsmith" not in event["tags"]:
+                event["tags"].append("source:cloudsmith")
+            if "source_type_name" not in event:
+                event["source_type_name"] = "cloudsmith"
+            self.event(event)
         license_violations_info = self.get_parsed_license_policy_violation_info()
-        for v in license_violations_info[: self.MAX_EVENTS]:
-            self.event(
-                {
+        global LICENSE_VIOLATION_LAST_RUN
+        current_time = int(time.time())
+        if (current_time - LICENSE_VIOLATION_LAST_RUN) > 300:
+            for v in license_violations_info[: self.MAX_EVENTS]:
+                event = {
                     "timestamp": v["last_detected"],
                     "event_type": "license_policy_violation",
                     "msg_title": f"License policy violation for {v['package']}",
@@ -563,27 +601,38 @@ class CloudsmithCheck(AgentCheck):
                     "aggregation_key": "license_policy_violation",
                     "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
                 }
-            )
+                if "tags" not in event or not isinstance(event["tags"], list):
+                    event["tags"] = self.tags + ["source:cloudsmith"]
+                elif "source:cloudsmith" not in event["tags"]:
+                    event["tags"].append("source:cloudsmith")
+                if "source_type_name" not in event:
+                    event["source_type_name"] = "cloudsmith"
+                self.event(event)
+            LICENSE_VIOLATION_LAST_RUN = current_time
         # Only send new vulnerabilities as events based on LAST_VULNERABILITY_STAMP
 
         if vulnerabilities_info and len(vulnerabilities_info) > 0:
             new_vulns = [v for v in vulnerabilities_info if v["created_at"] > LAST_VULNERABILITY_STAMP]
             for v in new_vulns[: self.MAX_EVENTS]:
-                self.event(
-                    {
-                        "timestamp": v["created_at"],
-                        "event_type": "vulnerabilities",
-                        "api_key": self.api_key,
-                        "msg_title": "{} vulnerability found in package: {} Version: {}".format(
-                            v["severity"], v["package_name"], v["package_version"]
-                        ),
-                        "msg_text": "Number of vulnerabilities: {}. Package URL: {}".format(
-                            v["num_vulnerabilities"], v["package_url"]
-                        ),
-                        "aggregation_key": "vulnerabilities",
-                        "tags": self.tags,
-                    }
-                )
+                event = {
+                    "timestamp": v["created_at"],
+                    "event_type": "vulnerabilities",
+                    "msg_title": "{} vulnerability found in package: {} Version: {}".format(
+                        v["severity"], v["package_name"], v["package_version"]
+                    ),
+                    "msg_text": "Number of vulnerabilities: {}. Package URL: {}".format(
+                        v["num_vulnerabilities"], v["package_url"]
+                    ),
+                    "aggregation_key": "vulnerabilities",
+                    "tags": self.tags,
+                }
+                if "tags" not in event or not isinstance(event["tags"], list):
+                    event["tags"] = self.tags + ["source:cloudsmith"]
+                elif "source:cloudsmith" not in event["tags"]:
+                    event["tags"].append("source:cloudsmith")
+                if "source_type_name" not in event:
+                    event["source_type_name"] = "cloudsmith"
+                self.event(event)
             if new_vulns:
                 max_created = max(v["created_at"] for v in new_vulns)
                 LAST_VULNERABILITY_STAMP = max_created
@@ -614,6 +663,11 @@ class CloudsmithCheck(AgentCheck):
             usage_info["bandwidth_plan_limit_gb"],
             tags=self.tags,
         )
+        # New: configured bytes and GB
+        self.gauge("cloudsmith.storage_configured_bytes", usage_info["storage_configured_bytes"], tags=self.tags)
+        self.gauge("cloudsmith.bandwidth_configured_bytes", usage_info["bandwidth_configured_bytes"], tags=self.tags)
+        self.gauge("cloudsmith.storage_configured_gb", usage_info["storage_configured_gb"], tags=self.tags)
+        self.gauge("cloudsmith.bandwidth_configured_gb", usage_info["bandwidth_configured_gb"], tags=self.tags)
         self.gauge("cloudsmith.token_count", entitlement_info["token_count"], tags=self.tags)
         self.gauge(
             "cloudsmith.token_bandwidth_total",
@@ -632,19 +686,23 @@ class CloudsmithCheck(AgentCheck):
         if LAST_AUDIT_LOG_STAMP < audit_log_info[0]["event_at"]:
             for a in audit_log_info[: self.MAX_EVENTS]:
                 if a["event_at"] > LAST_AUDIT_LOG_STAMP:
-                    self.event(
-                        {
-                            "timestamp": a["event_at"],
-                            "event_type": "audit logs",
-                            "api_key": self.api_key,
-                            "msg_title": "{} on Object: {} (Object Slug: {}".format(
-                                a["event"], a["object"], a["object_slug_perm"]
-                            ),
-                            "msg_text": "Actor: {} ({}) from {}".format(a["actor"], a["actor_kind"], a["city"]),
-                            "aggregation_key": "audit_log",
-                            "tags": self.tags,
-                        }
-                    )
+                    event = {
+                        "timestamp": a["event_at"],
+                        "event_type": "audit logs",
+                        "msg_title": "{} on Object: {} (Object Slug: {}".format(
+                            a["event"], a["object"], a["object_slug_perm"]
+                        ),
+                        "msg_text": "Actor: {} ({}) from {}".format(a["actor"], a["actor_kind"], a["city"]),
+                        "aggregation_key": "audit_log",
+                        "tags": self.tags,
+                    }
+                    if "tags" not in event or not isinstance(event["tags"], list):
+                        event["tags"] = self.tags + ["source:cloudsmith"]
+                    elif "source:cloudsmith" not in event["tags"]:
+                        event["tags"].append("source:cloudsmith")
+                    if "source_type_name" not in event:
+                        event["source_type_name"] = "cloudsmith"
+                    self.event(event)
             LAST_AUDIT_LOG_STAMP = audit_log_info[0]["event_at"]
 
         else:
@@ -717,16 +775,21 @@ class CloudsmithCheck(AgentCheck):
             f"Slug: {m.get('user', 'unknown')}"
             for m in unique_members
         )
-        self.event(
-            {
-                "timestamp": int(time.time()),
-                "event_type": "org_member_summary",
-                "msg_title": f"Organization Member Summary ({len(unique_members)} members)",
-                "msg_text": member_summary,
-                "aggregation_key": "org_members",
-                "tags": self.tags,
-            }
-        )
+        event = {
+            "timestamp": int(time.time()),
+            "event_type": "org_member_summary",
+            "msg_title": f"Organization Member Summary ({len(unique_members)} members)",
+            "msg_text": member_summary,
+            "aggregation_key": "org_members",
+            "tags": self.tags,
+        }
+        if "tags" not in event or not isinstance(event["tags"], list):
+            event["tags"] = self.tags + ["source:cloudsmith"]
+        elif "source:cloudsmith" not in event["tags"]:
+            event["tags"].append("source:cloudsmith")
+        if "source_type_name" not in event:
+            event["source_type_name"] = "cloudsmith"
+        self.event(event)
 
         # Add violation count gauges for license and vulnerability policy violations
         self.gauge("cloudsmith.license_policy_violation.count", len(license_violations_info), tags=self.tags)
