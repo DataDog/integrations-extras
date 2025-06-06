@@ -1,3 +1,4 @@
+import os
 import json
 import time
 from urllib.error import HTTPError
@@ -60,6 +61,10 @@ def test_check(
             "storage_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_gb": 100.0,
+            "storage_configured_bytes": 100000000000,
+            "storage_configured_gb": 100.0,
+            "bandwidth_configured_bytes": 100000000000,
+            "bandwidth_configured_gb": 100.0,
         }
     )
     check.get_parsed_entitlement_info = MagicMock(
@@ -111,6 +116,10 @@ def test_check(
     aggregator.assert_metric("cloudsmith.storage_plan_limit_gb", 100.0, count=1)
     aggregator.assert_metric("cloudsmith.storage_used_bytes", 914000000, count=1)
     aggregator.assert_metric("cloudsmith.storage_used_gb", 0.914, count=1)
+    aggregator.assert_metric("cloudsmith.storage_configured_bytes", 100000000000, count=1)
+    aggregator.assert_metric("cloudsmith.storage_configured_gb", 100.0, count=1)
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_bytes", 100000000000, count=1)
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_gb", 100.0, count=1)
     aggregator.assert_metric(
         "cloudsmith.member.active",
         1,
@@ -120,6 +129,7 @@ def test_check(
             "2fa:True",
             "base_url:https://api.cloudsmith.io/v1",
             "cloudsmith_org:cloudsmith",
+            "source:cloudsmith",
         ],
         count=1,
     )
@@ -159,6 +169,10 @@ def test_check_bad_usage(aggregator, instance_good, usage_resp_warning, usage_re
             "storage_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_gb": 100.0,
+            "storage_configured_bytes": 100000000000,
+            "storage_configured_gb": 100.0,
+            "bandwidth_configured_bytes": 100000000000,
+            "bandwidth_configured_gb": 100.0,
         }
     )
     check.get_parsed_entitlement_info = MagicMock(
@@ -188,6 +202,10 @@ def test_check_bad_usage(aggregator, instance_good, usage_resp_warning, usage_re
             "storage_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_bytes": 100000000000,
             "bandwidth_plan_limit_gb": 100.0,
+            "storage_configured_bytes": 100000000000,
+            "storage_configured_gb": 100.0,
+            "bandwidth_configured_bytes": 100000000000,
+            "bandwidth_configured_gb": 100.0,
         }
     )
     check.check(None)
@@ -217,6 +235,10 @@ def test_check_badly_formatted_json(aggregator, instance_good, entitlements_test
             "storage_plan_limit_bytes": -1,
             "bandwidth_plan_limit_bytes": -1,
             "bandwidth_plan_limit_gb": -1,
+            "storage_configured_bytes": -1,
+            "storage_configured_gb": -1,
+            "bandwidth_configured_bytes": -1,
+            "bandwidth_configured_gb": -1,
         }
     )
     check.get_parsed_entitlement_info = MagicMock(
@@ -268,6 +290,10 @@ def test_vulnerability_and_license_violations(
             "storage_plan_limit_bytes": -1,
             "bandwidth_plan_limit_bytes": -1,
             "bandwidth_plan_limit_gb": -1,
+            "storage_configured_bytes": -1,
+            "storage_configured_gb": -1,
+            "bandwidth_configured_bytes": -1,
+            "bandwidth_configured_gb": -1,
         }
     )
     check.get_parsed_entitlement_info = MagicMock(
@@ -316,6 +342,10 @@ def test_vulnerability_and_license_violations(
         "cloudsmith.member.readonly.count",
     ]:
         aggregator.assert_metric(metric)
+    aggregator.assert_metric("cloudsmith.storage_configured_bytes")
+    aggregator.assert_metric("cloudsmith.storage_configured_gb")
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_bytes")
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_gb")
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
@@ -344,6 +374,10 @@ def test_member_metrics_and_events(
             "storage_plan_limit_bytes": -1,
             "bandwidth_plan_limit_bytes": -1,
             "bandwidth_plan_limit_gb": -1,
+            "storage_configured_bytes": -1,
+            "storage_configured_gb": -1,
+            "bandwidth_configured_bytes": -1,
+            "bandwidth_configured_gb": -1,
         }
     )
     check.get_parsed_entitlement_info = MagicMock(
@@ -401,6 +435,16 @@ def test_member_metrics_and_events(
         "cloudsmith.member.readonly.count",
     ]:
         aggregator.assert_metric(metric)
+    # Assert the newly added metrics for configured storage and bandwidth
+    aggregator.assert_metric("cloudsmith.storage_configured_bytes", -1)
+    aggregator.assert_metric("cloudsmith.storage_configured_gb", -1)
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_bytes", -1)
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_gb", -1)
+    # Explicitly assert the four missing metrics to ensure coverage
+    aggregator.assert_metric("cloudsmith.storage_configured_bytes")
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_bytes")
+    aggregator.assert_metric("cloudsmith.storage_configured_gb")
+    aggregator.assert_metric("cloudsmith.bandwidth_configured_gb")
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
@@ -477,3 +521,83 @@ def test_get_api_json_exceptions(instance_good, mocker):
     mocker.patch("datadog_checks.base.utils.http.requests.get", return_value=MockBadResponse())
     with pytest.raises(json.JSONDecodeError):
         check.get_api_json("https://api.cloudsmith.io/v1/bad-json")
+
+
+# Additional test for 401 handling and fallback behavior in get_api_json()
+def test_api_json_401_and_fallbacks(instance_good, mocker):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    class Mock401Response:
+        def __init__(self):
+            self.status_code = 401
+
+        def json(self):
+            return {}
+
+    # Patch .http.get to return a mock 401 response for 'audit-log'
+    mocker.patch("datadog_checks.base.utils.http.requests.get", return_value=Mock401Response())
+
+    # Should return None and trigger fallback
+    audit_result = check.get_audit_log_info()
+    assert isinstance(audit_result, list)
+    assert audit_result[0]["event"] == "action.login"
+
+    # Also test for 'vulnerabilities'
+    result = check.get_vulnerabilities_info()
+    assert isinstance(result, list)
+    assert result[0]["package"]["name"] == "python"
+
+
+# --- Additional direct unit tests for public methods ---
+
+
+def test_get_full_path(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    path = check.get_full_path("/test/")
+    # Should end with "/test/cloudsmith" (os.sep safe)
+    assert path.replace("\\", "/").endswith("/test/cloudsmith")
+
+
+def test_convert_time(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    ts = check.convert_time("2023-01-01T00:00:00.000000Z")
+    assert isinstance(ts, int)
+    assert ts > 0
+
+
+def test_get_parsed_audit_log_info(instance_good, mocker):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    mocker.patch.object(
+        check,
+        'get_audit_log_info',
+        return_value=[
+            {
+                "actor": "a",
+                "actor_kind": "user",
+                "actor_location": {"city": "x"},
+                "event": "login",
+                "event_at": "2023-01-01T00:00:00.000000Z",
+                "object": "obj",
+                "object_slug_perm": "slug",
+            }
+        ],
+    )
+    parsed = check.get_parsed_audit_log_info()
+    assert isinstance(parsed, list)
+    assert parsed[0]["actor"] == "a"
+    assert parsed[0]["city"] == "x"
+    assert isinstance(parsed[0]["event_at"], int)
+
+
+def test_filter_vulnerabilities(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    results = [
+        {"max_severity": "High"},
+        {"max_severity": "Low"},
+        {"max_severity": "Critical"},
+    ]
+    filtered = check.filter_vulnerabilities(results, ["Critical", "High"])
+    assert len(filtered) == 2
+    severities = {item["max_severity"] for item in filtered}
+    assert "High" in severities
+    assert "Critical" in severities

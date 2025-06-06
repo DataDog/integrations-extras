@@ -1,5 +1,18 @@
 # CHANGELOG - Cloudsmith
 
+### 1.1.0 / 2025-06-10
+
+***Added***:
+* Metrics for configured quota limits:
+  - `cloudsmith.storage_configured_bytes`, `cloudsmith.storage_configured_gb`
+  - `cloudsmith.bandwidth_configured_bytes`, `cloudsmith.bandwidth_configured_gb`
+* All events now tagged with `source:cloudsmith` and include `source_type_name`.
+* Dashboard color updated to reflect Cloudsmith brand blue.
+
+***Fixed***:
+* API token no longer exposed in emitted events.
+* Logic improved to prevent duplicate license policy violation events.
+
 ### 1.0.0 / 2025-06-06
 
 ***Added***:
