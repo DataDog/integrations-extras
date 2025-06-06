@@ -1,0 +1,63 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "2aee627c-b49a-4cfb-829e-03121f6a7d3c",
+  "app_id": "resilience4j",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Resilience4j offers features like Circuit Breaker, Rate Limiter, Bulkhead, and Retry",
+    "title": "Resilience4j",
+    "media": [],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Category::Alerting",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://resilience4j.readme.io/docs/getting-started"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 33574225,
+      "source_type_name": "Resilience4j",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "resilience4j.",
+        "check": "resilience4j.circuitbreaker.state",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+        "resilience4j-overview": "assets/dashboards/resilience4j_overview.json"
+    },
+    "monitors": {
+      "Circuit Breaker State Alert": "assets/monitors/circuitbreaker_state_open.json",
+      "Circuit Breaker State Alert with Slow Calls": "assets/monitors/circuitbreaker_state_open_slow_calls.json"
+    }
+  },
+  "author": {
+    "support_email": "willianccs@gmail.com",
+    "name": "Willian César Cincerre da Silva",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "willian@appoena.io"
+  }
+}
