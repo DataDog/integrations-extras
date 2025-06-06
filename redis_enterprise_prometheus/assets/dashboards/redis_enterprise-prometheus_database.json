@@ -1,5 +1,5 @@
 {
-  "title": "Redis Enterprise: Prometheus - Database",
+  "title": "Redis Enterprise - Database v2",
   "description": "Redis Enterprise Databases are real-time, partitioned databases that use modules to provide additional functionality",
   "widgets": [
     {
@@ -284,19 +284,25 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:rdse2.endpoint_client_connections.count{$cluster,$database}.as_count()",
-                      "aggregator": "avg"
+                      "query": "sum:rdse2.endpoint_client_connections{$cluster,$database}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:rdse2.endpoint_client_disconnections{$cluster,$database}",
+                      "aggregator": "last"
                     }
                   ],
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1 - query2"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "precision": 2,
+              "precision": 0,
               "timeseries_background": {
                 "type": "bars"
               }
@@ -576,7 +582,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 14,
+        "y": 0,
         "width": 12,
         "height": 5,
         "is_column_break": true
@@ -691,7 +697,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 19,
+        "y": 5,
         "width": 12,
         "height": 5
       }
