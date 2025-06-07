@@ -1,0 +1,16 @@
+services:
+  warp:
+      image: public.ecr.aws/warpstream-labs/warpstream_agent:latest
+      ports:
+        - "8080:8080"
+      command:
+        - playground
+      environment:
+        # this is a no-op as it will default on the custom advertised hostname defined above, but you can change this if you want to use a different hostname with Kafka
+        - WARPSTREAM_DISCOVERY_KAFKA_HOSTNAME_OVERRIDE=warp
+      healthcheck:
+        # Wait for the Agent to finish setting up the demo before marking it as healthy
+        test: ["CMD", "sh", "-c", "sleep 10"]
+        interval: 5s
+        timeout: 15s
+        retries: 5
