@@ -34,33 +34,16 @@ class WarpstreamCheck(AgentCheck):
             response = self.http.get(url_warpstream_agent)
             response.raise_for_status()
 
-        except Timeout as e:
+        except Timeout:
             self.gauge('can_connect', 0, tags=tags)
-            self.service_check(
-                "can_connect",
-                AgentCheck.CRITICAL,
-                message="Request timeout: {}, {}".format(url_warpstream_agent, e),
-            )
             raise
 
-        except (HTTPError, InvalidURL, ConnectionError) as e:
+        except (HTTPError, InvalidURL, ConnectionError):
             self.gauge('can_connect', 0, tags=tags)
-            self.service_check(
-                "can_connect",
-                AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(url_warpstream_agent, e),
-            )
             raise
 
-        except ValueError as e:
+        except ValueError:
             self.gauge('can_connect', 0, tags=tags)
-            self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
             raise
-
-        else:
-            if response.status_code == 200:
-                self.service_check('can_connect', AgentCheck.OK, tags=tags)
-            else:
-                self.service_check('can_connect', AgentCheck.WARNING, tags=tags)
 
         self.gauge('can_connect', 1, tags=tags)

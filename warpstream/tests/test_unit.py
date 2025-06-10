@@ -30,7 +30,6 @@ def test_check(dd_run_check, aggregator, status_code, expected_healthy_status, e
 
         check.check(None)
 
-    aggregator.assert_service_check('warpstream.can_connect', expected_healthy_status, count=1)
     aggregator.assert_metric('warpstream.can_connect', expected_healthy_value, count=1)
 
     aggregator.assert_all_metrics_covered()

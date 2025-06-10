@@ -11,4 +11,3 @@ def test_service_check(aggregator, instance):
 
     # the check should send OK
     c.check(instance)
-    aggregator.assert_service_check('warpstream.can_connect', AgentCheck.OK, count=1)
