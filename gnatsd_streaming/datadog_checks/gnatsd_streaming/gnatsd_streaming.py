@@ -14,7 +14,7 @@ class GnatsdStreamingConfig:
         self.instance = instance
         self.host = instance.get('host', '')
         self.port = int(instance.get('port', 8222))
-        self.url = self.host + ':' + str(self.port) + '/streaming'
+        self.url = self.host + ':' + str(self.port) + '/jsz'
         self.server_name = instance.get('server_name', '')
         self.pagination_limit = instance.get('pagination_limit', 1024)
         self.tags = instance.get('tags', [])
