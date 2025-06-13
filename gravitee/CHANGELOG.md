@@ -1,6 +1,6 @@
 # CHANGELOG - Gravitee APIM
 
-## 0.0.1 / 2025-06-05
+## 0.0.1 / 2025-06-13
 
 _**Added**_:
 

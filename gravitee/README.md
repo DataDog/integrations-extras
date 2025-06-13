@@ -18,7 +18,7 @@ This integration includes a pre-built Datadog dashboard to support comprehensive
   ```yaml
 gateway:
   additionalPlugins:
-    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-4.3.0.zip
+    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-5.0.0.zip
 ```
 4. Create a [Datadog API Key][3].  You will need this when _configuring_ the Reporter in Gravitee.
 
@@ -62,7 +62,7 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ### In Gravitee
 
-1. To delete the Reporter, delete the `gravitee-reporter-datadog-4.3.0.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
+1. To delete the Reporter, delete the `gravitee-reporter-datadog-5.0.0.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
 2. To disable the Reporter, change the `reporters.datadog.enabled` attribute to `false` (in your Gravitee `values.yaml` file).
 
 ### In Datadog
@@ -76,7 +76,7 @@ Have feedback about the integration? Email Gravitee at <contact@graviteesource.c
 
 
 [1]: https://download.gravitee.io/#graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/
-[2]: https://documentation.gravitee.io/apim/4.3/overview/plugins#deployment
+[2]: https://documentation.gravitee.io/apim/getting-started/plugins
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [4]: https://docs.datadoghq.com/agent/?tab=Linux
 [5]: https://documentation.gravitee.io/apim/configure-apim/sensitive-data-management/configuration-level-secrets
