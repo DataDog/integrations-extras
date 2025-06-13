@@ -56,7 +56,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
@@ -77,7 +77,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "@appomni.event.kind:alert $SaaS_Service_Type $User_Name $Event_or_Alert"
+                        "query": "@appomni.event.kind:alert $User_Name"
                       },
                       "indexes": [
                         "*"
@@ -85,13 +85,12 @@
                       "group_by": [
                         {
                           "facet": "service",
-                          "limit": 15,
+                          "limit": 10,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc",
                             "metric": "count"
-                          },
-                          "should_exclude_missing": true
+                          }
                         }
                       ],
                       "compute": {
@@ -108,7 +107,7 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "line"
+                  "display_type": "bars"
                 }
               ]
             },
@@ -140,7 +139,7 @@
                       ],
                       "group_by": [
                         {
-                          "facet": "@status",
+                          "facet": "@appomni.evt.severity",
                           "limit": 10,
                           "sort": {
                             "aggregation": "count",
@@ -191,7 +190,7 @@
           {
             "id": 8715748622809484,
             "definition": {
-              "title": "Alers Count by User and Alert Rule",
+              "title": "Alerts Count by User and Alert Rule",
               "title_size": "16",
               "title_align": "left",
               "type": "query_table",
@@ -284,7 +283,7 @@
                       ],
                       "group_by": [
                         {
-                          "facet": "@mitre.attack.tactic.name",
+                          "facet": "@appomni.mitre.attack.tactic.name",
                           "limit": 30,
                           "sort": {
                             "aggregation": "count",
@@ -294,7 +293,7 @@
                           "should_exclude_missing": true
                         },
                         {
-                          "facet": "@mitre.attack.technique.name",
+                          "facet": "@appomni.mitre.attack.technique.name",
                           "limit": 30,
                           "sort": {
                             "aggregation": "count",
