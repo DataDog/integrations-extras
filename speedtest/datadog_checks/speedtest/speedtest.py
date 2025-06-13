@@ -1,6 +1,6 @@
 import json
-import subprocess
 import os
+import subprocess
 from typing import Any, Dict  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError
