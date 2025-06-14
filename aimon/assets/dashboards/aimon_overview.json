@@ -1,0 +1,621 @@
+{
+  "title": "AIMon Overview",
+  "description": "This should include the same copy as the high-level overview  in the About section of the dashboard including helpful links.\n\nClone this template dashboard to make changes and add your own graph widgets. ",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About AIMon",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "/api/v2/images/05417168-4250-4187-b908-dc668f2a13e2",
+              "url_dark_theme": "/api/v2/images/8c6d1f18-abef-4b3f-9453-f6ed425fd965",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 2
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high-level overview of different Accuracy, Tone, and Safety metrics AIMon computes with its evaluation models.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n\n- AIMon [Documentation](https://docs.aimon.ai/)\n- AIMon [Datadog Integration](https://docs.aimon.ai/integrations/Datadog/)\n\n\n",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 6
+      }
+    },
+    {
+      "id": 1841787583117786,
+      "definition": {
+        "title": "Overview",
+        "background_color": "pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 373500077442571,
+            "definition": {
+              "title": "Integration Health Check",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.health_check{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 2170623157134858,
+      "definition": {
+        "title": "Safety",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3573893644661365,
+            "definition": {
+              "title": "Toxicity",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.toxicity{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 3,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "Accuracy",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 214759781705903,
+            "definition": {
+              "title": "Hallucination",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.hallucination{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 107052992888272,
+            "definition": {
+              "title": "Instruction Adherence",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query7",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.instruction_adherence{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query7"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2482241155084287,
+            "definition": {
+              "title": "Retrieval Relevance",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query6",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.retrieval_relevance{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query6"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Tone",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5242055317690210,
+            "definition": {
+              "title": "Conciseness",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.conciseness{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2938582126528100,
+            "definition": {
+              "title": "Completeness",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.completeness{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7969599387113733,
+            "definition": {
+              "title": "Output Relevance",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.output_relevance{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 6858676905601227,
+      "definition": {
+        "title": "Logs (per Evaluation)",
+        "background_color": "gray",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5557941245350382,
+            "definition": {
+              "title": "AIMon Response Evaluation Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:aimon",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "host",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
