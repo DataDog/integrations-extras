@@ -29,6 +29,10 @@ class AerospikeEnterpriseCheck(OpenMetricsBaseCheckV2, ConfigMixin):
 
         return config
 
+    def check(self, _):
+        super().check(_)
+        # self.scrape_metrics()
+
     def configure_additional_transformers(self):
         # we are setting up the transformer for the metrics that are defined in the METRIC_NAME_PATTERN
         # Objective is to apply transformer to rename metric in datadog standard pattern
@@ -37,7 +41,9 @@ class AerospikeEnterpriseCheck(OpenMetricsBaseCheckV2, ConfigMixin):
         # aerospike_namespace_master_objects -> aerospike.namespace.master_objects
 
         for metric, data in METRIC_NAME_PATTERN.items():
-            self.scrapers[self.instance["openmetrics_endpoint"]].metric_transformer.add_custom_transformer(
+            self.scrapers[
+                self.instance["openmetrics_endpoint"]
+            ].metric_transformer.add_custom_transformer(
                 metric,
                 self.configure_transformer_for_metric(metric, **data),
                 pattern=True,
