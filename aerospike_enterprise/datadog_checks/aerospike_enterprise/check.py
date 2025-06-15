@@ -41,9 +41,7 @@ class AerospikeEnterpriseCheck(OpenMetricsBaseCheckV2, ConfigMixin):
         # aerospike_namespace_master_objects -> aerospike.namespace.master_objects
 
         for metric, data in METRIC_NAME_PATTERN.items():
-            self.scrapers[
-                self.instance["openmetrics_endpoint"]
-            ].metric_transformer.add_custom_transformer(
+            self.scrapers[self.instance["openmetrics_endpoint"]].metric_transformer.add_custom_transformer(
                 metric,
                 self.configure_transformer_for_metric(metric, **data),
                 pattern=True,
