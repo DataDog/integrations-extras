@@ -337,16 +337,6 @@ pipeline:
           target: ocsf.severity_id
           replaceMissing: false
         - type: attribute-remapper
-          name: Map `message` to `ocsf.message`
-          enabled: true
-          sources:
-            - message
-          sourceType: tag
-          target: ocsf.message
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
           name: Map `data.ip` to `ocsf.src_endpoint.ip`
           enabled: true
           sources:
@@ -378,12 +368,12 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `data.client_id` to `ocsf.actor.app.uid`
+          name: Map `data.client_id` to `ocsf.actor.app_uid`
           enabled: true
           sources:
             - data.client_id
           sourceType: attribute
-          target: ocsf.actor.app.uid
+          target: ocsf.actor.app_uid
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
@@ -453,7 +443,7 @@ pipeline:
       ocsf:
         isOcsf: true
       filter:
-        query: "@data.user_id:* @ocsf.metadata.event_code:(fce OR fcp OR fcph OR fcpn OR fcpr OR fcu OR fdu OR gd_otp_rate_limit_exceed OR organization_member_added OR sce OR scp OR scpn OR scpr OR scu OR sdu)"
+        query: "@data.user_id:* @ocsf.metadata.event_code:(fce OR fcp OR fcph OR fcpn OR fcpr OR fcu OR fdu OR gd_otp_rate_limit_exceed OR organization_member_added OR sce OR scp OR scpn OR scpr OR scu)"
       processors:
         - type: attribute-remapper
           name: Map `ocsf.metadata.event_code` to `ocsf.activity_name`
@@ -493,7 +483,7 @@ pipeline:
                 query: "@ocsf.metadata.event_code:(fcp OR fcpr OR scp OR scpr)"
               name: "Password Change"
             - filter:
-                query: "@ocsf.metadata.event_code:(fdu OR sdu)"
+                query: "@ocsf.metadata.event_code:fdu"
               name: "Delete"
           target: ocsf.activity_name
         - type: attribute-remapper
@@ -574,16 +564,6 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: grok-parser
-          name: Add user id
-          enabled: true
-          source: data.description
-          samples:
-            - "user_id: x7k9m2p4q5r8t3v6w1y0z9a2b4c6d8e"
-            - "user_id: ef187c9e-0de6-423a-9632-8da800e2f020"
-          grok:
-            supportRules: ""
-            matchRules: "parse_user_id user_id: %{notSpace:ocsf.user.uid}"
         - type: attribute-remapper
           name: Map `data.user_name` to `ocsf.user.name`
           enabled: true
@@ -594,6 +574,115 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
+    - type: pipeline
+      name: Auth0 OCSF sub pipeline for class Account Change [3001]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@data.description:*user_id* @ocsf.metadata.event_code:sdu"
+      processors:
+        - type: attribute-remapper
+          name: Map `ocsf.metadata.event_code` to `ocsf.activity_name`
+          enabled: true
+          sources:
+            - ocsf.metadata.event_code
+          sourceType: attribute
+          target: ocsf.activity_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: activity_id
+          enabled: true
+          categories:
+            - filter:
+                query: "@ocsf.metadata.event_code:sdu"
+              name: "6"
+            - filter:
+                query: "@ocsf.metadata.event_code:*"
+              name: "99"
+          target: ocsf.activity_id
+        - type: category-processor
+          name: activity_name
+          enabled: true
+          categories:
+            - filter:
+                query: "@ocsf.metadata.event_code:sdu"
+              name: "Delete"
+          target: ocsf.activity_name
+        - type: attribute-remapper
+          name: Map `ocsf.activity_id` to `ocsf.activity_id`
+          enabled: true
+          sources:
+            - ocsf.activity_id
+          sourceType: attribute
+          target: ocsf.activity_id
+          targetType: attribute
+          targetFormat: integer
+          preserveSource: false
+          overrideOnConflict: false
+        - type: string-builder-processor
+          name: Add category uid
+          enabled: true
+          template: "3"
+          target: ocsf.category_uid
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add category name
+          enabled: true
+          template: "Identity & Access Management"
+          target: ocsf.category_name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add class uid
+          enabled: true
+          template: "3001"
+          target: ocsf.class_uid
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add class name
+          enabled: true
+          template: "Account Change"
+          target: ocsf.class_name
+          replaceMissing: false
+        - type: category-processor
+          name: status_id
+          enabled: true
+          categories:
+            - filter:
+                query: "@ocsf.metadata.event_code:sdu"
+              name: "1"
+          target: ocsf.status_id
+        - type: category-processor
+          name: status_name
+          enabled: true
+          categories:
+            - filter:
+                query: "@ocsf.metadata.event_code:sdu"
+              name: "Success"
+          target: ocsf.status
+        - type: attribute-remapper
+          name: Map `ocsf.status_id` to `ocsf.status_id`
+          enabled: true
+          sources:
+            - ocsf.status_id
+          sourceType: attribute
+          target: ocsf.status_id
+          targetType: attribute
+          targetFormat: integer
+          preserveSource: false
+          overrideOnConflict: false
+        - type: grok-parser
+          name: Add user id
+          enabled: true
+          source: data.description
+          samples:
+            - "user_id: x7k9m2p4q5r8t3v6w1y0z9a2b4c6d8e"
+            - "user_id: ef187c9e-0de6-423a-9632-8da800e2f020"
+          grok:
+            supportRules: ""
+            matchRules: "parse_user_id user_id: %{notSpace:ocsf.user.uid}"
     # OCSF Authentication [3002] pipeline
     - type: pipeline
       name: Auth0 OCSF sub pipeline for class Authentication [3002]
