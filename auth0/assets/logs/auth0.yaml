@@ -580,7 +580,7 @@ pipeline:
       ocsf:
         isOcsf: true
       filter:
-        query: "@data.description:*user_id* @ocsf.metadata.event_code:sdu"
+        query: "@ocsf.metadata.event_code:sdu"
       processors:
         - type: attribute-remapper
           name: Map `ocsf.metadata.event_code` to `ocsf.activity_name`
@@ -677,6 +677,16 @@ pipeline:
           name: Add user id
           enabled: true
           source: data.description
+          samples:
+            - "user_id: x7k9m2p4q5r8t3v6w1y0z9a2b4c6d8e"
+            - "user_id: ef187c9e-0de6-423a-9632-8da800e2f020"
+          grok:
+            supportRules: ""
+            matchRules: "parse_user_id user_id: %{notSpace:ocsf.user.uid}"
+        - type: grok-parser
+          name: Add user id
+          enabled: true
+          source: message
           samples:
             - "user_id: x7k9m2p4q5r8t3v6w1y0z9a2b4c6d8e"
             - "user_id: ef187c9e-0de6-423a-9632-8da800e2f020"
