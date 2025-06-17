@@ -12,6 +12,8 @@ The integration includes dedicated dashboards that enable you to view Aerospike 
 NOTE: Supports both Community Edition 7.0 and Enterprise Edition 7.0, however few features and metrics are not availale in Community Edition
 NOTE: This may work with older Aerospike Server versions, but some metrics / stats will be missing.
 
+## Setup
+
 ### Installation
 
 The Aerospike check is included in the [Datadog Integration Extras][2] package.
