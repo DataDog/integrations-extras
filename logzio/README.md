@@ -45,6 +45,6 @@ Need help? Contact [Datadog support][5].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/import_alert_from_logz.jpg
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: /organization-settings/api-keys
 [4]: http://logz.io/blog/log-correlation-datadog
 [5]: https://docs.datadoghq.com/help/

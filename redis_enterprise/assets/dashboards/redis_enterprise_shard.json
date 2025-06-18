@@ -252,7 +252,13 @@
                   ],
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     }
                   ]
                 }
@@ -712,10 +718,9 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -725,20 +730,20 @@
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "second"
+                          "unit_name": "percent"
                         }
                       },
-                      "formula": "query1"
+                      "formula": "per_second(query1)"
                     },
                     {
                       "alias": "system",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "second"
+                          "unit_name": "percent"
                         }
                       },
-                      "formula": "query2"
+                      "formula": "per_second(query2)"
                     }
                   ],
                   "queries": [
@@ -783,16 +788,21 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
                     }
                   ],
                   "queries": [
@@ -824,7 +834,7 @@
           {
             "id": 2109398562975560,
             "definition": {
-              "title": "Main",
+              "title": "Main Thread",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -832,10 +842,9 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -845,20 +854,20 @@
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "second"
+                          "unit_name": "percent"
                         }
                       },
-                      "formula": "query1"
+                      "formula": "per_second(query1)"
                     },
                     {
                       "alias": "main - user",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "second"
+                          "unit_name": "percent"
                         }
                       },
-                      "formula": "query2"
+                      "formula": "per_second(query2)"
                     }
                   ],
                   "queries": [
@@ -921,10 +930,9 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -971,10 +979,9 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1030,10 +1037,9 @@
               "legend_columns": [
                 "avg",
                 "min",
-                "max",
-                "value",
-                "sum"
+                "max"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {

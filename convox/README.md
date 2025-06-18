@@ -60,7 +60,7 @@ Need help? Contact [Datadog support][4].
 
 Additional helpful documentation, links, and articles:
 
-- [Monitor your AWS ECS platform with Convox and Datadog][6]
+- [Monitor your Amazon ECS platform with Convox and Datadog][6]
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
 [2]: https://docs.convox.com/integrations/monitoring/datadog
