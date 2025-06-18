@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Added support for consumer group lag metrics. See [CORE-8915](https://github.com/redpanda-data/redpanda/pull/25216)
+* Added support for consumer group lag metrics. See [CORE-8915](https://github.com/redpanda-data/redpanda/pull/25216). 
 
 ## 2.0.0 / 2023-08-21
 
