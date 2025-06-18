@@ -92,6 +92,10 @@ INSTANCE_METRIC_GROUP_MAP = {
     'redpanda.kafka.consumer_group_offset': [
         'redpanda.kafka.group_offset',
     ],
+    'redpanda.kafka.consumer_group_lag': [
+        'redpanda.kafka.group_lag_sum',
+        'redpanda.kafka.group_lag_max',
+    ],
     'redpanda.memory': [
         'redpanda.memory.allocated_memory',
         'redpanda.memory.available_memory',
@@ -145,6 +149,7 @@ INSTANCE_DEFAULT_GROUPS = [
     'redpanda.kafka',
     'redpanda.kafka.consumer_group_info',
     'redpanda.kafka.consumer_group_offset',
+    'redpanda.kafka.consumer_group_lag',
     'redpanda.memory',
     'redpanda.partitions',
     'redpanda.raft',
