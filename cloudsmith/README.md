@@ -2,8 +2,16 @@
 
 ## Overview
 
-This check monitors [Cloudsmith][1] through the Datadog Agent.
-- Monitor storage, bandwidth and token usage in your Cloudsmith account. 
+Cloudsmith is a fully managed cloud-native package management platform, used to securely store, manage, and distribute software artifacts for DevOps teams. It supports all major formats including Docker, npm, Maven, Python, RubyGems, and more, with enterprise-grade access control, policy enforcement, and auditing.
+
+This integration enhances visibility into your Cloudsmith organization by collecting real-time observability data and surfacing it within the Datadog platform. Teams can monitor resource usage, enforce security compliance, and audit user activity-directly from within Datadog dashboards and monitors.
+
+The integration collects data from Cloudsmith's APIs and maps them to the following Datadog telemetry types:
+- **Metrics**: Storage and bandwidth usage, token activity, and active user metrics.
+- **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
+- **Service Checks**: Health status of quota consumption and API connectivity.
+
+With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
 
 
 ## Setup
@@ -17,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-cloudsmith==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-cloudsmith==1.0.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
@@ -44,21 +52,24 @@ See [service_checks.json][9] for a list of service checks provided by this integ
 
 ### Events
 
-All Cloudsmith related events collected appear within the Datadog Event Stream with the `source:cloudsmith` property. They are collected every five minutes to reduce the number of requests sent to the Cloudsmith API.
+All Cloudsmith-related events collected appear within the Datadog Event Explorer with the `source:cloudsmith` tag. Events are collected every five minutes to reduce the number of requests sent to the Cloudsmith API.
 
-There are two types of events:
+There are several types of events available:
 
-- Security Scan event
 - Audit Logs event
+- Security Scan event
+- Vulnerability Policy Violation event
+- License Policy Violation event
+- Organization Members summary
+- Quota (Raw Usage) Summary
 
-They are accessible with aggregation keys: `@aggregation_key:audit_log` and `@aggregation_key:vulnerabilities`.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Cloudsmith support][10].
 
 [1]: https://cloudsmith.com
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/datadog_checks/cloudsmith/data/conf.yaml.example
@@ -66,4 +77,4 @@ Need help? Contact [Cloudsmith support][10].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/assets/service_checks.json
-[10]: https://help.cloudsmith.io/docs/contact-us#live-chat-via-intercom
+[10]: https://support.cloudsmith.com/hc/en-us

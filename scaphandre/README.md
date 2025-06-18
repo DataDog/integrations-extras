@@ -54,7 +54,7 @@ Scaphandre does not include any events.
 Need help? Contact [Datadog support][4].
 
 [1]: https://github.com/hubblo-org/scaphandre
-[2]: https://app.datadoghq.com/account/settings/agent/latest
+[2]: /account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://docs.datadoghq.com/help/
 [5]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory

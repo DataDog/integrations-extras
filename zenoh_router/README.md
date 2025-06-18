@@ -80,7 +80,7 @@ Need help? Contact [Datadog support][9].
 
 [1]: https://zenoh.io/
 [2]: https://zenoh.io/docs/apis/rest/
-[3]: https://app.datadoghq.com/account/settings/agent/latest
+[3]: /account/settings/agent/latest
 [4]: https://github.com/DataDog/integrations-extras/blob/master/zenoh_router/datadog_checks/zenoh_router/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information

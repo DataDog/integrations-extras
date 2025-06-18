@@ -1,0 +1,1053 @@
+{
+  "title": "Inngest",
+  "description": "Monitor function execution, step performance, and request throughput for workflows orchestrated by Inngest.",
+  "widgets": [
+    {
+      "id": 8884767656227307,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn.inngest.com/datadog-integration/logo.png",
+        "sizing": "cover",
+        "has_background": true,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 5330133644061863,
+      "definition": {
+        "title": "Overview",
+        "background_color": "yellow",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7367601097802899,
+            "definition": {
+              "title": "Total function runs ended by status",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function} by {status}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "semantic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 5,
+              "height": 4
+            }
+          },
+          {
+            "id": 5755568484765953,
+            "definition": {
+              "title": "Function run failure rate",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:inngest.function_run.ended.total{$environment, $function, status:failed} by {function}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:inngest.function_run.ended.total{$environment, $function} by {function}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        },
+                        "unit_scale": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1 / query2 * 100"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "scaling": "absolute"
+              }
+            },
+            "layout": {
+              "x": 5,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3975260283021281,
+            "definition": {
+              "title": "Total failed runs by function",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:inngest.function_run.ended.total{$environment, $function, status:failed} by {function}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 5,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 9,
+        "height": 5
+      }
+    },
+    {
+      "id": 6223597170180378,
+      "definition": {
+        "type": "note",
+        "content": "Inngest is an orchestration platform that enables developers to develop, ship and scale reliable workflows that can run on any cloud.\n\nUse this dashboard to monitor execution of functions and steps and request throughput.\n\nUse the _environment_ and _function_ variables to quickly filter related metrics. ",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": 8248286924175014,
+      "definition": {
+        "title": "Steps",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 402139142187067,
+            "definition": {
+              "title": "Steps scheduled by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:inngest.steps.scheduled{$environment,$function} by {function}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8008418848301867,
+            "definition": {
+              "title": "Steps running by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.steps.running{$environment,$function} by {function}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1179658318233946,
+            "definition": {
+              "title": "Steps sleeping by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:inngest.steps.sleeping{$environment,$function} by {function}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6217195447245077,
+            "definition": {
+              "type": "note",
+              "content": "These metrics provide an overview of step execution including when steps are scheduled (enqueued), started (executing), and sleeping. \n\nA growing delta between scheduled and started may indicate a backlog due to flow control or concurrency limits potentially combined with slower execution.",
+              "background_color": "white",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 8693719405978467,
+      "definition": {
+        "title": "Function runs",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3298378799216157,
+            "definition": {
+              "title": "Function runs scheduled by environment",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.scheduled.total{$environment,$function} by {environment}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 679772795761125,
+            "definition": {
+              "title": "Function runs started by environment",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.started.total{$environment,$function} by {environment}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4311344820286367,
+            "definition": {
+              "title": "Function runs ended by status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function, status:completed}.as_count()"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function, status:skipped}.as_count()"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function, status:failed}.as_count()"
+                    },
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function, status:cancelled}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 3
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "style": {
+                        "palette": "classic",
+                        "palette_index": 0
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "style": {
+                        "palette": "warm",
+                        "palette_index": 4
+                      },
+                      "formula": "query3"
+                    },
+                    {
+                      "style": {
+                        "palette": "gray",
+                        "palette_index": 2
+                      },
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7710153505395751,
+            "definition": {
+              "title": "Function runs scheduled by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.scheduled.total{$environment,$function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4431457436913100,
+            "definition": {
+              "title": "Function runs started by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.started.total{$environment,$function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6142464444486548,
+            "definition": {
+              "title": "Function runs ended by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.ended.total{$environment,$function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6802258798673580,
+            "definition": {
+              "title": "Function runs rate limited by function",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.function_run.rate_limited.total{$environment, $function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7642037477239263,
+            "definition": {
+              "type": "note",
+              "content": "Key function run metrics:\n* **Scheduled** - When a function is successfully enqueued.\n* **Started** - When the queued function begins execution.\n* **Ended** - When the function execution ends.",
+              "background_color": "white",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8642113592120339,
+            "definition": {
+              "type": "note",
+              "content": "Function run ended statuses:\n* **Completed** - The function ran successfully.\n* **Cancelled** - The run was cancelled via event, API or bulk cancel.\n* **Failed** - All retries were consumed and the function failed permanently.\n* **Skipped** - The run was skipped due to flow control.",
+              "background_color": "white",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 14,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 1188873008208733,
+      "definition": {
+        "title": "SDK requests",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6109313981293792,
+            "definition": {
+              "title": "SDK requests scheduled",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.sdk.req_scheduled.total{$environment,$function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7921237429984853,
+            "definition": {
+              "title": "SDK requests started",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.sdk.req_started.total{$environment,$function} by {function}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6342620612200854,
+            "definition": {
+              "title": "SDK requests ended",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:inngest.sdk.req_ended.total{$environment,$function} by {function,status}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6291800666702316,
+            "definition": {
+              "type": "note",
+              "content": "SDK requests are outbound invocations sent to your applications to execute functions or steps.",
+              "background_color": "white",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 21,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "environment",
+      "prefix": "environment",
+      "default": "*"
+    },
+    {
+      "name": "function",
+      "prefix": "function",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
