@@ -108,12 +108,12 @@ pipeline:
       sources:
         - proxy.timestamp
     - type: trace-id-remapper
-      name: Trace Id Remapper
+      name: Define `traceId` as the official trace ID of the log
       enabled: true
       sources:
         - traceId
     - type: span-id-remapper
-      name: Span Id Remapper
+      name: Define `spanId` as the official span ID of the log
       enabled: true
       sources:
         - spanId
