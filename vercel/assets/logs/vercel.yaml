@@ -107,6 +107,16 @@ pipeline:
       enabled: true
       sources:
         - proxy.timestamp
+    - type: trace-id-remapper
+      name: Define `traceId` as the official trace ID of the log
+      enabled: true
+      sources:
+        - traceId
+    - type: span-id-remapper
+      name: Define `spanId` as the official span ID of the log
+      enabled: true
+      sources:
+        - spanId
 metrics:
   - name: vercel.functions.invocations
     query: source:vercel @source:lambda REPORT
