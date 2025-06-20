@@ -107,6 +107,16 @@ pipeline:
       enabled: true
       sources:
         - proxy.timestamp
+    - type: trace-id-remapper
+      name: Trace Id Remapper
+      enabled: true
+      sources:
+        - traceId
+    - type: span-id-remapper
+      name: Span Id Remapper
+      enabled: true
+      sources:
+        - spanId
 metrics:
   - name: vercel.functions.invocations
     query: source:vercel @source:lambda REPORT
