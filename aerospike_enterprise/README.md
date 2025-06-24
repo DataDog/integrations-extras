@@ -2,7 +2,7 @@
 
 ## Overview
 
-Aerospike Enterprise can push various metrics into Datadog to:
+Aerospike Enterprise can push various metrics into Datadog so you can:
 
 - Visualize key [Aerospike][1] metrics.
 - Correlate overall Aerospike performance with the rest of your applications.
