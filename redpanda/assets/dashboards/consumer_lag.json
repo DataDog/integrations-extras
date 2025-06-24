@@ -1,226 +1,354 @@
 {
-    "title": "Consumer Lag",
-    "description": "[[suggested_dashboards]]",
-    "widgets": [
-        {
-            "id": 5613612194856358,
+  "title": "Consumer Metrics",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 6280409881875622,
+      "definition": {
+        "title": "About Consumer Metrics",
+        "background_color": "orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8451764911745711,
             "definition": {
-                "title": "",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "time": {},
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "alias": "a",
-                                "formula": "exclude_null(query1)"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "name": "query1",
-                                "data_source": "metrics",
-                                "query": "sum:redpanda.kafka.partition_committed_offset{*} by {redpanda_topic}"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "order_by": "values",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "min": "-1"
-                }
+              "type": "image",
+              "url": "https://7733588.fs1.hubspotusercontent-na1.net/hubfs/7733588/Redpanda_Logo_Primary%20(2).png",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
             },
             "layout": {
-                "x": 0,
-                "y": 0,
-                "width": 4,
-                "height": 2
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 1
             }
-        },
-        {
-            "id": 4806429120428468,
+          },
+          {
+            "id": 2985289201554133,
             "definition": {
-                "title": "",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "time": {},
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "alias": "a",
-                                "formula": "exclude_null(query1)"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "name": "query1",
-                                "data_source": "metrics",
-                                "query": "sum:redpanda.kafka.group_lag_max{*} by {redpanda_group}"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "order_by": "values",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "min": "-1"
-                }
+              "type": "note",
+              "content": "This dashboard provides details about how your Redpanda \nconsumers are performing - monitoring the lag will tell you if they are keeping up with messages or getting behind.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
             },
             "layout": {
-                "x": 4,
-                "y": 0,
-                "width": 4,
-                "height": 2
+              "x": 2,
+              "y": 0,
+              "width": 6,
+              "height": 1
             }
-        },
-        {
-            "id": 967937420665096,
-            "definition": {
-                "title": "",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "time": {},
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "alias": "a",
-                                "formula": "exclude_null(query1)"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "name": "query1",
-                                "data_source": "metrics",
-                                "query": "sum:redpanda.kafka.group_offset{*} by {redpanda_group,redpanda_topic,redpanda_partition}"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "order_by": "values",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "min": "-1"
-                }
-            },
-            "layout": {
-                "x": 0,
-                "y": 2,
-                "width": 4,
-                "height": 2
-            }
-        },
-        {
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": 4375252804214122,
+      "definition": {
+        "title": "Lag",
+        "background_color": "orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
             "id": 1669608188096820,
             "definition": {
-                "title": "",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "time": {},
-                "type": "timeseries",
-                "requests": [
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
                     {
-                        "formulas": [
-                            {
-                                "alias": "a",
-                                "formula": "exclude_null(query1)"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "name": "query1",
-                                "data_source": "metrics",
-                                "query": "sum:redpanda.kafka.group_lag_sum{*} by {redpanda_group}"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "order_by": "values",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
+                      "alias": "a",
+                      "formula": "exclude_null(query1)"
                     }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "min": "-1"
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:redpanda.kafka.group_lag_sum{*} by {redpanda_group}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
                 }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "-1"
+              }
             },
             "layout": {
-                "x": 4,
-                "y": 2,
-                "width": 4,
-                "height": 2
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
             }
-        }
-    ],
-    "template_variables": [],
-    "layout_type": "ordered",
-    "notify_list": [],
-    "reflow_type": "fixed"
+          },
+          {
+            "id": 4806429120428468,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "a",
+                      "formula": "exclude_null(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:redpanda.kafka.group_lag_max{*} by {redpanda_group}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "-1"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 3372102136780334,
+      "definition": {
+        "title": "Legacy Metrics",
+        "background_color": "orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 967937420665096,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "a",
+                      "formula": "exclude_null(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:redpanda.kafka.group_offset{*} by {redpanda_group,redpanda_topic,redpanda_partition}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "-1"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5613612194856358,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "a",
+                      "formula": "exclude_null(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:redpanda.kafka.partition_committed_offset{*} by {redpanda_topic}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "-1"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 1971958123286418,
+      "definition": {
+        "title": "Notes",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2993435927881283,
+            "definition": {
+              "type": "note",
+              "content": "The charts within this dashboard use the new native lag metrics available in [Redpanda 25.1](https://docs.redpanda.com/current/get-started/release-notes/redpanda/#consumer-lag-gauges) onwards.\n\n---\n\nIn order to configure Redpanda to provide native lag metrics, use the following command:\n\n```sh\nrpk cluster config set enable_consumer_group_metrics '[\"group\", \"consumer_lag\"]'\n```\n\nThis can be reverted by running the following:\n\n```sh\nrpk cluster config set enable_consumer_group_metrics '[\"group\", \"partition\"]'\n```\n\n---\n\nIf you require both the original consumer group offsets and the native lag metrics to be published, you can configure Redpanda to publish both with this:\n\n```sh\nrpk cluster config set enable_consumer_group_metrics '[\"group\", \"partition\", \"consumer_lag\"]'\n```\n\n**Recommendation:** Only configure `\"partition\"` and `\"consumer_lag\"` when necessary for compatibility, since it will use increased resources within both Redpanda and Datadog.\n\n---\n\nSee the [documentation](https://docs.redpanda.com/current/manage/monitoring/#consumers) for more details.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 6
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
 }
