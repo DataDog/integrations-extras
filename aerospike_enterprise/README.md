@@ -30,7 +30,7 @@ To install the Aerospike enterprise check on your host:
 
 ### Configuration
 
-Below are the pre-requisites to configure and use Aerospike check for an Agent running on a host:
+Below are the prerequisites to configure and use the Aerospike check for an Agent running on a host:
 
 1. Install and configured the [Aerospike Prometheus Exporter][10]- refer to [Aerospike's documentation][11] for more details.
 
