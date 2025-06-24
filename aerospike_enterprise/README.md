@@ -32,7 +32,7 @@ To install the Aerospike enterprise check on your host:
 
 Below are the prerequisites to configure and use the Aerospike check for an Agent running on a host:
 
-1. Install and configured the [Aerospike Prometheus Exporter][10]- refer to [Aerospike's documentation][11] for more details.
+1. Install and configured the [Aerospike Prometheus Exporter][10]. Refer to [Aerospike's documentation][11] for more details.
 
 2. Edit the `aerospike_enterprise.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Aerospike performance data. See the [sample aerospike_enterprise.d/conf.yaml][4] for all available configuration options.
 
