@@ -40,8 +40,8 @@ Below are the prerequisites to configure and use the Aerospike check for an Agen
 
 ### Validation
 
-We can check if the Aerospike check is correctly configured and working, use below command
-"datadog-agent check aerospike_enterprise" - Refer to [Run Agent Status subcommand][6]
+Check that the Aerospike check is correctly configured and working with the command
+`datadog-agent check aerospike_enterprise`. Refer to [Run Agent Status subcommand][6].
 
 ## Data Collected
 
