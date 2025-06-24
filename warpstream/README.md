@@ -2,9 +2,7 @@
 
 ## Overview
 
-WarpStream is an Apache Kafka® compatible data streaming platform built directly on top of object storage.
-This integration will grant access to all the WarpStream agents key metrics, giving them insights both on the WarpStream agents health and performance.
-
+WarpStream is a data streaming platform compatible with Apache Kafka®, designed to run directly on object storage. This integration provides visibility into WarpStream agent performance by exposing key metrics, helping users monitor both health and performance.
 
 ## Setup
 

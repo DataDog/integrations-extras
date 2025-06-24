@@ -14,24 +14,18 @@
     "media": [
       {
         "media_type": "image",
+        "caption": "Datadog dashboard",
+        "image_url": "images/Screenshot 2025-04-04 at 08.59.06.jpg"
+      },
+      {
+        "media_type": "image",
         "caption": "WarpStream architecture",
         "image_url": "images/Frame 1 (4).png"
       },
       {
-        "media_type": "video",
-        "caption": "intro video",
-        "image_url": "images/video.jpg",
-        "vimeo_id": 123
-      },
-      {
         "media_type": "image",
-        "caption": "WarpStream BYOC model",
-        "image_url": "images/Screenshot 2025-04-04 at 09.00.33.jpg"
-      },
-      {
-        "media_type": "image",
-        "caption": "Datadog dashboard",
-        "image_url": "images/Screenshot 2025-04-04 at 08.59.06.jpg"
+        "caption": "WarpStream console",
+        "image_url": "images/Screenshot 2025-06-19 at 06.42.25.png"
       }
     ],
     "classifier_tags": [
@@ -54,10 +48,6 @@
       {
         "url": "https://www.warpstream.com/blog/kafka-is-dead-long-live-kafka",
         "resource_type": "blog"
-      },
-      {
-        "url": "https://www.warpstream.com/blog/the-original-sin-of-cloud-infrastructure",
-        "resource_type": "blog"
       }
     ]
   },
@@ -76,6 +66,7 @@
     "integration": {
       "source_type_name": "warpstream",
       "auto_install": true,
+      "configuration": {},
       "process_signatures": [],
       "metrics": {
         "prefix": "warpstream",
@@ -83,6 +74,9 @@
           "warpstream.can_connect"
         ],
         "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
