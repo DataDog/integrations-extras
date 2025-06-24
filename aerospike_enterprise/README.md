@@ -22,7 +22,7 @@ To install the Aerospike enterprise check on your host:
 
 1. Run the following command to install the integration [Community Integration] [12]:
 
-- For the Datadog Agent v7+:
+- For Datadog Agent versions 7 and later:
    ```shell
    agent integration install -t datadog-aerospike_enterprise==1.1.0
    ```
