@@ -9,8 +9,9 @@ Aerospike Enterprise can push various metrics into Datadog so you can:
 
 The integration includes dedicated dashboards that enable you to view Aerospike health and performance metrics. You can monitor throughput metrics, track the average latency of read/write operations over time, and create monitors that alert you on various critical metrics.
 
-NOTE: Supports both Community Edition 7.0 and Enterprise Edition 7.0, however few features and metrics are not availale in Community Edition
-NOTE: This may work with older Aerospike Server versions, but some metrics / stats will be missing.
+**Notes**:
+- Community Edition 7.0 and Enterprise Edition 7.0 are supported, but some features and metrics are not available in the Community Edition.
+- The integration may work with older Aerospike Server versions, but some metrics and stats are not available.
 
 ## Setup
 
