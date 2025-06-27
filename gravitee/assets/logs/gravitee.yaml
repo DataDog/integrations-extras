@@ -1,0 +1,19 @@
+id: gravitee
+metric_id: gravitee
+backend_only: false
+facets:
+  - description: The human-readable name of the API
+    facetType: list
+    groups:
+      - others
+    name: apiName
+    path: apiName
+    source: log
+    type: string
+pipeline:
+  type: pipeline
+  name: Gravitee APIM
+  enabled: true
+  filter:
+    query: source:gravitee
+  processors: []
