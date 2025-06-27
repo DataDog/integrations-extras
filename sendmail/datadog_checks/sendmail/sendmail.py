@@ -5,7 +5,6 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 
 class SendmailCheck(AgentCheck):
-
     SERVICE_CHECK_NAME = 'sendmail.returns.output'
 
     def check(self, instance):
@@ -37,7 +36,6 @@ class SendmailCheck(AgentCheck):
         return sendmail_command, use_sudo, tags
 
     def _get_sendmail_stats(self, sendmail_command, use_sudo):
-
         if not os.path.exists(sendmail_command):
             raise Exception('{} does not exist'.format(sendmail_command))
 
