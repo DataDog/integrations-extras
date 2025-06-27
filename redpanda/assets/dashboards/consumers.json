@@ -1,6 +1,6 @@
 {
-  "title": "Consumer Metrics",
-  "description": "[[suggested_dashboards]]",
+  "title": "Redpanda - Consumer Metrics",
+  "description": "## Purpose\n\nThis dashboard provides a **high-level overview** of how your consumers are performing, looking specifically at their lag.",
   "widgets": [
     {
       "id": 6280409881875622,
@@ -34,7 +34,7 @@
             "id": 2985289201554133,
             "definition": {
               "type": "note",
-              "content": "This dashboard provides details about how your Redpanda \nconsumers are performing - monitoring the lag will tell you if they are keeping up with messages or getting behind.",
+              "content": "This dashboard provides details about how your Redpanda \nconsumers are performing.\n\nThe new lag metrics need to be enabled (see the notes below) and require you to be running at least Redpanda 25.1.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -47,7 +47,7 @@
             "layout": {
               "x": 2,
               "y": 0,
-              "width": 6,
+              "width": 10,
               "height": 1
             }
           }
@@ -56,7 +56,7 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 8,
+        "width": 12,
         "height": 2
       }
     },
@@ -64,7 +64,7 @@
       "id": 4375252804214122,
       "definition": {
         "title": "Lag",
-        "background_color": "orange",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -72,7 +72,7 @@
           {
             "id": 1669608188096820,
             "definition": {
-              "title": "",
+              "title": "Total Lag (sum over all group members)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -84,6 +84,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -97,7 +98,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:redpanda.kafka.group_lag_sum{*} by {redpanda_group}"
+                      "query": "max:redpanda.kafka.group_lag_sum{*} by {redpanda_group}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -118,14 +119,14 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
+              "width": 6,
               "height": 2
             }
           },
           {
             "id": 4806429120428468,
             "definition": {
-              "title": "",
+              "title": "Maximum Lag (of a any single group member)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -137,6 +138,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -150,7 +152,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:redpanda.kafka.group_lag_max{*} by {redpanda_group}"
+                      "query": "max:redpanda.kafka.group_lag_max{*} by {redpanda_group}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -169,9 +171,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 6,
               "y": 0,
-              "width": 4,
+              "width": 6,
               "height": 2
             }
           }
@@ -179,8 +181,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 8,
+        "y": 2,
+        "width": 12,
         "height": 3
       }
     },
@@ -188,15 +190,15 @@
       "id": 3372102136780334,
       "definition": {
         "title": "Legacy Metrics",
-        "background_color": "orange",
+        "background_color": "gray",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 967937420665096,
+            "id": 5613612194856358,
             "definition": {
-              "title": "",
+              "title": "Highest Available Offsets",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -208,6 +210,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -221,7 +224,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:redpanda.kafka.group_offset{*} by {redpanda_group,redpanda_topic,redpanda_partition}"
+                      "query": "max:redpanda.kafka.partition_committed_offset{*} by {redpanda_topic,redpanda_partition}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -242,14 +245,14 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
+              "width": 6,
               "height": 2
             }
           },
           {
-            "id": 5613612194856358,
+            "id": 967937420665096,
             "definition": {
-              "title": "",
+              "title": "Consumer Group Committed Offsets",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -261,6 +264,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -274,7 +278,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:redpanda.kafka.partition_committed_offset{*} by {redpanda_topic}"
+                      "query": "max:redpanda.kafka.group_offset{*} by {redpanda_group,redpanda_topic,redpanda_partition}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -293,9 +297,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 6,
               "y": 0,
-              "width": 4,
+              "width": 6,
               "height": 2
             }
           }
@@ -303,8 +307,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 8,
+        "y": 5,
+        "width": 12,
         "height": 3
       }
     },
@@ -333,7 +337,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 8,
+              "width": 12,
               "height": 5
             }
           }
@@ -341,8 +345,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 8,
+        "y": 8,
+        "width": 12,
         "height": 6
       }
     }
