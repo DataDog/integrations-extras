@@ -203,7 +203,7 @@ class LogstashCheck(AgentCheck):
                     # skip internal pipelines like '.monitoring_logstash'
                     continue
                 metric_tags = list(config.tags)
-                metric_tags.append(u'pipeline_name:{}'.format(pipeline_name))
+                metric_tags.append('pipeline_name:{}'.format(pipeline_name))
                 self._process_pipeline_data(pipeline_data, metric_tags, logstash_version)
 
         self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK, tags=config.service_check_tags)
@@ -250,11 +250,11 @@ class LogstashCheck(AgentCheck):
             if not plugin_name:
                 plugin_name = 'unknown'
 
-            metrics_tags.append(u"{}:{}".format(tag_name, plugin_name))
+            metrics_tags.append("{}:{}".format(tag_name, plugin_name))
             if pipeline_name:
-                metrics_tags.append(u"pipeline_name:{}".format(pipeline_name))
+                metrics_tags.append("pipeline_name:{}".format(pipeline_name))
             if plugin_conf_id:
-                metrics_tags.append(u"plugin_conf_id:{}".format(plugin_conf_id))
+                metrics_tags.append("plugin_conf_id:{}".format(plugin_conf_id))
 
             for metric, desc in pipeline_plugins_metrics.items():
                 self._process_metric(plugin_data, metric, *desc, tags=metrics_tags)

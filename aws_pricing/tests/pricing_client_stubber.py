@@ -62,9 +62,7 @@ class PricingClientStubber:
                             }}
                         }}
                     }}
-                    '''.format(
-                        term_code, rate_code, unit, price
-                    )
+                    '''.format(term_code, rate_code, unit, price)
                 ]
             }
 

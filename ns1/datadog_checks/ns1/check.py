@@ -211,7 +211,6 @@ class Ns1Check(AgentCheck):
                 # find last timestamp that is >= last time stamp saved in file
                 res = sorted(graph, key=lambda x: x[0], reverse=True)
                 if res and len(res) > 0:
-
                     curr_timestamp = res[0][0]
                     curr_count = res[0][1]
 
@@ -329,7 +328,6 @@ class Ns1Check(AgentCheck):
             return None, False
 
     def extract_usage_count(self, key, jsonResult):
-
         try:
             graph = jsonResult[0]["graph"]
             # usage api will return array of dictionaries, we want to get 'graph' object

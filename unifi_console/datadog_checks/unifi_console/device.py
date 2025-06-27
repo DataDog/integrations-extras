@@ -62,7 +62,6 @@ class Device:
                 self.metrics.append(Gauge(m["key"], float(value), self.tags))
 
     def _get_uplink(self, device_info: dict) -> None:
-
         if "uplink" not in device_info:
             self.checks.append(Check("device.uplink", 2, self.tags))
             return

@@ -22,7 +22,6 @@ class PiholeCheck(AgentCheck):
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
         data, status_code = self._collect_response(url)
         if status_code == 200:  # else is after all the metrics
-
             if data.get("status"):
                 if data["status"] == 'enabled':
                     self.service_check('pihole.running', self.OK)

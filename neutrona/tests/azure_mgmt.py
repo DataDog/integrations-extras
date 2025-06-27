@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/subscriptions/my_subscription_id/providers/Microsoft.Network/expressRouteCircuits', methods=['GET'])
 def expressroute_circuits():
-
     if not request.args.get('api-version') == '2018-08-01':
         return 'error', 400
 

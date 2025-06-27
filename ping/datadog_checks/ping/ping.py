@@ -9,7 +9,6 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 
 class PingCheck(AgentCheck):
-
     SERVICE_CHECK_NAME = "network.ping.can_connect"
 
     def _load_conf(self, instance):

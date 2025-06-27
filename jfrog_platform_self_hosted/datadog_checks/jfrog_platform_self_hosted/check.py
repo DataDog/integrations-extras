@@ -9,14 +9,12 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
 
     def __init__(self, name, init_config, instances=None):
-
         instance = instances[0]
         instancetype = instance.get('instance_type')
         endpoint = instance.get('prometheus_url')
         if endpoint is None:
             raise ConfigurationError("Unable to find prometheus_url in config file.")
         if instancetype == 'artifactory':
-
             instance.update(
                 {
                     'prometheus_url': endpoint,
@@ -30,7 +28,6 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
             )
 
         elif instancetype == 'xray':
-
             instance.update(
                 {
                     'prometheus_url': endpoint,

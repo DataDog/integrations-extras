@@ -131,7 +131,6 @@ class SnmpwalkCheck(NetworkCheck):
 
         # Time to emit metrics
         for metric in metrics:
-
             # Build a list of dynamic tags per-index
             dynamic_tags = defaultdict(list)
             for metric_tag in metric.get('metric_tags', []):

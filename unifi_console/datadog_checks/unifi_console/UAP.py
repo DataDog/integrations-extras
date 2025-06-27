@@ -23,7 +23,6 @@ class UAP(Device):
     """UAP represents all the data from the Ubiquiti Controller for a Unifi Access Point."""
 
     def __init__(self, device_info: dict) -> None:
-
         self.custom_tags = tags
         self.custom_metrics = metrics
 

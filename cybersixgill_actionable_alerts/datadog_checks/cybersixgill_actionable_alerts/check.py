@@ -100,15 +100,14 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
                         event_dict["msg_text"] += f'Main CVE ID: {additional_info.get("cve_id")}\n'
                         event_dict["msg_text"] += f'CVE List: {additional_info.get("cve_list", [])}\n'
                         event_dict["msg_text"] += (
-                            f'CVE Link: "https://portal.cybersixgill.com/#/cve/'
-                            f'{additional_info.get("cve_id", "")}"\n '
+                            f'CVE Link: "https://portal.cybersixgill.com/#/cve/{additional_info.get("cve_id", "")}"\n '
                         )
-                        event_dict[
-                            "msg_text"
-                        ] += f'CVSS 3.1: {additional_info.get("nvd", {}).get("v3", {}).get("current")}\n'
-                        event_dict[
-                            "msg_text"
-                        ] += f'CVSS 2.0: {additional_info.get("nvd", {}).get("v2", {}).get("current")}\n'
+                        event_dict["msg_text"] += (
+                            f'CVSS 3.1: {additional_info.get("nvd", {}).get("v3", {}).get("current")}\n'
+                        )
+                        event_dict["msg_text"] += (
+                            f'CVSS 2.0: {additional_info.get("nvd", {}).get("v2", {}).get("current")}\n'
+                        )
                         event_dict["msg_text"] += f'DVE Score: {additional_info.get("score", {}).get("current")}\n'
                         attributes = []
                         attributes_dict = {}

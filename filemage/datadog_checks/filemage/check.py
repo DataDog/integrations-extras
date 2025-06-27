@@ -12,7 +12,7 @@ class FilemageCheck(AgentCheck):
     # this will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = NAMESPACE
     # the FTP commands that will be tracked via metric submissions
-    FTP_STATS_BASE = {x: 0.0 for x in FTP_TRACKED_CMDS}
+    FTP_STATS_BASE = dict.fromkeys(FTP_TRACKED_CMDS, 0.0)
 
     def __init__(self, name, init_config, instances):
         super(FilemageCheck, self).__init__(name, init_config, instances)

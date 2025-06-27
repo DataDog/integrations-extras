@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/client/', methods=['GET'])
 def expressroute_metrics():
-
     service_key = request.args.get('')
 
     if not service_key == 'my_service_key':

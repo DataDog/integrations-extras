@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/my_directory_id/oauth2/token', methods=['POST'])
 def auth_token():
-
     if not request.args.get('api-version') == '1.0':
         return 'error', 400
 

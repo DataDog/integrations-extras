@@ -37,7 +37,6 @@ def _timeformat(dt):
 
 
 class GoPprofScraperCheck(AgentCheck):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = "go_pprof_scraper"
 

@@ -8,7 +8,6 @@ from datadog_checks.kernelcare import KernelcareCheck
 
 @pytest.mark.unit
 def test_config():
-
     instance = {}
     c = KernelcareCheck('kernelcare', {}, [instance])
 
@@ -24,7 +23,6 @@ def test_config():
 
 @pytest.mark.integration
 def test_metric(aggregator, dd_environment, monkeypatch):
-
     URL = dd_environment['URL']
 
     with monkeypatch.context() as m:

@@ -42,7 +42,6 @@ APIDevMgrPath = APICommandPath + "/devmgr"
 
 class ControllerInfo(object):
     def __init__(self, about_info: SimpleNamespace) -> None:
-
         if "up" in about_info["meta"]:
             self.up = about_info["meta"]["up"]
         elif "rc" in about_info["meta"]:

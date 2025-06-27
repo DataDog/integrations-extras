@@ -6,7 +6,6 @@ from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
 
 class RedisCloudCheck(OpenMetricsBaseCheckV2):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'rdsc'
 

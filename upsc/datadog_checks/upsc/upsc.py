@@ -11,7 +11,6 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'upsc'
 
 
 class UpscCheck(AgentCheck):
-
     DEV_NULL = open(os.devnull, 'w')
     DEFAULT_STRING_TAGS = ['device.mfr', 'device.model']
     DEFAULT_EXCLUDED_TAGS = ['ups.vendorid', 'ups.productid', 'driver.version.internal', 'driver.version']
@@ -88,7 +87,6 @@ class UpscCheck(AgentCheck):
         self.update_from_config(instance)
 
         for device in self.list_ups_devices():
-
             if device not in self.excluded_devices:
                 excluded = False
                 for r in self.excluded_devices_re:

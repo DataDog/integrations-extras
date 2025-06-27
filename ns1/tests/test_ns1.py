@@ -23,7 +23,6 @@ def test_no_key(aggregator, instance_nokey):
 
 
 def test_no_metrics(aggregator, instance_nometrics):
-
     with pytest.raises(ConfigurationError):
         _ = Ns1Check('ns1', {}, [instance_nometrics])
 

@@ -44,7 +44,6 @@ def test_check(
     members_resp,
     mocker,
 ):
-
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_parsed_usage_info = MagicMock(
         return_value={

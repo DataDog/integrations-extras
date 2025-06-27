@@ -39,7 +39,6 @@ def smart_retry(f: Callable) -> CallableT:
         try:
             return f(api_instance, *args, **kwargs)
         except Unauthorized as e:
-
             api_instance.log.debug(
                 "An exception occurred when executing %s: %s. Refreshing the connection to the Controller and retrying",
                 f.__name__,

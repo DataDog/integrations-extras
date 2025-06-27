@@ -6,7 +6,6 @@ from .metrics import METRIC_MAP
 
 
 class RobustIntelligenceAiFirewallCheck(OpenMetricsBaseCheckV2):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'robust_intelligence_ai_firewall'
 

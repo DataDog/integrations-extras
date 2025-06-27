@@ -14,7 +14,6 @@ INSTANCE = {
 
 @pytest.fixture(scope="session")
 def dd_environment():
-
     with docker_run(os.path.join(DOCKER_DIR, "docker-compose.yaml"), endpoints=URL):
         yield INSTANCE
 
