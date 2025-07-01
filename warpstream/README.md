@@ -8,31 +8,35 @@ WarpStream is a data streaming platform compatible with Apache Kafka®, designed
 
 ### Installation
 
-All steps below are needed for the Warpstream integration to work properly. Before you begin, [install the Datadog Agent][1] version `>=6.17` or `>=7.17`.
+[Install the Datadog Agent][1] version `>=6.17` or `>=7.17`.
 
 ### Configuration
 
-There are two parts of the Warpstream integration:
+Complete all of the following steps to ensure the WarpStream integration works properly.
 
--   The Datadog Agent portion, which makes requests to a provided endpoint for Warpstream agent to report whether it can connect and is healthy.
--   The Warpstream StatsD portion, where Warpstream Agent can be configured to send metrics to the Datadog Agent.
+There are two parts of the WarpStream integration:
 
-The Warpstream integration's [metrics][2] come from both the Agent and StatsD portions.
+-   The **Datadog Agent** portion, which makes requests to a provided endpoint for the WarpStream agent to report whether it can connect and is healthy.
 
-##### Configure Datadog Agent Warpstream integration
+-   The **WarpStream StatsD** portion, where WarpStream Agent can be configured to send metrics to the Datadog Agent.
 
-Configure the Warpstream check included in the [Datadog Agent][3] package to collect health metrics and service checks. This can be done by editing the `url` within the `warpstream.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting your Warpstream service checks. See the [sample warpstream.d/conf.yaml][4] for all available configuration options.
+The WarpStream integration's [metrics][2] come from both the Agent and StatsD portions.
 
-Ensure that `url` matches your Warspstream Agent HTTP server (port 8080 by default).
+##### Configure Datadog Agent WarpStream integration
 
-##### Connect Warpstream Agent to DogStatsD
+Configure the WarpStream check included in the [Datadog Agent][3] package to collect health metrics and service checks. This can be done by editing the `url` within the `warpstream.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting your WarpStream service checks. See the [sample warpstream.d/conf.yaml][4] for all available configuration options.
 
-Start the agent with the flag `-enableDatadogMetrics` or set the environment variable `WARPSTREAM_ENABLE_DATADOG_METRICS` to `true`.
+Ensure that `url` matches your WarpStream Agent HTTP server (port 8080 by default).
 
-##### Restart Datadog Agent and Warpstream
+##### Connect WarpStream Agent to DogStatsD
 
-1.  [Restart the Agent][5].
-2.  Restart Warpstream agent to start sending your WarpStream metrics to the Agent DogStatsD endpoint.
+Start the agent with the flag `-enableDatadogMetrics` or set the environment variable `WARPSTREAM_ENABLE_DATADOG_METRICS` to `true`.
+
+##### Restart Datadog Agent and WarpStream
+
+1. [Restart the Agent][5].
+
+2. Restart the WarpStream agent to start sending your WarpStream metrics to the Agent DogStatsD endpoint.
 
 ## Uninstallation
 
