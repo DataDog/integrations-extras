@@ -1,8 +1,8 @@
 # CHANGELOG - Gatling Enterprise
 
-## 1.0.1 / 2025-07-01
+## 1.1.0 / 2025-07-02
 
-**Added:**
+_**Added**_:
 - TCP metrics (open, close, connect time)
 - TLS metrics (count, handshake time)
 - Requests and responses bandwidth usage in bits
