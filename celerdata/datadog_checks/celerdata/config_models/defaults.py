@@ -9,7 +9,7 @@ def instance_allow_redirects():
 
 
 def instance_auth_type():
-    return "basic"
+    return 'basic'
 
 
 def instance_cache_metric_wildcards():
@@ -49,7 +49,7 @@ def instance_ignore_connection_errors():
 
 
 def instance_kerberos_auth():
-    return "disabled"
+    return 'disabled'
 
 
 def instance_kerberos_delegate():

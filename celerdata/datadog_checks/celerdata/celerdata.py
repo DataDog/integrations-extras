@@ -3,7 +3,7 @@ from datadog_checks.celerdata.metrics import METRIC_MAP
 
 
 class CelerdataCheck(OpenMetricsBaseCheckV2):
-    __NAMESPACE__ = "celerdata"
+    __NAMESPACE__ = 'celerdata'
 
     def __init__(self, name, init_config, instances):
         super(CelerdataCheck, self).__init__(name, init_config, instances)
@@ -13,6 +13,6 @@ class CelerdataCheck(OpenMetricsBaseCheckV2):
         Returns the default OpenMetrics configuration.
         """
         return {
-            "metrics": [METRIC_MAP],
-            "exclude_metrics": [r".*8060.*"],
+            'metrics': [METRIC_MAP],
+            'exclude_metrics': [r'.*8060.*'],
         }
