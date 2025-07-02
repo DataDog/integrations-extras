@@ -3368,3 +3368,9 @@ kafka_producer_record_queue_time_avg{clientId="connectors-cluster--offsets",inst
 kafka_consumer_coordinator_join_total{clientId="connectors-cluster--offsets",instance="10.0.0.32:9404"} 0
 kafka_consumer_coordinator_join_total{clientId="connectors-cluster--configs",instance="10.0.0.32:9404"} 0
 kafka_consumer_coordinator_join_total{clientId="connectors-cluster--statuses",instance="10.0.0.32:9404"} 0
+# HELP redpanda_kafka_consumer_group_lag_max Maximum consumer group lag across topic-partitions
+# TYPE redpanda_kafka_consumer_group_lag_max gauge
+redpanda_kafka_consumer_group_lag_max{redpanda_group="foogroup",shard=""} 0.000000
+# HELP redpanda_kafka_consumer_group_lag_sum Sum of consumer group lag for all topic-partitions
+# TYPE redpanda_kafka_consumer_group_lag_sum gauge
+redpanda_kafka_consumer_group_lag_sum{redpanda_group="foogroup",shard=""} 0.000000
