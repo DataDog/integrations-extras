@@ -1,5 +1,11 @@
 # CHANGELOG - PureFA
 
+## 1.2.1/ 2025-07-2
+
+***Added***:
+
+* Added support for the native FlashArray OpenMetrics exporter, included with Purity //FA 6.7.0+. 
+
 ## 1.2.0/ 2023-11-13
 
 ***Added***:
