@@ -3,10 +3,10 @@
 ## 1.1.0 / 2025-07-02
 
 _**Added**_:
-- TCP metrics (open, close, connect time)
-- TLS metrics (count, handshake time)
-- Requests and responses bandwidth usage in bits
-- Response code
+* TCP metrics (open, close, connect time)
+* TLS metrics (count, handshake time)
+* Requests and responses bandwidth usage in bits
+* Response code
 
 ## 1.0.0 / 2025-05-27
 
