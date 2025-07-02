@@ -4,7 +4,7 @@
 
 **AIMon provides tools to improve large language models (LLMs) by detecting issues like hallucinations, instruction adherence, retrieval relevance in real-time. Its models help ensure LLM outputs are accurate, relevant, and safe for use in production environments.**
 
-This integration surfaces key response metrics, including hallucination, instruction adherence, context relevance, completeness, conciseness, and toxicity; to help teams improve output quality and build more reliable AI-driven systems.
+This integration surfaces key response metrics, including hallucination, instruction adherence, context relevance, completeness, conciseness, and toxicity to help teams improve output quality and build more reliable AI-driven systems.
 
 With Datadog, AIMon metrics are visualized in real-time or asynchronously, enabling faster detection of anomalies, better prompt evaluation, and continuous tuning of LLM pipelines. Whether you're deploying in production or testing in R&D, this integration brings AI observability directly into your monitoring stack.
 
@@ -12,10 +12,11 @@ In addition to metric visualization, the integration logs rich metadata associat
 
 ## Setup
 
-1. Ensure you're logged into the Datadog platform to streamline the integration process.
-2. Log in to your account on the [AIMon app][1].
-3. Navigate to the Integrations tab.
-4. Toggle on the Datadog integration. If you're not already logged into Datadog, you'll be prompted to do so to authorize the connection.
+1. Within Datadog, navigate to the **Integrations** page and select **AIMon**.
+2. Click **Install Integration**, then select **Connect Accounts**. You will be redirected to [AIMon][1] login page.
+3. Log in to your AIMon account using your credentials or continue with Google.
+4. You will be redirected to the `/integrations` tab on AIMon.
+5. Toggle on the **Datadog** integration to enable the connection.
 
 > Note: If your organization already has a Datadog API key and an AIMon account, you **must** register under the **same company name** in AIMon. This is typically the one set up by your organization's admin. Using a different company name will result in an error, as AIMon requires a one-to-one mapping between companies and Datadog organizations.
 
