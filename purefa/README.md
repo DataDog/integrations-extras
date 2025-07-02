@@ -39,7 +39,7 @@ Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Da
 
 **Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
-#### For use with the native OpenMetrics Exporter (Purity //FA 6.7.0+)
+#### For use with the native Pure Storage OpenMetrics Exporter (Purity //FA 6.7.0+)
 ```yaml
 init_config:
    timeout: 60
@@ -105,7 +105,7 @@ instances:
     # tls_ignore_warning: true
 ```
 
-#### For use with the external OpenMetrics Exporter [Pure Storage OpenMetrics exporter][1]
+#### For use with the external [Pure Storage OpenMetrics exporter][1]
 ```yaml
 init_config:
    timeout: 60
