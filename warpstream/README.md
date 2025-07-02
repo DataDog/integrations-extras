@@ -40,8 +40,9 @@ Start the agent with the flag `-enableDatadogMetrics` or set the environment var
 
 ## Uninstallation
 
-1. Remove the integration yaml config file and restart the Datadog agent
-2. Unset the `-enableDatadogMetrics` flag and restart the WarpStream agent
+1. Remove the integration yaml config file and restart the Datadog Agent.
+
+2. Unset the `-enableDatadogMetrics` flag and restart the WarpStream Agent.
 
 ## Support
 
