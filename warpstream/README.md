@@ -18,7 +18,7 @@ There are two parts of the WarpStream integration:
 
 -   The **Datadog Agent** portion, which makes requests to a provided endpoint for the WarpStream agent to report whether it can connect and is healthy.
 
--   The **WarpStream StatsD** portion, where WarpStream Agent can be configured to send metrics to the Datadog Agent.
+-   The **WarpStream StatsD** portion, where the WarpStream Agent can be configured to send metrics to the Datadog Agent.
 
 The WarpStream integration's [metrics][2] come from both the Agent and StatsD portions.
 
