@@ -11,7 +11,6 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class CfsslCheck(AgentCheck):
-
     SERVICE_CHECK_CONNECT_NAME = 'cfssl.can_connect'
     SERVICE_CHECK_HEALTH_NAME = 'cfssl.health'
 

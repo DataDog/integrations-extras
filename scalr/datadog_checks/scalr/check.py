@@ -12,7 +12,6 @@ SCALR_ACCESS_TOKEN_PARAM = "access_token"
 
 
 class ScalrCheck(AgentCheck):
-
     __NAMESPACE__ = "scalr"
 
     SERVICE_CHECK_NAME = "can_connect"
@@ -41,7 +40,6 @@ class ScalrCheck(AgentCheck):
         self.account_id = self._get_account_id()
 
     def check(self, instance):
-
         try:
             response_json = self._get_json(SCALR_DD_METRICS_ENDPOINT.format(self.url, self.account_id))
 
