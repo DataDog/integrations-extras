@@ -10,7 +10,6 @@ from datadog_checks.base import AgentCheck
 
 
 class RebootRequiredCheck(AgentCheck):
-
     REBOOT_SIGNAL_FILE = '/var/run/reboot-required'
     CREATED_AT_FILE = '/var/run/dd-agent/reboot-required.created_at'
 
@@ -19,7 +18,6 @@ class RebootRequiredCheck(AgentCheck):
         self.service_check('system.reboot_required', status, message=msg)
 
     def _check(self, instance):
-
         reboot_signal_file = instance.get('reboot_signal_file', self.REBOOT_SIGNAL_FILE)
         created_at_file = instance.get('created_at_file', self.CREATED_AT_FILE)
         warning_days = int(instance.get('days_warning', 7))

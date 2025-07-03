@@ -28,7 +28,6 @@ class RedisSentinelCheck(AgentCheck):
         return host, port, passwd
 
     def check(self, instance):
-
         host, port, password = self._load_config(instance)
 
         redis_conn = redis.StrictRedis(host=host, port=port, password=password, db=0)
