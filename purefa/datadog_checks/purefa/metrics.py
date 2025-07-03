@@ -49,7 +49,7 @@ METRIC_MAP = [
         "purefa_pod_performance_average_bytes": {"name": "pod.performance_average_bytes"},
         "purefa_pod_performance_replication_bandwidth_bytes": {"name": "pod.performance_replication_bandwidth_bytes"},
         "purefa_pod_performance_throughput_iops": {"name": "pod.performance_throughput_iops"},
-        "purefa_pod_replica_links_lag_average_sec": {"name": "pod.replica_links_lag_average_msec"},
+        "purefa_pod_replica_links_lag_average_msec": {"name": "pod.replica_links_lag_average_msec"},
         "purefa_pod_replica_links_lag_average_sec": {"name": "pod.replica_links_lag_average_sec"},
         "purefa_pod_replica_links_lag_max_msec": {"name": "pod.replica_links_lag_max_msec"},
         "purefa_pod_replica_links_lag_max_sec": {"name": "pod.replica_links_lag_max_sec"},
