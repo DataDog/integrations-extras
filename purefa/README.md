@@ -12,7 +12,8 @@ You can monitor multiple FlashArrays and aggregate these into a single dashboard
 
  - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
- - The Pure Storage OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions. (On FlashArrays running Purity //FA version 6.7.0 and higher the OpenMetrics exporter natively runs on the array, see Configuration for details)
+ - The Pure Storage OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions. 
+   - On FlashArrays running Purity //FA version 6.7.0 and higher the OpenMetrics exporter natively runs on the array, see Configuration for details
 
 ## Setup
 
@@ -39,7 +40,7 @@ Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Da
 
 **Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
-#### For use with the native Pure Storage OpenMetrics Exporter (Purity //FA 6.7.0+)
+#### (Preferred) For use with the native Pure Storage OpenMetrics Exporter (Purity //FA 6.7.0+)
 ```yaml
 init_config:
    timeout: 60
@@ -105,7 +106,7 @@ instances:
     # tls_ignore_warning: true
 ```
 
-#### For use with the external [Pure Storage OpenMetrics exporter][1]
+#### For use with the external [Pure Storage OpenMetrics exporter][1] (Purity //FA <6.7.0)
 ```yaml
 init_config:
    timeout: 60
