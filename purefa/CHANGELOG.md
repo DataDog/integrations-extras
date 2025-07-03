@@ -15,7 +15,6 @@
 * Fixed the incorrect metric name `purefa.pod.replica_links_lag_max_sec` to `purefa.pod.replica_links_lag_max_msec` metric introduced in `pure-fa-openmetrics-exporter v1.0.18`.
 * Fixed the incorrect metric name `purefa.pod.replica_links_lag_average_sec` to `purefa.pod.replica_links_lag_average_msec` metric introduced in `pure-fa-openmetrics-exporter v1.0.18`.
 
-
 ## 1.2.0/ 2023-11-13
 
 ***Added***:
