@@ -8,7 +8,6 @@ from datadog_checks.unifi_console.unifi import Unifi
 
 
 class UnifiConsoleCheck(AgentCheck):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = "unifi_console"
 
@@ -43,7 +42,6 @@ class UnifiConsoleCheck(AgentCheck):
             raise
 
     def check(self, _):
-
         # Assert the health of the Unifi API by getting the status, and submit the service_check accordingly
         status = cast(ControllerInfo, None)
         try:

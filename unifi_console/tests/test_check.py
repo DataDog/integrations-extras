@@ -92,7 +92,6 @@ def test_get_clients_info_fails(aggregator, dd_run_check, instance):
 
 @pytest.mark.usefixtures("mock_api")
 def test__submit_healthy_metrics(aggregator, instance):
-
     check = UnifiConsoleCheck("unifi", {}, [instance])
 
     info = "test"
