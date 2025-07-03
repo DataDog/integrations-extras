@@ -35,6 +35,8 @@ METRIC_MAP = [
         "purefa_hw_component_status": {"name": "hw.component_status"},
         "purefa_hw_component_temperature_celsius": {"name": "hw.component_temperature_celsius"},
         "purefa_hw_component_voltage_volt": {"name": "hw.component_voltage_volt"},
+        "purefa_hw_controller_mode_since_timestamp_seconds": {"name": "hw.controller_mode_since_timestamp_seconds"},
+        "purefa_hw_controller_info": {"name": "hw.controller_info"},
         "purefa_network_interface_performance_bandwidth_bytes": {
             "name": "network.interface_performance_bandwidth_bytes"
         },
@@ -42,10 +44,14 @@ METRIC_MAP = [
         "purefa_network_interface_performance_throughput_pkts": {
             "name": "network.interface_performance_throughput_pkts"
         },
+        "purefa_network_interface_speed_bandwidth_bytes": {"name": "network.interface_speed_bandwidth_bytes"},
+        "purefa_network_port_info": {"name": "network.port_info"},
         "purefa_pod_performance_average_bytes": {"name": "pod.performance_average_bytes"},
         "purefa_pod_performance_replication_bandwidth_bytes": {"name": "pod.performance_replication_bandwidth_bytes"},
         "purefa_pod_performance_throughput_iops": {"name": "pod.performance_throughput_iops"},
+        "purefa_pod_replica_links_lag_average_sec": {"name": "pod.replica_links_lag_average_msec"},
         "purefa_pod_replica_links_lag_average_sec": {"name": "pod.replica_links_lag_average_sec"},
+        "purefa_pod_replica_links_lag_max_msec": {"name": "pod.replica_links_lag_max_msec"},
         "purefa_pod_replica_links_lag_max_sec": {"name": "pod.replica_links_lag_max_sec"},
         "purefa_pod_replica_links_performance_bandwidth_bytes": {
             "name": "pod.replica_links_performance_bandwidth_bytes"
