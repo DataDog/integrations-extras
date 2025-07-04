@@ -1,5 +1,11 @@
 # CHANGELOG - celerdata
 
+## 1.2.0 / 2025-06-30
+
+***Added***:
+
+* Add the `celerdata.fe.routine_load_max_lag_of_partition` metric
+
 ## 1.1.0 / 2025-02-21
 
 ***Added***:

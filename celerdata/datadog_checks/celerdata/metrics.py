@@ -131,6 +131,7 @@ METRIC_MAP = {
     "starrocks_fe_starmgr_num_shard_groups": "fe.starmgr_num_shard_groups",
     "starrocks_fe_starmgr_num_shards": "fe.starmgr_num_shards",
     "starrocks_fe_starmgr_schedule_shard_ops": "fe.starmgr_schedule_shard_ops",
+    "starrocks_fe_routine_load_max_lag_of_partition": "fe.routine_load_max_lag_of_partition",
     # BE metrics
     "be_publish_count": "be.publish_count",
     "be_publish_latency": "be.publish_latency",
