@@ -7,7 +7,6 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 
 class EximCheck(AgentCheck):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'exim'
 
@@ -40,7 +39,6 @@ class EximCheck(AgentCheck):
         return instance_config
 
     def _get_queue_stats(self):
-
         command = ['exim -bp', '|', 'exiqsumm']
         output, _, _ = get_subprocess_output(command, self.log, False)
 

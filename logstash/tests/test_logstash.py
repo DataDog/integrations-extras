@@ -1,7 +1,6 @@
-from distutils.version import LooseVersion
-
 import pytest
 import requests
+from distutils.version import LooseVersion
 
 from datadog_checks.logstash import LogstashCheck
 
@@ -108,7 +107,6 @@ def test_failed_connection(aggregator):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_check(aggregator):
-
     check = LogstashCheck(CHECK_NAME, {}, [GOOD_INSTANCE])
 
     check.check(GOOD_INSTANCE)
@@ -119,13 +117,13 @@ def test_check(aggregator):
     logstash_version = check._get_logstash_version(instance_config)
     is_multi_pipeline = logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version)
 
-    input_tag = [u"plugin_conf_id:dummy_input"]
-    output_tag = [u"plugin_conf_id:dummy_output", u"output_name:stdout"]
-    filter_tag = [u"plugin_conf_id:dummy_filter", u"filter_name:json"]
+    input_tag = ["plugin_conf_id:dummy_input"]
+    output_tag = ["plugin_conf_id:dummy_output", "output_name:stdout"]
+    filter_tag = ["plugin_conf_id:dummy_filter", "filter_name:json"]
     if is_multi_pipeline:
-        input_tag.append(u"input_name:beats")
+        input_tag.append("input_name:beats")
     else:
-        input_tag.append(u"input_name:stdin")
+        input_tag.append("input_name:stdin")
 
     expected_metrics = dict(STATS_METRICS)
     expected_metrics.update(PIPELINE_METRICS)
@@ -155,11 +153,11 @@ def test_check(aggregator):
 
         if desc[0] == "gauge":
             if is_multi_pipeline and is_pipeline_metric:
-                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:main'])
-                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:second_pipeline'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + ['pipeline_name:main'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + ['pipeline_name:second_pipeline'])
             elif is_multi_pipeline and is_pipeline_queue_metric:
-                aggregator.assert_metric(metric_name, count=0, tags=metric_tags + [u'pipeline_name:main'])
-                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:second_pipeline'])
+                aggregator.assert_metric(metric_name, count=0, tags=metric_tags + ['pipeline_name:main'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + ['pipeline_name:second_pipeline'])
             else:
                 aggregator.assert_metric(metric_name, count=1, tags=metric_tags)
 

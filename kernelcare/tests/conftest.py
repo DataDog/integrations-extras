@@ -7,7 +7,6 @@ from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
 @pytest.fixture(scope='session')
 def dd_environment():
-
     compose_file = os.path.join(get_here(), 'docker', 'docker-compose.yml')
 
     KEY = 'Key'
