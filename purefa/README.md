@@ -30,7 +30,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To configure this check for an Agent running on a host, run `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
 Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
-  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.2.1`
+  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.3.0`
 
 ### Configuration
 
@@ -38,7 +38,7 @@ Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Da
    ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/purefa/images/API.png) 
 2. Add the following configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your PureFA performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
 
-**Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
+> **Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
 #### (Preferred) For use with the native Pure Storage OpenMetrics Exporter (Purity //FA 6.7.0+)
 ```yaml
