@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Added support for the native FlashArray OpenMetrics exporter, included with Purity //FA 6.7.0+. 
+* Added support for the native FlashArray OpenMetrics exporter, included with Purity//FA 6.7.0+. 
 * Added support for the `purefa.hw.controller_mode_since_timestamp_seconds` metric introduced in `pure-fa-openmetrics-exporter v1.0.23`.
 * Added support for the `purefa.hw.controller_info` metric introduced in `pure-fa-openmetrics-exporter v1.0.23`.
 * Added support for the `purefa.network.interface_speed_bandwidth_bytes` metric introduced in `pure-fa-openmetrics-exporter v1.0.23`.
