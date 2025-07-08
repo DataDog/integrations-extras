@@ -9,13 +9,6 @@
 #     'node_bigstore_kv_ops': {'name': 'node_bigstore_kv_ops', 'type': 'gauge'},
 #     'node_bigstore_throughput': {'name': 'node_bigstore_throughput', 'type': 'gauge'},
 # }
-#
-# REDIS_FLASH = {
-#     'node_available_flash': 'node_available_flash',
-#     'node_available_flash_no_overbooking': 'node_available_flash_no_overbooking',
-#     'node_provisional_flash': 'node_provisional_flash',
-#     'node_provisional_flash_no_overbooking': 'node_provisional_flash_no_overbooking',
-# }
 
 
 ####### v2 #########

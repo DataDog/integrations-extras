@@ -797,12 +797,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.node_cpu_user{$cluster, $node}"
+                      "query": "avg:rdse2.node_cpu_seconds_total.count{cluster:$cluster, node:$node, mode:user}.as_rate()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.node_cpu_system{$cluster, $node}"
+                      "query": "avg:rdse2.node_cpu_seconds_total.count{$cluster, $node,mode:system}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -880,22 +880,22 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:rdse.redis_db0_keys{$cluster, $node} by {redis}"
+                      "query": "sum:rdse2.redis_server_db0_keys{$cluster, $node} by {redis}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:rdse.redis_db0_expires{$cluster, $node} by {redis}"
+                      "query": "sum:rdse2.redis_server_expired_keys{$cluster, $node} by {redis}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:rdse.redis_keys_trimmed{$cluster, $node} by {redis}"
+                      "query": "sum:rdse2.redis_server_keys_trimmed{$cluster, $node} by {redis}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:rdse.redis_evicted_keys{$cluster, $node} by {redis}"
+                      "query": "sum:rdse2.redis_server_evicted_keys{$cluster, $node} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -905,22 +905,6 @@
                     "line_width": "normal"
                   },
                   "display_type": "line"
-                },
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.node_total_req{*}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "display_type": "overlay"
                 }
               ]
             },
@@ -972,12 +956,12 @@
               {
                 "data_source": "metrics",
                 "name": "query1",
-                "query": "avg:rdse.redis_blocked_clients{$cluster, $node} by {redis}"
+                "query": "avg:rdse2.redis_server_blocked_clients{$cluster, $node} by {redis}"
               },
               {
                 "data_source": "metrics",
                 "name": "query2",
-                "query": "avg:rdse.redis_connected_clients{$cluster, $node} by {redis}"
+                "query": "avg:rdse2.redis_server_connected_clients{$cluster, $node} by {redis}"
               }
             ],
             "response_format": "timeseries",
