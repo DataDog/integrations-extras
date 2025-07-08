@@ -330,7 +330,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_process_cpu_usage_percent{$cluster, $node} by {redis}"
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{(mode:system or mode:user) AND $cluster AND $node}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",

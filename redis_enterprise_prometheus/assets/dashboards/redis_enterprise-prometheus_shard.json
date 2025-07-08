@@ -925,12 +925,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_process_cpu_system_seconds_total{$cluster,$db} by {bdb,redis}"
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:system} by {db,redis}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.redis_process_main_thread_cpu_user_seconds_total{$cluster,$db} by {bdb,redis}"
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:user} by {db,redis}"
                     }
                   ],
                   "response_format": "timeseries",

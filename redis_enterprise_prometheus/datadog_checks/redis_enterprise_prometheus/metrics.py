@@ -125,6 +125,7 @@ REDIS_NODE = {
     'node_available_memory_bytes': 'node_available_memory_bytes',
     'node_available_memory_no_overbooking_bytes': 'node_available_memory_no_overbooking_bytes',
     'node_bigstore_free_bytes': 'node_bigstore_free_bytes',
+    'node_cpu_seconds_total':'node_cpu_seconds_total',
     'x509_cert_expires_in_seconds': 'x509_cert_expires_in_seconds',
     'x509_exporter_build_info': 'x509_exporter_build_info',
     'x509_read_errors': 'x509_read_errors',
