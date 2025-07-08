@@ -46,7 +46,7 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
             "openmetrics_endpoint": metrics_endpoint,
             "namespace": self.__NAMESPACE__,
             "metrics": metrics,
-            "metadata_label_map": {'version': 'version'},
+            "metadata_label_map": {"version": "version"},
         }
 
         config.update(self.instance)
