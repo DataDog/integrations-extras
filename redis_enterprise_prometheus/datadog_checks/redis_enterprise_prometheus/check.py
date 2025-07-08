@@ -6,12 +6,10 @@ from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
 
 class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = "rdse2"
 
     def __init__(self, name, init_config, instances):
-
         super(RedisEnterprisePrometheusCheck, self).__init__(name, init_config, instances)
         self.instance.setdefault("tls_verify", False)
         self.check_initializations.appendleft(self._parse_config)
@@ -53,7 +51,6 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         self.scraper_configs.append(config)
 
     def get_default_config(self):
-
         metrics = []
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
