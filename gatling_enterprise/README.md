@@ -34,6 +34,16 @@ control-plane {
 
 3. Deploy and restart your control plane
 
+
+## Data Collected
+
+The Gatling Enterprise integration gathers all metrics for databases, nodes, and shards.
+
+
+### Metrics
+
+See [metadata.csv][6] for a list of metrics provided by this integration.
+
 ## Uninstallation
 
 1. In Datadog, navigate to **Integrations**, select the Gatling Enterprise tile, and click **Uninstall Integration**.
@@ -44,7 +54,7 @@ control-plane {
 
 ## Support
 
-Need help? Contact [Gatling Enterprise support][6].
+Need help? Contact [Gatling Enterprise support][7].
 
 
 
@@ -53,4 +63,5 @@ Need help? Contact [Gatling Enterprise support][6].
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/
 [4]: https://docs.datadoghq.com/getting_started/site/
 [5]: https://docs.gatling.io/reference/install/cloud/private-locations/introduction
-[6]: https://gatlingcorp.atlassian.net/servicedesk/customer/portal/8
+[6]: https://github.com/DataDog/integrations-extras/blob/master/gatling_enterprise/metadata.csv
+[7]: https://gatlingcorp.atlassian.net/servicedesk/customer/portal/8
