@@ -17,9 +17,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
-    additional_metric_groups = ['REDIS2.DISK', 'REDIS2.REPLICATION', 'REDIS2.SEARCH']
+    additional_metric_groups = ["REDIS2.DISK", "REDIS2.REPLICATION", "REDIS2.SEARCH"]
     instance = deepcopy(INSTANCE)
-    instance['extra_metrics'] = additional_metric_groups
+    instance["extra_metrics"] = additional_metric_groups
 
     check = RedisEnterprisePrometheusCheck(CHECK, {}, [instance])
 
@@ -32,27 +32,27 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
                 continue
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check(f'{RedisEnterprisePrometheusCheck.__NAMESPACE__}.more_groups', count=1)
+    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.more_groups", count=1)
 
 
 @pytest.mark.unit
 def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
-        'REDIS2.REPLICATION',
-        'REDIS2.LDAP',
-        'REDIS2.NETWORK',
-        'REDIS2.MEMORY',
-        'REDIS2.X509',
-        'REDIS2.DISK',
-        'REDIS2.FILESYSTEM',
-        'REDIS2.PROCESS',
-        'REDIS2.PRESSURE',
-        'REDIS2.SEARCH',
+        "REDIS2.REPLICATION",
+        "REDIS2.LDAP",
+        "REDIS2.NETWORK",
+        "REDIS2.MEMORY",
+        "REDIS2.X509",
+        "REDIS2.DISK",
+        "REDIS2.FILESYSTEM",
+        "REDIS2.PROCESS",
+        "REDIS2.PRESSURE",
+        "REDIS2.SEARCH",
     ]
 
     instance = deepcopy(INSTANCE)
-    instance['extra_metrics'] = additional_metric_groups
+    instance["extra_metrics"] = additional_metric_groups
 
     check = RedisEnterprisePrometheusCheck(CHECK, {}, [instance])
 
@@ -65,22 +65,22 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
                 continue
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check(f'{RedisEnterprisePrometheusCheck.__NAMESPACE__}.more_groups', count=1)
+    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.more_groups", count=1)
 
 
 @pytest.mark.unit
 def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     # validate exclude_metrics are not present in metrics
-    exclude_metrics = ['endpoint_client_connections', 'redis_server_up']
+    exclude_metrics = ["endpoint_client_connections", "redis_server_up"]
     instance = deepcopy(INSTANCE)
-    instance['exclude_metrics'] = exclude_metrics
+    instance["exclude_metrics"] = exclude_metrics
 
     check = RedisEnterprisePrometheusCheck(CHECK, {}, [instance])
 
     dd_run_check(check)
 
     for em in exclude_metrics:
-        assert f'{RedisEnterprisePrometheusCheck.__NAMESPACE__}.{em}' not in aggregator.metric_names
+        assert f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.{em}" not in aggregator.metric_names
 
 
 @pytest.mark.e2e
@@ -91,7 +91,7 @@ def test_end_to_end():
 @pytest.mark.unit
 def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_response):
     instance = deepcopy(INSTANCE)
-    instance['metric_groups'] = ['redis.bogus', 'redis.raft']
+    instance["metric_groups"] = ["redis.bogus", "redis.raft"]
 
     check = RedisEnterprisePrometheusCheck(CHECK, {}, [instance])
 
@@ -102,13 +102,13 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
     except Exception:
         assert True
 
-    aggregator.assert_service_check(f'{RedisEnterprisePrometheusCheck.__NAMESPACE__}.group_bogus', count=0)
+    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.group_bogus", count=0)
 
 
 @pytest.mark.unit
 def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
     instance = deepcopy(ERSATZ_INSTANCE)
-    instance.pop('openmetrics_endpoint')
+    instance.pop("openmetrics_endpoint")
 
     check = RedisEnterprisePrometheusCheck(CHECK, {}, [instance])
 
@@ -119,4 +119,4 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
     except Exception:
         assert True
 
-    aggregator.assert_service_check(f'{RedisEnterprisePrometheusCheck.__NAMESPACE__}.node_imaginary', count=0)
+    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.node_imaginary", count=0)

@@ -5,32 +5,32 @@ import pytest
 
 from .support import ENDPOINT
 
-CHECK = 'redis_enterprise_prometheus'
+CHECK = "redis_enterprise_prometheus"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def dd_environment():
-    instances = {'instances': [{'openmetrics_endpoint': ENDPOINT}, {'tls_verify': 'false'}]}
+    instances = {"instances": [{"openmetrics_endpoint": ENDPOINT}, {"tls_verify": "false"}]}
 
     yield instances
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def instance():
-    return {'openmetrics_endpoint': ENDPOINT, 'tags': ['instance'], 'tls_verify': 'false'}
+    return {"openmetrics_endpoint": ENDPOINT, "tags": ["instance"], "tls_verify": "false"}
 
 
 @pytest.fixture()
 def mock_http_response():
-    f_name = os.path.join(os.path.dirname(__file__), 'data', 'metrics.txt')
-    with open(f_name, 'r') as f:
+    f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
+    with open(f_name, "r") as f:
         text_data = f.read()
     with mock.patch(
-        'requests.get',
+        "requests.get",
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: text_data.split("\n"),
-            headers={'Content-Type': "text/plain"},
+            headers={"Content-Type": "text/plain"},
         ),
     ):
         yield
