@@ -120,7 +120,7 @@ METRICS_MAP = {
         # "rdse2.node_available_flash_no_overbooking_bytes", # MOVED TO FLASH
         "rdse2.node_available_memory_bytes",
         "rdse2.node_available_memory_no_overbooking_bytes",
-        "rdse2.node_cpu_seconds_total",
+        # "rdse2.node_cpu_seconds_total",
         # "rdse2.node_bigstore_free_bytes", # MOVED TO FLASH
         "rdse2.x509_cert_expires_in_seconds",
         "rdse2.x509_exporter_build_info",
