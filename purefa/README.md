@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors the [Pure Storage FlashArray][3] through the [Datadog Agent][2] and the [Pure Storage OpenMetrics exporter][1]. 
+This check monitors the [Pure Storage FlashArray][3] through the [Datadog Agent][2] and the [Pure Storage OpenMetrics exporter][1].
 
 The integration can provide performance data at the array, host, volume and pod level, as well as high-level capacity and configuration information.
 
@@ -12,7 +12,8 @@ You can monitor multiple FlashArrays and aggregate these into a single dashboard
 
  - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
- - The Pure Storage OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
+ - The Pure Storage OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions. 
+   - On FlashArrays running Purity//FA version 6.7.0 and higher the OpenMetrics exporter natively runs on the array, see Configuration for details
 
 ## Setup
 
@@ -29,7 +30,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To configure this check for an Agent running on a host, run `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
 Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
-  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.2.0`
+  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.3.0`
 
 ### Configuration
 
@@ -37,8 +38,75 @@ Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Da
    ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/purefa/images/API.png) 
 2. Add the following configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your PureFA performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
 
-**Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
+> **Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
+#### (Preferred) For use with the native Pure Storage OpenMetrics Exporter (Purity//FA 6.7.0+)
+```yaml
+init_config:
+   timeout: 60
+
+instances:
+
+  - openmetrics_endpoint: https://<array_ip_or_fqdn>/metrics/array?namespace=purefa
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+       - host:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+    # If you have not configured your Purity management TLS certifcate, you may skip TLS verification. For other TLS options, please see conf.yaml.example.
+    # tls_verify: false
+    # tls_ignore_warning: true
+
+  - openmetrics_endpoint: https://<array_ip_or_fqdn>/metrics/volumes?namespace=purefa
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+    # If you have not configured your Purity management TLS certifcate, you may skip TLS verification. For other TLS options, please see conf.yaml.example.
+    # tls_verify: false
+    # tls_ignore_warning: true
+
+  - openmetrics_endpoint: https://<array_ip_or_fqdn>/metrics/hosts?namespace=purefa
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+    # If you have not configured your Purity management TLS certifcate, you may skip TLS verification. For other TLS options, please see conf.yaml.example.
+    # tls_verify: false
+    # tls_ignore_warning: true
+
+  - openmetrics_endpoint: https://<array_ip_or_fqdn>/metrics/pods?namespace=purefa
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+       - host:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+    # If you have not configured your Purity management TLS certifcate, you may skip TLS verification. For other TLS options, please see conf.yaml.example.
+    # tls_verify: false
+    # tls_ignore_warning: true
+
+  - openmetrics_endpoint: https://<array_ip_or_fqdn>/metrics/directories?namespace=purefa
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+       - host:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+    # If you have not configured your Purity management TLS certifcate, you may skip TLS verification. For other TLS options, please see conf.yaml.example.
+    # tls_verify: false
+    # tls_ignore_warning: true
+```
+
+#### For use with the external [Pure Storage OpenMetrics exporter][1] (Purity //FA <6.7.0)
 ```yaml
 init_config:
    timeout: 60
