@@ -2,8 +2,6 @@
 
 ## Overview
 
-This is a new line.
-
 Auth0 is an identity platform for development teams which provides developers and enterprises with the building blocks they need to secure their applications.
 
 
@@ -43,6 +41,7 @@ All configuration happens on the [Auth0 Dashboard][2].
 
 	
 6. Click Save.
+7. Click Save Again.
 
 When Auth0 writes the next tenant log, you receive a copy of that log event in Datadog with the source and service set to `auth0`.
 
