@@ -59,279 +59,400 @@ facets:
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.agentVersion
-    path: event.agentVersion
+      - ContrastADR-Incident
+    name: Created Time
+    path: createdTime
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.apiUri
-    path: event.apiUri
+      - ContrastADR-Incident
+    name: Event Type
+    path: eventType
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.detectedTime
-    path: event.detectedTime
+      - ContrastADR-Incident
+    name: Incident Score
+    path: score
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.host.hostname
-    path: event.host.hostname
+      - ContrastADR-Incident
+    name: Organization Uuid
+    path: organizationUuid
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.host.operatingSystem
-    path: event.host.operatingSystem
+      - ContrastADR-Incident
+    name: Status
+    path: severity
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.headers.host
-    path: event.request.headers.host
+      - ContrastADR-Incident
+    name: Timestamp
+    path: timestamp
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.headers.referer
-    path: event.request.headers.referer
+      - ContrastADR-Incident
+    name: URL
+    path: url
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.headers.user-agent
-    path: event.request.headers.user-agent
+      - Contrast
+    name: agentVersion
+    path: agentVersion
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.method
-    path: event.request.method
+      - Contrast
+    name: apiUri
+    path: apiUri
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.protocol
-    path: event.request.protocol
+      - Contrast
+    name: host.hostname
+    path: host.hostname
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.protocolVersion
-    path: event.request.protocolVersion
+      - Contrast
+    name: host.operatingSystem
+    path: host.operatingSystem
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.request.queryString
-    path: event.request.queryString
+      - Contrast
+    name: request.headers.host
+    path: request.headers.host
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.result
-    path: event.result
+      - Contrast
+    name: request.headers.referer
+    path: request.headers.referer
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.rule
-    path: event.rule
+      - Contrast
+    name: request.headers.user-agent
+    path: request.headers.user-agent
     source: log
     type: string
   - description: ""
     facetType: list
     groups:
-      - Contrastadr-attackObservation
-    name: event.sourceIp
-    path: event.sourceIp
+      - Contrast
+    name: request.method
+    path: request.method
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.protocol
+    path: request.protocol
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.protocolVersion
+    path: request.protocolVersion
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: request.queryString
+    path: request.queryString
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: result
+    path: result
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: rule
+    path: rule
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Contrast
+    name: sourceIp
+    path: sourceIp
     source: log
     type: string
 pipeline:
   type: pipeline
-  name: " Contrast ADR Pipeline"
+  name: Contrast ADR Pipeline
   enabled: true
   filter:
     query: source:contrast-security-adr
   processors:
-    - type: attribute-remapper
-      name: "Map `event.sourceIp` to `network.client.ip`"
+    - type: pipeline
+      name: Contrast ADR Incidents
       enabled: true
-      sources:
-        - event.sourceIp
-      sourceType: attribute
-      target: network.client.ip
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.method` to `http.method`"
+      filter:
+        query: source:contrast-security-adr
+      processors:
+        - type: attribute-remapper
+          name: "Remapper: Map `incidentId` to `resource.id`"
+          enabled: true
+          sources:
+            - incidentId
+          sourceType: attribute
+          target: resource.id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `score` to `syslog.severity`"
+          enabled: true
+          sources:
+            - score
+          sourceType: attribute
+          target: syslog.severity
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `url` to `resource.url`"
+          enabled: true
+          sources:
+            - url
+          sourceType: attribute
+          target: resource.url
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `createdTime` to `date`"
+          enabled: true
+          sources:
+            - createdTime
+          sourceType: attribute
+          target: date
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `eventType` to `resource.type`"
+          enabled: true
+          sources:
+            - eventType
+          sourceType: attribute
+          target: resource.type
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: status-remapper
+          name: "Status Remapper: Map `severity`"
+          enabled: true
+          sources:
+            - severity
+        - type: date-remapper
+          name: "Date Remapper: 'timestamp'"
+          enabled: true
+          sources:
+            - timestamp
+    - type: pipeline
+      name: Contrast ADR Attack Events
       enabled: true
-      sources:
-        - event.request.method
-      sourceType: attribute
-      target: http.method
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.protocol` to `http.url_details.scheme`"
-      enabled: true
-      sources:
-        - event.request.protocol
-      sourceType: attribute
-      target: http.url_details.scheme
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.queryString` to `http.url_details.queryString`"
-      enabled: true
-      sources:
-        - event.request.queryString
-      sourceType: attribute
-      target: http.url_details.queryString
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.protocolVersion` to `http.version`"
-      enabled: true
-      sources:
-        - event.request.protocolVersion
-      sourceType: attribute
-      target: http.version
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: date-remapper
-      name: "Define `event.detectedTime` as the official date of the log"
-      enabled: true
-      sources:
-        - event.detectedTime
-    - type: attribute-remapper
-      name: "Map `event.result` to `evt.outcome`"
-      enabled: true
-      sources:
-        - event.result
-      sourceType: attribute
-      target: evt.outcome
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: url-parser
-      name: "URL Parser : Map `event.apiUri` to `http.url_details.path`"
-      enabled: true
-      sources:
-        - event.apiUri
-      target: http.url_details.path
-      normalizeEndingSlashes: false
-    - type: attribute-remapper
-      name: "Map `event.request.headers.referer` to `http.referer`"
-      enabled: true
-      sources:
-        - event.request.headers.referer
-      sourceType: attribute
-      target: http.referer
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.headers.host` to `http.url_details.host`"
-      enabled: true
-      sources:
-        - event.request.headers.host
-      sourceType: attribute
-      target: http.url_details.host
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.headers` to `http.request.headers`"
-      enabled: true
-      sources:
-        - event.request.headers
-      sourceType: attribute
-      target: http.request.headers
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.request.headers.user-agent` to `http.user-agent`"
-      enabled: true
-      sources:
-        - event.request.headers.user-agent
-      sourceType: attribute
-      target: http.user-agent
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.rule` to `evt.name`"
-      enabled: true
-      sources:
-        - event.rule
-      sourceType: attribute
-      target: evt.name
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.host.operatingSystem` to `http.useragent_details.os.family`"
-      enabled: true
-      sources:
-        - event.host.operatingSystem
-      sourceType: attribute
-      target: http.useragent_details.os.family
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.host.hostname` to `network.host.name`"
-      enabled: true
-      sources:
-        - event.host.hostname
-      sourceType: attribute
-      target: network.host.name
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: "Map `event.agentVersion` to `version`"
-      enabled: true
-      sources:
-        - event.agentVersion
-      sourceType: attribute
-      target: version
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
+      filter:
+        query: source:contrast-security-adr
+      processors:
+        - type: attribute-remapper
+          name: "Remapper: Map `sourceIp` to `network.client.ip`"
+          enabled: true
+          sources:
+            - sourceIp
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: " Remapper: Map `request.method` to `http.method`"
+          enabled: true
+          sources:
+            - request.method
+          sourceType: attribute
+          target: http.method
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.protocol` to `http.url_details.scheme`"
+          enabled: true
+          sources:
+            - request.protocol
+          sourceType: attribute
+          target: http.url_details.scheme
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.queryString` to `http.url_details.queryString`"
+          enabled: true
+          sources:
+            - request.queryString
+          sourceType: attribute
+          target: http.url_details.queryString
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.protocolVersion` to `http.version`"
+          enabled: true
+          sources:
+            - request.protocolVersion
+          sourceType: attribute
+          target: http.version
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: date-remapper
+          name: "Remapper: Map `detectedTime` "
+          enabled: true
+          sources:
+            - detectedTime
+        - type: attribute-remapper
+          name: "Remapper: Map `result` to `evt.outcome`"
+          enabled: true
+          sources:
+            - result
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: url-parser
+          name: "URL Parser : Map `apiUri` to `http.url_details.path`"
+          enabled: true
+          sources:
+            - apiUri
+          target: http.url_details.path
+          normalizeEndingSlashes: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.headers.referer` to `http.referer`"
+          enabled: true
+          sources:
+            - request.headers.referer
+          sourceType: attribute
+          target: http.referer
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.headers.host` to `http.url_details.host`"
+          enabled: true
+          sources:
+            - request.headers.host
+          sourceType: attribute
+          target: http.url_details.host
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `request.headers` to `http.request.headers`"
+          enabled: true
+          sources:
+            - request.headers
+          sourceType: attribute
+          target: http.request.headers
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper : Map `request.headers.user-agent` to `http.user-agent`"
+          enabled: true
+          sources:
+            - request.headers.user-agent
+          sourceType: attribute
+          target: http.user-agent
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `rule` to `evt.name`"
+          enabled: true
+          sources:
+            - rule
+          sourceType: attribute
+          target: evt.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `host.operatingSystem` to
+            `http.useragent_details.os.family`"
+          enabled: true
+          sources:
+            - host.operatingSystem
+          sourceType: attribute
+          target: http.useragent_details.os.family
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `host.hostname` to `network.host.name`"
+          enabled: true
+          sources:
+            - host.hostname
+          sourceType: attribute
+          target: network.host.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `agentVersion` to `version`"
+          enabled: true
+          sources:
+            - agentVersion
+          sourceType: attribute
+          target: version
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
