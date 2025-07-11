@@ -2,13 +2,13 @@
 
 ## Overview
 
-[Stytch][1] is an all-in-one platform for modern authentication, providing authentication, authorization, and fraud detection that adapts with your code base, your customers and threat vectors.  
+[Stytch][1] is an all-in-one platform for modern authentication that provides authentication, authorization, and fraud detection that adapts with your code base, customers, and threat vectors.  
 
-This integration leverages Stytch's [Event log streaming][2] to send logs directly to Datadog in real-time, allowing you to:
+This integration leverages Stytch's [Event log streaming][2] to send logs directly to Datadog in real time, allowing you to:
 * Analyze and get deeper insights into your event logs within Datadog's logging platform
 * Control log retention beyond the default retention window in Stytch
 * Let your admins troubleshoot failed logins quickly and easily for your end users by filtering on specific IDs in your logs
-* Set up alerts on your event logs: For example, a spike in auth failures and SMS sends might indicate a potential toll fraud attack
+* Set up alerts on your event logs. For example, a spike in auth failures and SMS sends might indicate a potential toll fraud attack
 
 ## Setup
 
@@ -18,17 +18,17 @@ All configuration occurs within the [Stytch Dashboard][3].
 
 1. Under the **Activity** tab in the Stytch dashboard, navigate to **Stream Settings**.
 2. Select **Datadog** from the list of Destinations in the dropdown.
-3. Fill in your Datadog [site][4] and [API key][5].
+3. Enter your Datadog [site][4] and [API key][5].
 4. Toggle on **Enable event log streaming** and save the changes.
 
-Logs will be pushed to Datadog in several minutes.
+Logs appear in Datadog within several minutes.
 
 ### Validation
 
 View logs in Datadog:
 
 1. Navigate to the Logs [Live Tail][6].
-2. View your Stytch event logs by filtering over `source:stytch`.
+2. View your Stytch event logs by filtering on `source:stytch`.
 
 ## Data Collected
 
