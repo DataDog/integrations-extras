@@ -11,7 +11,6 @@ from .net_api import vManageApi
 
 
 class NnSdwanCheck(AgentCheck):
-
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'nn_sdwan'
 

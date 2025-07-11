@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from typing import Any, Dict  # noqa: F401
 
@@ -44,7 +45,10 @@ class SpeedtestCheck(AgentCheck):
 
     def _build_command(self, host, ip, interface, server_id):
         # Build command
-        cmd = "speedtest -f json -p no -A -P 8 "
+        if os.name == 'nt':  # Windows
+            cmd = r'"C:\Program Files\Speedtest\speedtest.exe" -f json -p no -A -P 8 '
+        else:  # Unix-based systems
+            cmd = "speedtest -f json -p no -A -P 8 "
         if host:
             cmd += " --host={}".format(host)
         if ip:

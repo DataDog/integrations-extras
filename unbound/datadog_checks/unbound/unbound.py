@@ -14,7 +14,6 @@ class UnboundCheck(AgentCheck):
     SERVICE_CHECK_NAME = 'unbound.can_get_stats'
 
     def check(self, instance):
-
         use_sudo = is_affirmative(instance.get('use_sudo', False))
         unbound_control = instance.get('unbound_control', 'unbound-control')
         stats_command = instance.get('stats_command', 'stats')

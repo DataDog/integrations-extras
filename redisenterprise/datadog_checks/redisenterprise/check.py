@@ -50,10 +50,8 @@ class RedisenterpriseCheck(AgentCheck):
             )
 
         try:
-
             # check everything if we are the cluster master
             if self._check_not_follower(host, port, username, password, timeout, is_mock):
-
                 # add the cluster FQDN to the tags
                 fqdn = self._get_fqdn(host, port, service_check_tags)
                 service_check_tags.append('redis_cluster:{}'.format(fqdn))
@@ -150,7 +148,6 @@ class RedisenterpriseCheck(AgentCheck):
         bdb_dict = {}
         bdbs = self._api_fetch_json("bdbs", service_check_tags)
         for i in bdbs:
-
             # collect the number of shards and multiply by 2 if replicated
             shards_used = i['shards_count']
             if i['replication']:

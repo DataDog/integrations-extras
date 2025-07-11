@@ -30,7 +30,6 @@ DATABASE = {
 def dd_environment():
     compose_file = os.path.join(get_here(), 'docker-compose.yml')
     with docker_run(compose_file, log_patterns='MainThread: Done'):
-
         # Let the cluster settle first
         sleep(10)
         # Bootstrap the cluster
