@@ -1,0 +1,406 @@
+id: stytch
+metric_id: stytch
+backend_only: false
+facets:
+  - groups:
+      - Source Code
+    name: Error Type
+    path: error.kind
+    source: log
+  - groups:
+      - Web Access
+    name: Status Code
+    path: http.status_code
+    source: log
+  - groups:
+      - Web Access
+    name: Browser
+    path: http.useragent_details.browser.family
+    source: log
+  - groups:
+      - Web Access
+    name: Device
+    path: http.useragent_details.device.family
+    source: log
+  - groups:
+      - Web Access
+    name: OS
+    path: http.useragent_details.os.family
+    source: log
+  - groups:
+      - Geoip
+    name: Country ISO Code
+    path: network.client.geoip.country.iso_code
+    source: log
+  - groups:
+      - User
+    name: User Email
+    path: usr.email
+    source: log
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Action
+    path: stytch.action
+    source: log
+    type: string
+  - description: ''
+    facetType: range
+    groups:
+      - Stytch
+    name: Delivery latency
+    path: stytch.delivery.latency_seconds
+    source: log
+    type: integer
+    unit:
+      family: time
+      name: second
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Member ID
+    path: stytch.member_id
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Message status
+    path: stytch.delivery.message_status
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Org ID
+    path: stytch.organization_id
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Project ID
+    path: stytch.project_id
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Request Id
+    path: stytch.request.id
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: Status
+    path: stytch.request.status
+    source: log
+    type: string
+  - description: ''
+    facetType: list
+    groups:
+      - Stytch
+    name: User ID
+    path: stytch.user_id
+    source: log
+    type: string
+pipeline:
+  type: pipeline
+  name: Stytch
+  enabled: true
+  filter:
+    query: source:stytch
+  processors:
+    - type: service-remapper
+      name: Remap service attr as tag
+      enabled: true
+      sources:
+        - service
+    - type: category-processor
+      name: Categorize all success logs as status code 200
+      enabled: true
+      categories:
+        - filter:
+            query: "@status:Success"
+          name: "200"
+      target: http.status_code
+    - type: attribute-remapper
+      name: HTTP status code
+      enabled: true
+      sources:
+        - http_status_code
+      sourceType: attribute
+      target: http.status_code
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: pipeline
+      name: Email/SMS Delivery
+      enabled: true
+      filter:
+        query: "@action:*Delivery"
+      processors:
+        - type: attribute-remapper
+          name: Remap message status desc as error msg
+          enabled: true
+          sources:
+            - message_status_description
+          sourceType: attribute
+          target: error.message
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Nest message status under stytch.delivery
+          enabled: true
+          sources:
+            - message_status
+          sourceType: attribute
+          target: stytch.delivery.message_status
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Nest message status desc under stytch.delivery
+          enabled: true
+          sources:
+            - message_status_description
+          sourceType: attribute
+          target: stytch.delivery.message_status_description
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Nest delivery latency under stytch.delivery
+          enabled: true
+          sources:
+            - delivery_latency_seconds
+          sourceType: attribute
+          target: stytch.delivery.latency_seconds
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+    - type: pipeline
+      name: Errors
+      enabled: true
+      filter:
+        query: "@stytch_api_error.error_message:*"
+      processors:
+        - type: attribute-remapper
+          name: Error status code
+          enabled: true
+          sources:
+            - stytch_api_error.status_code
+          sourceType: attribute
+          target: error.resource.status_code
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Error msg
+          enabled: true
+          sources:
+            - stytch_api_error.error_message
+          sourceType: attribute
+          target: error.message
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Error kind
+          enabled: true
+          sources:
+            - stytch_api_error.error_type
+          sourceType: attribute
+          target: error.kind
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Error type
+          enabled: true
+          sources:
+            - stytch_api_error.error_type
+          sourceType: attribute
+          target: error.type
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Error URL
+          enabled: true
+          sources:
+            - stytch_api_error.error_url
+          sourceType: attribute
+          target: error.resource.url
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Error request ID
+          enabled: true
+          sources:
+            - stytch_api_error.request_id
+          sourceType: attribute
+          target: request_id
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+    - type: attribute-remapper
+      name: Remap email address to usr.email
+      enabled: true
+      sources:
+        - email_address
+      sourceType: attribute
+      target: usr.email
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest phone number under usr
+      enabled: true
+      sources:
+        - phone_number
+      sourceType: attribute
+      target: usr.phone_number
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Geo country ISO Code
+      enabled: true
+      sources:
+        - ip_geo_country
+      sourceType: attribute
+      target: network.client.geoip.country.iso_code
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest user agent under http
+      enabled: true
+      sources:
+        - user_agent
+      sourceType: attribute
+      target: http.user_agent
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: user-agent-parser
+      name: Parse user agent
+      enabled: true
+      sources:
+        - browser_user_agent
+      target: http.useragent_details
+      encoded: false
+      combineVersionDetails: false
+    - type: category-processor
+      name: Categorize level based on status and HTTP status code
+      enabled: true
+      categories:
+        - filter:
+            query: "@status:Start"
+          name: info
+        - filter:
+            query: "@status:Success"
+          name: ok
+        - filter:
+            query: "@status:Error @http.status_code:[400 TO 499]"
+          name: warning
+        - filter:
+            query: "@status:Error @http.status_code:[500 TO 599]"
+          name: error
+      target: level
+    - type: status-remapper
+      name: Remap level as log status
+      enabled: true
+      sources:
+        - level
+    - type: attribute-remapper
+      name: Nest status under stytch.request
+      enabled: true
+      sources:
+        - status
+      sourceType: attribute
+      target: stytch.request.status
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest request ID under stytch.request
+      enabled: true
+      sources:
+        - request_id
+      sourceType: attribute
+      target: stytch.request.id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest event ID under stytch
+      enabled: true
+      sources:
+        - event_id
+      sourceType: attribute
+      target: stytch.event_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest action under stytch
+      enabled: true
+      sources:
+        - action
+      sourceType: attribute
+      target: stytch.action
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest project ID under stytch
+      enabled: true
+      sources:
+        - project_id
+      sourceType: attribute
+      target: stytch.project_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest org ID under stytch
+      enabled: true
+      sources:
+        - organization_id
+      sourceType: attribute
+      target: stytch.organization_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest user ID under stytch
+      enabled: true
+      sources:
+        - user_id
+      sourceType: attribute
+      target: stytch.user_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Nest member ID under stytch
+      enabled: true
+      sources:
+        - member_id
+      sourceType: attribute
+      target: stytch.member_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
