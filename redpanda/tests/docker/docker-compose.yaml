@@ -15,7 +15,7 @@ services:
     - PLAINTEXT://0.0.0.0:9092
     - --advertise-kafka-addr
     - PLAINTEXT://redpanda:9092
-    image: docker.redpanda.com/vectorized/redpanda:${REDPANDA_VERSION}
+    image: docker.redpanda.com/redpandadata/redpanda:${REDPANDA_VERSION}
     container_name: redpanda
     ports:
       - 9092:9092
@@ -27,5 +27,16 @@ services:
       - 8081
     networks:
       - redpandanet
+    configs:
+      - source: redpanda-bootstrap
+        target: /etc/redpanda/.bootstrap.yaml
 networks:
   redpandanet: {}
+configs:
+  redpanda-bootstrap:
+    content: |
+      consumer_group_lag_collection_interval_sec: 5
+      enable_consumer_group_metrics:
+        - group
+        - partition
+        - consumer_lag

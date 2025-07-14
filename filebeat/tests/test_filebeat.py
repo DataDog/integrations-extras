@@ -338,7 +338,7 @@ def test_with_an_invalid_regex_in_the_only_metrics_list():
     check = FilebeatCheck("filebeat", {}, [config])
 
     expected_message = (
-        'Invalid only_metric regex for filebeat: "invalid regex [", ' "error: unexpected end of regular expression"
+        'Invalid only_metric regex for filebeat: "invalid regex [", error: unexpected end of regular expression'
     )
 
     with pytest.raises(Exception) as excinfo:
