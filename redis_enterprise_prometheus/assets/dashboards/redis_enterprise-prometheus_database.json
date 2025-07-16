@@ -1,23 +1,23 @@
- {
-  "title": "Redis Enterprise - Proxy",
-  "description": "Redis Enterprise Proxy presents a single, usable endpoint that hides topological complexity",
+{
+  "title": "Redis Enterprise - Database v2",
+  "description": "Redis Enterprise Databases are real-time, partitioned databases that use modules to provide additional functionality",
   "widgets": [
     {
-      "id": 4181575023845814,
+      "id": 8148371123349408,
       "definition": {
-        "title": "Proxy Overview",
-        "background_color": "vivid_blue",
+        "title": "Database Overview",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 7104524980730882,
+            "id": 6906627780487202,
             "definition": {
               "type": "note",
-              "content": "Redis Enterprise Proxy is an entity with negligible latency that mediates between applications and the database. It exposes the database endpoint to database clients while masking behind-the-scenes activities that the Redis Enterprise cluster performs. This allows developers to focus on how an application is using the data, instead of worrying about frequent changes in database topology.\n\nThe proxy employs a multi-threaded architecture. It can easily scale up by using more available cores. It is designed to cope with high traffic by using multiplexing and pipelining. When thousands of clients are connected to Redis Enterprise simultaneously, the proxy consolidates all of the incoming requests into a set of inner pipelines and distributes them to the relevant database shard. Net result: Requests are processed much faster, allowing high throughput with low latency.",
-              "background_color": "white",
-              "font_size": "14",
+              "content": "Redis is a data structure server. At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from caching to queuing to event processing.\n\nDatabase clustering is transparent to the Redis client that connects to the database. The Redis client accesses the database through a single endpoint that automatically routes all operations to the relevant shards. You can connect an application to a single Redis process or a clustered database without any difference in the application logic.",
+              "background_color": "vivid_purple",
+              "font_size": "16",
               "text_align": "left",
               "vertical_align": "top",
               "show_tick": false,
@@ -28,14 +28,14 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
-              "height": 3
+              "width": 6,
+              "height": 2
             }
           },
           {
-            "id": 4369424159881430,
+            "id": 5228948460391968,
             "definition": {
-              "title": "Proxy Memory Usage",
+              "title": "Memory Details",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -52,39 +52,110 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Used Memory (%)",
+                      "formula": "query3 / query2 * 100"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "alias": "Free Memory (%)",
+                      "formula": "(query2 - query3) * 100 / query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.dmcproxy_process_resident_memory_bytes{$cluster} by {node}"
+                      "name": "query3",
+                      "query": "avg:rdse2.redis_server_used_memory{$cluster,$database}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse2.redis_server_maxmemory{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
                   "display_type": "line"
                 }
-              ]
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0",
+                "max": "100"
+              }
             },
             "layout": {
-              "x": 4,
+              "x": 6,
               "y": 0,
-              "width": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1494422943739930,
+            "definition": {
+              "title": "Database List",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_config{*} by {cluster,db_name,db}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Up",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
               "height": 3
             }
           },
           {
-            "id": 3018908171808098,
+            "id": 7994983708933516,
             "definition": {
-              "title": "Proxy Client Connections",
+              "title": "Cache Statistics",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -101,21 +172,49 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1"
+                      "alias": "requests",
+                      "formula": "query1 + query2 + query3"
+                    },
+                    {
+                      "alias": "responses",
+                      "formula": "query4 + query5 + query6"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_conns{$cluster} by {node}"
+                      "query": "sum:rdse2.endpoint_read_requests.count{$cluster,$database} by {db}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:rdse2.endpoint_write_requests.count{$cluster,$database} by {db}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:rdse2.endpoint_other_requests.count{$cluster,$database} by {db}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:rdse2.endpoint_other_responses.count{$cluster,$database} by {db}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:rdse2.endpoint_write_responses.count{$cluster,$database} by {db}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "sum:rdse2.endpoint_read_responses.count{$cluster,$database} by {db}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -124,9 +223,94 @@
               ]
             },
             "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 2897465224634902,
+            "definition": {
+              "title": "Key Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_db0_keys{$cluster, $database}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": false
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 1837158733093732,
+            "definition": {
+              "title": "Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:rdse2.endpoint_client_connections{$cluster,$database}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:rdse2.endpoint_client_disconnections{$cluster,$database}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1 - query2"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 5,
+              "width": 3,
               "height": 3
             }
           }
@@ -136,60 +320,22 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 4
+        "height": 9
       }
     },
     {
-      "id": 2976279033317650,
+      "id": 6310722542080518,
       "definition": {
-        "title": "Network",
-        "background_color": "vivid_green",
+        "title": "Cache Statistics",
+        "background_color": "green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 5129890666020128,
+            "id": 7079674751612840,
             "definition": {
-              "title": "Endpoints",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_conns{$cluster}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar"
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 2,
-              "height": 3
-            }
-          },
-          {
-            "id": 2418700679517252,
-            "definition": {
-              "title": "Endpoints Total Ingress",
+              "title": "Read Hits/Misses",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -206,370 +352,11 @@
                 {
                   "formulas": [
                     {
-                      "alias": "listener ingress",
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_ingress_bytes{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 5,
-              "height": 3
-            }
-          },
-          {
-            "id": 1368636092995330,
-            "definition": {
-              "title": "Ingress/Egress by Node",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "ingress",
+                      "alias": "read hits",
                       "formula": "query1"
                     },
                     {
-                      "alias": "egress",
-                      "formula": "query2 * -1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.node_ingress_bytes{$cluster} by {node}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse.node_egress_bytes{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 7,
-              "y": 0,
-              "width": 5,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 4,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 7717974699945770,
-      "definition": {
-        "title": "CPU/Threads",
-        "background_color": "vivid_yellow",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 1205350136707792,
-            "definition": {
-              "title": "Thread Utilization",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.namedprocess_namegroup_thread_cpu_seconds_total{$cluster} by {threadname}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 1641628053179844,
-            "definition": {
-              "title": "CPU Utilization",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.dmcproxy_process_cpu_usage_percent{$cluster , $node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 8,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 5217564291542670,
-      "definition": {
-        "title": "Total Operations",
-        "background_color": "vivid_pink",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6812333349868960,
-            "definition": {
-              "title": "Requests",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_total_req{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 7356449359833222,
-            "definition": {
-              "title": "Responses",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.listener_total_res{$cluster} by {node}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 12,
-        "width": 12,
-        "height": 4
-      }
-    },
-    {
-      "id": 5330583329708778,
-      "definition": {
-        "title": "Read/Write Requests/Responses",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 5368842331723112,
-            "definition": {
-              "title": "Read",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "requests",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "responses",
+                      "alias": "read misses",
                       "formula": "query2"
                     }
                   ],
@@ -577,19 +364,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_read_req{$cluster} by {node}"
+                      "query": "avg:rdse2.redis_server_keyspace_read_hits{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.listener_read_res{$cluster} by {node}"
+                      "query": "avg:rdse2.redis_server_keyspace_read_misses{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -601,16 +386,16 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           },
           {
-            "id": 2048427695631512,
+            "id": 4555818748372412,
             "definition": {
-              "title": "Write",
+              "title": "Write Hits/Misses",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": false,
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": [
                 "avg",
@@ -624,11 +409,11 @@
                 {
                   "formulas": [
                     {
-                      "alias": "requests",
+                      "alias": "write hits",
                       "formula": "query1"
                     },
                     {
-                      "alias": "responses",
+                      "alias": "write misses",
                       "formula": "query2"
                     }
                   ],
@@ -636,19 +421,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_write_req{$cluster} by {node}"
+                      "query": "avg:rdse2.redis_server_keyspace_write_hits{$cluster,$database}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.listener_write_res{$cluster} by {node}"
+                      "query": "avg:rdse2.redis_server_keyspace_write_misses{$cluster,$database}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -660,32 +443,164 @@
               "x": 6,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 16,
+        "y": 9,
         "width": 12,
-        "height": 4,
+        "height": 5
+      }
+    },
+    {
+      "id": 5249389376885324,
+      "definition": {
+        "title": "Database Shards",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6042661341631244,
+            "definition": {
+              "title": "Shard Memory Usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_used_memory{$cluster,$database} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8651253939863638,
+            "definition": {
+              "title": "Shard Average Latency",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "microsecond"
+                        }
+                      }
+                    },
+                    {
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "microsecond"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.endpoint_read_requests_latency_histogram.bucket{$cluster,$database}.as_rate()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse2.endpoint_write_requests_latency_histogram.bucket{$cluster,$database}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5,
         "is_column_break": true
       }
     },
     {
-      "id": 1107644513966124,
+      "id": 7285674898279796,
       "definition": {
-        "title": "Get/Set",
-        "background_color": "vivid_orange",
+        "title": "Cache Operations",
+        "background_color": "pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 4493462146648202,
+            "id": 5965375903891770,
             "definition": {
-              "title": "Get",
+              "title": "Expired Keys",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -702,7 +617,7 @@
                 {
                   "formulas": [
                     {
-                      "alias": "GET",
+                      "alias": "expired keys",
                       "formula": "query1"
                     }
                   ],
@@ -710,14 +625,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_cmd_get{$cluster}"
+                      "query": "avg:rdse2.redis_server_expired_keys{$cluster,$database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -729,13 +642,13 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           },
           {
-            "id": 2699327014422812,
+            "id": 5783010566074628,
             "definition": {
-              "title": "Set",
+              "title": "Evicted Keys",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -752,7 +665,7 @@
                 {
                   "formulas": [
                     {
-                      "alias": "SET",
+                      "alias": "evicted keys",
                       "formula": "query1"
                     }
                   ],
@@ -760,14 +673,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdse2.redis_server_evicted_keys{$cluster,$database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -779,16 +690,16 @@
               "x": 6,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 4
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 20,
+        "y": 5,
         "width": 12,
-        "height": 4
+        "height": 5
       }
     }
   ],
@@ -800,8 +711,8 @@
       "default": "*"
     },
     {
-      "name": "node",
-      "prefix": "node",
+      "name": "database",
+      "prefix": "db",
       "available_values": [],
       "default": "*"
     }
