@@ -66,7 +66,7 @@ class MyErrorBoundary extends React.Component {
 
 ## React 19 `createRoot` Error Handling
 
-React 19 introduced new error handling options for `createRoot` that can help capture errors more effectively. You can configure these options to work with Datadog RUM error tracking:
+React 19 introduced new error handling options for `createRoot` that can help capture errors more effectively. You can configure these options to work with Datadog RUM error tracking. See the [createRoot documentation](https://react.dev/reference/react-dom/client/createRoot#parameters) for more details:
 
 ```javascript
 import { createRoot } from 'react-dom/client'
