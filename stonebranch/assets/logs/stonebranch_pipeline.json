@@ -1,0 +1,130 @@
+{
+  "type": "pipeline",
+  "name": "Stonebranch Universal Controller",
+  "filter": {
+    "query": "source:stonebranch OR source:tomcat"
+  },
+  "processors": [
+    {
+      "type": "grok-parser",
+      "name": "Parse UC log format",
+      "enabled": true,
+      "source": "message",
+      "samples": [
+        "2025-01-15 10:30:45,123 [INFO] [JobManager] [Thread-1] Job 'daily_backup' started successfully",
+        "2025-01-15 10:31:02,456 [ERROR] [DatabaseManager] [main] Connection failed: timeout after 30s",
+        "2025-01-15 10:31:15,789 [WARN] [Scheduler] [scheduler-1] Job queue is 85% full"
+      ],
+      "grok": {
+        "support_rules": "UC_TIMESTAMP %{date(\"yyyy-MM-dd HH:mm:ss,SSS\"):timestamp}\nUC_LOG_LEVEL \\[%{word:level}\\]\nUC_COMPONENT \\[%{word:component}\\]\nUC_THREAD \\[%{data:thread}\\]",
+        "match_rules": "uc_main_rule %{UC_TIMESTAMP} %{UC_LOG_LEVEL} %{UC_COMPONENT} %{UC_THREAD} %{data:message}"
+      }
+    },
+    {
+      "type": "grok-parser",
+      "name": "Parse Tomcat catalina format",
+      "enabled": true,
+      "source": "message",
+      "samples": [
+        "15-Jan-2025 10:30:45.123 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 1234 ms",
+        "15-Jan-2025 10:31:02.456 SEVERE [http-nio-8080-exec-1] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() threw exception"
+      ],
+      "grok": {
+        "support_rules": "TOMCAT_TIMESTAMP %{date(\"dd-MMM-yyyy HH:mm:ss.SSS\"):timestamp}\nTOMCAT_LEVEL %{word:level}\nTOMCAT_THREAD \\[%{data:thread}\\]\nTOMCAT_CLASS %{data:class}",
+        "match_rules": "tomcat_main_rule %{TOMCAT_TIMESTAMP} %{TOMCAT_LEVEL} %{TOMCAT_THREAD} %{TOMCAT_CLASS} %{data:message}"
+      }
+    },
+    {
+      "type": "status-remapper",
+      "name": "Map log levels to status",
+      "enabled": true,
+      "sources": [
+        "level"
+      ]
+    },
+    {
+      "type": "date-remapper",
+      "name": "Define timestamp as official date",
+      "enabled": true,
+      "sources": [
+        "timestamp"
+      ]
+    },
+    {
+      "type": "category-processor",
+      "name": "Categorize by component",
+      "enabled": true,
+      "categories": [
+        {
+          "filter": {
+            "query": "@component:JobManager"
+          },
+          "name": "job-management"
+        },
+        {
+          "filter": {
+            "query": "@component:Scheduler"
+          },
+          "name": "scheduling"
+        },
+        {
+          "filter": {
+            "query": "@component:DatabaseManager"
+          },
+          "name": "database"
+        },
+        {
+          "filter": {
+            "query": "@component:WebServer"
+          },
+          "name": "web-interface"
+        },
+        {
+          "filter": {
+            "query": "@component:TaskManager"
+          },
+          "name": "task-execution"
+        },
+        {
+          "filter": {
+            "query": "source:tomcat"
+          },
+          "name": "tomcat"
+        }
+      ],
+      "target": "category"
+    },
+    {
+      "type": "attribute-remapper",
+      "name": "Map component to service",
+      "enabled": true,
+      "sources": [
+        "component"
+      ],
+      "target": "service.name",
+      "preserve_source": true,
+      "source_type": "attribute",
+      "target_type": "attribute"
+    },
+    {
+      "type": "attribute-remapper",
+      "name": "Map thread to tag",
+      "enabled": true,
+      "sources": [
+        "thread"
+      ],
+      "target": "thread_name",
+      "preserve_source": false,
+      "source_type": "attribute",
+      "target_type": "tag"
+    },
+    {
+      "type": "string-builder-processor",
+      "name": "Build job context",
+      "enabled": true,
+      "template": "%{component}.%{thread}",
+      "target": "job_context",
+      "is_replace_missing": true
+    }
+  ]
+}

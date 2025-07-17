@@ -1,0 +1,51 @@
+name: Stonebranch Universal Controller
+files:
+  - name: stonebranch.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/default
+          - name: min_collection_interval
+            description: |
+              This changes the collection interval of the check.
+            value:
+              display_default: 15
+              example: 15
+              type: integer
+      - template: instances
+        options:
+          - name: url
+            description: Full URL of the Stonebranch Universal Controller Metrics API endpoint
+            required: true
+            value:
+              type: string
+              example: "https://your-uc-server:8080/uc/resources/metrics"
+          - name: username
+            description: Username for UC authentication
+            required: true
+            value:
+              type: string
+          - name: password
+            description: Password for UC authentication
+            required: true
+            secret: true
+            value:
+              type: string
+          - name: log_path
+            description: Path to the Universal Controller log file
+            required: false
+            value:
+              type: string
+              example: "/path/to/uc.log"
+          - name: tomcat_log_path
+            description: Path to the Tomcat catalina.out log file
+            required: false
+            value:
+              type: string
+              example: "/stonebranch/tomcat/logs/catalina.out"
+          - name: verify_ssl
+            description: Verify SSL certificates
+            value:
+              type: boolean
+              example: true
+          - template: instances/default
