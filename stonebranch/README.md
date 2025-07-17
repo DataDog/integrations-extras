@@ -18,13 +18,9 @@ The Stonebranch Universal Controller integration provides comprehensive monitori
 
 To install the Stonebranch check on your host:
 
-1. Install the [developer toolkit][2] on any machine.
-2. Run `ddev release build stonebranch` to build the package.
-3. [Download the Datadog Agent][3].
-4. Upload the build artifact to any host with an Agent and run:
-   ```bash
-   datadog-agent integration install -w path/to/stonebranch/dist/<ARTIFACT_NAME>.whl
-   ```
+1. [Download the Datadog Agent][3].
+2. Install the Stonebranch Integration
+3. Configure the yaml with your Universal Controller url and log path.
 
 ### Configuration
 
@@ -36,57 +32,24 @@ To install the Stonebranch check on your host:
 init_config:
 
 instances:
-  - url: "https://your-uc-server:8080"
-    username: "your-username"
-    password: "your-password"
-    log_path: "/opt/stonebranch/uc/logs/uc.log"  # Optional: specify log path
-    verify_ssl: true
-    tags:
-      - "env:production"
-      - "datacenter:us-east-1"
+  - url: "http://localhost:8080/uc"
+    username: "your-username" #user with valid access rights to /resources/metric
+    password: "your-password" 
 
 logs:
   - type: file
-    path: "/opt/stonebranch/uc/logs/uc.log"
+    path: "/path/to/uc.log" #Path to your Tomcat UC logs.
     service: "stonebranch-uc"
     source: "stonebranch"
-    tags:
-      - "env:production"
-      - "component:universal-controller"
     multiline:
       pattern_start: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"
       match_for_start: true
 ```
-
-2. [Restart the Agent][4].
-
-#### Log Collection Setup
-
-##### Log Parsing
-
-The integration automatically parses UC logs to extract:
-- Timestamp
-- Log level (INFO, WARN, ERROR, DEBUG)
-- Component/module
-- Message content
-- Job execution details
-- Error traces
-
-##### Log Rotation and Permissions
-
 Ensure the Datadog Agent has read permissions on:
 - Current log file
 - Rotated log files (if log rotation is enabled)
 
-### Validation
-
-Run the [Agent's status subcommand][5] and look for `stonebranch` under the Checks section.
-
-Alternatively, you can test the integration directly:
-
-```bash
-sudo -u dd-agent datadog-agent check stonebranch
-```
+2. [Restart the Agent][4].
 
 ## Data Collected
 
@@ -107,28 +70,11 @@ The Stonebranch integration does not include any events.
 
 ### Service Checks
 
-See [service_checks.json][8] for a list of service checks provided by this integration.
+The Stonebranch integration does not include any service checks.
 
 ## Log Collection
 
-### Log Types
-
-The integration categorizes logs into:
-
-- **Application logs**: General UC application events
-- **Job logs**: Job execution, status changes, workflow progression
-- **Audit logs**: User actions, configuration changes, security events
-- **Error logs**: System errors, exceptions, failure details
-- **Performance logs**: Resource usage, timing metrics, bottlenecks
-
-### Log Processing
-
-Logs are automatically parsed and enriched with:
-- Structured timestamps
-- Log levels mapped to Datadog severity
-- Component categorization
-- Job correlation IDs
-- Error stack traces
+The Stonebranch integration collects the log file and its content from the tomcat uc.log.
 
 ## Troubleshooting
 
@@ -136,18 +82,7 @@ Logs are automatically parsed and enriched with:
 
 1. **Connection failures**: Verify UC server URL and credentials
 2. **Log file access**: Check file permissions and path configuration
-3. **SSL certificate errors**: Set `verify_ssl: false` for self-signed certificates
-4. **Missing metrics**: Ensure UC API endpoints are accessible
-
-### Debug Mode
-
-Enable debug logging by adding to your `datadog.yaml`:
-
-```yaml
-log_level: debug
-```
-
-Then check the Agent logs for detailed troubleshooting information.
+3. **Missing metrics**: Ensure UC API endpoints are accessible
 
 ### Getting Help
 
@@ -162,8 +97,7 @@ Additional helpful documentation, links, and articles:
 - [Stonebranch Metrics Reference][6]
 - [Custom Properties Configuration][7]
 
-[1]: https://www.stonebranch.com/universal-automation-platform/
-[2]: https://docs.datadoghq.com/developers/integrations/python/
+[1]: https://stonebranchdocs.atlassian.net/wiki/spaces/SD/overview
 [3]: https://app.datadoghq.com/account/settings/agent/latest
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
