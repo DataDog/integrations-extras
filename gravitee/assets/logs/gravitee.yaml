@@ -1,5 +1,9 @@
 id: gravitee
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
 metric_id: gravitee
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
 backend_only: false
 facets:
   - description: The human-readable name of the API
@@ -25,7 +29,7 @@ pipeline:
       sourceType: attribute
       target: gravitee.apiName
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
     - type: service-remapper
       name: Gravitee Service Remapper
