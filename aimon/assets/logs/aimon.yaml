@@ -12,4 +12,19 @@ pipeline:
   enabled: true
   filter:
     query: source:aimon
-  processors: []
+  processors:
+    - type: date-remapper
+      name: Date Remapper
+      enabled: true
+      sources:
+        - timestamp
+    - type: service-remapper
+      name: Service Remapper
+      enabled: true
+      sources:
+        - service
+    - type: status-remapper
+      name: Status Remapper
+      enabled: true
+      sources:
+        - status
