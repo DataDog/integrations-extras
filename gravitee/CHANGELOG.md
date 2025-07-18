@@ -1,6 +1,6 @@
 # CHANGELOG - Gravitee APIM
 
-## 1.0.0 / 2025-07-17
+## 1.0.0 / 2025-07-18
 
 _**Added**_:
 
