@@ -1,5 +1,9 @@
 # CHANGELOG - puma
 
+## 1.3.0 / 2025-07-19
+
+* Add busy_threads metric to Puma integration ([#2697](https://github.com/DataDog/integrations-extras/pull/2697)).
+
 ## 1.2.2 / 2025-03-17
 
 * Stop using simplejson and use the standard library instead
