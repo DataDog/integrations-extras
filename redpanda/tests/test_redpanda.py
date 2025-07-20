@@ -31,10 +31,14 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     additional_metric_groups = [
         'redpanda.cloud',
         'redpanda.controller',
+        'redpanda.debug_bundle',
         'redpanda.node_status',
         'redpanda.pandaproxy',
         'redpanda.scheduler',
         'redpanda.schemaregistry',
+        'redpanda.iceberg',
+        'redpanda.transform',
+        'redpanda.wasm'
     ]
 
     instance = deepcopy(MOCK_REDPANDA_INSTANCE)
@@ -104,7 +108,7 @@ def test_check(aggregator, dd_run_check):
     dd_run_check(check)
 
     for m in INSTANCE_DEFAULT_METRICS:
-        # skipping as its only exposed when consumer group is created
+        # skipping as these are only sent under certain conditions (usage, configurations, etc)
         if m in [
             "redpanda.kafka.group_count",
             "redpanda.cluster.replicas",
@@ -114,6 +118,13 @@ def test_check(aggregator, dd_run_check):
             "redpanda.kafka.group_topic_count",
             "redpanda.kafka.group_lag_sum",
             "redpanda.kafka.group_lag_max",
+            "redpanda.cluster.latest_cluster_metadata_manifest_age",
+            "redpanda.cluster.partition_schema_id_validation_records_failed.count",
+            "redpanda.tls.certificate_expires_at_timestamp_seconds",
+            "redpanda.tls.certificate_serial",
+            "redpanda.tls.certificate_valid",
+            "redpanda.tls.loaded_at_timestamp_seconds",
+            "redpanda.tls.truststore_expires_at_timestamp_seconds",
         ]:
             continue
         aggregator.assert_metric(m)
