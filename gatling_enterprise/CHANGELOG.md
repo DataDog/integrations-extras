@@ -1,8 +1,8 @@
 # CHANGELOG - Gatling Enterprise
 
-## 1.2.0 / 2025-07-17
+## 1.2.0 / 2025-07-21
 
-_**bug fix**_:
+_**Fixed**_:
 
 Units changed from second to millisecond for metrics:
 * gatling_enterprise.response.response_time.max 
