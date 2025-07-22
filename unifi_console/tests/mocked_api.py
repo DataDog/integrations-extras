@@ -26,7 +26,6 @@ class MockedAPI(object):
 
     def get_devices_info(self):
         with open(os.path.join(HERE, "fixtures", "device_metrics.json")) as f:
-
             resp = json.load(f)
             devices: List[Device] = []
 
@@ -48,7 +47,6 @@ class MockedAPI(object):
 
     def get_clients_info(self) -> List[Client]:
         with open(os.path.join(HERE, "fixtures", "client_metrics.json")) as f:
-
             resp = json.load(f)
             clients: List[Client] = []
 

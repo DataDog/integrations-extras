@@ -1,0 +1,747 @@
+{
+    "slug": "pagerduty_service_manager",
+    "name": "Manage PagerDuty Services",
+    "description": "Monitor the status of PagerDuty services and trigger incidents when needed",
+    "tags": [
+        "paging"
+    ],
+    "tile_background": "table",
+    "definition": {
+        "name": "Manage PagerDuty Services",
+        "description": "Monitor the status of PagerDuty services and trigger incidents when needed",
+        "queries": [
+            {
+                "name": "listServices",
+                "type": "action",
+                "properties": {
+                    "outputs": "${((outputs) => {// Use `outputs` to reference the query's unformatted output.\n\n// TODO: Apply transformations to the raw query output\n\nreturn {\n    services: outputs.services?.map(s => {\n        const teams = s.teams?.map( t=> t.summary)\n       return {\n            ...s,\n        teams\n       }\n    }).filter(s => {\n        \n        const matchesName = !name.value?.length ? true : s.name.toLowerCase().includes(name.value?.toLowerCase());\n        const matchesStatus = status.value === 'Any Status' ? true : s.status === status.value;\n        const matchesTeam = team.value === 'Any Team' ? true : s.teams.includes(team.value);\n        \n        return matchesName && matchesStatus && matchesTeam ;\n    }).sort((a, b) => {\n        if(a.status === 'critical' && a.status !== b.status){\n            return -1;\n        } else{\n            return 0;\n        }\n    })\n}})(self.rawOutputs)}",
+                    "spec": {
+                        "fqn": "com.datadoghq.pagerduty.listServices",
+                        "inputs": {}
+                    }
+                }
+            },
+            {
+                "name": "triggerIncident",
+                "type": "action",
+                "properties": {
+                    "onlyTriggerManually": true,
+                    "requiresConfirmation": true,
+                    "spec": {
+                        "fqn": "com.datadoghq.pagerduty.trigger_incident",
+                        "inputs": {
+                            "severity": "${severity.value}",
+                            "summary": "${summary.value}",
+                            "source": "${source.value}",
+                            "serviceName": "${service.value}"
+                        }
+                    }
+                }
+            }
+        ],
+        "id": "cfefb8ab-f1bb-40a5-8c76-5b1e6a7bff7b",
+        "components": [
+            {
+                "events": [],
+                "name": "grid0",
+                "properties": {
+                    "children": [
+                        {
+                            "events": [],
+                            "name": "gridCell0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "table0",
+                                        "properties": {
+                                            "columns": [
+                                                {
+                                                    "dataPath": "acknowledgement_timeout",
+                                                    "header": "acknowledgement_timeout",
+                                                    "id": "c722c266-14bf-4f83-897f-a86326c9942d",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "addons",
+                                                    "header": "addons",
+                                                    "id": "7617be6a-2c6c-4cd0-8a23-7eef916bf74b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "alert_creation",
+                                                    "header": "alert_creation",
+                                                    "id": "c8827422-71e0-4086-bd0f-37570fa468f6",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "auto_resolve_timeout",
+                                                    "header": "auto_resolve_timeout",
+                                                    "id": "0e716bb9-b9f6-4ff8-9ba3-a044aebe7436",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "created_at",
+                                                    "header": "created_at",
+                                                    "id": "b0278482-0e86-4406-a6cd-c43918aa0db5",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "description",
+                                                    "header": "description",
+                                                    "id": "2e9c64ac-e9e7-459a-99cb-685f4ed4339b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "escalation_policy",
+                                                    "header": "escalation_policy",
+                                                    "id": "511094c1-2a0b-4991-803e-dc4ff0239bba",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "name",
+                                                    "header": "name",
+                                                    "id": "5f8847fa-717b-47c3-94cf-45f3e8f4e70e",
+                                                    "isHidden": false
+                                                },
+                                                {
+                                                    "dataPath": "id",
+                                                    "header": "id",
+                                                    "id": "5b84aa42-0b77-4cc0-8f24-4b209474045a",
+                                                    "isHidden": false
+                                                },
+                                                {
+                                                    "dataPath": "incident_urgency_rule",
+                                                    "header": "incident_urgency_rule",
+                                                    "id": "e2b7195d-483c-4a32-86d5-e327e103b9cd",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "integrations",
+                                                    "header": "integrations",
+                                                    "id": "3509ef94-b615-4ced-b0db-ceba646a591b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "last_incident_timestamp",
+                                                    "header": "last_incident_timestamp",
+                                                    "id": "c72a0411-ddd9-4813-81d1-b3a4a4dbf11d",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "response_play",
+                                                    "header": "response_play",
+                                                    "id": "9af960b2-0b11-4852-8b63-d32f1f1738b1",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "scheduled_actions",
+                                                    "header": "scheduled_actions",
+                                                    "id": "b7124e66-bc59-4601-8dfc-b570728bda0b",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "self",
+                                                    "header": "self",
+                                                    "id": "8b994e61-1146-40b0-9499-c38860da6bfb",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "status",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "isSoft": false,
+                                                        "options": [
+                                                            {
+                                                                "level": "success",
+                                                                "value": "active"
+                                                            },
+                                                            {
+                                                                "level": "danger",
+                                                                "value": "critical"
+                                                            },
+                                                            {
+                                                                "level": "default",
+                                                                "value": "disabled"
+                                                            }
+                                                        ],
+                                                        "type": "pill"
+                                                    },
+                                                    "header": "status",
+                                                    "id": "ee8d9377-1cd9-42b9-b766-67076cb541d7"
+                                                },
+                                                {
+                                                    "dataPath": "summary",
+                                                    "header": "summary",
+                                                    "id": "5a87b970-8ece-4cc3-8264-a998724964ed",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "support_hours",
+                                                    "header": "support_hours",
+                                                    "id": "dc8e471e-bbf0-49bb-a18c-9dfd1fdd2851",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "teams",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "type": "tags"
+                                                    },
+                                                    "header": "teams",
+                                                    "id": "24800667-039f-46f9-a5c6-cac42ba5f521"
+                                                },
+                                                {
+                                                    "dataPath": "type",
+                                                    "header": "type",
+                                                    "id": "4afc23ff-f8f2-45c7-bdd7-dc5c5c4275b7",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "updated_at",
+                                                    "header": "updated_at",
+                                                    "id": "afc324f7-bea1-4608-a754-1e19d5e0a986",
+                                                    "isHidden": true
+                                                },
+                                                {
+                                                    "dataPath": "html_url",
+                                                    "disableSortBy": false,
+                                                    "formatter": {
+                                                        "label": "Open in PagerDuty",
+                                                        "type": "link"
+                                                    },
+                                                    "header": "Open in PagerDuty",
+                                                    "id": "844fa953-7eda-403b-a8e8-a92c00b86123"
+                                                },
+                                                {
+                                                    "dataPath": "alert_grouping",
+                                                    "header": "alert_grouping",
+                                                    "isHidden": true,
+                                                    "id": "32566f7c-67c3-4b2c-81ad-b17b4f7fb5ed"
+                                                },
+                                                {
+                                                    "dataPath": "alert_grouping_parameters",
+                                                    "header": "alert_grouping_parameters",
+                                                    "isHidden": true,
+                                                    "id": "128c069f-e970-4916-9dac-36e343f7f549"
+                                                },
+                                                {
+                                                    "dataPath": "alert_grouping_timeout",
+                                                    "header": "alert_grouping_timeout",
+                                                    "isHidden": true,
+                                                    "id": "97227ab4-b2a2-45d7-9bb2-ceec82c2c4d6"
+                                                }
+                                            ],
+                                            "data": "${listServices?.outputs?.services}",
+                                            "isLoading": "${listServices.isLoading}",
+                                            "isScrollable": "vertical",
+                                            "isVisible": "true",
+                                            "isWrappable": false,
+                                            "pageSize": "10",
+                                            "paginationType": "client_side",
+                                            "rowButtons": [
+                                                {
+                                                    "events": [
+                                                        {
+                                                            "modalName": "modal0",
+                                                            "name": "click",
+                                                            "type": "openModal"
+                                                        }
+                                                    ],
+                                                    "name": "button1",
+                                                    "properties": {
+                                                        "integrationIcon": "pagerduty",
+                                                        "isBorderless": false,
+                                                        "isDisabled": false,
+                                                        "isPrimary": false,
+                                                        "isVisible": true,
+                                                        "label": "Trigger Incident"
+                                                    },
+                                                    "type": "button"
+                                                }
+                                            ],
+                                            "summary": false,
+                                            "totalCount": 20
+                                        },
+                                        "type": "table"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 56,
+                                        "width": 10,
+                                        "x": 1,
+                                        "y": 24
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell1",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "status",
+                                        "properties": {
+                                            "defaultValue": "Any Status",
+                                            "isDisabled": "${listServices.isLoading}",
+                                            "isMultiselect": "false",
+                                            "isVisible": "true",
+                                            "label": "",
+                                            "options": "${['Any Status', ...new Set(listServices.rawOutputs?.services?.map(s => s.status))]}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 2,
+                                        "x": 5,
+                                        "y": 18
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell2",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "name",
+                                        "properties": {
+                                            "defaultValue": "",
+                                            "isLoading": "${listServices.isLoading}",
+                                            "isVisible": "true",
+                                            "placeholder": "Search by name",
+                                            "size": "md"
+                                        },
+                                        "type": "search"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 6,
+                                        "width": 4,
+                                        "x": 1,
+                                        "y": 17
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell3",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listServices.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Total",
+                                            "size": "md",
+                                            "style": "vivid_green",
+                                            "unit": "services",
+                                            "value": "${listServices.outputs?.services?.length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 2,
+                                        "x": 7,
+                                        "y": 7
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell1_copy",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "team",
+                                        "properties": {
+                                            "defaultValue": "Any Team",
+                                            "isDisabled": "${listServices.isLoading}",
+                                            "isMultiselect": "false",
+                                            "isVisible": "true",
+                                            "label": "",
+                                            "options": "${['Any Team', ...new Set(listServices.rawOutputs?.services?.map(s => s.teams.map(t => t.summary)).flat())]}"
+                                        },
+                                        "type": "select"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 2,
+                                        "x": 7,
+                                        "y": 18
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell3_copy",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "calloutValue0_copy",
+                                        "properties": {
+                                            "isDisabled": "false",
+                                            "isLoading": "${listServices.isLoading}",
+                                            "isVisible": "true",
+                                            "label": "Critical",
+                                            "size": "md",
+                                            "style": "vivid_orange",
+                                            "unit": "services",
+                                            "value": "${listServices.outputs?.services?.filter(s => s.status === 'critical').length}"
+                                        },
+                                        "type": "calloutValue"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 10,
+                                        "width": 2,
+                                        "x": 9,
+                                        "y": 7
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell5",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "text1",
+                                        "properties": {
+                                            "content": "# PagerDuty Service Manager\nMonitor the status of PagerDuty services and trigger incidents when needed",
+                                            "contentType": "markdown",
+                                            "isVisible": "true",
+                                            "textAlign": "left",
+                                            "verticalAlign": "top"
+                                        },
+                                        "type": "text"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 9,
+                                        "width": 6,
+                                        "x": 1,
+                                        "y": 7
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [],
+                            "name": "gridCell6",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [
+                                            {
+                                                "modalName": "modal0",
+                                                "name": "click",
+                                                "type": "openModal"
+                                            }
+                                        ],
+                                        "name": "button0",
+                                        "properties": {
+                                            "integrationIcon": "pagerduty",
+                                            "isBorderless": false,
+                                            "isDisabled": "false",
+                                            "isLoading": "false",
+                                            "isPrimary": false,
+                                            "isVisible": "true",
+                                            "label": "Trigger Incident",
+                                            "level": "default"
+                                        },
+                                        "type": "button"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "layout": {
+                                    "default": {
+                                        "height": 4,
+                                        "width": 2,
+                                        "x": 9,
+                                        "y": 18
+                                    }
+                                }
+                            },
+                            "type": "gridCell"
+                        },
+                        {
+                            "events": [
+                                {
+                                    "componentName": "table0",
+                                    "name": "close",
+                                    "stateFunction": "setSelectedRow",
+                                    "type": "setComponentState",
+                                    "value": "${null}"
+                                }
+                            ],
+                            "name": "modal0",
+                            "properties": {
+                                "children": [
+                                    {
+                                        "events": [],
+                                        "name": "grid1",
+                                        "properties": {
+                                            "children": [
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell7",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "summary",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Summary*",
+                                                                    "placeholder": ""
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 11
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell8",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "severity",
+                                                                "properties": {
+                                                                    "defaultValue": "critical",
+                                                                    "isDisabled": false,
+                                                                    "isMultiselect": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Severity*",
+                                                                    "options": "['critical', 'error', 'warning', 'info']"
+                                                                },
+                                                                "type": "select"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 9,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 0
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell9",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "service",
+                                                                "properties": {
+                                                                    "defaultValue": "${table0.selectedRow?.content.name}",
+                                                                    "isDisabled": false,
+                                                                    "isMultiselect": "false",
+                                                                    "isVisible": "true",
+                                                                    "label": "Service*",
+                                                                    "options": "${listServices.rawOutputs?.services?.map(s => s.name)}"
+                                                                },
+                                                                "type": "select"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 31
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell10",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "name": "click",
+                                                                        "queryName": "triggerIncident",
+                                                                        "type": "triggerQuery"
+                                                                    }
+                                                                ],
+                                                                "name": "button2",
+                                                                "properties": {
+                                                                    "integrationIcon": "none",
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "${!summary.value?.length || !severity.value?.length || !source.value?.length || !service.value?.length}",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": true,
+                                                                    "isVisible": "true",
+                                                                    "label": "Trigger",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 3,
+                                                                "x": 8,
+                                                                "y": 46
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell11",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [
+                                                                    {
+                                                                        "modalName": "modal0",
+                                                                        "name": "click",
+                                                                        "type": "closeModal"
+                                                                    }
+                                                                ],
+                                                                "name": "button3",
+                                                                "properties": {
+                                                                    "isBorderless": false,
+                                                                    "isDisabled": "false",
+                                                                    "isLoading": "false",
+                                                                    "isPrimary": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Cancel",
+                                                                    "level": "default"
+                                                                },
+                                                                "type": "button"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 4,
+                                                                "width": 3,
+                                                                "x": 5,
+                                                                "y": 46
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                },
+                                                {
+                                                    "events": [],
+                                                    "name": "gridCell7_copy",
+                                                    "properties": {
+                                                        "children": [
+                                                            {
+                                                                "events": [],
+                                                                "name": "source",
+                                                                "properties": {
+                                                                    "defaultValue": "",
+                                                                    "isDisabled": false,
+                                                                    "isVisible": "true",
+                                                                    "label": "Source*",
+                                                                    "placeholder": ""
+                                                                },
+                                                                "type": "textInput"
+                                                            }
+                                                        ],
+                                                        "isVisible": "true",
+                                                        "layout": {
+                                                            "default": {
+                                                                "height": 8,
+                                                                "width": 12,
+                                                                "x": 0,
+                                                                "y": 21
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "gridCell"
+                                                }
+                                            ]
+                                        },
+                                        "type": "grid"
+                                    }
+                                ],
+                                "isVisible": "true",
+                                "size": "sm",
+                                "title": "Trigger Incident"
+                            },
+                            "type": "modal"
+                        }
+                    ]
+                },
+                "type": "grid"
+            }
+        ],
+        "rootInstanceName": "grid0"
+    },
+    "mocked_outputs": {},
+    "tile_icon_action_fqn": "com.datadoghq.pagerduty.listServices",
+    "embedded_workflow_blueprints": {},
+    "embedded_datastore_blueprints": {}
+}

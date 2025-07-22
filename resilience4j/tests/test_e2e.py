@@ -10,7 +10,6 @@ pytestmark = [pytest.mark.usefixtures("dd_environment"), pytest.mark.e2e]
 
 
 def test_e2e_resilience4j_check_e2e_assert_service_check(dd_agent_check, aggregator, instance):
-
     with pytest.raises(Exception):
         dd_agent_check(instance, rate=True)
 

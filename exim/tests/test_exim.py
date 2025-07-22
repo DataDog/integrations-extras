@@ -55,7 +55,6 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 
 @pytest.mark.unit
 def test_get_queue_stats(dd_run_check):
-
     check = EximCheck('exim', {}, [])
     with mock.patch('datadog_checks.exim.check.get_subprocess_output', return_value=(exiqsumm_mock(), '', 0)):
         result = check._get_queue_stats()
@@ -70,7 +69,6 @@ def test_get_queue_stats(dd_run_check):
 
 @pytest.mark.unit
 def test_get_queue_stats_empty(dd_run_check):
-
     check = EximCheck('exim', {}, [])
     with mock.patch('datadog_checks.exim.check.get_subprocess_output', return_value=(exiqsumm_empty_mock(), '', 0)):
         result = check._get_queue_stats()
