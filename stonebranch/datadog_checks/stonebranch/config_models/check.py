@@ -1,6 +1,8 @@
 import requests
-from datadog_checks.base import AgentCheck, ConfigurationError
 from prometheus_client.parser import text_string_to_metric_families
+
+from datadog_checks.base import AgentCheck, ConfigurationError
+
 
 class StonebranchUniversalControllerCheck(AgentCheck):
     def check(self, instance):
