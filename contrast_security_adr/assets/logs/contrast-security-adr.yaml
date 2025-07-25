@@ -8,11 +8,6 @@ backend_only: false
 facets:
   - groups:
       - Web Access
-    name: Client IP
-    path: network.client.ip
-    source: log
-  - groups:
-      - Web Access
     name: Method
     path: http.method
     source: log
@@ -59,169 +54,9 @@ facets:
   - description: ""
     facetType: list
     groups:
-      - ContrastADR-Incident
-    name: Created Time
-    path: createdTime
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Event
-    name: Event Type
-    path: eventType
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - ContrastADR-Incident
-    name: Incident Score
-    path: score
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - ContrastADR-Incident
-    name: Organization Uuid
-    path: organizationUuid
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - ContrastADR-Incident
-    name: Status
-    path: severity
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - ContrastADR-Incident
-    name: Timestamp
-    path: timestamp
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - ContrastADR-Incident
-    name: URL
-    path: url
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: agentVersion
-    path: agentVersion
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: apiUri
-    path: apiUri
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: host.hostname
-    path: host.hostname
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: host.operatingSystem
-    path: host.operatingSystem
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.headers.host
-    path: request.headers.host
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.headers.referer
-    path: request.headers.referer
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.headers.user-agent
-    path: request.headers.user-agent
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.method
-    path: request.method
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.protocol
-    path: request.protocol
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.protocolVersion
-    path: request.protocolVersion
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: request.queryString
-    path: request.queryString
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: result
-    path: result
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: rule
-    path: rule
-    source: log
-    type: string
-  - description: ""
-    facetType: list
-    groups:
-      - Contrast
-    name: sourceIp
-    path: sourceIp
+      - Contrast ADR - Incident
+    name: contrast_adr.score
+    path: contrast_adr.score
     source: log
     type: string
 pipeline:
@@ -235,18 +70,8 @@ pipeline:
       name: Contrast ADR Incidents
       enabled: true
       filter:
-        query: source:contrast-security-adr
+        query: "@incidentid:*"
       processors:
-        - type: attribute-remapper
-          name: "Remapper: Map `incidentId` to `resource.id`"
-          enabled: true
-          sources:
-            - incidentId
-          sourceType: attribute
-          target: resource.id
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
         - type: attribute-remapper
           name: "Remapper: Map `score` to `syslog.severity`"
           enabled: true
@@ -277,6 +102,11 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
+        - type: date-remapper
+          name: "Date Remapper: 'date' as date of the log"
+          enabled: true
+          sources:
+            - date
         - type: attribute-remapper
           name: "Remapper: Map `eventType` to `resource.type`"
           enabled: true
@@ -292,24 +122,29 @@ pipeline:
           enabled: true
           sources:
             - severity
-        - type: date-remapper
-          name: "Date Remapper: 'timestamp'"
-          enabled: true
-          sources:
-            - timestamp
     - type: pipeline
       name: Contrast ADR Attack Events
       enabled: true
       filter:
-        query: source:contrast-security-adr
+        query: "@eventUuid:*"
       processors:
         - type: attribute-remapper
-          name: "Remapper: Map `sourceIp` to `network.client.ip`"
+          name: "Remapper: Map `sourceIp` to `network.host.ip`"
           enabled: true
           sources:
             - sourceIp
           sourceType: attribute
-          target: network.client.ip
+          target: network.host.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper : Map `sevirity` to `status`"
+          enabled: true
+          sources:
+            - sevirity
+          sourceType: attribute
+          target: status
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
@@ -354,10 +189,20 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: "Remapper: Map `detectedTime` "
+          name: "Remapper: Map `date` as the date of log"
+          enabled: true
+          sources:
+            - date
+        - type: attribute-remapper
+          name: "Remapper: Map 'detectedTime' to  'date'"
           enabled: true
           sources:
             - detectedTime
+          sourceType: attribute
+          target: date
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
         - type: attribute-remapper
           name: "Remapper: Map `result` to `evt.outcome`"
           enabled: true
@@ -453,6 +298,16 @@ pipeline:
             - agentVersion
           sourceType: attribute
           target: version
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: "Remapper: Map `incident_id` to `contrast_adr.incident_id`"
+          enabled: true
+          sources:
+            - incident_id
+          sourceType: attribute
+          target: contrast_adr.incident_id
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
