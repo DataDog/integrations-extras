@@ -115,12 +115,13 @@ pipeline:
     query: source:jamfprotect
   processors:
     - type: attribute-remapper
-      name: Map `event.device.userDeviceName` to `host`
+      name: Map `event.device.userDeviceName`, `input.host.hostname` to `host`
       enabled: true
       sources:
         - event.device.userDeviceName
+        - input.host.hostname
       target: host
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
       sourceType: attribute
       targetType: attribute
