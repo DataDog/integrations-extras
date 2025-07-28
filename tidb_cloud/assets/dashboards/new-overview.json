@@ -1,5 +1,5 @@
 {
-    "title": "TiDB Cloud Cluster Overview (new metric development)",
+    "title": "TiDBCloud Cluster Overview (new metric development)",
     "description": "This dashboard provides a **high-level** overview of your TiDB clusters.\n\nFurther reading on TiDB monitoring:\n\n- [TiDB Monitoring Framework Overview](https://docs.pingcap.com/tidb/stable/tidb-monitoring-framework)\n- [TiDB Troubleshooting Map](https://docs.pingcap.com/tidb/stable/tidb-troubleshooting-map)\n- [Metrics available to Datadog](https://docs.pingcap.com/tidbcloud/monitor-datadog-integration#metrics-available-to-datadog)\n\nClone this template dashboard to make changes and add your own graph widgets.",
     "widgets": [
         {
@@ -283,7 +283,7 @@
             "id": 4780437374967930,
             "definition": {
                 "title": "Connetions",
-                "type": "group",
+                "type":"group",
                 "background_color": "purple",
                 "show_title": true,
                 "layout_type": "ordered",
@@ -687,9 +687,9 @@
             "id": 3706679498094862,
             "definition": {
                 "title": "Node Resource Utilization",
-                "type": "group",
                 "background_color": "blue",
                 "show_title": true,
+                "type": "group",
                 "layout_type": "ordered",
                 "widgets": [
                     {
@@ -776,11 +776,33 @@
                                     "formulas": [
                                         {
                                             "alias": "usage",
-                                            "formula": "default_zero(query1)"
+                                            "formula": "default_zero(query1)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         },
                                         {
                                             "alias": "capacity",
-                                            "formula": "default_zero(query2)"
+                                            "formula": "default_zero(query2)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "alias": "available",
+                                            "formula": "default_zero(query3)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -794,6 +816,11 @@
                                             "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
+                                        },
+                                        {
+                                            "query": "sum:tidb_cloud.node_memory_available_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
                                         }
                                     ],
                                     "style": {
@@ -968,11 +995,33 @@
                                     "formulas": [
                                         {
                                             "alias": "usage",
-                                            "formula": "default_zero(query1)"
+                                            "formula": "default_zero(query1)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         },
                                         {
                                             "alias": "capacity",
-                                            "formula": "default_zero(query2)"
+                                            "formula": "default_zero(query2)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "alias": "available",
+                                            "formula": "default_zero(query3)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -986,6 +1035,11 @@
                                             "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
+                                        },
+                                        {
+                                            "query": "sum:tidb_cloud.node_storage_available_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
                                         }
                                     ],
                                     "style": {
@@ -1160,11 +1214,33 @@
                                     "formulas": [
                                         {
                                             "alias": "usage",
-                                            "formula": "default_zero(query1)"
+                                            "formula": "default_zero(query1)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         },
                                         {
                                             "alias": "capacity",
-                                            "formula": "default_zero(query2)"
+                                            "formula": "default_zero(query2)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "alias": "available",
+                                            "formula": "default_zero(query3)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -1178,6 +1254,11 @@
                                             "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
+                                        },
+                                        {
+                                            "query": "sum:tidb_cloud.node_storage_available_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
                                         }
                                     ],
                                     "style": {
@@ -1396,7 +1477,6 @@
                                 "value",
                                 "sum"
                             ],
-                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
@@ -1567,7 +1647,6 @@
                                 "value",
                                 "sum"
                             ],
-                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
@@ -1616,7 +1695,6 @@
                                 "value",
                                 "sum"
                             ],
-                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
@@ -1671,7 +1749,6 @@
                                 "value",
                                 "sum"
                             ],
-                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
@@ -1800,7 +1877,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cloud.cdc_changefeed_resolved_ts_lag{$cluster_id ,$cluster_name, $host,$project_name} by {changefeed_id}"
+                                            "query": "avg:tidb_cloud.cdc_changefeed_owner_resolved_ts_lag{$cluster_id ,$cluster_name, $host,$project_name} by {changefeed_id}"
                                         }
                                     ],
                                     "formulas": [
@@ -1811,6 +1888,7 @@
                                                     "unit_name": "second"
                                                 }
                                             },
+                                            "alias": "owner",
                                             "formula": "query1"
                                         }
                                     ],
@@ -1854,7 +1932,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cloud.cdc_changefeed_latency{$cluster_id, $cluster_name, $project_name, $host} by {changefeed_id}"
+                                            "query": "avg:tidb_cloud.cdc_changefeed_owner_checkpoint_ts_lag{$cluster_id, $cluster_name, $project_name, $host} by {changefeed_id}"
                                         }
                                     ],
                                     "formulas": [
@@ -1865,6 +1943,7 @@
                                                     "unit_name": "second"
                                                 }
                                             },
+                                            "alias": "owner",
                                             "formula": "query1"
                                         }
                                     ],
@@ -1954,7 +2033,6 @@
                                 "value",
                                 "sum"
                             ],
-                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
