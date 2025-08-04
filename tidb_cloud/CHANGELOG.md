@@ -3,7 +3,8 @@
 ## 1.1.0 / 2025-07-31
 
 ***Added***:
-* New dashboard for TiDB metrics named "TiDB Cloud Dynamic Tracker", which includes additional widgets capturing cluster performance, resource control, DM job, and more.
+
+* New “TiDB Cloud Dynamic Tracker” dashboard with widgets for cluster performance, resource control, DM jobs, and more.
 
 ## 1.0.0 / 2022-01-12
 
