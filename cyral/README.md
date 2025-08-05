@@ -7,6 +7,8 @@ This check monitors a [Cyral][1] MySQL sidecar through the Datadog Agent.
 ## Setup
 
 The Cyral check is not included in the [Datadog Agent][2] package, so you need to install it.
+This is a new line.
+
 
 ### Installation
 
