@@ -28,7 +28,6 @@ def test_config():
 
 @pytest.mark.demo
 def test_metrics(aggregator):
-
     c = NeutronaCheck('neutrona', {}, {}, None)
 
     pwd = os.path.dirname(os.path.abspath(__file__))
