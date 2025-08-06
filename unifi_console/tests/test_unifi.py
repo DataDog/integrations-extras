@@ -90,9 +90,10 @@ def test_connection_failure(instance):
 
 @pytest.mark.usefixtures("mock___checkNewStyleAPI")
 def test_status(instance):
-    with patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json, open(
-        os.path.join(HERE, "fixtures", "status_valid.json")
-    ) as f:
+    with (
+        patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json,
+        open(os.path.join(HERE, "fixtures", "status_valid.json")) as f,
+    ):
         mock__get_json.return_value = json.load(f)
         config = UnifiConfig(instance)
         api = Unifi(config, MagicMock(), MagicMock())
@@ -141,9 +142,10 @@ def test_smart_retry(instance, exception, expected_calls):
 
 @pytest.mark.usefixtures("mock___checkNewStyleAPI")
 def test_get_devices_metrics(instance):
-    with patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json, open(
-        os.path.join(HERE, "fixtures", "device_metrics.json")
-    ) as f:
+    with (
+        patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json,
+        open(os.path.join(HERE, "fixtures", "device_metrics.json")) as f,
+    ):
         data = json.load(f)
         mock__get_json.return_value = data
         config = UnifiConfig(instance)
@@ -157,9 +159,10 @@ def test_get_devices_metrics(instance):
 
 @pytest.mark.usefixtures("mock___checkNewStyleAPI")
 def test_get_clients_metrics(instance):
-    with patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json, open(
-        os.path.join(HERE, "fixtures", "client_metrics.json")
-    ) as f:
+    with (
+        patch("datadog_checks.unifi_console.unifi.Unifi._get_json") as mock__get_json,
+        open(os.path.join(HERE, "fixtures", "client_metrics.json")) as f,
+    ):
         data = json.load(f)
         mock__get_json.return_value = data
         config = UnifiConfig(instance)

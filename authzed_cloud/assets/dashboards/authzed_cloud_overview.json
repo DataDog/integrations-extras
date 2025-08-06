@@ -96,7 +96,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission, readrelationships, lookupsubjects, lookupresources, writerelationships, deleterelationships, readschema, writeschema)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb AND grpc_method IN (checkpermission,bulkcheckpermission,checkbulkpermission,readrelationships,lookupsubjects,lookupresources,writerelationships,deleterelationships,readschema,writeschema)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -192,7 +192,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb and grpc_method in (checkpermission, bulkcheckpermission, checkbulkpermission)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb AND grpc_method IN (checkpermission,bulkcheckpermission,checkbulkpermission)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -240,7 +240,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb and grpc_method in (lookupsubjects, lookupresources)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb AND grpc_method IN (lookupsubjects,lookupresources)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -288,7 +288,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb and grpc_method in (readrelationships, writerelationships, deleterelationships)} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{container:spicedb AND grpc_method IN (readrelationships,writerelationships,deleterelationships)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -337,7 +337,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method in (writeschema ,readschema)} by {grpc_method}.as_rate()"
+                      "query": "sum:spicedb.grpc.server.handled.count{grpc_method IN (writeschema,readschema)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -479,17 +479,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "p50:authzed_cloud.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p50:authzed_cloud.grpc.server_handling{grpc_method IN (checkbulkpermission,bulkcheckpermission)}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "p95:authzed_cloud.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p95:authzed_cloud.grpc.server_handling{grpc_method IN (checkbulkpermission,bulkcheckpermission)}"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "p99:authzed_cloud.grpc.server_handling{grpc_method in (checkbulkpermission, bulkcheckpermission)}"
+                      "query": "p99:authzed_cloud.grpc.server_handling{grpc_method IN (checkbulkpermission,bulkcheckpermission)}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1092,7 +1092,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.process.cpu{namespace:tenant} by {pod}.as_rate()"
+                      "query": "sum:authzed_cloud.process.cpu{*} by {pod}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1142,7 +1142,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed_cloud.process.virtual_memory{container:spicedb} by {pod}"
+                      "query": "avg:authzed_cloud.process.virtual_memory{*} by {pod}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1592,13 +1592,14 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:authzed_cloud.rds.database_connections{*} by {dimension_dbclusteridentifier}"
+                      "query": "avg:authzed_cloud.rds.database_connections{dimension_dbinstanceidentifier:*} by {dimension_dbinstanceidentifier}"
                     }
                   ],
                   "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "order_by": "values",
+                    "order_reverse": false,
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -2060,7 +2061,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{authzed_com_tiger_cache_component:cache-server AND grpc_method IN (dispatchcheck,dispatchlookupsubjects,dispatchlookupresources2)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2108,7 +2109,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_handled{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
+                      "query": "sum:authzed_cloud.grpc.server_handled{authzed_com_tiger_cache_component:cache-server AND grpc_method IN (dispatchcheck,dispatchlookupsubjects,dispatchlookupresources2)} by {grpc_method}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2156,7 +2157,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_rate()"
+                      "query": "sum:authzed_cloud.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server AND grpc_method IN (dispatchcheck,dispatchlookupsubjects,dispatchlookupresources2)} by {grpc_method}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -2204,7 +2205,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:authzed_cloud.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server and grpc_method in (dispatchcheck ,dispatchlookupsubjects ,dispatchlookupresources2 )} by {grpc_method}.as_count()"
+                      "query": "sum:authzed_cloud.grpc.server_msg_sent{authzed_com_tiger_cache_component:cache-server AND grpc_method IN (dispatchcheck,dispatchlookupsubjects,dispatchlookupresources2)} by {grpc_method}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",

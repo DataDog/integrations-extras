@@ -10,14 +10,13 @@ You can use Akamai DataStream 2 logs to gain insight into long term trends, reso
 
 ### Installation
 
-Click **Install Integration** to enable a preset dashboard for viewing Akamai DataStream 2 logs and metrics.
+Click **Install Integration** to enable a preset dashboard for viewing Akamai DataStream 2 logs.
 
 ### Configuration
 
-To configure Akamai DataStream 2 to send logs to Datadog, follow [these instructions on the
-Akamai techdocs site][2], make sure to set the log source to `akamai.datastream` and the log format to `JSON`.
+To configure Akamai DataStream 2 to send logs to Datadog, follow [these instructions on the Akamai techdocs site][2], make sure to set the log source to `akamai.datastream` and the log format to `JSON`.
 
-Ensure that you have the Datadog Site selector on the right of the page set to your [Datadog Site][5], and copy the logs endpoint URL below:  
+Ensure that you have the Datadog Site selector on the right of the page set to your [Datadog Site][5], and copy the logs endpoint URL below:
 
 `https://{{< region-param key="http_endpoint" code="true" >}}/v1/input`
 

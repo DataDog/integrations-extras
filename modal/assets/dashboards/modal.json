@@ -15,7 +15,7 @@
             "id": 961790136530845,
             "definition": {
               "type": "note",
-              "content": "# Modal\n\nGet detailed visibility into your:\n\n- Audit logs\n- Function logs\n- Container metrics",
+              "content": "# Modal\n\nGet detailed visibility into your:\n\n- Audit logs\n- Function logs\n- Container metrics\n- Input metrics",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -25,12 +25,7 @@
               "tick_edge": "left",
               "has_padding": true
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 3
-            }
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 3 }
           },
           {
             "id": 1499917651954632,
@@ -40,22 +35,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "time": {},
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "queries": [
                     {
                       "name": "query1",
@@ -74,12 +58,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 3
-            }
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 3 }
           },
           {
             "id": 6603502348617972,
@@ -89,22 +68,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "time": {},
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "queries": [
                     {
                       "name": "query1",
@@ -123,12 +91,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 3
-            }
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 3 }
           },
           {
             "id": 4599509251662375,
@@ -136,7 +99,6 @@
               "title": "Container logs across all Modal applications",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "requests": [
                 {
                   "response_format": "event_list",
@@ -147,37 +109,17 @@
                     "storage": "hot"
                   },
                   "columns": [
-                    {
-                      "field": "status_line",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "timestamp",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "host",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "service",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "content",
-                      "width": "compact"
-                    }
+                    { "field": "status_line", "width": "auto" },
+                    { "field": "timestamp", "width": "auto" },
+                    { "field": "host", "width": "auto" },
+                    { "field": "service", "width": "auto" },
+                    { "field": "content", "width": "compact" }
                   ]
                 }
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 3,
-              "width": 6,
-              "height": 3
-            }
+            "layout": { "x": 0, "y": 3, "width": 6, "height": 3 }
           },
           {
             "id": 8521961163085800,
@@ -195,46 +137,99 @@
                     "storage": "hot"
                   },
                   "columns": [
-                    {
-                      "field": "status_line",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "timestamp",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "host",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "service",
-                      "width": "auto"
-                    },
-                    {
-                      "field": "content",
-                      "width": "compact"
-                    }
+                    { "field": "status_line", "width": "auto" },
+                    { "field": "timestamp", "width": "auto" },
+                    { "field": "host", "width": "auto" },
+                    { "field": "service", "width": "auto" },
+                    { "field": "content", "width": "compact" }
                   ]
                 }
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 6,
-              "y": 3,
-              "width": 6,
-              "height": 3
-            }
+            "layout": { "x": 6, "y": 3, "width": 6, "height": 3 }
+          },
+          {
+            "id": 3151443995528809,
+            "definition": {
+              "title": "Input Execution Time (us)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:modal.input_events.elapsed_time_us{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto",
+                "max": "auto"
+              }
+            },
+            "layout": { "x": 0, "y": 6, "width": 6, "height": 3 }
+          },
+          {
+            "id": 8407804183432454,
+            "definition": {
+              "title": "Total Inputs vs Successful Inputs",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:modal.input_events.total_inputs{*}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:modal.input_events.successes{*}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    { "formula": "query1" },
+                    { "formula": "query2" }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 6, "width": 6, "height": 3 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 9
-      }
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 12 }
     }
   ],
   "template_variables": [],
