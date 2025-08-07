@@ -10,7 +10,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 class VespaCheck(AgentCheck):
-
     METRICS_SERVICE_CHECK = 'vespa.metrics_health'
     PROCESS_SERVICE_CHECK = 'vespa.process_health'
     VESPA_SERVICE_TAG = 'vespa-service:'

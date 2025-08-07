@@ -1,0 +1,44 @@
+id: gravitee
+metric_id: gravitee
+backend_only: false
+facets:
+  - description: The human-readable name of the API
+    facetType: list
+    groups:
+      - Gravitee APIM
+    name: apiName
+    path: gravitee.apiName
+    source: tag
+    type: string
+pipeline:
+  type: pipeline
+  name: Gravitee APIM
+  enabled: true
+  filter:
+    query: source:gravitee
+  processors:
+    - type: attribute-remapper
+      name: Gravitee Attribute Remapper
+      enabled: true
+      sources:
+        - apiName
+      sourceType: attribute
+      target: gravitee.apiName
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: service-remapper
+      name: Gravitee Service Remapper
+      enabled: true
+      sources:
+        - service
+    - type: date-remapper
+      name: Gravitee Date Remapper
+      enabled: true
+      sources:
+        - timestamp
+    - type: status-remapper
+      name: Gravitee Status Remapper
+      enabled: true
+      sources:
+        - status

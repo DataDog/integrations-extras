@@ -64,6 +64,43 @@ class MyErrorBoundary extends React.Component {
 }
 ```
 
+## React 19 `createRoot` Error Handling
+
+React 19 introduced new error handling options for `createRoot` that can help capture errors more effectively. You can configure these options to work with Datadog RUM error tracking. See the [createRoot documentation](https://react.dev/reference/react-dom/client/createRoot#parameters) for more details:
+
+```javascript
+import { createRoot } from 'react-dom/client'
+import { datadogRum } from '@datadog/browser-rum'
+import { addReactError } from '@datadog/browser-rum-react'
+
+const container = document.getElementById('root')
+const root = createRoot(container, {
+  onUncaughtError: (error, errorInfo) => {
+    // Report uncaught errors to Datadog
+    addReactError(error, errorInfo)
+    console.error('Uncaught error:', error, errorInfo)
+  },
+  onCaughtError: (error, errorInfo) => {
+    // Report caught errors to Datadog
+    addReactError(error, errorInfo)
+    console.error('Caught error:', error, errorInfo)
+  },
+  onRecoverableError: (error, errorInfo) => {
+    // Report recoverable errors to Datadog
+    addReactError(error, errorInfo)
+    console.warn('Recoverable error:', error, errorInfo)
+  }
+})
+
+root.render(<App />)
+```
+
+These options provide comprehensive error coverage:
+
+- `onUncaughtError`: Captures errors that would normally cause the app to crash
+- `onCaughtError`: Captures errors that are caught by error boundaries
+- `onRecoverableError`: Captures errors that React can recover from (like hydration mismatches)
+
 ## React Router integration
 
 `react-router` v6 allows you to declare routes using the following methods:
