@@ -1,10 +1,7 @@
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck  # noqa: F401
-
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 
 class StonebranchCheck(AgentCheck):
@@ -16,7 +13,9 @@ class StonebranchCheck(AgentCheck):
         super(StonebranchCheck, self).__init__(name, init_config, instances)
 
         # Use self.instance to read the check configuration
-        # self.url = self.instance.get("url")
+        self.url = self.instance.get("url")
+        self.username = self.instance.get("username") 
+        self.password = self.instance.get("password")
 
         # If the check is going to perform SQL queries you should define a query manager here.
         # More info at
@@ -33,35 +32,43 @@ class StonebranchCheck(AgentCheck):
 
     def check(self, _):
         # type: (Any) -> None
-        # The following are useful bits of code to help new users get started.
+        if not self.url:
+            self.service_check('stonebranch.can_connect', AgentCheck.CRITICAL, message="URL not configured")
+            return
 
-        # Perform HTTP Requests with our HTTP wrapper.
-        # More info at https://datadoghq.dev/integrations-core/base/http/
-        # try:
-        #     response = self.http.get(self.url)
-        #     response.raise_for_status()
-        #     response_json = response.json()
+        metrics_url = self.url.rstrip('/') + '/resources/metrics'
+        
+        try:
+            response = self.http.get(
+                metrics_url,
+                auth=(self.username, self.password) if self.username and self.password else None
+            )
+            response.raise_for_status()
+            
+            # Parse Prometheus format metrics
+            self._parse_prometheus_metrics(response.text)
+            self.service_check('stonebranch.can_connect', AgentCheck.OK)
 
-        # except (HTTPError, InvalidURL, ConnectionError, Timeout) as e:
-        #     self.log.debug("Could not connect", exc_info=True)
+        except (HTTPError, InvalidURL, ConnectionError, Timeout) as e:
+            self.log.error("Could not connect to Stonebranch: %s", str(e))
+            self.service_check('stonebranch.can_connect', AgentCheck.CRITICAL, message=str(e))
 
-        # except JSONDecodeError as e:
-        #    self.log.debug("Could not parse JSON", exc_info=True)
+        except Exception as e:
+            self.log.error("Unexpected error: %s", str(e))
+            self.service_check('stonebranch.can_connect', AgentCheck.CRITICAL, message=str(e))
 
-        # except ValueError as e:
-        #    self.log.debug("Unexpected value", exc_info=True)
-
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge("test", 1.23, tags=['foo:bar'])
-
-        # Perform database queries using the Query Manager
-        # self._query_manager.execute()
-
-        # This is how you use the persistent cache. This cache file based and persists across agent restarts.
-        # If you need an in-memory cache that is persisted across runs
-        # You can define a dictionary in the __init__ method.
-        # self.write_persistent_cache("key", "value")
-        # value = self.read_persistent_cache("key")
-        pass
+    def _parse_prometheus_metrics(self, metrics_text):
+        """Parse Prometheus format metrics and submit to Datadog"""
+        for line in metrics_text.split('\n'):
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+                
+            parts = line.split(' ')
+            if len(parts) >= 2:
+                metric_name = parts[0]
+                try:
+                    metric_value = float(parts[1])
+                    self.gauge(metric_name, metric_value)
+                except ValueError:
+                    continue

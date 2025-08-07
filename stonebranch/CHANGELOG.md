@@ -1,8 +1,6 @@
-# CHANGELOG - stonebranch
+# CHANGELOG - [stonebranch]
 
-## 1.0.0 / YYYY-MM-DD
+## 1.0.0 / 2025-08-07
 
-***Added***:
-
+***Added:***
 * Initial Release
-

@@ -1,57 +1,19 @@
-# Agent Check: Stonebranch Universal Controller
+# Stonebranch
 
 ## Overview
-
-This check monitors [Stonebranch Universal Controller][1] through both metric collection and log parsing.
-
-The Stonebranch Universal Controller integration provides comprehensive monitoring capabilities:
-
-- **Metric Collection**: Collect performance and operational metrics directly from the Universal Controller API
-- **Advanced Dashboards**: Create detailed monitoring dashboards to visualize job execution, system performance, and resource utilization
-- **Alerting**: Set up proactive alerts for critical workflows, failed jobs, and system issues
-- **Log Analysis**: Parse and analyze Universal Controller logs for troubleshooting and audit purposes
-- **Workflow Monitoring**: Monitor your automated workflows for errors and gain complete visibility into your most important tasks
+To learn more about this integration, visit https://docs.datadoghq.com/integrations/stonebranch/ 
 
 ## Setup
 
-### Installation
+The Stonebranch integration follows through the Stonebranch Datadog extension, which will be installed onto your Datadog Agent. The extension interacts with Stonebranch's Universal Controller API to gather information metrics on the system and report them to Datadog.
 
-To install the Stonebranch check on your host:
+### Prerequisites
 
-1. [Download the Datadog Agent][3].
-2. Install the Stonebranch Integration
-3. Configure the yaml with your Universal Controller url and log path.
+Have a running Universal Controller instance, which has the Opentelemetry function enabled. (This is enabled by default in the uc.properties)
 
-### Configuration
+You need to have a user that has access to the metrics endpoint on your Universal Controller.
 
-#### Metric Collection and Log File Setup
-
-1. Edit your `conf.d/stonebranch.yaml` file:
-
-```yaml
-init_config:
-
-instances:
-  - url: "http://localhost:8080/uc"
-    username: "your-username" #user with valid access rights to /resources/metric
-    password: "your-password" 
-
-logs:
-  - type: file
-    path: "/path/to/uc.log" #Path to your Tomcat UC logs.
-    service: "stonebranch-uc"
-    source: "stonebranch"
-    multiline:
-      pattern_start: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"
-      match_for_start: true
-```
-Ensure the Datadog Agent has read permissions on:
-- Current log file
-- Rotated log files (if log rotation is enabled)
-
-2. [Restart the Agent][4].
-
-## Data Collected
+Install the Stonebranch Datadog Extension
 
 ### Metrics
 
