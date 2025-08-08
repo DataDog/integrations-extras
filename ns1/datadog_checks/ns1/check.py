@@ -371,8 +371,14 @@ class Ns1Check(AgentCheck):
     def extract_billing(self, jsonResult):
         try:
             billing = {}
-            billing["usage"] = jsonResult["totals"]["queries"]
-            billing["limit"] = jsonResult["any"]["query_credit"]
+            billing["queries"] = {
+                "usage": jsonResult["totals"]["queries"],
+                "limit": jsonResult["any"]["query_credit"],
+            }
+            billing["records"] = {
+                "usage": jsonResult["totals"]["records"],
+                "limit": jsonResult["any"]["record_credit"],
+            }
             return billing, True
         except Exception:
             return None, False
@@ -466,14 +472,18 @@ class Ns1Check(AgentCheck):
         )
         self.log.info(msg)
         if metric_name == "billing":
-            for k, v in metric_value.items():
-                # {"usage": 1234, "limit": 500000}
-                # tag as either usage or limit
-                tags = ["billing:{btype}".format(btype=k)]
-                if metric_type == "gauge":
-                    self.gauge('ns1.billing', v, tags)
-                elif metric_type == "count":
-                    self.count('ns1.billing', v, tags)
+            for b_res, values in metric_value.items():
+                # {"queries": {...}, "records: {...}"}
+                # add tag as either queries or records
+                for k, v in values:
+                    # {"usage": 1234, "limit": 500000}
+                    # add tag as either usage or limit
+                    tags = ["billing:{}".format(k), "billing_resource:{}".format(b_res)]
+                    if metric_type == "gauge":
+                        self.gauge('ns1.billing', v, tags)
+                    elif metric_type == "count":
+                        self.count('ns1.billing', v, tags)
+
         elif metric_name == "pulsar.decisions":
             for k, v in metric_value.items():
                 pulsar_job_id = self.remove_prefix(k, "pulsar.decisions.")

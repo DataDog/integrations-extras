@@ -17,7 +17,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the NS1 chec
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-ns1==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-ns1==1.0.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
