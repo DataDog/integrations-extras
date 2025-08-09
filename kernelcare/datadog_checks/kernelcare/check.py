@@ -3,7 +3,6 @@ from datadog_checks.base.errors import CheckException
 
 
 class KernelcareCheck(AgentCheck):
-
     KEY_KCARE_NAGIOS_ENDPOINT = 'https://cln.cloudlinux.com/clweb/api/kcare/nagios/'
     RES_KCARE_NAGIOS_ENDPOINT = 'https://cln.cloudlinux.com/clweb/api/kcare/nagios-res/'
 
@@ -14,7 +13,6 @@ class KernelcareCheck(AgentCheck):
     ]
 
     def _parse_nagios_response(self, text):
-
         lines = text.split('\n')
         tmp = lines[0].split('|', 1)
         if len(tmp) == 1:
@@ -29,7 +27,6 @@ class KernelcareCheck(AgentCheck):
         return res
 
     def get_url(self, instance):
-
         key = instance.get('key')
 
         if key:
@@ -44,7 +41,6 @@ class KernelcareCheck(AgentCheck):
         raise ConfigurationError('Configuration error, you must provide `key` or `login` & `api_token`')
 
     def check(self, instance):
-
         url = self.get_url(instance)
 
         try:

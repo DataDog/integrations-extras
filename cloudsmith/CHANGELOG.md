@@ -1,5 +1,13 @@
 # CHANGELOG - Cloudsmith
 
+### 1.1.0 / 2025-06-20
+
+***Added***:
+
+* Support for metrics on configured quota limits
+* Excluded API token from risk-level emitted events
+* Improved logic to prevent duplicate license policy violation events
+
 ### 1.0.0 / 2025-06-06
 
 ***Added***:

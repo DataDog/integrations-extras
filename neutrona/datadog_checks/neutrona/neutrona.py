@@ -8,7 +8,6 @@ from datadog_checks.base.errors import CheckException
 
 class NeutronaCheck(AgentCheck):
     def check(self, instance):
-
         neutrona_express_route_api_url = 'https://expressroutetelemetry.neutrona.com'
         azure_authentication_url = 'https://login.microsoftonline.com'
         azure_management_url = 'https://management.azure.com/'
@@ -53,14 +52,12 @@ class NeutronaCheck(AgentCheck):
         azure_access_token = ''
 
         if response.status_code != 200:
-
             self.log.error(' '.join(['Error authenticating with Azure: ', str(response.status_code)]))
             raise CheckException(
                 ' '.join(['Connection error to', azure_authentication_url, 'Unable to obtain Azure access token.'])
             )
 
         else:
-
             try:
                 azure_access_token = json.loads(response.content)['access_token']
             except KeyError:
@@ -89,18 +86,14 @@ class NeutronaCheck(AgentCheck):
             raise CheckException(' '.join(['Connection error to', azure_management_url]))
 
         if response.status_code != 200:
-
             self.log.error(''.join(['Error querying Azure API: Code ', response.status_code]))
             raise CheckException(' '.join(['Connection error to', azure_management_url]))
 
         else:
-
             inventory = json.loads(response.content)
 
             try:
-
                 for cc in inventory['value']:
-
                     service_key = cc['properties']['serviceKey']
 
                     service_provider_name = cc['properties']['serviceProviderProperties']['serviceProviderName']
@@ -118,7 +111,6 @@ class NeutronaCheck(AgentCheck):
                             raise CheckException(' '.join(['Connection error to', neutrona_express_route_api_url]))
 
                         if response.status_code == 200:
-
                             connections = json.loads(response.content)
 
                             try:

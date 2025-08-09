@@ -112,6 +112,8 @@ def test_check(aggregator, dd_run_check):
             "redpanda.kafka.replicas",
             "redpanda.kafka.group_offset",
             "redpanda.kafka.group_topic_count",
+            "redpanda.kafka.group_lag_sum",
+            "redpanda.kafka.group_lag_max",
         ]:
             continue
         aggregator.assert_metric(m)

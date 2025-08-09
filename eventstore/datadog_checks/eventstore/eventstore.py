@@ -16,7 +16,6 @@ from .metrics import ALL_METRICS
 
 
 class EventStoreCheck(AgentCheck):
-
     HTTP_CONFIG_REMAPPER = {
         'ca_bundle': {
             'name': 'tls_ca_cert',

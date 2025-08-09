@@ -103,10 +103,20 @@ pipeline:
       target: network.client.geoip
       ip_processing_behavior: do-nothing
     - type: date-remapper
-      name: Define `proxy.timestamp` as the official date of the log
+      name: Define `timestamp` as the official date of the log
       enabled: true
       sources:
-        - proxy.timestamp
+        - timestamp
+    - type: trace-id-remapper
+      name: Define `traceId` as the official trace ID of the log
+      enabled: true
+      sources:
+        - traceId
+    - type: span-id-remapper
+      name: Define `spanId` as the official span ID of the log
+      enabled: true
+      sources:
+        - spanId
 metrics:
   - name: vercel.functions.invocations
     query: source:vercel @source:lambda REPORT
