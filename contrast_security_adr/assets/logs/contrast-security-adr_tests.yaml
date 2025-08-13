@@ -1,68 +1,795 @@
-id: "contrast-security-adr"
+id: contrast-security-adr
 tests:
- -
-  sample: |-
-    {
-      "severity" : "Error",
-      "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
-      "alertType" : "incident_created",
-      "alertReason" : "Incident Created",
-      "source" : "security",
-      "eventType" : "incidentalert",
-      "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ],
-      "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
-      "relatedRules" : [ "path-traversal" ],
-      "score" : 9.3,
-      "organizationUuid" : "0f767995-4882-4c7c-889f-994d945ff0d5",
-      "createdTime" : "2025-07-25T06:20:23.0000Z",
-      "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ],
-      "incidentId" : "INC-2025-c61",
-      "incidentName" : "Path Traversal on \"/postjsoncmd\"",
-      "status" : "Close",
-      "timestamp" : "2025-07-25T06:20:23.0000Z"
-    }
-  result:
-    custom:
-      alertReason: "Incident Created"
-      alertType: "incident_created"
-      createdTime: "2025-07-25T06:20:23.0000Z"
-      eventType: "incidentalert"
-      incidentId: "INC-2025-c61"
-      incidentName: "Path Traversal on \"/postjsoncmd\""
-      organizationUuid: "0f767995-4882-4c7c-889f-994d945ff0d5"
-      recommendedActions:
-       - "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production."
-       - "Add an exclusion for this attack event."
-      recommendedRunbooks:
-       - "https://dev/adr-runbooks/runbooks/path-traversal/"
-      relatedRules:
-       - "path-traversal"
-      score: 9.3
-      severity: "Error"
-      source: "security"
-      status: "Close"
-      summary: " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd"
-      timestamp: "2025-07-25T06:20:23.0000Z"
-      url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6"
-    message: |-
+  - sample: >-
       {
-        "severity" : "Error",
-        "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
-        "alertType" : "incident_created",
-        "alertReason" : "Incident Created",
-        "source" : "security",
-        "eventType" : "incidentalert",
-        "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ],
-        "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
-        "relatedRules" : [ "path-traversal" ],
-        "score" : 9.3,
-        "organizationUuid" : "0f767995-4882-4c7c-889f-994d945ff0d5",
-        "createdTime" : "2025-07-25T06:20:23.0000Z",
-        "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ],
-        "incidentId" : "INC-2025-c61",
-        "incidentName" : "Path Traversal on \"/postjsoncmd\"",
-        "status" : "Close",
-        "timestamp" : "2025-07-25T06:20:23.0000Z"
+              "eventUuid": "1678918a-103f-4030-a416-3b8766e47e19",
+              "organizationUuid": "203ae021-7e10-4356-ad6e-0c4b94d8511e",
+              "productName": "ContrastADR",
+              "incident_id": "INC-2025-c60", 
+              "server": {
+                  "id": "27958",
+                  "name": "Petclinic-thib"
+              },
+              "application": {
+                  "id": "08f46d44-b7da-4978-b903-fcce249f457a",
+                  "name": "Web-Application-thib",
+                  "agentLanguage": "java"
+              },
+              "sourceIp": "7.7.7.7.7.8",
+              "cloudResourceId": null,
+              "cloudProvider": "UNKNOWN",
+              "result": "exploited",
+              "rule": "class-loader-manipulation",
+              "severity": "Error",
+              "detectedTime": "1754463365000",
+              "uiUrl": "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a",
+              "apiUri": "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
+              "mitreTactics": [
+                  {
+                      "id": "TA0001",
+                      "url": "https://attack.mitre.org/tactics/TA0001/"
+                  },
+                  {
+                      "id": "TA0002",
+                      "url": "https://attack.mitre.org/tactics/TA0002/"
+                  },
+                  {
+                      "id": "TA0003",
+                      "url": "https://attack.mitre.org/tactics/TA0003/"
+                  },
+                  {
+                      "id": "TA0004",
+                      "url": "https://attack.mitre.org/tactics/TA0004/"
+                  },
+                  {
+                      "id": "TA0005",
+                      "url": "https://attack.mitre.org/tactics/TA0005/"
+                  },
+                  {
+                      "id": "TA0006",
+                      "url": "https://attack.mitre.org/tactics/TA0006/"
+                  },
+                  {
+                      "id": "TA0007",
+                      "url": "https://attack.mitre.org/tactics/TA0007/"
+                  },
+                  {
+                      "id": "TA0009",
+                      "url": "https://attack.mitre.org/tactics/TA0009/"
+                  },
+                  {
+                      "id": "TA0010",
+                      "url": "https://attack.mitre.org/tactics/TA0010/"
+                  }
+              ],
+              "mitreCapec": [],
+              "environment": "production",
+              "attackPayload": {
+                  "attackerInput": {
+                      "confirmedAttack": false,
+                      "effectiveAttack": false,
+                      "applicableAttack": false,
+                      "patternsMatched": [
+                          "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001"
+                      ],
+                      "name": "lastName",
+                      "inputType": "PARAMETER_VALUE",
+                      "documentType": "NORMAL",
+                      "documentPath": "/abc"
+                  },
+                  "value": "' or 1=1; # antwerp",
+                  "url": "/owner"
+              },
+              "virtualPatchUuid": null,
+              "denyListUuid": null,
+              "ruleUuid": "ssjs-injection",
+              "url": "/customers",
+              "agentVersion": "6.14.0",
+              "host": {
+                  "operatingSystem": "Linux 6.10.14-linuxkit aarch64",
+                  "runtimePath": "/opt/java/openjdk/bin/java",
+                  "runtimeVersion": "OpenJDK Runtime Environment 17.0.14+7",
+                  "hostname": "bb8989bc",
+                  "isDocker": true
+              },
+              "request": {
+                  "method": "GET",
+                  "protocol": "http",
+                  "protocolVersion": "1.1",
+                  "headers": {
+                      "accept": [
+                          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                      ],
+                      "accept-encoding": [
+                          "gzip, deflate, br, zstd"
+                      ],
+                      "accept-language": [
+                          "en-GB,en-US;q=0.9,en;q=0.8"
+                      ],
+                      "connection": [
+                          "keep-alive"
+                      ],
+                      "Cookie": [
+                          "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
+                      ],
+                      "host": [
+                          "localhost:8080"
+                      ],
+                      "referer": [
+                          "http://localhost:8080/customers/find"
+                      ],
+                      "sec-ch-ua": [
+                          "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+                      ],
+                      "sec-ch-ua-mobile": [
+                          "?0"
+                      ],
+                      "sec-ch-ua-platform": [
+                          "\"macOS\""
+                      ],
+                      "sec-fetch-dest": [
+                          "document"
+                      ],
+                      "sec-fetch-mode": [
+                          "navigate"
+                      ],
+                      "sec-fetch-site": [
+                          "same-origin"
+                      ],
+                      "sec-fetch-user": [
+                          "?1"
+                      ],
+                      "upgrade-insecure-requests": [
+                          "1"
+                      ],
+                      "user-agent": [
+                          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+                      ]
+                  },
+                  "parameters": {
+                      "lastName": [
+                          "contrast-redacted-name"
+                      ]
+                  },
+                  "queryString": "lastName=contrast-redacted-name"
+              },
+              "vectorAnalysis": {
+                  "vectorFields": {
+                      "ruleUuid": "sql-injection",
+                      "query": "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
+                  },
+                  "callLocation": "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+              },
+              "codeLocation": {
+                  "file": "HikariProxyStatement.java",
+                  "method": "executeQuery()",
+                  "stack": [
+                      {
+                          "type": "frameSink",
+                          "description": "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
+                          "fileName": "HikariProxyStatement.java",
+                          "lineNumber": -1,
+                          "methodName": "executeQuery",
+                          "className": "com.zaxxer.hikari.pool.HikariProxyStatement",
+                          "shortSummary": "executeQuery() @ HikariProxyStatement.java:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
+                          "fileName": "CustomerRepository.java",
+                          "lineNumber": 31,
+                          "methodName": "findByLastName",
+                          "className": "org.springframework.samples.petclinic.customer.CustomerRepository",
+                          "shortSummary": "findByLastName() @ CustomerRepository.java:31"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "java.lang.invoke.MethodHandle.invokeWithArguments(Unknown Source:-1)",
+                          "fileName": "java.lang.invoke.MethodHandle",
+                          "lineNumber": -1,
+                          "methodName": "invokeWithArguments",
+                          "className": "java.lang.invoke.MethodHandle",
+                          "shortSummary": "invokeWithArguments() @ java.lang.invoke.MethodHandle:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:78)",
+                          "fileName": "DefaultMethodInvokingMethodInterceptor.java",
+                          "lineNumber": 78,
+                          "methodName": "invoke",
+                          "className": "org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor",
+                          "shortSummary": "invoke() @ DefaultMethodInvokingMethodInterceptor.java:78"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)",
+                          "fileName": "ReflectiveMethodInvocation.java",
+                          "lineNumber": 184,
+                          "methodName": "proceed",
+                          "className": "org.springframework.aop.framework.ReflectiveMethodInvocation",
+                          "shortSummary": "proceed() @ ReflectiveMethodInvocation.java:184"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)",
+                          "fileName": "TransactionInterceptor.java",
+                          "lineNumber": 123,
+                          "methodName": "proceedWithInvocation",
+                          "className": "org.springframework.transaction.interceptor.TransactionInterceptor$1",
+                          "shortSummary": "proceedWithInvocation() @ TransactionInterceptor.java:123"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:391)",
+                          "fileName": "TransactionAspectSupport.java",
+                          "lineNumber": 391,
+                          "methodName": "invokeWithinTransaction",
+                          "className": "org.springframework.transaction.interceptor.TransactionAspectSupport",
+                          "shortSummary": "invokeWithinTransaction() @ TransactionAspectSupport.java:391"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)",
+                          "fileName": "TransactionInterceptor.java",
+                          "lineNumber": 119,
+                          "methodName": "invoke",
+                          "className": "org.springframework.transaction.interceptor.TransactionInterceptor",
+                          "shortSummary": "invoke() @ TransactionInterceptor.java:119"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)",
+                          "fileName": "ReflectiveMethodInvocation.java",
+                          "lineNumber": 184,
+                          "methodName": "proceed",
+                          "className": "org.springframework.aop.framework.ReflectiveMethodInvocation",
+                          "shortSummary": "proceed() @ ReflectiveMethodInvocation.java:184"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)",
+                          "fileName": "PersistenceExceptionTranslationInterceptor.java",
+                          "lineNumber": 137,
+                          "methodName": "invoke",
+                          "className": "org.springframework.dao.support.PersistenceExceptionTranslationInterceptor",
+                          "shortSummary": "invoke() @ PersistenceExceptionTranslationInterceptor.java:137"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)",
+                          "fileName": "ReflectiveMethodInvocation.java",
+                          "lineNumber": 184,
+                          "methodName": "proceed",
+                          "className": "org.springframework.aop.framework.ReflectiveMethodInvocation",
+                          "shortSummary": "proceed() @ ReflectiveMethodInvocation.java:184"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)",
+                          "fileName": "CrudMethodMetadataPostProcessor.java",
+                          "lineNumber": 164,
+                          "methodName": "invoke",
+                          "className": "org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor",
+                          "shortSummary": "invoke() @ CrudMethodMetadataPostProcessor.java:164"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)",
+                          "fileName": "ReflectiveMethodInvocation.java",
+                          "lineNumber": 184,
+                          "methodName": "proceed",
+                          "className": "org.springframework.aop.framework.ReflectiveMethodInvocation",
+                          "shortSummary": "proceed() @ ReflectiveMethodInvocation.java:184"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)",
+                          "fileName": "ExposeInvocationInterceptor.java",
+                          "lineNumber": 97,
+                          "methodName": "invoke",
+                          "className": "org.springframework.aop.interceptor.ExposeInvocationInterceptor",
+                          "shortSummary": "invoke() @ ExposeInvocationInterceptor.java:97"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)",
+                          "fileName": "ReflectiveMethodInvocation.java",
+                          "lineNumber": 184,
+                          "methodName": "proceed",
+                          "className": "org.springframework.aop.framework.ReflectiveMethodInvocation",
+                          "shortSummary": "proceed() @ ReflectiveMethodInvocation.java:184"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:244)",
+                          "fileName": "JdkDynamicAopProxy.java",
+                          "lineNumber": 244,
+                          "methodName": "invoke",
+                          "className": "org.springframework.aop.framework.JdkDynamicAopProxy",
+                          "shortSummary": "invoke() @ JdkDynamicAopProxy.java:244"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jdk.proxy3.$Proxy207.findByLastName(Unknown Source:-1)",
+                          "fileName": "jdk.proxy3.$Proxy207",
+                          "lineNumber": -1,
+                          "methodName": "findByLastName",
+                          "className": "jdk.proxy3.$Proxy207",
+                          "shortSummary": "findByLastName() @ jdk.proxy3.$Proxy207:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.samples.petclinic.customer.CustomerController.findPaginatedForCustomersLastName(CustomerController.java:118)",
+                          "fileName": "CustomerController.java",
+                          "lineNumber": 118,
+                          "methodName": "findPaginatedForCustomersLastName",
+                          "className": "org.springframework.samples.petclinic.customer.CustomerController",
+                          "shortSummary": "findPaginatedForCustomersLastName() @ CustomerController.java:118"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.samples.petclinic.customer.CustomerController.processFindForm(CustomerController.java:88)",
+                          "fileName": "CustomerController.java",
+                          "lineNumber": 88,
+                          "methodName": "processFindForm",
+                          "className": "org.springframework.samples.petclinic.customer.CustomerController",
+                          "shortSummary": "processFindForm() @ CustomerController.java:88"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Unknown Source:-2)",
+                          "fileName": "jdk.internal.reflect.NativeMethodAccessorImpl",
+                          "lineNumber": -2,
+                          "methodName": "invoke0",
+                          "className": "jdk.internal.reflect.NativeMethodAccessorImpl",
+                          "shortSummary": "invoke0() @ jdk.internal.reflect.NativeMethodAccessorImpl:-2"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source:-1)",
+                          "fileName": "jdk.internal.reflect.NativeMethodAccessorImpl",
+                          "lineNumber": -1,
+                          "methodName": "invoke",
+                          "className": "jdk.internal.reflect.NativeMethodAccessorImpl",
+                          "shortSummary": "invoke() @ jdk.internal.reflect.NativeMethodAccessorImpl:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source:-1)",
+                          "fileName": "jdk.internal.reflect.DelegatingMethodAccessorImpl",
+                          "lineNumber": -1,
+                          "methodName": "invoke",
+                          "className": "jdk.internal.reflect.DelegatingMethodAccessorImpl",
+                          "shortSummary": "invoke() @ jdk.internal.reflect.DelegatingMethodAccessorImpl:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "java.lang.reflect.Method.invoke(Unknown Source:-1)",
+                          "fileName": "java.lang.reflect.Method",
+                          "lineNumber": -1,
+                          "methodName": "invoke",
+                          "className": "java.lang.reflect.Method",
+                          "shortSummary": "invoke() @ java.lang.reflect.Method:-1"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)",
+                          "fileName": "InvocableHandlerMethod.java",
+                          "lineNumber": 205,
+                          "methodName": "doInvoke",
+                          "className": "org.springframework.web.method.support.InvocableHandlerMethod",
+                          "shortSummary": "doInvoke() @ InvocableHandlerMethod.java:205"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)",
+                          "fileName": "InvocableHandlerMethod.java",
+                          "lineNumber": 150,
+                          "methodName": "invokeForRequest",
+                          "className": "org.springframework.web.method.support.InvocableHandlerMethod",
+                          "shortSummary": "invokeForRequest() @ InvocableHandlerMethod.java:150"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)",
+                          "fileName": "ServletInvocableHandlerMethod.java",
+                          "lineNumber": 118,
+                          "methodName": "invokeAndHandle",
+                          "className": "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod",
+                          "shortSummary": "invokeAndHandle() @ ServletInvocableHandlerMethod.java:118"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)",
+                          "fileName": "RequestMappingHandlerAdapter.java",
+                          "lineNumber": 884,
+                          "methodName": "invokeHandlerMethod",
+                          "className": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+                          "shortSummary": "invokeHandlerMethod() @ RequestMappingHandlerAdapter.java:884"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)",
+                          "fileName": "RequestMappingHandlerAdapter.java",
+                          "lineNumber": 797,
+                          "methodName": "handleInternal",
+                          "className": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+                          "shortSummary": "handleInternal() @ RequestMappingHandlerAdapter.java:797"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)",
+                          "fileName": "AbstractHandlerMethodAdapter.java",
+                          "lineNumber": 87,
+                          "methodName": "handle",
+                          "className": "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter",
+                          "shortSummary": "handle() @ AbstractHandlerMethodAdapter.java:87"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)",
+                          "fileName": "DispatcherServlet.java",
+                          "lineNumber": 1081,
+                          "methodName": "doDispatch",
+                          "className": "org.springframework.web.servlet.DispatcherServlet",
+                          "shortSummary": "doDispatch() @ DispatcherServlet.java:1081"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)",
+                          "fileName": "DispatcherServlet.java",
+                          "lineNumber": 974,
+                          "methodName": "doService",
+                          "className": "org.springframework.web.servlet.DispatcherServlet",
+                          "shortSummary": "doService() @ DispatcherServlet.java:974"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)",
+                          "fileName": "FrameworkServlet.java",
+                          "lineNumber": 1011,
+                          "methodName": "processRequest",
+                          "className": "org.springframework.web.servlet.FrameworkServlet",
+                          "shortSummary": "processRequest() @ FrameworkServlet.java:1011"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)",
+                          "fileName": "FrameworkServlet.java",
+                          "lineNumber": 903,
+                          "methodName": "doGet",
+                          "className": "org.springframework.web.servlet.FrameworkServlet",
+                          "shortSummary": "doGet() @ FrameworkServlet.java:903"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)",
+                          "fileName": "HttpServlet.java",
+                          "lineNumber": 564,
+                          "methodName": "service",
+                          "className": "jakarta.servlet.http.HttpServlet",
+                          "shortSummary": "service() @ HttpServlet.java:564"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)",
+                          "fileName": "FrameworkServlet.java",
+                          "lineNumber": 885,
+                          "methodName": "service",
+                          "className": "org.springframework.web.servlet.FrameworkServlet",
+                          "shortSummary": "service() @ FrameworkServlet.java:885"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)",
+                          "fileName": "HttpServlet.java",
+                          "lineNumber": 658,
+                          "methodName": "service",
+                          "className": "jakarta.servlet.http.HttpServlet",
+                          "shortSummary": "service() @ HttpServlet.java:658"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)",
+                          "fileName": "ApplicationFilterChain.java",
+                          "lineNumber": 205,
+                          "methodName": "internalDoFilter",
+                          "className": "org.apache.catalina.core.ApplicationFilterChain",
+                          "shortSummary": "internalDoFilter() @ ApplicationFilterChain.java:205"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)",
+                          "fileName": "ApplicationFilterChain.java",
+                          "lineNumber": 149,
+                          "methodName": "doFilter",
+                          "className": "org.apache.catalina.core.ApplicationFilterChain",
+                          "shortSummary": "doFilter() @ ApplicationFilterChain.java:149"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)",
+                          "fileName": "WsFilter.java",
+                          "lineNumber": 51,
+                          "methodName": "doFilter",
+                          "className": "org.apache.tomcat.websocket.server.WsFilter",
+                          "shortSummary": "doFilter() @ WsFilter.java:51"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)",
+                          "fileName": "ApplicationFilterChain.java",
+                          "lineNumber": 174,
+                          "methodName": "internalDoFilter",
+                          "className": "org.apache.catalina.core.ApplicationFilterChain",
+                          "shortSummary": "internalDoFilter() @ ApplicationFilterChain.java:174"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)",
+                          "fileName": "ApplicationFilterChain.java",
+                          "lineNumber": 149,
+                          "methodName": "doFilter",
+                          "className": "org.apache.catalina.core.ApplicationFilterChain",
+                          "shortSummary": "doFilter() @ ApplicationFilterChain.java:149"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)",
+                          "fileName": "FilterChainProxy.java",
+                          "lineNumber": 231,
+                          "methodName": "lambda$doFilterInternal$3",
+                          "className": "org.springframework.security.web.FilterChainProxy",
+                          "shortSummary": "lambda$doFilterInternal$3() @ FilterChainProxy.java:231"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 479,
+                          "methodName": "lambda$wrap$1",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation",
+                          "shortSummary": "lambda$wrap$1() @ ObservationFilterChainDecorator.java:479"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 340,
+                          "methodName": "lambda$wrap$1",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation",
+                          "shortSummary": "lambda$wrap$1() @ ObservationFilterChainDecorator.java:340"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 82,
+                          "methodName": "lambda$wrapSecured$0",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator",
+                          "shortSummary": "lambda$wrapSecured$0() @ ObservationFilterChainDecorator.java:82"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 128,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:128"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)",
+                          "fileName": "AuthorizationFilter.java",
+                          "lineNumber": 100,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.access.intercept.AuthorizationFilter",
+                          "shortSummary": "doFilter() @ AuthorizationFilter.java:100"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 240,
+                          "methodName": "wrapFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "wrapFilter() @ ObservationFilterChainDecorator.java:240"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 227,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:227"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 137,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:137"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)",
+                          "fileName": "ExceptionTranslationFilter.java",
+                          "lineNumber": 126,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.access.ExceptionTranslationFilter",
+                          "shortSummary": "doFilter() @ ExceptionTranslationFilter.java:126"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)",
+                          "fileName": "ExceptionTranslationFilter.java",
+                          "lineNumber": 120,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.access.ExceptionTranslationFilter",
+                          "shortSummary": "doFilter() @ ExceptionTranslationFilter.java:120"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 240,
+                          "methodName": "wrapFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "wrapFilter() @ ObservationFilterChainDecorator.java:240"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 227,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:227"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 137,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:137"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)",
+                          "fileName": "AnonymousAuthenticationFilter.java",
+                          "lineNumber": 100,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.authentication.AnonymousAuthenticationFilter",
+                          "shortSummary": "doFilter() @ AnonymousAuthenticationFilter.java:100"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 240,
+                          "methodName": "wrapFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "wrapFilter() @ ObservationFilterChainDecorator.java:240"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 227,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:227"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 137,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:137"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)",
+                          "fileName": "SecurityContextHolderAwareRequestFilter.java",
+                          "lineNumber": 179,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+                          "shortSummary": "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 240,
+                          "methodName": "wrapFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "wrapFilter() @ ObservationFilterChainDecorator.java:240"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 227,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:227"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 137,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:137"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)",
+                          "fileName": "RequestCacheAwareFilter.java",
+                          "lineNumber": 63,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter",
+                          "shortSummary": "doFilter() @ RequestCacheAwareFilter.java:63"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 240,
+                          "methodName": "wrapFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "wrapFilter() @ ObservationFilterChainDecorator.java:240"
+                      },
+                      {
+                          "type": "frameCommon",
+                          "description": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+                          "fileName": "ObservationFilterChainDecorator.java",
+                          "lineNumber": 227,
+                          "methodName": "doFilter",
+                          "className": "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+                          "shortSummary": "doFilter() @ ObservationFilterChainDecorator.java:227"
+                      }
+                  ]
+              }
+          }
+    result: null
+  - sample: >-
+      {
+        "incidentId": "INC-2025-c61",
+        "incidentName": "Path Traversal on \"/postjsoncmd\"",
+        "status": "Close",
+        "score": 9.3,
+        "severity": "Error",
+        "url": "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
+        "createdTime": "2025-07-25T06:20:23.0000Z",
+        "summary": " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
+        "source": "security",
+        "eventType": "incidentalert",
+        "alertType": "incident_created",
+        "alertReason": "Incident Created",
+        "organizationUuid": "0f767995-4882-4c7c-889f-994d945ff0d5",
+        "relatedRules": ["path-traversal"],
+        "recommendedActions": [
+          "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.",
+          "Add an exclusion for this attack event."
+        ],
+        "recommendedRunbooks": [
+          "https://dev/adr-runbooks/runbooks/path-traversal/"
+        ],
+        "timestamp": "2025-07-25T06:20:23.0000Z"
       }
-    tags:
-     - "source:LOGS_SOURCE"
+    result: null
+
+# The `result` field should be left blank to start. Once you submit your log asset files with
+# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
+# run your raw logs against your pipeline and return the result. If the result output in the
+# validation is accurate, take the output and add it to the `result` field in your test YAML file.
