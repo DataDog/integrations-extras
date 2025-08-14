@@ -66,7 +66,7 @@ pipeline:
       name: Contrast ADR Incidents
       enabled: true
       filter:
-        query: "@incidentid:*"
+        query: "@incidentId:*"
       processors:
         - type: attribute-remapper
           name: "Remapper: Map `score` to `syslog.severity`"
@@ -135,10 +135,10 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper : Map `sevirity` to `status`"
+          name: "Remapper : Map `severity` to `status`"
           enabled: true
           sources:
-            - sevirity
+            - severity
           sourceType: attribute
           target: status
           targetType: attribute
