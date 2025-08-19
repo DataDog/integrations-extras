@@ -2,7 +2,7 @@
 REDPANDA_APPLICATION = {
     'redpanda_application_uptime_seconds_total': 'application.uptime',
     'redpanda_application_build': 'application.build',
-    'redpanda_application_fips_mode': 'application.fips_mode'
+    'redpanda_application_fips_mode': 'application.fips_mode',
 }
 
 REDPANDA_CONTROLLER = {
@@ -303,5 +303,5 @@ ADDITIONAL_METRICS_MAP = {
     'redpanda.schemaregistry': REDPANDA_SCHEMA_REGISTRY,
     'redpanda.iceberg': REDPANDA_ICEBERG,
     'redpanda.transform': REDPANDA_TRANSFORM,
-    'redpanda.wasm': REDPANDA_WASM
+    'redpanda.wasm': REDPANDA_WASM,
 }

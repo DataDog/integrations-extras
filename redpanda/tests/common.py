@@ -19,7 +19,7 @@ INSTANCE_METRIC_GROUP_MAP = {
     'redpanda.application': [
         'redpanda.application.uptime',
         'redpanda.application.build',
-        'redpanda.application.fips_mode'
+        'redpanda.application.fips_mode',
     ],
     'redpanda.controller': [
         'redpanda.controller.log_limit_requests_available',
@@ -276,7 +276,7 @@ INSTANCE_METRIC_GROUP_MAP = {
     'redpanda.security': [
         'redpanda.security.audit_errors.count',
         'redpanda.security.audit_last_event_timestamp_seconds.count',
-    ]
+    ],
 }
 # fmt: on
 
@@ -296,7 +296,7 @@ INSTANCE_DEFAULT_GROUPS = [
     'redpanda.rpc',
     'redpanda.security',
     'redpanda.storage',
-    'redpanda.tls'
+    'redpanda.tls',
 ]
 
 INSTANCE_ADDITIONAL_GROUPS = [
@@ -309,7 +309,7 @@ INSTANCE_ADDITIONAL_GROUPS = [
     'redpanda.schemaregistry',
     'redpanda.iceberg',
     'redpanda.transform',
-    'redpanda.wasm'
+    'redpanda.wasm',
 ]
 
 
