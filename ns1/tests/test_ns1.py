@@ -711,12 +711,16 @@ def test_extract_billing(aggregator, instance_1):
     }
     """
     billing, status = check.extract_billing(json.loads(billing_result))
-    assert billing["usage"] == 1509129
-    assert billing["limit"] == 500000
+    assert billing["queries"]["usage"] == 1509129
+    assert billing["queries"]["limit"] == 500000
+    assert billing["records"]["usage"] == 31
+    assert billing["records"]["limit"] == 50
     assert status
     billing, status = check.extract_metric("billing", json.loads(billing_result))
-    assert billing["usage"] == 1509129
-    assert billing["limit"] == 500000
+    assert billing["queries"]["usage"] == 1509129
+    assert billing["queries"]["limit"] == 500000
+    assert billing["records"]["usage"] == 31
+    assert billing["records"]["limit"] == 50
     assert status
 
 

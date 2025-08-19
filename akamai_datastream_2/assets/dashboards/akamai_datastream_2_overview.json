@@ -6,16 +6,16 @@
       "id": 8983504789241156,
       "definition": {
         "title": "New group",
-        "type": "group",
         "banner_img": "https://www.akamai.com/site/en/images/logo/media-resources/full-color-logo.png",
         "show_title": false,
+        "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
             "id": 6384729702856906,
             "definition": {
               "type": "note",
-              "content": "[DataStream](https://techdocs.akamai.com/datastream2/docs) captures performance and security logs from your delivery properties and streams them in near real-time to provide complete monitoring. \n\nClone this template dashboard to make changes and add your own graph widgets.\n",
+              "content": "[DataStream 2](https://techdocs.akamai.com/datastream2/docs) captures performance and security logs from your delivery properties and streams them in near real-time to provide complete monitoring. \n\nClone this template dashboard to make changes and add your own graph widgets.\n",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -25,19 +25,29 @@
               "tick_edge": "left",
               "has_padding": true
             },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
           }
         ]
       },
-      "layout": { "x": 0, "y": 0, "width": 6, "height": 5 }
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 5
+      }
     },
     {
       "id": 1291241338030388,
       "definition": {
         "title": "DataStream Overview",
-        "type": "group",
         "background_color": "vivid_blue",
         "show_title": true,
+        "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
@@ -48,7 +58,6 @@
               "title_align": "left",
               "requests": [
                 {
-                  "formulas": [{ "formula": "query2" }],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -56,24 +65,43 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@http.status_code",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query2"
                     }
                   ]
                 }
               ],
               "type": "sunburst",
-              "legend": { "type": "inline" }
+              "legend": {
+                "type": "inline"
+              }
             },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 4 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
           },
           {
             "id": 6476534050591056,
@@ -84,7 +112,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "query1 / query2 * 100" }],
+                  "formulas": [
+                    {
+                      "formula": "query1 / query2 * 100"
+                    }
+                  ],
                   "conditional_formats": [
                     {
                       "comparator": "<=",
@@ -109,9 +141,13 @@
                         "query": "source:akamai.datastream $service @akamai.datastream.statusCode:[200 TO 299]"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -119,9 +155,13 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ]
@@ -130,9 +170,16 @@
               "autoscale": false,
               "custom_unit": "%",
               "precision": 2,
-              "timeseries_background": { "type": "bars" }
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
-            "layout": { "x": 0, "y": 4, "width": 3, "height": 1 }
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 3915592516723270,
@@ -143,7 +190,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "query1 / query2 * 100" }],
+                  "formulas": [
+                    {
+                      "formula": "query1 / query2 * 100"
+                    }
+                  ],
                   "conditional_formats": [
                     {
                       "comparator": ">=",
@@ -168,9 +219,13 @@
                         "query": "source:akamai.datastream $service @akamai.datastream.statusCode:[400 TO 599]"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -178,9 +233,13 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ]
@@ -189,9 +248,16 @@
               "autoscale": false,
               "custom_unit": "%",
               "precision": 2,
-              "timeseries_background": { "type": "bars" }
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
-            "layout": { "x": 3, "y": 4, "width": 3, "height": 1 }
+            "layout": {
+              "x": 3,
+              "y": 4,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 352611549897328,
@@ -202,7 +268,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "(query1 / query2) * 100" }],
+                  "formulas": [
+                    {
+                      "formula": "(query1 / query2) * 100"
+                    }
+                  ],
                   "conditional_formats": [
                     {
                       "comparator": ">=",
@@ -237,9 +307,13 @@
                         "query": "source:akamai.datastream $service @cacheStatus:1"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -247,9 +321,13 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ]
@@ -258,9 +336,16 @@
               "autoscale": true,
               "custom_unit": "%",
               "precision": 2,
-              "timeseries_background": { "type": "bars" }
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
-            "layout": { "x": 0, "y": 5, "width": 3, "height": 1 }
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 260521524041852,
@@ -272,7 +357,9 @@
               "requests": [
                 {
                   "formulas": [
-                    { "formula": "100 - ((query1 / query2) * 100)" }
+                    {
+                      "formula": "100 - ((query1 / query2) * 100)"
+                    }
                   ],
                   "conditional_formats": [
                     {
@@ -308,9 +395,13 @@
                         "query": "source:akamai.datastream $service @cacheStatus:1"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -318,9 +409,13 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ]
@@ -329,29 +424,16 @@
               "autoscale": true,
               "custom_unit": "%",
               "precision": 2,
-              "timeseries_background": { "type": "bars" }
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
-            "layout": { "x": 3, "y": 5, "width": 3, "height": 1 }
-          },
-          {
-            "id": 3247005155402622,
-            "definition": {
-              "title": "Akamai Datastream Monitors",
-              "title_size": "13",
-              "title_align": "left",
-              "type": "manage_status",
-              "display_format": "countsAndList",
-              "color_preference": "text",
-              "hide_zero_counts": true,
-              "query": "type:log  AND akamai",
-              "sort": "status,asc",
-              "count": 50,
-              "start": 0,
-              "summary_type": "monitors",
-              "show_priority": false,
-              "show_last_triggered": false
-            },
-            "layout": { "x": 0, "y": 6, "width": 6, "height": 2 }
+            "layout": {
+              "x": 3,
+              "y": 5,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 1665763882734808,
@@ -362,14 +444,6 @@
               "type": "query_table",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "Requests",
-                      "cell_display_mode": "bar",
-                      "limit": { "count": 25, "order": "desc" },
-                      "formula": "query1"
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -377,35 +451,96 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "service",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
+                    }
+                  ],
+                  "sort": {
+                    "count": 25,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Requests",
+                      "cell_display_mode": "bar",
+                      "formula": "query1"
                     }
                   ]
                 }
               ],
               "has_search_bar": "auto"
             },
-            "layout": { "x": 0, "y": 8, "width": 6, "height": 2 }
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
           }
         ]
       },
-      "layout": { "x": 6, "y": 0, "width": 6, "height": 11 }
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 9
+      }
+    },
+    {
+      "id": 3247005155402622,
+      "definition": {
+        "title": "Akamai Datastream Monitors",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "manage_status",
+        "display_format": "countsAndList",
+        "color_preference": "text",
+        "hide_zero_counts": true,
+        "show_status": true,
+        "last_triggered_format": "relative",
+        "query": "type:log  AND akamai",
+        "sort": "status,asc",
+        "count": 50,
+        "start": 0,
+        "summary_type": "monitors",
+        "show_priority": false,
+        "show_last_triggered": false
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 6,
+        "height": 4
+      }
     },
     {
       "id": 7231766875730122,
       "definition": {
         "title": "Client information",
-        "type": "group",
-        "background_color": "vivid_blue",
+        "background_color": "vivid_orange",
         "show_title": true,
+        "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
@@ -417,12 +552,6 @@
               "type": "geomap",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": { "count": 10, "order": "desc" }
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -430,102 +559,263 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@network.client.geoip.country.iso_code",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
-              "style": { "palette": "hostmap_blues", "palette_flip": false },
-              "view": { "focus": "WORLD" }
+              "style": {
+                "palette": "hostmap_blues",
+                "palette_flip": false
+              },
+              "view": {
+                "focus": "WORLD"
+              }
             },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 4 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 5
+            }
           },
           {
-            "id": 6407447987762140,
+            "id": 7922742183711581,
             "definition": {
-              "title": "Logs by OS",
+              "title": "Regional Performance Analysis",
               "title_size": "16",
               "title_align": "left",
-              "type": "toplist",
+              "type": "query_table",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "a",
-                      "limit": { "count": 10, "order": "desc" }
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
                       "search": {
-                        "query": "source:akamai.datastream $service"
+                        "query": "source:akamai.datastream"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "a",
-                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
-                          "facet": "@http.useragent_details.os.family",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "facet": "@network.client.geoip.country.name",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
+                        },
+                        {
+                          "facet": "@network.client.geoip.city.name",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 15
                         }
                       ]
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @http.useragent_details.device.category:Mobile"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@network.client.geoip.city.name",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query4",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @http.useragent_details.device.category:Desktop"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@network.client.geoip.city.name",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query5",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @cacheStatus:1"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@network.client.geoip.city.name",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "sort": {
+                    "count": 50,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Total Traffic",
+                      "cell_display_mode": "number",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Mobile Traffic %",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "(query2 / query1) * 100"
+                    },
+                    {
+                      "alias": "Desktop Traffic %",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "(query4 / query1) * 100"
+                    },
+                    {
+                      "alias": "Cache Hit Ratio",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "(query5 / query1) * 100"
                     }
                   ]
                 }
               ]
             },
-            "layout": { "x": 0, "y": 4, "width": 3, "height": 3 }
-          },
-          {
-            "id": 3659880229860148,
-            "definition": {
-              "title": "Logs by User Agent",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "a",
-                      "limit": { "count": 10, "order": "desc" }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "a",
-                      "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "@http.useragent_details.browser.family",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            "layout": { "x": 3, "y": 4, "width": 3, "height": 3 }
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 4
+            }
           },
           {
             "id": 1999063834873014,
@@ -536,13 +826,6 @@
               "type": "query_table",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "Count",
-                      "limit": { "count": 10, "order": "desc" },
-                      "formula": "query1"
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -550,22 +833,101 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@network.client.ip",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "formula": "query1"
                     }
                   ]
                 }
               ]
             },
-            "layout": { "x": 0, "y": 7, "width": 3, "height": 5 }
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 2895677101118860,
+            "definition": {
+              "title": "TLS Version",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "a",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@tlsVersion",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "inline"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 9,
+              "width": 3,
+              "height": 4
+            }
           },
           {
             "id": 268620944357942,
@@ -576,14 +938,6 @@
               "type": "query_table",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "Count",
-                      "cell_display_mode": "bar",
-                      "limit": { "count": 10, "order": "desc" },
-                      "formula": "a"
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -591,22 +945,51 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "a",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@http.method",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "cell_display_mode": "bar",
+                      "formula": "a"
                     }
                   ]
                 }
               ]
             },
-            "layout": { "x": 3, "y": 7, "width": 3, "height": 3 }
+            "layout": {
+              "x": 6,
+              "y": 9,
+              "width": 3,
+              "height": 2
+            }
           },
           {
             "id": 7306380486968644,
@@ -617,13 +1000,6 @@
               "type": "query_table",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "Port",
-                      "limit": { "count": 10, "order": "desc" },
-                      "formula": "query1"
-                    }
-                  ],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -631,367 +1007,18 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@akamai.datastream.reqPort",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            "layout": { "x": 3, "y": 10, "width": 3, "height": 2 }
-          },
-          {
-            "id": 2895677101118860,
-            "definition": {
-              "title": "TLS Version",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "a" }],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "a",
-                      "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "@tlsVersion",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "legend": { "type": "inline" }
-            },
-            "layout": { "x": 0, "y": 12, "width": 6, "height": 4 }
-          }
-        ]
-      },
-      "layout": { "x": 0, "y": 5, "width": 6, "height": 17 }
-    },
-    {
-      "id": 8968203161791408,
-      "definition": {
-        "title": "Logs",
-        "type": "group",
-        "background_color": "vivid_orange",
-        "show_title": true,
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 530558535748238,
-            "definition": {
-              "title": "Total logs",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "query1" }],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": { "type": "bars", "yaxis": {} }
-            },
-            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
-          },
-          {
-            "id": 6045201317030634,
-            "definition": {
-              "title": "Logs received per second",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "query1" }],
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "interval": 1000, "aggregation": "count" },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
-                    }
-                  ],
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": { "x": 2, "y": 0, "width": 4, "height": 2 }
-          },
-          {
-            "id": 877045850803096,
-            "definition": {
-              "title": "Logs Stream",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "log_stream",
-              "indexes": [],
-              "query": "source:akamai.datastream $service",
-              "sort": { "column": "time", "order": "desc" },
-              "columns": ["service"],
-              "show_date_column": true,
-              "show_message_column": true,
-              "message_display": "expanded-md"
-            },
-            "layout": { "x": 0, "y": 2, "width": 6, "height": 6 }
-          },
-          {
-            "id": 828844315990866,
-            "definition": {
-              "type": "note",
-              "content": "When you Create a stream or Edit a stream, you can choose to log midgress traffic within the Akamai network, such as between two edge servers. This feature also requires enabling the Collect midgress traffic option in the DataStream behavior for your property in Property Manager.\n\nFor more information visit [Data set parameters documentation](https://techdocs.akamai.com/datastream2/docs/data-set-parameters)",
-              "background_color": "orange",
-              "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "center",
-              "show_tick": false,
-              "tick_pos": "25%",
-              "tick_edge": "top",
-              "has_padding": true
-            },
-            "layout": { "x": 0, "y": 8, "width": 6, "height": 2 }
-          }
-        ]
-      },
-      "layout": { "x": 6, "y": 11, "width": 6, "height": 11 }
-    },
-    {
-      "id": 6253045991840248,
-      "definition": {
-        "title": "Traffic",
-        "type": "group",
-        "background_color": "vivid_orange",
-        "show_title": true,
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 7452172931890926,
-            "definition": {
-              "type": "note",
-              "content": "Bandwidth usage should generally be steady, and correlate with request rate. CDN cost is generally a function of bandwidth. \nSudden spikes in bandwidth could either be good (organic traffic increase) or bad (malicious actors trying to increase your system load with a high number of requests).\n\n",
-              "background_color": "orange",
-              "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "center",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "top",
-              "has_padding": true
-            },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
-          },
-          {
-            "id": 21246170256338,
-            "definition": {
-              "title": "Bandwidth Over Time",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [{ "alias": "Bandwidth", "formula": "query1" }],
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@network.bytes_written",
-                        "aggregation": "sum"
-                      },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
-                    }
-                  ],
-                  "style": {
-                    "palette": "blue",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "area"
-                }
-              ]
-            },
-            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
-          },
-          {
-            "id": 45187831740568,
-            "definition": {
-              "title": "Requests by HTTP status",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "query3" }],
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query3",
-                      "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "@akamai.datastream.statusCode",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ],
-                  "style": {
-                    "palette": "cool",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "area"
-                }
-              ],
-              "markers": [{ "value": "y = 0", "display_type": "error dashed" }]
-            },
-            "layout": { "x": 0, "y": 5, "width": 6, "height": 3 }
-          },
-          {
-            "id": 5931340453150762,
-            "definition": {
-              "title": "Average Object Size (Bandwidth/Requests)",
-              "show_legend": true,
-              "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    { "alias": "Average Object Size", "formula": "query4" }
-                  ],
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@network.bytes_written",
-                        "aggregation": "avg"
-                      },
-                      "name": "query4",
-                      "indexes": ["*"],
-                      "group_by": []
-                    }
-                  ],
-                  "style": {
-                    "palette": "blue",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ],
-              "yaxis": {
-                "include_zero": true,
-                "scale": "linear",
-                "label": "",
-                "min": "auto",
-                "max": "auto"
-              },
-              "markers": []
-            },
-            "layout": { "x": 0, "y": 8, "width": 6, "height": 3 }
-          },
-          {
-            "id": 7740164180675564,
-            "definition": {
-              "title": "Weekly Bandwidth Change",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "change",
-              "requests": [
-                {
-                  "formulas": [
-                    { "formula": "week_before(query1)" },
-                    { "formula": "query1" }
-                  ],
-                  "order_by": "change",
-                  "order_dir": "desc",
-                  "compare_to": "hour_before",
-                  "response_format": "scalar",
-                  "increase_good": true,
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@network.bytes_written",
-                        "aggregation": "avg"
-                      },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "service",
                           "sort": {
-                            "metric": "@network.bytes_written",
-                            "aggregation": "avg",
+                            "aggregation": "count",
                             "order": "desc"
                           },
                           "limit": 10
@@ -999,174 +1026,168 @@
                       ]
                     }
                   ],
-                  "change_type": "absolute"
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Port",
+                      "formula": "query1"
+                    }
+                  ]
                 }
               ]
             },
-            "layout": { "x": 0, "y": 11, "width": 6, "height": 3 }
+            "layout": {
+              "x": 9,
+              "y": 9,
+              "width": 3,
+              "height": 2
+            }
           },
           {
-            "id": 2128043613814784,
+            "id": 6407447987762140,
             "definition": {
-              "title": "Objects by Size",
+              "title": "Logs by OS",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
+              "type": "toplist",
               "requests": [
                 {
-                  "formulas": [
-                    { "alias": "< 1 kB", "formula": "query2" },
-                    { "alias": "1 kB - 10 kB", "formula": "query1" },
-                    { "alias": "10kB - 100 kB", "formula": "query3" },
-                    { "alias": "100kB - 1 MB", "formula": "query4" },
-                    { "alias": "1 MB - 10 MB", "formula": "query5" },
-                    { "alias": "10 MB - 100 MB", "formula": "query6" },
-                    { "alias": "> 100 MB", "formula": "query7" }
-                  ],
-                  "response_format": "timeseries",
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:<1000"
+                        "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query2",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:[1000 TO 10000]"
+                      "compute": {
+                        "aggregation": "count"
                       },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:[10000 TO 100000]"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query3",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:[100000 TO 1000000]"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query4",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:[1000000 TO 10000000]"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query5",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:[10000000 TO 100000000]"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query6",
-                      "indexes": ["*"],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "source:akamai.datastream $service @network.bytes_written:>100000000"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query7",
-                      "indexes": ["*"],
-                      "group_by": []
+                      "name": "a",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@http.useragent_details.os.family",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
                     }
                   ],
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "area"
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ]
             },
-            "layout": { "x": 0, "y": 14, "width": 6, "height": 4 }
+            "layout": {
+              "x": 6,
+              "y": 11,
+              "width": 3,
+              "height": 2
+            }
           },
           {
-            "id": 5604191786150664,
+            "id": 3659880229860148,
             "definition": {
-              "title": "Objects Size Distribution",
+              "title": "Logs by User Agent",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "type": "distribution",
-              "xaxis": {
-                "max": "auto",
-                "include_zero": true,
-                "scale": "linear",
-                "min": "auto"
-              },
-              "yaxis": {
-                "max": "auto",
-                "include_zero": true,
-                "scale": "linear",
-                "min": "auto"
-              },
+              "type": "toplist",
               "requests": [
                 {
-                  "query": {
-                    "search": { "query": "source:akamai.datastream $service" },
-                    "data_source": "logs",
-                    "compute": {
-                      "metric": "@network.bytes_written",
-                      "aggregation": "avg"
-                    },
-                    "name": "query1",
-                    "indexes": ["*"],
-                    "group_by": []
-                  },
-                  "request_type": "histogram",
-                  "style": { "palette": "green" }
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "a",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@http.useragent_details.browser.family",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ]
             },
-            "layout": { "x": 0, "y": 18, "width": 6, "height": 3 }
+            "layout": {
+              "x": 9,
+              "y": 11,
+              "width": 3,
+              "height": 2
+            }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 22,
-        "is_column_break": true
+        "y": 9,
+        "width": 12,
+        "height": 14
       }
     },
     {
       "id": 4763242894510612,
       "definition": {
         "title": "Caching",
-        "type": "group",
         "background_color": "vivid_blue",
         "show_title": true,
+        "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
@@ -1177,7 +1198,6 @@
               "title_align": "left",
               "requests": [
                 {
-                  "formulas": [{ "formula": "query1" }],
                   "response_format": "scalar",
                   "queries": [
                     {
@@ -1185,24 +1205,108 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "@cacheStatus",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
                     }
                   ]
                 }
               ],
               "type": "sunburst",
-              "legend": { "type": "inline" }
+              "legend": {
+                "type": "inline"
+              }
             },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 4 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 2811165826052579,
+            "definition": {
+              "title": "Cache Hits vs Misses",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "vertical",
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cacheStatus",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": [
+                {
+                  "value": "y = 0",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 8,
+              "height": 4
+            }
           },
           {
             "id": 7861036132046654,
@@ -1218,7 +1322,12 @@
               "tick_edge": "top",
               "has_padding": true
             },
-            "layout": { "x": 0, "y": 4, "width": 2, "height": 4 }
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 2,
+              "height": 2
+            }
           },
           {
             "id": 1344577662213546,
@@ -1226,13 +1335,25 @@
               "title": "Caching Overview",
               "show_legend": true,
               "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    { "alias": "Cache Hits", "formula": "query1" },
-                    { "alias": "Cache Misses", "formula": "query2" }
+                    {
+                      "alias": "Cache Hits",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Cache Misses",
+                      "formula": "query2"
+                    }
                   ],
                   "response_format": "timeseries",
                   "queries": [
@@ -1246,7 +1367,9 @@
                         "aggregation": "sum"
                       },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -1259,7 +1382,9 @@
                         "aggregation": "sum"
                       },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ],
@@ -1272,7 +1397,12 @@
                 }
               ]
             },
-            "layout": { "x": 2, "y": 4, "width": 4, "height": 2 }
+            "layout": {
+              "x": 2,
+              "y": 4,
+              "width": 10,
+              "height": 2
+            }
           },
           {
             "id": 6451195514289402,
@@ -1280,7 +1410,13 @@
               "title": "Cache Hit Ratio",
               "show_legend": true,
               "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
@@ -1298,9 +1434,13 @@
                         "query": "source:akamai.datastream $service @cacheStatus:1"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     },
                     {
@@ -1308,9 +1448,13 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ],
@@ -1331,7 +1475,12 @@
               },
               "markers": []
             },
-            "layout": { "x": 2, "y": 6, "width": 4, "height": 2 }
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
           },
           {
             "id": 394348168209158,
@@ -1343,8 +1492,12 @@
               "requests": [
                 {
                   "formulas": [
-                    { "formula": "week_before((query1 / query2) * 100)" },
-                    { "formula": "(query1 / query2) * 100" }
+                    {
+                      "formula": "week_before((query1 / query2) * 100)"
+                    },
+                    {
+                      "formula": "(query1 / query2) * 100"
+                    }
                   ],
                   "order_by": "change",
                   "order_dir": "desc",
@@ -1357,13 +1510,20 @@
                         "query": "source:akamai.datastream $service @cacheStatus:1"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "service",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
@@ -1373,13 +1533,20 @@
                         "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
-                      "compute": { "aggregation": "count" },
+                      "compute": {
+                        "aggregation": "count"
+                      },
                       "name": "query2",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": [
                         {
                           "facet": "service",
-                          "sort": { "aggregation": "count", "order": "desc" },
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
                           "limit": 10
                         }
                       ]
@@ -1389,19 +1556,29 @@
                 }
               ]
             },
-            "layout": { "x": 0, "y": 8, "width": 6, "height": 2 }
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
           }
         ]
       },
-      "layout": { "x": 6, "y": 0, "width": 6, "height": 11 }
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 9
+      }
     },
     {
       "id": 700446093961524,
       "definition": {
         "title": "Latency",
-        "type": "group",
         "background_color": "vivid_blue",
         "show_title": true,
+        "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
@@ -1427,19 +1604,33 @@
               "requests": [
                 {
                   "query": {
-                    "search": { "query": "source:akamai.datastream $service" },
+                    "search": {
+                      "query": "source:akamai.datastream $service"
+                    },
                     "data_source": "logs",
-                    "compute": { "metric": "@duration", "aggregation": "avg" },
+                    "compute": {
+                      "metric": "@duration",
+                      "aggregation": "avg"
+                    },
                     "name": "query1",
-                    "indexes": ["*"],
+                    "indexes": [
+                      "*"
+                    ],
                     "group_by": []
                   },
                   "request_type": "histogram",
-                  "style": { "palette": "purple" }
+                  "style": {
+                    "palette": "purple"
+                  }
                 }
               ]
             },
-            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 10,
+              "height": 2
+            }
           },
           {
             "id": 286055203308846,
@@ -1455,7 +1646,112 @@
               "tick_edge": "left",
               "has_padding": true
             },
-            "layout": { "x": 0, "y": 3, "width": 2, "height": 4 }
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5911075775334430,
+            "definition": {
+              "title": "Total Request Latency (hits and misses)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Pass Processing Time",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @cacheStatus:1"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@duration",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Miss Processing Time",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @cacheStatus:0"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@duration",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 4
+            }
           },
           {
             "id": 8928963811669936,
@@ -1484,17 +1780,29 @@
                       "query": "source:akamai.datastream @cacheStatus:1 $service"
                     },
                     "data_source": "logs",
-                    "compute": { "metric": "@duration", "aggregation": "avg" },
+                    "compute": {
+                      "metric": "@duration",
+                      "aggregation": "avg"
+                    },
                     "name": "query1",
-                    "indexes": ["*"],
+                    "indexes": [
+                      "*"
+                    ],
                     "group_by": []
                   },
                   "request_type": "histogram",
-                  "style": { "palette": "green" }
+                  "style": {
+                    "palette": "green"
+                  }
                 }
               ]
             },
-            "layout": { "x": 2, "y": 3, "width": 4, "height": 2 }
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
           },
           {
             "id": 7799573143653402,
@@ -1523,84 +1831,469 @@
                       "query": "source:akamai.datastream @cacheStatus:0 $service"
                     },
                     "data_source": "logs",
-                    "compute": { "metric": "@duration", "aggregation": "avg" },
+                    "compute": {
+                      "metric": "@duration",
+                      "aggregation": "avg"
+                    },
                     "name": "query1",
-                    "indexes": ["*"],
+                    "indexes": [
+                      "*"
+                    ],
                     "group_by": []
                   },
                   "request_type": "histogram",
-                  "style": { "palette": "red" }
+                  "style": {
+                    "palette": "red"
+                  }
                 }
               ]
             },
-            "layout": { "x": 2, "y": 5, "width": 4, "height": 2 }
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 32,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 6253045991840248,
+      "definition": {
+        "title": "Traffic",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7452172931890926,
+            "definition": {
+              "type": "note",
+              "content": "Bandwidth usage should generally be steady, and correlate with request rate. CDN cost is generally a function of bandwidth. \nSudden spikes in bandwidth could either be good (organic traffic increase) or bad (malicious actors trying to increase your system load with a high number of requests).\n\n",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "top",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
           },
           {
-            "id": 5911075775334430,
+            "id": 21246170256338,
             "definition": {
-              "title": "Total Request Latency (hits and misses)",
+              "title": "Bandwidth Over Time",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "horizontal",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    { "alias": "Pass Processing Time", "formula": "query1" }
+                    {
+                      "alias": "Bandwidth",
+                      "formula": "query1"
+                    }
                   ],
                   "response_format": "timeseries",
-                  "on_right_yaxis": false,
                   "queries": [
                     {
                       "search": {
-                        "query": "source:akamai.datastream $service @cacheStatus:1"
+                        "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
                       "compute": {
-                        "metric": "@duration",
-                        "aggregation": "avg"
+                        "metric": "@network.bytes_written",
+                        "aggregation": "sum"
                       },
                       "name": "query1",
-                      "indexes": ["*"],
+                      "indexes": [
+                        "*"
+                      ],
                       "group_by": []
                     }
                   ],
                   "style": {
-                    "palette": "green",
+                    "palette": "blue",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
                   "display_type": "area"
-                },
+                }
+              ]
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 10,
+              "height": 3
+            }
+          },
+          {
+            "id": 45187831740568,
+            "definition": {
+              "title": "Requests by HTTP status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
                 {
                   "formulas": [
-                    { "alias": "Miss Processing Time", "formula": "query1" }
+                    {
+                      "formula": "query3"
+                    }
                   ],
                   "response_format": "timeseries",
-                  "on_right_yaxis": false,
                   "queries": [
                     {
                       "search": {
-                        "query": "source:akamai.datastream $service @cacheStatus:0"
+                        "query": "source:akamai.datastream $service"
                       },
                       "data_source": "logs",
                       "compute": {
-                        "metric": "@duration",
-                        "aggregation": "avg"
+                        "aggregation": "count"
                       },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
+                      "name": "query3",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@akamai.datastream.statusCode",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
                     }
                   ],
                   "style": {
-                    "palette": "red",
+                    "palette": "cool",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
                   "display_type": "area"
+                }
+              ],
+              "markers": [
+                {
+                  "value": "y = 0",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7740164180675564,
+            "definition": {
+              "title": "Weekly Bandwidth Change",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "change",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "week_before(query1)"
+                    },
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "order_by": "change",
+                  "order_dir": "desc",
+                  "compare_to": "hour_before",
+                  "response_format": "scalar",
+                  "increase_good": true,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@network.bytes_written",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "service",
+                          "sort": {
+                            "metric": "@network.bytes_written",
+                            "aggregation": "avg",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "change_type": "absolute"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2128043613814784,
+            "definition": {
+              "title": "Objects by Size",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "< 1 kB",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "1 kB - 10 kB",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "10kB - 100 kB",
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "100kB - 1 MB",
+                      "formula": "query4"
+                    },
+                    {
+                      "alias": "1 MB - 10 MB",
+                      "formula": "query5"
+                    },
+                    {
+                      "alias": "10 MB - 100 MB",
+                      "formula": "query6"
+                    },
+                    {
+                      "alias": "> 100 MB",
+                      "formula": "query7"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:<1000"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:[1000 TO 10000]"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:[10000 TO 100000]"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query3",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:[100000 TO 1000000]"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query4",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:[1000000 TO 10000000]"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query5",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:[10000000 TO 100000000]"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query6",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service @network.bytes_written:>100000000"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query7",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5931340453150762,
+            "definition": {
+              "title": "Average Object Size (Bandwidth/Requests)",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Average Object Size",
+                      "formula": "query4"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@network.bytes_written",
+                        "aggregation": "avg"
+                      },
+                      "name": "query4",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "blue",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
                 }
               ],
               "yaxis": {
@@ -1612,23 +2305,835 @@
               },
               "markers": []
             },
-            "layout": { "x": 0, "y": 7, "width": 6, "height": 3 }
+            "layout": {
+              "x": 4,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5604191786150664,
+            "definition": {
+              "title": "Objects Size Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "type": "distribution",
+              "xaxis": {
+                "max": "auto",
+                "include_zero": true,
+                "scale": "linear",
+                "min": "auto"
+              },
+              "yaxis": {
+                "max": "auto",
+                "include_zero": true,
+                "scale": "linear",
+                "min": "auto"
+              },
+              "requests": [
+                {
+                  "query": {
+                    "search": {
+                      "query": "source:akamai.datastream $service"
+                    },
+                    "data_source": "logs",
+                    "compute": {
+                      "metric": "@network.bytes_written",
+                      "aggregation": "avg"
+                    },
+                    "name": "query1",
+                    "indexes": [
+                      "*"
+                    ],
+                    "group_by": []
+                  },
+                  "request_type": "histogram",
+                  "style": {
+                    "palette": "green"
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 593231301960169,
+            "definition": {
+              "title": "Bytes Written by Service",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@network.bytes_written",
+                        "aggregation": "sum"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "service",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
           }
         ]
       },
-      "layout": { "x": 6, "y": 11, "width": 6, "height": 11 }
+      "layout": {
+        "x": 0,
+        "y": 39,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "id": 8968203161791408,
+      "definition": {
+        "title": "Logs",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 530558535748238,
+            "definition": {
+              "title": "Total logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "bars",
+                "yaxis": {}
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 6045201317030634,
+            "definition": {
+              "title": "Logs received per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "source:akamai.datastream $service"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "interval": 1000,
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 877045850803096,
+            "definition": {
+              "title": "Logs Stream",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:akamai.datastream $service",
+                    "indexes": [],
+                    "storage": "hot",
+                    "sort": {
+                      "order": "desc",
+                      "column": "timestamp"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 828844315990866,
+            "definition": {
+              "type": "note",
+              "content": "When you Create a stream or Edit a stream, you can choose to log midgress traffic within the Akamai network, such as between two edge servers. This feature also requires enabling the Collect midgress traffic option in the DataStream behavior for your property in Property Manager.\n\nFor more information visit [Data set parameters documentation](https://techdocs.akamai.com/datastream2/docs/data-set-parameters)",
+              "background_color": "orange",
+              "font_size": "12",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "25%",
+              "tick_edge": "top",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 52,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 6125780294302076,
+      "definition": {
+        "title": "Security",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7070019743229329,
+            "definition": {
+              "title": "WAF Blocks",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_red",
+                      "value": 1000
+                    },
+                    {
+                      "comparator": ">",
+                      "palette": "black_on_light_yellow",
+                      "value": 100
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 2540449760618487,
+            "definition": {
+              "title": "4xx Error Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "b",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "label": "%",
+                          "type": "custom_unit_label"
+                        }
+                      },
+                      "formula": "a / b * 100"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_red",
+                      "value": 10
+                    },
+                    {
+                      "comparator": ">",
+                      "palette": "black_on_light_yellow",
+                      "value": 5
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5636120690962706,
+            "definition": {
+              "title": "Attack Types by Status Code",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@akamai.datastream.statusCode",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {}
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 6312634427053104,
+            "definition": {
+              "type": "note",
+              "content": "Client errors (4xx responses) often represent security events—such as blocked requests, bot detections, or access control enforcement. Tracking trends in 4xx responses helps surface malicious behavior, misconfigured rules, or unexpected traffic patterns. Monitoring these over time can help fine-tune protections without degrading legitimate user access.",
+              "background_color": "blue",
+              "font_size": "12",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 5
+            }
+          },
+          {
+            "id": 1946831422437378,
+            "definition": {
+              "title": "WAF Triggers Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "WAF Blocks",
+                      "formula": "a"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Blocked Requests",
+                "min": "auto",
+                "max": "auto"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 10,
+              "height": 3
+            }
+          },
+          {
+            "id": 5256903416499415,
+            "definition": {
+              "title": "Suspicious User-Agents",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream (@network.client.geoip.as.name:(*bot* OR *crawler* OR *spider* OR *scraper*) OR @akamai.datastream.statusCode:[400 TO 499])"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.as.name",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "sort": {
+                    "count": 15,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {}
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4638474571138186,
+            "definition": {
+              "title": "Top Attacking IPs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "a",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.ip",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "a"
+                    }
+                  ],
+                  "sort": {
+                    "count": 15,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {}
+            },
+            "layout": {
+              "x": 6,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1399634777561144,
+            "definition": {
+              "title": "Recent Security Events",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:akamai.datastream @akamai.datastream.statusCode:[400 TO 499]",
+                    "indexes": [],
+                    "storage": "hot",
+                    "sort": {
+                      "order": "desc",
+                      "column": "timestamp"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@network.client.ip",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@host",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@akamai.datastream.statusCode",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@network.client.geoip.country.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@network.client.geoip.as.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@project",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 57,
+        "width": 12,
+        "height": 13
+      }
     }
   ],
   "template_variables": [
     {
       "name": "service",
-      "default": "*",
       "prefix": "service",
-      "available_values": []
+      "available_values": [],
+      "default": "*"
     }
   ],
   "layout_type": "ordered",
-  "is_read_only": false,
   "notify_list": [],
   "reflow_type": "fixed"
 }

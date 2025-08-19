@@ -1,3 +1,4 @@
+# bypass-global-grok-parser-rules-checks
 id: vercel
 backend_only: false
 facets:
@@ -103,10 +104,10 @@ pipeline:
       target: network.client.geoip
       ip_processing_behavior: do-nothing
     - type: date-remapper
-      name: Define `proxy.timestamp` as the official date of the log
+      name: Define `timestamp` as the official date of the log
       enabled: true
       sources:
-        - proxy.timestamp
+        - timestamp
     - type: trace-id-remapper
       name: Define `traceId` as the official trace ID of the log
       enabled: true

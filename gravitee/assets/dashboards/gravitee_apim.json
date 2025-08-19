@@ -1,0 +1,1628 @@
+{
+  "title": "Gravitee APIM",
+  "description": "Visualize API request metrics, logs, and gateway-level metrics from Gravitee APIM (API Management).",
+  "widgets": [
+    {
+      "id": 5625895614485675,
+      "definition": {
+        "type": "image",
+        "url": "https://www.gravitee.io/hubfs/_branding/Horizontal_LightMode.svg",
+        "url_dark_theme": "https://www.gravitee.io/hubfs/_branding/Horizontal_DarkMode.svg",
+        "sizing": "fill",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 6668986822008233,
+      "definition": {
+        "title": "API Usage",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 601833063235248,
+            "definition": {
+              "title": "Most Used APIs",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{$apiname} by {apiname}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5180490577114153,
+            "definition": {
+              "title": "Overall Requests per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{$apiname}.as_rate()",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request",
+                          "per_unit_name": "second"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": false
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3251671389632073,
+            "definition": {
+              "title": "Average Request Content Size",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:gravitee.apim.request_content_length{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ],
+                    "count": 10
+                  }
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "dog_classic"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5592667383733238,
+            "definition": {
+              "title": "Top Failing APIs (5xx status codes)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "(@entrypointResponse.status:[500 TO 599] OR @clientResponse.status:[500 TO 599]) $apiname"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@apiName",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "@apiResponse.status"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "@apiResponse.status"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "formula": "query2"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@apiName}}%20%26%26%20{{@apiResponse.status}}",
+                  "is_hidden": false
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "dog_classic"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7390054803493266,
+            "definition": {
+              "title": "Slowest Performing APIs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gravitee.apim.gateway_latency_ms{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:gravitee.apim.proxy_latency_ms{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "metrics_summary",
+                  "link": "/metric/summary?metric={{gravitee.apim.gateway_latency_ms}}",
+                  "is_hidden": false
+                },
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{apiname}}",
+                  "is_hidden": false
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7352973444909604,
+            "definition": {
+              "title": "Average Response Content Size",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gravitee.apim.response_content_length{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "dog_classic"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6407836397361125,
+            "definition": {
+              "title": "Responses by Status Code (over time)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{status:1*} by {status}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gravitee.apim.api_request_count{status:2*} by {status}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:gravitee.apim.api_request_count{status:3*} by {status}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:gravitee.apim.api_request_count{status:4*} by {status}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:gravitee.apim.api_request_count{status:5*} by {status}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "style": {
+                        "palette": "grey"
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "style": {
+                        "palette": "green"
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "style": {
+                        "palette": "cool"
+                      },
+                      "formula": "query3"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "style": {
+                        "palette": "orange"
+                      },
+                      "formula": "query4"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "style": {
+                        "palette": "red"
+                      },
+                      "formula": "query5"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query=@entrypointResponse.status%3A{{status.value}}%20OR%20@clientResponse.status%3A{{status.value}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 6329582462457350,
+            "definition": {
+              "title": "APIs by Average Response Times (excl: websockets & webhooks)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "ResponseTime",
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "ResponseTime",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:gravitee.apim.api_response_time_ms{$apiname} by {apiname}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:gravitee.apim.endpoint_response_time_ms{(entrypointid NOT IN (websocket,webhook)) AND $apiname} by {apiname}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 2019903893486560,
+            "definition": {
+              "title": "Max Latency Times (by Gateway and Endpoint)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "max:gravitee.apim.proxy_latency_ms{$apiname}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:gravitee.apim.api_response_time_ms{$apiname}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Gateway Latency (auth+policies)",
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 1
+                      },
+                      "formula": "query3"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "Endpoint Latency (upstream service)",
+                      "style": {
+                        "palette": "purple",
+                        "palette_index": 5
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "markers": [
+                {
+                  "label": " WARNING ",
+                  "value": "y > 500",
+                  "display_type": "warning dashed"
+                },
+                {
+                  "label": " BAD ",
+                  "value": "y > 1000",
+                  "display_type": "error dashed"
+                },
+                {
+                  "label": " GOOD ",
+                  "value": "y < 500",
+                  "display_type": "ok dashed"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@apiResponse.status}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 2953985880892720,
+            "definition": {
+              "title": "Responses by Status Code",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{status:1*} by {status}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gravitee.apim.api_request_count{status:2*} by {status}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:gravitee.apim.api_request_count{status:3*} by {status}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:gravitee.apim.api_request_count{status:4*} by {status}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:gravitee.apim.api_request_count{status:5*} by {status}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "semantic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1+query2+query3+query4+query5",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "type": "automatic"
+              },
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query=@entrypointResponse.status%3A{{status.value}}%20OR%20@clientResponse.status%3A{{status.value}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5422211689129905,
+            "definition": {
+              "title": "(V2 & V4 API) Requests by Response Times",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:gravitee.apim.endpoint_response_time_ms{(entrypointid NOT IN (websocket,webhook)) AND $apiname} by {apiname}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "max:gravitee.apim.api_response_time_ms{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    },
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": true,
+              "legend": {
+                "type": "automatic"
+              },
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@APINAME}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4641773626082915,
+            "definition": {
+              "title": "(V4 API) Requests by Response Times",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "max:gravitee.apim.endpoint_response_time_ms{(entrypointid NOT IN (websocket,webhook)) AND $apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              },
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@APINAME}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 11,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4698986652784730,
+            "definition": {
+              "title": "(V2 API) Requests by Response Times",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:gravitee.apim.api_response_time_ms{$apiname} by {apiname}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              },
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@APINAME}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 14,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "width": 12,
+        "height": 18
+      }
+    },
+    {
+      "id": 5961648438515334,
+      "definition": {
+        "title": "Gateway Performance",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6926168646749738,
+            "definition": {
+              "title": "Total Requests (Overall)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{*}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2045321448815244,
+            "definition": {
+              "title": "Gateway Node Uptimes",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:gravitee.apim.uptime_in_millis{*} by {nodehost}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6562679517717368,
+            "definition": {
+              "title": "Gateway(s) CPU Load",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:gravitee.apim.process_percent{*} by {nodehost}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": [
+                {
+                  "value": "y = 90",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4948405401462116,
+            "definition": {
+              "title": "Total Requests (per Gateway Node)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gravitee.apim.api_request_count{*} by {nodehost}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4369853661978842,
+            "definition": {
+              "title": "Gateway(s) Memory Consumed",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:gravitee.apim.mem_used_in_bytes{*} by {nodehost}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6783770556258174,
+            "definition": {
+              "title": "Average Latency",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gravitee.apim.proxy_latency_ms{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4291307960404796,
+            "definition": {
+              "title": "Gateway(s) JVM Heap Used",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:gravitee.apim.heap_used_percent{*} by {nodehost}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": [
+                {
+                  "value": "y = 90",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 19,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 2809737573659696,
+      "definition": {
+        "title": "max:gravitee.apim.process_percent{*} : top 24 nodeid",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "split_group",
+        "source_widget_definition": {
+          "title": "",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_table",
+          "requests": [
+            {
+              "queries": [
+                {
+                  "query": "max:gravitee.apim.process_percent{*}",
+                  "data_source": "metrics",
+                  "name": "query1",
+                  "aggregator": "avg"
+                }
+              ],
+              "response_format": "scalar",
+              "sort": {
+                "count": 500,
+                "order_by": [
+                  {
+                    "type": "formula",
+                    "index": 0,
+                    "order": "desc"
+                  }
+                ]
+              },
+              "formulas": [
+                {
+                  "cell_display_mode": "bar",
+                  "formula": "query1"
+                }
+              ]
+            }
+          ],
+          "has_search_bar": "auto"
+        },
+        "split_config": {
+          "split_dimensions": [
+            {
+              "one_graph_per": "nodehost"
+            }
+          ],
+          "limit": 24,
+          "sort": {
+            "order": "desc"
+          }
+        },
+        "size": "xs",
+        "has_uniform_y_axes": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 26,
+        "width": 12,
+        "height": 9
+      }
+    },
+    {
+      "id": 613533994368135,
+      "definition": {
+        "title": "Logs",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 220474932486185,
+            "definition": {
+              "title": "Responses by Status Code",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "(@entrypointResponse.status:[200 TO 299] OR @clientResponse.status:[200 TO 299]) $apiname"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@apiResponse.status",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "@apiResponse.status"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "@apiResponse.status"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "(@entrypointResponse.status:([400 TO 499] OR [500 TO 599]) OR @clientResponse.status:([400 TO 499] OR [500 TO 599])) $apiname"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@apiResponse.status",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "@apiResponse.status"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "@apiResponse.status"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "(@entrypointResponse.status:([100 TO 199] OR [300 TO 399]) OR @clientResponse.status:([100 TO 199] OR [300 TO 399])) $apiname"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@apiResponse.status",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "@apiResponse.status"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "@apiResponse.status"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "Status Code",
+                      "style": {
+                        "palette": "green"
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "Status Code",
+                      "style": {
+                        "palette": "red"
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "Status Code",
+                      "style": {
+                        "palette": "grey"
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "logs",
+                  "link": "/logs?live=false&from_ts={{timestamp_start}}&to_ts={{timestamp_end}}&query={{@apiResponse.status}}",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 2972223684765538,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "query": {
+                    "query_string": "source:gravitee",
+                    "data_source": "logs_stream",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list",
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "host",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 35,
+        "width": 12,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "apiname",
+      "prefix": "apiname",
+      "default": "*"
+    },
+    {
+      "name": "nodehost",
+      "prefix": "nodehost",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": []
+}
