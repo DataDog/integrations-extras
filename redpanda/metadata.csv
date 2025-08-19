@@ -1,192 +1,192 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
-redpanda.application.build,gauge,,,,"Build information for Redpanda, including the revision and version details",-1,redpanda,application build
-redpanda.application.fips_mode,gauge,,,,"Indicates whether Redpanda is running in FIPS mode. Possible values: 0 = disabled, 1 = permissive, 2 = enabled",,redpanda,fips mode
-redpanda.application.uptime,gauge,,second,,Redpanda uptime in seconds,-1,redpanda,application uptime
-redpanda.authorization.result,count,,,,"Cumulative count of authorization results, categorized by result type.",,redpanda,authorization result
+redpanda.application.build,gauge,,,,"Build information for Redpanda, including the revision and version details",0,redpanda,application build
+redpanda.application.fips_mode,gauge,,,,"Indicates whether Redpanda is running in FIPS mode. Possible values: 0 = disabled, 1 = permissive, 2 = enabled",0,redpanda,fips mode
+redpanda.application.uptime,gauge,,second,,Redpanda uptime in seconds,0,redpanda,application uptime
+redpanda.authorization.result,count,,,,"Cumulative count of authorization results, categorized by result type.",0,redpanda,authorization result
 redpanda.cloud.client_backoff,count,,operation,,Total number of requests that backed off,-1,redpanda,cloud client backoff
-redpanda.cloud.client_pool_utilization,gauge,,,,"Current utilization (as a percentage, 0–100) of the object storage client pool.",,redpanda,cloud client pool utilization
+redpanda.cloud.client_pool_utilization,gauge,,,,"Current utilization (as a percentage, 0–100) of the object storage client pool.",-1,redpanda,cloud client pool utilization
 redpanda.cloud.client_download_backoff,count,,operation,,Total number of download requests that backed off,-1,redpanda,cloud client download backoff
-redpanda.cloud.client_downloads,count,,,,Total number of requests that downloaded an object from cloud storage,-1,redpanda,cloud client downloads
-redpanda.cloud.client_lease_duration,histogram,,,,Lease duration histogram.,,redpanda,cloud client lease duration
+redpanda.cloud.client_downloads,count,,,,Total number of requests that downloaded an object from cloud storage,0,redpanda,cloud client downloads
+redpanda.cloud.client_lease_duration,histogram,,,,Lease duration histogram.,0,redpanda,cloud client lease duration
 redpanda.cloud.client_not_found,count,,,,Total number of requests for which the object was not found,-1,redpanda,cloud client not found
-redpanda.cloud.client_num_borrows,count,,,,Count of instances where a shard borrowed an object storage client from another shard.,-1,redpanda,cloud storage number of borrowed reads
+redpanda.cloud.client_num_borrows,count,,,,Count of instances where a shard borrowed an object storage client from another shard.,0,redpanda,cloud storage number of borrowed reads
 redpanda.cloud.client_upload_backoff,count,,,,Total number of upload requests that backed off,-1,redpanda,cloud client upload backoff
-redpanda.cloud.client_uploads,count,,,,Total number of requests that uploaded an object to cloud storage,-1,redpanda,cloud client uploads
-redpanda.cloud.storage.active_segments,gauge,,,,Number of remote log segments that are currently hydrated and available for read operations,-1,redpanda,cloud storage active segments
-redpanda.cloud.storage.cache_op_hit,count,,,,Number of get requests for objects that are already in cache.,-1,redpanda,cloud storage cache op hit
-redpanda.cloud.storage.op_in_progress_files,gauge,,,,Number of files currently being written to the cache.,-1,redpanda,cloud storage op in progress files
+redpanda.cloud.client_uploads,count,,,,Total number of requests that uploaded an object to cloud storage,0,redpanda,cloud client uploads
+redpanda.cloud.storage.active_segments,gauge,,,,Number of remote log segments that are currently hydrated and available for read operations,0,redpanda,cloud storage active segments
+redpanda.cloud.storage.cache_op_hit,count,,,,Number of get requests for objects that are already in cache.,0,redpanda,cloud storage cache op hit
+redpanda.cloud.storage.op_in_progress_files,gauge,,,,Number of files currently being written to the cache.,0,redpanda,cloud storage op in progress files
 redpanda.cloud.storage.cache_op_miss,count,,,,Number of get requests that are not satisfied from the cache.,-1,redpanda,cloud storage cache op miss
-redpanda.cloud.storage.op_put,count,,operation,,Number of objects written into cache.,-1,redpanda,cloud storage op put
-redpanda.cloud.storage.cache_space_files,gauge,,,,Current number of objects stored in the cache.,-1,redpanda,cloud storage cache files
-redpanda.cloud.storage.cache_space_hwm_files,gauge,,,,High watermark for the number of objects stored in the cache.,,redpanda,cloud storage cache files hwm
-redpanda.cloud.storage.cache_space_hwm_size_bytes,gauge,,,,High watermark for the total size (in bytes) of cached objects.,,redpanda,cloud storage cache size bytes hwm
-redpanda.cloud.storage.cache_space_size_bytes,gauge,,byte,,Sum of size of cached objects.,-1,redpanda,cloud storage cache size bytes
-redpanda.cloud.storage.cache_space_tracker_size,gauge,,,,Current count of entries in the cache access tracker.,,redpanda,cloud storage cache access tracker size
-redpanda.cloud.storage.cache_space_tracker_syncs,count,,operation,,Number of times the cache access tracker was synchronized with disk data.,-1,redpanda,cloud storage cache access tracker syncs
-redpanda.cloud.storage_cache_trim_carryover_trims,count,,,,Count of times the cache trim operation was invoked using a carryover strategy.,,redpanda,cloud storage cache trims with carryover
-redpanda.cloud.storage_cache_trim_exhaustive_trims,count,,,,Count of instances where a fast cache trim was insufficient and an exhaustive trim was required.,,redpanda,cloud storage cache exhaustive trims
-redpanda.cloud.storage_cache_trim_failed_trims,count,,,,"Count of cache trim operations that failed to free the expected amount of space, possibly indicating a bug or misconfiguration.",,redpanda,cloud storage cache failed trims
-redpanda.cloud.storage_cache_trim_fast_trims,count,,,,Count of successful fast cache trim operations.,,redpanda,cloud storage cache fast trims
-redpanda.cloud.storage_cache_trim_in_mem_trims,count,,,,Count of cache trim operations performed using the in-memory access tracker.,,redpanda,cloud storage cache trims with tracker
-redpanda.cloud.storage_cloud_log_size,gauge,,,,Total size (in bytes) of user-visible log data stored in Tiered Storage. This value increases with every segment offload and decreases when segments are deleted due to retention or compaction.,-1,redpanda,cloud storage log size
-redpanda.cloud.storage.deleted_segments,count,,,,Number of segments that have been deleted from S3 for the topic. This may grow due to retention or non compacted segments being replaced with their compacted equivalent.,-1,redpanda,cloud storage deleted segments
+redpanda.cloud.storage.op_put,count,,operation,,Number of objects written into cache.,0,redpanda,cloud storage op put
+redpanda.cloud.storage.cache_space_files,gauge,,,,Current number of objects stored in the cache.,0,redpanda,cloud storage cache files
+redpanda.cloud.storage.cache_space_hwm_files,gauge,,,,High watermark for the number of objects stored in the cache.,0,redpanda,cloud storage cache files hwm
+redpanda.cloud.storage.cache_space_hwm_size_bytes,gauge,,,,High watermark for the total size (in bytes) of cached objects.,0,redpanda,cloud storage cache size bytes hwm
+redpanda.cloud.storage.cache_space_size_bytes,gauge,,byte,,Sum of size of cached objects.,0,redpanda,cloud storage cache size bytes
+redpanda.cloud.storage.cache_space_tracker_size,gauge,,,,Current count of entries in the cache access tracker.,0,redpanda,cloud storage cache access tracker size
+redpanda.cloud.storage.cache_space_tracker_syncs,count,,operation,,Number of times the cache access tracker was synchronized with disk data.,0,redpanda,cloud storage cache access tracker syncs
+redpanda.cloud.storage_cache_trim_carryover_trims,count,,,,Count of times the cache trim operation was invoked using a carryover strategy.,0,redpanda,cloud storage cache trims with carryover
+redpanda.cloud.storage_cache_trim_exhaustive_trims,count,,,,Count of instances where a fast cache trim was insufficient and an exhaustive trim was required.,-1,redpanda,cloud storage cache exhaustive trims
+redpanda.cloud.storage_cache_trim_failed_trims,count,,,,"Count of cache trim operations that failed to free the expected amount of space, possibly indicating a bug or misconfiguration.",-1,redpanda,cloud storage cache failed trims
+redpanda.cloud.storage_cache_trim_fast_trims,count,,,,Count of successful fast cache trim operations.,1,redpanda,cloud storage cache fast trims
+redpanda.cloud.storage_cache_trim_in_mem_trims,count,,,,Count of cache trim operations performed using the in-memory access tracker.,0,redpanda,cloud storage cache trims with tracker
+redpanda.cloud.storage_cloud_log_size,gauge,,,,Total size (in bytes) of user-visible log data stored in Tiered Storage. This value increases with every segment offload and decreases when segments are deleted due to retention or compaction.,0,redpanda,cloud storage log size
+redpanda.cloud.storage.deleted_segments,count,,,,Number of segments that have been deleted from S3 for the topic. This may grow due to retention or non compacted segments being replaced with their compacted equivalent.,0,redpanda,cloud storage deleted segments
 redpanda.cloud.storage.errors,count,,error,,"Cumulative count of errors encountered during object storage operations, segmented by direction.",-1,redpanda,cloud storage errors
-redpanda.cloud.storage.housekeeping.drains,gauge,,,,Number of times the object storage upload housekeeping queue was fully drained.,-1,redpanda,cloud storage housekeeping drains
-redpanda.cloud.storage.housekeeping.jobs_completed,count,,,,Number of executed housekeeping jobs,-1,redpanda,cloud storage housekeeping jobs completed
+redpanda.cloud.storage.housekeeping.drains,gauge,,,,Number of times the object storage upload housekeeping queue was fully drained.,1,redpanda,cloud storage housekeeping drains
+redpanda.cloud.storage.housekeeping.jobs_completed,count,,,,Number of executed housekeeping jobs,0,redpanda,cloud storage housekeeping jobs completed
 redpanda.cloud.storage.housekeeping.jobs_failed,count,,error,,Number of failed housekeeping jobs,-1,redpanda,cloud storage housekeeping jobs failed
 redpanda.cloud.storage.housekeeping.jobs_skipped,count,,,,Number of object storage housekeeping jobs that were skipped during execution.,-1,redpanda,cloud storage housekeeping jobs skipped
 redpanda.cloud.storage.housekeeping.pauses,gauge,,,,Number of times object storage upload housekeeping was paused.,-1,redpanda,cloud storage housekeeping pauses
-redpanda.cloud.storage_housekeeping_requests_throttled_average_rate,gauge,,,,Average rate (per shard) of requests that were throttled during object storage operations.,,redpanda,cloud storage housekeeping throttled requests rate
-redpanda.cloud.storage.housekeeping.resumes,gauge,,,,Number of times when object storage upload housekeeping resumed after a pause.,-1,redpanda,cloud storage housekeeping resumes
-redpanda.cloud.storage.housekeeping.rounds,count,,,,Number of upload housekeeping rounds,-1,redpanda,cloud storage housekeeping rounds
+redpanda.cloud.storage_housekeeping_requests_throttled_average_rate,gauge,,,,Average rate (per shard) of requests that were throttled during object storage operations.,-1,redpanda,cloud storage housekeeping throttled requests rate
+redpanda.cloud.storage.housekeeping.resumes,gauge,,,,Number of times when object storage upload housekeeping resumed after a pause.,0,redpanda,cloud storage housekeeping resumes
+redpanda.cloud.storage.housekeeping.rounds,count,,,,Number of upload housekeeping rounds,0,redpanda,cloud storage housekeeping rounds
 redpanda.cloud.storage.jobs.cloud_segment_reuploads,gauge,,,,Number of segment reuploads from cloud storage sources (cloud storage cache or direct download from cloud storage),-1,redpanda,cloud storage jobs cloud segment reuploads
 redpanda.cloud.storage.jobs.local_segment_reuploads,gauge,,,,Number of segment reuploads from local data directory,-1,redpanda,cloud storage jobs local segment reuploads
 redpanda.cloud.storage.jobs.manifest_reuploads,gauge,,,,Number of manifest reuploads performed by all housekeeping jobs,-1,redpanda,cloud storage jobs manifest reuploads
-redpanda.cloud.storage.jobs.metadata_syncs,gauge,,,,Number of archival configuration updates performed by all housekeeping jobs,-1,redpanda,cloud storage jobs metadata syncs
-redpanda.cloud.storage.jobs.segment_deletions,gauge,,,,Number of segments deleted by all housekeeping jobs,-1,redpanda,cloud storage jobs segment deletions
+redpanda.cloud.storage.jobs.metadata_syncs,gauge,,,,Number of archival configuration updates performed by all housekeeping jobs,0,redpanda,cloud storage jobs metadata syncs
+redpanda.cloud.storage.jobs.segment_deletions,gauge,,,,Number of segments deleted by all housekeeping jobs,0,redpanda,cloud storage jobs segment deletions
 redpanda.cloud.storage_limits_downloads_throttled_sum,count,,,,Total cumulative time (in milliseconds) during which downloads were throttled.,-1,redpanda,cloud storage throttled downloads duration
-redpanda.cloud.storage_partition_manifest_uploads,count,,,,Total number of successful partition manifest uploads to object storage.,-1,redpanda,cloud storage successful manifest uploads
-redpanda.cloud.storage_partition_readers,gauge,,,,Number of active partition reader instances (fetch/timequery operations) reading from Tiered Storage.,-1,redpanda,cloud storage active readers
+redpanda.cloud.storage_partition_manifest_uploads,count,,,,Total number of successful partition manifest uploads to object storage.,1,redpanda,cloud storage successful manifest uploads
+redpanda.cloud.storage_partition_readers,gauge,,,,Number of active partition reader instances (fetch/timequery operations) reading from Tiered Storage.,0,redpanda,cloud storage active readers
 redpanda.cloud.storage_partition_readers_delayed,count,,,,"Count of partition read operations delayed due to reaching the reader limit, suggesting potential saturation of Tiered Storage reads.",-1,redpanda,cloud storage delayed read operations
-redpanda.cloud.storage_paused_archivers,gauge,,,,Number of paused archivers.,,redpanda,cloud storage paused archivers
+redpanda.cloud.storage_paused_archivers,gauge,,,,Number of paused archivers.,-1,redpanda,cloud storage paused archivers
 redpanda.cloud.storage.readers,gauge,,,,Total number of segments pending deletion from the cloud for the topic,-1,redpanda,cloud storage readers
-redpanda.cloud.storage_segment_index_uploads,count,,,,Total number of successful segment index uploads to object storage.,-1,redpanda,cloud storage successful index uploads
-redpanda.cloud.storage_segment_materializations_delayed,count,,,,Count of segment materialization operations that were delayed because of reader limit constraints.,,redpanda,cloud storage delayed segment materializations
+redpanda.cloud.storage_segment_index_uploads,count,,,,Total number of successful segment index uploads to object storage.,1,redpanda,cloud storage successful index uploads
+redpanda.cloud.storage_segment_materializations_delayed,count,,,,Count of segment materialization operations that were delayed because of reader limit constraints.,-1,redpanda,cloud storage delayed segment materializations
 redpanda.cloud.storage_segment_readers_delayed,count,,,,Count of segment reader operations delayed due to reaching the reader limit. This indicates a cluster is saturated with Tiered Storage reads.,-1,redpanda,cloud storage delayed segment read operations
-redpanda.cloud.storage_segment_uploads,count,,,,Total number of successful data segment uploads to object storage.,-1,redpanda,cloud storage successful segment uploads
-redpanda.cloud.storage.segments,gauge,,,,Total number of uploaded bytes for the topic,-1,redpanda,cloud storage segments
-redpanda.cloud.storage.segments_pending_deletion,gauge,,,,Number of read cursors for hydrated remote log segments,-1,redpanda,cloud storage segments pending deletion
-redpanda.cloud.storage_spillover_manifest_uploads,count,,,,Total number of successful spillover manifest uploads to object storage.,-1,redpanda,cloud storage successful spillover manifest uploads
-redpanda.cloud.storage_spillover_manifests_materialized_bytes,gauge,,,,Total bytes of memory used by spilled manifests that are currently cached in memory.,,redpanda,cloud storage spilled manifests memory size
-redpanda.cloud.storage_spillover_manifests_materialized_count,gauge,,,,Count of spilled manifests currently held in memory cache.,,redpanda,cloud storage spilled manifests in memory
-redpanda.cloud.storage.uploaded_bytes,count,,byte,,Total number of accounted segments in the cloud for the topic,-1,redpanda,cloud storage uploaded bytes
-redpanda.cluster.brokers,gauge,,,,Number of configured brokers in the cluster,-1,redpanda,cluster brokers
-redpanda.controller.log_limit_requests_available,gauge,,request,,Controller log rate limiting. Available rps for group,-1,redpanda,controller log limit requests available
+redpanda.cloud.storage_segment_uploads,count,,,,Total number of successful data segment uploads to object storage.,1,redpanda,cloud storage successful segment uploads
+redpanda.cloud.storage.segments,gauge,,,,Total number of uploaded bytes for the topic,1,redpanda,cloud storage segments
+redpanda.cloud.storage.segments_pending_deletion,gauge,,,,Number of read cursors for hydrated remote log segments,0,redpanda,cloud storage segments pending deletion
+redpanda.cloud.storage_spillover_manifest_uploads,count,,,,Total number of successful spillover manifest uploads to object storage.,0,redpanda,cloud storage successful spillover manifest uploads
+redpanda.cloud.storage_spillover_manifests_materialized_bytes,gauge,,,,Total bytes of memory used by spilled manifests that are currently cached in memory.,-1,redpanda,cloud storage spilled manifests memory size
+redpanda.cloud.storage_spillover_manifests_materialized_count,gauge,,,,Count of spilled manifests currently held in memory cache.,-1,redpanda,cloud storage spilled manifests in memory
+redpanda.cloud.storage.uploaded_bytes,count,,byte,,Total number of accounted segments in the cloud for the topic,0,redpanda,cloud storage uploaded bytes
+redpanda.cluster.brokers,gauge,,,,Number of configured brokers in the cluster,0,redpanda,cluster brokers
+redpanda.controller.log_limit_requests_available,gauge,,request,,Controller log rate limiting. Available rps for group,1,redpanda,controller log limit requests available
 redpanda.controller.log_limit_requests_dropped,count,,request,,Controller log rate limiting. Amount of requests that are dropped due to exceeding limit in group,-1,redpanda,controller log limit requests dropped
-redpanda.cluster.features_enterprise_license_expiry_sec,gauge,,,,Number of seconds remaining until the Enterprise Edition license expires.,,redpanda,license time remaining
+redpanda.cluster.features_enterprise_license_expiry_sec,gauge,,,,Number of seconds remaining until the Enterprise Edition license expires.,1,redpanda,license time remaining
 redpanda.cluster.latest_cluster_metadata_manifest_age,gauge,,,,The amount of time in seconds since the last time Redpanda uploaded metadata files to Tiered Storage for your cluster. A value of 0 indicates metadata has not yet been uploaded.,-1,redpanda,manifest_age
-redpanda.cluster.members_backend_queued_node_operations,gauge,,,,Number of queued node operations.,,redpanda,queued node operations
-redpanda.cluster.non_homogenous_fips_mode,gauge,,,,Count of brokers whose FIPS mode configuration differs from the rest of the cluster.,,redpanda,non-homogenous brokers due to fips
+redpanda.cluster.members_backend_queued_node_operations,gauge,,,,Number of queued node operations.,-1,redpanda,queued node operations
+redpanda.cluster.non_homogenous_fips_mode,gauge,,,,Count of brokers whose FIPS mode configuration differs from the rest of the cluster.,-1,redpanda,non-homogenous brokers due to fips
 redpanda.cluster.partitions,gauge,,,,Total number of logical partitions managed by the cluster. This includes partitions for the controller topic but excludes replicas.,-1,redpanda,cluster partitions
 redpanda.partitions.moving_from_node,gauge,,,,Number of partition replicas that are in the process of being removed from a broker.,-1,redpanda,partitions moving from node
 redpanda.partitions.moving_to_node,gauge,,,,Number of partition replicas in the cluster currently being added or moved to a broker.,-1,redpanda,partitions moving to node
 redpanda.partitions.node_cancelling_movements,gauge,,,,"During a partition movement cancellation operation, the number of partition replicas that were being moved that now need to be canceled.",-1,redpanda,partitions node cancelling movements
 redpanda.cluster.partition_num_with_broken_rack_constraint,gauge,,,,Number of partitions that don't satisfy the rack awareness constraint,-1,redpanda,cluster partition num with broken rack constraint
-redpanda.cluster.partition_schema_id_validation_records_failed,count,,,,Count of records that failed schema ID validation during ingestion.,,redpanda,schema id validation failures
-redpanda.cluster.topics,gauge,,,,Number of topics in the cluster,-1,redpanda,cluster topics
+redpanda.cluster.partition_schema_id_validation_records_failed,count,,,,Count of records that failed schema ID validation during ingestion.,-1,redpanda,schema id validation failures
+redpanda.cluster.topics,gauge,,,,Number of topics in the cluster,0,redpanda,cluster topics
 redpanda.cluster.unavailable_partitions,gauge,,,,Number of partitions that are unavailable due to a lack of quorum among their replica set.,-1,redpanda,cluster unavailable partitions
 redpanda.reactor.cpu_busy_seconds,gauge,,second,,Total CPU busy time in seconds,-1,redpanda,reactor cpu busy seconds
-redpanda.debug_bundle.failed_generation_count,count,,,,"Running count of debug bundle generation failures, reported per shard.",,redpanda,failed debug bundle generations
-redpanda.debug_bundle.last_failed_bundle_timestamp_seconds,gauge,,,,"Unix epoch timestamp of the last failed debug bundle generation, per shard.",,redpanda,debug bundle generation last failure time
-redpanda.debug_bundle.last_successful_bundle_timestamp_seconds,gauge,,,,"Unix epoch timestamp of the last successfully generated debug bundle, per shard.",,redpanda,debug bundle generation last successful time
-redpanda.debug_bundle.successful_generation_count,count,,,,"Running count of successfully generated debug bundles, reported per shard.",,redpanda,successful debug bundle generations
-redpanda.iceberg.rest_client_active_gets,gauge,,,,Number of active GET requests.,-1,redpanda,active GET requests
-redpanda.iceberg.rest_client_active_puts,gauge,,,,Number of active PUT requests.,-1,redpanda,active PUT requests
-redpanda.iceberg.rest_client_active_requests,gauge,,,,Number of active HTTP requests (includes PUT and GET).,-1,redpanda,active HTTP requests
-redpanda.iceberg.rest_client_num_commit_table_update_requests,count,,,,Number of requests sent to the commit_table_update endpoint.,,redpanda,iceberg commit_table_update requests
-redpanda.iceberg.rest_client_num_commit_table_update_requests_failed,count,,,,Number of requests sent to the commit_table_update endpoint that failed.,,redpanda,iceberg commit_table_update request failures
-redpanda.iceberg.rest_client_num_create_namespace_requests,count,,,,Number of requests sent to the create_namespace endpoint.,,redpanda,iceberg commit_namespace requests
-redpanda.iceberg.rest_client_num_create_namespace_requests_failed,count,,,,Number of requests sent to the create_namespace endpoint that failed.,,redpanda,iceberg commit_namespace request failures
-redpanda.iceberg.rest_client_num_create_table_requests,count,,,,Number of requests sent to the create_table endpoint.,,redpanda,iceberg commit_table requests
-redpanda.iceberg.rest_client_num_create_table_requests_failed,count,,,,Number of requests sent to the create_table endpoint that failed.,,redpanda,iceberg commit_table request failures
-redpanda.iceberg.rest_client_num_drop_table_requests,count,,,,Number of requests sent to the drop_table endpoint.,,redpanda,iceberg drop_table requests
-redpanda.iceberg.rest_client_num_drop_table_requests_failed,count,,,,Number of requests sent to the drop_table endpoint that failed.,,redpanda,iceberg drop_table request failures
-redpanda.iceberg.rest_client_num_get_config_requests,count,,,,Number of requests sent to the config endpoint.,,redpanda,iceberg config requests
-redpanda.iceberg.rest_client_num_get_config_requests_failed,count,,,,Number of requests sent to the config endpoint that failed.,,redpanda,iceberg config request failures
-redpanda.iceberg.rest_client_num_load_table_requests,count,,,,Number of requests sent to the load_table endpoint.,,redpanda,iceberg load_table requests
-redpanda.iceberg.rest_client_num_load_table_requests_failed,count,,,,Number of requests sent to the load_table endpoint that failed.,,redpanda,iceberg load_table request failures
-redpanda.iceberg.rest_client_num_oauth_token_requests,count,,,,Number of requests sent to the oauth_token endpoint.,,redpanda,iceberg oauth_token requests
-redpanda.iceberg.rest_client_num_oauth_token_requests_failed,count,,,,Number of requests sent to the oauth_token endpoint that failed.,,redpanda,iceberg oauth_token request failures
-redpanda.iceberg.rest_client_num_request_timeouts,count,,,,Total number of catalog requests that could no longer be retried because they timed out. This may occur if the catalog is not responding.,,redpanda,iceberg rest catalog timeouts
-redpanda.iceberg.rest_client_num_transport_errors,count,,,,Total number of transport errors (TCP and TLS).,,redpanda,iceberg REST catalog transport errors
-redpanda.iceberg.rest_client_total_gets,count,,,,Number of completed GET requests.,,redpanda,iceberg REST catalog GET requests
-redpanda.iceberg.rest_client_total_inbound_bytes,count,,,,Total number of bytes received from the Iceberg REST catalog.,,redpanda,iceberg REST catalog inbound bytes
-redpanda.iceberg.rest_client_total_outbound_bytes,count,,,,Total number of bytes sent to the Iceberg REST catalog.,,redpanda,iceberg REST catalog outbound bytes
-redpanda.iceberg.rest_client_total_puts,count,,,,Number of completed PUT requests.,,redpanda,iceberg REST catalog PUT requests
-redpanda.iceberg.rest_client_total_requests,count,,,,Number of completed HTTP requests (includes PUT and GET).,,redpanda,iceberg REST catalog completed requests
-redpanda.iceberg.translation_decompressed_bytes_processed,count,,,,"Number of bytes consumed post-decompression for processing that may or may not succeed in being processed. For example, if Redpanda fails to communicate with the coordinator preventing processing of a batch, this metric still increases.",,redpanda,iceberg translation decompressed bytes processed
-redpanda.iceberg.translation_dlq_files_created,count,,,,Number of created Parquet files for the dead letter queue (DLQ) table.,,redpanda,iceberg translation dlq files created
-redpanda.iceberg.translation_files_created,count,,,,Number of created Parquet files (not counting the DLQ table).,,redpanda,iceberg translation files created
-redpanda.iceberg.translation_invalid_records,count,,,,Number of invalid records handled by translation.,,redpanda,iceberg translation invalid records
-redpanda.iceberg.translation_parquet_bytes_added,count,,,,Number of bytes in created Parquet files (not counting the DLQ table).,,redpanda,iceberg translation parquet bytes added
-redpanda.iceberg.translation_parquet_rows_added,count,,,,Number of rows in created Parquet files (not counting the DLQ table).,,redpanda,iceberg translation parquet rows added
-redpanda.iceberg.translation_raw_bytes_processed,count,,,,"Number of raw, potentially compressed bytes, consumed for processing that may or may not succeed in being processed. For example, if Redpanda fails to communicate with the coordinator preventing processing of a batch, this metric still increases.",,redpanda,iceberg translation raw bytes processed
-redpanda.iceberg.translation_translations_finished,count,,,,Number of finished translator executions.,,redpanda,iceberg translation completed translations
-redpanda.io_queue.total_read_ops,count,,operation,,Cumulative count of read operations processed by the I/O queue.,-1,redpanda,io queue total read ops
-redpanda.io_queue.total_write_ops,count,,operation,,Cumulative count of write operations processed by the I/O queue.,-1,redpanda,io queue total write ops
-redpanda.kafka.group_offset,gauge,,,,Consumer group committed offset,-1,redpanda,kafka group offset
-redpanda.kafka.group_count,gauge,,,,Number of consumers in a group,-1,redpanda,kafka group count
+redpanda.debug_bundle.failed_generation_count,count,,,,"Running count of debug bundle generation failures, reported per shard.",-1,redpanda,failed debug bundle generations
+redpanda.debug_bundle.last_failed_bundle_timestamp_seconds,gauge,,,,"Unix epoch timestamp of the last failed debug bundle generation, per shard.",-1,redpanda,debug bundle generation last failure time
+redpanda.debug_bundle.last_successful_bundle_timestamp_seconds,gauge,,,,"Unix epoch timestamp of the last successfully generated debug bundle, per shard.",1,redpanda,debug bundle generation last successful time
+redpanda.debug_bundle.successful_generation_count,count,,,,"Running count of successfully generated debug bundles, reported per shard.",1,redpanda,successful debug bundle generations
+redpanda.iceberg.rest_client_active_gets,gauge,,,,Number of active GET requests.,0,redpanda,active GET requests
+redpanda.iceberg.rest_client_active_puts,gauge,,,,Number of active PUT requests.,0,redpanda,active PUT requests
+redpanda.iceberg.rest_client_active_requests,gauge,,,,Number of active HTTP requests (includes PUT and GET).,0,redpanda,active HTTP requests
+redpanda.iceberg.rest_client_num_commit_table_update_requests,count,,,,Number of requests sent to the commit_table_update endpoint.,0,redpanda,iceberg commit_table_update requests
+redpanda.iceberg.rest_client_num_commit_table_update_requests_failed,count,,,,Number of requests sent to the commit_table_update endpoint that failed.,-1,redpanda,iceberg commit_table_update request failures
+redpanda.iceberg.rest_client_num_create_namespace_requests,count,,,,Number of requests sent to the create_namespace endpoint.,0,redpanda,iceberg commit_namespace requests
+redpanda.iceberg.rest_client_num_create_namespace_requests_failed,count,,,,Number of requests sent to the create_namespace endpoint that failed.,-1,redpanda,iceberg commit_namespace request failures
+redpanda.iceberg.rest_client_num_create_table_requests,count,,,,Number of requests sent to the create_table endpoint.,0,redpanda,iceberg commit_table requests
+redpanda.iceberg.rest_client_num_create_table_requests_failed,count,,,,Number of requests sent to the create_table endpoint that failed.,-1,redpanda,iceberg commit_table request failures
+redpanda.iceberg.rest_client_num_drop_table_requests,count,,,,Number of requests sent to the drop_table endpoint.,0,redpanda,iceberg drop_table requests
+redpanda.iceberg.rest_client_num_drop_table_requests_failed,count,,,,Number of requests sent to the drop_table endpoint that failed.,-1,redpanda,iceberg drop_table request failures
+redpanda.iceberg.rest_client_num_get_config_requests,count,,,,Number of requests sent to the config endpoint.,0,redpanda,iceberg config requests
+redpanda.iceberg.rest_client_num_get_config_requests_failed,count,,,,Number of requests sent to the config endpoint that failed.,-1,redpanda,iceberg config request failures
+redpanda.iceberg.rest_client_num_load_table_requests,count,,,,Number of requests sent to the load_table endpoint.,0,redpanda,iceberg load_table requests
+redpanda.iceberg.rest_client_num_load_table_requests_failed,count,,,,Number of requests sent to the load_table endpoint that failed.,-1,redpanda,iceberg load_table request failures
+redpanda.iceberg.rest_client_num_oauth_token_requests,count,,,,Number of requests sent to the oauth_token endpoint.,0,redpanda,iceberg oauth_token requests
+redpanda.iceberg.rest_client_num_oauth_token_requests_failed,count,,,,Number of requests sent to the oauth_token endpoint that failed.,-1,redpanda,iceberg oauth_token request failures
+redpanda.iceberg.rest_client_num_request_timeouts,count,,,,Total number of catalog requests that could no longer be retried because they timed out. This may occur if the catalog is not responding.,-1,redpanda,iceberg rest catalog timeouts
+redpanda.iceberg.rest_client_num_transport_errors,count,,,,Total number of transport errors (TCP and TLS).,-1,redpanda,iceberg REST catalog transport errors
+redpanda.iceberg.rest_client_total_gets,count,,,,Number of completed GET requests.,0,redpanda,iceberg REST catalog GET requests
+redpanda.iceberg.rest_client_total_inbound_bytes,count,,,,Total number of bytes received from the Iceberg REST catalog.,0,redpanda,iceberg REST catalog inbound bytes
+redpanda.iceberg.rest_client_total_outbound_bytes,count,,,,Total number of bytes sent to the Iceberg REST catalog.,0,redpanda,iceberg REST catalog outbound bytes
+redpanda.iceberg.rest_client_total_puts,count,,,,Number of completed PUT requests.,0,redpanda,iceberg REST catalog PUT requests
+redpanda.iceberg.rest_client_total_requests,count,,,,Number of completed HTTP requests (includes PUT and GET).,0,redpanda,iceberg REST catalog completed requests
+redpanda.iceberg.translation_decompressed_bytes_processed,count,,,,"Number of bytes consumed post-decompression for processing that may or may not succeed in being processed. For example, if Redpanda fails to communicate with the coordinator preventing processing of a batch, this metric still increases.",0,redpanda,iceberg translation decompressed bytes processed
+redpanda.iceberg.translation_dlq_files_created,count,,,,Number of created Parquet files for the dead letter queue (DLQ) table.,-1,redpanda,iceberg translation dlq files created
+redpanda.iceberg.translation_files_created,count,,,,Number of created Parquet files (not counting the DLQ table).,0,redpanda,iceberg translation files created
+redpanda.iceberg.translation_invalid_records,count,,,,Number of invalid records handled by translation.,-1,redpanda,iceberg translation invalid records
+redpanda.iceberg.translation_parquet_bytes_added,count,,,,Number of bytes in created Parquet files (not counting the DLQ table).,0,redpanda,iceberg translation parquet bytes added
+redpanda.iceberg.translation_parquet_rows_added,count,,,,Number of rows in created Parquet files (not counting the DLQ table).,0,redpanda,iceberg translation parquet rows added
+redpanda.iceberg.translation_raw_bytes_processed,count,,,,"Number of raw, potentially compressed bytes, consumed for processing that may or may not succeed in being processed. For example, if Redpanda fails to communicate with the coordinator preventing processing of a batch, this metric still increases.",0,redpanda,iceberg translation raw bytes processed
+redpanda.iceberg.translation_translations_finished,count,,,,Number of finished translator executions.,0,redpanda,iceberg translation completed translations
+redpanda.io_queue.total_read_ops,count,,operation,,Cumulative count of read operations processed by the I/O queue.,0,redpanda,io queue total read ops
+redpanda.io_queue.total_write_ops,count,,operation,,Cumulative count of write operations processed by the I/O queue.,0,redpanda,io queue total write ops
+redpanda.kafka.group_offset,gauge,,,,Consumer group committed offset,0,redpanda,kafka group offset
+redpanda.kafka.group_count,gauge,,,,Number of consumers in a group,0,redpanda,kafka group count
 redpanda.kafka.group_lag_max,gauge,,,,Maximum lag for any partition in the group,-1,redpanda,kafka group lag max
 redpanda.kafka.group_lag_sum,gauge,,,,Sum of lag for all partitions in the group,-1,redpanda,kafka group lag sum
 redpanda.kafka.group_topic_count,gauge,,,,Number of topics in a group,-1,redpanda,kafka group topic count
-redpanda.kafka.handler_latency_seconds,histogram,,,,Histogram capturing the latency for processing Kafka requests at the broker level.,,redpanda,kafka handler latency
-redpanda.kafka.partition_committed_offset,gauge,,,,Latest committed offset for the partition (i.e. the offset of the last message safely persisted on most replicas).,-1,redpanda,kafka partition committed offset
-redpanda.kafka.partitions,gauge,,,,Configured number of partitions for the topic,-1,redpanda,kafka partitions
-redpanda.kafka.quotas_client_quota_throttle_time,histogram,,,,Histogram of client quota throttling delays (in seconds) per quota rule and type.,,redpanda,kafka quota client throttling delay
-redpanda.kafka.quotas_client_quota_throughput,histogram,,,,Histogram of client quota throughput per quota rule and type.,,redpanda,kafka quota client throughput
-redpanda.kafka.records_fetched,count,,,,Total number of records fetched from a topic,-1,redpanda,kafka records fetched
-redpanda.kafka.records_produced,count,,,,Total number of records produced to a topic,-1,redpanda,kafka records produced
-redpanda.kafka.replicas,gauge,,,,Configured number of replicas for the topic,-1,redpanda,kafka replicas
-redpanda.kafka.request_bytes,count,,byte,,Total number of bytes produced per topic,-1,redpanda,kafka request bytes
+redpanda.kafka.handler_latency_seconds,histogram,,,,Histogram capturing the latency for processing Kafka requests at the broker level.,-1,redpanda,kafka handler latency
+redpanda.kafka.partition_committed_offset,gauge,,,,Latest committed offset for the partition (i.e. the offset of the last message safely persisted on most replicas).,0,redpanda,kafka partition committed offset
+redpanda.kafka.partitions,gauge,,,,Configured number of partitions for the topic,0,redpanda,kafka partitions
+redpanda.kafka.quotas_client_quota_throttle_time,histogram,,,,Histogram of client quota throttling delays (in seconds) per quota rule and type.,-1,redpanda,kafka quota client throttling delay
+redpanda.kafka.quotas_client_quota_throughput,histogram,,,,Histogram of client quota throughput per quota rule and type.,0,redpanda,kafka quota client throughput
+redpanda.kafka.records_fetched,count,,,,Total number of records fetched from a topic,0,redpanda,kafka records fetched
+redpanda.kafka.records_produced,count,,,,Total number of records produced to a topic,0,redpanda,kafka records produced
+redpanda.kafka.replicas,gauge,,,,Configured number of replicas for the topic,0,redpanda,kafka replicas
+redpanda.kafka.request_bytes,count,,byte,,Total number of bytes produced per topic,0,redpanda,kafka request bytes
 redpanda.kafka.request_latency_seconds,histogram,,second,,Internal latency of kafka produce requests,-1,redpanda,kafka request latency seconds
-redpanda.kafka.rpc_sasl_session_expiration,count,,,,Total number of SASL session expirations observed.,-1,redpanda,SASL session expirations
+redpanda.kafka.rpc_sasl_session_expiration,count,,,,Total number of SASL session expirations observed.,0,redpanda,SASL session expirations
 redpanda.kafka.rpc_sasl_session_reauth_attempts,count,,,,Total number of SASL reauthentication attempts made by clients.,-1,redpanda,SASL reauth attempts
 redpanda.kafka.rpc_sasl_session_revoked,count,,,,Total number of SASL sessions that have been revoked.,-1,redpanda,SASL sessions revoked
 redpanda.kafka.under_replicated_replicas,gauge,,,,"Number of under replicated replicas (i.e. replicas that are live, but not at the latest offest)",-1,redpanda,kafka under replicated replicas
-redpanda.memory.allocated_memory,gauge,,byte,,Allocated memory size in bytes,-1,redpanda,memory allocated memory
-redpanda.memory.available_memory,gauge,,byte,,Total shard memory potentially available in bytes (free_memory plus reclaimable),-1,redpanda,memory available memory
-redpanda.memory.available_memory_low_water_mark,gauge,,byte,,The low-water mark for available_memory from process start,-1,redpanda,memory available memory low water mark
-redpanda.memory.free_memory,gauge,,byte,,Free memory size in bytes,-1,redpanda,memory free memory
-redpanda.node_status.rpcs_received,gauge,,request,,Number of node status RPCs received by this node,-1,redpanda,node status rpcs received
-redpanda.node_status.rpcs_sent,gauge,,request,,Number of node status RPCs sent by this node,-1,redpanda,node status rpcs sent
+redpanda.memory.allocated_memory,gauge,,byte,,Allocated memory size in bytes,0,redpanda,memory allocated memory
+redpanda.memory.available_memory,gauge,,byte,,Total shard memory potentially available in bytes (free_memory plus reclaimable),1,redpanda,memory available memory
+redpanda.memory.available_memory_low_water_mark,gauge,,byte,,The low-water mark for available_memory from process start,1,redpanda,memory available memory low water mark
+redpanda.memory.free_memory,gauge,,byte,,Free memory size in bytes,1,redpanda,memory free memory
+redpanda.node_status.rpcs_received,gauge,,request,,Number of node status RPCs received by this node,0,redpanda,node status rpcs received
+redpanda.node_status.rpcs_sent,gauge,,request,,Number of node status RPCs sent by this node,0,redpanda,node status rpcs sent
 redpanda.node_status.rpcs_timed_out,gauge,,request,,Number of timed out node status RPCs from this node,-1,redpanda,node status rpcs timed out
 redpanda.raft.leadership_changes,count,,,,Number of leadership changes across all partitions of a given topic,-1,redpanda,raft leadership changes
 redpanda.raft.learners_gap_bytes,gauge,,,,Total number of bytes that must be delivered to learner replicas to bring them up to date.,-1,redpanda,raft learner backlog in bytes
-redpanda.raft.recovery_offsets_pending,gauge,,,,Sum of offsets across partitions on a broker that still need to be recovered.,,redpanda,raft recovery offsets pending
-redpanda.raft.recovery_bandwidth,gauge,,byte,,Available network bandwidth (in bytes per second) for partition movement operations.,-1,redpanda,raft recovery available bandwidth
-redpanda.raft.recovery_consumed_bandwidth,gauge,,,,Network bandwidth (in bytes per second) currently being consumed for partition movement.,,redpanda,raft recovery consumed bandwidth
-redpanda.raft.recovery_partitions_active,gauge,,,,Number of partition replicas currently undergoing recovery on a broker.,,redpanda,raft recovery active partitions
+redpanda.raft.recovery_offsets_pending,gauge,,,,Sum of offsets across partitions on a broker that still need to be recovered.,-1,redpanda,raft recovery offsets pending
+redpanda.raft.recovery_bandwidth,gauge,,byte,,Available network bandwidth (in bytes per second) for partition movement operations.,1,redpanda,raft recovery available bandwidth
+redpanda.raft.recovery_consumed_bandwidth,gauge,,,,Network bandwidth (in bytes per second) currently being consumed for partition movement.,0,redpanda,raft recovery consumed bandwidth
+redpanda.raft.recovery_partitions_active,gauge,,,,Number of partition replicas currently undergoing recovery on a broker.,-1,redpanda,raft recovery active partitions
 redpanda.raft.recovery_partitions_to_recover,gauge,,,,Total count of partition replicas that are pending recovery on a broker.,-1,redpanda,raft recovery pending partitions
-redpanda.pandaproxy.inflight_requests_memory_usage_ratio,gauge,,,,Memory usage ratio of in-flight requests in the rest_proxy.,,redpanda,pandaproxy in-flight requests memory usage ratio
-redpanda.pandaproxy.inflight_requests_usage_ratio,gauge,,,,Usage ratio of in-flight requests in the rest_proxy.,,redpanda,pandaproxy in-flight requests usage ratio
-redpanda.pandaproxy.queued_requests_memory_blocked,gauge,,,,"Number of requests queued in rest_proxy, due to memory limitations.",,redpanda,pandpaproxy queued requests due to memory
+redpanda.pandaproxy.inflight_requests_memory_usage_ratio,gauge,,,,Memory usage ratio of in-flight requests in the rest_proxy.,0,redpanda,pandaproxy in-flight requests memory usage ratio
+redpanda.pandaproxy.inflight_requests_usage_ratio,gauge,,,,Usage ratio of in-flight requests in the rest_proxy.,0,redpanda,pandaproxy in-flight requests usage ratio
+redpanda.pandaproxy.queued_requests_memory_blocked,gauge,,,,"Number of requests queued in rest_proxy, due to memory limitations.",-1,redpanda,pandpaproxy queued requests due to memory
 redpanda.pandaproxy.request_errors,count,,error,,Total number of rest_proxy server errors,-1,redpanda,pandaproxy request errors
 redpanda.pandaproxy.request_latency,histogram,,millisecond,,Internal latency of request for rest_proxy,-1,redpanda,pandaproxy request latency
 redpanda.rpc.active_connections,gauge,,connection,,Current number of active RPC client connections on a shard.,-1,redpanda,rpc active connections
-redpanda.rpc.received_bytes,count,,,,Number of bytes received from the clients in valid requests.,-1,redpanda,rpc received bytes
+redpanda.rpc.received_bytes,count,,,,Number of bytes received from the clients in valid requests.,0,redpanda,rpc received bytes
 redpanda.rpc.request_errors,count,,error,,Number of rpc errors,-1,redpanda,rpc request errors
 redpanda.rpc.request_latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for RPC requests.,-1,redpanda,rpc request latency seconds
-redpanda.rpc.sent_bytes,count,,,,Number of bytes sent to clients.,-1,redpanda,rpc sent bytes
-redpanda.scheduler.runtime_seconds,count,,second,,Accumulated runtime of task queue associated with this scheduling group,-1,redpanda,scheduler runtime seconds
-redpanda.schema_registry.cache_schema_count,gauge,,,,Total number of schemas currently stored in the Schema Registry cache.,,redpanda,schema registry schema count
-redpanda.schema_registry.cache_schema_memory_bytes,gauge,,,,Memory usage (in bytes) by schemas stored in the Schema Registry cache.,,redpanda,schema registry schema memory usage
-redpanda.schema_registry.cache_subject_count,gauge,,,,Count of subjects stored in the Schema Registry cache.,,redpanda,schema registry subject count
-redpanda.schema_registry.cache_subject_version_count,gauge,,,,Count of versions available for each subject in the Schema Registry cache.,,redpanda,schema registry version count by subject
-redpanda.schema_registry.inflight_requests_memory_usage_ratio,gauge,,,,"Ratio of memory used by in-flight requests in the Schema Registry, reported per shard.",,redpanda,schema registry in-flight requests memory ratio
-redpanda.schema_registry.inflight_requests_usage_ratio,gauge,,,,"Usage ratio for in-flight Schema Registry requests, reported per shard.",,redpanda,schema registry in-flight requests ratio
-redpanda.schema_registry.queued_requests_memory_blocked,gauge,,,,"Count of Schema Registry requests queued due to memory constraints, reported per shard.",,redpanda,schema registry queued requests
+redpanda.rpc.sent_bytes,count,,,,Number of bytes sent to clients.,0,redpanda,rpc sent bytes
+redpanda.scheduler.runtime_seconds,count,,second,,Accumulated runtime of task queue associated with this scheduling group,0,redpanda,scheduler runtime seconds
+redpanda.schema_registry.cache_schema_count,gauge,,,,Total number of schemas currently stored in the Schema Registry cache.,0,redpanda,schema registry schema count
+redpanda.schema_registry.cache_schema_memory_bytes,gauge,,,,Memory usage (in bytes) by schemas stored in the Schema Registry cache.,0,redpanda,schema registry schema memory usage
+redpanda.schema_registry.cache_subject_count,gauge,,,,Count of subjects stored in the Schema Registry cache.,0,redpanda,schema registry subject count
+redpanda.schema_registry.cache_subject_version_count,gauge,,,,Count of versions available for each subject in the Schema Registry cache.,0,redpanda,schema registry version count by subject
+redpanda.schema_registry.inflight_requests_memory_usage_ratio,gauge,,,,"Ratio of memory used by in-flight requests in the Schema Registry, reported per shard.",0,redpanda,schema registry in-flight requests memory ratio
+redpanda.schema_registry.inflight_requests_usage_ratio,gauge,,,,"Usage ratio for in-flight Schema Registry requests, reported per shard.",0,redpanda,schema registry in-flight requests ratio
+redpanda.schema_registry.queued_requests_memory_blocked,gauge,,,,"Count of Schema Registry requests queued due to memory constraints, reported per shard.",-1,redpanda,schema registry queued requests
 redpanda.schema_registry.errors,count,,error,,Total number of schema_registry server errors,-1,redpanda,schema registry errors
 redpanda.schema_registry.latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests.,-1,redpanda,schema registry latency seconds
-redpanda.security.audit_errors,count,,,,Cumulative count of errors encountered when creating or publishing audit event log entries.,,redpanda,audit errors
-redpanda.security.audit_last_event_timestamp_seconds,count,,,,Unix epoch timestamp of the last successful audit log event publication.,,redpanda,last successful audit event
-redpanda.storage.cache_disk_free_bytes,gauge,,,,Amount of free disk space (in bytes) available on the cache storage.,,redpanda,storage cache disk free
-redpanda.storage.cache_disk_free_space_alert,gauge,,,,"Alert indicator for cache storage free space, where: 0 = OK, 1 = Low space, 2 = Degraded",,redpanda,storage cache disk free alert
-redpanda.storage.disk_free_bytes,gauge,,byte,,Amount of free disk space (in bytes) available on attached storage.,-1,redpanda,storage disk free bytes
+redpanda.security.audit_errors,count,,,,Cumulative count of errors encountered when creating or publishing audit event log entries.,-1,redpanda,audit errors
+redpanda.security.audit_last_event_timestamp_seconds,count,,,,Unix epoch timestamp of the last successful audit log event publication.,1,redpanda,last successful audit event
+redpanda.storage.cache_disk_free_bytes,gauge,,,,Amount of free disk space (in bytes) available on the cache storage.,1,redpanda,storage cache disk free
+redpanda.storage.cache_disk_free_space_alert,gauge,,,,"Alert indicator for cache storage free space, where: 0 = OK, 1 = Low space, 2 = Degraded",-1,redpanda,storage cache disk free alert
+redpanda.storage.disk_free_bytes,gauge,,byte,,Amount of free disk space (in bytes) available on attached storage.,1,redpanda,storage disk free bytes
 redpanda.storage.disk_free_space_alert,gauge,,,,"Alert indicator for overall disk storage free space, where: 0 = OK, 1 = Low space, 2 = Degraded",-1,redpanda,storage disk free space alert
-redpanda.storage.disk_total_bytes,gauge,,byte,,"Total size of attached storage, in bytes.",-1,redpanda,storage disk total bytes
-redpanda.tls.certificate_expires_at_timestamp_seconds,gauge,,,,Unix epoch timestamp for the expiration of the shortest-lived installed TLS certificate.,,redpanda,tls certificate expiry
-redpanda.tls.certificate_serial,gauge,,,,The least significant 4 bytes of the serial number for the certificate that will expire next.,,redpanda,tls certificate serial
-redpanda.tls.certificate_valid,gauge,,,,Indicator of whether a resource has at least one valid TLS certificate installed. Returns 1 if a valid certificate is present and 0 if not.,,redpanda,tls certificate valid
-redpanda.tls.loaded_at_timestamp_seconds,gauge,,,,Unix epoch timestamp marking the last time a TLS certificate was loaded for a resource.,,redpanda,tls certificate loaded at
-redpanda.tls.truststore_expires_at_timestamp_seconds,gauge,,,,Unix epoch timestamp representing the expiration time of the shortest-lived certificate authority (CA) in the installed truststore.,,redpanda,tls truststore expiry
-redpanda.transform.execution_errors,count,,,,Counter for the number of errors encountered during the invocation of data transforms.,,redpanda,transform execution errors
-redpanda.transform.execution_latency_sec,histogram,,,,Histogram tracking the execution latency (in seconds) for processing a single record via data transforms.,,redpanda,transform execution latency
-redpanda.transform.failures,count,,,,Counter for each failure encountered by a data transform processor.,,redpanda,transform failures
-redpanda.transform.processor_lag,count,,,,Number of records pending processing in the input topic for a data transform.,,redpanda,transform processor lag
-redpanda.transform.read_bytes,count,,,,Cumulative count of bytes read as input to data transforms.,,redpanda,transform read bytes
-redpanda.transform.state,gauge,,,,"Current count of transform processors in a specific state (running, inactive, or errored).",,redpanda,transform state
-redpanda.transform.write_bytes,count,,,,Cumulative count of bytes output from data transforms.,,redpanda,transform write bytes
-redpanda.wasm.binary_executable_memory_usage,gauge,,,,Amount of memory (in bytes) used by executable WebAssembly binaries.,,redpanda,wasm memory used
-redpanda.wasm.engine_cpu_seconds,count,,,,Total CPU time (in seconds) consumed by WebAssembly functions.,,redpanda,wasm cpu time
-redpanda.wasm.engine_max_memory,gauge,,,,Maximum allowed memory (in bytes) allocated for a WebAssembly function.,,redpanda,wasm max memory
-redpanda.wasm.engine_memory_usage,gauge,,,,Current memory usage (in bytes) by a WebAssembly function.,,redpanda,wasm memory usage
+redpanda.storage.disk_total_bytes,gauge,,byte,,"Total size of attached storage, in bytes.",1,redpanda,storage disk total bytes
+redpanda.tls.certificate_expires_at_timestamp_seconds,gauge,,,,Unix epoch timestamp for the expiration of the shortest-lived installed TLS certificate.,1,redpanda,tls certificate expiry
+redpanda.tls.certificate_serial,gauge,,,,The least significant 4 bytes of the serial number for the certificate that will expire next.,0,redpanda,tls certificate serial
+redpanda.tls.certificate_valid,gauge,,,,Indicator of whether a resource has at least one valid TLS certificate installed. Returns 1 if a valid certificate is present and 0 if not.,1,redpanda,tls certificate valid
+redpanda.tls.loaded_at_timestamp_seconds,gauge,,,,Unix epoch timestamp marking the last time a TLS certificate was loaded for a resource.,1,redpanda,tls certificate loaded at
+redpanda.tls.truststore_expires_at_timestamp_seconds,gauge,,,,Unix epoch timestamp representing the expiration time of the shortest-lived certificate authority (CA) in the installed truststore.,1,redpanda,tls truststore expiry
+redpanda.transform.execution_errors,count,,,,Counter for the number of errors encountered during the invocation of data transforms.,-1,redpanda,transform execution errors
+redpanda.transform.execution_latency_sec,histogram,,,,Histogram tracking the execution latency (in seconds) for processing a single record via data transforms.,-1,redpanda,transform execution latency
+redpanda.transform.failures,count,,,,Counter for each failure encountered by a data transform processor.,-1,redpanda,transform failures
+redpanda.transform.processor_lag,count,,,,Number of records pending processing in the input topic for a data transform.,-1,redpanda,transform processor lag
+redpanda.transform.read_bytes,count,,,,Cumulative count of bytes read as input to data transforms.,0,redpanda,transform read bytes
+redpanda.transform.state,gauge,,,,"Current count of transform processors in a specific state (running, inactive, or errored).",0,redpanda,transform state
+redpanda.transform.write_bytes,count,,,,Cumulative count of bytes output from data transforms.,0,redpanda,transform write bytes
+redpanda.wasm.binary_executable_memory_usage,gauge,,,,Amount of memory (in bytes) used by executable WebAssembly binaries.,0,redpanda,wasm memory used
+redpanda.wasm.engine_cpu_seconds,count,,,,Total CPU time (in seconds) consumed by WebAssembly functions.,-1,redpanda,wasm cpu time
+redpanda.wasm.engine_max_memory,gauge,,,,Maximum allowed memory (in bytes) allocated for a WebAssembly function.,0,redpanda,wasm max memory
+redpanda.wasm.engine_memory_usage,gauge,,,,Current memory usage (in bytes) by a WebAssembly function.,-,redpanda,wasm memory usage
