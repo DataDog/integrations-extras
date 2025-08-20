@@ -21,7 +21,7 @@ For a full list of supported metrics, see the **Metrics** section below.
    ```
 For containerized environments, see the [Datadog documentation page][4]. 
    
-2. Configure the integration by setting `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][5] for more information.
+2. Configure the integration by setting `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][5] and the Configuration section for more information.
 3. [Restart][6] the Agent.
 
 
@@ -90,7 +90,7 @@ Need help? Contact [Redis Field Engineering][10].
 [2]: https://redis.io/docs/latest/operate/rs/
 [3]: /integrations?integrationId=redis-enterprise
 [4]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=containerized
-[5]: https://docs.datadoghq.com/getting_started/integrations/
+[5]: https://docs.datadoghq.com/getting_started/integrations/#configuring-agent-integrations
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/datadog_checks/redis_cloud/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
