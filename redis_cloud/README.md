@@ -21,7 +21,7 @@ For a full list of supported metrics, see the **Metrics** section below.
    ```
     > **Note**: For containerized environments, see the [Datadog documentation page][4]. 
    
-2. Configure the integration by setting `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][5] and the Configuration section for more information.
+2. Configure the integration by setting `openmetrics_endpoint` to your cluster's master node. See the Configuration section below for more information.
 3. [Restart][6] the Agent.
 
 
