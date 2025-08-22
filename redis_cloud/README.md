@@ -27,7 +27,7 @@ For a full list of supported metrics, see the **Metrics** section below.
 
 ### Configuration
 
-Set the openmetrics_endpoint to point to your cluster. See [Getting Started with Integrations][5] and the [example][7]. Leave tls_verify set to false.
+Set the `openmetrics_endpoint` to point to your cluster. See [Getting Started with Integrations][5] and the [example][7]. Leave `tls_verify` set to false.
 
 There are two optional parameters: `extra_metrics` and `excluded_metrics`, as noted in the example configuration file.
 
