@@ -35,7 +35,7 @@ The Mendix integration does not include any service checks.
 Need help? Contact [Mendix support][4].
 
 **Known Issue:**
-* There is a current issue affecting host billing. If you encounter this problem, please reach out to [Mendix support][4] for assistance. 
+* If you encounter issues affecting host billing, reach out to [Mendix support][4] for assistance. 
 
 [1]: https://mendix.com/
 [2]: https://www.mendix.com/blog/a-low-code-leader-composing-the-modern-enterprise-with-mendix/
