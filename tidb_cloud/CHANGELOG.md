@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Add a panel "Sink Flush Rows OPS" for “TiDB Cloud Dynamic Tracker” dashboard.
+* Added "Sink Flush Rows OPS" widget to the TiDB Cloud Dynamic Tracker dashboard.
 
 ## 1.1.0 / 2025-07-31
 
