@@ -1,111 +1,513 @@
 id: "zscaler"
 tests:
- - sample: '{"sourcetype":"zscalernss-web","event":{"reason":"Dropped due to failed
-      client SSL
-      handshake","serversslsessreuse":"UNKNOWN","requestmethod":"NA","devicehostname":"
-      ","is_sslexpiredca":"YES","sha256":"81ec78bc8298568bb5ea66d3c2972b670d0f7459b6cdbbcaacce90ab417ab15c","threatclass":"Sandbox","uaclass":"Firefox","urlclass":"Business
-      Use","upload_filename":"nssfeed.exe","apprulelabel":"File_Sharing_1","srvcertvalidationtype":"EV","clt_sport":"0","trafficredirectmethod":"ZscalerClientConnector","devicetype":"Zscaler
-      Client
-      Connector","respversion":"1.0","nsssvcip":"10.10.10.10","srvtlsversion":"SSL2","upload_fileclass":"Archive
-      Files","clientsslcipher":"SSL3_CK_RSA_NULL_MD5","hostname":"dns.google","responsesize":"0","threatseverity":"critical","refererhost":"www.example.com","action":"Blocked","srvocspresult":"Revoked","srvcertchainvalpass":"UNKNOWN","clientsslsessreuse":"UNKNOWN","dlpengine":"HIPAA","dlpidentifier":"0","appclass":"DoH
-      Services","bwthrottle":"YES","srvwildcardcert":"UNKNOWN","bypassed_traffic":"0","upload_filesubtype":"exe","cpubip":"10.10.10.10","filename":"nssfeed.txt","cltsslfailreason":"Close
-      Notify or Client TCP
-      Reset","flow_type":"ZIA","eedone":"No","is_ssluntrustedca":"No","dlpdictionaries":"Credit
-      Cards|Gambling|MRN
-      Numbers","other_dlprulenames":"DLP_Rule_4","ztunnelversion":"ZTUNNEL_1_0","status":"NA","inst_level2_id":"project_max1","fwd_gw_name":"FWD_1","urlfilterrulelabel":"URL_Filtering_1","pcapid":"43139974/web/663ba8fd30b50001.pcap","inst_level2_name":"genai_pr","activity":"Download","useragent":"Windows
-      Microsoft Windows 11 Pro
-      ZTunnel/1.0","dlpdicthitcount":"4|5|1|2","bamd5":"196a3d797bfee07fe4596b69f4ce1141","urlcatmethod":"Database
-      A","df_hostname":"THINKPADSMITH","externalspr":"FAILED_HANDSHAKE","dstip_country":"Portugal","keyprotectiontype":"N/A","clienttlsversion":"SSL2","app_status":"Sanctioned","vendor":"Zscaler","inst_level3_name":"genai_pr","throttlerespsize":"4","zpa_app_seg_name":"ZPA_test_app_segment","reqhdrsize":"0","dlpmd5":"154f149b1443fbfa8c121d13e5c019a1","inst_level3_id":"Vertex
-      AI","ua_token":"Ztunnel
-      Windows","alpnprotocol":"N/A","devicemodel":"20U1S05S00","product":"NSS","bypassed_etime":"Thu
-      Jan 1 00:00:00
-      1970","srv_dport":"0","bwclassname":"Entertainment","unscannabletype":"Encrypted
-      File","servertranstime":"0","url":"dns.google","srvsslcipher":"SSL3_CK_RSA_NULL_SHA","event_id":"7534023050404691969","reqversion":"1.1","deviceosversion":"Microsoft
-      Windows 11 Pro;64 bit;amd64","urlcategory":"DoH
-      Services","devicename":"PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782","srcip_country":"Afghanistan","external_devid":"","rdr_rulename":"FWD_Rule_1","ft_rulename":"File_Type_1","filetype":"RAR
-      Files","rulelabel":"URL_Filtering_1","clienttranstime":"0","transactionsize":"0","requestsize":"0","refererURL":"www.google.com","respdatasize":"0","upload_doctypename":"Legal","protocol":"SSL","appname":"Google
-      DNS","fwd_gw_ip":"10.1.1.1","fwd_type":"Proxy
-      Chaining","cltsslfailcount":"3","serverip":"10.10.10.10","pagerisk":"0","inst_level1_type":"N.A","resphdrsize":"0","deviceostype":"Windows
-      OS","inst_level1_id":"12324321232","dlprulename":"DLP_Rule_1","upload_filetype":"Windows
-      Executables","bwrulename":"Office 365","ruletype":"File Type
-      Control","inst_level3_type":"N.A","ClientIP":"10.10.10.10","userlocationname":"Unknown","prompt_req":"NA","df_hosthead":"None","app_risk_score":"3","fileclass":"Active
-      Web
-      Contents","deviceappversion":"4.7.0.61","productversion":"6.2r.2505_prod.78.438956_114","datacentercity":"Mu","clientpublicIP":"10.10.10.10","mobappcat":"Education","company":"Zscaler","is_sslselfsigned":"YES","department":"Service
-      Admin","filesubtype":"rar","all_dlprulenames":"DLP_Rule_1","throttlereqsize":"12","cloudname":"zscalertwo.net","ssldecrypted":"No","inst_level1_name":"org_12324321232","datacenter":"BOM6","urlsupercategory":"Information
-      Technology","is_src_cntry_risky":"No","mobdevtype":"Apple
-      iPhone","threatname":"EICAR Test
-      File","contenttype":"Other","threatcategory":"Adware","deviceowner":"Zscaler","mobappname":"Adobe
-      Reader","srvcertvalidityperiod":"Medium","trig_dlprulename":"DLP_Rule_1","inst_level2_type":"N.A","datacentercountry":"IN","location":"Road
-      Warrior","is_dst_cntry_risky":"No","user":"johndoe@yahoo.com","reqdatasize":"0"}}'
-   result: null
  -
   sample: |-
     {
-      "sourcetype" : "zscalernss-fw",
+      "sourcetype" : "zscalernss-web",
       "event" : {
+        "reason" : "Dropped due to failed client SSL handshake",
+        "serversslsessreuse" : "UNKNOWN",
+        "requestmethod" : "NA",
         "devicehostname" : " ",
-        "rulelabel" : "Block QUIC",
-        "bypass_etime" : "Thu Jan 1 00:00:00 1970",
-        "bypassed_session" : "0",
-        "csport" : "56039",
-        "sdip" : "8.8.4.4",
-        "datetime" : "2025-08-02 16:09:29",
-        "dnat" : "No",
-        "threatseverity" : "Critical",
-        "threatcat" : "Denial of Service Attack",
-        "destcountry" : "United States",
-        "action" : "Allow due to insufficient app data",
-        "numsessions" : "1",
-        "deviceostype" : "Windows OS",
-        "sdport" : "443",
-        "ssport" : "63358",
-        "inbytes" : "5476",
-        "avgduration" : "82",
-        "ipsrulelabel" : "Default IPS Rule",
-        "ssip" : "10.10.10.10",
-        "nwsvc" : "ZSCALER_PROXY_NW_SERVICES",
-        "ipcat" : "Professional Services",
+        "is_sslexpiredca" : "YES",
+        "sha256" : "81ec78bc8298568bb5ea66d3c2972b670d0f7459b6cdbbcaacce90ab417ab15c",
+        "threatclass" : "Sandbox",
+        "uaclass" : "Firefox",
+        "urlclass" : "Business Use",
+        "upload_filename" : "nssfeed.exe",
+        "apprulelabel" : "File_Sharing_1",
+        "srvcertvalidationtype" : "EV",
+        "clt_sport" : "0",
+        "trafficredirectmethod" : "ZscalerClientConnector",
+        "devicetype" : "Zscaler Client Connector",
+        "respversion" : "1.0",
+        "nsssvcip" : "10.10.10.10",
+        "srvtlsversion" : "SSL2",
+        "upload_fileclass" : "Archive Files",
+        "clientsslcipher" : "SSL3_CK_RSA_NULL_MD5",
+        "hostname" : "dns.google",
+        "responsesize" : "0",
+        "threatseverity" : "critical",
+        "refererhost" : "www.example.com",
+        "action" : "Blocked",
+        "srvocspresult" : "Revoked",
+        "srvcertchainvalpass" : "UNKNOWN",
+        "clientsslsessreuse" : "UNKNOWN",
+        "dlpengine" : "HIPAA",
+        "dlpidentifier" : "0",
+        "appclass" : "DoH Services",
+        "bwthrottle" : "YES",
+        "srvwildcardcert" : "UNKNOWN",
+        "bypassed_traffic" : "0",
+        "upload_filesubtype" : "exe",
+        "cpubip" : "10.10.10.10",
+        "filename" : "nssfeed.txt",
+        "cltsslfailreason" : "Close Notify or Client TCP Reset",
         "flow_type" : "ZIA",
-        "dnatrulelabel" : "DNAT_Rule_1",
         "eedone" : "No",
-        "outbytes" : "2738",
-        "proto" : "TCP",
-        "csip" : "10.10.10.10",
-        "ztunnelversion" : "ZTUNNEL_2_0_DTLS1_2",
+        "is_ssluntrustedca" : "No",
+        "dlpdictionaries" : "Credit Cards|Gambling|MRN Numbers",
+        "other_dlprulenames" : "DLP_Rule_4",
+        "ztunnelversion" : "ZTUNNEL_1_0",
+        "status" : "NA",
+        "inst_level2_id" : "project_max1",
         "fwd_gw_name" : "FWD_1",
-        "external_deviceid" : "",
-        "pcapid" : "43139974/fw/663ba8fd30b50001.pcap",
-        "deviceappversion" : "4.7.0.61",
-        "cdport" : "443",
-        "threat_score" : "0",
-        "ips_custom_signature" : "0",
-        "aggregate" : "No",
-        "tsip" : "10.10.10.10",
-        "duration" : "0",
-        "locationname" : "Road Warrior",
-        "datacentercity" : "Mu",
-        "cdfqdn" : "dns.google",
+        "urlfilterrulelabel" : "URL_Filtering_1",
+        "pcapid" : "43139974/web/663ba8fd30b50001.pcap",
+        "inst_level2_name" : "genai_pr",
+        "activity" : "Download",
+        "useragent" : "Windows Microsoft Windows 11 Pro ZTunnel/1.0",
+        "dlpdicthitcount" : "4|5|1|2",
+        "bamd5" : "196a3d797bfee07fe4596b69f4ce1141",
+        "urlcatmethod" : "Database A",
+        "df_hostname" : "THINKPADSMITH",
+        "externalspr" : "FAILED_HANDSHAKE",
+        "dstip_country" : "Portugal",
+        "keyprotectiontype" : "N/A",
+        "clienttlsversion" : "SSL2",
+        "app_status" : "Sanctioned",
+        "vendor" : "Zscaler",
+        "inst_level3_name" : "genai_pr",
+        "throttlerespsize" : "4",
         "zpa_app_seg_name" : "ZPA_test_app_segment",
-        "department" : "Service Admin",
-        "durationms" : "82",
-        "stateful" : "Yes",
+        "reqhdrsize" : "0",
+        "dlpmd5" : "154f149b1443fbfa8c121d13e5c019a1",
+        "inst_level3_id" : "Vertex AI",
+        "ua_token" : "Ztunnel Windows",
+        "alpnprotocol" : "N/A",
         "devicemodel" : "20U1S05S00",
-        "cdip" : "10.10.10.10",
-        "datacenter" : "BOM6",
-        "threatname" : "Linux.Backdoor.Tsunami",
-        "recordid" : "7534021044391772162",
-        "deviceowner" : "Zscaler",
+        "product" : "NSS",
+        "bypassed_etime" : "Thu Jan 1 00:00:00 1970",
+        "srv_dport" : "0",
+        "bwclassname" : "Entertainment",
+        "unscannabletype" : "Encrypted File",
+        "servertranstime" : "0",
+        "url" : "dns.google",
+        "srvsslcipher" : "SSL3_CK_RSA_NULL_SHA",
+        "event_id" : "7534023050404691969",
+        "reqversion" : "1.1",
         "deviceosversion" : "Microsoft Windows 11 Pro;64 bit;amd64",
-        "datacentercountry" : "IN",
-        "tunsport" : "0",
-        "tuntype" : "ZscalerClientConnector",
+        "urlcategory" : "DoH Services",
         "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+        "srcip_country" : "Afghanistan",
+        "external_devid" : "",
+        "rdr_rulename" : "FWD_Rule_1",
+        "ft_rulename" : "File_Type_1",
+        "filetype" : "RAR Files",
+        "rulelabel" : "URL_Filtering_1",
+        "clienttranstime" : "0",
+        "transactionsize" : "0",
+        "requestsize" : "0",
+        "refererURL" : "www.google.com",
+        "respdatasize" : "0",
+        "upload_doctypename" : "Legal",
+        "protocol" : "SSL",
+        "appname" : "Google DNS",
+        "fwd_gw_ip" : "10.1.1.1",
+        "fwd_type" : "Proxy Chaining",
+        "cltsslfailcount" : "3",
+        "serverip" : "10.10.10.10",
+        "pagerisk" : "0",
+        "inst_level1_type" : "N.A",
+        "resphdrsize" : "0",
+        "deviceostype" : "Windows OS",
+        "inst_level1_id" : "12324321232",
+        "dlprulename" : "DLP_Rule_1",
+        "upload_filetype" : "Windows Executables",
+        "bwrulename" : "Office 365",
+        "ruletype" : "File Type Control",
+        "inst_level3_type" : "N.A",
+        "ClientIP" : "10.10.10.10",
+        "userlocationname" : "Unknown",
+        "prompt_req" : "NA",
+        "df_hosthead" : "None",
+        "app_risk_score" : "3",
+        "fileclass" : "Active Web Contents",
+        "deviceappversion" : "4.7.0.61",
+        "productversion" : "6.2r.2505_prod.78.438956_114",
+        "datacentercity" : "Mu",
+        "clientpublicIP" : "10.10.10.10",
+        "mobappcat" : "Education",
+        "company" : "Zscaler",
+        "is_sslselfsigned" : "YES",
+        "department" : "Service Admin",
+        "filesubtype" : "rar",
+        "all_dlprulenames" : "DLP_Rule_1",
+        "throttlereqsize" : "12",
+        "cloudname" : "zscalertwo.net",
+        "ssldecrypted" : "No",
+        "inst_level1_name" : "org_12324321232",
+        "datacenter" : "BOM6",
+        "urlsupercategory" : "Information Technology",
+        "is_src_cntry_risky" : "No",
+        "mobdevtype" : "Apple iPhone",
+        "threatname" : "EICAR Test File",
+        "contenttype" : "Other",
+        "threatcategory" : "Adware",
+        "deviceowner" : "Zscaler",
+        "mobappname" : "Adobe Reader",
+        "srvcertvalidityperiod" : "Medium",
+        "trig_dlprulename" : "DLP_Rule_1",
+        "inst_level2_type" : "N.A",
+        "datacentercountry" : "IN",
+        "location" : "Road Warrior",
+        "is_dst_cntry_risky" : "No",
         "user" : "johndoe@yahoo.com",
-        "nwapp" : "tcp",
-        "srcip_country" : "India",
-        "rdr_rulename" : "FWD_Rule_1"
+        "reqdatasize" : "0"
       }
     }
+  result:
+    custom:
+      evt:
+        outcome: "Blocked"
+      http:
+        method: "NA"
+        referer: "www.google.com"
+        status_code: "NA"
+        url: "SSL://dns.google"
+        url_details:
+          host: "dns.google"
+          path: ""
+          scheme: "SSL"
+        useragent: "Windows Microsoft Windows 11 Pro ZTunnel/1.0"
+        useragent_details:
+          browser:
+            family: "Other"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+        version: "1.1"
+      network:
+        client:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "0"
+        destination:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "0"
+      sourcetype: "zscalernss-web"
+      status: "critical"
+      usr:
+        id: "johndoe@yahoo.com"
+      zscaler:
+        ClientIP: "10.10.10.10"
+        action: "Blocked"
+        activity: "Download"
+        all_dlprulenames: "DLP_Rule_1"
+        alpnprotocol: "N/A"
+        app_risk_score: "3"
+        app_status: "Sanctioned"
+        appclass: "DoH Services"
+        appname: "Google DNS"
+        apprulelabel: "File_Sharing_1"
+        bamd5: "196a3d797bfee07fe4596b69f4ce1141"
+        bwclassname: "Entertainment"
+        bwrulename: "Office 365"
+        bwthrottle: "YES"
+        bypassed_etime: "Thu Jan 1 00:00:00 1970"
+        bypassed_traffic: "0"
+        clientpublicIP: "10.10.10.10"
+        clientsslcipher: "SSL3_CK_RSA_NULL_MD5"
+        clientsslsessreuse: "UNKNOWN"
+        clienttlsversion: "SSL2"
+        clienttranstime: "0"
+        cloudname: "zscalertwo.net"
+        cltsslfailcount: "3"
+        cltsslfailreason: "Close Notify or Client TCP Reset"
+        company: "Zscaler"
+        contenttype: "Other"
+        cpubip: "10.10.10.10"
+        datacenter: "BOM6"
+        datacentercity: "Mu"
+        datacentercountry: "IN"
+        department: "Service Admin"
+        deviceappversion: "4.7.0.61"
+        devicehostname: " "
+        devicemodel: "20U1S05S00"
+        devicename: "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782"
+        deviceostype: "Windows OS"
+        deviceosversion: "Microsoft Windows 11 Pro;64 bit;amd64"
+        deviceowner: "Zscaler"
+        devicetype: "Zscaler Client Connector"
+        df_hosthead: "None"
+        df_hostname: "THINKPADSMITH"
+        dlpdicthitcount:
+         - "4"
+         - "5"
+         - "1"
+         - "2"
+        dlpdictionaries:
+         - "Credit Cards"
+         - "Gambling"
+         - "MRN Numbers"
+        dlpengine:
+         - "HIPAA"
+        dlpidentifier: "0"
+        dlpmd5: "154f149b1443fbfa8c121d13e5c019a1"
+        dlprulename: "DLP_Rule_1"
+        dstip_country: "Portugal"
+        eedone: "No"
+        event_id: "7534023050404691969"
+        external_devid: ""
+        externalspr: "FAILED_HANDSHAKE"
+        fileclass: "Active Web Contents"
+        filename: "nssfeed.txt"
+        filesubtype: "rar"
+        filetype: "RAR Files"
+        flow_type: "ZIA"
+        ft_rulename: "File_Type_1"
+        fwd_gw_ip: "10.1.1.1"
+        fwd_gw_name: "FWD_1"
+        fwd_type: "Proxy Chaining"
+        hostname: "dns.google"
+        inst_level1_id: "12324321232"
+        inst_level1_name: "org_12324321232"
+        inst_level1_type: "N.A"
+        inst_level2_id: "project_max1"
+        inst_level2_name: "genai_pr"
+        inst_level2_type: "N.A"
+        inst_level3_id: "Vertex AI"
+        inst_level3_name: "genai_pr"
+        inst_level3_type: "N.A"
+        is_dst_cntry_risky: "No"
+        is_src_cntry_risky: "No"
+        is_sslexpiredca: "YES"
+        is_sslselfsigned: "YES"
+        is_ssluntrustedca: "No"
+        keyprotectiontype: "N/A"
+        location: "Road Warrior"
+        mobappcat: "Education"
+        mobappname: "Adobe Reader"
+        mobdevtype: "Apple iPhone"
+        nsssvcip: "10.10.10.10"
+        other_dlprulenames: "DLP_Rule_4"
+        pagerisk: "0"
+        pcapid: "43139974/web/663ba8fd30b50001.pcap"
+        product: "NSS"
+        productversion: "6.2r.2505_prod.78.438956_114"
+        prompt_req: "NA"
+        protocol: "SSL"
+        rdr_rulename: "FWD_Rule_1"
+        reason: "Dropped due to failed client SSL handshake"
+        refererURL: "www.google.com"
+        refererhost: "www.example.com"
+        reqdatasize: "0"
+        reqhdrsize: "0"
+        requestmethod: "NA"
+        requestsize: "0"
+        respdatasize: "0"
+        resphdrsize: "0"
+        responsesize: "0"
+        respversion: "1.0"
+        rulelabel: "URL_Filtering_1"
+        ruletype: "File Type Control"
+        serverip: "10.10.10.10"
+        serversslsessreuse: "UNKNOWN"
+        servertranstime: "0"
+        sha256: "81ec78bc8298568bb5ea66d3c2972b670d0f7459b6cdbbcaacce90ab417ab15c"
+        srcip_country: "Afghanistan"
+        srv_dport: "0"
+        srvcertchainvalpass: "UNKNOWN"
+        srvcertvalidationtype: "EV"
+        srvcertvalidityperiod: "Medium"
+        srvocspresult: "Revoked"
+        srvsslcipher: "SSL3_CK_RSA_NULL_SHA"
+        srvtlsversion: "SSL2"
+        srvwildcardcert: "UNKNOWN"
+        ssldecrypted: "No"
+        status: "NA"
+        threatcategory: "Adware"
+        threatclass: "Sandbox"
+        threatname: "EICAR Test File"
+        threatseverity: "critical"
+        throttlereqsize: "12"
+        throttlerespsize: "4"
+        trafficredirectmethod: "ZscalerClientConnector"
+        transactionsize: "0"
+        trig_dlprulename: "DLP_Rule_1"
+        ua_token: "Ztunnel Windows"
+        uaclass: "Firefox"
+        unscannabletype: "Encrypted File"
+        upload_doctypename: "Legal"
+        upload_fileclass: "Archive Files"
+        upload_filename: "nssfeed.exe"
+        upload_filesubtype: "exe"
+        upload_filetype: "Windows Executables"
+        url: "dns.google"
+        urlcategory: "DoH Services"
+        urlcatmethod: "Database A"
+        urlclass: "Business Use"
+        urlfilterrulelabel: "URL_Filtering_1"
+        urlsupercategory: "Information Technology"
+        user: "johndoe@yahoo.com"
+        useragent: "Windows Microsoft Windows 11 Pro ZTunnel/1.0"
+        userlocationname: "Unknown"
+        vendor: "Zscaler"
+        zpa_app_seg_name: "ZPA_test_app_segment"
+        ztunnelversion: "ZTUNNEL_1_0"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-web",
+        "event" : {
+          "reason" : "Dropped due to failed client SSL handshake",
+          "serversslsessreuse" : "UNKNOWN",
+          "requestmethod" : "NA",
+          "devicehostname" : " ",
+          "is_sslexpiredca" : "YES",
+          "sha256" : "81ec78bc8298568bb5ea66d3c2972b670d0f7459b6cdbbcaacce90ab417ab15c",
+          "threatclass" : "Sandbox",
+          "uaclass" : "Firefox",
+          "urlclass" : "Business Use",
+          "upload_filename" : "nssfeed.exe",
+          "apprulelabel" : "File_Sharing_1",
+          "srvcertvalidationtype" : "EV",
+          "clt_sport" : "0",
+          "trafficredirectmethod" : "ZscalerClientConnector",
+          "devicetype" : "Zscaler Client Connector",
+          "respversion" : "1.0",
+          "nsssvcip" : "10.10.10.10",
+          "srvtlsversion" : "SSL2",
+          "upload_fileclass" : "Archive Files",
+          "clientsslcipher" : "SSL3_CK_RSA_NULL_MD5",
+          "hostname" : "dns.google",
+          "responsesize" : "0",
+          "threatseverity" : "critical",
+          "refererhost" : "www.example.com",
+          "action" : "Blocked",
+          "srvocspresult" : "Revoked",
+          "srvcertchainvalpass" : "UNKNOWN",
+          "clientsslsessreuse" : "UNKNOWN",
+          "dlpengine" : "HIPAA",
+          "dlpidentifier" : "0",
+          "appclass" : "DoH Services",
+          "bwthrottle" : "YES",
+          "srvwildcardcert" : "UNKNOWN",
+          "bypassed_traffic" : "0",
+          "upload_filesubtype" : "exe",
+          "cpubip" : "10.10.10.10",
+          "filename" : "nssfeed.txt",
+          "cltsslfailreason" : "Close Notify or Client TCP Reset",
+          "flow_type" : "ZIA",
+          "eedone" : "No",
+          "is_ssluntrustedca" : "No",
+          "dlpdictionaries" : "Credit Cards|Gambling|MRN Numbers",
+          "other_dlprulenames" : "DLP_Rule_4",
+          "ztunnelversion" : "ZTUNNEL_1_0",
+          "status" : "NA",
+          "inst_level2_id" : "project_max1",
+          "fwd_gw_name" : "FWD_1",
+          "urlfilterrulelabel" : "URL_Filtering_1",
+          "pcapid" : "43139974/web/663ba8fd30b50001.pcap",
+          "inst_level2_name" : "genai_pr",
+          "activity" : "Download",
+          "useragent" : "Windows Microsoft Windows 11 Pro ZTunnel/1.0",
+          "dlpdicthitcount" : "4|5|1|2",
+          "bamd5" : "196a3d797bfee07fe4596b69f4ce1141",
+          "urlcatmethod" : "Database A",
+          "df_hostname" : "THINKPADSMITH",
+          "externalspr" : "FAILED_HANDSHAKE",
+          "dstip_country" : "Portugal",
+          "keyprotectiontype" : "N/A",
+          "clienttlsversion" : "SSL2",
+          "app_status" : "Sanctioned",
+          "vendor" : "Zscaler",
+          "inst_level3_name" : "genai_pr",
+          "throttlerespsize" : "4",
+          "zpa_app_seg_name" : "ZPA_test_app_segment",
+          "reqhdrsize" : "0",
+          "dlpmd5" : "154f149b1443fbfa8c121d13e5c019a1",
+          "inst_level3_id" : "Vertex AI",
+          "ua_token" : "Ztunnel Windows",
+          "alpnprotocol" : "N/A",
+          "devicemodel" : "20U1S05S00",
+          "product" : "NSS",
+          "bypassed_etime" : "Thu Jan 1 00:00:00 1970",
+          "srv_dport" : "0",
+          "bwclassname" : "Entertainment",
+          "unscannabletype" : "Encrypted File",
+          "servertranstime" : "0",
+          "url" : "dns.google",
+          "srvsslcipher" : "SSL3_CK_RSA_NULL_SHA",
+          "event_id" : "7534023050404691969",
+          "reqversion" : "1.1",
+          "deviceosversion" : "Microsoft Windows 11 Pro;64 bit;amd64",
+          "urlcategory" : "DoH Services",
+          "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+          "srcip_country" : "Afghanistan",
+          "external_devid" : "",
+          "rdr_rulename" : "FWD_Rule_1",
+          "ft_rulename" : "File_Type_1",
+          "filetype" : "RAR Files",
+          "rulelabel" : "URL_Filtering_1",
+          "clienttranstime" : "0",
+          "transactionsize" : "0",
+          "requestsize" : "0",
+          "refererURL" : "www.google.com",
+          "respdatasize" : "0",
+          "upload_doctypename" : "Legal",
+          "protocol" : "SSL",
+          "appname" : "Google DNS",
+          "fwd_gw_ip" : "10.1.1.1",
+          "fwd_type" : "Proxy Chaining",
+          "cltsslfailcount" : "3",
+          "serverip" : "10.10.10.10",
+          "pagerisk" : "0",
+          "inst_level1_type" : "N.A",
+          "resphdrsize" : "0",
+          "deviceostype" : "Windows OS",
+          "inst_level1_id" : "12324321232",
+          "dlprulename" : "DLP_Rule_1",
+          "upload_filetype" : "Windows Executables",
+          "bwrulename" : "Office 365",
+          "ruletype" : "File Type Control",
+          "inst_level3_type" : "N.A",
+          "ClientIP" : "10.10.10.10",
+          "userlocationname" : "Unknown",
+          "prompt_req" : "NA",
+          "df_hosthead" : "None",
+          "app_risk_score" : "3",
+          "fileclass" : "Active Web Contents",
+          "deviceappversion" : "4.7.0.61",
+          "productversion" : "6.2r.2505_prod.78.438956_114",
+          "datacentercity" : "Mu",
+          "clientpublicIP" : "10.10.10.10",
+          "mobappcat" : "Education",
+          "company" : "Zscaler",
+          "is_sslselfsigned" : "YES",
+          "department" : "Service Admin",
+          "filesubtype" : "rar",
+          "all_dlprulenames" : "DLP_Rule_1",
+          "throttlereqsize" : "12",
+          "cloudname" : "zscalertwo.net",
+          "ssldecrypted" : "No",
+          "inst_level1_name" : "org_12324321232",
+          "datacenter" : "BOM6",
+          "urlsupercategory" : "Information Technology",
+          "is_src_cntry_risky" : "No",
+          "mobdevtype" : "Apple iPhone",
+          "threatname" : "EICAR Test File",
+          "contenttype" : "Other",
+          "threatcategory" : "Adware",
+          "deviceowner" : "Zscaler",
+          "mobappname" : "Adobe Reader",
+          "srvcertvalidityperiod" : "Medium",
+          "trig_dlprulename" : "DLP_Rule_1",
+          "inst_level2_type" : "N.A",
+          "datacentercountry" : "IN",
+          "location" : "Road Warrior",
+          "is_dst_cntry_risky" : "No",
+          "user" : "johndoe@yahoo.com",
+          "reqdatasize" : "0"
+        }
+      }
+    service: "zscalernss-web"
+    status: "critical"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
   result:
     custom:
       date: 1754150969000

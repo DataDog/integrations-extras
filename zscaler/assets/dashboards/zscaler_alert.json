@@ -113,13 +113,14 @@
                     "value",
                     "sum"
                 ],
+                "time": {},
                 "type": "timeseries",
                 "requests": [
                     {
                         "formulas": [
                             {
                                 "number_format": {},
-                                "alias": "SaaS Security Activity Events",
+                                "alias": "Alert Events",
                                 "formula": "query1"
                             }
                         ],
@@ -166,6 +167,7 @@
                 "title": "Alert Status: Ended",
                 "title_size": "16",
                 "title_align": "left",
+                "time": {},
                 "type": "query_value",
                 "requests": [
                     {
@@ -186,7 +188,8 @@
                                 ],
                                 "group_by": [],
                                 "compute": {
-                                    "aggregation": "count"
+                                    "aggregation": "cardinality",
+                                    "metric": "@alertId"
                                 },
                                 "storage": "hot"
                             }
