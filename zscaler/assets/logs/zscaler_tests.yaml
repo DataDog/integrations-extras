@@ -1,6 +1,6 @@
 id: "zscaler"
 tests:
-  - sample: '{"sourcetype":"zscalernss-web","event":{"reason":"Dropped due to failed
+ - sample: '{"sourcetype":"zscalernss-web","event":{"reason":"Dropped due to failed
       client SSL
       handshake","serversslsessreuse":"UNKNOWN","requestmethod":"CONNECT","devicehostname":"
       ","is_sslexpiredca":"UNKNOWN","sha256":"81ec78bc8298568bb5ea66d3c2972b670d0f7459b6cdbbcaacce90ab417ab15c","threatclass":"Sandbox","uaclass":"Chrome","urlclass":"Business
@@ -21,112 +21,1263 @@ tests:
       16:17:16","protocol":"SSL","appname":"Google
       DNS","fwd_gw_ip":"0.0.0.0","fwd_type":"Drop","cltsslfailcount":"3","serverip":"10.10.10.10","pagerisk":"0","inst_level1_type":"N.A","resphdrsize":"0","deviceostype":"Windows
       OS","inst_level1_id":"12324321232","dlprulename":"DLP_Rule_1","upload_filetype":"RAR Files","bwrulename":"Office 365","ruletype":"File Type Control","inst_level3_type":"N.A","ClientIP":"10.10.10.10","userlocationname":"Unknown","prompt_req":"NA,"app_risk_score":"2","fileclass":"Active Web Contents","deviceappversion":"4.7.0.61","productversion":"6.2r.2505_prod.78.438956_114","datacentercity":"Mu","clientpublicIP":"10.10.10.10","mobappcat":"Communication","company":"Zscaler","is_sslselfsigned":"UNKNOWN","department":"Service
-      Admin","filesubtype":"exe","all_dlprulenames":"[DLP_Rule_1, DLP_Rule_4, DLP_Rule_5]","throttlereqsize":"0","cloudname":"zscalertwo.net","ssldecrypted":"No","inst_level1_name":"org_12324321232","datacenter":"BOM6","urlsupercategory":"Information
+      Admin","filesubtype":"exe","all_dlprulenames":["DLP_Rule_1", "DLP_Rule_4", "DLP_Rule_5"],"throttlereqsize":"0","cloudname":"zscalertwo.net","ssldecrypted":"No","inst_level1_name":"org_12324321232","datacenter":"BOM6","urlsupercategory":"Information
       Technology","is_src_cntry_risky":"No","mobdevtype":"Google Android","threatname":"EICAR Test File","contenttype":"Other","threatcategory":"Adware","deviceowner":"Zscaler","mobappname":"Adobe Reader","srvcertvalidityperiod":"Medium","trig_dlprulename":"NA","inst_level2_type":"N.A","datacentercountry":"IN","location":"Road
       Warrior","is_dst_cntry_risky":"No","user":"johndoe@yahoo.com","reqdatasize":"0"}}'
     result: null
-  - sample: '{"sourcetype":"zscalernss-fw","event":{"devicehostname":"
-      ","rulelabel":"Block QUIC","bypass_etime":"Thu Jan 1 00:00:00
-      1970","bypassed_session":"0","csport":"56039","sdip":"8.8.4.4","datetime":"2025-08-02
-      16:09:29","dnat":"No","threatseverity":"Critical","threatcat":"Denial of Service Attack","destcountry":"United
-      States","action":"Allow due to insufficient app
-      data","numsessions":"1","deviceostype":"Windows
-      OS","sdport":"443","ssport":"63358","inbytes":"5476","avgduration":"82","ipsrulelabel":"Default IPS Rule","ssip":"10.10.10.10","nwsvc":"ZSCALER_PROXY_NW_SERVICES","ipcat":"Professional
-      Services","flow_type":"ZIA","dnatrulelabel":"DNAT_Rule_1","eedone":"No","outbytes":"2738","proto":"TCP","csip":"10.10.10.10","ztunnelversion":"ZTUNNEL_2_0_DTLS1_2","fwd_gw_name":"FWD_1","external_deviceid":"","pcapid":"43139974/fw/663ba8fd30b50001.pcap","deviceappversion":"4.7.0.61","cdport":"443","threat_score":"0","ips_custom_signature":"0","aggregate":"No","tsip":"10.10.10.10","duration":"0","locationname":"Road
-      Warrior","datacentercity":"Mu","cdfqdn":"dns.google","zpa_app_seg_name":"ZPA_test_app_segment","department":"Service
-      Admin","durationms":"82","stateful":"Yes","devicemodel":"20U1S05S00","cdip":"10.10.10.10","datacenter":"BOM6","threatname":"Linux.Backdoor.Tsunami","recordid":"7534021044391772162","deviceowner":"Zscaler","deviceosversion":"Microsoft
-      Windows 11 Pro;64
-      bit;amd64","datacentercountry":"IN","tunsport":"0","tuntype":"ZscalerClientConnector","devicename":"PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782","user":"johndoe@yahoo.com","nwapp":"tcp","srcip_country":"India","rdr_rulename":"FWD_Rule_1"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-dns","event":{"dns_reqtype":"A","devicehostname":"","pcapid":"43139974/dns/663ba8fd30b50001.pcap","deviceappversion":"4.7.0.61","dnsgw_slot":"DNS GATEWAY Rule 1	","resrulelabel":"rule-1","istcp":"0","reqaction":"Allow","error":"NXDOMAIN","dnsgw_flags":"PRIMARY_SERVER_RESPONSE_PASS","devicetype":"","datetime":"2025-07-30
-      11:37:02","protocol":"UDP","datacentercity":"Mu","company":"Zscaler","department":"Service
-      Admin","durationms":"0","deviceostype":"Windows
-      OS","devicemodel":"20U1S05S00","ecs_prefix":"0.0.0.0","srv_dip":"10.10.10.10","clt_sip":"10.10.10.10","ecs_slot":"ECS Slot #17","cloudname":"zscalertwo.net","reqrulelabel":"Default
-      Firewall DNS
-      Rule","srv_dport":"53","respipcat":"Other","datacenter":"BOM6","dns_req":"ycapital.fr","recordid":"7532837579056021506","restype":"SRV_CODE","dnsappcat":"network_service","dnsapp":"sm_fw_dns","deviceowner":"Zscaler","http_code":"000","eedone":"No","deviceosversion":"Microsoft
-      Windows 11 Pro;64
-      bit","dns_resp":"NXDOMAIN","datacentercountry":"IN","location":"Road
-      Warrior","resaction":"Allow","devicename":"PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782","category":"Miscellaneous
-      or Unknown","user":"johndoe@yahoo.com","dnsgw_srv_proto":"UDP"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-audit","event":{"postaction":{"scanDescription":"","scanPolicies":["CASB_TENANT_SCAN_POLICY_DLP","CASB_TENANT_SCAN_POLICY_MALWARE"],"scanOption":"CASB_TENANT_SCAN_OPTION_EVERYTHING","modifiedTime":0,"scanFrom":0,"tenantName":"googledrive","allBucketsSelected":false,"tenantId":144591926,"saasApplication":"GOOGLEDRIVE","scanAction":"CASB_TENANT_SCAN_NOT_STARTED","scanFromInSecs":0},"resource":"SSL Rule Name","interface":"UI","auditlogtype":"ZIA","recordid":"988","result":"SUCCESS","clientip":"10.10.10.10","adminid":"johndoe@yahoo.com","action":"CREATE","time":"2025-08-05
-      09:08:16","category":"CASB","subcategory":"CASB_SCAN_CONFIGURATION","errorcode":"AUTHENTICATION_FAILED"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-casb","event":{"is_admin_act":"No","external_owner_name":"sahil@example.io","login":"unknown_saas_user$@83788722.zscalertwo.net","applicationname":"GOOGLEDRIVE","src_ip":"165.225.0.243","activity_type_name":"Download","datetime":"2025-08-05
-      09:11:26","subtype":"activity","object_name_2":"Maverick","activity_count":"1","object_name_1":"[gen_file2_file_no_0.py,]","tenant":"googledrive","object_type_name_1":"File","event_time":"Tue
-      Aug 5 09:11:26 2025","object_type_name_2":"Folder"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-tunnel","event":{"locationname":"Unknown","sourceport":"121","rxbytes":"0","tunneltype":"GRE","dpdrec":"0","destinationip":"10.10.10.10","recordid":"7083029673927507968","sourceip":"10.10.10.10","txbytes":"0","Recordtype":"Tunnel
-      Samples","user":"jdoe@example.com","algo":"BLOWFISH_CBC","authentication":"HMAC_MD5","authtype":"RSAREV","vendorname":"QUICKSEC","tunnelprotocol":"ISAKMP"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-endpointdlp","event":{"actiontaken":"allow","activitytype":"email_sent","additionalinfo":"File
-      already open by another application","channel":"Network Drive
-      Transfer","confirmaction":"confirm","confirmjustification":"My manager
-      approved
-      it","datacenter":"Georgia","datacentercity":"Atlanta","datacentercountry":"US","department":"TempDept","deviceappversion":"Ver-2199","devicehostname":"Host","devicemodel":"Model-2022","devicename":"Dev
-      1","deviceostype":"Windows","deviceosversion":"Win-11","deviceowner":"Administrator","deviceplatform":"Windows","devicetype":"WinUser","dlpdictcount":"12|13","dlpdictionaries":"dlp:
-      dlp discription|dlp2: dlp discription2|dlp3: dlp
-      discription3","dlpengine":"dlpengine|dlpengine1|dlpengine2","dlpidentifier":"12","dsttype":"personal_cloud_storage","expectedaction":"block","filedoctype":"Medical","filedstpath":"dest_path","filemd5":"938c2cc0dcc05f2b68c4287040cfcf71","filesha":"076085239f3a10b8f387c4e5d4261abf8d109aa641be35a8d4ed2d775eb09612","filesrcpath":"source_path","filetypecategory":"PLS
-      File
-      (pls)","filetypename":"exe64","itemdstname":"nanolog","itemname":"endpoint_dlp","itemsrcname":"endpoint","itemtype":"email_attachment","logtype":"dlp_incident","numdlpdictids":"8","numdlpengineids":"12","recordid":"2","scannedbytes":"290812","scantime":"1210","severity":"High
-      Severity","srctype":"network_share","triggeredrule":"configured_rule","rulename":"configured_rule","user":"TempUser","zdpmode":"block
-      mode"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-emaildlp","event":{"mailsenttime":"Wed Apr  3
-      09:58:51
-      2024","scantime":"3731","recordid":"7353686396818817024","company":"casb","tenant":"zslronmicrosoft","user":"sec_name@example.com","sender":"sender_name@example.com","dept":"Engineering","filenames":"credit_ssn14Dec.pdf|test.pdf","md5s":"8573f6c2a0c9ec7232026c246b5a9f84|8573f6c2a0c9ec7232026c246b512345","doctypes":"Unknown","sizes":"20858","filetypes":"pdf|text","dlpdictionaries":"Credit
-      Cards: Detect leakage of credit card information|Social Security Number
-      (US): Detect leakage of United States Social Security Numbers|US Passport
-      Number","dlpdicthitcount":"7|7|6","dlpengine":"Credit-Card-Engine|The
-      Originlal Burrito|ccn and ssn|US PII Alert Only|Compliance -
-      GLBA|Compliance - PIPEDA|Compliance - U.K. PIOCP|Social Security Number
-      OCR","dlpidentifier":"7353686383933915137","triggered_recipients":"name@zscaler.com|name@gmail.com|admin@company.com|name@company.com","severity":"Info
-      Severity|High
-      Severity","action":"Allow|Block","rulename":"","otherrcpts":"name@externalcompany.com","subject":"test
-      sensitive
-      1","msgid":"<MN6PR20MB64256686FB0324A8F413C70DB73D2@MN6PR20MB6425.namprd20.prod.outlook.com>","datacentercountry":"IN","datacentercity":"GJ","datacenter":"GJ1","department":"Admin","appname":"Exchange","triggered_recipients_domains":"company.com|company.com","logtype":"DLP
-      Incident","rulelabel":"DLP_Rule_1|DLP_Rule_2"}}'
-    result: null
-  - sample: '{"sourcetype":"zscalernss-casb","event":{"rulelabel":"DLP-Rule-1","filescantimems":"688","malwareclass":"Virus","collabscope":"External
-      Collaborators - Edit|Internal Collaborators - Edit","fullurl":"Unknown
-      URL","lastmodtime":"Wed Dec  1 02:59:12
-      2021","filemd5":"3ce0e6d87e586b7e898b624e4a7cf4ef","dlpdictcount":"4|5|1|2","filesize":"125754","login":"john.smith@example.com","filetypename":"doc","dlpenginenames":"HIPAA|PCI|Social Security Numbers","upload_doctypename":"Corporate
-      Finance","internal_collabnames":"john@gmail.com|doe@gmail.com","datetime":"2025-08-0509:11:27","datacentercity":"Ch","hostname":"Unknown
-      Host","subtype":"collaboration","extownername":"jane@yahoo.com","company":"Zscaler","epochlastmodtime":"1638327552","extcollab_groups":"priyanshu external internal|Priyanshu Nested Group Lev98","tenant":"data_googledrive","external_collabnames":"jane@yahoo.com|roe@gmail.com","policy":"Make internal sharing read only","fileid":"1Ratg6eYQTIwi6ejuR-UFzW_eE0fxgJPC","severity":"High
-      Severity","malware":"Worm","intcollab_groups":"priyanshu
-      internal|priyanshu external|priyanshu different owner-member|priyanshu
-      internal duplicate|priyanshu non
-      user","dlpdictnames":"Credit Cards|Gambling|MRN Numbers","dlpidentifier":"0","ruletype":"OfflineCASBDLPCRM","datacenter":"CHI1","department":"Default
-      Department","filesource":"/Test/TP","threatname":"EICAR Test
-      File","applicationname":"GOOGLEDRIVE","recordid":"7535026573787070471","filedownloadtimems":"634","filename":"Test
-      20-21-09.pdf","suburl":"Thu Jul 24
-      1","datacentercountry":"US","channel_name":"demo-ops","external_recptnames":"jane@yahoo.com|roe@gmail.com","internal_recptnames":"john@gmail.com|doe@yahoo.com","sender":"johndoe@yahoo.com"}}'
-    result: null
-  - sample: '{"description":"Alert ID: 9999999999 | Rule Name: Default Bulk Download
-      of Data Alert | Alert Type: Bulk download alert | User: test@example.com |
-      Activity count: 107 | ZIA-URL:
-      https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440","version":"1.1","zscaler":"Zscaler-ZIA-UEBA","createTime":"1755569028","ruleName":"Default
-      Bulk Download of Data
-      Alert","alias":"Zscaler-ZIA-UEBA","ziaUrl":"https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440","company":"Zscaler",
-      "alertId":"9999999999","text":"Rule Name: Default Bulk
-      Download of Data Alert;\nAlert ID: 9999999999 | \nZIA URL:
-      https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440
-      | \nAlert Type: Bulk download alert | \nEvent Type: Data | \nChannel: API
-      | \nUser: test@example.com | \nActivity Count:107","status":"TRIGGERED"}'
-    result: null
-  - sample: '{"description":"Alert ID: 111111 | Alert Status: Ended |  Rule Name:
-      Self Created | Event Type: Malicious URLs | Indexed By:
-      www.institutolockmann.com.br | ZIA-URL:
-      https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600","version":"1.1","event_type":"Malicious
-      URLs","zscaler":"Zscaler-ZIA","createTime":"1755526800","ruleName":"Self
-      Created","alias":"Zscaler-ZIA","ziaUrl":"https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600","company":"Zscaler","alertId":"111111","text":"Rule
-      Name: Self Created;\nAlert ID: 567890 | \nZIA URL:
-      https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600
-      | \nAlert Status: Ended | \nEvent Type: Malicious URLs | \nIndexed By:
-      www.institutolockmann.com.br","status":"ENDED"}'
-    result: null
-
-# The `result` field should be left blank to start. Once you submit your log asset files with
-# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
-# run your raw logs against your pipeline and return the result. If the result output in the
-# validation is accurate, take the output and add it to the `result` field in your test YAML file.
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-fw",
+      "event" : {
+        "devicehostname" : " ",
+        "rulelabel" : "Block QUIC",
+        "bypass_etime" : "Thu Jan 1 00:00:00 1970",
+        "bypassed_session" : "0",
+        "csport" : "56039",
+        "sdip" : "8.8.4.4",
+        "datetime" : "2025-08-02 16:09:29",
+        "dnat" : "No",
+        "threatseverity" : "Critical",
+        "threatcat" : "Denial of Service Attack",
+        "destcountry" : "United States",
+        "action" : "Allow due to insufficient app data",
+        "numsessions" : "1",
+        "deviceostype" : "Windows OS",
+        "sdport" : "443",
+        "ssport" : "63358",
+        "inbytes" : "5476",
+        "avgduration" : "82",
+        "ipsrulelabel" : "Default IPS Rule",
+        "ssip" : "10.10.10.10",
+        "nwsvc" : "ZSCALER_PROXY_NW_SERVICES",
+        "ipcat" : "Professional Services",
+        "flow_type" : "ZIA",
+        "dnatrulelabel" : "DNAT_Rule_1",
+        "eedone" : "No",
+        "outbytes" : "2738",
+        "proto" : "TCP",
+        "csip" : "10.10.10.10",
+        "ztunnelversion" : "ZTUNNEL_2_0_DTLS1_2",
+        "fwd_gw_name" : "FWD_1",
+        "external_deviceid" : "",
+        "pcapid" : "43139974/fw/663ba8fd30b50001.pcap",
+        "deviceappversion" : "4.7.0.61",
+        "cdport" : "443",
+        "threat_score" : "0",
+        "ips_custom_signature" : "0",
+        "aggregate" : "No",
+        "tsip" : "10.10.10.10",
+        "duration" : "0",
+        "locationname" : "Road Warrior",
+        "datacentercity" : "Mu",
+        "cdfqdn" : "dns.google",
+        "zpa_app_seg_name" : "ZPA_test_app_segment",
+        "department" : "Service Admin",
+        "durationms" : "82",
+        "stateful" : "Yes",
+        "devicemodel" : "20U1S05S00",
+        "cdip" : "10.10.10.10",
+        "datacenter" : "BOM6",
+        "threatname" : "Linux.Backdoor.Tsunami",
+        "recordid" : "7534021044391772162",
+        "deviceowner" : "Zscaler",
+        "deviceosversion" : "Microsoft Windows 11 Pro;64 bit;amd64",
+        "datacentercountry" : "IN",
+        "tunsport" : "0",
+        "tuntype" : "ZscalerClientConnector",
+        "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+        "user" : "johndoe@yahoo.com",
+        "nwapp" : "tcp",
+        "srcip_country" : "India",
+        "rdr_rulename" : "FWD_Rule_1"
+      }
+    }
+  result:
+    custom:
+      date: 1754150969000
+      evt:
+        outcome: "Allow due to insufficient app data"
+      network:
+        bytes_read: "5476"
+        bytes_written: "2738"
+        client:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "56039"
+        destination:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "443"
+      sourcetype: "zscalernss-fw"
+      status: "critical"
+      usr:
+        id: "johndoe@yahoo.com"
+      zscaler:
+        action: "Allow due to insufficient app data"
+        aggregate: "No"
+        avgduration: "82"
+        bypass_etime: "Thu Jan 1 00:00:00 1970"
+        bypassed_session: "0"
+        cdfqdn: "dns.google"
+        cdip: "10.10.10.10"
+        datacenter: "BOM6"
+        datacentercity: "Mu"
+        datacentercountry: "IN"
+        datetime: "2025-08-02 16:09:29"
+        department: "Service Admin"
+        destcountry: "United States"
+        deviceappversion: "4.7.0.61"
+        devicehostname: " "
+        devicemodel: "20U1S05S00"
+        devicename: "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782"
+        deviceostype: "Windows OS"
+        deviceosversion: "Microsoft Windows 11 Pro;64 bit;amd64"
+        deviceowner: "Zscaler"
+        dnat: "No"
+        dnatrulelabel: "DNAT_Rule_1"
+        duration: "0"
+        durationms: "82"
+        eedone: "No"
+        external_deviceid: ""
+        flow_type: "ZIA"
+        fwd_gw_name: "FWD_1"
+        inbytes: "5476"
+        ipcat: "Professional Services"
+        ips_custom_signature: "0"
+        ipsrulelabel: "Default IPS Rule"
+        locationname: "Road Warrior"
+        numsessions: "1"
+        nwapp: "tcp"
+        nwsvc: "ZSCALER_PROXY_NW_SERVICES"
+        outbytes: "2738"
+        pcapid: "43139974/fw/663ba8fd30b50001.pcap"
+        proto: "TCP"
+        rdr_rulename: "FWD_Rule_1"
+        recordid: "7534021044391772162"
+        rulelabel: "Block QUIC"
+        sdip: "8.8.4.4"
+        sdport: "443"
+        srcip_country: "India"
+        ssip: "10.10.10.10"
+        ssport: "63358"
+        stateful: "Yes"
+        threat_score: "0"
+        threatcat: "Denial of Service Attack"
+        threatname: "Linux.Backdoor.Tsunami"
+        threatseverity: "critical"
+        tsip: "10.10.10.10"
+        tunsport: "0"
+        tuntype: "ZscalerClientConnector"
+        user: "johndoe@yahoo.com"
+        zpa_app_seg_name: "ZPA_test_app_segment"
+        ztunnelversion: "ZTUNNEL_2_0_DTLS1_2"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-fw",
+        "event" : {
+          "devicehostname" : " ",
+          "rulelabel" : "Block QUIC",
+          "bypass_etime" : "Thu Jan 1 00:00:00 1970",
+          "bypassed_session" : "0",
+          "csport" : "56039",
+          "sdip" : "8.8.4.4",
+          "datetime" : "2025-08-02 16:09:29",
+          "dnat" : "No",
+          "threatseverity" : "Critical",
+          "threatcat" : "Denial of Service Attack",
+          "destcountry" : "United States",
+          "action" : "Allow due to insufficient app data",
+          "numsessions" : "1",
+          "deviceostype" : "Windows OS",
+          "sdport" : "443",
+          "ssport" : "63358",
+          "inbytes" : "5476",
+          "avgduration" : "82",
+          "ipsrulelabel" : "Default IPS Rule",
+          "ssip" : "10.10.10.10",
+          "nwsvc" : "ZSCALER_PROXY_NW_SERVICES",
+          "ipcat" : "Professional Services",
+          "flow_type" : "ZIA",
+          "dnatrulelabel" : "DNAT_Rule_1",
+          "eedone" : "No",
+          "outbytes" : "2738",
+          "proto" : "TCP",
+          "csip" : "10.10.10.10",
+          "ztunnelversion" : "ZTUNNEL_2_0_DTLS1_2",
+          "fwd_gw_name" : "FWD_1",
+          "external_deviceid" : "",
+          "pcapid" : "43139974/fw/663ba8fd30b50001.pcap",
+          "deviceappversion" : "4.7.0.61",
+          "cdport" : "443",
+          "threat_score" : "0",
+          "ips_custom_signature" : "0",
+          "aggregate" : "No",
+          "tsip" : "10.10.10.10",
+          "duration" : "0",
+          "locationname" : "Road Warrior",
+          "datacentercity" : "Mu",
+          "cdfqdn" : "dns.google",
+          "zpa_app_seg_name" : "ZPA_test_app_segment",
+          "department" : "Service Admin",
+          "durationms" : "82",
+          "stateful" : "Yes",
+          "devicemodel" : "20U1S05S00",
+          "cdip" : "10.10.10.10",
+          "datacenter" : "BOM6",
+          "threatname" : "Linux.Backdoor.Tsunami",
+          "recordid" : "7534021044391772162",
+          "deviceowner" : "Zscaler",
+          "deviceosversion" : "Microsoft Windows 11 Pro;64 bit;amd64",
+          "datacentercountry" : "IN",
+          "tunsport" : "0",
+          "tuntype" : "ZscalerClientConnector",
+          "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+          "user" : "johndoe@yahoo.com",
+          "nwapp" : "tcp",
+          "srcip_country" : "India",
+          "rdr_rulename" : "FWD_Rule_1"
+        }
+      }
+    service: "zscalernss-fw"
+    status: "critical"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1754150969000
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-dns",
+      "event" : {
+        "dns_reqtype" : "A",
+        "devicehostname" : "",
+        "pcapid" : "43139974/dns/663ba8fd30b50001.pcap",
+        "deviceappversion" : "4.7.0.61",
+        "dnsgw_slot" : "DNS GATEWAY Rule 1\t",
+        "resrulelabel" : "rule-1",
+        "istcp" : "0",
+        "reqaction" : "Allow",
+        "error" : "NXDOMAIN",
+        "dnsgw_flags" : "PRIMARY_SERVER_RESPONSE_PASS",
+        "devicetype" : "",
+        "datetime" : "2025-07-30 11:37:02",
+        "protocol" : "UDP",
+        "datacentercity" : "Mu",
+        "company" : "Zscaler",
+        "department" : "Service Admin",
+        "durationms" : "0",
+        "deviceostype" : "Windows OS",
+        "devicemodel" : "20U1S05S00",
+        "ecs_prefix" : "0.0.0.0",
+        "srv_dip" : "10.10.10.10",
+        "clt_sip" : "10.10.10.10",
+        "ecs_slot" : "ECS Slot #17",
+        "cloudname" : "zscalertwo.net",
+        "reqrulelabel" : "Default Firewall DNS Rule",
+        "srv_dport" : "53",
+        "respipcat" : "Other",
+        "datacenter" : "BOM6",
+        "dns_req" : "ycapital.fr",
+        "recordid" : "7532837579056021506",
+        "restype" : "SRV_CODE",
+        "dnsappcat" : "network_service",
+        "dnsapp" : "sm_fw_dns",
+        "deviceowner" : "Zscaler",
+        "http_code" : "000",
+        "eedone" : "No",
+        "deviceosversion" : "Microsoft Windows 11 Pro;64 bit",
+        "dns_resp" : "NXDOMAIN",
+        "datacentercountry" : "IN",
+        "location" : "Road Warrior",
+        "resaction" : "Allow",
+        "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+        "category" : "Miscellaneous or Unknown",
+        "user" : "johndoe@yahoo.com",
+        "dnsgw_srv_proto" : "UDP"
+      }
+    }
+  result:
+    custom:
+      date: 1753875422000
+      dns:
+        answer:
+          name: "NXDOMAIN"
+          type: "SRV_CODE"
+        flags:
+          rcode: "PRIMARY_SERVER_RESPONSE_PASS"
+        question:
+          name: "ycapital.fr"
+          type: "A"
+      network:
+        client:
+          geoip: {}
+          ip: "10.10.10.10"
+        destination:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "53"
+      sourcetype: "zscalernss-dns"
+      usr:
+        id: "johndoe@yahoo.com"
+      zscaler:
+        category: "Miscellaneous or Unknown"
+        cloudname: "zscalertwo.net"
+        company: "Zscaler"
+        datacenter: "BOM6"
+        datacentercity: "Mu"
+        datacentercountry: "IN"
+        datetime: "2025-07-30 11:37:02"
+        department: "Service Admin"
+        deviceappversion: "4.7.0.61"
+        devicehostname: ""
+        devicemodel: "20U1S05S00"
+        devicename: "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782"
+        deviceostype: "Windows OS"
+        deviceosversion: "Microsoft Windows 11 Pro;64 bit"
+        deviceowner: "Zscaler"
+        devicetype: ""
+        dns_resp: "NXDOMAIN"
+        dnsapp: "sm_fw_dns"
+        dnsappcat: "network_service"
+        dnsgw_slot: "DNS GATEWAY Rule 1\t"
+        dnsgw_srv_proto: "UDP"
+        durationms: "0"
+        ecs_prefix: "0.0.0.0"
+        ecs_slot: "ECS Slot #17"
+        eedone: "No"
+        error: "NXDOMAIN"
+        http_code: "000"
+        istcp: "0"
+        location: "Road Warrior"
+        pcapid: "43139974/dns/663ba8fd30b50001.pcap"
+        protocol: "UDP"
+        recordid: "7532837579056021506"
+        reqaction: "Allow"
+        reqrulelabel: "Default Firewall DNS Rule"
+        resaction: "Allow"
+        respipcat: "Other"
+        resrulelabel: "rule-1"
+        srv_dport: "53"
+        user: "johndoe@yahoo.com"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-dns",
+        "event" : {
+          "dns_reqtype" : "A",
+          "devicehostname" : "",
+          "pcapid" : "43139974/dns/663ba8fd30b50001.pcap",
+          "deviceappversion" : "4.7.0.61",
+          "dnsgw_slot" : "DNS GATEWAY Rule 1\t",
+          "resrulelabel" : "rule-1",
+          "istcp" : "0",
+          "reqaction" : "Allow",
+          "error" : "NXDOMAIN",
+          "dnsgw_flags" : "PRIMARY_SERVER_RESPONSE_PASS",
+          "devicetype" : "",
+          "datetime" : "2025-07-30 11:37:02",
+          "protocol" : "UDP",
+          "datacentercity" : "Mu",
+          "company" : "Zscaler",
+          "department" : "Service Admin",
+          "durationms" : "0",
+          "deviceostype" : "Windows OS",
+          "devicemodel" : "20U1S05S00",
+          "ecs_prefix" : "0.0.0.0",
+          "srv_dip" : "10.10.10.10",
+          "clt_sip" : "10.10.10.10",
+          "ecs_slot" : "ECS Slot #17",
+          "cloudname" : "zscalertwo.net",
+          "reqrulelabel" : "Default Firewall DNS Rule",
+          "srv_dport" : "53",
+          "respipcat" : "Other",
+          "datacenter" : "BOM6",
+          "dns_req" : "ycapital.fr",
+          "recordid" : "7532837579056021506",
+          "restype" : "SRV_CODE",
+          "dnsappcat" : "network_service",
+          "dnsapp" : "sm_fw_dns",
+          "deviceowner" : "Zscaler",
+          "http_code" : "000",
+          "eedone" : "No",
+          "deviceosversion" : "Microsoft Windows 11 Pro;64 bit",
+          "dns_resp" : "NXDOMAIN",
+          "datacentercountry" : "IN",
+          "location" : "Road Warrior",
+          "resaction" : "Allow",
+          "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+          "category" : "Miscellaneous or Unknown",
+          "user" : "johndoe@yahoo.com",
+          "dnsgw_srv_proto" : "UDP"
+        }
+      }
+    service: "zscalernss-dns"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1753875422000
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-audit",
+      "event" : {
+        "postaction" : {
+          "scanDescription" : "",
+          "scanPolicies" : [ "CASB_TENANT_SCAN_POLICY_DLP", "CASB_TENANT_SCAN_POLICY_MALWARE" ],
+          "scanOption" : "CASB_TENANT_SCAN_OPTION_EVERYTHING",
+          "modifiedTime" : 0,
+          "scanFrom" : 0,
+          "tenantName" : "googledrive",
+          "allBucketsSelected" : false,
+          "tenantId" : 144591926,
+          "saasApplication" : "GOOGLEDRIVE",
+          "scanAction" : "CASB_TENANT_SCAN_NOT_STARTED",
+          "scanFromInSecs" : 0
+        },
+        "resource" : "SSL Rule Name",
+        "interface" : "UI",
+        "auditlogtype" : "ZIA",
+        "recordid" : "988",
+        "result" : "SUCCESS",
+        "clientip" : "10.10.10.10",
+        "adminid" : "johndoe@yahoo.com",
+        "action" : "CREATE",
+        "time" : "2025-08-05 09:08:16",
+        "category" : "CASB",
+        "subcategory" : "CASB_SCAN_CONFIGURATION",
+        "errorcode" : "AUTHENTICATION_FAILED"
+      }
+    }
+  result:
+    custom:
+      evt:
+        outcome: "SUCCESS"
+      network:
+        client:
+          geoip: {}
+          ip: "10.10.10.10"
+      sourcetype: "zscalernss-audit"
+      zscaler:
+        action: "CREATE"
+        adminid: "johndoe@yahoo.com"
+        auditlogtype: "ZIA"
+        category: "CASB"
+        errorcode: "AUTHENTICATION_FAILED"
+        interface: "UI"
+        postaction:
+          allBucketsSelected: false
+          modifiedTime: 0
+          saasApplication: "GOOGLEDRIVE"
+          scanAction: "CASB_TENANT_SCAN_NOT_STARTED"
+          scanDescription: ""
+          scanFrom: 0
+          scanFromInSecs: 0
+          scanOption: "CASB_TENANT_SCAN_OPTION_EVERYTHING"
+          scanPolicies:
+           - "CASB_TENANT_SCAN_POLICY_DLP"
+           - "CASB_TENANT_SCAN_POLICY_MALWARE"
+          tenantId: 144591926
+          tenantName: "googledrive"
+        recordid: "988"
+        resource: "SSL Rule Name"
+        subcategory: "CASB_SCAN_CONFIGURATION"
+        time: "2025-08-05 09:08:16"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-audit",
+        "event" : {
+          "postaction" : {
+            "scanDescription" : "",
+            "scanPolicies" : [ "CASB_TENANT_SCAN_POLICY_DLP", "CASB_TENANT_SCAN_POLICY_MALWARE" ],
+            "scanOption" : "CASB_TENANT_SCAN_OPTION_EVERYTHING",
+            "modifiedTime" : 0,
+            "scanFrom" : 0,
+            "tenantName" : "googledrive",
+            "allBucketsSelected" : false,
+            "tenantId" : 144591926,
+            "saasApplication" : "GOOGLEDRIVE",
+            "scanAction" : "CASB_TENANT_SCAN_NOT_STARTED",
+            "scanFromInSecs" : 0
+          },
+          "resource" : "SSL Rule Name",
+          "interface" : "UI",
+          "auditlogtype" : "ZIA",
+          "recordid" : "988",
+          "result" : "SUCCESS",
+          "clientip" : "10.10.10.10",
+          "adminid" : "johndoe@yahoo.com",
+          "action" : "CREATE",
+          "time" : "2025-08-05 09:08:16",
+          "category" : "CASB",
+          "subcategory" : "CASB_SCAN_CONFIGURATION",
+          "errorcode" : "AUTHENTICATION_FAILED"
+        }
+      }
+    service: "zscalernss-audit"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-casb",
+      "event" : {
+        "is_admin_act" : "No",
+        "external_owner_name" : "sahil@example.io",
+        "login" : "unknown_saas_user$@83788722.zscalertwo.net",
+        "applicationname" : "GOOGLEDRIVE",
+        "src_ip" : "165.225.0.243",
+        "activity_type_name" : "Download",
+        "datetime" : "2025-08-05 09:11:26",
+        "subtype" : "activity",
+        "object_name_2" : "Maverick",
+        "activity_count" : "1",
+        "object_name_1" : "[gen_file2_file_no_0.py,]",
+        "tenant" : "googledrive",
+        "object_type_name_1" : "File",
+        "event_time" : "Tue Aug 5 09:11:26 2025",
+        "object_type_name_2" : "Folder"
+      }
+    }
+  result:
+    custom:
+      date: 1754385086000
+      network:
+        client:
+          geoip: {}
+          ip: "165.225.0.243"
+      sourcetype: "zscalernss-casb"
+      usr:
+        id: "unknown_saas_user$@83788722.zscalertwo.net"
+      zscaler:
+        activity_count: "1"
+        activity_type_name: "Download"
+        applicationname: "GOOGLEDRIVE"
+        datetime: "2025-08-05 09:11:26"
+        event_time: "Tue Aug 5 09:11:26 2025"
+        external_owner_name: "sahil@example.io"
+        is_admin_act: "No"
+        login: "unknown_saas_user$@83788722.zscalertwo.net"
+        object_name_1: "[gen_file2_file_no_0.py,]"
+        object_name_2: "Maverick"
+        object_type_name_1: "File"
+        object_type_name_2: "Folder"
+        postaction:
+          cloudNssSiemConfiguration:
+            connectionHeaders: ""
+        subtype: "activity"
+        tenant: "googledrive"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-casb",
+        "event" : {
+          "is_admin_act" : "No",
+          "external_owner_name" : "sahil@example.io",
+          "login" : "unknown_saas_user$@83788722.zscalertwo.net",
+          "applicationname" : "GOOGLEDRIVE",
+          "src_ip" : "165.225.0.243",
+          "activity_type_name" : "Download",
+          "datetime" : "2025-08-05 09:11:26",
+          "subtype" : "activity",
+          "object_name_2" : "Maverick",
+          "activity_count" : "1",
+          "object_name_1" : "[gen_file2_file_no_0.py,]",
+          "tenant" : "googledrive",
+          "object_type_name_1" : "File",
+          "event_time" : "Tue Aug 5 09:11:26 2025",
+          "object_type_name_2" : "Folder"
+        }
+      }
+    service: "zscalernss-casb"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1754385086000
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-tunnel",
+      "event" : {
+        "Recordtype" : "Tunnel Samples",
+        "dpdrec" : "0",
+        "rxbytes" : "0",
+        "authtype" : "RSAREV",
+        "destinationip" : "10.10.10.10",
+        "recordid" : "7083029673927507968",
+        "sourceport" : "121",
+        "txbytes" : "0",
+        "locationname" : "Unknown",
+        "sourceip" : "10.10.10.10",
+        "tunneltype" : "GRE",
+        "user" : "jdoe@example.com",
+        "vendorname" : "QUICKSEC",
+        "algo" : "BLOWFISH_CBC",
+        "tunnelprotocol" : "ISAKMP",
+        "authentication" : "HMAC_MD5"
+      }
+    }
+  result:
+    custom:
+      network:
+        client:
+          geoip: {}
+          ip: "10.10.10.10"
+          port: "121"
+        destination:
+          geoip: {}
+          ip: "10.10.10.10"
+      sourcetype: "zscalernss-tunnel"
+      usr:
+        id: "jdoe@example.com"
+      zscaler:
+        Recordtype: "Tunnel Samples"
+        algo: "BLOWFISH_CBC"
+        authentication: "HMAC_MD5"
+        authtype: "RSAREV"
+        destinationip: "10.10.10.10"
+        dpdrec: "0"
+        locationname: "Unknown"
+        recordid: "7083029673927507968"
+        rxbytes: "0"
+        sourceip: "10.10.10.10"
+        sourceport: "121"
+        tunnelprotocol: "ISAKMP"
+        tunneltype: "GRE"
+        txbytes: "0"
+        user: "jdoe@example.com"
+        vendorname: "QUICKSEC"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-tunnel",
+        "event" : {
+          "Recordtype" : "Tunnel Samples",
+          "dpdrec" : "0",
+          "rxbytes" : "0",
+          "authtype" : "RSAREV",
+          "destinationip" : "10.10.10.10",
+          "recordid" : "7083029673927507968",
+          "sourceport" : "121",
+          "txbytes" : "0",
+          "locationname" : "Unknown",
+          "sourceip" : "10.10.10.10",
+          "tunneltype" : "GRE",
+          "user" : "jdoe@example.com",
+          "vendorname" : "QUICKSEC",
+          "algo" : "BLOWFISH_CBC",
+          "tunnelprotocol" : "ISAKMP",
+          "authentication" : "HMAC_MD5"
+        }
+      }
+    service: "zscalernss-tunnel"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-endpointdlp",
+      "event" : {
+        "filedoctype" : "Medical",
+        "srctype" : "network_share",
+        "devicehostname" : "Host",
+        "deviceappversion" : "Ver-2199",
+        "confirmjustification" : "My manager approved it",
+        "channel" : "Network Drive Transfer",
+        "rulename" : "configured_rule",
+        "dlpdictcount" : "12|13",
+        "filemd5" : "938c2cc0dcc05f2b68c4287040cfcf71",
+        "filetypename" : "exe64",
+        "devicetype" : "WinUser",
+        "datacentercity" : "Atlanta",
+        "expectedaction" : "block",
+        "logtype" : "dlp_incident",
+        "zdpmode" : "block mode",
+        "actiontaken" : "allow",
+        "numdlpdictids" : "8",
+        "filedstpath" : "dest_path",
+        "triggeredrule" : "configured_rule",
+        "department" : "TempDept",
+        "deviceostype" : "Windows",
+        "filesrcpath" : "source_path",
+        "devicemodel" : "Model-2022",
+        "severity" : "High Severity",
+        "itemname" : "endpoint_dlp",
+        "dlpengine" : "dlpengine|dlpengine1|dlpengine2",
+        "dlpidentifier" : "12",
+        "scannedbytes" : "290812",
+        "numdlpengineids" : "12",
+        "datacenter" : "Georgia",
+        "itemdstname" : "nanolog",
+        "itemsrcname" : "endpoint",
+        "activitytype" : "email_sent",
+        "additionalinfo" : "File already open by another application",
+        "deviceplatform" : "Windows",
+        "filetypecategory" : "PLS File (pls)",
+        "recordid" : "2",
+        "scantime" : "1210",
+        "deviceowner" : "Administrator",
+        "itemtype" : "email_attachment",
+        "deviceosversion" : "Win-11",
+        "datacentercountry" : "US",
+        "dlpdictionaries" : "dlp: dlp discription|dlp2: dlp discription2|dlp3: dlp discription3",
+        "devicename" : "Dev 1",
+        "dsttype" : "personal_cloud_storage",
+        "filesha" : "076085239f3a10b8f387c4e5d4261abf8d109aa641be35a8d4ed2d775eb09612",
+        "user" : "TempUser",
+        "confirmaction" : "confirm"
+      }
+    }
+  result:
+    custom:
+      evt:
+        outcome: "allow"
+      sourcetype: "zscalernss-endpointdlp"
+      status: "critical"
+      usr:
+        id: "TempUser"
+      zscaler:
+        activitytype: "email_sent"
+        additionalinfo: "File already open by another application"
+        channel: "Network Drive Transfer"
+        confirmaction: "confirm"
+        confirmjustification: "My manager approved it"
+        datacenter: "Georgia"
+        datacentercity: "Atlanta"
+        datacentercountry: "US"
+        department: "TempDept"
+        deviceappversion: "Ver-2199"
+        devicehostname: "Host"
+        devicemodel: "Model-2022"
+        devicename: "Dev 1"
+        deviceostype: "Windows"
+        deviceosversion: "Win-11"
+        deviceowner: "Administrator"
+        deviceplatform: "Windows"
+        devicetype: "WinUser"
+        dlpdictcount: "12|13"
+        dlpdictionaries:
+         - "dlp: dlp discription"
+         - "dlp2: dlp discription2"
+         - "dlp3: dlp discription3"
+        dlpengine:
+         - "dlpengine"
+         - "dlpengine1"
+         - "dlpengine2"
+        dlpidentifier: "12"
+        dsttype: "personal_cloud_storage"
+        expectedaction: "block"
+        filedoctype: "Medical"
+        filedstpath: "dest_path"
+        filemd5: "938c2cc0dcc05f2b68c4287040cfcf71"
+        filesha: "076085239f3a10b8f387c4e5d4261abf8d109aa641be35a8d4ed2d775eb09612"
+        filesrcpath: "source_path"
+        filetypecategory: "PLS File (pls)"
+        filetypename: "exe64"
+        itemdstname: "nanolog"
+        itemname: "endpoint_dlp"
+        itemsrcname: "endpoint"
+        itemtype: "email_attachment"
+        logtype: "dlp_incident"
+        numdlpdictids: "8"
+        numdlpengineids: "12"
+        recordid: "2"
+        rulename: "configured_rule"
+        scannedbytes: "290812"
+        scantime: "1210"
+        severity: "High Severity"
+        srctype: "network_share"
+        triggeredrule: "configured_rule"
+        user: "TempUser"
+        zdpmode: "block mode"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-endpointdlp",
+        "event" : {
+          "filedoctype" : "Medical",
+          "srctype" : "network_share",
+          "devicehostname" : "Host",
+          "deviceappversion" : "Ver-2199",
+          "confirmjustification" : "My manager approved it",
+          "channel" : "Network Drive Transfer",
+          "rulename" : "configured_rule",
+          "dlpdictcount" : "12|13",
+          "filemd5" : "938c2cc0dcc05f2b68c4287040cfcf71",
+          "filetypename" : "exe64",
+          "devicetype" : "WinUser",
+          "datacentercity" : "Atlanta",
+          "expectedaction" : "block",
+          "logtype" : "dlp_incident",
+          "zdpmode" : "block mode",
+          "actiontaken" : "allow",
+          "numdlpdictids" : "8",
+          "filedstpath" : "dest_path",
+          "triggeredrule" : "configured_rule",
+          "department" : "TempDept",
+          "deviceostype" : "Windows",
+          "filesrcpath" : "source_path",
+          "devicemodel" : "Model-2022",
+          "severity" : "High Severity",
+          "itemname" : "endpoint_dlp",
+          "dlpengine" : "dlpengine|dlpengine1|dlpengine2",
+          "dlpidentifier" : "12",
+          "scannedbytes" : "290812",
+          "numdlpengineids" : "12",
+          "datacenter" : "Georgia",
+          "itemdstname" : "nanolog",
+          "itemsrcname" : "endpoint",
+          "activitytype" : "email_sent",
+          "additionalinfo" : "File already open by another application",
+          "deviceplatform" : "Windows",
+          "filetypecategory" : "PLS File (pls)",
+          "recordid" : "2",
+          "scantime" : "1210",
+          "deviceowner" : "Administrator",
+          "itemtype" : "email_attachment",
+          "deviceosversion" : "Win-11",
+          "datacentercountry" : "US",
+          "dlpdictionaries" : "dlp: dlp discription|dlp2: dlp discription2|dlp3: dlp discription3",
+          "devicename" : "Dev 1",
+          "dsttype" : "personal_cloud_storage",
+          "filesha" : "076085239f3a10b8f387c4e5d4261abf8d109aa641be35a8d4ed2d775eb09612",
+          "user" : "TempUser",
+          "confirmaction" : "confirm"
+        }
+      }
+    service: "zscalernss-endpointdlp"
+    status: "critical"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-emaildlp",
+      "event" : {
+        "rulelabel" : "DLP_Rule_1|DLP_Rule_2",
+        "md5s" : "8573f6c2a0c9ec7232026c246b5a9f84|8573f6c2a0c9ec7232026c246b512345",
+        "subject" : "test sensitive 1",
+        "filetypes" : "pdf|text",
+        "rulename" : "",
+        "triggered_recipients" : "name@zscaler.com|name@gmail.com|admin@company.com|name@company.com",
+        "dlpdicthitcount" : "7|7|6",
+        "mailsenttime" : "Wed Apr  3 09:58:51 2024",
+        "datacentercity" : "GJ",
+        "logtype" : "DLP Incident",
+        "sizes" : "20858",
+        "appname" : "Exchange",
+        "doctypes" : "Unknown",
+        "filenames" : "credit_ssn14Dec.pdf|test.pdf",
+        "action" : "Allow|Block",
+        "triggered_recipients_domains" : "company.com|company.com",
+        "company" : "casb",
+        "department" : "Admin",
+        "tenant" : "zslronmicrosoft",
+        "severity" : "Info Severity|High Severity",
+        "dlpengine" : "Credit-Card-Engine|The Originlal Burrito|ccn and ssn|US PII Alert Only|Compliance - GLBA|Compliance - PIPEDA|Compliance - U.K. PIOCP|Social Security Number OCR",
+        "dlpidentifier" : "7353686383933915137",
+        "otherrcpts" : "name@externalcompany.com",
+        "msgid" : "<MN6PR20MB64256686FB0324A8F413C70DB73D2@MN6PR20MB6425.namprd20.prod.outlook.com>",
+        "datacenter" : "GJ1",
+        "dept" : "Engineering",
+        "scantime" : "3731",
+        "recordid" : "7353686396818817024",
+        "sender" : "sender_name@example.com",
+        "datacentercountry" : "IN",
+        "dlpdictionaries" : "Credit Cards: Detect leakage of credit card information|Social Security Number (US): Detect leakage of United States Social Security Numbers|US Passport Number",
+        "user" : "sec_name@example.com"
+      }
+    }
+  result:
+    custom:
+      sourcetype: "zscalernss-emaildlp"
+      status: "critical"
+      usr:
+        id: "sec_name@example.com"
+      zscaler:
+        action:
+         - "Allow"
+         - "Block"
+        appname: "Exchange"
+        company: "casb"
+        datacenter: "GJ1"
+        datacentercity: "GJ"
+        datacentercountry: "IN"
+        department: "Admin"
+        dept: "Engineering"
+        dlpdicthitcount:
+         - "7"
+         - "7"
+         - "6"
+        dlpdictionaries:
+         - "Credit Cards: Detect leakage of credit card information"
+         - "Social Security Number (US): Detect leakage of United States Social Security Numbers"
+         - "US Passport Number"
+        dlpengine:
+         - "Credit-Card-Engine"
+         - "The Originlal Burrito"
+         - "ccn and ssn"
+         - "US PII Alert Only"
+         - "Compliance - GLBA"
+         - "Compliance - PIPEDA"
+         - "Compliance - U.K. PIOCP"
+         - "Social Security Number OCR"
+        dlpidentifier: "7353686383933915137"
+        doctypes:
+         - "Unknown"
+        filenames:
+         - "credit_ssn14Dec.pdf"
+         - "test.pdf"
+        filetypes:
+         - "pdf"
+         - "text"
+        logtype: "DLP Incident"
+        mailsenttime: "Wed Apr  3 09:58:51 2024"
+        md5s:
+         - "8573f6c2a0c9ec7232026c246b5a9f84"
+         - "8573f6c2a0c9ec7232026c246b512345"
+        msgid: "<MN6PR20MB64256686FB0324A8F413C70DB73D2@MN6PR20MB6425.namprd20.prod.outlook.com>"
+        otherrcpts: "name@externalcompany.com"
+        recordid: "7353686396818817024"
+        rulelabel:
+         - "DLP_Rule_1"
+         - "DLP_Rule_2"
+        rulename: ""
+        scantime: "3731"
+        sender: "sender_name@example.com"
+        severity:
+         - "Info Severity"
+         - "High Severity"
+        sizes:
+         - "20858"
+        subject: "test sensitive 1"
+        tenant: "zslronmicrosoft"
+        triggered_recipients:
+         - "name@zscaler.com"
+         - "name@gmail.com"
+         - "admin@company.com"
+         - "name@company.com"
+        triggered_recipients_domains:
+         - "company.com"
+         - "company.com"
+        user: "sec_name@example.com"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-emaildlp",
+        "event" : {
+          "rulelabel" : "DLP_Rule_1|DLP_Rule_2",
+          "md5s" : "8573f6c2a0c9ec7232026c246b5a9f84|8573f6c2a0c9ec7232026c246b512345",
+          "subject" : "test sensitive 1",
+          "filetypes" : "pdf|text",
+          "rulename" : "",
+          "triggered_recipients" : "name@zscaler.com|name@gmail.com|admin@company.com|name@company.com",
+          "dlpdicthitcount" : "7|7|6",
+          "mailsenttime" : "Wed Apr  3 09:58:51 2024",
+          "datacentercity" : "GJ",
+          "logtype" : "DLP Incident",
+          "sizes" : "20858",
+          "appname" : "Exchange",
+          "doctypes" : "Unknown",
+          "filenames" : "credit_ssn14Dec.pdf|test.pdf",
+          "action" : "Allow|Block",
+          "triggered_recipients_domains" : "company.com|company.com",
+          "company" : "casb",
+          "department" : "Admin",
+          "tenant" : "zslronmicrosoft",
+          "severity" : "Info Severity|High Severity",
+          "dlpengine" : "Credit-Card-Engine|The Originlal Burrito|ccn and ssn|US PII Alert Only|Compliance - GLBA|Compliance - PIPEDA|Compliance - U.K. PIOCP|Social Security Number OCR",
+          "dlpidentifier" : "7353686383933915137",
+          "otherrcpts" : "name@externalcompany.com",
+          "msgid" : "<MN6PR20MB64256686FB0324A8F413C70DB73D2@MN6PR20MB6425.namprd20.prod.outlook.com>",
+          "datacenter" : "GJ1",
+          "dept" : "Engineering",
+          "scantime" : "3731",
+          "recordid" : "7353686396818817024",
+          "sender" : "sender_name@example.com",
+          "datacentercountry" : "IN",
+          "dlpdictionaries" : "Credit Cards: Detect leakage of credit card information|Social Security Number (US): Detect leakage of United States Social Security Numbers|US Passport Number",
+          "user" : "sec_name@example.com"
+        }
+      }
+    service: "zscalernss-emaildlp"
+    status: "critical"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-casb",
+      "event" : {
+        "rulelabel" : "DLP-Rule-1",
+        "filescantimems" : "688",
+        "collabscope" : "External Collaborators - Edit|Internal Collaborators - Edit",
+        "fullurl" : "Unknown URL",
+        "lastmodtime" : "Wed Dec  1 02:59:12 2021",
+        "internal_recptnames" : "john@gmail.com|doe@yahoo.com",
+        "filemd5" : "3ce0e6d87e586b7e898b624e4a7cf4ef",
+        "dlpdictcount" : "4|5|1|2",
+        "filesize" : "125754",
+        "login" : "john.smith@example.com",
+        "filetypename" : "doc",
+        "external_collabnames" : "jane@yahoo.com|roe@gmail.com",
+        "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
+        "upload_doctypename" : "Corporate Finance",
+        "internal_collabnames" : "john@gmail.com|doe@gmail.com",
+        "datetime" : "2025-08-0509:11:27",
+        "datacentercity" : "Ch",
+        "hostname" : "Unknown Host",
+        "subtype" : "collaboration",
+        "extownername" : "jane@yahoo.com",
+        "company" : "Zscaler",
+        "epochlastmodtime" : "1638327552",
+        "extcollab_groups" : "priyanshu external internal|Priyanshu Nested Group Lev98",
+        "department" : "Default Department",
+        "tenant" : "data_googledrive",
+        "policy" : "Make internal sharing read only",
+        "fileid" : "1Ratg6eYQTIwi6ejuR-UFzW_eE0fxgJPC",
+        "severity" : "High Severity",
+        "channel_name" : "demo-ops",
+        "malware" : "Worm",
+        "intcollab_groups" : "priyanshu internal|priyanshu external|priyanshu different owner-member|priyanshu internal duplicate|priyanshu non user",
+        "dlpdictnames" : "Credit Cards|Gambling|MRN Numbers",
+        "dlpidentifier" : "0",
+        "ruletype" : "OfflineCASBDLPCRM",
+        "datacenter" : "CHI1",
+        "malwareclass" : "Virus",
+        "filesource" : "/Test/TP",
+        "threatname" : "EICAR Test File",
+        "applicationname" : "GOOGLEDRIVE",
+        "external_recptnames" : "jane@yahoo.com|roe@gmail.com",
+        "recordid" : "7535026573787070471",
+        "filedownloadtimems" : "634",
+        "filename" : "Test 20-21-09.pdf",
+        "suburl" : "Thu Jul 24 1",
+        "sender" : "johndoe@yahoo.com",
+        "datacentercountry" : "US"
+      }
+    }
+  result:
+    custom:
+      sourcetype: "zscalernss-casb"
+      status: "critical"
+      usr:
+        id: "john.smith@example.com"
+      zscaler:
+        applicationname: "GOOGLEDRIVE"
+        channel_name: "demo-ops"
+        collabscope: "External Collaborators - Edit|Internal Collaborators - Edit"
+        company: "Zscaler"
+        datacenter: "CHI1"
+        datacentercity: "Ch"
+        datacentercountry: "US"
+        datetime: "2025-08-0509:11:27"
+        department: "Default Department"
+        dlpdictcount: "4|5|1|2"
+        dlpdictnames: "Credit Cards|Gambling|MRN Numbers"
+        dlpenginenames: "HIPAA|PCI|Social Security Numbers"
+        dlpidentifier: "0"
+        epochlastmodtime: "1638327552"
+        extcollab_groups:
+         - "priyanshu external internal"
+         - "Priyanshu Nested Group Lev98"
+        external_collabnames:
+         - "jane@yahoo.com"
+         - "roe@gmail.com"
+        external_recptnames:
+         - "jane@yahoo.com"
+         - "roe@gmail.com"
+        extownername: "jane@yahoo.com"
+        filedownloadtimems: "634"
+        fileid: "1Ratg6eYQTIwi6ejuR-UFzW_eE0fxgJPC"
+        filemd5: "3ce0e6d87e586b7e898b624e4a7cf4ef"
+        filename: "Test 20-21-09.pdf"
+        filescantimems: "688"
+        filesize: "125754"
+        filesource: "/Test/TP"
+        filetypename: "doc"
+        fullurl: "Unknown URL"
+        hostname: "Unknown Host"
+        intcollab_groups:
+         - "priyanshu internal"
+         - "priyanshu external"
+         - "priyanshu different owner-member"
+         - "priyanshu internal duplicate"
+         - "priyanshu non user"
+        internal_collabnames:
+         - "john@gmail.com"
+         - "doe@gmail.com"
+        internal_recptnames:
+         - "john@gmail.com"
+         - "doe@yahoo.com"
+        lastmodtime: "Wed Dec  1 02:59:12 2021"
+        login: "john.smith@example.com"
+        malware: "Worm"
+        malwareclass: "Virus"
+        policy: "Make internal sharing read only"
+        recordid: "7535026573787070471"
+        rulelabel: "DLP-Rule-1"
+        ruletype: "OfflineCASBDLPCRM"
+        sender: "johndoe@yahoo.com"
+        severity: "High Severity"
+        subtype: "collaboration"
+        suburl: "Thu Jul 24 1"
+        tenant: "data_googledrive"
+        threatname: "EICAR Test File"
+        upload_doctypename: "Corporate Finance"
+    message: |-
+      {
+        "sourcetype" : "zscalernss-casb",
+        "event" : {
+          "rulelabel" : "DLP-Rule-1",
+          "filescantimems" : "688",
+          "collabscope" : "External Collaborators - Edit|Internal Collaborators - Edit",
+          "fullurl" : "Unknown URL",
+          "lastmodtime" : "Wed Dec  1 02:59:12 2021",
+          "internal_recptnames" : "john@gmail.com|doe@yahoo.com",
+          "filemd5" : "3ce0e6d87e586b7e898b624e4a7cf4ef",
+          "dlpdictcount" : "4|5|1|2",
+          "filesize" : "125754",
+          "login" : "john.smith@example.com",
+          "filetypename" : "doc",
+          "external_collabnames" : "jane@yahoo.com|roe@gmail.com",
+          "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
+          "upload_doctypename" : "Corporate Finance",
+          "internal_collabnames" : "john@gmail.com|doe@gmail.com",
+          "datetime" : "2025-08-0509:11:27",
+          "datacentercity" : "Ch",
+          "hostname" : "Unknown Host",
+          "subtype" : "collaboration",
+          "extownername" : "jane@yahoo.com",
+          "company" : "Zscaler",
+          "epochlastmodtime" : "1638327552",
+          "extcollab_groups" : "priyanshu external internal|Priyanshu Nested Group Lev98",
+          "department" : "Default Department",
+          "tenant" : "data_googledrive",
+          "policy" : "Make internal sharing read only",
+          "fileid" : "1Ratg6eYQTIwi6ejuR-UFzW_eE0fxgJPC",
+          "severity" : "High Severity",
+          "channel_name" : "demo-ops",
+          "malware" : "Worm",
+          "intcollab_groups" : "priyanshu internal|priyanshu external|priyanshu different owner-member|priyanshu internal duplicate|priyanshu non user",
+          "dlpdictnames" : "Credit Cards|Gambling|MRN Numbers",
+          "dlpidentifier" : "0",
+          "ruletype" : "OfflineCASBDLPCRM",
+          "datacenter" : "CHI1",
+          "malwareclass" : "Virus",
+          "filesource" : "/Test/TP",
+          "threatname" : "EICAR Test File",
+          "applicationname" : "GOOGLEDRIVE",
+          "external_recptnames" : "jane@yahoo.com|roe@gmail.com",
+          "recordid" : "7535026573787070471",
+          "filedownloadtimems" : "634",
+          "filename" : "Test 20-21-09.pdf",
+          "suburl" : "Thu Jul 24 1",
+          "sender" : "johndoe@yahoo.com",
+          "datacentercountry" : "US"
+        }
+      }
+    service: "zscalernss-casb"
+    status: "critical"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "zscaler" : "Zscaler-ZIA-UEBA",
+      "createTime" : "1755569028",
+      "description" : "Alert ID: 9999999999 | Rule Name: Default Bulk Download of Data Alert | Alert Type: Bulk download alert | User: test@example.com | Activity count: 107 | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440",
+      "ruleName" : "Default Bulk Download of Data Alert",
+      "alias" : "Zscaler-ZIA-UEBA",
+      "ziaUrl" : "https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440",
+      "company" : "Zscaler",
+      "alertId" : "9999999999",
+      "text" : "Rule Name: Default Bulk Download of Data Alert;\nAlert ID: 9999999999 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440 | \nAlert Type: Bulk download alert | \nEvent Type: Data | \nChannel: API | \nUser: test@example.com | \nActivity Count:107",
+      "version" : "1.1",
+      "status" : "TRIGGERED"
+    }
+  result:
+    custom:
+      alertId: "9999999999"
+      alert_type: "Bulk download alert"
+      alias: "Zscaler-ZIA-UEBA"
+      company: "Zscaler"
+      createTime: "1755569028"
+      description: "Alert ID: 9999999999 | Rule Name: Default Bulk Download of Data Alert | Alert Type: Bulk download alert | User: test@example.com | Activity count: 107 | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440"
+      ruleName: "Default Bulk Download of Data Alert"
+      sourcetype: "zscalernss-alert"
+      status: "TRIGGERED"
+      text: "Rule Name: Default Bulk Download of Data Alert;\nAlert ID: 9999999999 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440 | \nAlert Type: Bulk download alert | \nEvent Type: Data | \nChannel: API | \nUser: test@example.com | \nActivity Count:107"
+      usr:
+        id: "test@example.com"
+      version: "1.1"
+      ziaUrl: "https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440"
+      zscaler: "Zscaler-ZIA-UEBA"
+    message: |-
+      {
+        "zscaler" : "Zscaler-ZIA-UEBA",
+        "createTime" : "1755569028",
+        "description" : "Alert ID: 9999999999 | Rule Name: Default Bulk Download of Data Alert | Alert Type: Bulk download alert | User: test@example.com | Activity count: 107 | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440",
+        "ruleName" : "Default Bulk Download of Data Alert",
+        "alias" : "Zscaler-ZIA-UEBA",
+        "ziaUrl" : "https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440",
+        "company" : "Zscaler",
+        "alertId" : "9999999999",
+        "text" : "Rule Name: Default Bulk Download of Data Alert;\nAlert ID: 9999999999 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=9999999999&startTime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&evaluationInterval=1440 | \nAlert Type: Bulk download alert | \nEvent Type: Data | \nChannel: API | \nUser: test@example.com | \nActivity Count:107",
+        "version" : "1.1",
+        "status" : "TRIGGERED"
+      }
+    service: "zscalernss-alert"
+    status: "debug"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
+ -
+  sample: |-
+    {
+      "event_type" : "Malicious URLs",
+      "zscaler" : "Zscaler-ZIA",
+      "createTime" : "1755526800",
+      "description" : "Alert ID: 111111 | Alert Status: Ended |  Rule Name: Self Created | Event Type: Malicious URLs | Indexed By: www.institutolockmann.com.br | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600",
+      "ruleName" : "Self Created",
+      "alias" : "Zscaler-ZIA",
+      "ziaUrl" : "https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600",
+      "company" : "Zscaler",
+      "alertId" : "111111",
+      "text" : "Rule Name: Self Created;\nAlert ID: 567890 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600 | \nAlert Status: Ended | \nEvent Type: Malicious URLs | \nIndexed By: www.institutolockmann.com.br",
+      "version" : "1.1",
+      "status" : "ENDED"
+    }
+  result:
+    custom:
+      alertId: "111111"
+      alias: "Zscaler-ZIA"
+      company: "Zscaler"
+      createTime: "1755526800"
+      description: "Alert ID: 111111 | Alert Status: Ended |  Rule Name: Self Created | Event Type: Malicious URLs | Indexed By: www.institutolockmann.com.br | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600"
+      event_type: "Malicious URLs"
+      indexed: "www.institutolockmann.com.br"
+      ruleName: "Self Created"
+      sourcetype: "zscalernss-alert"
+      status: "ENDED"
+      text: "Rule Name: Self Created;\nAlert ID: 567890 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600 | \nAlert Status: Ended | \nEvent Type: Malicious URLs | \nIndexed By: www.institutolockmann.com.br"
+      version: "1.1"
+      ziaUrl: "https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600"
+      zscaler: "Zscaler-ZIA"
+    message: |-
+      {
+        "event_type" : "Malicious URLs",
+        "zscaler" : "Zscaler-ZIA",
+        "createTime" : "1755526800",
+        "description" : "Alert ID: 111111 | Alert Status: Ended |  Rule Name: Self Created | Event Type: Malicious URLs | Indexed By: www.institutolockmann.com.br | ZIA-URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600",
+        "ruleName" : "Self Created",
+        "alias" : "Zscaler-ZIA",
+        "ziaUrl" : "https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600",
+        "company" : "Zscaler",
+        "alertId" : "111111",
+        "text" : "Rule Name: Self Created;\nAlert ID: 567890 | \nZIA URL: https://admin.zscalertwo.net/#alert-details?alertId=567890&startTime=1755525600 | \nAlert Status: Ended | \nEvent Type: Malicious URLs | \nIndexed By: www.institutolockmann.com.br",
+        "version" : "1.1",
+        "status" : "ENDED"
+      }
+    service: "zscalernss-alert"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
