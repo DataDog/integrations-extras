@@ -257,12 +257,18 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
-                                            "number_format": {},
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "millisecond"
+                                                }
+                                            },
                                             "alias": "Scan Time",
                                             "formula": "query1"
                                         }
@@ -319,12 +325,18 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
-                                            "number_format": {},
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            },
                                             "alias": "Scan Bytes",
                                             "formula": "query1"
                                         }
@@ -381,13 +393,14 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
                                             "number_format": {},
-                                            "alias": "Scan Bytes",
+                                            "alias": "DLP Engine Hits",
                                             "formula": "query1"
                                         }
                                     ],
@@ -443,13 +456,14 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
                                             "number_format": {},
-                                            "alias": "Scan Bytes",
+                                            "alias": "DLP Dictionary Hits",
                                             "formula": "query1"
                                         }
                                     ],
@@ -1097,9 +1111,10 @@
                     {
                         "id": 6573837779524852,
                         "definition": {
-                            "title": "File Source Path",
+                            "title": "Top File Source Paths",
                             "title_size": "16",
                             "title_align": "left",
+                            "time": {},
                             "type": "toplist",
                             "requests": [
                                 {
@@ -1311,9 +1326,10 @@
                     {
                         "id": 1885795221380152,
                         "definition": {
-                            "title": "File Destination Path",
+                            "title": "Top File Destination Paths",
                             "title_size": "16",
                             "title_align": "left",
+                            "time": {},
                             "type": "toplist",
                             "requests": [
                                 {
@@ -2365,15 +2381,14 @@
                             "title": "High Severity File Details",
                             "title_size": "16",
                             "title_align": "left",
+                            "time": {},
                             "requests": [
                                 {
                                     "response_format": "event_list",
                                     "query": {
                                         "data_source": "logs_stream",
                                         "query_string": "source:zscaler service:zscalernss-endpointdlp @zscaler.severity:\"High Severity\" $user $severity $activity_type $action $log_type",
-                                        "indexes": [
-                                            "*"
-                                        ],
+                                        "indexes": [],
                                         "storage": "hot"
                                     },
                                     "columns": [

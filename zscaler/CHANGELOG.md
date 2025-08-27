@@ -10,5 +10,5 @@
 
 **Added**
 
-* Added support for saas security, saas security activity, admin audit, endpoint DLP, email DLP and alert logs.
+* Added support for SaaS security, SaaS security activity, admin audit, endpoint DLP, email DLP and alert logs.
 * Added dashboards and detection rules.

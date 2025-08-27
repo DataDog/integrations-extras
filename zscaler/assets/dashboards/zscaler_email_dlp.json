@@ -122,13 +122,14 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
                                             "number_format": {},
-                                            "alias": "Endpoint DLP Events",
+                                            "alias": "Email DLP Events",
                                             "formula": "query1"
                                         }
                                     ],
@@ -1243,13 +1244,20 @@
                                 "value",
                                 "sum"
                             ],
+                            "time": {},
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
                                             "alias": "Scan Time",
-                                            "formula": "query1"
+                                            "formula": "query1",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "millisecond"
+                                                }
+                                            }
                                         }
                                     ],
                                     "queries": [
