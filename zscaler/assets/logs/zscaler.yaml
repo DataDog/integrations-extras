@@ -3,104 +3,14 @@ metric_id: z-scaler
 backend_only: false
 facets:
   - groups:
-      - Event
-    name: Event Outcome
-    path: evt.outcome
+      - User
+    name: User ID
+    path: usr.id
     source: log
   - groups:
       - Web Access
-    name: Method
-    path: http.method
-    source: log
-  - groups:
-      - Web Access
-    name: Referer
-    path: http.referer
-    source: log
-  - groups:
-      - Web Access
-    name: Status Code
-    path: http.status_code
-    source: log
-  - groups:
-      - Web Access
-    name: URL Path
-    path: http.url
-    source: log
-  - groups:
-      - Web Access
-    name: URL Host
-    path: http.url_details.host
-    source: log
-  - groups:
-      - Web Access
-    name: URL Path
-    path: http.url_details.path
-    source: log
-  - groups:
-      - Web Access
-    name: URL Port
-    path: http.url_details.port
-    source: log
-  - groups:
-      - Web Access
-    name: URL scheme
-    path: http.url_details.scheme
-    source: log
-  - groups:
-      - Web Access
-    name: User-Agent
-    path: http.useragent
-    source: log
-  - groups:
-      - Web Access
-    name: Browser
-    path: http.useragent_details.browser.family
-    source: log
-  - groups:
-      - Web Access
-    name: Device
-    path: http.useragent_details.device.family
-    source: log
-  - groups:
-      - Web Access
-    name: OS
-    path: http.useragent_details.os.family
-    source: log
-  - groups:
-      - Geoip
-    name: City Name
-    path: network.client.geoip.city.name
-    source: log
-  - groups:
-      - Geoip
-    name: Continent Code
-    path: network.client.geoip.continent.code
-    source: log
-  - groups:
-      - Geoip
-    name: Continent Name
-    path: network.client.geoip.continent.name
-    source: log
-  - groups:
-      - Geoip
-    name: Country ISO Code
-    path: network.client.geoip.country.iso_code
-    source: log
-  - groups:
-      - Geoip
-    name: Country Name
-    path: network.client.geoip.country.name
-    source: log
-  - groups:
-      - Geoip
-    name: Subdivision ISO Code
-    path: network.client.geoip.subdivision.iso_code
-    source: log
-  - groups:
-      - Geoip
-    name: Subdivision Name
-    path: network.client.geoip.subdivision.name
+    name: Version
+    path: http.version
     source: log
   - groups:
       - Web Access
@@ -113,41 +23,6 @@ facets:
     path: network.client.port
     source: log
   - groups:
-      - Geoip
-    name: Destination City Name
-    path: network.destination.geoip.city.name
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Continent Code
-    path: network.destination.geoip.continent.code
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Continent Name
-    path: network.destination.geoip.continent.name
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Country ISO Code
-    path: network.destination.geoip.country.iso_code
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Country Name
-    path: network.destination.geoip.country.name
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Subdivision ISO Code
-    path: network.destination.geoip.subdivision.iso_code
-    source: log
-  - groups:
-      - Geoip
-    name: Destination Subdivision Name
-    path: network.destination.geoip.subdivision.name
-    source: log
-  - groups:
       - Web Access
     name: Destination IP
     path: network.destination.ip
@@ -158,130 +33,253 @@ facets:
     path: network.destination.port
     source: log
   - groups:
-      - User
-    name: User ID
-    path: usr.id
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler odevicehostname
-    path: zscaler.odevicehostname
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Threat Class
-    path: zscaler.threatclass
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Protocol
-    path: zscaler.protocol
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Response Size
-    path: zscaler.responsesize
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Request Rule Label
-    path: zscaler.reqrulelabel
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Request Size
-    path: zscaler.requestsize
-    source: log
-  - groups:
-      - zscaler
-    name: File Type
-    path: zscaler.filetype
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler Reason
-    path: zscaler.reason
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler IP Category
-    path: zscaler.ipcat
-    source: log
-  - groups:
-      - zscaler
-    name: Zscaler App Claass
-    path: zscaler.appclass
-    source: log
-  - groups:
-      - zscaler
-    name: DNS Request Type
-    path: zscaler.dns_reqtype
-    source: log
-  - groups:
-      - Geoip
-    name: network.client.geoip.as.type
-    path: network.client.geoip.as.type
-    source: log
-  - groups:
-      - zscaler
-    name: zscaler.appname
-    path: zscaler.appname
+      - Event
+    name: Event Outcome
+    path: evt.outcome
     source: log
   - groups:
       - Web Access
-    name: http.useragent_details.device.category
-    path: http.useragent_details.device.category
+    name: Method
+    path: http.method
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Response Action
-    path: zscaler.resaction
+      - Web Access
+    name: Status Code
+    path: http.status_code
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Response Rule Lable
-    path: zscaler.resrulelabel
+      - Web Access
+    name: Referer
+    path: http.referer
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Category
-    path: zscaler.category
+      - Web Access
+    name: User-Agent
+    path: http.useragent
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Threat Name
-    path: zscaler.threatname
+      - Web Access
+    name: URL Path
+    path: http.url
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Content Type
-    path: zscaler.contenttype
+      - DNS
+    name: Question Name
+    path: dns.question.name
     source: log
   - groups:
-      - zscaler
-    name: Zscaler Record Type
-    path: zscaler.Recordtype
+      - DNS
+    name: Question Type
+    path: dns.question.type
     source: log
   - groups:
+      - DNS
+    name: Answer Name
+    path: dns.answer.name
+    source: log
+  - groups:
+      - DNS
+    name: Answer Type
+    path: dns.answer.type
+    source: log
+  - groups:
+      - DNS
+    name: Response Code
+    path: dns.flags.rcode
+    source: log
+  - description: ""
+    facetType: list
+    groups:
       - zscaler
     name: DNS Request
     path: zscaler.dns_req
     source: log
-  - groups:
+    type: string
+  - description: ""
+    facetType: list
+    groups:
       - zscaler
-    name: Zscaler odeviceowner
-    path: zscaler.odeviceowner
+    name: DNS Request Type
+    path: zscaler.dns_reqtype
     source: log
-  - groups:
+    type: string
+  - description: ""
+    facetType: list
+    groups:
       - zscaler
-    name: Zscaler Tunnel Type
-    path: zscaler.tunneltype
+    name: File Type
+    path: zscaler.filetype
     source: log
-  - groups:
+    type: string
+  - description: ""
+    facetType: range
+    groups:
+      - zscaler
+    name: Total Bytes
+    path: zscaler.transactionsize
+    source: log
+    type: integer
+    unit:
+      name: byte
+      family: bytes
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler App Class
+    path: zscaler.appclass
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Category
+    path: zscaler.category
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Content Type
+    path: zscaler.contenttype
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
       - zscaler
     name: Zscaler Department
     path: zscaler.department
     source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler IP Category
+    path: zscaler.ipcat
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler odevicehostname
+    path: zscaler.odevicehostname
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler odeviceowner
+    path: zscaler.odeviceowner
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Protocol
+    path: zscaler.protocol
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Reason
+    path: zscaler.reason
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Record Type
+    path: zscaler.Recordtype
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Request Rule Label
+    path: zscaler.reqrulelabel
+    source: log
+    type: string
+  - description: ""
+    facetType: range
+    groups:
+      - zscaler
+    name: Zscaler Request Size
+    path: zscaler.requestsize
+    source: log
+    type: integer
+    unit:
+      name: byte
+      family: bytes
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Response Action
+    path: zscaler.resaction
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Response Rule Label
+    path: zscaler.resrulelabel
+    source: log
+    type: string
+  - description: ""
+    facetType: range
+    groups:
+      - zscaler
+    name: Zscaler Response Size
+    path: zscaler.responsesize
+    source: log
+    type: integer
+    unit:
+      name: byte
+      family: bytes
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Threat Class
+    path: zscaler.threatclass
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Threat Name
+    path: zscaler.threatname
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: Zscaler Tunnel Type
+    path: zscaler.tunneltype
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - zscaler
+    name: zscaler.appname
+    path: zscaler.appname
+    source: log
+    type: string
 pipeline:
   type: pipeline
   name: Zscaler
@@ -299,200 +297,32 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.sourceip`, `zscaler.clientpublicIP`, `zscaler.cdip` to `network.client.ip`
+    - type: pipeline
+      name: Define sourcetype for alert log
+      enabled: true
+      filter:
+        query: -@sourcetype:* @alertId:*
+      processors:
+        - type: string-builder-processor
+          name: set `sourcetype` attribute
+          enabled: true
+          template: zscalernss-alert
+          target: sourcetype
+          replaceMissing: true
+    - type: service-remapper
+      name: Define `sourcetype` as the official service of the log
       enabled: true
       sources:
-        - zscaler.sourceip
-        - zscaler.clientpublicIP
-        - zscaler.cdip
-      sourceType: attribute
-      target: network.client.ip
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.destinationip`, `zscaler.sdip`, `zscaler.dns_resp`, `zscaler.serverip` to `network.destination.ip`
-      enabled: true
-      sources:
-        - zscaler.destinationip
-        - zscaler.sdip
-        - zscaler.dns_resp
-        - zscaler.serverip
-      sourceType: attribute
-      target: network.destination.ip
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.user` to `usr.id`
-      enabled: true
-      sources:
-        - zscaler.user
-      sourceType: attribute
-      target: usr.id
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.sourceport` to `network.client.port`
-      enabled: true
-      sources:
-        - zscaler.sourceport
-      sourceType: attribute
-      target: network.client.port
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: geo-ip-parser
-      name: Client IP
-      enabled: true
-      sources:
-        - network.client.ip
-      target: network.client.geoip
-    - type: geo-ip-parser
-      name: Destination IP
-      enabled: true
-      sources:
-        - network.destination.ip
-      target: network.destination.geoip
-    - type: string-builder-processor
-      name: Prepend protocol to URL
-      enabled: true
-      template: '%{zscaler.protocol}://%{zscaler.url}'
-      target: zscaler.url_full
-      replaceMissing: false
-    - type: attribute-remapper
-      name: Map `zscaler.url_full` to `http.url`
-      enabled: true
-      sources:
-        - zscaler.url_full
-      sourceType: attribute
-      target: http.url
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
-    - type: url-parser
-      name: Url Parser
-      enabled: true
-      sources:
-        - http.url
-      target: http.url_details
-      normalizeEndingSlashes: false
-    - type: attribute-remapper
-      name: Map `zscaler.useragent` to `http.useragent`
-      enabled: true
-      sources:
-        - zscaler.useragent
-      sourceType: attribute
-      target: http.useragent
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: user-agent-parser
-      name: HTTP User-Agent Parser
-      enabled: true
-      sources:
-        - http.useragent
-      target: http.useragent_details
-      encoded: false
-      combineVersionDetails: false
-    - type: attribute-remapper
-      name: Map `zscaler.requestmethod` to `http.method`
-      enabled: true
-      sources:
-        - zscaler.requestmethod
-      sourceType: attribute
-      target: http.method
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.status` to `http.status_code`
-      enabled: true
-      sources:
-        - zscaler.status
-      sourceType: attribute
-      target: http.status_code
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: true
-    - type: attribute-remapper
-      name: Map `zscaler.refererURL` to `http.referer`
-      enabled: true
-      sources:
-        - zscaler.refererURL
-      sourceType: attribute
-      target: http.referer
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: geo-ip-parser
-      name: Destination IP
-      enabled: true
-      sources:
-        - network.destination.ip
-      target: network.destination.geoip
-    - type: attribute-remapper
-      name: Map `zscaler.action` to `evt.outcome`
-      enabled: true
-      sources:
-        - zscaler.action
-      sourceType: attribute
-      target: evt.outcome
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.inbytes` to `network.bytes_read`
-      enabled: true
-      sources:
-        - zscaler.inbytes
-      sourceType: attribute
-      target: network.bytes_read
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.outbytes` to `network.bytes_written`
-      enabled: true
-      sources:
-        - zscaler.outbytes
-      sourceType: attribute
-      target: network.bytes_written
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.sdport`, `zscaler.srv_dport` to `network.destination.port`
-      enabled: true
-      sources:
-        - zscaler.sdport
-        - zscaler.srv_dport
-      sourceType: attribute
-      target: network.destination.port
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `zscaler.ssport` to `network.client.port`
-      enabled: true
-      sources:
-        - zscaler.ssport
-      sourceType: attribute
-      target: network.client.port
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
+        - sourcetype
     - type: grok-parser
-      name: Date
+      name: Convert `datetime` to epoch timestamp
       enabled: true
       source: zscaler.datetime
       samples:
-        - '2021-09-22 17:53:52'
+        - 2021-09-22 17:53:52
         - Wed Sep 22 17:54:17 2021
       grok:
-        supportRules: ''
+        supportRules: ""
         matchRules: |-
           date_1 %{date("yyyy-MM-dd HH:mm:ss"):date}
           date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):date}
@@ -501,3 +331,791 @@ pipeline:
       enabled: true
       sources:
         - date
+    - type: attribute-remapper
+      name: Map `user` and `login` to `usr.id`
+      enabled: true
+      sources:
+        - zscaler.user
+        - zscaler.login
+      sourceType: attribute
+      target: usr.id
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: grok-parser
+      name: Convert `dlpdictionaries` field into an array
+      enabled: true
+      source: zscaler.dlpdictionaries
+      samples:
+        - "Credit Cards: Detect leakage of credit card information|Social
+          Security Number (US): Detect leakage of United States Social Security
+          Numbers|US Passport Number"
+      grok:
+        supportRules: ""
+        matchRules: dlpdictionaries_rule %{data:zscaler.dlpdictionaries:array("[]","|")}
+    - type: grok-parser
+      name: Convert `dlpengine` field into an array
+      enabled: true
+      source: zscaler.dlpengine
+      samples:
+        - HIPAA|PCI
+      grok:
+        supportRules: ""
+        matchRules: dlpengine_rule %{data:zscaler.dlpengine:array("[]","|")}
+    - type: grok-parser
+      name: Convert `dlpdicthitcount` field into an array
+      enabled: true
+      source: zscaler.dlpdicthitcount
+      samples:
+        - 6|6|7
+      grok:
+        supportRules: ""
+        matchRules: dlpdicthitcount_rule %{data:zscaler.dlpdicthitcount:array("[]","|")}
+    - type: pipeline
+      name: Web
+      enabled: true
+      filter:
+        query: service:zscalernss-web
+      processors:
+        - type: attribute-remapper
+          name: Map `reqversion` to `http.version`
+          enabled: true
+          sources:
+            - zscaler.reqversion
+          sourceType: attribute
+          target: http.version
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `clientpublicIP` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.clientpublicIP
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `clt_sport` to `network.client.port`
+          enabled: true
+          sources:
+            - zscaler.clt_sport
+          sourceType: attribute
+          target: network.client.port
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `serverip` to `network.destination.ip`
+          enabled: true
+          sources:
+            - zscaler.serverip
+          sourceType: attribute
+          target: network.destination.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `srv_dport` to `network.destination.port`
+          enabled: true
+          sources:
+            - zscaler.srv_dport
+          sourceType: attribute
+          target: network.destination.port
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `action` to `evt.outcome`
+          enabled: true
+          sources:
+            - zscaler.action
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `requestmethod` to `http.method`
+          enabled: true
+          sources:
+            - zscaler.requestmethod
+          sourceType: attribute
+          target: http.method
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `status` to `http.status_code`
+          enabled: true
+          sources:
+            - zscaler.status
+          sourceType: attribute
+          target: http.status_code
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: true
+        - type: attribute-remapper
+          name: Map `refererURL` to `http.referer`
+          enabled: true
+          sources:
+            - zscaler.refererURL
+          sourceType: attribute
+          target: http.referer
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `useragent` to `http.useragent`
+          enabled: true
+          sources:
+            - zscaler.useragent
+          sourceType: attribute
+          target: http.useragent
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: user-agent-parser
+          name: Extracting useragent details from htttp.useragent
+          enabled: true
+          sources:
+            - http.useragent
+          target: http.useragent_details
+          encoded: false
+          combineVersionDetails: false
+        - type: string-builder-processor
+          name: Prepend protocol to URL
+          enabled: true
+          template: "%{zscaler.protocol}://%{zscaler.url}"
+          target: zscaler.url_full
+          replaceMissing: false
+        - type: attribute-remapper
+          name: Map `zscaler.url_full` to `http.url`
+          enabled: true
+          sources:
+            - zscaler.url_full
+          sourceType: attribute
+          target: http.url
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: url-parser
+          name: Extracting URL details from http.url
+          enabled: true
+          sources:
+            - http.url
+          target: http.url_details
+          normalizeEndingSlashes: false
+        - type: grok-parser
+          name: Convert `threatseverity` field into an lowercase
+          enabled: true
+          source: zscaler.threatseverity
+          samples:
+            - Critical
+          grok:
+            supportRules: ""
+            matchRules: lower_rule %{notSpace:zscaler.threatseverity:lowercase}
+        - name: Lookup on `threatseverity` to `status`
+          enabled: true
+          source: zscaler.threatseverity
+          target: status
+          lookupTable: |-
+            critical,critical
+            high,warning 
+            medium,warning 
+            low,notice 
+            none,info
+          type: lookup-processor
+    - type: pipeline
+      name: Firewall
+      enabled: true
+      filter:
+        query: service:zscalernss-fw
+      processors:
+        - type: attribute-remapper
+          name: Map `csip` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.csip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `csport` to `network.client.port`
+          enabled: true
+          sources:
+            - zscaler.csport
+          sourceType: attribute
+          target: network.client.port
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `cdip` to `network.destination.ip`
+          enabled: true
+          sources:
+            - zscaler.cdip
+          sourceType: attribute
+          target: network.destination.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `cdport` to `network.destination.port`
+          enabled: true
+          sources:
+            - zscaler.cdport
+          sourceType: attribute
+          target: network.destination.port
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `action` to `evt.outcome`
+          enabled: true
+          sources:
+            - zscaler.action
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `inbytes` to `network.bytes_read`
+          enabled: true
+          sources:
+            - zscaler.inbytes
+          sourceType: attribute
+          target: network.bytes_read
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `outbytes` to `network.bytes_written`
+          enabled: true
+          sources:
+            - zscaler.outbytes
+          sourceType: attribute
+          target: network.bytes_written
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: grok-parser
+          name: Convert `zscaler.threatseverity` field into an array
+          enabled: true
+          source: zscaler.threatseverity
+          samples:
+            - Critical
+          grok:
+            supportRules: ""
+            matchRules: lower_rule %{notSpace:zscaler.threatseverity:lowercase}
+        - name: Lookup on `threatseverity` to `status`
+          enabled: true
+          source: zscaler.threatseverity
+          target: status
+          lookupTable: |-
+            critical,critical
+            high,warning 
+            medium,warning 
+            low,info
+            none,info
+          type: lookup-processor
+    - type: pipeline
+      name: DNS
+      enabled: true
+      filter:
+        query: service:zscalernss-dns
+      processors:
+        - type: attribute-remapper
+          name: Map `clt_sip` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.clt_sip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `srv_dip` to `network.destination.ip`
+          enabled: true
+          sources:
+            - zscaler.srv_dip
+          sourceType: attribute
+          target: network.destination.ip
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `srv_dport` to `network.destination.port`
+          enabled: true
+          sources:
+            - zscaler.srv_dport
+          sourceType: attribute
+          target: network.destination.port
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `dns_req` to `dns.question.name`
+          enabled: true
+          sources:
+            - zscaler.dns_req
+          sourceType: attribute
+          target: dns.question.name
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `dns_reqtype` to `dns.question.type`
+          enabled: true
+          sources:
+            - zscaler.dns_reqtype
+          sourceType: attribute
+          target: dns.question.type
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `dns_resp` to `dns.answer.name`
+          enabled: true
+          sources:
+            - zscaler.dns_resp
+          sourceType: attribute
+          target: dns.answer.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `restype` to `dns.answer.type`
+          enabled: true
+          sources:
+            - zscaler.restype
+          sourceType: attribute
+          target: dns.answer.type
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `dnsgw_flags` to `dns.flags.rcode`
+          enabled: true
+          sources:
+            - zscaler.dnsgw_flags
+          sourceType: attribute
+          target: dns.flags.rcode
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+    - type: pipeline
+      name: Tunnel
+      enabled: true
+      filter:
+        query: service:zscalernss-tunnel
+      processors:
+        - type: attribute-remapper
+          name: Map `sourceip` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.sourceip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `sourceport` to `network.client.port`
+          enabled: true
+          sources:
+            - zscaler.sourceport
+          sourceType: attribute
+          target: network.client.port
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `destinationip` to `network.destination.ip`
+          enabled: true
+          sources:
+            - zscaler.destinationip
+          sourceType: attribute
+          target: network.destination.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+    - type: pipeline
+      name: SaaS Security Activity
+      enabled: true
+      filter:
+        query: service:zscalernss-casb @zscaler.subtype:activity
+      processors:
+        - type: attribute-remapper
+          name: Map `src_ip` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.src_ip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: string-builder-processor
+          name: Reset `zscaler.postaction.cloudNssSiemConfiguration.connectionHeaders`
+            attribute
+          enabled: true
+          template: "%{resolve_to_empty_string}"
+          target: zscaler.postaction.cloudNssSiemConfiguration.connectionHeaders
+          replaceMissing: true
+    - type: pipeline
+      name: Admin Audit
+      enabled: true
+      filter:
+        query: service:zscalernss-audit
+      processors:
+        - type: attribute-remapper
+          name: Map `clientip` to `network.client.ip`
+          enabled: true
+          sources:
+            - zscaler.clientip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `result` to `evt.outcome`
+          enabled: true
+          sources:
+            - zscaler.result
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+    - type: pipeline
+      name: SaaS Security
+      enabled: true
+      filter:
+        query: service:zscalernss-casb -@zscaler.subtype:activity
+      processors:
+        - name: Lookup on `severity` to `status`
+          enabled: true
+          source: zscaler.severity
+          target: status
+          lookupTable: |-
+            High Severity,critical
+            Medium Severity,warning
+            Low Severity,notice
+            Info Severity,info
+          type: lookup-processor
+        - type: grok-parser
+          name: Convert `external_collabnames` field into an array
+          enabled: true
+          source: zscaler.external_collabnames
+          samples:
+            - jane@yahoo.com|roe@gmail.com
+          grok:
+            supportRules: ""
+            matchRules: external_collabnames_rule
+              %{data:zscaler.external_collabnames:array("[]","|")}
+        - type: grok-parser
+          name: Convert `internal_collabnames` field into an array
+          enabled: true
+          source: zscaler.internal_collabnames
+          samples:
+            - john@yahoo.com|doe@gmail.com
+          grok:
+            supportRules: ""
+            matchRules: internal_collabnames_rule
+              %{data:zscaler.internal_collabnames:array("[]","|")}
+        - type: grok-parser
+          name: Convert `extcollab_groups` field into an array
+          enabled: true
+          source: zscaler.extcollab_groups
+          samples:
+            - priyanshu external internal|Priyanshu Nested Group Lev98
+          grok:
+            supportRules: ""
+            matchRules: extcollab_groups_rule
+              %{data:zscaler.extcollab_groups:array("[]","|")}
+        - type: grok-parser
+          name: Convert `intcollab_groups` field into an array
+          enabled: true
+          source: zscaler.intcollab_groups
+          samples:
+            - priyanshu internal|priyanshu external|priyanshu different
+              owner-member|priyanshu internal duplicate|priyanshu non user
+          grok:
+            supportRules: ""
+            matchRules: intcollab_groups_rule
+              %{data:zscaler.intcollab_groups:array("[]","|")}
+        - type: grok-parser
+          name: Convert `collabnames` field into an array
+          enabled: true
+          source: zscaler.collabnames
+          samples:
+            - john@gmail.com|doe@yahoo.com
+          grok:
+            supportRules: ""
+            matchRules: collabnames_rule %{data:zscaler.collabnames:array("[]","|")}
+        - type: grok-parser
+          name: Convert `external_recptnames` field into an array
+          enabled: true
+          source: zscaler.external_recptnames
+          samples:
+            - jane@yahoo.com|roe@gmail.com
+          grok:
+            supportRules: ""
+            matchRules: external_recptnames_rule
+              %{data:zscaler.external_recptnames:array("[]","|")}
+        - type: grok-parser
+          name: Convert `internal_recptnames` field into an array
+          enabled: true
+          source: zscaler.internal_recptnames
+          samples:
+            - john@yahoo.com|doe@gmail.com
+          grok:
+            supportRules: ""
+            matchRules: internal_recptnames_rule
+              %{data:zscaler.internal_recptnames:array("[]","|")}
+    - type: pipeline
+      name: Endpoint DLP
+      enabled: true
+      filter:
+        query: service:zscalernss-endpointdlp
+      processors:
+        - type: attribute-remapper
+          name: Map `actiontaken` to `evt.outcome`
+          enabled: true
+          sources:
+            - zscaler.actiontaken
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: false
+          overrideOnConflict: false
+        - name: Lookup on `severity` to `status`
+          enabled: true
+          source: zscaler.severity
+          target: status
+          lookupTable: |-
+            High Severity,critical
+            Medium Severity,warning
+            Low Severity,info
+            Info Severity,info
+          type: lookup-processor
+    - type: pipeline
+      name: Email DLP
+      enabled: true
+      filter:
+        query: service:zscalernss-emaildlp
+      processors:
+        - type: grok-parser
+          name: Convert `md5s` field into an array
+          enabled: true
+          source: zscaler.md5s
+          samples:
+            - 938c2cc0dcc05f2b68c4287040cfcf71|154f149b1443fbfa8c121d13e5c019a1
+          grok:
+            supportRules: ""
+            matchRules: md5s_rule %{data:zscaler.md5s:array("[]","|")}
+        - type: grok-parser
+          name: Convert `sizes` field into an array
+          enabled: true
+          source: zscaler.sizes
+          samples:
+            - 20858|2060
+          grok:
+            supportRules: ""
+            matchRules: sizes_rule %{data:zscaler.sizes:array("[]","|")}
+        - type: grok-parser
+          name: Convert `filetypes` field into an array
+          enabled: true
+          source: zscaler.filetypes
+          samples:
+            - doc|pdf
+          grok:
+            supportRules: ""
+            matchRules: filetypes_rule %{data:zscaler.filetypes:array("[]","|")}
+        - type: grok-parser
+          name: Convert `doctypes` field into an array
+          enabled: true
+          source: zscaler.doctypes
+          samples:
+            - Corporate Finance|Invoice
+          grok:
+            supportRules: ""
+            matchRules: doctypes_rule %{data:zscaler.doctypes:array("[]","|")}
+        - type: grok-parser
+          name: Convert `filenames` field into an array
+          enabled: true
+          source: zscaler.filenames
+          samples:
+            - file_name_1.doc|file_name_2.pdf
+          grok:
+            supportRules: ""
+            matchRules: filenames_rule %{data:zscaler.filenames:array("[]","|")}
+        - type: grok-parser
+          name: Convert `triggered_recipients` field into an array
+          enabled: true
+          source: zscaler.triggered_recipients
+          samples:
+            - admin@company.com|name@company.com
+          grok:
+            supportRules: ""
+            matchRules: triggered_recipients_rule
+              %{data:zscaler.triggered_recipients:array("[]","|")}
+        - type: grok-parser
+          name: Convert `other_recipients` field into an array
+          enabled: true
+          source: zscaler.other_recipients
+          samples:
+            - name@externalcompany.com|name2@externalcompany.com
+          grok:
+            supportRules: ""
+            matchRules: other_recipients_rule
+              %{data:zscaler.other_recipients:array("[]","|")}
+        - type: grok-parser
+          name: Convert `triggered_recipients_domains` field into an array
+          enabled: true
+          source: zscaler.triggered_recipients_domains
+          samples:
+            - company.com|company.com
+          grok:
+            supportRules: ""
+            matchRules: triggered_recipients_domains_rule
+              %{data:zscaler.triggered_recipients_domains:array("[]","|")}
+        - type: grok-parser
+          name: Convert `other_recipients_domains` field into an array
+          enabled: true
+          source: zscaler.other_recipients_domains
+          samples:
+            - externalcompany.com|externalcompany.com
+          grok:
+            supportRules: ""
+            matchRules: other_recipients_domains_rule
+              %{data:zscaler.other_recipients_domains:array("[]","|")}
+        - type: grok-parser
+          name: Convert `severity` field into an array
+          enabled: true
+          source: zscaler.severity
+          samples:
+            - High Severity|Info Severity
+          grok:
+            supportRules: ""
+            matchRules: severity_rule %{data:zscaler.severity:array("[]","|")}
+        - type: grok-parser
+          name: Convert `action` field into an array
+          enabled: true
+          source: zscaler.action
+          samples:
+            - Allow|Block
+          grok:
+            supportRules: ""
+            matchRules: action_rule %{data:zscaler.action:array("[]","|")}
+        - type: grok-parser
+          name: Convert `rulelabel` field into an array
+          enabled: true
+          source: zscaler.rulelabel
+          samples:
+            - DLP_Rule_1|DLP_Rule_2
+          grok:
+            supportRules: ""
+            matchRules: rulelabel_rule %{data:zscaler.rulelabel:array("[]","|")}
+        - type: category-processor
+          name: Category processor for creating `status`
+          enabled: true
+          categories:
+            - filter:
+                query: '@zscaler.severity:"High Severity"'
+              name: critical
+            - filter:
+                query: '@zscaler.severity:"Medium Severity"'
+              name: warning
+            - filter:
+                query: '@zscaler.severity:("Low Severity" OR "Info Severity")'
+              name: info
+          target: status
+    - type: pipeline
+      name: Alert
+      enabled: true
+      filter:
+        query: service:zscalernss-alert
+      processors:
+        - type: grok-parser
+          name: Extracting alert type from the description
+          enabled: true
+          source: description
+          samples:
+            - "Alert ID: 123456| Rule Name: Default Bulk Download of Data Alert
+              | Alert Type: Bulk download alert | User: test@example.com |
+              Activity count: 107 | ZIA-URL:
+              https://admin.zscalertwo.net/#alert-details?alertId=123456&startT\
+              ime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&eval\
+              uationInterval=1440"
+          grok:
+            supportRules: ""
+            matchRules: 'alert_type_rule %{regex(".*(?= Alert Type)")} Alert Type:
+              %{data:alert_type} \|.*'
+        - type: grok-parser
+          name: Extracting user from the description
+          enabled: true
+          source: description
+          samples:
+            - "Alert ID: 123456| Rule Name: Default Bulk Download of Data Alert
+              | Alert Type: Bulk download alert | User: test@example.com |
+              Activity count: 107 | ZIA-URL:
+              https://admin.zscalertwo.net/#alert-details?alertId=123456&startT\
+              ime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&eval\
+              uationInterval=1440"
+          grok:
+            supportRules: ""
+            matchRules: 'user_rule %{regex(".*(?= User)")} User: %{notSpace:usr.id} \|.*'
+        - type: grok-parser
+          name: Extracting event type from the description
+          enabled: true
+          source: description
+          samples:
+            - "Alert ID: 567890 | Alert Status: Ended |  Rule Name: Self Created
+              | Event Type: Malicious URLs | Indexed By:
+              www.institutolockmann.com.br"
+          grok:
+            supportRules: ""
+            matchRules: 'event_type_rule %{regex(".*(?= Event Type)")} Event Type:
+              %{data:event_type} \|.*'
+        - type: grok-parser
+          name: Extracting indexed by from the description
+          enabled: true
+          source: description
+          samples:
+            - "Alert ID: 567890 | Alert Status: Ended |  Rule Name: Self Created
+              | Event Type: Malicious URLs | Indexed By:
+              www.institutolockmann.com.br | ZIA-URL:
+              https://admin.zscalertwo.net/#alert-details?alertId=567890&startT\
+              ime=1755525600"
+          grok:
+            supportRules: ""
+            matchRules: 'indexed_by_rule %{regex(".*(?= Indexed By)")} Indexed By:
+              %{notSpace:indexed} \|.*'
+    - type: geo-ip-parser
+      name: Extracting geolocation information from the Client IP
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+      ip_processing_behavior: do-nothing
+    - type: geo-ip-parser
+      name: Extracting geolocation information from the Destination IP
+      enabled: true
+      sources:
+        - network.destination.ip
+      target: network.destination.geoip
+      ip_processing_behavior: do-nothing
+    - type: status-remapper
+      name: Define `status` as the official status of the log
+      enabled: true
+      sources:
+        - status
