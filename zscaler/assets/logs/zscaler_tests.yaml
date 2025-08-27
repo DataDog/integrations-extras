@@ -119,6 +119,7 @@ tests:
         "inst_level3_type" : "N.A",
         "ClientIP" : "10.10.10.10",
         "userlocationname" : "Unknown",
+        "datetime" : "2025-08-02 16:09:29",
         "prompt_req" : "NA",
         "df_hosthead" : "None",
         "app_risk_score" : "3",
@@ -158,6 +159,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       evt:
         outcome: "Blocked"
       http:
@@ -223,6 +225,7 @@ tests:
         datacenter: "BOM6"
         datacentercity: "Mu"
         datacentercountry: "IN"
+        datetime: "2025-08-02 16:09:29"
         department: "Service Admin"
         deviceappversion: "4.7.0.61"
         devicehostname: " "
@@ -507,7 +510,75 @@ tests:
     status: "critical"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
+ -
+  sample: |-
+    {
+      "sourcetype" : "zscalernss-fw",
+      "event" : {
+        "devicehostname" : " ",
+        "rulelabel" : "Block QUIC",
+        "bypass_etime" : "Thu Jan 1 00:00:00 1970",
+        "bypassed_session" : "0",
+        "csport" : "56039",
+        "sdip" : "8.8.4.4",
+        "datetime" : "2025-08-02 16:09:29",
+        "dnat" : "No",
+        "threatseverity" : "Critical",
+        "threatcat" : "Denial of Service Attack",
+        "destcountry" : "United States",
+        "action" : "Allow due to insufficient app data",
+        "numsessions" : "1",
+        "deviceostype" : "Windows OS",
+        "sdport" : "443",
+        "ssport" : "63358",
+        "inbytes" : "5476",
+        "avgduration" : "82",
+        "ipsrulelabel" : "Default IPS Rule",
+        "ssip" : "10.10.10.10",
+        "nwsvc" : "ZSCALER_PROXY_NW_SERVICES",
+        "ipcat" : "Professional Services",
+        "flow_type" : "ZIA",
+        "dnatrulelabel" : "DNAT_Rule_1",
+        "eedone" : "No",
+        "outbytes" : "2738",
+        "proto" : "TCP",
+        "csip" : "10.10.10.10",
+        "ztunnelversion" : "ZTUNNEL_2_0_DTLS1_2",
+        "fwd_gw_name" : "FWD_1",
+        "external_deviceid" : "",
+        "pcapid" : "43139974/fw/663ba8fd30b50001.pcap",
+        "deviceappversion" : "4.7.0.61",
+        "cdport" : "443",
+        "threat_score" : "0",
+        "ips_custom_signature" : "0",
+        "aggregate" : "No",
+        "tsip" : "10.10.10.10",
+        "duration" : "0",
+        "locationname" : "Road Warrior",
+        "datacentercity" : "Mu",
+        "cdfqdn" : "dns.google",
+        "zpa_app_seg_name" : "ZPA_test_app_segment",
+        "department" : "Service Admin",
+        "durationms" : "82",
+        "stateful" : "Yes",
+        "devicemodel" : "20U1S05S00",
+        "cdip" : "10.10.10.10",
+        "datacenter" : "BOM6",
+        "threatname" : "Linux.Backdoor.Tsunami",
+        "recordid" : "7534021044391772162",
+        "deviceowner" : "Zscaler",
+        "deviceosversion" : "Microsoft Windows 11 Pro;64 bit;amd64",
+        "datacentercountry" : "IN",
+        "tunsport" : "0",
+        "tuntype" : "ZscalerClientConnector",
+        "devicename" : "PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782",
+        "user" : "johndoe@yahoo.com",
+        "nwapp" : "tcp",
+        "srcip_country" : "India",
+        "rdr_rulename" : "FWD_Rule_1"
+      }
+    }
   result:
     custom:
       date: 1754150969000
@@ -675,7 +746,7 @@ tests:
         "error" : "NXDOMAIN",
         "dnsgw_flags" : "PRIMARY_SERVER_RESPONSE_PASS",
         "devicetype" : "",
-        "datetime" : "2025-07-30 11:37:02",
+        "datetime" : "2025-08-02 16:09:29",
         "protocol" : "UDP",
         "datacentercity" : "Mu",
         "company" : "Zscaler",
@@ -713,7 +784,7 @@ tests:
     }
   result:
     custom:
-      date: 1753875422000
+      date: 1754150969000
       dns:
         answer:
           name: "NXDOMAIN"
@@ -741,7 +812,7 @@ tests:
         datacenter: "BOM6"
         datacentercity: "Mu"
         datacentercountry: "IN"
-        datetime: "2025-07-30 11:37:02"
+        datetime: "2025-08-02 16:09:29"
         department: "Service Admin"
         deviceappversion: "4.7.0.61"
         devicehostname: ""
@@ -789,7 +860,7 @@ tests:
           "error" : "NXDOMAIN",
           "dnsgw_flags" : "PRIMARY_SERVER_RESPONSE_PASS",
           "devicetype" : "",
-          "datetime" : "2025-07-30 11:37:02",
+          "datetime" : "2025-08-02 16:09:29",
           "protocol" : "UDP",
           "datacentercity" : "Mu",
           "company" : "Zscaler",
@@ -828,7 +899,7 @@ tests:
     service: "zscalernss-dns"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1753875422000
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -855,7 +926,7 @@ tests:
         "clientip" : "10.10.10.10",
         "adminid" : "johndoe@yahoo.com",
         "action" : "CREATE",
-        "time" : "2025-08-05 09:08:16",
+        "datetime" : "2025-08-02 16:09:29",
         "category" : "CASB",
         "subcategory" : "CASB_SCAN_CONFIGURATION",
         "errorcode" : "AUTHENTICATION_FAILED"
@@ -863,6 +934,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       evt:
         outcome: "SUCCESS"
       network:
@@ -875,6 +947,7 @@ tests:
         adminid: "johndoe@yahoo.com"
         auditlogtype: "ZIA"
         category: "CASB"
+        datetime: "2025-08-02 16:09:29"
         errorcode: "AUTHENTICATION_FAILED"
         interface: "UI"
         postaction:
@@ -894,7 +967,7 @@ tests:
         recordid: "988"
         resource: "SSL Rule Name"
         subcategory: "CASB_SCAN_CONFIGURATION"
-        time: "2025-08-05 09:08:16"
+        datetime: "2025-08-02 16:09:29"
     message: |-
       {
         "sourcetype" : "zscalernss-audit",
@@ -920,7 +993,6 @@ tests:
           "clientip" : "10.10.10.10",
           "adminid" : "johndoe@yahoo.com",
           "action" : "CREATE",
-          "time" : "2025-08-05 09:08:16",
           "category" : "CASB",
           "subcategory" : "CASB_SCAN_CONFIGURATION",
           "errorcode" : "AUTHENTICATION_FAILED"
@@ -929,7 +1001,7 @@ tests:
     service: "zscalernss-audit"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -941,7 +1013,7 @@ tests:
         "applicationname" : "GOOGLEDRIVE",
         "src_ip" : "165.225.0.243",
         "activity_type_name" : "Download",
-        "datetime" : "2025-08-05 09:11:26",
+        "datetime" : "2025-08-02 16:09:29",
         "subtype" : "activity",
         "object_name_2" : "Maverick",
         "activity_count" : "1",
@@ -954,7 +1026,7 @@ tests:
     }
   result:
     custom:
-      date: 1754385086000
+      date: 1754150969000
       network:
         client:
           geoip: {}
@@ -966,7 +1038,7 @@ tests:
         activity_count: "1"
         activity_type_name: "Download"
         applicationname: "GOOGLEDRIVE"
-        datetime: "2025-08-05 09:11:26"
+        datetime: "2025-08-02 16:09:29"
         event_time: "Tue Aug 5 09:11:26 2025"
         external_owner_name: "sahil@example.io"
         is_admin_act: "No"
@@ -990,7 +1062,6 @@ tests:
           "applicationname" : "GOOGLEDRIVE",
           "src_ip" : "165.225.0.243",
           "activity_type_name" : "Download",
-          "datetime" : "2025-08-05 09:11:26",
           "subtype" : "activity",
           "object_name_2" : "Maverick",
           "activity_count" : "1",
@@ -1004,7 +1075,7 @@ tests:
     service: "zscalernss-casb"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1754385086000
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -1016,6 +1087,7 @@ tests:
         "authtype" : "RSAREV",
         "destinationip" : "10.10.10.10",
         "recordid" : "7083029673927507968",
+        "datetime" : "2025-08-02 16:09:29",
         "sourceport" : "121",
         "txbytes" : "0",
         "locationname" : "Unknown",
@@ -1030,6 +1102,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       network:
         client:
           geoip: {}
@@ -1046,6 +1119,7 @@ tests:
         algo: "BLOWFISH_CBC"
         authentication: "HMAC_MD5"
         authtype: "RSAREV"
+        datetime: "2025-08-02 16:09:29"
         destinationip: "10.10.10.10"
         dpdrec: "0"
         locationname: "Unknown"
@@ -1083,7 +1157,7 @@ tests:
     service: "zscalernss-tunnel"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -1126,6 +1200,7 @@ tests:
         "deviceplatform" : "Windows",
         "filetypecategory" : "PLS File (pls)",
         "recordid" : "2",
+        "datetime" : "2025-08-02 16:09:29",
         "scantime" : "1210",
         "deviceowner" : "Administrator",
         "itemtype" : "email_attachment",
@@ -1141,6 +1216,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       evt:
         outcome: "allow"
       sourcetype: "zscalernss-endpointdlp"
@@ -1153,6 +1229,7 @@ tests:
         channel: "Network Drive Transfer"
         confirmaction: "confirm"
         confirmjustification: "My manager approved it"
+        datetime: "2025-08-02 16:09:29"
         datacenter: "Georgia"
         datacentercity: "Atlanta"
         datacentercountry: "US"
@@ -1259,7 +1336,7 @@ tests:
     status: "critical"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -1291,6 +1368,7 @@ tests:
         "msgid" : "<MN6PR20MB64256686FB0324A8F413C70DB73D2@MN6PR20MB6425.namprd20.prod.outlook.com>",
         "datacenter" : "GJ1",
         "dept" : "Engineering",
+        "datetime" : "2025-08-02 16:09:29",
         "scantime" : "3731",
         "recordid" : "7353686396818817024",
         "sender" : "sender_name@example.com",
@@ -1301,6 +1379,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       sourcetype: "zscalernss-emaildlp"
       status: "critical"
       usr:
@@ -1311,6 +1390,7 @@ tests:
          - "Block"
         appname: "Exchange"
         company: "casb"
+        datetime: "2025-08-02 16:09:29"
         datacenter: "GJ1"
         datacentercity: "GJ"
         datacentercountry: "IN"
@@ -1414,7 +1494,7 @@ tests:
     status: "critical"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
  -
   sample: |-
     {
@@ -1435,7 +1515,7 @@ tests:
         "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
         "upload_doctypename" : "Corporate Finance",
         "internal_collabnames" : "john@gmail.com|doe@gmail.com",
-        "datetime" : "2025-08-0509:11:27",
+        "datetime" : "2025-08-02 16:09:29",
         "datacentercity" : "Ch",
         "hostname" : "Unknown Host",
         "subtype" : "collaboration",
@@ -1470,6 +1550,7 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
       sourcetype: "zscalernss-casb"
       status: "critical"
       usr:
@@ -1482,7 +1563,7 @@ tests:
         datacenter: "CHI1"
         datacentercity: "Ch"
         datacentercountry: "US"
-        datetime: "2025-08-0509:11:27"
+        datetime: "2025-08-02 16:09:29"
         department: "Default Department"
         dlpdictcount: "4|5|1|2"
         dlpdictnames: "Credit Cards|Gambling|MRN Numbers"
@@ -1555,7 +1636,7 @@ tests:
           "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
           "upload_doctypename" : "Corporate Finance",
           "internal_collabnames" : "john@gmail.com|doe@gmail.com",
-          "datetime" : "2025-08-0509:11:27",
+          "datetime" : "2025-08-02 16:09:29",
           "datacentercity" : "Ch",
           "hostname" : "Unknown Host",
           "subtype" : "collaboration",
@@ -1592,7 +1673,7 @@ tests:
     status: "critical"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+    timestamp: 1754150969000
  -
   sample: |-
     {
