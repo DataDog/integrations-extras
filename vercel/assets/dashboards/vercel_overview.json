@@ -3,47 +3,1171 @@
   "description": "[Vercel](https://vercel.com/) is a deployment and collaboration platform for frontend developers.",
   "widgets": [
     {
-      "id": 3593834273951162,
+      "id": 6575713283108888,
       "definition": {
         "type": "image",
-        "url": "https://cdn.worldvectorlogo.com/logos/vercel.svg",
+        "url": "/api/v2/images/87d95f05-a48c-4630-b7f3-076060ac3a67",
         "sizing": "contain",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
         "horizontal_align": "center"
       },
-      "layout": { "x": 0, "y": 0, "width": 3, "height": 3 }
+      "layout": { "x": 0, "y": 0, "width": 5, "height": 2 }
     },
     {
-      "id": 1867466037976372,
+      "id": 2601803159913896,
+      "definition": {
+        "title": "Total Request Count",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": { "label": "req", "type": "custom_unit_label" }
+                },
+                "formula": "query1"
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "custom_text", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": { "query": "source:vercel $vercel_url" },
+                "indexes": ["*"],
+                "group_by": [],
+                "compute": {
+                  "aggregation": "cardinality",
+                  "metric": "@requestId"
+                },
+                "storage": "hot"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": { "x": 5, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 6133766162948765,
+      "definition": {
+        "title": "Total Request Count (Serverless Functions)",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": { "label": "req", "type": "custom_unit_label" }
+                },
+                "formula": "query1"
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "custom_text", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:vercel $vercel_url @source:lambda"
+                },
+                "indexes": ["*"],
+                "group_by": [],
+                "compute": {
+                  "aggregation": "cardinality",
+                  "metric": "@requestId"
+                },
+                "storage": "hot"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": { "x": 7, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 1939179019217874,
+      "definition": {
+        "title": "Firewall Triggered",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "default_zero(query1)" }],
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "palette": "black_on_light_green",
+                "value": 0
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": { "query": "source:vercel $vercel_url" },
+                "indexes": ["*"],
+                "group_by": [],
+                "compute": {
+                  "aggregation": "cardinality",
+                  "metric": "@requestId"
+                },
+                "storage": "hot"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+    },
+    {
+      "id": 187243272076421,
       "definition": {
         "type": "note",
-        "content": "Vercel is a deployment and collaboration platform that enables developers to build high-performance websites and applications.\n\nCheck out the **[Vercel Detailed Projects view](/vercel)** to see project-level metrics, logs, and traces.",
+        "content": "This dashboard offers real-time monitoring of a Vercel project health by visualizing data from its log drains. Send requests to **https://nextjs-dates-render.vercel.app/** and click around to see more data.\n\n- [Vercel Datadog Integration](https://vercel.com/uncurated-tests/~/integrations/datadog)\n- [Vercel Log Drains](https://vercel.com/docs/log-drains)\n- [`@vercel/otel`](https://vercel.com/docs/otel)",
         "background_color": "white",
-        "font_size": "18",
+        "font_size": "16",
         "text_align": "left",
-        "vertical_align": "center",
+        "vertical_align": "top",
         "show_tick": false,
         "tick_pos": "50%",
-        "tick_edge": "top",
+        "tick_edge": "left",
         "has_padding": true
       },
-      "layout": { "x": 3, "y": 0, "width": 5, "height": 3 }
+      "layout": { "x": 0, "y": 2, "width": 5, "height": 2 }
     },
     {
-      "id": 3349876896473332,
+      "id": 5946493835458008,
       "definition": {
-        "title": "Overview",
-        "background_color": "white",
+        "title": "2xx + 3xx",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "default_zero(query1)" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": {
+                  "query": "source:vercel @statusCode:(>=200 AND <400) $vercel_url"
+                },
+                "indexes": ["*"],
+                "group_by": [],
+                "compute": {
+                  "aggregation": "cardinality",
+                  "metric": "@requestId"
+                },
+                "storage": "hot"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": { "x": 5, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 2484093256174985,
+      "definition": {
+        "title": "Total Errors From Logs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "number_format": {
+                  "unit": { "type": "custom_unit_label", "label": " errors" }
+                },
+                "formula": "default_zero(query1)"
+              }
+            ],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "logs",
+                "search": { "query": "source:vercel status:error $vercel_url" },
+                "indexes": ["*"],
+                "group_by": [],
+                "compute": {
+                  "aggregation": "cardinality",
+                  "metric": "@requestId"
+                },
+                "storage": "hot"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": { "x": 9, "y": 2, "width": 3, "height": 2 }
+    },
+    {
+      "id": 2297526236755741,
+      "definition": {
+        "title": "Client Requests",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 3837708939536864,
+            "id": 1504202069673294,
             "definition": {
-              "title": "Total Request Count",
+              "title": "Requests by Country",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "geomap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel START* $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.iso_code",
+                          "limit": 250,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 250,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": { "palette": "hostmap_blues", "palette_flip": false },
+              "view": { "focus": "WORLD" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 8, "height": 4 }
+          },
+          {
+            "id": 2123650641356391,
+            "definition": {
+              "title": "Requests by Client IP",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.ipAddress",
+                          "limit": 30,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 30,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2149690685308806,
+            "definition": {
+              "title": "Requests by HTTP Verb",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@proxy.method",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 5098727944625796,
+            "definition": {
+              "title": "Requests by JA4 Signature",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@ja4Digest",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 0, "y": 4, "width": 8, "height": 2 }
+          },
+          {
+            "id": 3027187542054498,
+            "definition": {
+              "title": "Most accessed paths",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@path",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 8, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 7425331375044912,
+            "definition": {
+              "title": "By Status Code",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.host:nextjs-dates-render.vercel.app"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@statusCode",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": [{ "value": "y = 0", "display_type": "error dashed" }]
+            },
+            "layout": { "x": 0, "y": 6, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 4, "width": 12, "height": 10 }
+    },
+    {
+      "id": 5424485406993296,
+      "definition": {
+        "title": "Latency & Serverless Functions",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4979212118605867,
+            "definition": {
+              "title": "Total Request Count (Serverless Functions)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": { "label": "req", "type": "custom_unit_label" }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    { "comparator": ">", "palette": "custom_text", "value": 0 }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel $vercel_url @source:lambda"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 6894782403194690,
+            "definition": {
+              "title": "2xx/3xx Responses Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": { "label": "req", "type": "custom_unit_label" }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_green",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel $vercel_url @statusCode:(>=200 AND <400) @source:lambda"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4451376468188601,
+            "definition": {
+              "title": "5XX Responses Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": { "label": "req", "type": "custom_unit_label" }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    { "comparator": ">", "palette": "white_on_red", "value": 0 }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel $vercel_url @statusCode:(>=500) @source:lambda"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2062538754786986,
+            "definition": {
+              "title": "Serv. Function Duration",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "type": "distribution",
+              "xaxis": {
+                "scale": "linear",
+                "min": "auto",
+                "max": "auto",
+                "include_zero": true
+              },
+              "yaxis": {
+                "scale": "linear",
+                "min": "auto",
+                "max": "auto",
+                "include_zero": true
+              },
+              "requests": [
+                {
+                  "request_type": "histogram",
+                  "query": {
+                    "name": "query1",
+                    "data_source": "logs",
+                    "search": {
+                      "query": "source:vercel $vercel_url @source:lambda"
+                    },
+                    "indexes": ["*"],
+                    "group_by": [],
+                    "compute": {
+                      "aggregation": "avg",
+                      "metric": "@lambda.billed_duration"
+                    },
+                    "storage": "hot"
+                  },
+                  "style": { "palette": "green" }
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 12, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 14, "width": 12, "height": 5 }
+    },
+    {
+      "id": 1135452194187607,
+      "definition": {
+        "title": "Firewall",
+        "background_color": "orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 814445868413616,
+            "definition": {
+              "title": "Blocked",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "black_on_light_red",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.wafAction:deny $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 7073627046073607,
+            "definition": {
+              "title": "Overview",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "DENIED",
+                      "style": { "palette": "warm", "palette_index": 6 },
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "CHALLENGED",
+                      "style": { "palette": "classic", "palette_index": 1 },
+                      "formula": "default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.wafAction:deny $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.wafAction:challenge $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 3, "y": 0, "width": 9, "height": 4 }
+          },
+          {
+            "id": 8591423529510456,
+            "definition": {
+              "title": "Challenged",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "value": 0,
+                      "custom_bg_color": "#3d4aff"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.wafAction:challenge"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": { "x": 0, "y": 2, "width": 3, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 19, "width": 12, "height": 5 }
+    },
+    {
+      "id": 4490767206932600,
+      "definition": {
+        "type": "note",
+        "content": "## Path Type explanation\n\nVercel has a few primitives from an infrastructure perspective ([reference](https://vercel.com/docs/build-output-api/primitives)). Path Type will hint at those primitives and assist you categorizing your logs.\n\n- `streaming_func`: can be a React Server Component, or a Next.js API route. This is a Serverless Function that is capable of streaming;\n- `background_func`: [ISR (Incremental Static Regeneration)](https://nextjs.org/docs/pages/guides/incremental-static-regeneration) related logs. See below;\\\n- `PRERENDER`:  Also related to `ISR`.\n- `STATIC`: static assets or a cache hit;\n\n## [Cache Explanation](https://vercel.com/docs/edge-cache#x-vercel-cache)\n\n- `MISS`: a request that had to be satisfied from the compute layer;\n- `HIT`: content was served from the cache without any other collateral behavior;\n- `STALE`: content was served from the cache, but it is stale. Possibly hinted for a revalidation;\n- `PRERENDER`: the page was rendered in advance, and it is served from the cache. More [here](https://vercel.com/guides/how-can-i-prerender-my-application-on-vercel). An extension of `HIT`.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 4,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 6925587971382342,
+      "definition": {
+        "title": "Caching",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4565842090932704,
+            "definition": {
+              "title": "Vercel Cache Status",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@proxy.vercelCache",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "style": { "palette": "datadog16" },
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 5, "height": 4 }
+          },
+          {
+            "id": 4753917381338098,
+            "definition": {
+              "title": "Cache Hit Ratio",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Requests satisfied from cache",
+                      "style": { "palette": "green", "palette_index": 3 },
+                      "formula": "(query2 / query1) * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel -@proxy.vercelCache:MISS $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.host:nextjs-dates-render.vercel.app"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "yaxis": { "include_zero": true, "max": "100" },
+              "markers": []
+            },
+            "layout": { "x": 5, "y": 0, "width": 7, "height": 2 }
+          },
+          {
+            "id": 1302732432575826,
+            "definition": {
+              "title": "Cache Hit & Miss",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "style": { "palette": "dd20", "palette_index": 9 },
+                      "alias": "HIT",
+                      "formula": "query1"
+                    },
+                    {
+                      "style": { "palette": "warm", "palette_index": 5 },
+                      "alias": "MISS",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.vercelCache:(-MISS) $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:vercel @proxy.vercelCache:MISS $vercel_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "markers": []
+            },
+            "layout": { "x": 5, "y": 2, "width": 7, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 4, "width": 12, "height": 5 }
+    },
+    {
+      "id": 2624551158581430,
+      "definition": {
+        "title": "Logs",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4494808997061420,
+            "definition": {
+              "title": "Total Logs Count",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -56,258 +1180,175 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "search": { "query": "source:vercel START* $service" },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
                       "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
                       "indexes": ["*"],
-                      "group_by": []
+                      "group_by": [],
+                      "compute": { "aggregation": "count" },
+                      "storage": "hot"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "custom_unit": "req",
               "precision": 1
             },
-            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
           },
           {
-            "id": 5863516065096260,
+            "id": 3074692936343457,
             "definition": {
-              "title": "Total Errors",
+              "title": "Logs received",
               "title_size": "16",
               "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "default_zero(query1)" }],
-                  "conditional_formats": [
-                    { "comparator": ">", "palette": "white_on_red", "value": 0 }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "source:vercel status:error $service"
-                      },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "custom_unit": "err",
-              "precision": 1
-            },
-            "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
-          }
-        ]
-      },
-      "layout": { "x": 8, "y": 0, "width": 4, "height": 5 }
-    },
-    {
-      "id": 6397985032849882,
-      "definition": {
-        "type": "note",
-        "content": "## [Logs](https://docs.datadoghq.com/integrations/vercel/)\n\nTo get visibility into application logs from Vercel, configure the [Vercel logs integration](https://docs.datadoghq.com/integrations/vercel/).",
-        "background_color": "gray",
-        "font_size": "12",
-        "text_align": "left",
-        "vertical_align": "top",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "top",
-        "has_padding": true
-      },
-      "layout": { "x": 0, "y": 3, "width": 2, "height": 2 }
-    },
-    {
-      "id": 3053184546816778,
-      "definition": {
-        "type": "note",
-        "content": "## [Real User Monitoring](https://docs.datadoghq.com/real_user_monitoring/)\nTo get visibility into into the activity and experience of users, [instrument with Real User Monitoring](/rum/application/create).",
-        "background_color": "gray",
-        "font_size": "12",
-        "text_align": "left",
-        "vertical_align": "top",
-        "show_tick": false,
-        "tick_pos": "25%",
-        "tick_edge": "top",
-        "has_padding": true
-      },
-      "layout": { "x": 2, "y": 3, "width": 2, "height": 2 }
-    },
-    {
-      "id": 928688671263534,
-      "definition": {
-        "type": "note",
-        "content": "## [Synthetic Monitoring](https://docs.datadoghq.com/synthetics/)\n\nTo monitor your application's uptime and performance, [set up a synthetic monitoring test]().",
-        "background_color": "gray",
-        "font_size": "12",
-        "text_align": "left",
-        "vertical_align": "top",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left",
-        "has_padding": true
-      },
-      "layout": { "x": 4, "y": 3, "width": 4, "height": 2 }
-    },
-    {
-      "id": 4513004791729104,
-      "definition": {
-        "title": "Vercel Logs",
-        "background_color": "purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 671312386012950,
-            "definition": {
-              "title": "Requests by service",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
+              "show_legend": false,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "response_format": "timeseries",
                   "queries": [
                     {
-                      "search": { "query": "START source:vercel" },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
                       "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
                       "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "service",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
-                        }
-                      ]
+                      "group_by": [],
+                      "compute": { "aggregation": "count", "interval": 60000 },
+                      "storage": "hot"
                     }
                   ],
+                  "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
+                    "order_by": "values",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "bars"
+                  "display_type": "line"
                 }
               ]
             },
-            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+            "layout": { "x": 2, "y": 0, "width": 4, "height": 2 }
           },
           {
-            "id": 1580467140008682,
+            "id": 1287803352277128,
             "definition": {
-              "title": "Error logs by service",
+              "title": "Logs by pathType",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [{ "formula": "query1" }],
-                  "response_format": "timeseries",
                   "queries": [
                     {
-                      "search": { "query": "status:error source:vercel" },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
                       "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
                       "indexes": ["*"],
                       "group_by": [
                         {
-                          "facet": "service",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 10
+                          "facet": "@proxy.pathType",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "cardinality",
+                            "order": "desc",
+                            "metric": "@requestId"
+                          },
+                          "should_exclude_missing": true
                         }
-                      ]
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@requestId"
+                      },
+                      "storage": "hot"
                     }
                   ],
-                  "style": {
-                    "palette": "red",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
-                }
-              ]
-            },
-            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
-          },
-          {
-            "id": 8085431797721212,
-            "definition": {
-              "title": "",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "geomap",
-              "requests": [
-                {
                   "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": { "query": "" },
-                      "data_source": "logs",
-                      "compute": { "aggregation": "count" },
-                      "name": "query1",
-                      "indexes": ["*"],
-                      "group_by": [
-                        {
-                          "facet": "@network.client.geoip.country.iso_code",
-                          "sort": { "aggregation": "count", "order": "desc" },
-                          "limit": 1000
-                        }
-                      ]
-                    }
-                  ],
+                  "style": { "palette": "datadog16" },
                   "formulas": [{ "formula": "query1" }],
                   "sort": {
-                    "count": 1000,
+                    "count": 500,
                     "order_by": [
                       { "type": "formula", "index": 0, "order": "desc" }
                     ]
                   }
                 }
               ],
-              "style": { "palette": "hostmap_blues", "palette_flip": false },
-              "view": { "focus": "WORLD" }
+              "type": "sunburst",
+              "legend": { "type": "table" }
             },
-            "layout": { "x": 8, "y": 0, "width": 4, "height": 5 }
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
           },
           {
-            "id": 8154282526648880,
+            "id": 5813751496387146,
             "definition": {
-              "title": "Vercel Logs",
+              "title": "Log Count by Hostname (edit to add more)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": { "query": "source:vercel $vercel_url" },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@proxy.host",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": { "aggregation": "count", "interval": 60000 },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 12, "height": 3 }
+          },
+          {
+            "id": 1309264136084155,
+            "definition": {
+              "title": "Log Stream",
               "title_size": "16",
               "title_align": "left",
               "requests": [
                 {
-                  "query": {
-                    "query_string": "source:vercel $service",
-                    "sort": { "column": "timestamp", "order": "desc" },
-                    "data_source": "logs_stream",
-                    "storage": "hot",
-                    "indexes": []
-                  },
                   "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:vercel $vercel_url",
+                    "indexes": ["*"],
+                    "storage": "hot"
+                  },
                   "columns": [
                     { "field": "status_line", "width": "auto" },
                     { "field": "timestamp", "width": "auto" },
+                    { "field": "source", "width": "auto" },
                     { "field": "service", "width": "auto" },
                     { "field": "content", "width": "compact" }
                   ]
@@ -315,25 +1356,342 @@
               ],
               "type": "list_stream"
             },
-            "layout": { "x": 0, "y": 2, "width": 8, "height": 3 }
+            "layout": { "x": 0, "y": 5, "width": 12, "height": 4 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 5,
-        "width": 12,
-        "height": 6,
-        "is_column_break": true
-      }
+      "layout": { "x": 0, "y": 9, "width": 12, "height": 10 }
+    },
+    {
+      "id": 3575073139641076,
+      "definition": {
+        "title": "APM",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3453297883976480,
+            "definition": {
+              "type": "note",
+              "content": "⚠️ Note: you can remove the URL related to queries in APM. We are using it in APM to avoid leaking data from other Vercel production deployments.",
+              "background_color": "white",
+              "font_size": "16",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+          },
+          {
+            "id": 8763256642528684,
+            "definition": {
+              "title": "API Status Code Responses",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "spans",
+                      "search": {
+                        "query": "env:production @otel.source:vercel -@http.client.name:* $vercel_apm_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": { "aggregation": "count" },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 1, "width": 12, "height": 2 }
+          },
+          {
+            "id": 4170676677894655,
+            "definition": {
+              "title": "API Status Code Responses",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "spans",
+                      "search": {
+                        "query": "env:production @otel.source:vercel -@http.client.name:* $vercel_apm_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": { "aggregation": "count" },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" },
+                "scaling": "relative"
+              }
+            },
+            "layout": { "x": 0, "y": 3, "width": 6, "height": 2 }
+          },
+          {
+            "id": 7663110949804382,
+            "definition": {
+              "title": "Upstream API Status Code Responses",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "spans",
+                      "search": {
+                        "query": "env:production @otel.source:vercel @http.client.name:fetch $vercel_apm_url"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": { "aggregation": "count" },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" },
+                "scaling": "relative"
+              }
+            },
+            "layout": { "x": 6, "y": 3, "width": 6, "height": 2 }
+          },
+          {
+            "id": 5568883629853662,
+            "definition": {
+              "title": "Upstream Issues by Deployment Route",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "traces",
+                      "search": {
+                        "expression": "a -> b",
+                        "nodes": {
+                          "a": "env:production @otel.source:vercel $vercel_apm_url",
+                          "b": "env:production @otel.source:vercel @http.client.name:fetch @http.status_code:(>=405 OR >=500)"
+                        },
+                        "filters": { "graph_filters": [] }
+                      },
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "count",
+                        "target": { "type": "node", "value": "a" }
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@http.route",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true,
+                          "target": { "type": "node", "value": "a" }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" },
+                "scaling": "absolute"
+              }
+            },
+            "layout": { "x": 0, "y": 5, "width": 6, "height": 2 }
+          },
+          {
+            "id": 3861630811492352,
+            "definition": {
+              "title": "Issues by Upstream Provider URL",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "spans",
+                      "search": {
+                        "query": "env:production @otel.source:vercel @http.client.name:fetch $vercel_apm_url @http.status_code:(>=405 OR >=500)"
+                      },
+                      "indexes": ["*"],
+                      "group_by": [
+                        {
+                          "facet": "@http.url_details.host",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": { "aggregation": "count" },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [{ "formula": "query1" }],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      { "type": "formula", "index": 0, "order": "desc" }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" },
+                "scaling": "relative"
+              }
+            },
+            "layout": { "x": 6, "y": 5, "width": 6, "height": 2 }
+          },
+          {
+            "id": 6255187187524449,
+            "definition": {
+              "title": "Traces Stream",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "trace_stream",
+                    "query_string": "@_top_level:1 $vercel_apm_url",
+                    "indexes": []
+                  },
+                  "columns": [
+                    { "field": "timestamp", "width": "auto" },
+                    { "field": "service", "width": "auto" },
+                    { "field": "resource_name", "width": "auto" },
+                    { "field": "@duration", "width": "auto" },
+                    { "field": "@http.method", "width": "auto" },
+                    { "field": "@http.status_code", "width": "auto" },
+                    { "field": "span_count", "width": "auto" },
+                    { "field": "latency_breakdown", "width": "auto" }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": { "x": 0, "y": 7, "width": 12, "height": 4 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 19, "width": 12, "height": 12 }
     }
   ],
   "template_variables": [
     {
-      "name": "service",
-      "prefix": "service",
-      "available_values": [],
-      "default": "*"
+      "name": "vercel_url",
+      "prefix": "@proxy.host",
+      "available_values": ["nextjs-dates-render.vercel.app"],
+      "default": "nextjs-dates-render.vercel.app"
+    },
+    {
+      "name": "vercel_apm_url",
+      "prefix": "@http.host",
+      "available_values": ["nextjs-dates-render.vercel.app"],
+      "default": "nextjs-dates-render.vercel.app"
     }
   ],
   "layout_type": "ordered",
