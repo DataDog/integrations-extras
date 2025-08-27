@@ -1,219 +1,470 @@
-id: contrast-security-adr
+id: "contrast-security-adr"
 tests:
-  - sample: >-
+ -
+  sample: |-
+    {
+      "severity" : "Error",
+      "detectedTime" : "1753862082000",
+      "server" : {
+        "name" : "Petclinic-thib",
+        "id" : "27958"
+      },
+      "request" : {
+        "headers" : {
+          "Cookie" : [ "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E" ],
+          "sec-fetch-mode" : [ "navigate" ],
+          "referer" : [ "http://localhost:8080/customers/find" ],
+          "sec-fetch-site" : [ "same-origin" ],
+          "accept-language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+          "sec-fetch-user" : [ "?1" ],
+          "accept" : [ "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" ],
+          "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+          "sec-ch-ua-mobile" : [ "?0" ],
+          "sec-ch-ua-platform" : [ "\"macOS\"" ],
+          "host" : [ "localhost:8080" ],
+          "upgrade-insecure-requests" : [ "1" ],
+          "connection" : [ "keep-alive" ],
+          "accept-encoding" : [ "gzip, deflate, br, zstd" ],
+          "sec-fetch-dest" : [ "document" ],
+          "user-agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ]
+        },
+        "protocol" : "http",
+        "method" : "GET",
+        "protocolVersion" : "1.1",
+        "queryString" : "lastName=contrast-redacted-name",
+        "parameters" : {
+          "lastName" : [ "contrast-redacted-name" ]
+        }
+      },
+      "vectorAnalysis" : {
+        "vectorFields" : {
+          "ruleUuid" : "sql-injection",
+          "query" : "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
+        },
+        "callLocation" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+      },
+      "attackPayload" : {
+        "attackerInput" : {
+          "confirmedAttack" : false,
+          "documentType" : "NORMAL",
+          "effectiveAttack" : false,
+          "name" : "lastName",
+          "applicableAttack" : false,
+          "inputType" : "PARAMETER_VALUE",
+          "patternsMatched" : [ "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001" ],
+          "documentPath" : "/abc"
+        },
+        "value" : "' or 1=1; # antwerp",
+        "url" : "/owner"
+      },
+      "rule" : "class-loader-manipulation",
+      "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
+      "productName" : "ContrastADR",
+      "url" : "/customers",
+      "result" : "exploited",
+      "environment" : "production",
+      "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
+      "incident_id" : "INC-2025-c60",
+      "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
+      "mitreTactics" : [ {
+        "id" : "TA0001",
+        "url" : "https://attack.mitre.org/tactics/TA0001/"
+      }, {
+        "id" : "TA0002",
+        "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
+      }, {
+        "id" : "TA0006",
+        "url" : "https://attack.mitre.org/tactics/TA0006/"
+      }, {
+        "id" : "TA0007",
+        "url" : "https://attack.mitre.org/tactics/TA0007/"
+      }, {
+        "id" : "TA0009",
+        "url" : "https://attack.mitre.org/tactics/TA0009/"
+      }, {
+        "id" : "TA0010",
+        "url" : "https://attack.mitre.org/tactics/TA0010/"
+      } ],
+      "application" : {
+        "name" : "Web-Application-thib",
+        "agentLanguage" : "java",
+        "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
+      },
+      "sourceIp" : "7.7.7.7.7.8",
+      "codeLocation" : {
+        "stack" : [ {
+          "fileName" : "HikariProxyStatement.java",
+          "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
+          "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
+          "methodName" : "executeQuery",
+          "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
+          "type" : "frameSink",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "CustomerRepository.java",
+          "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
+          "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
+          "methodName" : "findByLastName",
+          "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
+          "type" : "frameCommon",
+          "lineNumber" : 31
+        } ],
+        "file" : "HikariProxyStatement.java",
+        "method" : "executeQuery()"
+      },
+      "ruleUuid" : "ssjs-injection",
+      "cloudProvider" : "UNKNOWN",
+      "host" : {
+        "runtimeVersion" : "OpenJDK Runtime Environment 17.0.14+7",
+        "hostname" : "bb8989bc",
+        "runtimePath" : "/opt/java/openjdk/bin/java",
+        "isDocker" : true,
+        "operatingSystem" : "Linux 6.10.14-linuxkit aarch64"
+      },
+      "agentVersion" : "6.14.0",
+      "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
+    }
+  result:
+    custom:
+      agentVersion: "6.14.0"
+      apiUri: "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19"
+      application:
+        agentLanguage: "java"
+        id: "08f46d44-b7da-4978-b903-fcce249f457a"
+        name: "Web-Application-thib"
+      attackPayload:
+        attackerInput:
+          applicableAttack: false
+          confirmedAttack: false
+          documentPath: "/abc"
+          documentType: "NORMAL"
+          effectiveAttack: false
+          inputType: "PARAMETER_VALUE"
+          name: "lastName"
+          patternsMatched:
+           - "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001"
+        url: "/owner"
+        value: "' or 1=1; # antwerp"
+      cloudProvider: "UNKNOWN"
+      codeLocation:
+        file: "HikariProxyStatement.java"
+        method: "executeQuery()"
+        stack:
+         -
+          fileName: "HikariProxyStatement.java"
+          shortSummary: "executeQuery() @ HikariProxyStatement.java:-1"
+          description: "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)"
+          methodName: "executeQuery"
+          className: "com.zaxxer.hikari.pool.HikariProxyStatement"
+          type: "frameSink"
+          lineNumber: -1
+         -
+          fileName: "CustomerRepository.java"
+          shortSummary: "findByLastName() @ CustomerRepository.java:31"
+          description: "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+          methodName: "findByLastName"
+          className: "org.springframework.samples.petclinic.customer.CustomerRepository"
+          type: "frameCommon"
+          lineNumber: 31
+      contrast_adr:
+        incident_id: "INC-2025-c60"
+      date: "1753862082000"
+      detectedTime: "1753862082000"
+      environment: "production"
+      eventUuid: "1678918a-103f-4030-a416-3b8766e47e19"
+      evt:
+        name: "class-loader-manipulation"
+        outcome: "exploited"
+      host:
+        hostname: "bb8989bc"
+        isDocker: true
+        operatingSystem: "Linux 6.10.14-linuxkit aarch64"
+        runtimePath: "/opt/java/openjdk/bin/java"
+        runtimeVersion: "OpenJDK Runtime Environment 17.0.14+7"
+      http:
+        method: "GET"
+        referer:
+         - "http://localhost:8080/customers/find"
+        request:
+          headers:
+            Cookie:
+             - "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
+            accept:
+             - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            accept-encoding:
+             - "gzip, deflate, br, zstd"
+            accept-language:
+             - "en-GB,en-US;q=0.9,en;q=0.8"
+            connection:
+             - "keep-alive"
+            host:
+             - "localhost:8080"
+            referer:
+             - "http://localhost:8080/customers/find"
+            sec-ch-ua:
+             - "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+            sec-ch-ua-mobile:
+             - "?0"
+            sec-ch-ua-platform:
+             - "\"macOS\""
+            sec-fetch-dest:
+             - "document"
+            sec-fetch-mode:
+             - "navigate"
+            sec-fetch-site:
+             - "same-origin"
+            sec-fetch-user:
+             - "?1"
+            upgrade-insecure-requests:
+             - "1"
+            user-agent:
+             - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        url_details:
+          host:
+           - "localhost:8080"
+          path:
+            path: "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19"
+          queryString: "lastName=contrast-redacted-name"
+          scheme: "http"
+        user-agent:
+         - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        useragent_details:
+          os:
+            family: "Linux 6.10.14-linuxkit aarch64"
+        version: "1.1"
+      incident_id: "INC-2025-c60"
+      mitreTactics:
+       -
+        id: "TA0001"
+        url: "https://attack.mitre.org/tactics/TA0001/"
+       -
+        id: "TA0002"
+        url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
+       -
+        id: "TA0006"
+        url: "https://attack.mitre.org/tactics/TA0006/"
+       -
+        id: "TA0007"
+        url: "https://attack.mitre.org/tactics/TA0007/"
+       -
+        id: "TA0009"
+        url: "https://attack.mitre.org/tactics/TA0009/"
+       -
+        id: "TA0010"
+        url: "https://attack.mitre.org/tactics/TA0010/"
+      network:
+        host:
+          ip: "7.7.7.7.7.8"
+          name: "bb8989bc"
+      organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511e"
+      productName: "ContrastADR"
+      request:
+        headers:
+          Cookie:
+           - "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
+          accept:
+           - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+          accept-encoding:
+           - "gzip, deflate, br, zstd"
+          accept-language:
+           - "en-GB,en-US;q=0.9,en;q=0.8"
+          connection:
+           - "keep-alive"
+          host:
+           - "localhost:8080"
+          referer:
+           - "http://localhost:8080/customers/find"
+          sec-ch-ua:
+           - "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+          sec-ch-ua-mobile:
+           - "?0"
+          sec-ch-ua-platform:
+           - "\"macOS\""
+          sec-fetch-dest:
+           - "document"
+          sec-fetch-mode:
+           - "navigate"
+          sec-fetch-site:
+           - "same-origin"
+          sec-fetch-user:
+           - "?1"
+          upgrade-insecure-requests:
+           - "1"
+          user-agent:
+           - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        method: "GET"
+        parameters:
+          lastName:
+           - "contrast-redacted-name"
+        protocol: "http"
+        protocolVersion: "1.1"
+        queryString: "lastName=contrast-redacted-name"
+      result: "exploited"
+      rule: "class-loader-manipulation"
+      ruleUuid: "ssjs-injection"
+      server:
+        id: "27958"
+        name: "Petclinic-thib"
+      severity: "Error"
+      sourceIp: "7.7.7.7.7.8"
+      uiUrl: "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
+      url: "/customers"
+      vectorAnalysis:
+        callLocation: "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+        vectorFields:
+          query: "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
+          ruleUuid: "sql-injection"
+      version: "6.14.0"
+    message: |-
       {
-                    "eventUuid": "1678918a-103f-4030-a416-3b8766e47e19",
-                    "organizationUuid": "203ae021-7e10-4356-ad6e-0c4b94d8511e",
-                    "productName": "ContrastADR",
-                    "incident_id": "INC-2025-c60", 
-                    "server": {
-                        "id": "27958",
-                        "name": "Petclinic-thib"
-                    },
-                    "application": {
-                        "id": "08f46d44-b7da-4978-b903-fcce249f457a",
-                        "name": "Web-Application-thib",
-                        "agentLanguage": "java"
-                    },
-                    "sourceIp": "7.7.7.7.7.8",
-                    "cloudResourceId": null,
-                    "cloudProvider": "UNKNOWN",
-                    "result": "exploited",
-                    "rule": "class-loader-manipulation",
-                    "severity": "Error",
-                    "detectedTime": "1753862082000",
-                    "uiUrl": "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a",
-                    "apiUri": "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
-                    "mitreTactics": [
-                        {
-                            "id": "TA0001",
-                            "url": "https://attack.mitre.org/tactics/TA0001/"
-                        },
-                        {
-                            "id": "TA0002",
-                            "url": "https://attack.mitre.org/tactics/TA0002/"
-                        },
-                        {
-                            "id": "TA0003",
-                            "url": "https://attack.mitre.org/tactics/TA0003/"
-                        },
-                        {
-                            "id": "TA0004",
-                            "url": "https://attack.mitre.org/tactics/TA0004/"
-                        },
-                        {
-                            "id": "TA0005",
-                            "url": "https://attack.mitre.org/tactics/TA0005/"
-                        },
-                        {
-                            "id": "TA0006",
-                            "url": "https://attack.mitre.org/tactics/TA0006/"
-                        },
-                        {
-                            "id": "TA0007",
-                            "url": "https://attack.mitre.org/tactics/TA0007/"
-                        },
-                        {
-                            "id": "TA0009",
-                            "url": "https://attack.mitre.org/tactics/TA0009/"
-                        },
-                        {
-                            "id": "TA0010",
-                            "url": "https://attack.mitre.org/tactics/TA0010/"
-                        }
-                    ],
-                    "mitreCapec": [],
-                    "environment": "production",
-                    "attackPayload": {
-                        "attackerInput": {
-                            "confirmedAttack": false,
-                            "effectiveAttack": false,
-                            "applicableAttack": false,
-                            "patternsMatched": [
-                                "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001"
-                            ],
-                            "name": "lastName",
-                            "inputType": "PARAMETER_VALUE",
-                            "documentType": "NORMAL",
-                            "documentPath": "/abc"
-                        },
-                        "value": "' or 1=1; # antwerp",
-                        "url": "/owner"
-                    },
-                    "virtualPatchUuid": null,
-                    "denyListUuid": null,
-                    "ruleUuid": "ssjs-injection",
-                    "url": "/customers",
-                    "agentVersion": "6.14.0",
-                    "host": {
-                        "operatingSystem": "Linux 6.10.14-linuxkit aarch64",
-                        "runtimePath": "/opt/java/openjdk/bin/java",
-                        "runtimeVersion": "OpenJDK Runtime Environment 17.0.14+7",
-                        "hostname": "bb8989bc",
-                        "isDocker": true
-                    },
-                    "request": {
-                        "method": "GET",
-                        "protocol": "http",
-                        "protocolVersion": "1.1",
-                        "headers": {
-                            "accept": [
-                                "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
-                            ],
-                            "accept-encoding": [
-                                "gzip, deflate, br, zstd"
-                            ],
-                            "accept-language": [
-                                "en-GB,en-US;q=0.9,en;q=0.8"
-                            ],
-                            "connection": [
-                                "keep-alive"
-                            ],
-                            "Cookie": [
-                                "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
-                            ],
-                            "host": [
-                                "localhost:8080"
-                            ],
-                            "referer": [
-                                "http://localhost:8080/customers/find"
-                            ],
-                            "sec-ch-ua": [
-                                "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
-                            ],
-                            "sec-ch-ua-mobile": [
-                                "?0"
-                            ],
-                            "sec-ch-ua-platform": [
-                                "\"macOS\""
-                            ],
-                            "sec-fetch-dest": [
-                                "document"
-                            ],
-                            "sec-fetch-mode": [
-                                "navigate"
-                            ],
-                            "sec-fetch-site": [
-                                "same-origin"
-                            ],
-                            "sec-fetch-user": [
-                                "?1"
-                            ],
-                            "upgrade-insecure-requests": [
-                                "1"
-                            ],
-                            "user-agent": [
-                                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
-                            ]
-                        },
-                        "parameters": {
-                            "lastName": [
-                                "contrast-redacted-name"
-                            ]
-                        },
-                        "queryString": "lastName=contrast-redacted-name"
-                    },
-                    "vectorAnalysis": {
-                        "vectorFields": {
-                            "ruleUuid": "sql-injection",
-                            "query": "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
-                        },
-                        "callLocation": "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
-                    },
-                    "codeLocation": {
-                        "file": "HikariProxyStatement.java",
-                        "method": "executeQuery()",
-                        "stack": [
-                            {
-                                "type": "frameSink",
-                                "description": "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
-                                "fileName": "HikariProxyStatement.java",
-                                "lineNumber": -1,
-                                "methodName": "executeQuery",
-                                "className": "com.zaxxer.hikari.pool.HikariProxyStatement",
-                                "shortSummary": "executeQuery() @ HikariProxyStatement.java:-1"
-                            },
-                            {
-                                "type": "frameCommon",
-                                "description": "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
-                                "fileName": "CustomerRepository.java",
-                                "lineNumber": 31,
-                                "methodName": "findByLastName",
-                                "className": "org.springframework.samples.petclinic.customer.CustomerRepository",
-                                "shortSummary": "findByLastName() @ CustomerRepository.java:31"
-                            }
-                        ]
-                    }
-                }
-    result: null
-  - sample: >-
-      {
-        "incidentId": "INC-2025-c61",
-        "incidentName": "Path Traversal on \"/postjsoncmd\"",
-        "status": "Close",
-        "score": 9.3,
-        "severity": "Error",
-        "url": "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
-        "createdTime": "2025-07-25T06:20:23.0000Z",
-        "summary": " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
-        "source": "security",
-        "eventType": "incidentalert",
-        "alertType": "incident_created",
-        "alertReason": "Incident Created",
-        "organizationUuid": "0f767995-4882-4c7c-889f-994d945ff0d5",
-        "relatedRules": ["path-traversal"],
-        "recommendedActions": [
-          "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.",
-          "Add an exclusion for this attack event."
-        ],
-        "recommendedRunbooks": [
-          "https://dev/adr-runbooks/runbooks/path-traversal/"
-        ],
-        "timestamp": "2025-07-25T06:20:23.0000Z"
+        "severity" : "Error",
+        "detectedTime" : "1753862082000",
+        "server" : {
+          "name" : "Petclinic-thib",
+          "id" : "27958"
+        },
+        "request" : {
+          "headers" : {
+            "Cookie" : [ "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E" ],
+            "sec-fetch-mode" : [ "navigate" ],
+            "referer" : [ "http://localhost:8080/customers/find" ],
+            "sec-fetch-site" : [ "same-origin" ],
+            "accept-language" : [ "en-GB,en-US;q=0.9,en;q=0.8" ],
+            "sec-fetch-user" : [ "?1" ],
+            "accept" : [ "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" ],
+            "sec-ch-ua" : [ "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"" ],
+            "sec-ch-ua-mobile" : [ "?0" ],
+            "sec-ch-ua-platform" : [ "\"macOS\"" ],
+            "host" : [ "localhost:8080" ],
+            "upgrade-insecure-requests" : [ "1" ],
+            "connection" : [ "keep-alive" ],
+            "accept-encoding" : [ "gzip, deflate, br, zstd" ],
+            "sec-fetch-dest" : [ "document" ],
+            "user-agent" : [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" ]
+          },
+          "protocol" : "http",
+          "method" : "GET",
+          "protocolVersion" : "1.1",
+          "queryString" : "lastName=contrast-redacted-name",
+          "parameters" : {
+            "lastName" : [ "contrast-redacted-name" ]
+          }
+        },
+        "vectorAnalysis" : {
+          "vectorFields" : {
+            "ruleUuid" : "sql-injection",
+            "query" : "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
+          },
+          "callLocation" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+        },
+        "attackPayload" : {
+          "attackerInput" : {
+            "confirmedAttack" : false,
+            "documentType" : "NORMAL",
+            "effectiveAttack" : false,
+            "name" : "lastName",
+            "applicableAttack" : false,
+            "inputType" : "PARAMETER_VALUE",
+            "patternsMatched" : [ "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001" ],
+            "documentPath" : "/abc"
+          },
+          "value" : "' or 1=1; # antwerp",
+          "url" : "/owner"
+        },
+        "rule" : "class-loader-manipulation",
+        "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
+        "productName" : "ContrastADR",
+        "url" : "/customers",
+        "result" : "exploited",
+        "environment" : "production",
+        "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
+        "incident_id" : "INC-2025-c60",
+        "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
+        "mitreTactics" : [ {
+          "id" : "TA0001",
+          "url" : "https://attack.mitre.org/tactics/TA0001/"
+        }, {
+          "id" : "TA0002",
+          "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
+        }, {
+          "id" : "TA0006",
+          "url" : "https://attack.mitre.org/tactics/TA0006/"
+        }, {
+          "id" : "TA0007",
+          "url" : "https://attack.mitre.org/tactics/TA0007/"
+        }, {
+          "id" : "TA0009",
+          "url" : "https://attack.mitre.org/tactics/TA0009/"
+        }, {
+          "id" : "TA0010",
+          "url" : "https://attack.mitre.org/tactics/TA0010/"
+        } ],
+        "application" : {
+          "name" : "Web-Application-thib",
+          "agentLanguage" : "java",
+          "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
+        },
+        "sourceIp" : "7.7.7.7.7.8",
+        "codeLocation" : {
+          "stack" : [ {
+            "fileName" : "HikariProxyStatement.java",
+            "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
+            "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
+            "methodName" : "executeQuery",
+            "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
+            "type" : "frameSink",
+            "lineNumber" : -1
+          }, {
+            "fileName" : "CustomerRepository.java",
+            "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
+            "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
+            "methodName" : "findByLastName",
+            "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
+            "type" : "frameCommon",
+            "lineNumber" : 31
+          } ],
+          "file" : "HikariProxyStatement.java",
+          "method" : "executeQuery()"
+        },
+        "ruleUuid" : "ssjs-injection",
+        "cloudProvider" : "UNKNOWN",
+        "host" : {
+          "runtimeVersion" : "OpenJDK Runtime Environment 17.0.14+7",
+          "hostname" : "bb8989bc",
+          "runtimePath" : "/opt/java/openjdk/bin/java",
+          "isDocker" : true,
+          "operatingSystem" : "Linux 6.10.14-linuxkit aarch64"
+        },
+        "agentVersion" : "6.14.0",
+        "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
       }
-    result: null
-
-# The `result` field should be left blank to start. Once you submit your log asset files with
-# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
-# run your raw logs against your pipeline and return the result. If the result output in the
-# validation is accurate, take the output and add it to the `result` field in your test YAML file.
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1
