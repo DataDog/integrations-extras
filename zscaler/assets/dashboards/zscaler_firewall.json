@@ -480,7 +480,13 @@
                                     "formulas": [
                                         {
                                             "alias": "Inbound Bytes",
-                                            "formula": "query1"
+                                            "formula": "query1",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "queries": [
@@ -525,12 +531,19 @@
                             "title": "Average Inbound Bytes",
                             "title_size": "16",
                             "title_align": "left",
+                            "time": {},
                             "type": "query_value",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
-                                            "formula": "default_zero(query1)"
+                                            "formula": "default_zero(query1)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "queries": [
@@ -538,7 +551,7 @@
                                             "name": "query1",
                                             "data_source": "logs",
                                             "search": {
-                                                "query": "source:zscaler service:zscalernss-fw $client_ip $destination_ip $action $client_destination_name $user"
+                                                "query": "source:zscaler service:zscalernss-fw"
                                             },
                                             "indexes": [
                                                 "*"
@@ -597,7 +610,13 @@
                                     "formulas": [
                                         {
                                             "alias": "Outbound Bytes",
-                                            "formula": "query1"
+                                            "formula": "query1",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "queries": [
@@ -642,12 +661,19 @@
                             "title": "Average Outbound Bytes",
                             "title_size": "16",
                             "title_align": "left",
+                            "time": {},
                             "type": "query_value",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
-                                            "formula": "default_zero(query1)"
+                                            "formula": "default_zero(query1)",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "byte_in_binary_bytes_family"
+                                                }
+                                            }
                                         }
                                     ],
                                     "queries": [
@@ -655,7 +681,7 @@
                                             "name": "query1",
                                             "data_source": "logs",
                                             "search": {
-                                                "query": "source:zscaler service:zscalernss-fw $client_ip $destination_ip $action $client_destination_name $user"
+                                                "query": "source:zscaler service:zscalernss-fw"
                                             },
                                             "indexes": [
                                                 "*"

@@ -614,7 +614,7 @@ pipeline:
           target: http.url_details
           normalizeEndingSlashes: false
         - type: grok-parser
-          name: Convert `threatseverity` field into an lowercase
+          name: Convert `threatseverity` field into a lowercase
           enabled: true
           source: zscaler.threatseverity
           samples:
@@ -710,7 +710,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: grok-parser
-          name: Convert `zscaler.threatseverity` field into an array
+          name: Convert `threatseverity` field into a lowercase
           enabled: true
           source: zscaler.threatseverity
           samples:
@@ -868,7 +868,7 @@ pipeline:
           preserveSource: false
           overrideOnConflict: false
         - type: string-builder-processor
-          name: Reset `zscaler.postaction.cloudNssSiemConfiguration.connectionHeaders`
+          name: Reset `postaction.cloudNssSiemConfiguration.connectionHeaders`
             attribute
           enabled: true
           template: "%{resolve_to_empty_string}"
