@@ -1,0 +1,62 @@
+{
+  "name": "Incident event received from Contrast ADR",
+  "partnerRuleId": "ext-00o-ysa",
+  "message": "### Summary:\n### sub-query/drill-down searches:\nsource=\"Contrast\" AND organizationId = {{@organizationUuid}} AND incidentId = {{@incidentId}}\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@url}}\n",
+  "createdAt": 1747811769280,
+  "isDefault": false,
+  "isPartner": false,
+  "isBeta": false,
+  "isDeleted": false,
+  "isDeprecated": false,
+  "queries": [
+    {
+      "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
+      "groupByFields": [
+        "source"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": "",
+      "dataSource": "logs"
+    }
+  ],
+  "options": {
+    "evaluationWindow": 900,
+    "detectionMethod": "threshold",
+    "maxSignalDuration": 86400,
+    "keepAlive": 3600
+  },
+  "cases": [
+    {
+      "name": "",
+      "status": "info",
+      "notifications": [],
+      "condition": "a > 0"
+    }
+  ],
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": [],
+  "version": 10,
+  "id": "2bn-ro5-p8h",
+  "updatedAt": 1756378023424,
+  "blocking": false,
+  "metadata": {
+    "entities": [],
+    "sources": [
+      "contrast-security-adr"
+    ]
+  },
+  "creationAuthorId": 22452697,
+  "updateAuthorId": 37357442,
+  "creator": {
+    "handle": "pragati.gupta@contrastsecurity.com",
+    "name": "Pragati Gupta"
+  },
+  "updater": {
+    "handle": "pavan.kulkarni@contrastsecurity.com",
+    "name": "Pavan Kulkarni"
+  }
+}
