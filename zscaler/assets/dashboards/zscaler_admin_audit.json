@@ -1,0 +1,1075 @@
+{
+    "title": "Zscaler Internet Access - Admin Audit",
+    "description": "This dashboard provides a detailed view of administrative activities within the Zscaler Internet Access (ZIA) portal.",
+    "widgets": [
+        {
+            "id": 3075798430924355,
+            "definition": {
+                "type": "image",
+                "url": "/static/images/integration_dashboard/zscaler_hero_1.png",
+                "url_dark_theme": "/static/images/integration_dashboard/zscaler_hero_1.png",
+                "sizing": "fill",
+                "has_background": true,
+                "has_border": false,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 3
+            }
+        },
+        {
+            "id": 8822490241060112,
+            "definition": {
+                "type": "note",
+                "content": "[Zscaler Internet Access](https://www.zscaler.com/products-and-solutions/zscaler-internet-access) (ZIA) is a secure Internet and web gateway delivered as a service from the cloud.\n\nThis dashboard provides visibility into administrative activities within the Zscaler Internet Access platform, helping teams monitor configuration changes, policy modifications, and access attempts across the environment.\n\nFor more information, see the [Zscaler Integration Documentation](https://docs.datadoghq.com/integrations/z-scaler/).\n\n**Tips**\n- Use the timeframe selector in the upper-right corner of the dashboard to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets and visualizations.",
+                "background_color": "blue",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 8,
+                "height": 3
+            }
+        },
+        {
+            "id": 5256815760036855,
+            "definition": {
+                "title": "Total Admin Audit Events",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "default_zero(query1)"
+                            }
+                        ],
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "value": 0,
+                                "palette": "custom_bg",
+                                "custom_bg_color": "#c9e5ff"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2,
+                "timeseries_background": {
+                    "yaxis": {},
+                    "type": "bars"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 3,
+                "width": 3,
+                "height": 3
+            }
+        },
+        {
+            "id": 4984996101816125,
+            "definition": {
+                "title": "Admin Audit Events over Time",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "number_format": {},
+                                "alias": "Admin Audit Events",
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "datadog16",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "markers": []
+            },
+            "layout": {
+                "x": 3,
+                "y": 3,
+                "width": 9,
+                "height": 3
+            }
+        },
+        {
+            "id": 132506994149012,
+            "definition": {
+                "title": "Top Categories",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.category",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 2839887510822413,
+            "definition": {
+                "title": "Top Subcategories",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.subcategory",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 4,
+                "y": 6,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 3567960326095653,
+            "definition": {
+                "title": "Top Admin IDs",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit -@zscaler.adminid:None $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.adminid",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 8,
+                "y": 6,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 7164430845930163,
+            "definition": {
+                "title": "Distribution by Error Code",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit -@zscaler.errorcode:None $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.errorcode",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        },
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "table"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 10,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 7090190144008940,
+            "definition": {
+                "title": "Errors over Time",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Errors",
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit @zscaler.errorcode:* -@zscaler.errorcode:None $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "red",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 10,
+                "width": 8,
+                "height": 4
+            }
+        },
+        {
+            "id": 4920804111278712,
+            "definition": {
+                "title": "Top Client IPs",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@network.client.ip",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 14,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 4763682090921441,
+            "definition": {
+                "title": "Top Actions",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.action",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 4,
+                "y": 14,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 2575412209775247,
+            "definition": {
+                "title": "Distribution by Log Type",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.auditlogtype",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        },
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "table"
+                }
+            },
+            "layout": {
+                "x": 8,
+                "y": 14,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 7956592414386763,
+            "definition": {
+                "title": "Geo Distribution by Client IPs",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "geomap",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@network.client.geoip.country.iso_code",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 250,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "asc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "palette": "hostmap_blues",
+                    "palette_flip": false
+                },
+                "view": {
+                    "focus": "WORLD"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 18,
+                "width": 12,
+                "height": 4
+            }
+        },
+        {
+            "id": 5895671615894400,
+            "definition": {
+                "title": "Top Resources",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit -@zscaler.resource:None $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.resource",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 10,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "style": {
+                    "display": {
+                        "type": "stacked",
+                        "legend": "automatic"
+                    }
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 22,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 1867591383691042,
+            "definition": {
+                "title": "Distribution by Interface",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@zscaler.interface",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        },
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 500,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "table"
+                }
+            },
+            "layout": {
+                "x": 4,
+                "y": 22,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 8361140009684046,
+            "definition": {
+                "title": "Distribution by Result",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "logs",
+                                "search": {
+                                    "query": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id"
+                                },
+                                "indexes": [
+                                    "*"
+                                ],
+                                "group_by": [
+                                    {
+                                        "facet": "@evt.outcome",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc",
+                                            "metric": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        },
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "sort": {
+                            "count": 500,
+                            "order_by": [
+                                {
+                                    "type": "formula",
+                                    "index": 0,
+                                    "order": "desc"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "table"
+                }
+            },
+            "layout": {
+                "x": 8,
+                "y": 22,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 7113371891177170,
+            "definition": {
+                "title": "Admin Audit Event Details",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "event_list",
+                        "query": {
+                            "data_source": "logs_stream",
+                            "query_string": "source:zscaler service:zscalernss-audit $action $category $client_ip $result $admin_id",
+                            "indexes": [],
+                            "storage": "hot"
+                        },
+                        "columns": [
+                            {
+                                "field": "status_line",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "timestamp",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@zscaler.adminid",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@network.client.ip",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@zscaler.category",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@zscaler.subcategory",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@evt.outcome",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "content",
+                                "width": "auto"
+                            }
+                        ]
+                    }
+                ],
+                "type": "list_stream"
+            },
+            "layout": {
+                "x": 0,
+                "y": 26,
+                "width": 12,
+                "height": 4
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "action",
+            "prefix": "@zscaler.action",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "category",
+            "prefix": "@zscaler.category",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "client_ip",
+            "prefix": "@network.client.ip",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "result",
+            "prefix": "@evt.outcome",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "admin_id",
+            "prefix": "@zscaler.adminid",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
