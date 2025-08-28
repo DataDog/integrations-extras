@@ -1,3 +1,4 @@
+# bypass-global-grok-parser-rules-checks
 id: vercel
 backend_only: false
 facets:
@@ -81,10 +82,10 @@ pipeline:
       sources:
         - http.status_category
     - type: service-remapper
-      name: Define `proxy.host` as the official service of the log
+      name: Define `projectName` as the official service of the log
       enabled: true
       sources:
-        - proxy.host
+        - projectName
     - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
