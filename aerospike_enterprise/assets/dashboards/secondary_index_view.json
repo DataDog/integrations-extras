@@ -1,13 +1,14 @@
 {
-  "title": "Secondary Index View",
-  "description": "",
+  "title": "Aerospike Enterprise - Secondary Index View",
+  "description": "Visualizes secondary index usage, including entries, garbage collection (GC), and resource utilization at the namespace level.",
   "widgets": [
     {
-      "id": 6391546491938746,
+      "id": 7768457927608713,
       "definition": {
         "type": "image",
         "url": "/static/images/logos/aerospike_small.svg",
         "sizing": "cover",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
@@ -16,15 +17,15 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 2,
-        "height": 1
+        "width": 4,
+        "height": 2
       }
     },
     {
       "id": 1655985222069894,
       "definition": {
         "title": "Summary",
-        "background_color": "vivid_purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -75,101 +76,44 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 2
             }
           },
           {
-            "id": 1057074896596340,
+            "id": 5375595554017504,
             "definition": {
-              "title": "Memory Used",
+              "title": "Load %",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "min:aerospike.sindex.load_pct{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ],
                   "formulas": [
                     {
-                      "formula": "query1 + query2",
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
-                          "unit_name": "byte"
+                          "unit_name": "percent"
                         }
                       }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:aerospike.sindex.used_bytes{$aerospike_cluster, $ns, $sindex}",
-                      "aggregator": "last"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:aerospike.sindex.memory_used{$aerospike_cluster, $ns, $sindex}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 2623503122259574,
-            "definition": {
-              "title": "Entries",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.sindex.entries{$aerospike_cluster, $ns, $sindex}",
-                      "aggregator": "last"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "max:aerospike.namespace.effective_replication_factor{$aerospike_cluster, $ns}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1 / query2"
                     }
                   ]
                 }
@@ -185,99 +129,6 @@
             },
             "layout": {
               "x": 4,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 1277189899935654,
-            "definition": {
-              "title": "Entries/Records",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.sindex.entries_per_rec{$aerospike_cluster, $ns, $sindex}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 6593471034290600,
-            "definition": {
-              "title": "Entries/Bins",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.sindex.entries_per_bval{$aerospike_cluster, $ns, $sindex}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": true
-                }
-              }
-            },
-            "layout": {
-              "x": 8,
               "y": 0,
               "width": 2,
               "height": 2
@@ -331,16 +182,54 @@
               }
             },
             "layout": {
-              "x": 0,
-              "y": 2,
+              "x": 6,
+              "y": 0,
               "width": 2,
               "height": 2
             }
-          },
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 5407366195722862,
+      "definition": {
+        "type": "note",
+        "content": "The **Secondary Index Summary** dashboard visualizes details such as memory usage, object counts, garbage collection, and bins related to secondary indexes, either across all namespaces or at the namespace level.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 7297615766644403,
+      "definition": {
+        "title": "Sindex Entry Details",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "id": 5375595554017504,
+            "id": 2623503122259574,
             "definition": {
-              "title": "Load percentage",
+              "title": "Entries",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -351,7 +240,13 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "min:aerospike.sindex.load_pct{$aerospike_cluster, $ns, $sindex}",
+                      "query": "sum:aerospike.sindex.entries{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "max:aerospike.namespace.effective_replication_factor{$aerospike_cluster, $ns}",
                       "aggregator": "last"
                     }
                   ],
@@ -364,13 +259,7 @@
                   ],
                   "formulas": [
                     {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "percent"
-                        }
-                      }
+                      "formula": "query1 / query2"
                     }
                   ]
                 }
@@ -385,9 +274,177 @@
               }
             },
             "layout": {
-              "x": 2,
-              "y": 2,
-              "width": 2,
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1277189899935654,
+            "definition": {
+              "title": "Entries/Records",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:aerospike.sindex.entries_per_rec{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6593471034290600,
+            "definition": {
+              "title": "Entries/Bins",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:aerospike.sindex.entries_per_bval{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": true
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 4550547680291554,
+      "definition": {
+        "title": "Memory",
+        "background_color": "purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1057074896596340,
+            "definition": {
+              "title": "Memory Used",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 + query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:aerospike.sindex.used_bytes{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:aerospike.sindex.memory_used{$aerospike_cluster, $ns, $sindex}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
               "height": 2
             }
           },
@@ -435,38 +492,19 @@
               }
             },
             "layout": {
-              "x": 4,
-              "y": 2,
-              "width": 6,
+              "x": 3,
+              "y": 0,
+              "width": 9,
               "height": 2
             }
           }
         ]
       },
       "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 10,
-        "height": 5
-      }
-    },
-    {
-      "id": 5407366195722862,
-      "definition": {
-        "type": "note",
-        "content": "**Secondary Index Summary** dashboard provides information about overview of secondary index usage at namespace level.",
-        "background_color": "white",
-        "font_size": "16",
-        "text_align": "left",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left"
-      },
-      "layout": {
         "x": 0,
-        "y": 1,
-        "width": 2,
-        "height": 2
+        "y": 4,
+        "width": 12,
+        "height": 1
       }
     }
   ],

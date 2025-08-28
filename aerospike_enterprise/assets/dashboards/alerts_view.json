@@ -1,13 +1,14 @@
 {
-  "title": "Alerts View",
-  "description": "Alerts View dashboard provides multi-level metrics regarding alerts and their states of warning, errors and critical as well as info",
+  "title": "Aerospike Enterprise - Alerts View",
+  "description": "Visualizes multi-level alert metrics, including states such as info, warning, error, and critical.",
   "widgets": [
     {
-      "id": 5221527285160222,
+      "id": 7881841930463114,
       "definition": {
         "type": "image",
         "url": "/static/images/logos/aerospike_small.svg",
         "sizing": "cover",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
@@ -16,57 +17,79 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 2,
-        "height": 1
+        "width": 4,
+        "height": 2
       }
     },
     {
       "id": 2626756733441590,
       "definition": {
         "title": "Overview",
-        "background_color": "vivid_purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
-        "widgets": []
+        "widgets": [
+          {
+            "id": 2860830786402142,
+            "definition": {
+              "title": " ",
+              "type": "manage_status",
+              "display_format": "counts",
+              "color_preference": "background",
+              "hide_zero_counts": true,
+              "show_status": true,
+              "last_triggered_format": "relative",
+              "query": "group:($aerospike_cluster AND $aerospike_service)",
+              "sort": "name,desc",
+              "count": 50,
+              "start": 0,
+              "summary_type": "groups",
+              "show_priority": false,
+              "show_last_triggered": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 2
+            }
+          }
+        ]
       },
       "layout": {
-        "x": 2,
+        "x": 4,
         "y": 0,
-        "width": 10,
-        "height": 1
+        "width": 8,
+        "height": 3
       }
     },
     {
-      "id": 2860830786402142,
+      "id": 2177431731475519,
       "definition": {
-        "title": " ",
-        "type": "manage_status",
-        "display_format": "counts",
-        "color_preference": "background",
-        "hide_zero_counts": true,
-        "show_status": true,
-        "last_triggered_format": "relative",
-        "query": "group:($aerospike_cluster AND $aerospike_service)",
-        "sort": "name,desc",
-        "count": 50,
-        "start": 0,
-        "summary_type": "groups",
-        "show_priority": false,
-        "show_last_triggered": false
+        "type": "note",
+        "content": "The **Alerts View** dashboard visualizes categories of monitors that are currently firing.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 2
+        "y": 2,
+        "width": 4,
+        "height": 1
       }
     },
     {
       "id": 8920091690369624,
       "definition": {
         "title": "Critical",
-        "background_color": "vivid_purple",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -109,7 +132,7 @@
       "id": 3598741547608336,
       "definition": {
         "title": "Warning",
-        "background_color": "vivid_purple",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -152,7 +175,7 @@
       "id": 5982092018187716,
       "definition": {
         "title": "Ok",
-        "background_color": "vivid_purple",
+        "background_color": "pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",

@@ -1,13 +1,14 @@
 {
-  "title": "XDR View",
-  "description": "",
+  "title": "Aerospike Enterprise - XDR View",
+  "description": "Visualizes key cross-datacenter replication metrics, including lag and bytes shipped, related to data backup and transfer status between datacenters and their configured namespaces.",
   "widgets": [
     {
-      "id": 8810548677994722,
+      "id": 6314371795252703,
       "definition": {
         "type": "image",
         "url": "/static/images/logos/aerospike_small.svg",
         "sizing": "cover",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
@@ -16,51 +17,15 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 2,
-        "height": 1
+        "width": 4,
+        "height": 2
       }
     },
     {
       "id": 3698193779071874,
       "definition": {
         "title": "Overview",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": []
-      },
-      "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 10,
-        "height": 1
-      }
-    },
-    {
-      "id": 1797635947279060,
-      "definition": {
-        "type": "note",
-        "content": "**XDR View** dashboard displays key metrics, like lag and bytes-shipped, that are related to the data backup and transfer status between each datacenter and the namespaces configured.",
-        "background_color": "white",
-        "font_size": "16",
-        "text_align": "left",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left"
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 2,
-        "height": 2
-      }
-    },
-    {
-      "id": 2193582963386164,
-      "definition": {
-        "title": "Host Connections",
-        "background_color": "vivid_purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -68,10 +33,9 @@
           {
             "id": 628399571622714,
             "definition": {
-              "title": "Open",
+              "title": "Open Connections",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -107,74 +71,10 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
-          {
-            "id": 2798573670779060,
-            "definition": {
-              "title": "Established",
-              "title_size": "16",
-              "title_align": "left",
-              "time": {},
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.sysinfo.netstat_tcp_currestab{$aerospike_cluster,$aerospike_service,$dc}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 1
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 7021214503959196,
-      "definition": {
-        "title": "DC Nodes & Host Network Traffic (total) (rate)",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
           {
             "id": 1788144956988476,
             "definition": {
@@ -222,9 +122,105 @@
               }
             },
             "layout": {
-              "x": 0,
+              "x": 4,
               "y": 0,
-              "width": 1,
+              "width": 2,
+              "height": 1
+            }
+          },
+          {
+            "id": 3696151746172318,
+            "definition": {
+              "title": "Received (bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "rate(query1) + rate(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:aerospike.sysinfo.network_receive_bytes{$aerospike_cluster,$aerospike_service,$dc}.rollup(max, 30)",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:aerospike.sysinfo.network_receive_bytes_total{$aerospike_cluster,$aerospike_service,$dc}.rollup(max, 30)",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 1
+            }
+          },
+          {
+            "id": 2798573670779060,
+            "definition": {
+              "title": "Established Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:aerospike.sysinfo.netstat_tcp_currestab{$aerospike_cluster,$aerospike_service,$dc}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
               "height": 1
             }
           },
@@ -267,60 +263,8 @@
               }
             },
             "layout": {
-              "x": 1,
-              "y": 0,
-              "width": 1,
-              "height": 1
-            }
-          },
-          {
-            "id": 3696151746172318,
-            "definition": {
-              "title": "Received (bytes)",
-              "title_size": "16",
-              "title_align": "left",
-              "time": {},
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "rate(query1) + rate(query2)"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.sysinfo.network_receive_bytes{$aerospike_cluster,$aerospike_service,$dc}.rollup(max, 30)",
-                      "aggregator": "last"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:aerospike.sysinfo.network_receive_bytes_total{$aerospike_cluster,$aerospike_service,$dc}.rollup(max, 30)",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
+              "x": 4,
+              "y": 1,
               "width": 2,
               "height": 1
             }
@@ -331,7 +275,6 @@
               "title": "Transmitted (bytes)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -371,8 +314,8 @@
               }
             },
             "layout": {
-              "x": 4,
-              "y": 0,
+              "x": 6,
+              "y": 1,
               "width": 2,
               "height": 1
             }
@@ -380,17 +323,37 @@
         ]
       },
       "layout": {
-        "x": 6,
+        "x": 4,
         "y": 0,
-        "width": 6,
-        "height": 2
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 1797635947279060,
+      "definition": {
+        "type": "note",
+        "content": "The **XDR View** dashboard visualizes key metrics such as lag and bytes shipped, related to data backup and transfer status between datacenters and their configured namespaces.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 1
       }
     },
     {
       "id": 709418328049930,
       "definition": {
-        "title": "XDR Statistics Summary",
-        "background_color": "vivid_purple",
+        "title": "Statistics Summary",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -401,7 +364,6 @@
               "title": "Throughput (total)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -447,10 +409,9 @@
           {
             "id": 7249053984328050,
             "definition": {
-              "title": "Bytes shipped (total)",
+              "title": "Bytes Shipped (total)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -499,7 +460,6 @@
               "title": "In Queue (total) ",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -548,7 +508,6 @@
               "title": "Recoveries Pending (total) ",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -597,7 +556,6 @@
               "title": "In Progress (total) ",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -646,7 +604,6 @@
               "title": "Ship Latency (average)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -698,10 +655,9 @@
           {
             "id": 8052153201365360,
             "definition": {
-              "title": "Lap us (average)",
+              "title": "Lap μs (average)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -756,7 +712,6 @@
               "title": "Lag (average)",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -823,7 +778,7 @@
       "id": 3786451906072822,
       "definition": {
         "title": "Detailed Statistics",
-        "background_color": "vivid_purple",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1381,7 +1336,7 @@
           {
             "id": 1013336811977902,
             "definition": {
-              "title": "Lap \u03bcs",
+              "title": "Lap μs",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1396,7 +1351,7 @@
                 {
                   "formulas": [
                     {
-                      "alias": "Lap \u03bcs",
+                      "alias": "Lap μs",
                       "formula": "query1"
                     }
                   ],
@@ -1741,7 +1696,7 @@
       "id": 3264014758340118,
       "definition": {
         "title": "Resources - Network",
-        "background_color": "vivid_purple",
+        "background_color": "pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1759,7 +1714,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1809,7 +1763,7 @@
           {
             "id": 2135000053317962,
             "definition": {
-              "title": "Host Network Traffic - retransmit (packets)  (rate)",
+              "title": "Host Network Traffic - Retransmit (packets)  (rate)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1819,7 +1773,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1870,7 +1823,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1926,7 +1878,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {

@@ -1,53 +1,18 @@
 {
-  "title": "Secondary Index Summary",
-  "description": "",
+  "title": "Aerospike Enterprise - Secondary Index Summary",
+  "description": "Visualizes key secondary index metrics, including long and short queries, both cumulatively and as time-series across namespaces.",
   "widgets": [
     {
-      "id": 4562923306895504,
+      "id": 884994916238942,
       "definition": {
         "type": "image",
         "url": "/static/images/logos/aerospike_small.svg",
         "sizing": "cover",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
         "horizontal_align": "center"
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 2,
-        "height": 1
-      }
-    },
-    {
-      "id": 3894420641073904,
-      "definition": {
-        "title": "Cluster Overview",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": []
-      },
-      "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 10,
-        "height": 1
-      }
-    },
-    {
-      "id": 5058731761672998,
-      "definition": {
-        "type": "note",
-        "content": "**Secondary Index Summary** dashboard provides an  overview of secondary index usage at the namespace level.",
-        "background_color": "white",
-        "font_size": "24",
-        "text_align": "left",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left"
       },
       "layout": {
         "x": 0,
@@ -57,92 +22,42 @@
       }
     },
     {
-      "id": 3816405053135670,
+      "id": 3894420641073904,
       "definition": {
-        "title": "Sindex Count (total)",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "query_value",
-        "requests": [
-          {
-            "response_format": "scalar",
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "sum:aerospike.sindex.entries{$aerospike_cluster} by {sindex}",
-                "aggregator": "last"
-              }
-            ],
-            "conditional_formats": [
-              {
-                "comparator": ">",
-                "value": 0,
-                "palette": "white_on_green"
-              }
-            ],
-            "formulas": [
-              {
-                "formula": "count_not_null(query1)"
-              }
-            ]
-          }
-        ],
-        "autoscale": true,
-        "text_align": "center",
-        "custom_links": [],
-        "precision": 2,
-        "timeseries_background": {
-          "type": "area",
-          "yaxis": {
-            "include_zero": true
-          }
-        }
-      },
-      "layout": {
-        "x": 4,
-        "y": 0,
-        "width": 2,
-        "height": 2
-      }
-    },
-    {
-      "id": 8675798975409096,
-      "definition": {
-        "title": "UDF Queries (max) (rate/one hour)",
-        "background_color": "vivid_purple",
+        "title": "Overview",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 3204378703808430,
+            "id": 3816405053135670,
             "definition": {
-              "title": "Completed",
+              "title": "Sindex Count (total)",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "rate(query1)"
-                    }
-                  ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "max:aerospike.namespace.si_query_udf_bg_complete{$aerospike_cluster}.rollup(max, 3600)",
+                      "query": "sum:aerospike.sindex.entries{$aerospike_cluster} by {sindex}",
                       "aggregator": "last"
                     }
                   ],
-                  "response_format": "scalar",
                   "conditional_formats": [
                     {
-                      "comparator": ">=",
+                      "comparator": ">",
                       "value": 0,
                       "palette": "white_on_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "count_not_null(query1)"
                     }
                   ]
                 }
@@ -152,23 +67,154 @@
               "custom_links": [],
               "precision": 2,
               "timeseries_background": {
+                "type": "area",
                 "yaxis": {
                   "include_zero": true
-                },
-                "type": "area"
+                }
               }
             },
             "layout": {
               "x": 0,
               "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6663635624099076,
+            "definition": {
+              "title": "Memory Used (bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:aerospike.namespace.sindex_used_bytes{$aerospike_cluster}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "custom_links": [],
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": true
+                }
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
               "width": 2,
               "height": 1
             }
           },
           {
-            "id": 7648759188515174,
+            "id": 5153709695764856,
             "definition": {
-              "title": "Aborted",
+              "title": "Memory Used (bytes)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "min:aerospike.sindex.used_bytes{$aerospike_cluster}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:aerospike.sindex.used_bytes{$aerospike_cluster}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "max:aerospike.sindex.used_bytes{$aerospike_cluster}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 5,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Min",
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Avg",
+                      "formula": "query2"
+                    },
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Max",
+                      "formula": "query3"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "link": "/dashboard/c6j-wa7-7h7/cluster-overview?aerospike_cluster={{$aerospike_cluster}}&aerospike_service={{$aerospike_service}}&ns={{$ns}}&live=true",
+                  "is_hidden": false
+                }
+              ]
+            },
+            "layout": {
+              "x": 5,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4562325215569758,
+            "definition": {
+              "title": "GC (rate)",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -183,7 +229,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "max:aerospike.namespace.si_query_udf_bg_abort{$aerospike_cluster}.rollup(max, 3600)",
+                      "query": "sum:aerospike.namespace.sindex_gc_cleaned{$aerospike_cluster}.rollup(max, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -209,58 +255,8 @@
               }
             },
             "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 1122925628110134,
-            "definition": {
-              "title": "Errors",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "rate(query1)"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "max:aerospike.namespace.si_query_udf_bg_error{$aerospike_cluster}.rollup(max, 3600)",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "text_align": "center",
-              "custom_links": [],
-              "precision": 2,
-              "timeseries_background": {
-                "yaxis": {
-                  "include_zero": true
-                },
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
+              "x": 3,
+              "y": 1,
               "width": 2,
               "height": 1
             }
@@ -268,17 +264,37 @@
         ]
       },
       "layout": {
-        "x": 6,
+        "x": 4,
         "y": 0,
-        "width": 6,
-        "height": 2
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 5058731761672998,
+      "definition": {
+        "type": "note",
+        "content": "The **Secondary Index Summary** dashboard visualizes key secondary index metrics, including long and short queries, shown both cumulatively and as time-series across namespaces.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 1
       }
     },
     {
       "id": 7296789291906384,
       "definition": {
         "title": "Short Queries (max) (rate/one hour)",
-        "background_color": "vivid_purple",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -329,7 +345,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -377,9 +393,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 4,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -427,9 +443,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 8,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           }
@@ -437,8 +453,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 6,
+        "y": 3,
+        "width": 12,
         "height": 2
       }
     },
@@ -446,7 +462,7 @@
       "id": 3734907342644984,
       "definition": {
         "title": "Long Queries (max) (rate/one hour)",
-        "background_color": "vivid_purple",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -497,7 +513,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -507,7 +523,6 @@
               "title": "Aborted",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -546,9 +561,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 4,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -558,7 +573,6 @@
               "title": "Errors",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -597,18 +611,18 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 8,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           }
         ]
       },
       "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
+        "x": 0,
+        "y": 5,
+        "width": 12,
         "height": 2
       }
     },
@@ -616,7 +630,7 @@
       "id": 2005737017732368,
       "definition": {
         "title": "Query Aggregations (max) (rate/one hour)",
-        "background_color": "vivid_purple",
+        "background_color": "pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -627,7 +641,6 @@
               "title": "Completed",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -668,7 +681,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -678,7 +691,6 @@
               "title": "Aborted",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -717,9 +729,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 4,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -729,7 +741,6 @@
               "title": "Errors",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -768,9 +779,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 8,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           }
@@ -778,8 +789,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 6,
+        "y": 7,
+        "width": 12,
         "height": 2
       }
     },
@@ -787,7 +798,7 @@
       "id": 8491552053987508,
       "definition": {
         "title": "Ops Background Queries (max) (rate/one hour)",
-        "background_color": "vivid_purple",
+        "background_color": "orange",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -798,7 +809,6 @@
               "title": "Completed",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -839,7 +849,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -849,7 +859,6 @@
               "title": "Aborted",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -888,9 +897,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 4,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           },
@@ -900,7 +909,6 @@
               "title": "Errors",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -939,94 +947,36 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 8,
               "y": 0,
-              "width": 2,
+              "width": 4,
               "height": 1
             }
           }
         ]
       },
       "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
+        "x": 0,
+        "y": 9,
+        "width": 12,
         "height": 2
       }
     },
     {
-      "id": 3173383210671846,
+      "id": 8675798975409096,
       "definition": {
-        "title": "Memory (total)",
-        "background_color": "vivid_purple",
+        "title": "UDF Queries (max) (rate/one hour)",
+        "background_color": "yellow",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 6663635624099076,
+            "id": 3204378703808430,
             "definition": {
-              "title": "Used (bytes)",
+              "title": "Completed",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:aerospike.namespace.sindex_used_bytes{$aerospike_cluster}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "text_align": "center",
-              "custom_links": [],
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": true
-                }
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 4562325215569758,
-            "definition": {
-              "title": "Garbage Collected (rate)",
-              "title_size": "16",
-              "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -1039,7 +989,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:aerospike.namespace.sindex_gc_cleaned{$aerospike_cluster}.rollup(max, 30)",
+                      "query": "max:aerospike.namespace.si_query_udf_bg_complete{$aerospike_cluster}.rollup(max, 3600)",
                       "aggregator": "last"
                     }
                   ],
@@ -1065,9 +1015,109 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 0,
               "y": 0,
-              "width": 2,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 7648759188515174,
+            "definition": {
+              "title": "Aborted",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "rate(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:aerospike.namespace.si_query_udf_bg_abort{$aerospike_cluster}.rollup(max, 3600)",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "custom_links": [],
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 1122925628110134,
+            "definition": {
+              "title": "Errors",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "rate(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:aerospike.namespace.si_query_udf_bg_error{$aerospike_cluster}.rollup(max, 3600)",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "custom_links": [],
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
               "height": 1
             }
           }
@@ -1075,83 +1125,8 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 5153709695764856,
-      "definition": {
-        "title": "Memory Used (bytes)",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "query_table",
-        "requests": [
-          {
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "min:aerospike.sindex.used_bytes{$aerospike_cluster}",
-                "aggregator": "last"
-              },
-              {
-                "data_source": "metrics",
-                "name": "query2",
-                "query": "avg:aerospike.sindex.used_bytes{$aerospike_cluster}",
-                "aggregator": "last"
-              },
-              {
-                "data_source": "metrics",
-                "name": "query3",
-                "query": "max:aerospike.sindex.used_bytes{$aerospike_cluster}",
-                "aggregator": "last"
-              }
-            ],
-            "response_format": "scalar",
-            "sort": {
-              "count": 5,
-              "order_by": [
-                {
-                  "type": "formula",
-                  "index": 0,
-                  "order": "desc"
-                }
-              ]
-            },
-            "formulas": [
-              {
-                "cell_display_mode": "number",
-                "alias": "Min",
-                "formula": "query1"
-              },
-              {
-                "cell_display_mode": "number",
-                "alias": "Avg",
-                "formula": "query2"
-              },
-              {
-                "cell_display_mode": "number",
-                "alias": "Max",
-                "formula": "query3"
-              }
-            ]
-          }
-        ],
-        "has_search_bar": "auto",
-        "custom_links": [
-          {
-            "override_label": "containers",
-            "link": "/dashboard/c6j-wa7-7h7/cluster-overview?aerospike_cluster={{$aerospike_cluster}}&aerospike_service={{$aerospike_service}}&ns={{$ns}}&live=true",
-            "is_hidden": false
-          }
-        ]
-      },
-      "layout": {
-        "x": 4,
-        "y": 0,
-        "width": 4,
+        "y": 11,
+        "width": 12,
         "height": 2
       }
     },
@@ -1159,7 +1134,7 @@
       "id": 6324208856639248,
       "definition": {
         "title": "Namespace Overview",
-        "background_color": "vivid_purple",
+        "background_color": "green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1428,7 +1403,7 @@
             "layout": {
               "x": 8,
               "y": 0,
-              "width": 2,
+              "width": 3,
               "height": 1
             }
           },
@@ -2088,7 +2063,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 9,
+        "y": 13,
         "width": 12,
         "height": 10
       }

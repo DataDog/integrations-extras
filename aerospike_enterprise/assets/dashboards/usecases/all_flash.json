@@ -1,13 +1,14 @@
 {
-  "title": "All Flash",
-  "description": "",
+  "title": "Aerospike Enterprise - All Flash View",
+  "description": "Visualizes critical metrics for monitoring when a flash drive is configured for either secondary index (sindex) or primary index.",
   "widgets": [
     {
-      "id": 6583665499090850,
+      "id": 1517695063340684,
       "definition": {
         "type": "image",
         "url": "/static/images/logos/aerospike_small.svg",
         "sizing": "cover",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
@@ -16,51 +17,281 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 2,
-        "height": 1
+        "width": 4,
+        "height": 2
       }
     },
     {
       "id": 2413536845878164,
       "definition": {
         "title": "Overview",
-        "background_color": "vivid_purple",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
-        "widgets": []
+        "widgets": [
+          {
+            "id": 887946604802562,
+            "definition": {
+              "title": "Stop Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "max:aerospike.namespace.stop_writes{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 1,
+                      "palette": "white_on_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": true
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1
+            }
+          },
+          {
+            "id": 1658877635015866,
+            "definition": {
+              "title": "HWM Breached (total)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:aerospike.namespace.hwm_breached{$aerospike_service,$aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 1,
+                      "palette": "white_on_red"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": true
+                }
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 2,
+              "height": 1
+            }
+          },
+          {
+            "id": 3379549670244686,
+            "definition": {
+              "title": "Objects per Sprig (Primary Index)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "min:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "min:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "avg:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "avg:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "name": "query5",
+                      "data_source": "metrics",
+                      "query": "max:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "name": "query6",
+                      "data_source": "metrics",
+                      "query": "max:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Min",
+                      "cell_display_mode": "number",
+                      "conditional_formats": [
+                        {
+                          "comparator": ">=",
+                          "value": 0,
+                          "palette": "green_on_white"
+                        },
+                        {
+                          "comparator": ">=",
+                          "value": 5000,
+                          "palette": "white_on_red"
+                        }
+                      ],
+                      "formula": "(query1 / 4096) / query2"
+                    },
+                    {
+                      "alias": "Avg",
+                      "cell_display_mode": "number",
+                      "conditional_formats": [
+                        {
+                          "comparator": ">=",
+                          "value": 0,
+                          "palette": "green_on_white"
+                        },
+                        {
+                          "comparator": ">=",
+                          "value": 5000,
+                          "palette": "white_on_red"
+                        }
+                      ],
+                      "formula": "(query3 / 4096) / query4"
+                    },
+                    {
+                      "alias": "Max",
+                      "cell_display_mode": "number",
+                      "conditional_formats": [
+                        {
+                          "comparator": ">=",
+                          "value": 0,
+                          "palette": "green_on_white"
+                        },
+                        {
+                          "comparator": ">=",
+                          "value": 50000,
+                          "palette": "white_on_red"
+                        }
+                      ],
+                      "formula": "(query5 / 4096) / query6"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 5,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          }
+        ]
       },
       "layout": {
-        "x": 2,
+        "x": 4,
         "y": 0,
-        "width": 10,
-        "height": 1
+        "width": 8,
+        "height": 3
       }
     },
     {
       "id": 5896951501699418,
       "definition": {
         "type": "note",
-        "content": "**All Flash Dashboard** displays all critical metrics required to monitor when flash drive is configured for either sindex or index",
+        "content": "The **All Flash View** dashboard visualizes critical metrics for monitoring when a flash drive is configured for either secondary index (sindex) or primary index.",
         "background_color": "white",
-        "font_size": "16",
+        "font_size": "14",
         "text_align": "left",
         "show_tick": false,
         "tick_pos": "50%",
-        "tick_edge": "left"
+        "tick_edge": "left",
+        "has_padding": false
       },
       "layout": {
         "x": 0,
-        "y": 0,
-        "width": 2,
-        "height": 2
+        "y": 2,
+        "width": 4,
+        "height": 1
       }
     },
     {
       "id": 7514359117645030,
       "definition": {
         "title": "Latencies & Index Pressure",
-        "background_color": "vivid_purple",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -125,7 +356,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 1,
+              "width": 3,
               "height": 1
             }
           },
@@ -187,9 +418,9 @@
               }
             },
             "layout": {
-              "x": 1,
+              "x": 3,
               "y": 0,
-              "width": 1,
+              "width": 3,
               "height": 1
             }
           },
@@ -240,9 +471,9 @@
               }
             },
             "layout": {
-              "x": 2,
+              "x": 6,
               "y": 0,
-              "width": 1,
+              "width": 3,
               "height": 1
             }
           },
@@ -293,264 +524,18 @@
               }
             },
             "layout": {
-              "x": 3,
+              "x": 9,
               "y": 0,
-              "width": 1,
+              "width": 3,
               "height": 1
             }
           }
         ]
       },
       "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 2348884958173240,
-      "definition": {
-        "title": "Stop Writes / HWM breached (total)",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 887946604802562,
-            "definition": {
-              "title": "Stop Writes",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "metrics",
-                      "query": "max:aerospike.namespace.stop_writes{$aerospike_service, $aerospike_cluster, $ns}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": "=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    },
-                    {
-                      "comparator": ">=",
-                      "value": 1,
-                      "palette": "white_on_red"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": true
-                }
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 1658877635015866,
-            "definition": {
-              "title": "HWM Breached (total)",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "metrics",
-                      "query": "sum:aerospike.namespace.hwm_breached{$aerospike_service,$aerospike_cluster, $ns}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": "=",
-                      "value": 0,
-                      "palette": "white_on_green"
-                    },
-                    {
-                      "comparator": ">=",
-                      "value": 1,
-                      "palette": "white_on_red"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": true
-                }
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 1
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 3379549670244686,
-      "definition": {
-        "title": "Objects per Sprig (Primary Index)",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "query_table",
-        "requests": [
-          {
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "min:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              },
-              {
-                "name": "query2",
-                "data_source": "metrics",
-                "query": "min:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              },
-              {
-                "name": "query3",
-                "data_source": "metrics",
-                "query": "avg:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              },
-              {
-                "name": "query4",
-                "data_source": "metrics",
-                "query": "avg:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              },
-              {
-                "name": "query5",
-                "data_source": "metrics",
-                "query": "max:aerospike.namespace.master_objects{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              },
-              {
-                "name": "query6",
-                "data_source": "metrics",
-                "query": "max:aerospike.namespace.partition_tree_sprigs{$aerospike_service, $aerospike_cluster, $ns}",
-                "aggregator": "last"
-              }
-            ],
-            "response_format": "scalar",
-            "sort": {
-              "count": 500,
-              "order_by": [
-                {
-                  "type": "formula",
-                  "index": 0,
-                  "order": "desc"
-                }
-              ]
-            },
-            "formulas": [
-              {
-                "alias": "Min",
-                "cell_display_mode": "number",
-                "conditional_formats": [
-                  {
-                    "comparator": ">=",
-                    "value": 0,
-                    "palette": "green_on_white"
-                  },
-                  {
-                    "comparator": ">=",
-                    "value": 5000,
-                    "palette": "white_on_red"
-                  }
-                ],
-                "formula": "(query1 / 4096) / query2"
-              },
-              {
-                "alias": "Avg",
-                "cell_display_mode": "number",
-                "conditional_formats": [
-                  {
-                    "comparator": ">=",
-                    "value": 0,
-                    "palette": "green_on_white"
-                  },
-                  {
-                    "comparator": ">=",
-                    "value": 5000,
-                    "palette": "white_on_red"
-                  }
-                ],
-                "formula": "(query3 / 4096) / query4"
-              },
-              {
-                "alias": "Max",
-                "cell_display_mode": "number",
-                "conditional_formats": [
-                  {
-                    "comparator": ">=",
-                    "value": 0,
-                    "palette": "green_on_white"
-                  },
-                  {
-                    "comparator": ">=",
-                    "value": 50000,
-                    "palette": "white_on_red"
-                  }
-                ],
-                "formula": "(query5 / 4096) / query6"
-              }
-            ]
-          }
-        ],
-        "has_search_bar": "auto"
-      },
-      "layout": {
-        "x": 10,
-        "y": 0,
-        "width": 2,
+        "x": 0,
+        "y": 3,
+        "width": 12,
         "height": 2
       }
     },
@@ -558,7 +543,7 @@
       "id": 1853605775121996,
       "definition": {
         "title": "Errors",
-        "background_color": "vivid_purple",
+        "background_color": "purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -720,7 +705,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 3,
+        "y": 5,
         "width": 12,
         "height": 3
       }
@@ -729,7 +714,7 @@
       "id": 2407502467280718,
       "definition": {
         "title": "    Resources - Primary Index",
-        "background_color": "vivid_purple",
+        "background_color": "pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -792,7 +777,7 @@
           {
             "id": 7147803259518588,
             "definition": {
-              "title": "% Index  - alloc, used ",
+              "title": "% Index  - Allocated and Used ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -864,7 +849,7 @@
           {
             "id": 3078982422449568,
             "definition": {
-              "title": "Bytes - alloc, used",
+              "title": "Bytes - Allocated and Used",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -945,7 +930,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -998,7 +982,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 6,
+        "y": 8,
         "width": 12,
         "height": 5
       }
@@ -1007,7 +991,7 @@
       "id": 6621934795035232,
       "definition": {
         "title": "Resources -Sindex",
-        "background_color": "vivid_purple",
+        "background_color": "orange",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1025,7 +1009,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1077,7 +1060,7 @@
           {
             "id": 5025394900817468,
             "definition": {
-              "title": "Bytes - used ",
+              "title": "Bytes Used ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1133,7 +1116,7 @@
           {
             "id": 3090039900355370,
             "definition": {
-              "title": "% SIndex  -used ",
+              "title": "% SIndex Used ",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1143,7 +1126,6 @@
                 "max",
                 "min"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1191,7 +1173,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 11,
+        "y": 13,
         "width": 12,
         "height": 3
       }
@@ -1200,7 +1182,7 @@
       "id": 8410722282506786,
       "definition": {
         "title": " Resources-Data",
-        "background_color": "vivid_purple",
+        "background_color": "yellow",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1347,7 +1329,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1400,7 +1381,7 @@
           {
             "id": 7433244186280432,
             "definition": {
-              "title": "% Data - used, available (topk)",
+              "title": "% Data - Used and Available (topk)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1410,7 +1391,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1524,7 +1504,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 14,
+        "y": 16,
         "width": 12,
         "height": 5
       }
@@ -1533,7 +1513,7 @@
       "id": 4318234877912024,
       "definition": {
         "title": "Resources - OS",
-        "background_color": "vivid_purple",
+        "background_color": "green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -1541,7 +1521,7 @@
           {
             "id": 908807831553336,
             "definition": {
-              "title": "Memory - system",
+              "title": "Memory - System",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1551,7 +1531,6 @@
                 "min",
                 "max"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1767,7 +1746,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 19,
+        "y": 21,
         "width": 12,
         "height": 5
       }
