@@ -8,6 +8,7 @@ BAD_HOSTNAME_INSTANCE = {"openmetrics_endpoint": "http://invalid-hostname"}
 
 EXPECTED_PROMETHEUS_METRICS = {
     "resilience4j.bulkhead.available.concurrent.calls",
+    "resilience4j.bulkhead.core.thread.pool.size",
     "resilience4j.bulkhead.max.allowed.concurrent.calls",
     "resilience4j.bulkhead.max.thread.pool.size",
     "resilience4j.bulkhead.queue.capacity",
@@ -21,6 +22,9 @@ EXPECTED_PROMETHEUS_METRICS = {
     "resilience4j.circuitbreaker.calls",
     "resilience4j.circuitbreaker.failure.rate",
     "resilience4j.circuitbreaker.max.buffered.calls",
+    "resilience4j.circuitbreaker.not.permitted.calls.count",
+    "resilience4j.circuitbreaker.not.permitted.calls",
+    "resilience4j.circuitbreaker.slow.call.rate",
     "resilience4j.circuitbreaker.state",
     "resilience4j.ratelimiter.available.permissions",
     "resilience4j.ratelimiter.waiting.threads",
