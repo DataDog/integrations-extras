@@ -41,7 +41,6 @@ def test_openmetricsv2_check(aggregator, dd_run_check, instance_openmetrics_v2, 
     aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
 
 
-@pytest.mark.e2e
 def test_openmetrics_e2e(dd_agent_check, instance_openmetrics_v2):
     aggregator = dd_agent_check(instance_openmetrics_v2, rate=True)
 
