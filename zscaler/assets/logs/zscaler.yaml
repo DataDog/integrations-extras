@@ -597,7 +597,7 @@ pipeline:
           target: zscaler.url_full
           replaceMissing: false
         - type: attribute-remapper
-          name: Map `zscaler.url_full` to `http.url`
+          name: Map `url_full` to `http.url`
           enabled: true
           sources:
             - zscaler.url_full
@@ -614,7 +614,7 @@ pipeline:
           target: http.url_details
           normalizeEndingSlashes: false
         - type: grok-parser
-          name: Convert `threatseverity` field into a lowercase
+          name: Convert `threatseverity` field into lowercase
           enabled: true
           source: zscaler.threatseverity
           samples:
@@ -710,7 +710,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: grok-parser
-          name: Convert `threatseverity` field into a lowercase
+          name: Convert `threatseverity` field into lowercase
           enabled: true
           source: zscaler.threatseverity
           samples:
@@ -868,8 +868,7 @@ pipeline:
           preserveSource: false
           overrideOnConflict: false
         - type: string-builder-processor
-          name: Reset `postaction.cloudNssSiemConfiguration.connectionHeaders`
-            attribute
+          name: Reset `postaction.cloudNssSiemConfiguration.connectionHeaders` attribute
           enabled: true
           template: "%{resolve_to_empty_string}"
           target: zscaler.postaction.cloudNssSiemConfiguration.connectionHeaders
@@ -1163,8 +1162,7 @@ pipeline:
               uationInterval=1440"
           grok:
             supportRules: ""
-            matchRules: 'alert_type_rule %{regex(".*(?= Alert Type)")} Alert Type:
-              %{data:alert_type} \|.*'
+            matchRules: "alert_type_rule .+?Alert Type: %{data:alert_type} \\|.*"
         - type: grok-parser
           name: Extracting user from the description
           enabled: true
@@ -1178,7 +1176,7 @@ pipeline:
               uationInterval=1440"
           grok:
             supportRules: ""
-            matchRules: 'user_rule %{regex(".*(?= User)")} User: %{notSpace:usr.id} \|.*'
+            matchRules: "user_rule .+?User: %{notSpace:usr.id} \\|.*"
         - type: grok-parser
           name: Extracting event type from the description
           enabled: true
@@ -1189,8 +1187,7 @@ pipeline:
               www.institutolockmann.com.br"
           grok:
             supportRules: ""
-            matchRules: 'event_type_rule %{regex(".*(?= Event Type)")} Event Type:
-              %{data:event_type} \|.*'
+            matchRules: "event_type_rule .+?Event Type: %{data:event_type} \\|.*"
         - type: grok-parser
           name: Extracting indexed by from the description
           enabled: true
@@ -1203,8 +1200,7 @@ pipeline:
               ime=1755525600"
           grok:
             supportRules: ""
-            matchRules: 'indexed_by_rule %{regex(".*(?= Indexed By)")} Indexed By:
-              %{notSpace:indexed} \|.*'
+            matchRules: "indexed_by_rule .+?Indexed By: %{notSpace:indexed} \\|.*"
     - type: geo-ip-parser
       name: Extracting geolocation information from the Client IP
       enabled: true
