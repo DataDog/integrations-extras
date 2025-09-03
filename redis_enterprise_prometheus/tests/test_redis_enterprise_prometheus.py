@@ -99,10 +99,8 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
         dd_run_check(check)
     except ConfigurationError:
         assert True
-    except Exception:
-        assert True
 
-    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.group_bogus", count=0)
+    aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.more_groups", count=0)
 
 
 @pytest.mark.unit
