@@ -114,7 +114,5 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
         dd_run_check(check)
     except ConfigurationError:
         assert True
-    except Exception:
-        assert True
 
     aggregator.assert_service_check(f"{RedisEnterprisePrometheusCheck.__NAMESPACE__}.node_imaginary", count=0)
