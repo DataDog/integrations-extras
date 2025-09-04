@@ -18,6 +18,9 @@ from .common import (
 
 @pytest.mark.usefixtures("dd_environment")
 def test_openmetrics_e2e(dd_agent_check, instance_openmetrics_v2):
+    """
+    check validates end-to-end metrics and labels.
+    """
     aggregator = dd_agent_check(instance_openmetrics_v2, rate=True)
 
     metric_to_check = EXPECTED_PROM_NAMESPACE_METRICS + EXPECTED_PROM_EXPORTER_METRICS
