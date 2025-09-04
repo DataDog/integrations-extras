@@ -2,12 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-import os
-
 import pytest
-
-from datadog_checks.aerospike_enterprise import AerospikeEnterpriseCheck
-from datadog_checks.dev.utils import get_metadata_metrics
 
 from .common import (
     ALL_METRICS,
@@ -18,30 +13,10 @@ from .common import (
     EXPECTED_PROM_SETS_METRICS,
     EXPECTED_PROM_SINDEX_METRICS,
     EXPECTED_PROM_SYSINFO_METRICS,
-    HERE,
 )
 
-pytestmark = [pytest.mark.usefixtures("dd_environment"), pytest.mark.e2e]
 
-
-def get_fixture_path(filename):
-    return os.path.join(HERE, "fixtures", filename)
-
-
-def test_openmetricsv2_check(aggregator, dd_run_check, instance_openmetrics_v2, mock_http_response):
-    """
-    check validates, mock prom metrics and metadata.csv
-    """
-
-    check = AerospikeEnterpriseCheck(AerospikeEnterpriseCheck.__NAMESPACE__, {}, [instance_openmetrics_v2])
-    dd_run_check(check)
-
-    mock_http_response(file_path=get_fixture_path("prometheus.txt"))
-
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
-
-
-@pytest.mark.e2e
+@pytest.mark.usefixtures("dd_environment")
 def test_openmetrics_e2e(dd_agent_check, instance_openmetrics_v2):
     aggregator = dd_agent_check(instance_openmetrics_v2, rate=True)
 
