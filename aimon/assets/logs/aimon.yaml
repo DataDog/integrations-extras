@@ -1,0 +1,26 @@
+id: aimon
+metric_id: aimon
+backend_only: false
+facets: null
+pipeline:
+  type: pipeline
+  name: AIMon
+  enabled: true
+  filter:
+    query: source:aimon
+  processors:
+    - type: date-remapper
+      name: Date Remapper
+      enabled: true
+      sources:
+        - timestamp
+    - type: service-remapper
+      name: Service Remapper
+      enabled: true
+      sources:
+        - service
+    - type: status-remapper
+      name: Status Remapper
+      enabled: true
+      sources:
+        - status
