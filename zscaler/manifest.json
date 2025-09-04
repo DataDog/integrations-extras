@@ -10,19 +10,63 @@
     "changelog": "CHANGELOG.md",
     "description": "The Zscaler integration provides cloud security logs",
     "title": "Zscaler",
-    "media": [],
+    "media": [
+      {
+        "caption": "Zscaler Internet Access - Admin Audit",
+        "image_url": "images/zscaler_internet_access_admin_audit.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - DNS",
+        "image_url": "images/zscaler_internet_access_dns.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - Email DLP",
+        "image_url": "images/zscaler_internet_access_email_dlp.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - Firewall",
+        "image_url": "images/zscaler_internet_access_firewall.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - Overview",
+        "image_url": "images/zscaler_internet_access_overview.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - SaaS Security",
+        "image_url": "images/zscaler_internet_access_saas_security.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - Tunnel",
+        "image_url": "images/zscaler_internet_access_tunnel.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Zscaler Internet Access - Web",
+        "image_url": "images/zscaler_internet_access_web.png",
+        "media_type": "image"
+      }
+    ],
     "classifier_tags": [
-      "Category::Cloud",
+      "Category::Log Collection",
+      "Category::Network",
+      "Category::Security",
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
-      "Offering::Integration"
+      "Offering::Integration",
+      "Submitted Data Type::Logs"
     ]
   },
   "author": {
     "support_email": "help@datadoghq.com",
     "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "help@datadoghq.com",
+    "sales_email": "info@datadoghq.com",
     "name": "Datadog"
   },
   "assets": {
@@ -32,11 +76,6 @@
       "events": {
         "creates_events": false
       },
-      "metrics": {
-        "prefix": "zscaler.",
-        "check": [],
-        "metadata_path": "metadata.csv"
-      },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       },
@@ -44,7 +83,17 @@
       "auto_install": true
     },
     "dashboards": {
-      "Zscaler Overview": "assets/dashboards/zscaler_overview.json"
+      "Zscaler Internet Access - Admin Audit": "assets/dashboards/zscaler_admin_audit.json",
+      "Zscaler Internet Access - Alert": "assets/dashboards/zscaler_alert.json",
+      "Zscaler Internet Access - DNS": "assets/dashboards/zscaler_dns.json",
+      "Zscaler Internet Access - Email DLP": "assets/dashboards/zscaler_email_dlp.json",
+      "Zscaler Internet Access - Endpoint DLP": "assets/dashboards/zscaler_endpoint_dlp.json",
+      "Zscaler Internet Access - Firewall": "assets/dashboards/zscaler_firewall.json",
+      "Zscaler Internet Access - Overview": "assets/dashboards/zscaler_overview.json",
+      "Zscaler Internet Access - SaaS Security Activity": "assets/dashboards/zscaler_saas_security_activity.json",
+      "Zscaler Internet Access - SaaS Security": "assets/dashboards/zscaler_saas_security.json",
+      "Zscaler Internet Access - Tunnel": "assets/dashboards/zscaler_tunnel.json",
+      "Zscaler Internet Access - Web": "assets/dashboards/zscaler_web.json"
     },
     "logs": {
       "source": "zscaler"
