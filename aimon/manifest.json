@@ -1,0 +1,100 @@
+{
+  "app_id": "aimon",
+  "app_uuid": "019646ae-150c-78c1-aa29-fbdf76f0cab0",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "AIMon",
+    "description": "Real-time Hallucination, Instruction Deviation, Context Relevance, Safety, and Adversarial metrics for your AI",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Dashboard overview with health check and AI output quality metrics.",
+        "image_url": "images/output_quality.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Safety and Security Metrics.",
+        "image_url": "images/safety.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Tone metrics with a list of response metadata logs.",
+        "image_url": "images/tone.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Description of a response evaluation log.",
+        "image_url": "images/AIMonDashboard_3.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Category::Developer Tools",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
+    ],
+    "resources": [
+      {
+        "url": "https://docs.aimon.ai/",
+        "resource_type": "documentation"
+      },
+      {
+        "url": "https://www.aimon.ai/posts/aimon-hdm-2-hallucination-detection-model",
+        "resource_type": "blog"
+      },
+      {
+        "url": "https://www.aimon.ai/posts/aimon-rre-1-retrieval-eval-reranker-model",
+        "resource_type": "blog"
+      }
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "info@aimon.ai",
+    "name": "AIMon Labs",
+    "homepage": "https://www.aimon.ai",
+    "sales_email": "info@aimon.ai",
+    "vendor_id": "aimon-labs"
+  },
+  "assets": {
+    "dashboards": {
+      "AIMon Dashboard": "assets/dashboards/aimon_dashboard.json"
+    },
+    "logs": {
+      "source": "aimon-evaluator"
+    },
+    "integration": {
+      "source_type_name": "aimon",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "aimon",
+        "check": [
+          "aimon.health_check"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 47345900,
+      "supports_ddr_coordinated_failover": false
+    },
+    "oauth": "assets/oauth_clients.json"
+  }
+}
