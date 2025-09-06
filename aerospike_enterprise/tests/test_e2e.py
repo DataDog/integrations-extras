@@ -49,7 +49,7 @@ def _test_metrics(
 
         # no need to validate node-ticks for labels, as its a counter to check how many times exporter url is called
         #    node-ticks wiill not have any labels associated
-        if metric_name not in ("aerospike.node.ticks", "aerospike.node.up"):
+        if metric_name not in ("aerospike.server.node.ticks", "aerospike.server.node.up"):
             aggregator.assert_metric_has_tag(
                 metric_name,
                 "endpoint:{}".format(instance_openmetrics_v2.get("openmetrics_endpoint")),
@@ -60,5 +60,5 @@ def _test_metrics(
 
             # latency metric should have le tag representing bucket
             # 1,2,4,8,16,32..., 65k
-            if "aerospike.latencies" in metric_name and "_bucket" in metric_name:
+            if "aerospike.server.latencies" in metric_name and "_bucket" in metric_name:
                 aggregator.assert_metric_has_tag_prefix(metric_name, "le")

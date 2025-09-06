@@ -13,7 +13,7 @@ RENAMED_LABELS = {"cluster_name": "aerospike_cluster", "service": "aerospike_ser
 
 
 class AerospikeEnterpriseCheck(OpenMetricsBaseCheckV2, ConfigMixin):
-    __NAMESPACE__ = "aerospike"
+    __NAMESPACE__ = "aerospike.server"
 
     DEFAULT_METRIC_LIMIT = 0
 
