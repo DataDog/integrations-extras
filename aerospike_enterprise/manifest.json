@@ -1,0 +1,84 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "f51ec36b-0692-4e73-8120-c5463ca09198",
+  "app_id": "aerospike-enterprise",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect cluster, namespaces, node, sindex, set, and latency statistics from the Aerospike database",
+    "title": "Aerospike Enterprise",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Cluster View",
+        "image_url": "images/cluster_view.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Namespace View",
+        "image_url": "images/namespace_view.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Defrag Reads",
+        "image_url": "images/namespace_defrag_reads.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::AI/ML",
+      "Category::Caching",
+      "Category::Data Stores",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"  
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 49966744,
+      "source_type_name": "aerospike_enterprise",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "aerospike.server.",
+        "check": "aerospike.server.node.up",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Aerospike Alerts View": "assets/dashboards/alerts_view.json",
+      "Aerospike Cluster View ": "assets/dashboards/cluster_view.json",
+      "Aerospike Latency View ": "assets/dashboards/latency_view.json",    
+      "Aerospike Namespace View": "assets/dashboards/namespace_view.json",
+      "Aerospike Node View": "assets/dashboards/node_view.json",
+      "Aerospike Secondary Index View": "assets/dashboards/secondary_index_view.json",
+      "Aerospike Set View": "assets/dashboards/set_view.json",
+      "Aerospike Users View": "assets/dashboards/users_view.json",
+      "Aerospike XDR View": "assets/dashboards/xdr_view.json",
+      "Aerospike All Flash View": "assets/dashboards/usecases/all_flash.json",
+      "Aerospike Batch Transaction View": "assets/dashboards/usecases/batch_transactions_view.json",
+      "Aerospike LRU Cache View": "assets/dashboards/usecases/lru_cache_view.json",
+      "Aerospike Rolling Restarts View": "assets/dashboards/usecases/rolling_restarts.json",
+      "Aerospike Sindex Summary View": "assets/dashboards/usecases/secondary_index_summary.json"      
+    }
+  },
+  "author": {
+    "support_email": "support@aerospike.com",
+    "name": "Aerospike",
+    "homepage": "https://www.aerospike.com",
+    "sales_email": "info@aerospike.com"
+  }
+}
