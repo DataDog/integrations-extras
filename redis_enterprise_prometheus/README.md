@@ -10,7 +10,7 @@ You can use this information to understand the overall health of your Redis Ente
 
 For a full list of supported metrics, see the [Metrics](#metrics) section below.
 
-## Redis Enterprise Compatibility
+### Redis Enterprise Compatibility
 
 The Redis Enterprise Prometheus integration provides support for the [V2](https://redis.io/docs/latest/integrate/prometheus-with-redis-enterprise/prometheus-metrics-definitions/) Redis Enterprise Software Metrics which are available in Redis Enterprise Software versions 7.8.0 and higher.
 
@@ -20,10 +20,11 @@ The Redis Enterprise Prometheus integration provides support for the [V2](https:
 
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise_prometheus==2.0.1
+   datadog-agent integration install -t datadog-redis_enterprise_prometheus==1.0.0
    ```
-   
-2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
+    > **Note**: For containerized environments, see the [Datadog documentation page][9].
+  
+2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See the Configuration section below for more information.
 
 3. [Restart][3] the agent.
 
@@ -34,13 +35,13 @@ Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. L
 
 There are two optional parameters: `extra_metrics` and `excluded_metrics`, as noted in the example configuration file.
 
-The extra_metrics parameter takes a list of metric groups. The following are the available groups: REDIS2.REPLICATION, 
+The `extra_metrics` parameter takes a list of metric groups. The following are the available groups: REDIS2.REPLICATION, 
 REDIS2.SHARDREPL, REDIS2.LDAP, REDIS2.NETWORK, REDIS2.MEMORY, REDIS2.X509, REDIS2.DISK, REDIS2.FILESYSTEM, REDIS2.PROCESS, REDIS2.PRESSURE, REDIS2.FLASH, REDIS2.SEARCH. The default metrics groups RDSE2.REDIS_CLUSTER, 
 RDSE2.REDIS_DATABASE, RDSE2.REDIS_SHARD, RDSE2.REDIS_INFO, and RDSE2.REDIS_NODE are automatically inserted by the integration.
 
-The exclude_metrics parameter takes a list of individual metrics to exclude, meaning that this information will not be 
+The `exclude_metrics` parameter takes a list of individual metrics to exclude, meaning that this information will not be 
 passed on to Datadog. The individual metrics should be stripped of their prefix, e.g., 'rdse2.generation' would 
-become 'generation'. The full list of metrics is available on the 'Data Collected' tab of the integration page, or via the link in the [Metrics](#metrics) section. 
+become 'generation'. The full list of metrics is available on the Data Collected tab of the integration tile.
 The following groups use the associated prefixes, which can be used to search for individual metrics on 
 the data collected page.
 
@@ -105,3 +106,4 @@ Need help? Please contact [Redis Support][8].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise_prometheus/metadata.csv
 [7]: mailto:field.engineers@redis.com
 [8]: https://redis.io/support/
+[9]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=containerized
