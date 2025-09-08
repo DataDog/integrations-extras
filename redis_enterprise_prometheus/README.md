@@ -12,7 +12,7 @@ For a full list of supported metrics, see the [Metrics](#metrics) section below.
 
 ### Redis Enterprise Compatibility
 
-The Redis Enterprise Prometheus integration provides support for the [V2](https://redis.io/docs/latest/integrate/prometheus-with-redis-enterprise/prometheus-metrics-definitions/) Redis Enterprise Software Metrics which are available in Redis Enterprise Software versions 7.8.0 and higher.
+The Redis Enterprise Prometheus integration provides support for the [V2](https://redis.io/docs/latest/integrate/prometheus-with-redis-enterprise/prometheus-metrics-definitions/) Redis Enterprise Software Metrics which are available in Redis Enterprise Software versions 7.8.0 and higher. For older versions of Redis Enterprise Software, you may use the [Redis Enterprise](https://docs.datadoghq.com/integrations/redis-enterprise/) integration.
 
 ## Setup
 
