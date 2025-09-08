@@ -1,11 +1,12 @@
 {
   "title": "Redis Enterprise Active-Active",
-  "description": "This dashboard displays metrics reported by cloud clusters with active-active replication.",
+  "description": "The Redis Enterprise Active Active Dashboard displays metrics reported by cloud clusters with Active-Active replication. These metrics include CRDT status, CRDT syncer Ingress and Egress, the syncer's lag, as well as the number of merge requests.",
   "widgets": [
     {
       "id": 5338077515289658,
       "definition": {
         "title": "CRDT Status",
+        "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -225,15 +226,32 @@
               "timeseries_background": { "type": "area" }
             },
             "layout": { "x": 10, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 6950044907570933,
+            "definition": {
+              "type": "note",
+              "content": "The Redis Enterprise Shard Dashboard is used to visualize metrics at the shard level. In Redis Enterprise Software, the shard is the lowest single level of abstraction tracked by metrics. Key metrics such as memory usage, connection count, cpu utilization are all tracked by this dashboard.\n \nPlease note, in order to view the metrics in this dashboard you must enable `REDIS2.REPLICATION` in the `extra_metrics` section of the integration configuration.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 3, "width": 4, "height": 2 }
           }
         ]
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 6 }
     },
     {
       "id": 6467914020292219,
       "definition": {
         "title": "CRDT Network",
+        "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
@@ -400,12 +418,19 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 0, "width": 8, "height": 7 }
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 7,
+        "is_column_break": true
+      }
     },
     {
       "id": 3974187369176274,
       "definition": {
         "title": "CRDT Lag and Ops",
+        "background_color": "vivid_pink",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
