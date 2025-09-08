@@ -25,12 +25,7 @@
               "tick_edge": "left",
               "has_padding": true
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
           },
           {
             "id": 6941268920219978,
@@ -53,19 +48,13 @@
                   "text_formats": [
                     [
                       {
-                        "match": {
-                          "type": "is",
-                          "value": ""
-                        },
+                        "match": { "type": "is", "value": "" },
                         "palette": "white_on_green"
                       }
                     ],
                     [
                       {
-                        "match": {
-                          "type": "is",
-                          "value": ""
-                        },
+                        "match": { "type": "is", "value": "" },
                         "palette": "white_on_green"
                       }
                     ]
@@ -73,21 +62,14 @@
                   "sort": {
                     "count": 500,
                     "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
+                      { "type": "formula", "index": 0, "order": "desc" }
                     ]
                   },
                   "formulas": [
                     {
                       "cell_display_mode": "number",
                       "conditional_formats": [
-                        {
-                          "type": "range",
-                          "palette": "transparent_to_green"
-                        }
+                        { "type": "range", "palette": "transparent_to_green" }
                       ],
                       "alias": "up",
                       "formula": "query2"
@@ -97,12 +79,7 @@
               ],
               "has_search_bar": "auto"
             },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
           },
           {
             "id": 5604200159670720,
@@ -143,16 +120,9 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
+              "timeseries_background": { "type": "area" }
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
           },
           {
             "id": 4100339340938098,
@@ -172,26 +142,14 @@
                       "aggregator": "avg"
                     }
                   ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
+                  "formulas": [{ "formula": "query1" }]
                 }
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": {
-                "yaxis": {},
-                "type": "bars"
-              }
+              "timeseries_background": { "yaxis": {}, "type": "bars" }
             },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 2 }
           },
           {
             "id": 5878686048237438,
@@ -211,26 +169,14 @@
                       "aggregator": "avg"
                     }
                   ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
+                  "formulas": [{ "formula": "query1" }]
                 }
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": {
-                "yaxis": {},
-                "type": "bars"
-              }
+              "timeseries_background": { "yaxis": {}, "type": "bars" }
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 8, "y": 0, "width": 2, "height": 2 }
           },
           {
             "id": 4903019316045696,
@@ -265,701 +211,13 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": {
-                "type": "bars"
-              }
+              "timeseries_background": { "type": "bars" }
             },
-            "layout": {
-              "x": 10,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
+            "layout": { "x": 10, "y": 0, "width": 2, "height": 2 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 3
-      }
-    },
-    {
-      "id": 766009649399488,
-      "definition": {
-        "title": "Memory - $cluster",
-        "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 332430955875868,
-            "definition": {
-              "title": "Max Memory",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "horizontal",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "max memory",
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_maxmemory{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 6405915472025010,
-            "definition": {
-              "title": "Allocated Memory",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "allocated memory",
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_allocator_allocated{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 5730771780246590,
-            "definition": {
-              "title": "Resident Memory",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_process_resident_memory_bytes{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 7764080649839854,
-            "definition": {
-              "title": "Virtual Memory",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_process_virtual_memory_bytes{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 9,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 3443954061862074,
-            "definition": {
-              "title": "Fragmentation",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_mem_replication_backlog{$cluster,$db} by {db,redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 7399317685595314,
-            "definition": {
-              "title": "AOF Buffer",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_mem_aof_buffer{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 3,
-              "y": 2,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 6308517339426536,
-            "definition": {
-              "title": "Memory less Eviction",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_mem_not_counted_for_evict{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
-              "y": 2,
-              "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 4774301447704194,
-            "definition": {
-              "title": "Replication Backlog",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte_in_binary_bytes_family"
-                        }
-                      }
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.redis_server_mem_replication_backlog{$cluster,$db} by {redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 9,
-              "y": 2,
-              "width": 3,
-              "height": 2
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 5,
-        "is_column_break": true
-      }
-    },
-    {
-      "id": 3407898399793642,
-      "definition": {
-        "title": "CPU - $cluster",
-        "background_color": "vivid_pink",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 4472912759007042,
-            "definition": {
-              "title": "Process CPU",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "fraction"
-                        }
-                      },
-                      "alias": "system",
-                      "formula": "per_second(query1)"
-                    },
-                    {
-                      "alias": "user",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "fraction"
-                        }
-                      },
-                      "formula": "per_second(query2)"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:rdse2.namedprocess_namegroup_cpu_seconds.count{$cluster, $db, mode:system} by {db,redis}.as_rate()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{$cluster, $db, mode:user} by {db,redis}.as_rate()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "tags",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
-          },
-          {
-            "id": 2356590689477770,
-            "definition": {
-              "title": "CPU Usage",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "percent"
-                        }
-                      },
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.namedprocess_namegroup_thread_cpu_seconds.count{$cluster} by {db}.as_count()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
-          },
-          {
-            "id": 2109398562975560,
-            "definition": {
-              "title": "Main",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "main - system",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "second"
-                        }
-                      },
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "main - user",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "second"
-                        }
-                      },
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:system} by {db,redis}"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:user} by {db,redis}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "color_order": "shuffled",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 5,
-        "width": 12,
-        "height": 5
-      }
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 3 }
     },
     {
       "id": 1223041836474268,
@@ -978,21 +236,12 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    {
-                      "alias": "Connections Received",
-                      "formula": "query1"
-                    }
+                    { "alias": "Connections Received", "formula": "query1" }
                   ],
                   "queries": [
                     {
@@ -1013,12 +262,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 4 }
           },
           {
             "id": 8977073611386038,
@@ -1028,25 +272,13 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    {
-                      "alias": "Connected",
-                      "formula": "query1"
-                    },
-                    {
-                      "alias": "Blocked",
-                      "formula": "query2"
-                    }
+                    { "alias": "Connected", "formula": "query1" },
+                    { "alias": "Blocked", "formula": "query2" }
                   ],
                   "queries": [
                     {
@@ -1072,12 +304,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 4 }
           },
           {
             "id": 8017112907917368,
@@ -1087,13 +314,7 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
@@ -1143,21 +364,11 @@
                 }
               ]
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 4
-            }
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 4 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 10,
-        "width": 12,
-        "height": 5
-      }
+      "layout": { "x": 0, "y": 3, "width": 12, "height": 5 }
     },
     {
       "id": 957383523516420,
@@ -1176,21 +387,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1 + query2"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1 + query2" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1215,12 +416,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 8108639551328764,
@@ -1230,21 +426,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1264,12 +450,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 8290632154562224,
@@ -1279,22 +460,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "evicted",
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "alias": "evicted", "formula": "query1" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1314,12 +484,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 5473961651906384,
@@ -1329,22 +494,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "alias": "expired",
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "alias": "expired", "formula": "query1" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1364,21 +518,561 @@
                 }
               ]
             },
-            "layout": {
-              "x": 9,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 8, "width": 12, "height": 3 }
+    },
+    {
+      "id": 766009649399488,
+      "definition": {
+        "title": "Memory - $cluster",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 332430955875868,
+            "definition": {
+              "title": "Max Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "max memory",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_maxmemory{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 6405915472025010,
+            "definition": {
+              "title": "Allocated Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "allocated memory",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_allocator_allocated{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 5730771780246590,
+            "definition": {
+              "title": "Resident Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_process_resident_memory_bytes{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 7764080649839854,
+            "definition": {
+              "title": "Virtual Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_process_virtual_memory_bytes{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 3443954061862074,
+            "definition": {
+              "title": "Fragmentation",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_mem_replication_backlog{$cluster,$db} by {db,redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 7399317685595314,
+            "definition": {
+              "title": "AOF Buffer",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_mem_aof_buffer{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 3, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 6308517339426536,
+            "definition": {
+              "title": "Memory less Eviction",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_mem_not_counted_for_evict{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 4774301447704194,
+            "definition": {
+              "title": "Replication Backlog",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.redis_server_mem_replication_backlog{$cluster,$db} by {redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 9, "y": 2, "width": 3, "height": 2 }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 15,
+        "y": 0,
         "width": 12,
-        "height": 3
+        "height": 5,
+        "is_column_break": true
       }
+    },
+    {
+      "id": 3407898399793642,
+      "definition": {
+        "title": "CPU - $cluster",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4472912759007042,
+            "definition": {
+              "title": "Process CPU",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      },
+                      "alias": "system",
+                      "formula": "per_second(query1)"
+                    },
+                    {
+                      "alias": "user",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      },
+                      "formula": "per_second(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:rdse2.namedprocess_namegroup_cpu_seconds.count{$cluster, $db, mode:system} by {db,redis}.as_rate()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{$cluster, $db, mode:user} by {db,redis}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 4 }
+          },
+          {
+            "id": 2356590689477770,
+            "definition": {
+              "title": "CPU Usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.namedprocess_namegroup_thread_cpu_seconds.count{$cluster} by {db}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 4 }
+          },
+          {
+            "id": 2109398562975560,
+            "definition": {
+              "title": "Main",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "main - system",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "main - user",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      },
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:system} by {db,redis}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse2.namedprocess_namegroup_cpu_seconds.count{cluster:$cluster,db:$db,mode:user} by {db,redis}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 4 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 5, "width": 12, "height": 5 }
     },
     {
       "id": 1533039316072762,
@@ -1397,23 +1091,13 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "horizontal",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    {
-                      "formula": "cumsum(query1) / count_not_null(query2)"
-                    },
-                    {
-                      "formula": "query3 / query4"
-                    },
+                    { "formula": "cumsum(query1) / count_not_null(query2)" },
+                    { "formula": "query3 / query4" },
                     {
                       "alias": "shard allocator rss",
                       "formula": "query5 / query6"
@@ -1463,12 +1147,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 1141078482384658,
@@ -1478,21 +1157,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1512,12 +1181,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 3859591290358600,
@@ -1527,21 +1191,11 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1 - query2"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1 - query2" }],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -1566,12 +1220,7 @@
                 }
               ]
             },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
           },
           {
             "id": 477670753888206,
@@ -1581,13 +1230,7 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
@@ -1626,21 +1269,11 @@
                 }
               ]
             },
-            "layout": {
-              "x": 9,
-              "y": 0,
-              "width": 3,
-              "height": 2
-            }
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 18,
-        "width": 12,
-        "height": 3
-      }
+      "layout": { "x": 0, "y": 10, "width": 12, "height": 3 }
     }
   ],
   "template_variables": [
@@ -1650,12 +1283,7 @@
       "available_values": [],
       "default": "*"
     },
-    {
-      "name": "db",
-      "prefix": "db",
-      "available_values": [],
-      "default": "*"
-    }
+    { "name": "db", "prefix": "db", "available_values": [], "default": "*" }
   ],
   "layout_type": "ordered",
   "notify_list": [],
