@@ -1,5 +1,15 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.2.0 / 2025-09-10
+
+***Added***:
+
+* Add query shape metrics to the MongoDB Atlas - Database, Collection, and Query Overview dashboard
+
+***Modified***:
+
+* Dashboard titles
+
 ## 1.1.0 / 2024-11-15
 
 ***Added***:
