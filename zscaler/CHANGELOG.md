@@ -1,4 +1,4 @@
-# CHANGELOG - Zscaler
+# CHANGELOG - ZScaler
 
 ## 2.0.0 / 2025-08-27
 
