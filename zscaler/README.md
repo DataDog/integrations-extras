@@ -14,6 +14,12 @@ A Zscaler Cloud NSS subscription is required.
 
 ## Setup
 
+### Retrieve the Datadog Webhook URL
+
+1. In Datadog, navigate to the **Integrations** tab, and search for the Zscaler integration.
+2. Click the **Zscaler** integration. The integration window opens. On the **Configure** tab, select an existing API key, or create a new one.
+3. After selecting an API key, click **Add API key**, then **Click Here to Copy URL**.
+
 ### Configure a webhook in Zscaler
 
 ### ZIA Web Logs
