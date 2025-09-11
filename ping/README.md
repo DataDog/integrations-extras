@@ -19,7 +19,9 @@ The ping check is not included in the [Datadog Agent][2] package, so you need to
 
 For Agent v7.21+ / v6.21+, follow the instructions below to install the ping check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. Run the one following commands to install the Agent integration:
+1. Run the one of the following commands to install the Agent integration:
+
+  <div class="alert alert-info">To find the integration version, run <code>datadog-agent integration show datadog-ping</code>.</div>
 
    ```shell
    # Linux
