@@ -52,7 +52,7 @@ pipeline:
         - "START RequestId: ddb0e0c7-ba4d-457a-b82e-1d40bfb9f1b7 Version: $LATEST\nEND RequestId: ddb0e0c7-ba4d-457a-b82e-1d40bfb9f1b7\nREPORT RequestId: ddb0e0c7-ba4d-457a-b82e-1d40bfb9f1b7\tDuration: 49.44 ms\tBilled Duration: 50 ms\tMemory Size: 1024 MB\tMax Memory Used: 91 MB"
       grok:
         supportRules: ''
-        matchRules: 'report_rule .*REPORT RequestId: %{notSpace:lambda.request_id}\s+Duration: %{number:lambda.duration:scale(1000000)} ms\s+Billed Duration: %{number:lambda.billed_duration} ms\s+Memory Size: %{number:lambda.memorysize} MB\s+Max Memory Used: %{number:lambda.max_memory_used} MB(\s+Init Duration: %{number:lambda.init_duration} ms)?.*'
+        matchRules: 'report_rule .*?REPORT RequestId: %{notSpace:lambda.request_id}\s+Duration: %{number:lambda.duration:scale(1000000)} ms\s+Billed Duration: %{number:lambda.billed_duration} ms\s+Memory Size: %{number:lambda.memorysize} MB\s+Max Memory Used: %{number:lambda.max_memory_used} MB(\s+Init Duration: %{number:lambda.init_duration} ms)?.*'
     - type: arithmetic-processor
       name: Calculate Lambda Execution
       enabled: true
@@ -64,7 +64,7 @@ pipeline:
       enabled: true
       categories:
         - filter:
-            query: '@proxy.statusCode:[200 TO 299]'
+            query: '@proxy.statusCode:[200 TO 299]ss'
           name: OK
         - filter:
             query: '@proxy.statusCode:[300 TO 399]'
