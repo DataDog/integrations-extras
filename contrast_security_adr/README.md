@@ -31,4 +31,4 @@ Integrating Contrast Security ADR with Datadog enhances threat detection by forw
 Need help? Contact [Contrast Security support][1].
 
 
-[1]: support@contrastsecurity.com
+[1]: mailto:support@contrastsecurity.com
