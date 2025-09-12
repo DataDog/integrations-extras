@@ -4566,77 +4566,7 @@
                         "layout": {
                             "x": 0,
                             "y": 9,
-                            "width": 4,
-                            "height": 4
-                        }
-                    },
-                    {
-                        "id": 6899016872749441,
-                        "definition": {
-                            "title": "Top Internal Collaborators",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "toplist",
-                            "requests": [
-                                {
-                                    "queries": [
-                                        {
-                                            "name": "query1",
-                                            "data_source": "logs",
-                                            "search": {
-                                                "query": "source:zscaler service:zscalernss-casb @zscaler.subtype:repository -@zscaler.internal_collabnames:None $application_category $severity $application $tenant"
-                                            },
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@zscaler.internal_collabnames",
-                                                    "limit": 10,
-                                                    "sort": {
-                                                        "aggregation": "count",
-                                                        "order": "desc",
-                                                        "metric": "count"
-                                                    },
-                                                    "should_exclude_missing": true
-                                                }
-                                            ],
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "storage": "hot"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "sort": {
-                                        "count": 500,
-                                        "order_by": [
-                                            {
-                                                "type": "formula",
-                                                "index": 0,
-                                                "order": "desc"
-                                            }
-                                        ]
-                                    }
-                                }
-                            ],
-                            "style": {
-                                "display": {
-                                    "type": "stacked",
-                                    "legend": "automatic"
-                                },
-                                "palette": "datadog16"
-                            }
-                        },
-                        "layout": {
-                            "x": 4,
-                            "y": 9,
-                            "width": 4,
+                            "width": 6,
                             "height": 4
                         }
                     },
@@ -4704,9 +4634,9 @@
                             }
                         },
                         "layout": {
-                            "x": 8,
+                            "x": 6,
                             "y": 9,
-                            "width": 4,
+                            "width": 6,
                             "height": 4
                         }
                     }

@@ -14,11 +14,10 @@ A Zscaler Cloud NSS subscription is required.
 
 ## Setup
 
-### Retrieve the Datadog Webhook URL
+### Create a Datadog Webhook URL
 
-1. In Datadog, navigate to the **Integrations** tab, and search for the Zscaler integration.
-2. Click the **Zscaler** integration. The integration window opens. On the **Configure** tab, select an existing API key, or create a new one.
-3. After selecting an API key, click **Add API key**, then **Click Here to Copy URL**.
+1.  From the **Configure** tab of the Zscaler integration, use the API Key Picker to select an existing API key, or create a new one.
+2. Click **Add API key**, then **Click Here to Copy Intake URL**.
 
 ### Configure a webhook in Zscaler
 
@@ -32,7 +31,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -57,7 +56,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -82,7 +81,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -107,7 +106,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -146,7 +145,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -181,7 +180,7 @@ A Zscaler Cloud NSS subscription is required.
       ```
    * Please use the below feed output format for repository:
       ```
-      \{"sourcetype":"zscalernss-casb","event":\{"subtype":"repository","datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}","company":"%s{company}","login":"%s{owner}","tenant":"%s{tenant}","department":"%s{department}","applicationname":"%s{applicationname}","threatname":"%s{threatname}","policy":"%s{policy}","dlpdictionaries":"%s{dlpdictnames}","dlpdicthitcount":"%s{dlpdictcount}","dlpidentifier":"%d{dlpidentifier}","filesize":"%d{filesize}","num_external_collab":"%d{num_external_collab}","recordid":"%d{recordid}","datacenter":"%s{datacenter}","datacentercity":"%s{datacentercity}","datacentercountry":"%s{datacentercountry}","external_collabnames":"%s{external_collabnames}","extownername":"%s{extownername}","fileid":"%s{fileid}","filemd5":"%s{filemd5}","filename":"%s{filename}","filepath":"%s{filepath}","filetypecategory":"%s{filetypecategory}","malware":"%s{malware}","malwareclass":"%s{malwareclass}","internal_collabnames":"%s{internal_collabnames}","projectname":"%s{projectname}","reponame":"%s{reponame}","rulelabel":"%s{rulelabel}","ruletype":"%s{ruletype}","severity":"%s{severity}","sha":"%s{sha}","upload_doctypename":"%s{upload_doctypename}","dlpengine":"%s{dlpenginenames}"\}\}
+      \{"sourcetype":"zscalernss-casb","event":\{"subtype":"repository","datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}","company":"%s{company}","login":"%s{owner}","tenant":"%s{tenant}","department":"%s{department}","applicationname":"%s{applicationname}","threatname":"%s{threatname}","policy":"%s{policy}","dlpdictionaries":"%s{dlpdictnames}","dlpdicthitcount":"%s{dlpdictcount}","dlpidentifier":"%d{dlpidentifier}","filesize":"%d{filesize}","num_external_collab":"%d{num_external_collab}","recordid":"%d{recordid}","datacenter":"%s{datacenter}","datacentercity":"%s{datacentercity}","datacentercountry":"%s{datacentercountry}","external_collabnames":"%s{external_collabnames}","extownername":"%s{extownername}","fileid":"%s{fileid}","filemd5":"%s{filemd5}","filename":"%s{filename}","filepath":"%s{filepath}","filetypecategory":"%s{filetypecategory}","malware":"%s{malware}","malwareclass":"%s{malwareclass}","projectname":"%s{projectname}","reponame":"%s{reponame}","rulelabel":"%s{rulelabel}","ruletype":"%s{ruletype}","severity":"%s{severity}","sha":"%s{sha}","upload_doctypename":"%s{upload_doctypename}","dlpengine":"%s{dlpenginenames}"\}\}
       ```
    * Time Zone: `GMT`
 6. Click **Save**.
@@ -197,7 +196,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -222,7 +221,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -247,7 +246,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -272,7 +271,7 @@ A Zscaler Cloud NSS subscription is required.
    * Status: `Enabled`
 4. In the **SIEM Connectivity** section, enter or select the following values:
    * SIEM Type: `Other`
-   * API URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
 5. In the **Formatting** section, enter or select the following values:
@@ -294,7 +293,7 @@ A Zscaler Cloud NSS subscription is required.
 3. In the **Add Webhook** window:
    * Name: `<YOUR_FEED_NAME>`
    * Status: `Enabled`
-   * URL: The URL you copied in previous section `Retrieve the Datadog Webhook URL`
+   * URL: The URL you copied in previous section `Create a Datadog Webhook URL`
    * Authentication Type: `Token`
    * Bearer Token: `<YOUR_DATADOG_API_KEY>`
 4. Click **Save**.
