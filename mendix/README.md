@@ -34,7 +34,8 @@ The Mendix integration does not include any service checks.
 
 Need help? Contact [Mendix support][4].
 
-**Known Issue:**
+**Known Issue with host count:**
+* When Mendix Cloud previously ran on CloudFoundry, the host count was registered incorrectly. Mendix Cloud has since transitioned to Kubernetes and corrected the registration of hosts. Customers may notice an increase in hosts since this change. For more information, see [Datadog for Mendix: Datadog Host Billing][7]. 
 * If you encounter issues affecting host billing, reach out to [Mendix support][4] for assistance. 
 
 [1]: https://mendix.com/
@@ -43,3 +44,4 @@ Need help? Contact [Mendix support][4].
 [4]: https://support.mendix.com/hc/en-us
 [5]: https://docs.mendix.com/developerportal/operate/datadog-metrics/#2-setting-up-datadog-for-your-mendix-app
 [6]: https://docs.mendix.com/developerportal/operate/monitoring-with-apm/#environment
+[7]: https://docs.mendix.com/developerportal/operate/datadog-metrics/#datadog-host-billing
