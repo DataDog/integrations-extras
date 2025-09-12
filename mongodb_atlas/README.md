@@ -22,6 +22,7 @@ You can install the MongoDB Atlas integration by logging in to your Atlas portal
 
 1. Retrieve or create a Datadog [API key][1].
 2. In the [Atlas portal][2], enter a Datadog API key under **Integrations** -> **Datadog Settings**.
+3. Under **Datadog Settings**, toggle the metrics you want to monitor (database, collection, query shape). You can also choose to send user-defined resource tags.
 
 ## Data Collected
 
