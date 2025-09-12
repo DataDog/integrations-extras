@@ -6,7 +6,7 @@
 
 * Add query shape metrics to the MongoDB Atlas - Database, Collection, and Query Overview dashboard
 
-***Modified***:
+***Changed***:
 
 * Dashboard titles
 
