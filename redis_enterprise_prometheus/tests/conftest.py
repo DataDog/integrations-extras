@@ -15,5 +15,3 @@ def dd_environment():
 @pytest.fixture(scope="session")
 def instance():
     return {"openmetrics_endpoint": ENDPOINT, "tags": ["instance"], "tls_verify": "false"}
-
-

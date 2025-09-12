@@ -15,16 +15,16 @@ from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANC
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-@pytest.mark.unit  
+@pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # Load test data
     f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
     with open(f_name, "r") as f:
         text_data = f.read()
-    
+
     # Mock the HTTP response
     mock_http_response(text_data, status_code=200, headers={"Content-Type": "text/plain"})
-    
+
     # add additional metric groups for validation
     additional_metric_groups = ["REDIS2.DISK", "REDIS2.REPLICATION", "REDIS2.SEARCH"]
     instance = deepcopy(INSTANCE)
@@ -50,10 +50,10 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
     f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
     with open(f_name, "r") as f:
         text_data = f.read()
-    
+
     # Mock the HTTP response
     mock_http_response(text_data, status_code=200, headers={"Content-Type": "text/plain"})
-    
+
     # add additional metric groups for validation
     additional_metric_groups = [
         "REDIS2.REPLICATION",
@@ -91,10 +91,10 @@ def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
     with open(f_name, "r") as f:
         text_data = f.read()
-    
+
     # Mock the HTTP response
     mock_http_response(text_data, status_code=200, headers={"Content-Type": "text/plain"})
-    
+
     # validate exclude_metrics are not present in metrics
     exclude_metrics = ["endpoint_client_connections", "redis_server_up"]
     instance = deepcopy(INSTANCE)
@@ -119,10 +119,10 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
     f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
     with open(f_name, "r") as f:
         text_data = f.read()
-    
+
     # Mock the HTTP response
     mock_http_response(text_data, status_code=200, headers={"Content-Type": "text/plain"})
-    
+
     instance = deepcopy(INSTANCE)
     instance["metric_groups"] = ["redis.bogus", "redis.raft"]
 
@@ -142,10 +142,10 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
     f_name = os.path.join(os.path.dirname(__file__), "data", "metrics.txt")
     with open(f_name, "r") as f:
         text_data = f.read()
-    
+
     # Mock the HTTP response
     mock_http_response(text_data, status_code=200, headers={"Content-Type": "text/plain"})
-    
+
     instance = deepcopy(ERSATZ_INSTANCE)
     instance.pop("openmetrics_endpoint")
 
