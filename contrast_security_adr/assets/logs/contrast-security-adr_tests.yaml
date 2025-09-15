@@ -3,8 +3,8 @@ tests:
  -
   sample: |-
     {
-      "severity" : "Error",
-      "detectedTime" : "1753862082000",
+      "severity" : "critical",
+      "detectedTime" : "2025-05-14T10:13:53.585Z",
       "server" : {
         "name" : "Petclinic-thib",
         "id" : "27958"
@@ -31,9 +31,9 @@ tests:
         "protocol" : "http",
         "method" : "GET",
         "protocolVersion" : "1.1",
-        "queryString" : "lastName=contrast-redacted-name",
+        "queryString" : "lastName=-redacted-name",
         "parameters" : {
-          "lastName" : [ "contrast-redacted-name" ]
+          "lastName" : [ "-redacted-name" ]
         }
       },
       "vectorAnalysis" : {
@@ -52,19 +52,17 @@ tests:
           "applicableAttack" : false,
           "inputType" : "PARAMETER_VALUE",
           "patternsMatched" : [ "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001" ],
-          "documentPath" : "/abc"
+          "documentPath" : ""
         },
-        "value" : "' or 1=1; # antwerp",
-        "url" : "/owner"
+        "value" : "' or 1=1; # antwerp"
       },
-      "rule" : "class-loader-manipulation",
+      "rule" : "sql-injection",
       "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
       "productName" : "ContrastADR",
       "url" : "/customers",
       "result" : "exploited",
-      "environment" : "production",
+      "environment" : "development",
       "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
-      "incident_id" : "INC-2025-c60",
       "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
       "mitreTactics" : [ {
         "id" : "TA0001",
@@ -99,7 +97,7 @@ tests:
         "agentLanguage" : "java",
         "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
       },
-      "sourceIp" : "7.7.7.7.7.8",
+      "sourceIp" : "192.168.65.1",
       "codeLocation" : {
         "stack" : [ {
           "fileName" : "HikariProxyStatement.java",
@@ -109,29 +107,21 @@ tests:
           "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
           "type" : "frameSink",
           "lineNumber" : -1
-        }, {
-          "fileName" : "CustomerRepository.java",
-          "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
-          "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
-          "methodName" : "findByLastName",
-          "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
-          "type" : "frameCommon",
-          "lineNumber" : 31
         } ],
         "file" : "HikariProxyStatement.java",
         "method" : "executeQuery()"
       },
-      "ruleUuid" : "ssjs-injection",
+      "ruleUuid" : "sql-injection",
       "cloudProvider" : "UNKNOWN",
       "host" : {
         "runtimeVersion" : "OpenJDK Runtime Environment 17.0.14+7",
-        "hostname" : "bb8989bc",
+        "hostname" : "ffb2e807abd3",
         "runtimePath" : "/opt/java/openjdk/bin/java",
         "isDocker" : true,
         "operatingSystem" : "Linux 6.10.14-linuxkit aarch64"
       },
       "agentVersion" : "6.14.0",
-      "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
+      "uiUrl" : "https://teamserver-scantest.contsec.com/Cont/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
     }
   result:
     custom:
@@ -145,14 +135,13 @@ tests:
         attackerInput:
           applicableAttack: false
           confirmedAttack: false
-          documentPath: "/abc"
+          documentPath: ""
           documentType: "NORMAL"
           effectiveAttack: false
           inputType: "PARAMETER_VALUE"
           name: "lastName"
           patternsMatched:
            - "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001"
-        url: "/owner"
         value: "' or 1=1; # antwerp"
       cloudProvider: "UNKNOWN"
       codeLocation:
@@ -167,25 +156,15 @@ tests:
           className: "com.zaxxer.hikari.pool.HikariProxyStatement"
           type: "frameSink"
           lineNumber: -1
-         -
-          fileName: "CustomerRepository.java"
-          shortSummary: "findByLastName() @ CustomerRepository.java:31"
-          description: "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
-          methodName: "findByLastName"
-          className: "org.springframework.samples.petclinic.customer.CustomerRepository"
-          type: "frameCommon"
-          lineNumber: 31
-      contrast_adr:
-        incident_id: "INC-2025-c60"
-      date: "1753862082000"
-      detectedTime: "1753862082000"
-      environment: "production"
+      date: "2025-05-14T10:13:53.585Z"
+      detectedTime: "2025-05-14T10:13:53.585Z"
+      environment: "development"
       eventUuid: "1678918a-103f-4030-a416-3b8766e47e19"
       evt:
-        name: "class-loader-manipulation"
+        name: "sql-injection"
         outcome: "exploited"
       host:
-        hostname: "bb8989bc"
+        hostname: "ffb2e807abd3"
         isDocker: true
         operatingSystem: "Linux 6.10.14-linuxkit aarch64"
         runtimePath: "/opt/java/openjdk/bin/java"
@@ -233,7 +212,7 @@ tests:
            - "localhost:8080"
           path:
             path: "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19"
-          queryString: "lastName=contrast-redacted-name"
+          queryString: "lastName=-redacted-name"
           scheme: "http"
         user-agent:
          - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
@@ -241,7 +220,6 @@ tests:
           os:
             family: "Linux 6.10.14-linuxkit aarch64"
         version: "1.1"
-      incident_id: "INC-2025-c60"
       mitreTactics:
        -
         id: "TA0001"
@@ -272,8 +250,8 @@ tests:
         url: "https://attack.mitre.org/tactics/TA0010/"
       network:
         host:
-          ip: "7.7.7.7.7.8"
-          name: "bb8989bc"
+          ip: "192.168.65.1"
+          name: "ffb2e807abd3"
       organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511e"
       productName: "ContrastADR"
       request:
@@ -313,19 +291,19 @@ tests:
         method: "GET"
         parameters:
           lastName:
-           - "contrast-redacted-name"
+           - "-redacted-name"
         protocol: "http"
         protocolVersion: "1.1"
-        queryString: "lastName=contrast-redacted-name"
+        queryString: "lastName=-redacted-name"
       result: "exploited"
-      rule: "class-loader-manipulation"
-      ruleUuid: "ssjs-injection"
+      rule: "sql-injection"
+      ruleUuid: "sql-injection"
       server:
         id: "27958"
         name: "Petclinic-thib"
-      severity: "Error"
-      sourceIp: "7.7.7.7.7.8"
-      uiUrl: "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
+      severity: "critical"
+      sourceIp: "192.168.65.1"
+      uiUrl: "https://teamserver-scantest.contsec.com/Cont/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
       url: "/customers"
       vectorAnalysis:
         callLocation: "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
@@ -335,8 +313,8 @@ tests:
       version: "6.14.0"
     message: |-
       {
-        "severity" : "Error",
-        "detectedTime" : "1753862082000",
+        "severity" : "critical",
+        "detectedTime" : "2025-05-14T10:13:53.585Z",
         "server" : {
           "name" : "Petclinic-thib",
           "id" : "27958"
@@ -363,9 +341,9 @@ tests:
           "protocol" : "http",
           "method" : "GET",
           "protocolVersion" : "1.1",
-          "queryString" : "lastName=contrast-redacted-name",
+          "queryString" : "lastName=-redacted-name",
           "parameters" : {
-            "lastName" : [ "contrast-redacted-name" ]
+            "lastName" : [ "-redacted-name" ]
           }
         },
         "vectorAnalysis" : {
@@ -384,19 +362,17 @@ tests:
             "applicableAttack" : false,
             "inputType" : "PARAMETER_VALUE",
             "patternsMatched" : [ "PIDS-SQLI-42A,PIDS-SQLI-44C,TRUING_STRING_INJ,PIDS-SQLI-4001" ],
-            "documentPath" : "/abc"
+            "documentPath" : ""
           },
-          "value" : "' or 1=1; # antwerp",
-          "url" : "/owner"
+          "value" : "' or 1=1; # antwerp"
         },
-        "rule" : "class-loader-manipulation",
+        "rule" : "sql-injection",
         "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
         "productName" : "ContrastADR",
         "url" : "/customers",
         "result" : "exploited",
-        "environment" : "production",
+        "environment" : "development",
         "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
-        "incident_id" : "INC-2025-c60",
         "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
         "mitreTactics" : [ {
           "id" : "TA0001",
@@ -431,7 +407,7 @@ tests:
           "agentLanguage" : "java",
           "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
         },
-        "sourceIp" : "7.7.7.7.7.8",
+        "sourceIp" : "192.168.65.1",
         "codeLocation" : {
           "stack" : [ {
             "fileName" : "HikariProxyStatement.java",
@@ -441,29 +417,21 @@ tests:
             "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
             "type" : "frameSink",
             "lineNumber" : -1
-          }, {
-            "fileName" : "CustomerRepository.java",
-            "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
-            "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
-            "methodName" : "findByLastName",
-            "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
-            "type" : "frameCommon",
-            "lineNumber" : 31
           } ],
           "file" : "HikariProxyStatement.java",
           "method" : "executeQuery()"
         },
-        "ruleUuid" : "ssjs-injection",
+        "ruleUuid" : "sql-injection",
         "cloudProvider" : "UNKNOWN",
         "host" : {
           "runtimeVersion" : "OpenJDK Runtime Environment 17.0.14+7",
-          "hostname" : "bb8989bc",
+          "hostname" : "ffb2e807abd3",
           "runtimePath" : "/opt/java/openjdk/bin/java",
           "isDocker" : true,
           "operatingSystem" : "Linux 6.10.14-linuxkit aarch64"
         },
         "agentVersion" : "6.14.0",
-        "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
+        "uiUrl" : "https://teamserver-scantest.contsec.com/Cont/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
       }
     tags:
      - "source:LOGS_SOURCE"
