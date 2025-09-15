@@ -67,7 +67,7 @@ def test_instance_all_additional_check(aggregator, dd_run_check, mock_http_respo
 @pytest.mark.unit
 def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     # validate exclude_metrics are not present in metrics
-    exclude_metrics = ['endpoint_client_connections', 'redis_server_up']
+    exclude_metrics = ['bdb_conns', 'bdb_up']
     instance = deepcopy(INSTANCE)
     instance['exclude_metrics'] = exclude_metrics
 
