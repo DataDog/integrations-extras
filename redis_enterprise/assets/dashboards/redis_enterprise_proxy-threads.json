@@ -1,5 +1,5 @@
 {
-  "title": "Redis Enterprise - Proxy Threads v2",
+  "title": "Redis Enterprise - Proxy Threads",
   "description": "Redis Enterprise Proxy Threads are the individual threads of the proxy process",
   "widgets": [
     {
@@ -57,12 +57,13 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "vertical",
+              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
                 "max",
-                "value"
+                "value",
+                "sum"
               ],
               "time": {},
               "type": "timeseries",
@@ -163,7 +164,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:rdse2.namedprocess_namegroup_thread_cpu_seconds.count{$cluster,mode:user, threadname:listener}.as_rate()"
+                      "query": "avg:rdse.redis_process_main_thread_cpu_system_seconds_total{$cluster,threadname:listener.*,mode:user} by {node}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -217,8 +218,8 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.namedprocess_namegroup_open_filedesc{$cluster}",
-                      "aggregator": "last"
+                      "query": "avg:rdse.redis_process_open_fds{$cluster}",
+                      "aggregator": "avg"
                     }
                   ],
                   "formulas": [
@@ -229,7 +230,7 @@
                 }
               ],
               "autoscale": true,
-              "precision": 0,
+              "precision": 2,
               "timeseries_background": {
                 "type": "area"
               }
@@ -255,8 +256,8 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.namedprocess_namegroup_open_filedesc{$cluster}",
-                      "aggregator": "max"
+                      "query": "avg:rdse.redis_process_max_fds{$cluster}",
+                      "aggregator": "avg"
                     }
                   ],
                   "formulas": [
@@ -267,7 +268,7 @@
                 }
               ],
               "autoscale": true,
-              "precision": 0,
+              "precision": 2,
               "timeseries_background": {
                 "type": "area"
               }
@@ -293,7 +294,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.redis_server_allocator_resident{$cluster}",
+                      "query": "avg:rdse.redis_process_resident_memory_bytes{$cluster}",
                       "aggregator": "avg"
                     }
                   ],
@@ -349,7 +350,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
