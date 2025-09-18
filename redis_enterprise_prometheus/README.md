@@ -21,7 +21,7 @@ The Redis Enterprise Prometheus integration provides support for the [V2 Redis E
    ```shell
    datadog-agent integration install -t datadog-redis_enterprise_prometheus==1.0.0
    ```
-    > **Note**: For containerized environments, see the [Datadog documentation page][9].
+    > **Note**: For containerized environments, see the [documentation][9].
   
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See the [configuration](#configuration) section for more information.
 
