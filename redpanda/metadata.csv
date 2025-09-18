@@ -166,7 +166,8 @@ redpanda.schema_registry.inflight_requests_memory_usage_ratio,gauge,,,,"Ratio of
 redpanda.schema_registry.inflight_requests_usage_ratio,gauge,,,,"Usage ratio for in-flight Schema Registry requests, reported per shard.",0,redpanda,schema registry in-flight requests ratio
 redpanda.schema_registry.queued_requests_memory_blocked,gauge,,,,"Count of Schema Registry requests queued due to memory constraints, reported per shard.",-1,redpanda,schema registry queued requests
 redpanda.schema_registry.errors,count,,error,,Total number of schema_registry server errors,-1,redpanda,schema registry errors
-redpanda.schema_registry.latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests.,-1,redpanda,schema registry latency seconds
+redpanda.schema_registry_latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.1.0 and below],-1,redpanda,schema registry latency seconds
+redpanda.schema_registry.latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.2.0+],-1,redpanda,schema registry latency seconds
 redpanda.security.audit_errors,count,,,,Cumulative count of errors encountered when creating or publishing audit event log entries.,-1,redpanda,audit errors
 redpanda.security.audit_last_event_timestamp_seconds,count,,,,Unix epoch timestamp of the last successful audit log event publication.,1,redpanda,last successful audit event
 redpanda.storage.cache_disk_free_bytes,gauge,,,,Amount of free disk space (in bytes) available on the cache storage.,1,redpanda,storage cache disk free
