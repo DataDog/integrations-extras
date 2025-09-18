@@ -21,7 +21,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the ping che
 
 1. Run the one of the following commands to install the Agent integration:
 
-  <div class="alert alert-info">To find the integration version, run <code>datadog-agent integration show datadog-ping</code>.</div>
+   <div class="alert alert-info">To find the integration version, refer to the integration's changelog on GitHub or the Release Notes tab in the integration tile.</div>
 
    ```shell
    # Linux
