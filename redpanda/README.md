@@ -17,7 +17,7 @@ Connect Datadog with [Redpanda][1] to view key metrics and add additional metric
 
 #### Host
 
-To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-redpanda==<INTEGRATION_VERSION>`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-redpanda==2.2.0`.
 
 <!-- xxz tab xxx -->
 <!-- xxx tab "Containerized" xxx -->
