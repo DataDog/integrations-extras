@@ -1,0 +1,81 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "f065ce60-b831-4e7d-8521-1cde67a6c12a",
+  "app_id": "redis-enterprise-prometheus",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect Redis Enterprise V2 metrics (available in Redis Enterprise Software version 7.8.0+)",
+    "title": "Redis Enterprise Prometheus",
+    "media": [
+      {
+        "media_type":  "image",
+        "caption": "Redis Enterprise Overview Dashboard",
+        "image_url": "images/overview-dashboard.png"
+      },
+      {
+        "media_type":  "image",
+        "caption": "Redis Enterprise Database Dashboard",
+        "image_url": "images/database-dashboard.png"
+      },
+      {
+        "media_type":  "image",
+        "caption": "Redis Enterprise Node Dashboard",
+        "image_url": "images/node-dashboard.png"
+      },
+      {
+        "media_type":  "image",
+        "caption": "Redis Enterprise Shard Dashboard",
+        "image_url": "images/shard-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Data Stores",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 44087280,
+      "source_type_name": "Redis Enterprise Prometheus",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rdse2.",
+        "check": "rdse2.endpoint_client_connections",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "redis-enterprise-prometheus-overview": "assets/dashboards/redis_enterprise-prometheus_overview.json",
+      "redis-enterprise-prometheus-database": "assets/dashboards/redis_enterprise-prometheus_database.json",
+      "redis-enterprise-prometheus-node": "assets/dashboards/redis_enterprise-prometheus_node.json",
+      "redis-enterprise-prometheus-replication": "assets/dashboards/redis_enterprise-prometheus_active-active.json",
+      "redis-enterprise-prometheus-proxy-threads": "assets/dashboards/redis_enterprise-prometheus_proxy-threads.json",
+      "redis-enterprise-prometheus-shard": "assets/dashboards/redis_enterprise-prometheus_shard.json",
+      "redis-enterprise-prometheus-search": "assets/dashboards/redis_enterprise-prometheus_search.json"
+    }
+  },
+  "author": {
+    "support_email": "field.engineers@redis.com",
+    "homepage": "https://redis.com/redis-enterprise-software/overview",
+    "name": "Redis, Inc.",
+    "sales_email": "press@redis.com",
+    "support_email": "support@redis.com"
+  }
+}
