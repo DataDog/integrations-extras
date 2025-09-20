@@ -1,0 +1,1075 @@
+{
+  "title": "AIMon Dashboard",
+  "description": "This dashboard offers a comprehensive overview of key metrics that reflect AI Output Quality, Tone, and AI Safety, as evaluated by AIMon's specialized models. It enables teams to systematically monitor AI behavior across applications like chatbots and RAG systems, uncover potential failures, and drive consistent, reliable performance over time.",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About AIMon",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://huggingface.co/AimonLabs/hallucination-detection-model/resolve/main/aimon_logo.svg",
+              "url_dark_theme": "https://aimon.ai/logos/aimon.png",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard offers a comprehensive overview of key metrics that reflect **AI Output Quality**, **Tone**, and **AI Safety**, as evaluated by AIMon's specialized models. It enables teams to systematically monitor AI behavior across applications like chatbots and RAG systems, uncover potential failures, and drive consistent, reliable performance over time.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n\n- AIMon [Documentation](https://docs.aimon.ai/)\n- AIMon Datadog [Integration](https://docs.aimon.ai/integrations/Datadog/)\n\n\n",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 3
+      }
+    },
+    {
+      "id": 1841787583117786,
+      "definition": {
+        "title": "Integration Health Check",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 373500077442571,
+            "definition": {
+              "title": "Confirms that the AIMon integration is active",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.health_check{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "AI Output Quality",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7966963330891550,
+            "definition": {
+              "type": "note",
+              "content": "Tracks how well model outputs align with ground truth, follow prompts, and retrieve the right context.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 214759781705903,
+            "definition": {
+              "title": "Groundedness",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.groundedness{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 107052992888272,
+            "definition": {
+              "title": "Instruction Adherence",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query7",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.instruction_adherence{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query7"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2482241155084287,
+            "definition": {
+              "title": "Retrieval Relevance",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query6",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.retrieval_relevance{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query6"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 2170623157134858,
+      "definition": {
+        "title": "AI Safety and Security Metrics",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5733281932882977,
+            "definition": {
+              "type": "note",
+              "content": "Flags unsafe content including toxicity, prompt injection, CBRN, personal harm, unsafe stereotypes, code or SQL detection, jailbreaks, and exposure of personal information to reduce harm, and offensive content in user-facing applications.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 3573893644661365,
+            "definition": {
+              "title": "Toxicity",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.toxicity{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7031945780585694,
+            "definition": {
+              "title": "PII",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.pii{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1985964752633449,
+            "definition": {
+              "title": "SQL Prevention",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.sql_prevention{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6684996173930863,
+            "definition": {
+              "title": "Unsafe Stereotypes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.unsafe_stereotypes{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5081867316623887,
+            "definition": {
+              "title": "CBRN (Chemical, Biological, Radiological, Nuclear)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.cbrn{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3499166709719888,
+            "definition": {
+              "title": "Personal Harm",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.personal_harm{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4029823699453513,
+            "definition": {
+              "title": "Code Injection Detection",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.code_detection{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6610263559224765,
+            "definition": {
+              "title": "Prompt Injection",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.prompt_injection{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 5,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3596495817302734,
+            "definition": {
+              "title": "Jailbreak",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.jailbreak{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 5,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Tone",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5270561924541098,
+            "definition": {
+              "type": "note",
+              "content": "Evaluates clarity, informativeness, and whether the output satisfies the user’s original request.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 5242055317690210,
+            "definition": {
+              "title": "Conciseness",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.conciseness{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2938582126528100,
+            "definition": {
+              "title": "Completeness",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.completeness{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7969599387113733,
+            "definition": {
+              "title": "Output Relevance",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "sum:aimon.output_relevance{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query4"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 6858676905601227,
+      "definition": {
+        "title": "Logs (per evaluation)",
+        "background_color": "gray",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5557941245350382,
+            "definition": {
+              "title": "AIMon Response Evaluation Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:aimon",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "host",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 19,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

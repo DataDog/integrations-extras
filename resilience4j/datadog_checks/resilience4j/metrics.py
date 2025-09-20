@@ -19,4 +19,7 @@ METRIC_MAP = {
     "resilience4j_ratelimiter_waiting_threads": "ratelimiter.waiting.threads",
     "resilience4j_retry_calls": "retry.calls",
     "resilience4j_timelimiter_calls_total": "timelimiter.calls",
+    "resilience4j_circuitbreaker_not_permitted_calls": "circuitbreaker.not.permitted.calls",
+    "resilience4j_circuitbreaker_slow_call_rate": "circuitbreaker.slow.call.rate",
+    "resilience4j_bulkhead_core_thread_pool_size": "bulkhead.core.thread.pool.size",
 }
