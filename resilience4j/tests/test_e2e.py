@@ -9,9 +9,8 @@ from .common import EXPECTED_PROMETHEUS_METRICS
 pytestmark = [pytest.mark.usefixtures("dd_environment"), pytest.mark.e2e]
 
 
-def test_e2e_resilience4j_check_e2e_assert_service_check(dd_agent_check, aggregator, instance):
-    with pytest.raises(Exception):
-        dd_agent_check(instance, rate=True)
+def test_e2e_resilience4j_check_e2e_assert_service_check(dd_run_check, aggregator, check, mock_prometheus_metrics):
+    dd_run_check(check)
 
     # Check if any service checks were emitted before making assertions
     service_checks = aggregator.service_checks('resilience4j.openmetrics.health')
