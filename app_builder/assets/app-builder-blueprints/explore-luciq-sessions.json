@@ -1,0 +1,1665 @@
+{
+  "slug": "explore-luciq-sessions",
+  "name": "Explore Luciq Sessions",
+  "description": "Explore mobile user sessions, using Luciq's observability tools",
+  "definition": {
+    "name": "Explore Luciq Sessions",
+    "description": "Explore mobile user sessions, using Luciq's observability tools",
+    "queries": [
+      {
+        "name": "overtime_chart_request",
+        "type": "action",
+        "properties": {
+          "condition": "${selected_token != null || \n apps_dropdown?.value?.value != null || \n dateRangePicker?.value?.start != null || \n dateRangePicker?.value?.end != null}",
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {return outputs.body?.data.application.overtime})(self.rawOutputs)}",
+          "pollingIntervalInMs": 60000,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": {
+                "operationName": "apdexOvertime",
+                "query": "\n query apdexOvertime($token: String!, $filters: String!) {\n application(token: $token, filters: $filters) {\n overtime {\n date_bucket\n session {\n apdex\n apdex_breakdown {\n crashing\n frustrating\n tolerable\n satisfying\n count\n }\n date_ms\n }\n }\n annotations {\n date_ms\n top_releases {\n add_on_count\n app_versions\n }\n }\n }\n }\n",
+                "variables": {
+                  "filters": "${set_graphQl_filters.outputs}",
+                  "token": "${selected_token.value}"
+                }
+              },
+              "followRedirect": false,
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com/graphql",
+              "urlParams": [
+                {
+                  "key": "operationName",
+                  "value": "apdexOvertime"
+                }
+              ],
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "frustration_free_sessions_request",
+        "type": "action",
+        "properties": {
+          "condition": "${selected_token != null || \n apps_dropdown?.value?.value != null || \n dateRangePicker?.value?.start != null || \n dateRangePicker?.value?.end != null}",
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {return outputs})(self.rawOutputs)}",
+          "pollingIntervalInMs": 30000,
+          "showToastOnError": false,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": {
+                "operationName": "apdexBreakdownSummary",
+                "query": "\n query apdexBreakdownSummary($token: String!, $filters: String!) {\n application(token: $token, filters: $filters) {\n session {\n apdex\n apdex_breakdown {\n crashing\n frustrating\n tolerable\n satisfying\n count\n }\n }\n }\n }\n",
+                "variables": {
+                  "filters": "${set_graphQl_filters.outputs}",
+                  "token": "${selected_token.value}"
+                }
+              },
+              "followRedirect": false,
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com/graphql",
+              "urlParams": [
+                {
+                  "key": "operationName",
+                  "value": "apdexBreakdownSummary"
+                }
+              ],
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "calculate_session_type_percentage",
+        "type": "function",
+        "properties": {
+          "definition": "${((total_sessions_count,sessions_type_count) => {if (!total_sessions_count || total_sessions_count === 0) \n return 0;\nreturn (\n (sessions_type_count / total_sessions_count)\n * 100\n).toFixed(2);\n})}"
+        }
+      },
+      {
+        "name": "developer_request",
+        "type": "action",
+        "properties": {
+          "condition": "${(Array.isArray(accessible_applications?.value) && accessible_applications?.value.length === 0) && (Array.isArray(app_modes?.value) && app_modes?.value.length === 0)}",
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {return outputs.body?.developer.accessible_applications})(self.rawOutputs)}",
+          "requiresConfirmation": false,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "url": "https://dashboard-api.instabug.com/api/web/developer",
+              "verb": "GET"
+            }
+          }
+        }
+      },
+      {
+        "name": "get_accessible_applications",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {return (Array.isArray(developer_request?.outputs) \n ? developer_request.outputs \n : []).reduce((acc, app) => {\n const existingApp = acc.find(a => a.value === app.slug);\n \n if (existingApp) {\n existingApp.modes.push({\n mode: app.mode,\n token: app.token,\n modeId: app.app_modes[app.app_modes_strings.indexOf(app.mode)]\n });\n } else {\n acc.push({\n label: app.name,\n value: app.slug,\n target_os: app.target_os, \n modes: [{\n mode: app.mode,\n token: app.token,\n modeId: app.app_modes[app.app_modes_strings.indexOf(app.mode)]\n }]\n });\n }\n return acc;\n}, []);})()}"
+        }
+      },
+      {
+        "name": "accessible_applications",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${get_accessible_applications.outputs}"
+        }
+      },
+      {
+        "name": "selected_token",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${get_app_token(selected_app.value.value, app_modes_dropdown.value)}"
+        }
+      },
+      {
+        "name": "get_overtime_data",
+        "type": "function",
+        "properties": {
+          "definition": "${((inputData) => {\nif (!inputData || !inputData.session || !Array.isArray(inputData.session)) {\n throw new Error('Invalid input data structure');\n}\n\nconst transformedData = inputData.session\n .filter(entry => entry.date_ms && entry.apdex !== undefined)\n .map(entry => {\n const breakdown = entry.apdex_breakdown;\n const total = breakdown.count;\n\n const crashingPct = calculate_session_type_percentage(total, breakdown.crashing);\n const frustratingPct = calculate_session_type_percentage(total, breakdown.frustrating);\n const tolerablePct = calculate_session_type_percentage(total, breakdown.tolerable);\n const satisfyingPct = calculate_session_type_percentage(total, breakdown.satisfying);\n\n return {\n date: entry.date_ms,\n apdex: entry.apdex,\n \"Crashing sessions\": `${crashingPct}%`,\n \"Frustrating sessions\": `${frustratingPct}%`,\n \"Tolerable sessions\": `${tolerablePct}%`,\n \"Satisfying sessions\": `${satisfyingPct}%`\n };\n })\n .sort((a, b) => new Date(a.date) - new Date(b.date));\n\nreturn transformedData;\n})}"
+        }
+      },
+      {
+        "name": "getTimeFormat",
+        "type": "function",
+        "properties": {
+          "definition": "${((dataBucket) => {const formatMap = {\n \"hour\": \"%b %d %H:%M\",\n \"day\": \"%b %d\",\n \"week\": \"%b %d\",\n \"month\": \"%b %Y\",\n \"year\": \"%Y\"\n };\n\n return formatMap[dataBucket] || \"%b %d %H:%M\";})}"
+        }
+      },
+      {
+        "name": "get_app_modes",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedApp = accessible_applications.value.find(app => app.value === selected_app.value.value);\nreturn selectedApp?.modes?.map(mode => ({\n label: mode.mode,\n value: mode.modeId\n})) || [];})()}"
+        }
+      },
+      {
+        "name": "selected_app",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${(Array.isArray(accessible_applications.value) \n ? accessible_applications.value\n : []).find(app => app.value === apps_dropdown.value)}"
+        }
+      },
+      {
+        "name": "app_modes",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${get_app_modes.outputs}"
+        }
+      },
+      {
+        "name": "get_app_token",
+        "type": "function",
+        "properties": {
+          "definition": "${((selectedAppSlug,selectedModeId) => { const selectedApp = accessible_applications.value.find(\n app => app.value === selectedAppSlug\n );\n\n const modeId = Number(selectedModeId);\n\n const token = selectedApp?.modes?.find(mode => mode.modeId === modeId)?.token || null;\n\n return token;})}"
+        }
+      },
+      {
+        "name": "crashes_data",
+        "type": "action",
+        "properties": {
+          "onlyTriggerManually": true,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": "${set_homepage_insights_filters.outputs}",
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com${set_crashes_data_URL.outputs}",
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "crash_free_users",
+        "type": "action",
+        "properties": {
+          "onlyTriggerManually": true,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": {
+                "operationName": "AppInsights",
+                "query": "query AppInsights($token: String!, $filters: String!) { application(token: $token, filters: $filters) { users { crash_free_percent } } }",
+                "variables": {
+                  "filters": "${set_graphQl_filters.outputs}",
+                  "token": "${selected_token.value}"
+                }
+              },
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com/graphql",
+              "urlParams": [
+                {
+                  "key": "operationName",
+                  "value": "AppInsights"
+                }
+              ],
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "frustration_free_sessions_overtime_data",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${get_overtime_data(overtime_chart_request.outputs)}"
+        }
+      },
+      {
+        "name": "get_min_and_max_apdex",
+        "type": "function",
+        "properties": {
+          "definition": "${((overtime_data) => {if (overtime_data.length === 0) {\n return { min: null, max: null };\n }\n const apdexValues = overtime_data.map(d => d.apdex);\n const minApdex = Math.min(...apdexValues);\n const maxApdex = Math.max(...apdexValues);\n return { min: minApdex, max: maxApdex };})}"
+        }
+      },
+      {
+        "name": "set_gte_lte",
+        "type": "function",
+        "properties": {
+          "definition": "${((gte,lte) => { const originalGte = new Date(gte).getTime();\n const originalLte = new Date(lte).getTime();\n\n if ((originalLte - originalGte) < 86400000) { \n return { gte, lte };\n }\n\n const startOfGteDay = new Date(originalGte);\n startOfGteDay.setUTCHours(0, 0, 0, 0);\n const adjustedGte = startOfGteDay.getTime();\n\n const endOfLteDay = new Date(originalLte);\n endOfLteDay.setUTCHours(23, 59, 59, 999);\n const adjustedLte = endOfLteDay.getTime();\n\n return { gte: adjustedGte, lte: adjustedLte };})}"
+        }
+      },
+      {
+        "name": "gte_lte_values",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${set_gte_lte(dateRangePicker?.value?.start, dateRangePicker?.value?.end)}"
+        }
+      },
+      {
+        "name": "cfr_overtime_chart_request",
+        "type": "action",
+        "properties": {
+          "condition": "${selected_token != null || \n apps_dropdown?.value?.value != null || \n dateRangePicker?.value?.start != null || \n dateRangePicker?.value?.end != null}",
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {return outputs.body?.data.application.overtime})(self.rawOutputs)}",
+          "pollingIntervalInMs": 60000,
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": {
+                "operationName": "crashFreeRateOvertime",
+                "query": "\n query crashFreeRateOvertime($token: String!, $filters: String!) {\n application(token: $token, filters: $filters) {\n overtime {\n date_bucket\n session {\n date_ms\n crashing\n count\n }\n users{\n date_ms\n crashing\n count\n }\n }\n annotations {\n date_ms\n top_releases {\n add_on_count\n app_versions\n }\n }\n settings {\n is_v3\n }\n }\n }\n",
+                "variables": {
+                  "filters": "${set_graphQl_filters.outputs}",
+                  "token": "${selected_token.value}"
+                }
+              },
+              "followRedirect": false,
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com/graphql",
+              "urlParams": [
+                {
+                  "key": "operationName",
+                  "value": "crashFreeRateOvertime"
+                }
+              ],
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "get_cfr_overtime_data",
+        "type": "function",
+        "properties": {
+          "definition": "${((inputData) => { if (!inputData || !inputData.session || !Array.isArray(inputData.session) || !inputData.users || !Array.isArray(inputData.users) || inputData.session.length !== inputData.users.length) {\n throw new Error('Invalid input data structure');\n }\n\n const transformedData = inputData.session.map((sessionEntry, index) => {\n const userEntry = inputData.users[index];\n if (sessionEntry.date_ms !== userEntry.date_ms) {\n throw new Error('Session and users data have mismatched dates');\n }\n const CFS = ((sessionEntry.count - sessionEntry.crashing) / sessionEntry.count) * 100;\n const CFU = ((userEntry.count - userEntry.crashing) / userEntry.count) * 100;\n return {\n date: sessionEntry.date_ms,\n CFS: CFS,\n CFU: CFU\n };\n }).sort((a, b) => new Date(a.date) - new Date(b.date));\n\n return transformedData;})}"
+        }
+      },
+      {
+        "name": "cfr_overtime_data",
+        "type": "stateVariable",
+        "properties": {
+          "defaultValue": "${get_cfr_overtime_data(cfr_overtime_chart_request.outputs)}"
+        }
+      },
+      {
+        "name": "get_min_and_max_cfr",
+        "type": "function",
+        "properties": {
+          "definition": "${((overtimeData) => { if (overtimeData.length === 0) {\n return { min: null, max: null };\n }\n \n const allValues = [];\n \n overtimeData.forEach(d => {\n if (typeof d.CFS === 'number' && !isNaN(d.CFS)) {\n allValues.push(d.CFS);\n }\n if (typeof d.CFU === 'number' && !isNaN(d.CFU)) {\n allValues.push(d.CFU);\n }\n });\n\n if (allValues.length === 0) {\n return { min: null, max: null };\n }\n \n const min = Math.min(...allValues);\n const max = Math.max(...allValues);\n \n return { min, max };})}"
+        }
+      },
+      {
+        "name": "apm_metrics_apdex",
+        "type": "action",
+        "properties": {
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {// Use `outputs` to reference the action's unformatted output.\n\n// TODO: Apply transformations to the raw action output\n\nreturn outputs.body})(self.rawOutputs)}",
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": "${set_homepage_insights_filters.outputs}",
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com${set_apm_URL.outputs}",
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "set_apm_URL",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedMode = app_modes?.value?.find(mode => mode.value === app_modes_dropdown.value);\n\nreturn \"/api/web/applications/\" +\n (apps_dropdown?.value || \"default-app\") +\n \"/\" +\n (selectedMode?.label || \"default-mode\") +\n \"/apm/homepage_insights\";})()}"
+        }
+      },
+      {
+        "name": "set_crashes_data_URL",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedMode = app_modes?.value?.find(mode => mode.value === app_modes_dropdown.value);\n\nreturn \"/api/web/applications/\" +\n (apps_dropdown?.value || \"default-app\") +\n \"/\" +\n (selectedMode?.label || \"default-mode\") +\n \"/monitoring/homepage_insights\";})()}"
+        }
+      },
+      {
+        "name": "format_percentage",
+        "type": "function",
+        "properties": {
+          "definition": "${((value,total) => {const percentage = total === 0 ? 0 : (value / total) * 100;\n\nif (percentage === 0 || percentage === 100) {\n return Math.round(percentage) + '%';\n}\n\nreturn percentage.toFixed(2) + '%';})}"
+        }
+      },
+      {
+        "name": "format_number",
+        "type": "function",
+        "properties": {
+          "definition": "${((value) => {value = parseFloat(value);\n \n if (value >= 1000000000) {\n return (value / 1000000000).toFixed(3) + ' B';\n } else if (value >= 1000000) {\n return (value / 1000000).toFixed(3) + ' M';\n } else {\n return value.toString();\n }})}"
+        }
+      },
+      {
+        "name": "set_bugs_URL",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedMode = app_modes?.value?.find(mode => mode.value === app_modes_dropdown.value);\n\nreturn \"/api/web/applications/\" +\n (apps_dropdown?.value || \"default-app\") +\n \"/\" +\n (selectedMode?.label || \"default-mode\") +\n \"/bugs/homepage_insights\";})()}"
+        }
+      },
+      {
+        "name": "bugs_request",
+        "type": "action",
+        "properties": {
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {// Use `outputs` to reference the action's unformatted output.\n\n// TODO: Apply transformations to the raw action output\n\nreturn outputs.body})(self.rawOutputs)}",
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": "{\"filters\":{\"date_ms\":{\"gte\":\"${gte_lte_values.value.gte}\",\"lte\":\"${gte_lte_values.value.lte}\"}}}",
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com${set_bugs_URL.outputs}",
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "set_non_fatals_URL",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedMode = app_modes?.value?.find(mode => mode.value === app_modes_dropdown.value);\n\nreturn \"/api/web/applications/\" +\n (apps_dropdown?.value || \"default-app\") +\n \"/\" +\n (selectedMode?.label || \"default-mode\") +\n \"/crashes/non_fatals/homepage_insights\";})()}"
+        }
+      },
+      {
+        "name": "non_fatals_request",
+        "type": "action",
+        "properties": {
+          "onlyTriggerManually": true,
+          "outputs": "${((outputs) => {// Use `outputs` to reference the action's unformatted output.\n\n// TODO: Apply transformations to the raw action output\n\nreturn outputs.body})(self.rawOutputs)}",
+          "spec": {
+            "connectionId": "INTEGRATION_DEMO",
+            "fqn": "com.datadoghq.http.request",
+            "inputs": {
+              "body": "${set_homepage_insights_filters.outputs}",
+              "requestHeaders": [
+                {
+                  "key": "Content-Type",
+                  "value": [
+                    "application/json"
+                  ]
+                }
+              ],
+              "url": "https://dashboard-api.instabug.com${set_non_fatals_URL.outputs}",
+              "verb": "POST"
+            }
+          }
+        }
+      },
+      {
+        "name": "set_selected_platform",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedPlatform = app_platform_dropdown.value;\n\nlet platformArray;\n\nswitch(selectedPlatform) {\n case \"All\":\n platformArray = [\"android\", \"ios\"];\n break;\n case \"Android\":\n platformArray = [\"android\"];\n break;\n case \"iOS\":\n platformArray = [\"ios\"];\n break;\n default:\n platformArray = [];\n}\n\nreturn platformArray;})()}"
+        }
+      },
+      {
+        "name": "set_graphQl_filters",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {let platformPart = '';\n\nif (app_platform_dropdown?.isVisible && set_selected_platform.outputs?.length) {\n\n platformPart = ',\"platform\":[\"' + set_selected_platform.outputs.join('\",\"') + '\"]';\n}\nreturn '{\"date_ms\":{\"gte\":' + gte_lte_values.value.gte + \n ',\"lte\":' + gte_lte_values.value.lte + '}' + \n platformPart + '}';})()}"
+        }
+      },
+      {
+        "name": "set_homepage_insights_filters",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {let filterObj = {\n filters: {\n date_ms: {\n gte: gte_lte_values.value.gte,\n lte: gte_lte_values.value.lte\n }\n }\n};\n\nif (app_platform_dropdown?.isVisible && set_selected_platform.outputs?.length) {\n filterObj.filters.platform = set_selected_platform.outputs;\n}\n\nreturn filterObj;})()}"
+        }
+      },
+      {
+        "name": "set_dashboard_URL",
+        "type": "dataTransform",
+        "properties": {
+          "outputs": "${(() => {const selectedMode = app_modes?.value?.find(mode => mode.value === app_modes_dropdown.value);\n\nreturn \"https://dashboard.luciq.ai/applications/\" +\n (apps_dropdown?.value || \"default-app\") +\n \"/\" +\n (selectedMode?.label || \"default-mode\") +\n \"/app-health\";})()}"
+        }
+      }
+    ],
+    "components": [
+      {
+        "events": [],
+        "name": "grid0",
+        "properties": {
+          "children": [
+            {
+              "events": [],
+              "name": "gridCell0",
+              "properties": {
+                "children": [
+                  {
+                    "events": [],
+                    "name": "main_container",
+                    "properties": {
+                      "children": [
+                        {
+                          "events": [],
+                          "name": "grid2",
+                          "properties": {
+                            "children": [
+                              {
+                                "events": [],
+                                "name": "gridCell3",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "overtime_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid3",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell5",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "overtime_chart",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${overtime_chart_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Frustration-free sessions Overtime",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.1.0.json\",\n \"description\": \"Frustration-free sessions Over Time\",\n \"data\": {\n \"values\": frustration_free_sessions_overtime_data.value\n },\n \"transform\": [\n {\"calculate\": \"'Frustration-free sessions'\", \"as\": \"metric\"}\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"line\",\n \"interpolate\": \"linear\",\n \"strokeWidth\": 2,\n \"tooltip\": true\n },\n \"encoding\": {\n \"x\": {\n \"field\": \"date\",\n \"type\": \"temporal\",\n \"title\": null,\n \"axis\": {\n \"labelAngle\": 0,\n \"format\": getTimeFormat(overtime_chart_request?.outputs?.date_bucket),\n \"domain\": false,\n \"ticks\": false,\n \"labelPadding\": 10,\n \"tickCount\": overtime_chart_request?.outputs?.date_bucket\n },\n \"scale\": {\n \"padding\": 10\n }\n },\n \"y\": {\n \"field\": \"apdex\",\n \"type\": \"quantitative\",\n \"title\": null,\n \"scale\": {\n \"domain\": [get_min_and_max_apdex(frustration_free_sessions_overtime_data.value).min, get_min_and_max_apdex(frustration_free_sessions_overtime_data.value).max],\n \"nice\": false,\n \"padding\": 20\n },\n \"axis\": {\n \"format\": \".2f\",\n \"domain\": false,\n \"ticks\": false,\n \"labelPadding\": 10\n }\n },\n \"color\": {\n \"field\": \"metric\",\n \"type\": \"nominal\",\n \"scale\": {\n \"domain\": [\"Frustration-free sessions\"],\n \"range\": [\"steelblue\"]\n },\n \"legend\": {\n \"title\": null,\n \"orient\": \"bottom\",\n \"direction\": \"horizontal\",\n \"symbolType\": \"stroke\",\n \"symbolSize\": 200,\n \"symbolStrokeWidth\": 2,\n \"labelFontSize\": 12\n }\n },\n \"tooltip\": [\n {\"field\": \"apdex\", \"type\": \"quantitative\", \"title\": \"Frustration-free sessions\", \"format\": \".2f\"},\n {\"field\": \"Crashing sessions\", \"type\": \"nominal\", \"title\": \"Crashing sessions\"},\n {\"field\": \"Frustrating sessions\", \"type\": \"nominal\", \"title\": \"Frustrating sessions\"},\n {\"field\": \"Tolerable sessions\", \"type\": \"nominal\", \"title\": \"Tolerable sessions\"},\n {\"field\": \"Satisfying sessions\", \"type\": \"nominal\", \"title\": \"Satisfying sessions\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\"}\n ]\n }\n },\n {\n \"transform\": [\n {\"filter\": \"datum.apdex > 0\"}\n ],\n \"mark\": {\n \"type\": \"point\",\n \"filled\": true,\n \"tooltip\": true\n },\n \"encoding\": {\n \"x\": {\"field\": \"date\", \"type\": \"temporal\"},\n \"y\": {\"field\": \"apdex\", \"type\": \"quantitative\"},\n \"color\": {\"field\": \"metric\", \"type\": \"nominal\"},\n \"size\": {\n \"condition\": {\n \"param\": \"pointHover\",\n \"value\": 60\n },\n \"value\": 30\n },\n \"tooltip\": [\n {\"field\": \"apdex\", \"type\": \"quantitative\", \"title\": \"Frustration-free sessions\", \"format\": \".2f\"},\n {\"field\": \"Crashing sessions\", \"type\": \"nominal\", \"title\": \"Crashing sessions\"},\n {\"field\": \"Frustrating sessions\", \"type\": \"nominal\", \"title\": \"Frustrating sessions\"},\n {\"field\": \"Tolerable sessions\", \"type\": \"nominal\", \"title\": \"Tolerable sessions\"},\n {\"field\": \"Satisfying sessions\", \"type\": \"nominal\", \"title\": \"Satisfying sessions\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\"}\n ]\n },\n \"params\": [\n {\n \"name\": \"pointHover\",\n \"select\": {\n \"type\": \"point\",\n \"on\": \"mouseover\",\n \"clear\": \"mouseout\"\n }\n }\n ]\n }\n ],\n \"width\": 800,\n \"height\": 400,\n \"config\": {\n \"view\": {\"stroke\": \"transparent\"},\n \"axis\": {\n \"domainWidth\": 0\n }\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 36,
+                                                        "width": 6,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell11",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "cfr_overtime_chart",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${cfr_overtime_chart_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Crash-free rates Overtime",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.1.0.json\",\n \"description\": \"CFR Over Time\",\n \"data\": {\n \"values\": cfr_overtime_data.value\n },\n \"width\": 800,\n \"height\": 400,\n \"encoding\": {\n \"x\": {\n \"field\": \"date\",\n \"type\": \"temporal\",\n \"title\": null,\n \"axis\": {\n \"labelAngle\": 0,\n \"format\": getTimeFormat(cfr_overtime_chart_request?.outputs?.date_bucket),\n \"domain\": false,\n \"ticks\": false,\n \"labelPadding\": 10,\n \"tickCount\": cfr_overtime_chart_request.outputs?.date_bucket\n },\n \"scale\": {\n \"padding\": 10\n }\n }\n },\n \"layer\": [\n {\n \"mark\": {\"type\": \"line\", \"strokeWidth\": 2, \"color\": \"steelblue\"},\n \"encoding\": {\n \"x\": {\"field\": \"date\", \"type\": \"temporal\"},\n \"y\": {\n \"field\": \"CFS\",\n \"type\": \"quantitative\",\n \"title\": null,\n \"scale\": {\n \"domain\": [get_min_and_max_cfr(cfr_overtime_data.value).min, get_min_and_max_cfr(cfr_overtime_data.value).max],\n \"nice\": false,\n \"padding\": 20\n },\n \"axis\": {\n \"format\": \".2f\",\n \"domain\": false,\n \"ticks\": false,\n \"labelPadding\": 10\n }\n },\n \"tooltip\": [\n {\"field\": \"CFS\", \"type\": \"quantitative\", \"title\": \"CFS\", \"format\": \".2f\"},\n {\"field\": \"CFU\", \"type\": \"quantitative\", \"title\": \"CFU\", \"format\": \".2f\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\", \"format\": getTimeFormat(cfr_overtime_chart_request?.outputs?.date_bucket)}\n ]\n }\n },\n {\n \"mark\": {\"type\": \"point\", \"color\": \"steelblue\", \"filled\": true,},\n \"encoding\": {\n \"x\": {\"field\": \"date\", \"type\": \"temporal\"},\n \"y\": {\"field\": \"CFS\", \"type\": \"quantitative\"},\n \"size\": {\n \"condition\": {\n \"param\": \"pointHover\",\n \"value\": 60\n },\n \"value\": 30\n },\n \"tooltip\": [\n {\"field\": \"CFS\", \"type\": \"quantitative\", \"title\": \"CFS\", \"format\": \".2f\"},\n {\"field\": \"CFU\", \"type\": \"quantitative\", \"title\": \"CFU\", \"format\": \".2f\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\", \"format\": getTimeFormat(cfr_overtime_chart_request?.outputs?.date_bucket)}\n ]\n },\n \"params\": [\n {\n \"name\": \"pointHover\",\n \"select\": {\n \"type\": \"point\",\n \"on\": \"mouseover\",\n \"clear\": \"mouseout\"\n }\n }\n ]\n },\n {\n \"mark\": {\"type\": \"line\", \"strokeWidth\": 2, \"color\": \"#ffa232\"},\n \"encoding\": {\n \"x\": {\"field\": \"date\", \"type\": \"temporal\"},\n \"y\": {\n \"field\": \"CFU\",\n \"type\": \"quantitative\",\n \"title\": null,\n \"scale\": {\"domain\": [get_min_and_max_cfr(cfr_overtime_data.value).min, get_min_and_max_cfr(cfr_overtime_data.value).max]}\n },\n \"tooltip\": [\n {\"field\": \"CFS\", \"type\": \"quantitative\", \"title\": \"CFS\", \"format\": \".2f\"},\n {\"field\": \"CFU\", \"type\": \"quantitative\", \"title\": \"CFU\", \"format\": \".2f\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\", \"format\": getTimeFormat(cfr_overtime_chart_request?.outputs?.date_bucket)}\n ]\n }\n },\n {\n \"mark\": {\"type\": \"point\", \"color\": \"#ffa232\"},\n \"encoding\": {\n \"x\": {\"field\": \"date\", \"type\": \"temporal\"},\n \"y\": {\"field\": \"CFU\", \"type\": \"quantitative\"},\n \"size\": {\n \"condition\": {\n \"param\": \"pointHoverCFU\",\n \"value\": 60\n },\n \"value\": 30\n },\n \"tooltip\": [\n {\"field\": \"CFS\", \"type\": \"quantitative\", \"title\": \"CFS\", \"format\": \".2f\"},\n {\"field\": \"CFU\", \"type\": \"quantitative\", \"title\": \"CFU\", \"format\": \".2f\"},\n {\"field\": \"date\", \"type\": \"temporal\", \"title\": \"Date\", \"format\": getTimeFormat(cfr_overtime_chart_request?.outputs?.date_bucket)}\n ]\n },\n \"params\": [\n {\n \"name\": \"pointHoverCFU\",\n \"select\": {\n \"type\": \"point\",\n \"on\": \"mouseover\",\n \"clear\": \"mouseout\"\n }\n }\n ]\n },\n {\n \"data\": {\"values\": [\n {\"metric\": \"CFS\", \"color\": \"steelblue\"},\n {\"metric\": \"CFU\", \"color\": \"#ffa232\"}\n ]},\n \"mark\": {\"type\": \"point\", \"filled\": false, \"opacity\": 0},\n \"encoding\": {\n \"color\": {\n \"field\": \"metric\", \n \"type\": \"nominal\",\n \"scale\": {\n \"domain\": [\"CFS\", \"CFU\"],\n \"range\": [\"steelblue\", \"#ffa232\"]\n },\n \"legend\": {\n \"title\": null,\n \"orient\": \"bottom\",\n \"direction\": \"horizontal\",\n \"symbolType\": \"stroke\",\n \"symbolSize\": 200,\n \"symbolStrokeWidth\": 2,\n \"labelFontSize\": 12\n }\n }\n }\n }\n ],\n \"config\": {\n \"view\": {\"stroke\": \"transparent\"},\n \"axis\": {\n \"domainWidth\": 0\n }\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 36,
+                                                        "width": 6,
+                                                        "x": 6,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 41,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 47
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              },
+                              {
+                                "events": [],
+                                "name": "gridCell2",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "Filters_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid1",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell1",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "change",
+                                                            "type": "setStateVariableValue",
+                                                            "value": "${get_app_token(selected_app.value.value, app_modes_dropdown.value)}",
+                                                            "variableName": "selected_token"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "frustration_free_sessions_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crashes_data",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crash_free_users",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "cfr_overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "apm_metrics_apdex",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "non_fatals_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "bugs_request",
+                                                            "type": "triggerQuery"
+                                                          }
+                                                        ],
+                                                        "name": "apps_dropdown",
+                                                        "properties": {
+                                                          "defaultValue": "${accessible_applications.value[0]?.value}",
+                                                          "isDisabled": "${developer_request?.isLoading}",
+                                                          "isMultiselect": "false",
+                                                          "isVisible": true,
+                                                          "label": "",
+                                                          "options": "${accessible_applications.value}",
+                                                          "placeholder": "App"
+                                                        },
+                                                        "type": "select"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 4,
+                                                        "width": 2,
+                                                        "x": 2,
+                                                        "y": 1
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell6",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "developer_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "frustration_free_sessions_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crash_free_users",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crashes_data",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "cfr_overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "apm_metrics_apdex",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "non_fatals_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "bugs_request",
+                                                            "type": "triggerQuery"
+                                                          }
+                                                        ],
+                                                        "name": "dateRangePicker",
+                                                        "properties": {
+                                                          "defaultRange": {
+                                                            "msPeriod": 86400000,
+                                                            "type": "relative"
+                                                          },
+                                                          "isVisible": true,
+                                                          "label": ""
+                                                        },
+                                                        "type": "dateRangePicker"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 5,
+                                                        "width": 4,
+                                                        "x": 8,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell8",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "developer_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "frustration_free_sessions_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "crash_free_users",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "crashes_data",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "cfr_overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "apm_metrics_apdex",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "non_fatals_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "click",
+                                                            "queryName": "bugs_request",
+                                                            "type": "triggerQuery"
+                                                          }
+                                                        ],
+                                                        "name": "RefreshButton",
+                                                        "properties": {
+                                                          "iconLeft": "refresh",
+                                                          "iconRight": "",
+                                                          "isBorderless": false,
+                                                          "isDisabled": false,
+                                                          "isLoading": "${developer_request?.isLoading || frustration_free_sessions_request?.isLoading || crashes_data?.isLoading || crash_free_users?.isLoading || overtime_chart_request?.isLoading || cfr_overtime_chart_request?.isLoading}",
+                                                          "isPrimary": false,
+                                                          "isVisible": true,
+                                                          "label": "Refresh",
+                                                          "level": "default"
+                                                        },
+                                                        "type": "button"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 4,
+                                                        "width": 1,
+                                                        "x": 7,
+                                                        "y": 1
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell1_copy",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "change",
+                                                            "type": "setStateVariableValue",
+                                                            "value": "${get_app_token(selected_app.value.value, app_modes_dropdown.value)}",
+                                                            "variableName": "selected_token"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "frustration_free_sessions_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crashes_data",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crash_free_users",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "cfr_overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "apm_metrics_apdex",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "non_fatals_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "bugs_request",
+                                                            "type": "triggerQuery"
+                                                          }
+                                                        ],
+                                                        "name": "app_modes_dropdown",
+                                                        "properties": {
+                                                          "defaultValue": "${app_modes.value[0]?.value}",
+                                                          "isDisabled": "${developer_request?.isLoading}",
+                                                          "isMultiselect": "false",
+                                                          "isVisible": true,
+                                                          "label": "",
+                                                          "options": "${app_modes.value}",
+                                                          "placeholder": "Mode"
+                                                        },
+                                                        "type": "select"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 4,
+                                                        "width": 1,
+                                                        "x": 4,
+                                                        "y": 1
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell1_copy1",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "frustration_free_sessions_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crashes_data",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "crash_free_users",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "cfr_overtime_chart_request",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "apm_metrics_apdex",
+                                                            "type": "triggerQuery"
+                                                          },
+                                                          {
+                                                            "name": "change",
+                                                            "queryName": "non_fatals_request",
+                                                            "type": "triggerQuery"
+                                                          }
+                                                        ],
+                                                        "name": "app_platform_dropdown",
+                                                        "properties": {
+                                                          "defaultValue": "${\"All\"}",
+                                                          "isDisabled": false,
+                                                          "isMultiselect": false,
+                                                          "isVisible": "${(selected_app?.value?.target_os !== 1) && (selected_app?.value?.target_os !== 2)}",
+                                                          "label": "",
+                                                          "options": "${[\n \"All\",\n \"Android\",\n \"iOS\"\n]}",
+                                                          "placeholder": "Platform"
+                                                        },
+                                                        "type": "select"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 4,
+                                                        "width": 1,
+                                                        "x": 5,
+                                                        "y": 1
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell14",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Instabug_logo",
+                                                        "properties": {
+                                                          "content": "![](https://dashboard.luciq.ai//images/company-logo.svg)",
+                                                          "contentType": "markdown",
+                                                          "isVisible": true,
+                                                          "textAlign": "center",
+                                                          "verticalAlign": "top"
+                                                        },
+                                                        "type": "text"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 10,
+                                                        "width": 1,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 14,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 0
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              },
+                              {
+                                "events": [],
+                                "name": "gridCell4",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "apdex_CFR_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid4",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell7",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Frustration_free_sessions_breakdown",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${frustration_free_sessions_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Frustration free Sessions",
+                                                          "vegaSpec": "${\n {\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Frustration free-sessions\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": frustration_free_sessions_request.outputs.body?.data.application.session.apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Frustration-free sessions\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}\n}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 27,
+                                                        "width": 5,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell13",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "CFR_percentage",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${crashes_data?.isLoading || crash_free_users?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Crash-free Rates",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Crashes free-rate\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\n \"values\": [\n {\"type\": \"Crash-free Users\", \"value\": crash_free_users.outputs.body?.data?.application?.users?.crash_free_percent || null},\n {\"type\": \"Crash-free Sessions\", \"value\": crashes_data.outputs.body?.crash_free_sessions?.value || null}\n ]\n },\n \"transform\": [\n {\n \"calculate\": \"datum.value == null || datum.value > 100 ? '#666666' : datum.value >= 99.5 ? '#00984f' : datum.value >= 98 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"(datum.value == null || datum.value > 100) ? '—' : (datum.value == 100 || datum.value == 0) ? format(datum.value, '.0f') + '%' : (datum.value > 99.99 && datum.value < 100 ? format(datum.value, '.5f') + '%' : format(datum.value, '.2f') + '%')\",\n \"as\": \"formatted_value\"\n },\n {\"window\": [{\"op\": \"row_number\", \"as\": \"index\"}] }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dx\": {\"expr\": \"width * - 0.5\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+100)) * -0.25 + (datum.index === 2 ? min(width, (height+100)) * -0.1 : 0)\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"type\", \"type\": \"nominal\"},\n \"color\": {\"value\": \"#666666\"}\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.2\"},\n \"dx\": {\"expr\": \"width * 0.55\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+100)) * -0.25 + (datum.index === 2 ? min(width, (height+100)) * -0.1 : 0)\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"formatted_value\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"legend\": null,\n \"scale\": null\n }\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {\n \"mark\": {\"fontWeight\": \"bold\"}\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 27,
+                                                        "width": 6,
+                                                        "x": 6,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell10",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [
+                                                          {
+                                                            "name": "click",
+                                                            "type": "openUrl",
+                                                            "url": "${set_dashboard_URL.outputs}"
+                                                          }
+                                                        ],
+                                                        "name": "button0",
+                                                        "properties": {
+                                                          "iconLeft": "externalLink",
+                                                          "iconRight": "",
+                                                          "isBorderless": true,
+                                                          "isDisabled": false,
+                                                          "isLoading": false,
+                                                          "isPrimary": false,
+                                                          "isVisible": true,
+                                                          "label": "",
+                                                          "level": "default"
+                                                        },
+                                                        "type": "button"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 4,
+                                                        "width": 1,
+                                                        "x": 5,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 33,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 14
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              },
+                              {
+                                "events": [],
+                                "name": "gridCell12",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "Performance_Metrics_Apdex_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid5",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Cold_app_launch",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Cold app launch\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.cold_launches?.data?.apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Cold app launch\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 18,
+                                                        "width": 2,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15_copy",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "UI_hangs",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"UI hangs\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.frame_drops?.data?.avg_apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"UI hangs\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 17,
+                                                        "width": 2,
+                                                        "x": 2,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15_copy1",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Hot_app_launch",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Hot app launch\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.hot_launches?.data?.apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Hot app launch\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 17,
+                                                        "width": 2,
+                                                        "x": 4,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15_copy2",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Network",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Network\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.networks?.data?.avg_apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Network\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 17,
+                                                        "width": 2,
+                                                        "x": 6,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15_copy3",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Screen_loading",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Screen loading\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.screen_loadings?.data?.avg_apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Screen loading\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 17,
+                                                        "width": 2,
+                                                        "x": 8,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell15_copy4",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "Flows",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${apm_metrics_apdex?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Flows\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\"values\": [{\"apdex\": apm_metrics_apdex.outputs?.flows?.data?.avg_apdex || null}]},\n \"transform\": [\n {\n \"calculate\": \"datum.apdex==null ? '#666666' : datum.apdex >= 0.94 ? '#00984f' : datum.apdex >= 0.85 ? '#32cb82' : datum.apdex >= 0.70 ? '#ffc932' : datum.apdex >= 0.50 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"datum.apdex==null ? '—' : format(datum.apdex, '.2f')\",\n \"as\": \"percentage_text\"\n }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + 2.75*PI/2\"},\n \"fill\": \"#CECECE\"\n }\n },\n {\n \"mark\": {\n \"type\": \"arc\",\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.3\"},\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.45\"},\n \"cornerRadius\": 0,\n \"startAngle\": {\"expr\": \"PI + 1\"},\n \"endAngle\": {\"expr\": \"PI + 1 + (datum.apdex * 2.75*PI/2)\"},\n \"fill\": {\"expr\": \"datum.color\"}\n }\n },\n {\n \"data\": {\n \"values\": [\n {\"start\": 0, \"end\": 0.5, \"color\": \"#f4674c\"},\n {\"start\": 0.5, \"end\": 0.7, \"color\": \"#ffa500\"},\n {\"start\": 0.7, \"end\": 0.85, \"color\": \"#ffc932\"},\n {\"start\": 0.85, \"end\": 0.94, \"color\": \"#32cb82\"},\n {\"start\": 0.94, \"end\": 1.0, \"color\": \"#00984f\"}\n ]\n },\n \"mark\": {\n \"type\": \"arc\",\n \"outerRadius\": {\"expr\": \"min(width, height) * 0.46\"},\n \"innerRadius\": {\"expr\": \"min(width, height) * 0.44\"},\n \"cornerRadius\": 0,\n \"stroke\": \"white\",\n \"strokeWidth\": 1\n },\n \"encoding\": {\n \"theta\": {\n \"field\": \"start\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20298163397]}\n },\n \"theta2\": {\n \"field\": \"end\",\n \"type\": \"quantitative\",\n \"scale\": {\"range\": [4.14159265359, 8.20398163397]}\n },\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null,\n \"legend\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"fontWeight\": \"bold\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.24\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.15\"}\n },\n \"encoding\": {\n \"text\": {\"field\": \"percentage_text\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"scale\": null\n }\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"center\",\n \"baseline\": \"middle\",\n \"text\": \"Flows\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.1\"},\n \"dy\": {\"expr\": \"min(width, height) * 0.35\"},\n \"color\": \"#666666\"\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {}\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 17,
+                                                        "width": 2,
+                                                        "x": 10,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 23,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 88
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              },
+                              {
+                                "events": [],
+                                "name": "gridCell16",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "crashes_sessions_breakdown_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid6",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell13_copy",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "stability_metrics",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${crashes_data?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Stability Metrics",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Crashes free-rate\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\n \"values\": [\n {\"type\": \"OOMs-free Sessions\", \"value\": crashes_data?.outputs?.body?.oom?.value || null},\n {\"type\": \"App Hangs-free Sessions\", \"value\": crashes_data?.outputs?.body?.app_hangs?.value || null},\n {\"type\": \"ANRs-free Sessions\", \"value\": crashes_data?.outputs?.body?.anr?.value || null}\n ]\n },\n \"transform\": [\n {\n \"calculate\": \"datum.value == null || datum.value > 100 ? '#666666' : datum.value >= 99.5 ? '#00984f' : datum.value >= 98 ? '#ffa500' : '#f4674c'\",\n \"as\": \"color\"\n },\n {\n \"calculate\": \"(datum.value == null || datum.value > 100) ? '—' : (datum.value == 100 || datum.value == 0) ? format(datum.value, '.0f') + '%' : (datum.value > 99.99 && datum.value < 100 ? format(datum.value, '.5f') + '%' : format(datum.value, '.2f') + '%')\",\n \"as\": \"formatted_value\"\n },\n {\"window\": [{\"op\": \"row_number\", \"as\": \"index\"}] }\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.085\"},\n \"dx\": {\"expr\": \"width * - 0.5\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+100)) * -0.25\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"type\", \"type\": \"nominal\"},\n \"color\": {\"value\": \"#666666\"}\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.12\"},\n \"dx\": {\"expr\": \"width * 0.55\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+100)) * -0.25\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"formatted_value\", \"type\": \"nominal\"},\n \"color\": {\n \"field\": \"color\",\n \"type\": \"nominal\",\n \"legend\": null,\n \"scale\": null\n }\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {\n \"mark\": {\"fontWeight\": \"bold\"}\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 27,
+                                                        "width": 6,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell13_copy1",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "session_breakdown",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${frustration_free_sessions_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Sessions Breakdown",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v6.json\",\n \"description\": \"Session Breakdown\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"data\": {\n \"values\": [\n {\n \"type\": \"Tolerable sessions\", \n \"value\": format_percentage(frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.tolerable || 0, frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.count || 1)\n },\n {\n \"type\": \"Satisfying sessions\", \n \"value\": format_percentage(frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.satisfying || 0, frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.count || 1)\n },\n {\n \"type\": \"Frustrating sessions\", \n \"value\": format_percentage(frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.frustrating || 0, frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.count || 1)\n },\n {\n \"type\": \"Crashing sessions\", \n \"value\": format_percentage(frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.crashing || 0, frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.count || 1)\n },\n {\n \"type\": \"Sessions Count\", \n \"value\": format_number(frustration_free_sessions_request?.outputs?.body?.data?.application?.session?.apdex_breakdown?.count || 0)\n }\n ]\n },\n \"transform\": [\n {\"window\": [{\"op\": \"row_number\", \"as\": \"index\"}]}\n ],\n \"layer\": [\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.16\"},\n \"dx\": {\"expr\": \"width * - 0.5\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+50)) * -0.25\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"type\", \"type\": \"nominal\"},\n \"color\": {\"value\": \"#666666\"}\n }\n },\n {\n \"mark\": {\n \"type\": \"text\",\n \"align\": \"left\",\n \"baseline\": \"middle\",\n \"fontSize\": {\"expr\": \"min(width, height) * 0.15\"},\n \"dx\": {\"expr\": \"width * 0.35\"},\n \"dy\": {\n \"expr\": \"(datum.index - 2) * min(width, (height+50)) * -0.25\"\n }\n },\n \"encoding\": {\n \"text\": {\"field\": \"value\", \"type\": \"nominal\"},\n \"color\": {\n \"value\": \"#9a9a9a\"\n }\n }\n }\n ],\n \"view\": {\"stroke\": null},\n \"config\": {\n \"mark\": {\"fontWeight\": \"bold\"}\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 27,
+                                                        "width": 6,
+                                                        "x": 6,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 33,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 111
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              },
+                              {
+                                "events": [],
+                                "name": "gridCell9",
+                                "properties": {
+                                  "children": [
+                                    {
+                                      "events": [],
+                                      "name": "non_fatal_bugs_container",
+                                      "properties": {
+                                        "children": [
+                                          {
+                                            "events": [],
+                                            "name": "grid7",
+                                            "properties": {
+                                              "children": [
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell13_copy2",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "non_fatals_count",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${non_fatals_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "Non-Fatals count",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"padding\": 20,\n \"autosize\": {\n \"type\": \"fit\",\n \"contains\": \"padding\"\n },\n \"data\": {\n \"values\": [\n {\"formattedValue\": format_number(non_fatals_request?.outputs?.non_fatal_crashes?.value || 0)}\n ]\n },\n \"mark\": {\n \"type\": \"text\",\n \"fontSize\": {\"expr\": \"min(width, height) / 2\"},\n \"fontWeight\": \"bold\",\n \"color\": \"#9a9a9a\",\n \"align\": \"center\",\n \"baseline\": \"middle\"\n },\n \"encoding\": {\n \"text\": {\"field\": \"formattedValue\", \"type\": \"nominal\"}\n },\n \"config\": {\n \"view\": {\n \"stroke\": null\n }\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 23,
+                                                        "width": 6,
+                                                        "x": 0,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                },
+                                                {
+                                                  "events": [],
+                                                  "name": "gridCell13_copy3",
+                                                  "properties": {
+                                                    "children": [
+                                                      {
+                                                        "events": [],
+                                                        "name": "bugs_count",
+                                                        "properties": {
+                                                          "errorDescription": "",
+                                                          "errorMessage": "",
+                                                          "hasBorders": false,
+                                                          "isLoading": "${bugs_request?.isLoading}",
+                                                          "isVisible": true,
+                                                          "title": "New & In-progress bugs count",
+                                                          "vegaSpec": "${{\n \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\n \"width\": \"container\",\n \"height\": \"container\",\n \"padding\": 20,\n \"autosize\": {\n \"type\": \"fit\",\n \"contains\": \"padding\"\n },\n \"data\": {\n \"values\": [\n {\"formattedValue\": format_number(bugs_request?.outputs?.total_reports || 0)}\n ]\n },\n \"mark\": {\n \"type\": \"text\",\n \"fontSize\": {\"expr\": \"min(width, height) / 2\"},\n \"fontWeight\": \"bold\",\n \"color\": \"#9a9a9a\",\n \"align\": \"center\",\n \"baseline\": \"middle\"\n },\n \"encoding\": {\n \"text\": {\"field\": \"formattedValue\", \"type\": \"nominal\"}\n },\n \"config\": {\n \"view\": {\n \"stroke\": null\n }\n }\n}}"
+                                                        },
+                                                        "type": "vegaChart"
+                                                      }
+                                                    ],
+                                                    "isVisible": "true",
+                                                    "layout": {
+                                                      "default": {
+                                                        "height": 23,
+                                                        "width": 6,
+                                                        "x": 6,
+                                                        "y": 0
+                                                      }
+                                                    }
+                                                  },
+                                                  "type": "gridCell"
+                                                }
+                                              ]
+                                            },
+                                            "type": "grid"
+                                          }
+                                        ],
+                                        "hasBackground": false,
+                                        "isVisible": true
+                                      },
+                                      "type": "container"
+                                    }
+                                  ],
+                                  "isVisible": "true",
+                                  "layout": {
+                                    "default": {
+                                      "height": 29,
+                                      "width": 12,
+                                      "x": 0,
+                                      "y": 144
+                                    }
+                                  }
+                                },
+                                "type": "gridCell"
+                              }
+                            ]
+                          },
+                          "type": "grid"
+                        }
+                      ],
+                      "hasBackground": true,
+                      "isVisible": true
+                    },
+                    "type": "container"
+                  }
+                ],
+                "isVisible": "true",
+                "layout": {
+                  "default": {
+                    "height": 181,
+                    "width": 12,
+                    "x": 0,
+                    "y": 0
+                  }
+                }
+              },
+              "type": "gridCell"
+            }
+          ]
+        },
+        "type": "grid"
+      }
+    ],
+    "rootInstanceName": "grid0"
+  },
+  "mocked_outputs": {},
+  "tile_background": "table",
+  "tile_icon_action_fqn": "com.datadoghq.http.request",
+  "tags": [
+    "observability"
+  ],
+  "embedded_workflow_blueprints": {},
+  "embedded_datastore_blueprints": {}
+}
