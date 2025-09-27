@@ -980,6 +980,24 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
+  jd9748f1:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Redis Enterprise Prometheus
+      target: redis_enterprise_prometheus
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
   ja8f7203:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
