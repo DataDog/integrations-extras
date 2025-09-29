@@ -4,7 +4,7 @@
 
 ***Changed***:
 
-* Updated branding to Luciq
+* Updated App Builder integration blueprint to show new Luciq branding
 
 ## 2.0.0 / 2025-06-20
 
