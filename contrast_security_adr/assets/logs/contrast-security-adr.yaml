@@ -1,5 +1,9 @@
 id: contrast-security-adr
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
 metric_id: contrast-security-adr
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
 backend_only: false
 facets:
   - groups:
@@ -42,11 +46,6 @@ facets:
     name: Event Name
     path: evt.name
     source: log
-  - groups:
-      - Web Access
-    name: OS
-    path: http.useragent_details.os.family
-    source: log
   - description: ""
     facetType: list
     groups:
@@ -66,10 +65,10 @@ pipeline:
       name: Contrast ADR Incidents
       enabled: true
       filter:
-        query: "@incidentid:*"
+        query: source:contrast-security-adr @incidentId:*
       processors:
         - type: attribute-remapper
-          name: "Remapper: Map `score` to `syslog.severity`"
+          name: Map `score` to `syslog.severity`
           enabled: true
           sources:
             - score
@@ -79,7 +78,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `url` to `resource.url`"
+          name: Map `url` to `resource.url`
           enabled: true
           sources:
             - url
@@ -89,7 +88,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `createdTime` to `date`"
+          name: Map `createdTime` to `date`
           enabled: true
           sources:
             - createdTime
@@ -99,12 +98,12 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: "Date Remapper: 'date' as date of the log"
+          name: date' as date of the log
           enabled: true
           sources:
             - date
         - type: attribute-remapper
-          name: "Remapper: Map `eventType` to `resource.type`"
+          name: Map `eventType` to `resource.type`
           enabled: true
           sources:
             - eventType
@@ -113,19 +112,14 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: status-remapper
-          name: "Status Remapper: Map `severity`"
-          enabled: true
-          sources:
-            - severity
     - type: pipeline
       name: Contrast ADR Attack Events
       enabled: true
       filter:
-        query: "@eventUuid:*"
+        query: source:contrast-security-adr @eventUuid:*
       processors:
         - type: attribute-remapper
-          name: "Remapper: Map `sourceIp` to `network.host.ip`"
+          name: Map `sourceIp` to `network.host.ip`
           enabled: true
           sources:
             - sourceIp
@@ -135,17 +129,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper : Map `sevirity` to `status`"
-          enabled: true
-          sources:
-            - sevirity
-          sourceType: attribute
-          target: status
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
-          name: " Remapper: Map `request.method` to `http.method`"
+          name: Map `request.method` to `http.method`
           enabled: true
           sources:
             - request.method
@@ -155,7 +139,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.protocol` to `http.url_details.scheme`"
+          name: Map `request.protocol` to `http.url_details.scheme`
           enabled: true
           sources:
             - request.protocol
@@ -165,7 +149,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.queryString` to `http.url_details.queryString`"
+          name: Map `request.queryString` to `http.url_details.queryString`
           enabled: true
           sources:
             - request.queryString
@@ -175,7 +159,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.protocolVersion` to `http.version`"
+          name: Map `request.protocolVersion` to `http.version`
           enabled: true
           sources:
             - request.protocolVersion
@@ -185,12 +169,12 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: "Remapper: Map `date` as the date of log"
+          name: Map `date` as the date of log
           enabled: true
           sources:
             - date
         - type: attribute-remapper
-          name: "Remapper: Map 'detectedTime' to  'date'"
+          name: Map 'detectedTime' to  'date'
           enabled: true
           sources:
             - detectedTime
@@ -200,7 +184,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `result` to `evt.outcome`"
+          name: Map `result` to `evt.outcome`
           enabled: true
           sources:
             - result
@@ -210,14 +194,14 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: url-parser
-          name: "URL Parser : Map `apiUri` to `http.url_details.path`"
+          name: Map `apiUri` to `http.url_details.path`
           enabled: true
           sources:
             - apiUri
           target: http.url_details.path
           normalizeEndingSlashes: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.headers.referer` to `http.referer`"
+          name: Map `request.headers.referer` to `http.referer`
           enabled: true
           sources:
             - request.headers.referer
@@ -227,7 +211,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.headers.host` to `http.url_details.host`"
+          name: Map `request.headers.host` to `http.url_details.host`
           enabled: true
           sources:
             - request.headers.host
@@ -237,7 +221,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `request.headers` to `http.request.headers`"
+          name: Map `request.headers` to `http.request.headers`
           enabled: true
           sources:
             - request.headers
@@ -247,7 +231,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper : Map `request.headers.user-agent` to `http.user-agent`"
+          name: Map `request.headers.user-agent` to `http.user-agent`
           enabled: true
           sources:
             - request.headers.user-agent
@@ -257,7 +241,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `rule` to `evt.name`"
+          name: Map `rule` to `evt.name`
           enabled: true
           sources:
             - rule
@@ -267,18 +251,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `host.operatingSystem` to
-            `http.useragent_details.os.family`"
-          enabled: true
-          sources:
-            - host.operatingSystem
-          sourceType: attribute
-          target: http.useragent_details.os.family
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
-          name: "Remapper: Map `host.hostname` to `network.host.name`"
+          name: Map `host.hostname` to `network.host.name`
           enabled: true
           sources:
             - host.hostname
@@ -288,7 +261,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `agentVersion` to `version`"
+          name: Map `agentVersion` to `version`
           enabled: true
           sources:
             - agentVersion
@@ -298,7 +271,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: "Remapper: Map `incident_id` to `contrast_adr.incident_id`"
+          name: Map `incident_id` to `contrast_adr.incident_id`
           enabled: true
           sources:
             - incident_id
@@ -307,3 +280,8 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
+    - type: status-remapper
+      name: " Map `severity` to `status`"
+      enabled: true
+      sources:
+        - severity
