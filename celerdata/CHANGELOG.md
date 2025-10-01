@@ -1,5 +1,11 @@
 # CHANGELOG - celerdata
 
+## 1.3.0 / 2025-10-01
+
+***Added***:
+
+* Add back the test case `test_celerdata_fe` in tests/test_celerdata.py
+
 ## 1.2.0 / 2025-06-30
 
 ***Added***:
