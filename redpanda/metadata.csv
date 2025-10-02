@@ -7,7 +7,7 @@ redpanda.cloud.client_backoff,count,,operation,,Total number of requests that ba
 redpanda.cloud.client_pool_utilization,gauge,,,,"Current utilization (as a percentage, 0–100) of the object storage client pool.",-1,redpanda,cloud client pool utilization
 redpanda.cloud.client_download_backoff,count,,operation,,Total number of download requests that backed off,-1,redpanda,cloud client download backoff
 redpanda.cloud.client_downloads,count,,,,Total number of requests that downloaded an object from cloud storage,0,redpanda,cloud client downloads
-redpanda.cloud.client_lease_duration,histogram,,,,Lease duration histogram.,0,redpanda,cloud client lease duration
+redpanda.cloud.client_lease_duration,gauge,,,,Lease duration histogram.,0,redpanda,cloud client lease duration
 redpanda.cloud.client_not_found,count,,,,Total number of requests for which the object was not found,-1,redpanda,cloud client not found
 redpanda.cloud.client_num_borrows,count,,,,Count of instances where a shard borrowed an object storage client from another shard.,0,redpanda,cloud storage number of borrowed reads
 redpanda.cloud.client_upload_backoff,count,,,,Total number of upload requests that backed off,-1,redpanda,cloud client upload backoff
@@ -119,16 +119,16 @@ redpanda.kafka.group_count,gauge,,,,Number of consumers in a group,0,redpanda,ka
 redpanda.kafka.group_lag_max,gauge,,,,Maximum lag for any partition in the group,-1,redpanda,kafka group lag max
 redpanda.kafka.group_lag_sum,gauge,,,,Sum of lag for all partitions in the group,-1,redpanda,kafka group lag sum
 redpanda.kafka.group_topic_count,gauge,,,,Number of topics in a group,-1,redpanda,kafka group topic count
-redpanda.kafka.handler_latency_seconds,histogram,,,,Histogram capturing the latency for processing Kafka requests at the broker level.,-1,redpanda,kafka handler latency
+redpanda.kafka.handler_latency_seconds,gauge,,,,Histogram capturing the latency for processing Kafka requests at the broker level.,-1,redpanda,kafka handler latency
 redpanda.kafka.partition_committed_offset,gauge,,,,Latest committed offset for the partition (i.e. the offset of the last message safely persisted on most replicas).,0,redpanda,kafka partition committed offset
 redpanda.kafka.partitions,gauge,,,,Configured number of partitions for the topic,0,redpanda,kafka partitions
-redpanda.kafka.quotas_client_quota_throttle_time,histogram,,,,Histogram of client quota throttling delays (in seconds) per quota rule and type.,-1,redpanda,kafka quota client throttling delay
-redpanda.kafka.quotas_client_quota_throughput,histogram,,,,Histogram of client quota throughput per quota rule and type.,0,redpanda,kafka quota client throughput
+redpanda.kafka.quotas_client_quota_throttle_time,gauge,,,,Histogram of client quota throttling delays (in seconds) per quota rule and type.,-1,redpanda,kafka quota client throttling delay
+redpanda.kafka.quotas_client_quota_throughput,gauge,,,,Histogram of client quota throughput per quota rule and type.,0,redpanda,kafka quota client throughput
 redpanda.kafka.records_fetched,count,,,,Total number of records fetched from a topic,0,redpanda,kafka records fetched
 redpanda.kafka.records_produced,count,,,,Total number of records produced to a topic,0,redpanda,kafka records produced
 redpanda.kafka.replicas,gauge,,,,Configured number of replicas for the topic,0,redpanda,kafka replicas
 redpanda.kafka.request_bytes,count,,byte,,Total number of bytes produced per topic,0,redpanda,kafka request bytes
-redpanda.kafka.request_latency_seconds,histogram,,second,,Internal latency of kafka produce requests,-1,redpanda,kafka request latency seconds
+redpanda.kafka.request_latency_seconds,gauge,,second,,Internal latency of kafka produce requests,-1,redpanda,kafka request latency seconds
 redpanda.kafka.rpc_sasl_session_expiration,count,,,,Total number of SASL session expirations observed.,0,redpanda,SASL session expirations
 redpanda.kafka.rpc_sasl_session_reauth_attempts,count,,,,Total number of SASL reauthentication attempts made by clients.,-1,redpanda,SASL reauth attempts
 redpanda.kafka.rpc_sasl_session_revoked,count,,,,Total number of SASL sessions that have been revoked.,-1,redpanda,SASL sessions revoked
@@ -151,11 +151,11 @@ redpanda.pandaproxy.inflight_requests_memory_usage_ratio,gauge,,,,Memory usage r
 redpanda.pandaproxy.inflight_requests_usage_ratio,gauge,,,,Usage ratio of in-flight requests in the rest_proxy.,0,redpanda,pandaproxy in-flight requests usage ratio
 redpanda.pandaproxy.queued_requests_memory_blocked,gauge,,,,"Number of requests queued in rest_proxy, due to memory limitations.",-1,redpanda,pandpaproxy queued requests due to memory
 redpanda.pandaproxy.request_errors,count,,error,,Total number of rest_proxy server errors,-1,redpanda,pandaproxy request errors
-redpanda.pandaproxy.request_latency,histogram,,millisecond,,Internal latency of request for rest_proxy,-1,redpanda,pandaproxy request latency
+redpanda.pandaproxy.request_latency,gauge,,millisecond,,Internal latency of request for rest_proxy,-1,redpanda,pandaproxy request latency
 redpanda.rpc.active_connections,gauge,,connection,,Current number of active RPC client connections on a shard.,-1,redpanda,rpc active connections
 redpanda.rpc.received_bytes,count,,,,Number of bytes received from the clients in valid requests.,0,redpanda,rpc received bytes
 redpanda.rpc.request_errors,count,,error,,Number of rpc errors,-1,redpanda,rpc request errors
-redpanda.rpc.request_latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for RPC requests.,-1,redpanda,rpc request latency seconds
+redpanda.rpc.request_latency_seconds,gauge,,second,,Histogram capturing the latency (in seconds) for RPC requests.,-1,redpanda,rpc request latency seconds
 redpanda.rpc.sent_bytes,count,,,,Number of bytes sent to clients.,0,redpanda,rpc sent bytes
 redpanda.scheduler.runtime_seconds,count,,second,,Accumulated runtime of task queue associated with this scheduling group,0,redpanda,scheduler runtime seconds
 redpanda.schema_registry.cache_schema_count,gauge,,,,Total number of schemas currently stored in the Schema Registry cache.,0,redpanda,schema registry schema count
@@ -166,8 +166,8 @@ redpanda.schema_registry.inflight_requests_memory_usage_ratio,gauge,,,,"Ratio of
 redpanda.schema_registry.inflight_requests_usage_ratio,gauge,,,,"Usage ratio for in-flight Schema Registry requests, reported per shard.",0,redpanda,schema registry in-flight requests ratio
 redpanda.schema_registry.queued_requests_memory_blocked,gauge,,,,"Count of Schema Registry requests queued due to memory constraints, reported per shard.",-1,redpanda,schema registry queued requests
 redpanda.schema_registry.errors,count,,error,,Total number of schema_registry server errors,-1,redpanda,schema registry errors
-redpanda.schema_registry_latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.1.0 and below],-1,redpanda,schema registry latency seconds
-redpanda.schema_registry.latency_seconds,histogram,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.2.0+],-1,redpanda,schema registry latency seconds
+redpanda.schema_registry_latency_seconds,gauge,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.1.0 and below],-1,redpanda,schema registry latency seconds
+redpanda.schema_registry.latency_seconds,gauge,,second,,Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.2.0+],-1,redpanda,schema registry latency seconds
 redpanda.security.audit_errors,count,,,,Cumulative count of errors encountered when creating or publishing audit event log entries.,-1,redpanda,audit errors
 redpanda.security.audit_last_event_timestamp_seconds,count,,,,Unix epoch timestamp of the last successful audit log event publication.,1,redpanda,last successful audit event
 redpanda.storage.cache_disk_free_bytes,gauge,,,,Amount of free disk space (in bytes) available on the cache storage.,1,redpanda,storage cache disk free
@@ -182,7 +182,7 @@ redpanda.tls.certificate_valid,gauge,,,,Indicator of whether a resource has at l
 redpanda.tls.loaded_at_timestamp_seconds,gauge,,,,Unix epoch timestamp marking the last time a TLS certificate was loaded for a resource.,1,redpanda,tls certificate loaded at
 redpanda.tls.truststore_expires_at_timestamp_seconds,gauge,,,,Unix epoch timestamp representing the expiration time of the shortest-lived certificate authority (CA) in the installed truststore.,1,redpanda,tls truststore expiry
 redpanda.transform.execution_errors,count,,,,Counter for the number of errors encountered during the invocation of data transforms.,-1,redpanda,transform execution errors
-redpanda.transform.execution_latency_sec,histogram,,,,Histogram tracking the execution latency (in seconds) for processing a single record via data transforms.,-1,redpanda,transform execution latency
+redpanda.transform.execution_latency_sec,gauge,,,,Histogram tracking the execution latency (in seconds) for processing a single record via data transforms.,-1,redpanda,transform execution latency
 redpanda.transform.failures,count,,,,Counter for each failure encountered by a data transform processor.,-1,redpanda,transform failures
 redpanda.transform.processor_lag,count,,,,Number of records pending processing in the input topic for a data transform.,-1,redpanda,transform processor lag
 redpanda.transform.read_bytes,count,,,,Cumulative count of bytes read as input to data transforms.,0,redpanda,transform read bytes
