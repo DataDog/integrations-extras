@@ -1,31 +1,6 @@
 id: contrast-security-adr
 tests:
-  - sample: >-
-      {
-        "incidentId": "INC-2025-c61",
-        "incidentName": "Path Traversal on \"/postjsoncmd\"",
-        "status": "Close",
-        "score": 9.3,
-        "severity": "Error",
-        "url": "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
-        "createdTime": "2025-07-25T06:20:23.0000Z",
-        "summary": " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
-        "source": "security",
-        "eventType": "incidentalert",
-        "alertType": "incident_created",
-        "alertReason": "Incident Created",
-        "organizationUuid": "0f767995-4882-4c7c-889f-994d945ff0d5",
-        "relatedRules": ["path-traversal"],
-        "recommendedActions": [
-          "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.",
-          "Add an exclusion for this attack event."
-        ],
-        "recommendedRunbooks": [
-          "https://dev/adr-runbooks/runbooks/path-traversal/"
-        ],
-        "timestamp": "2025-07-25T06:20:23.0000Z"
-      }
-    result: null
+  - sample: |- { "severity" : "Error", "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd", "alertType" : "incident_created", "alertReason" : "Incident Created", "source" : "security", "eventType" : "incidentalert", "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ], "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6", "relatedRules" : [ "path-traversal" ], "score" : 9.3, "organizationUuid" : "0f767995-4882-4c7c-889f-994d945ff0d5", "createdTime" : "2025-07-25T06:20:23.0000Z", "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ], "incidentId" : "INC-2025-c61", "incidentName" : "Path Traversal on \"/postjsoncmd\"", "status" : "Close", "timestamp" : "2025-07-25T06:20:23.0000Z" } result: custom: alertReason: "Incident Created" alertType: "incident_created" createdTime: "2025-07-25T06:20:23.0000Z" date: "2025-07-25T06:20:23.0000Z" eventType: "incidentalert" incidentId: "INC-2025-c61" incidentName: "Path Traversal on \"/postjsoncmd\"" organizationUuid: "0f767995-4882-4c7c-889f-994d945ff0d5" recommendedActions: - "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production." - "Add an exclusion for this attack event." recommendedRunbooks: - "https://dev/adr-runbooks/runbooks/path-traversal/" relatedRules: - "path-traversal" resource: type: "incidentalert" url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6" score: 9.3 severity: "Error" source: "security" status: "Close" summary: " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd" syslog: severity: 9.3 timestamp: "2025-07-25T06:20:23.0000Z" url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6" message: |- { "severity" : "Error", "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd", "alertType" : "incident_created", "alertReason" : "Incident Created", "source" : "security", "eventType" : "incidentalert", "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ], "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6", "relatedRules" : [ "path-traversal" ], "score" : 9.3, "organizationUuid" : "0f767995-4882-4c7c-889f-994d945ff0d5", "createdTime" : "2025-07-25T06:20:23.0000Z", "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ], "incidentId" : "INC-2025-c61", "incidentName" : "Path Traversal on \"/postjsoncmd\"", "status" : "Close", "timestamp" : "2025-07-25T06:20:23.0000Z" } status: "error" tags: - "source:LOGS_SOURCE" timestamp: 1753424423000
   - sample: >-
       {
               "eventUuid": "1678918a-103f-4030-a416-3b8766e47e19",
