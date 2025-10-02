@@ -208,6 +208,7 @@ INSTANCE_METRIC_GROUP_MAP = {
     'redpanda.storage': [
         'redpanda.storage.cache_disk_free_bytes',
         'redpanda.storage.cache_disk_free_space_alert',
+        'redpanda.storage.cache_disk_total_bytes',
         'redpanda.storage.disk_free_bytes',
         'redpanda.storage.disk_free_space_alert',
         'redpanda.storage.disk_total_bytes',

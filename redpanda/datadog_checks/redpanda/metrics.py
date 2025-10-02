@@ -200,6 +200,7 @@ REDPANDA_SCHEMA_REGISTRY = {
 REDPANDA_STORAGE = {
     'redpanda_storage_cache_disk_free_bytes': 'storage.cache_disk_free_bytes',
     'redpanda_storage_cache_disk_free_space_alert': 'storage.cache_disk_free_space_alert',
+    'redpanda_storage_cache_disk_total_bytes': 'storage.cache_disk_total_bytes',
     'redpanda_storage_disk_free_bytes': 'storage.disk_free_bytes',
     'redpanda_storage_disk_free_space_alert': 'storage.disk_free_space_alert',
     'redpanda_storage_disk_total_bytes': 'storage.disk_total_bytes',
