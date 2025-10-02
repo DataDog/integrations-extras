@@ -25,9 +25,10 @@ redpanda_cloud_client_downloads{} 0
 # HELP redpanda_cloud_client_lease_duration Lease duration histogram.
 # TYPE redpanda_cloud_client_lease_duration histogram
 redpanda_cloud_client_lease_duration_bucket{le="0.1"} 0
-redpanda_cloud_client_lease_duration_bucket{le="+Inf"} 0
-redpanda_cloud_client_lease_duration_count{} 0
-redpanda_cloud_client_lease_duration_sum{} 0
+redpanda_cloud_client_lease_duration_bucket{le="0.2"} 1
+redpanda_cloud_client_lease_duration_bucket{le="+Inf"} 2
+redpanda_cloud_client_lease_duration_count{} 3
+redpanda_cloud_client_lease_duration_sum{} 20
 # HELP redpanda_cloud_client_not_found Total number of requests for which the object was not found
 # TYPE redpanda_cloud_client_not_found counter
 redpanda_cloud_client_not_found{} 0
@@ -364,9 +365,10 @@ redpanda_kafka_consumer_group_topics{} 0
 # HELP redpanda_kafka_handler_latency_seconds Histogram capturing the latency for processing Kafka requests at the broker level.
 # TYPE redpanda_kafka_handler_latency_seconds histogram
 redpanda_kafka_handler_latency_seconds_bucket{le="0.1"} 0
-redpanda_kafka_handler_latency_seconds_bucket{le="+Inf"} 0
-redpanda_kafka_handler_latency_seconds_count{} 0
-redpanda_kafka_handler_latency_seconds_sum{} 0
+redpanda_kafka_handler_latency_seconds_bucket{le="0.2"} 1
+redpanda_kafka_handler_latency_seconds_bucket{le="+Inf"} 2
+redpanda_kafka_handler_latency_seconds_count{} 3
+redpanda_kafka_handler_latency_seconds_sum{} 20
 # HELP redpanda_kafka_max_offset Latest committed offset for the partition (i.e. the offset of the last message safely persisted on most replicas).
 # TYPE redpanda_kafka_max_offset gauge
 redpanda_kafka_max_offset{} 0
@@ -376,15 +378,17 @@ redpanda_kafka_partitions{} 0
 # HELP redpanda_kafka_quotas_client_quota_throttle_time Histogram of client quota throttling delays (in seconds) per quota rule and type.
 # TYPE redpanda_kafka_quotas_client_quota_throttle_time histogram
 redpanda_kafka_quotas_client_quota_throttle_time_bucket{le="0.1"} 0
-redpanda_kafka_quotas_client_quota_throttle_time_bucket{le="+Inf"} 0
-redpanda_kafka_quotas_client_quota_throttle_time_count{} 0
-redpanda_kafka_quotas_client_quota_throttle_time_sum{} 0
+redpanda_kafka_quotas_client_quota_throttle_time_bucket{le="0.2"} 1
+redpanda_kafka_quotas_client_quota_throttle_time_bucket{le="+Inf"} 2
+redpanda_kafka_quotas_client_quota_throttle_time_count{} 3
+redpanda_kafka_quotas_client_quota_throttle_time_sum{} 20
 # HELP redpanda_kafka_quotas_client_quota_throughput Histogram of client quota throughput per quota rule and type.
 # TYPE redpanda_kafka_quotas_client_quota_throughput histogram
 redpanda_kafka_quotas_client_quota_throughput_bucket{le="0.1"} 0
-redpanda_kafka_quotas_client_quota_throughput_bucket{le="+Inf"} 0
-redpanda_kafka_quotas_client_quota_throughput_count{} 0
-redpanda_kafka_quotas_client_quota_throughput_sum{} 0
+redpanda_kafka_quotas_client_quota_throughput_bucket{le="0.2"} 1
+redpanda_kafka_quotas_client_quota_throughput_bucket{le="+Inf"} 2
+redpanda_kafka_quotas_client_quota_throughput_count{} 3
+redpanda_kafka_quotas_client_quota_throughput_sum{} 20
 # HELP redpanda_kafka_records_fetched_total Total number of records fetched from a topic
 # TYPE redpanda_kafka_records_fetched_total counter
 redpanda_kafka_records_fetched_total{} 0
@@ -400,9 +404,10 @@ redpanda_kafka_request_bytes_total{} 0
 # HELP redpanda_kafka_request_latency_seconds Internal latency of kafka produce requests
 # TYPE redpanda_kafka_request_latency_seconds histogram
 redpanda_kafka_request_latency_seconds_bucket{le="0.1"} 0
-redpanda_kafka_request_latency_seconds_bucket{le="+Inf"} 0
-redpanda_kafka_request_latency_seconds_count{} 0
-redpanda_kafka_request_latency_seconds_sum{} 0
+redpanda_kafka_request_latency_seconds_bucket{le="0.2"} 1
+redpanda_kafka_request_latency_seconds_bucket{le="+Inf"} 2
+redpanda_kafka_request_latency_seconds_count{} 3
+redpanda_kafka_request_latency_seconds_sum{} 20
 # HELP redpanda_kafka_rpc_sasl_session_expiration_total Total number of SASL session expirations observed.
 # TYPE redpanda_kafka_rpc_sasl_session_expiration_total counter
 redpanda_kafka_rpc_sasl_session_expiration_total{} 0
@@ -472,9 +477,10 @@ redpanda_rest_proxy_request_errors_total{} 0
 # HELP redpanda_rest_proxy_request_latency_seconds Internal latency of request for rest_proxy
 # TYPE redpanda_rest_proxy_request_latency_seconds histogram
 redpanda_rest_proxy_request_latency_seconds_bucket{le="0.1"} 0
-redpanda_rest_proxy_request_latency_seconds_bucket{le="+Inf"} 0
-redpanda_rest_proxy_request_latency_seconds_count{} 0
-redpanda_rest_proxy_request_latency_seconds_sum{} 0
+redpanda_rest_proxy_request_latency_seconds_bucket{le="0.2"} 1
+redpanda_rest_proxy_request_latency_seconds_bucket{le="+Inf"} 2
+redpanda_rest_proxy_request_latency_seconds_count{} 3
+redpanda_rest_proxy_request_latency_seconds_sum{} 20
 # HELP redpanda_rpc_active_connections Current number of active RPC client connections on a shard.
 # TYPE redpanda_rpc_active_connections gauge
 redpanda_rpc_active_connections{} 0
@@ -487,9 +493,10 @@ redpanda_rpc_request_errors_total{} 0
 # HELP redpanda_rpc_request_latency_seconds Histogram capturing the latency (in seconds) for RPC requests.
 # TYPE redpanda_rpc_request_latency_seconds histogram
 redpanda_rpc_request_latency_seconds_bucket{le="0.1"} 0
-redpanda_rpc_request_latency_seconds_bucket{le="+Inf"} 0
-redpanda_rpc_request_latency_seconds_count{} 0
-redpanda_rpc_request_latency_seconds_sum{} 0
+redpanda_rpc_request_latency_seconds_bucket{le="0.2"} 1
+redpanda_rpc_request_latency_seconds_bucket{le="+Inf"} 2
+redpanda_rpc_request_latency_seconds_count{} 3
+redpanda_rpc_request_latency_seconds_sum{} 20
 # HELP redpanda_rpc_sent_bytes Number of bytes sent to clients.
 # TYPE redpanda_rpc_sent_bytes counter
 redpanda_rpc_sent_bytes{} 0
@@ -523,9 +530,10 @@ redpanda_schema_registry_request_errors_total{} 0
 # HELP redpanda_schema_registry_request_latency_seconds Histogram capturing the latency (in seconds) for Schema Registry requests. [supported in v2.2.0+]
 # TYPE redpanda_schema_registry_request_latency_seconds histogram
 redpanda_schema_registry_request_latency_seconds_bucket{le="0.1"} 0
-redpanda_schema_registry_request_latency_seconds_bucket{le="+Inf"} 0
-redpanda_schema_registry_request_latency_seconds_count{} 0
-redpanda_schema_registry_request_latency_seconds_sum{} 0
+redpanda_schema_registry_request_latency_seconds_bucket{le="0.2"} 1
+redpanda_schema_registry_request_latency_seconds_bucket{le="+Inf"} 2
+redpanda_schema_registry_request_latency_seconds_count{} 3
+redpanda_schema_registry_request_latency_seconds_sum{} 20
 # HELP redpanda_security_audit_errors_total Cumulative count of errors encountered when creating or publishing audit event log entries.
 # TYPE redpanda_security_audit_errors_total counter
 redpanda_security_audit_errors_total{} 0
@@ -538,6 +546,9 @@ redpanda_storage_cache_disk_free_bytes{} 0
 # HELP redpanda_storage_cache_disk_free_space_alert Alert indicator for cache storage free space, where: 0 = OK, 1 = Low space, 2 = Degraded
 # TYPE redpanda_storage_cache_disk_free_space_alert gauge
 redpanda_storage_cache_disk_free_space_alert{} 0
+# HELP redpanda_storage_cache_disk_total_bytes Amount of total disk space (in bytes) available on the cache storage.
+# TYPE redpanda_storage_cache_disk_total_bytes gauge
+redpanda_storage_cache_disk_total_bytes{} 0
 # HELP redpanda_storage_disk_free_bytes Amount of free disk space (in bytes) available on attached storage.
 # TYPE redpanda_storage_disk_free_bytes gauge
 redpanda_storage_disk_free_bytes{} 0
@@ -568,9 +579,10 @@ redpanda_transform_execution_errors{} 0
 # HELP redpanda_transform_execution_latency_sec Histogram tracking the execution latency (in seconds) for processing a single record via data transforms.
 # TYPE redpanda_transform_execution_latency_sec histogram
 redpanda_transform_execution_latency_sec_bucket{le="0.1"} 0
-redpanda_transform_execution_latency_sec_bucket{le="+Inf"} 0
-redpanda_transform_execution_latency_sec_count{} 0
-redpanda_transform_execution_latency_sec_sum{} 0
+redpanda_transform_execution_latency_sec_bucket{le="0.2"} 1
+redpanda_transform_execution_latency_sec_bucket{le="+Inf"} 2
+redpanda_transform_execution_latency_sec_count{} 3
+redpanda_transform_execution_latency_sec_sum{} 20
 # HELP redpanda_transform_failures Counter for each failure encountered by a data transform processor.
 # TYPE redpanda_transform_failures counter
 redpanda_transform_failures{} 0
