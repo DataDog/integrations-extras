@@ -38,7 +38,7 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
         'redpanda.schemaregistry',
         'redpanda.iceberg',
         'redpanda.transform',
-        'redpanda.wasm'
+        'redpanda.wasm',
     ]
 
     instance = deepcopy(MOCK_REDPANDA_INSTANCE)
