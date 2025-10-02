@@ -2,7 +2,7 @@
 
 ## 1.3.0 / 2025-10-01
 
-***Added***:
+***Fixed***:
 
 * Restored test case to resolve [....installation error?...]
 
