@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Add back the test case `test_celerdata_fe` in tests/test_celerdata.py
+* Restored test case to resolve [....installation error?...]
 
 ## 1.2.0 / 2025-06-30
 
