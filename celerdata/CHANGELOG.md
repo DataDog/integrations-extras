@@ -1,5 +1,11 @@
 # CHANGELOG - celerdata
 
+## 1.2.1 / 2025-10-01
+
+***Fixed***:
+
+* Restored the previously removed test case, as the metrics format issue in StarRocks FE has been resolved
+
 ## 1.2.0 / 2025-06-30
 
 ***Added***:
