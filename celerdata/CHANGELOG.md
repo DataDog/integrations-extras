@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* Since StarRocks FE has fixed the metrics format issue, now it is needed to restore the deleted test case.
+* Restored the previously removed test case, as the metrics format issue in StarRocks FE has been resolved
 
 ## 1.2.0 / 2025-06-30
 
