@@ -1,5 +1,11 @@
 # CHANGELOG - Instabug
 
+## 3.0.0 / 2025-09-29
+
+***Changed***:
+
+* Updated App Builder integration blueprint to show new Luciq branding
+
 ## 2.0.0 / 2025-06-20
 
 ***Changed***:
