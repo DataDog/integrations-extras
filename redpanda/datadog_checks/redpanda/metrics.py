@@ -45,7 +45,9 @@ REDPANDA_CLOUD = {
     'redpanda_cloud_storage_housekeeping_jobs_skipped': 'cloud.storage.housekeeping.jobs_skipped',
     'redpanda_cloud_storage_housekeeping_pauses': 'cloud.storage.housekeeping.pauses',
     'redpanda_cloud_storage_housekeeping_resumes': 'cloud.storage.housekeeping.resumes',
-    'redpanda_cloud_storage_housekeeping_requests_throttled_average_rate': 'cloud.storage_housekeeping_requests_throttled_average_rate',
+    'redpanda_cloud_storage_housekeeping_requests_throttled_average_rate': (
+        'cloud.storage_housekeeping_requests_throttled_average_rate'
+    ),
     'redpanda_cloud_storage_housekeeping_rounds': 'cloud.storage.housekeeping.rounds',
     'redpanda_cloud_storage_jobs_cloud_segment_reuploads': 'cloud.storage.jobs.cloud_segment_reuploads',
     'redpanda_cloud_storage_jobs_local_segment_reuploads': 'cloud.storage.jobs.local_segment_reuploads',
@@ -65,8 +67,12 @@ REDPANDA_CLOUD = {
     'redpanda_cloud_storage_segments': 'cloud.storage.segments',
     'redpanda_cloud_storage_segments_pending_deletion': 'cloud.storage.segments_pending_deletion',
     'redpanda_cloud_storage_spillover_manifest_uploads': 'cloud.storage_spillover_manifest_uploads',
-    'redpanda_cloud_storage_spillover_manifests_materialized_bytes': 'cloud.storage_spillover_manifests_materialized_bytes',
-    'redpanda_cloud_storage_spillover_manifests_materialized_count': 'cloud.storage_spillover_manifests_materialized_count',
+    'redpanda_cloud_storage_spillover_manifests_materialized_bytes': (
+        'cloud.storage_spillover_manifests_materialized_bytes'
+    ),
+    'redpanda_cloud_storage_spillover_manifests_materialized_count': (
+        'cloud.storage_spillover_manifests_materialized_count'
+    ),
     'redpanda_cloud_storage_uploaded_bytes': 'cloud.storage.uploaded_bytes',
 }
 
@@ -77,7 +83,9 @@ REDPANDA_CLUSTER = {
     'redpanda_cluster_members_backend_queued_node_operations': 'cluster.members_backend_queued_node_operations',
     'redpanda_cluster_non_homogenous_fips_mode': 'cluster.non_homogenous_fips_mode',
     'redpanda_cluster_partition_num_with_broken_rack_constraint': 'cluster.partition_num_with_broken_rack_constraint',
-    'redpanda_cluster_partition_schema_id_validation_records_failed': 'cluster.partition_schema_id_validation_records_failed',
+    'redpanda_cluster_partition_schema_id_validation_records_failed': (
+        'cluster.partition_schema_id_validation_records_failed'
+    ),
     'redpanda_cluster_partitions': 'cluster.partitions',
     'redpanda_cluster_topics': 'cluster.topics',
     'redpanda_cluster_unavailable_partitions': 'cluster.unavailable_partitions',
@@ -86,7 +94,9 @@ REDPANDA_CLUSTER = {
 REDPANDA_DEBUG_BUNDLE = {
     'redpanda_debug_bundle_failed_generation_count': 'debug_bundle.failed_generation_count',
     'redpanda_debug_bundle_last_failed_bundle_timestamp_seconds': 'debug_bundle.last_failed_bundle_timestamp_seconds',
-    'redpanda_debug_bundle_last_successful_bundle_timestamp_seconds': 'debug_bundle.last_successful_bundle_timestamp_seconds',
+    'redpanda_debug_bundle_last_successful_bundle_timestamp_seconds': (
+        'debug_bundle.last_successful_bundle_timestamp_seconds'
+    ),
     'redpanda_debug_bundle_successful_generation_count': 'debug_bundle.successful_generation_count',
 }
 
@@ -190,7 +200,9 @@ REDPANDA_SCHEMA_REGISTRY = {
     'redpanda_schema_registry_cache_schema_memory_bytes': 'schema_registry.cache_schema_memory_bytes',
     'redpanda_schema_registry_cache_subject_count': 'schema_registry.cache_subject_count',
     'redpanda_schema_registry_cache_subject_version_count': 'schema_registry.cache_subject_version_count',
-    'redpanda_schema_registry_inflight_requests_memory_usage_ratio': 'schema_registry.inflight_requests_memory_usage_ratio',
+    'redpanda_schema_registry_inflight_requests_memory_usage_ratio': (
+        'schema_registry.inflight_requests_memory_usage_ratio'
+    ),
     'redpanda_schema_registry_inflight_requests_usage_ratio': 'schema_registry.inflight_requests_usage_ratio',
     'redpanda_schema_registry_queued_requests_memory_blocked': 'schema_registry.queued_requests_memory_blocked',
     'redpanda_schema_registry_request_errors': 'schema_registry.errors',
@@ -210,12 +222,20 @@ REDPANDA_ICEBERG = {
     'redpanda_iceberg_rest_client_active_gets': 'iceberg.rest_client_active_gets',
     'redpanda_iceberg_rest_client_active_puts': 'iceberg.rest_client_active_puts',
     'redpanda_iceberg_rest_client_active_requests': 'iceberg.rest_client_active_requests',
-    'redpanda_iceberg_rest_client_num_commit_table_update_requests': 'iceberg.rest_client_num_commit_table_update_requests',
-    'redpanda_iceberg_rest_client_num_commit_table_update_requests_failed': 'iceberg.rest_client_num_commit_table_update_requests_failed',
+    'redpanda_iceberg_rest_client_num_commit_table_update_requests': (
+        'iceberg.rest_client_num_commit_table_update_requests'
+    ),
+    'redpanda_iceberg_rest_client_num_commit_table_update_requests_failed': (
+        'iceberg.rest_client_num_commit_table_update_requests_failed'
+    ),
     'redpanda_iceberg_rest_client_num_create_namespace_requests': 'iceberg.rest_client_num_create_namespace_requests',
-    'redpanda_iceberg_rest_client_num_create_namespace_requests_failed': 'iceberg.rest_client_num_create_namespace_requests_failed',
+    'redpanda_iceberg_rest_client_num_create_namespace_requests_failed': (
+        'iceberg.rest_client_num_create_namespace_requests_failed'
+    ),
     'redpanda_iceberg_rest_client_num_create_table_requests': 'iceberg.rest_client_num_create_table_requests',
-    'redpanda_iceberg_rest_client_num_create_table_requests_failed': 'iceberg.rest_client_num_create_table_requests_failed',
+    'redpanda_iceberg_rest_client_num_create_table_requests_failed': (
+        'iceberg.rest_client_num_create_table_requests_failed'
+    ),
     'redpanda_iceberg_rest_client_num_drop_table_requests': 'iceberg.rest_client_num_drop_table_requests',
     'redpanda_iceberg_rest_client_num_drop_table_requests_failed': 'iceberg.rest_client_num_drop_table_requests_failed',
     'redpanda_iceberg_rest_client_num_get_config_requests': 'iceberg.rest_client_num_get_config_requests',
@@ -223,7 +243,9 @@ REDPANDA_ICEBERG = {
     'redpanda_iceberg_rest_client_num_load_table_requests': 'iceberg.rest_client_num_load_table_requests',
     'redpanda_iceberg_rest_client_num_load_table_requests_failed': 'iceberg.rest_client_num_load_table_requests_failed',
     'redpanda_iceberg_rest_client_num_oauth_token_requests': 'iceberg.rest_client_num_oauth_token_requests',
-    'redpanda_iceberg_rest_client_num_oauth_token_requests_failed': 'iceberg.rest_client_num_oauth_token_requests_failed',
+    'redpanda_iceberg_rest_client_num_oauth_token_requests_failed': (
+        'iceberg.rest_client_num_oauth_token_requests_failed'
+    ),
     'redpanda_iceberg_rest_client_num_request_timeouts': 'iceberg.rest_client_num_request_timeouts',
     'redpanda_iceberg_rest_client_num_transport_errors': 'iceberg.rest_client_num_transport_errors',
     'redpanda_iceberg_rest_client_total_gets': 'iceberg.rest_client_total_gets',
