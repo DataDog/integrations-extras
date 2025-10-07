@@ -2,6 +2,8 @@
 
 ## Overview
 
+This is a new line.
+
 Contrast Security Application Detection and Response (ADR) platform provides real-time visibility and protection against attacks targeting applications and APIs by embedding security directly within application runtimes. 
 
 Integrating Contrast Security ADR with Datadog enhances threat detection by forwarding detailed application-layer attack events as logs. This enables security teams to correlate application-level threats with infrastructure and network activity, accelerating triage and investigation. It also provides actionable context with rich details such as attack methods, payloads, TTPs, targeted applications, affected servers, and levels of compromise.
