@@ -189,13 +189,10 @@ class GoPprofScraperCheck(AgentCheck):
             # TODO: container ID? If we can get it, it should be added as a
             # "Datadog-Container-ID" header to the request.
 
-            # Use the preferred upload method if we've already determined it
-            upload_successful = False
-            last_error = None
-
             # Try Unix socket first if:
             # 1. It's configured (socket exists)
             # 2. We haven't determined a preference yet OR we know Unix socket works
+            last_error = None
             should_try_unix = self.trace_agent_socket and (
                 self._preferred_upload_method is None or self._preferred_upload_method == "unix"
             )
@@ -209,9 +206,10 @@ class GoPprofScraperCheck(AgentCheck):
                     session = requests_unixsocket.Session()
                     r = session.post(self.trace_agent_socket, files=files)
                     r.raise_for_status()
-                    upload_successful = True
                     self._preferred_upload_method = "unix"
                     self.log.debug("Successfully uploaded profiles via Unix socket")
+                    # Success - no need to try TCP
+                    return
                 except (ConnectionError, FileNotFoundError) as e:
                     # Remember that Unix socket doesn't work, use TCP from now on
                     self._preferred_upload_method = "tcp"
@@ -234,25 +232,24 @@ class GoPprofScraperCheck(AgentCheck):
                     last_error = e
                     # Continue to TCP fallback
 
-            if not upload_successful:
-                try:
-                    r = self.http.post(self.trace_agent_url, files=files)
-                    r.raise_for_status()
-                    # Only set preference if we haven't already determined Unix socket works
-                    if self._preferred_upload_method != "unix":
-                        self._preferred_upload_method = "tcp"
-                    self.log.debug("Successfully uploaded profiles via TCP")
-                except Exception as e:
-                    # If both Unix socket and TCP failed, raise the most recent error
-                    if last_error:
-                        self.log.error(
-                            "Failed to upload profiles via both Unix socket and TCP. "
-                            "Unix socket error: %s, TCP error: %s. "
-                            "Please check that the Datadog Agent's APM receiver is running and accessible.",
-                            last_error,
-                            e,
-                        )
-                    raise
+            # Try TCP (either Unix socket failed or wasn't attempted)
+            try:
+                r = self.http.post(self.trace_agent_url, files=files)
+                r.raise_for_status()
+                # Cache TCP as the working method
+                self._preferred_upload_method = "tcp"
+                self.log.debug("Successfully uploaded profiles via TCP")
+            except Exception as e:
+                # If both Unix socket and TCP failed, raise the most recent error
+                if last_error:
+                    self.log.error(
+                        "Failed to upload profiles via both Unix socket and TCP. "
+                        "Unix socket error: %s, TCP error: %s. "
+                        "Please check that the Datadog Agent's APM receiver is running and accessible.",
+                        last_error,
+                        e,
+                    )
+                raise
         except Timeout as e:
             self.service_check(
                 "can_connect",
