@@ -1,6 +1,5 @@
 from collections import ChainMap
-
-from six.moves.urllib.parse import urlparse
+from urllib.parse import urlparse
 
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
