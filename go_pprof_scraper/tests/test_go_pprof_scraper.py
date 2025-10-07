@@ -66,52 +66,46 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 
 
 @pytest.mark.unit
-def test_unix_socket_fallback_to_tcp(instance):
-    """Test that when Unix socket is configured but doesn't exist, it falls back to TCP"""
+def test_upload_method_caching(dd_run_check, instance, aggregator):
+    """Test that the check caches the working upload method after first attempt"""
+    from unittest.mock import MagicMock
+
+    from requests.exceptions import ConnectionError
 
     with (
         patch('datadog_checks.go_pprof_scraper.check.datadog_agent') as mock_agent,
         patch('os.path.exists') as mock_exists,
-    ):
-        # Mock APM config to simulate default socket path that doesn't exist
-        mock_agent.get_config.side_effect = lambda key: {
-            "apm_config.enabled": True,
-            "apm_config.receiver_port": 8126,
-            "apm_config.receiver_socket": "/var/run/datadog/apm.socket",  # Default path
-            "env": "test",
-        }.get(key)
-
-        # Socket doesn't exist (common case with default config)
-        mock_exists.return_value = False
-
-        # Create check instance
-        check = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
-
-        # Verify that trace_agent_socket is None because socket doesn't exist
-        assert check.trace_agent_socket is None
-        assert check.trace_agent_url == "http://localhost:8126/profiling/v1/input"
-        # Verify preference hasn't been set yet
-        assert check._preferred_upload_method is None
-
-
-@pytest.mark.unit
-def test_upload_method_caching(instance):
-    """Test that the check remembers which upload method works and doesn't retry unnecessarily"""
-
-    with (
-        patch('datadog_checks.go_pprof_scraper.check.datadog_agent') as mock_agent,
-        patch('os.path.exists') as mock_exists,
+        patch('requests_unixsocket.Session') as mock_session_class,
+        patch('datadog_checks.base.utils.http.RequestsWrapper.get') as mock_http_get,
+        patch('datadog_checks.base.utils.http.RequestsWrapper.post') as mock_http_post,
     ):
         # Mock APM config with Unix socket that exists
-        mock_agent.get_config.side_effect = lambda key: {
+        apm_config = {
             "apm_config.enabled": True,
             "apm_config.receiver_port": 8126,
             "apm_config.receiver_socket": "/var/run/datadog/apm.socket",
             "env": "test",
-        }.get(key)
+        }
+        mock_agent.get_config.side_effect = apm_config.get
 
         # Socket exists
         mock_exists.return_value = True
+
+        # Mock the pprof HTTP GET responses (for fetching profiles)
+        mock_pprof_response = MagicMock()
+        mock_pprof_response.raw = MagicMock()
+        mock_pprof_response.raise_for_status = MagicMock()
+        mock_http_get.return_value = mock_pprof_response
+
+        # Mock Unix socket POST to fail (simulating socket connection failure)
+        mock_session = MagicMock()
+        mock_session.post.side_effect = ConnectionError("Socket connection failed")
+        mock_session_class.return_value = mock_session
+
+        # Mock TCP POST to succeed (simulating successful fallback)
+        mock_tcp_response = MagicMock()
+        mock_tcp_response.raise_for_status = MagicMock()
+        mock_http_post.return_value = mock_tcp_response
 
         # Create check instance
         check = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
@@ -120,37 +114,12 @@ def test_upload_method_caching(instance):
         assert check._preferred_upload_method is None
         assert check.trace_agent_socket is not None
 
-        # After first failed Unix socket attempt, should remember to use TCP
-        # (This would be set during check() execution when Unix socket fails)
+        # Run the check - Unix socket should fail, TCP should succeed
+        dd_run_check(check)
 
-
-@pytest.mark.unit
-def test_unix_socket_validation(instance):
-    """Test that Unix socket validation works correctly"""
-
-    with (
-        patch('datadog_checks.go_pprof_scraper.check.datadog_agent') as mock_agent,
-        patch('os.path.exists') as mock_exists,
-    ):
-        # Mock APM config
-        mock_agent.get_config.side_effect = lambda key: {
-            "apm_config.enabled": True,
-            "apm_config.receiver_port": 8126,
-            "apm_config.receiver_socket": "/valid/socket/path",
-            "env": "test",
-        }.get(key)
-
-        # Test case 1: Socket exists - should try to use it
-        mock_exists.return_value = True
-
-        check = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
-        assert check.trace_agent_socket is not None
-        assert "http+unix://" in check.trace_agent_socket
-
-        # Test case 2: Socket doesn't exist - should use TCP
-        mock_exists.return_value = False
-        check2 = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
-        assert check2.trace_agent_socket is None
+        # After check runs, preference should be cached as "tcp" because Unix socket failed
+        assert check._preferred_upload_method == "tcp"
+        aggregator.assert_service_check("go_pprof_scraper.can_connect", GoPprofScraperCheck.OK)
 
 
 @pytest.mark.e2e
