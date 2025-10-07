@@ -66,8 +66,8 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 
 
 @pytest.mark.unit
-def test_upload_method_caching(dd_run_check, instance, aggregator):
-    """Test that the check caches the working upload method after first attempt"""
+def test_upload_tcp_fallback(dd_run_check, instance, aggregator):
+    """Test that the check falls back to TCP if Unix socket fails"""
     from unittest.mock import MagicMock
 
     from requests.exceptions import ConnectionError

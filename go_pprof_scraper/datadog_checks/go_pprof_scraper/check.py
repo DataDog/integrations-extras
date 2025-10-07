@@ -209,6 +209,7 @@ class GoPprofScraperCheck(AgentCheck):
                     self._preferred_upload_method = "unix"
                     self.log.debug("Successfully uploaded profiles via Unix socket")
                     # Success - no need to try TCP
+                    self.service_check("can_connect", AgentCheck.OK, tags=[])
                     return
                 except (ConnectionError, FileNotFoundError) as e:
                     # Remember that Unix socket doesn't work, use TCP from now on
@@ -239,6 +240,8 @@ class GoPprofScraperCheck(AgentCheck):
                 # Cache TCP as the working method
                 self._preferred_upload_method = "tcp"
                 self.log.debug("Successfully uploaded profiles via TCP")
+                self.service_check("can_connect", AgentCheck.OK, tags=[])
+                return
             except Exception as e:
                 # If both Unix socket and TCP failed, raise the most recent error
                 if last_error:
@@ -271,8 +274,3 @@ class GoPprofScraperCheck(AgentCheck):
                 message="Request failed: {}, {}".format(self.url, e),
             )
             raise
-
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        self.service_check("can_connect", AgentCheck.OK, tags=[])
