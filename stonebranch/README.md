@@ -39,44 +39,17 @@ instances:
   - url: "https://your-uc-server:8080"
     username: "your-username"
     password: "your-password"
-    log_path: "/opt/stonebranch/uc/logs/uc.log"  # Optional: specify log path
-    verify_ssl: true
-    tags:
-      - "env:production"
-      - "datacenter:us-east-1"
-
 logs:
   - type: file
-    path: "/opt/stonebranch/uc/logs/uc.log"
+    path: "/path/to/your/tomcat/log"
     service: "stonebranch-uc"
     source: "stonebranch"
-    tags:
-      - "env:production"
-      - "component:universal-controller"
     multiline:
       pattern_start: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"
       match_for_start: true
 ```
 
 2. [Restart the Agent][4].
-
-#### Log Collection Setup
-
-##### Log Parsing
-
-The integration automatically parses UC logs to extract:
-- Timestamp
-- Log level (INFO, WARN, ERROR, DEBUG)
-- Component/module
-- Message content
-- Job execution details
-- Error traces
-
-##### Log Rotation and Permissions
-
-Ensure the Datadog Agent has read permissions on:
-- Current log file
-- Rotated log files (if log rotation is enabled)
 
 ### Validation
 
@@ -96,8 +69,7 @@ The integration collects various metrics from the Universal Controller including
 
 - Job execution metrics (success/failure rates, execution times)
 - System performance metrics (CPU, memory, disk usage)
-- Queue metrics (job queue depth, processing rates)
-- Connection metrics (database connections, API response times)
+- Stonebranch metrics (OMS Status, Late-start tasks)
 
 For a complete list of collected metrics including labels, visit our [Metrics Documentation][6]. Custom labels can be enabled for more detailed metric analysis - see [here][7] for configuration details.
 
@@ -123,21 +95,15 @@ The integration categorizes logs into:
 
 ### Log Processing
 
-Logs are automatically parsed and enriched with:
-- Structured timestamps
-- Log levels mapped to Datadog severity
-- Component categorization
-- Job correlation IDs
-- Error stack traces
+Logs are parsed from the tomcat log directory and optional Universal Agent log directory.
 
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Connection failures**: Verify UC server URL and credentials
-2. **Log file access**: Check file permissions and path configuration
-3. **SSL certificate errors**: Set `verify_ssl: false` for self-signed certificates
-4. **Missing metrics**: Ensure UC API endpoints are accessible
+2. **Log file access**: Check file permissions and path configuration, add the datadog agent to the ubroker/stonebranch group.
+4. **Missing metrics**: Ensure UC API endpoints are accessible and the user accessing them has, at least "ops_service" permissions.
 
 ### Debug Mode
 
