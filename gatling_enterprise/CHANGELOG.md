@@ -1,5 +1,15 @@
 # CHANGELOG - Gatling Enterprise
 
+## 1.3.0 / 2025-10-09
+
+**_Added_**
+
+* Events fort injection start and injection end
+
+**_Removed_**
+
+* start_date tag is no longer available
+
 ## 1.2.0 / 2025-09-09
 
 _**Fixed**_:
