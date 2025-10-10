@@ -16,7 +16,7 @@
 
 * Removed `start_date` tag from metrics
 
-## 1.2.0 / 2025-09-09
+## 1.2.0 / 2025-07-21
 
 _**Fixed**_:
 
