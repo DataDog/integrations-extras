@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.2.1 / 2025-10-14
+
+***Changed***:
+
+* Updated filters on the MongoDB Atlas - Database, Collection, and Query Overview dashboard
+
 ## 1.2.0 / 2025-09-10
 
 ***Changed***:
