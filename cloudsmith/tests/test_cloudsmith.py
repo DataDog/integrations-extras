@@ -499,7 +499,8 @@ def test_get_api_json_exceptions(instance_good, mocker):
 
     # HTTPError
     mocker.patch(
-        "datadog_checks.base.utils.http.requests.Session.get", side_effect=HTTPError("url", 500, "Internal Error", {}, None)
+        "datadog_checks.base.utils.http.requests.Session.get",
+        side_effect=HTTPError("url", 500, "Internal Error", {}, None),
     )
     with pytest.raises(HTTPError):
         check.get_api_json("https://api.cloudsmith.io/v1/http-error")
