@@ -31,7 +31,7 @@ def test_emits_warning_when_ratelimited(aggregator, instance, mocker):
             headers=HEADERS,
         )
 
-    mocker.patch("requests.get", mock_requests_get)
+    mocker.patch("requests.Session.get", mock_requests_get)
     check.run()
     aggregator.assert_service_check("mergify.can_connect", MergifyCheck.WARNING)
 
@@ -60,7 +60,7 @@ def test_check(dd_run_check, aggregator, instance, mocker):
 
         raise AssertionError(f"URL not mocked: {url}")
 
-    mocker.patch("requests.get", mock_requests_get)
+    mocker.patch("requests.Session.get", mock_requests_get)
     check = MergifyCheck("mergify", {}, [instance])
 
     dd_run_check(check)
@@ -210,7 +210,7 @@ def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
 
         raise AssertionError(f"URL not mocked: {url}")
 
-    mocker.patch("requests.get", mock_requests_get)
+    mocker.patch("requests.Session.get", mock_requests_get)
     check = MergifyCheck("mergify", {}, [instance])
 
     dd_run_check(check)
