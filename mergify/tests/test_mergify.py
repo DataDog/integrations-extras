@@ -24,7 +24,7 @@ def test_emits_warning_when_ratelimited(aggregator, instance, mocker):
     # type: (AggregatorStub, Dict[str, Any]) -> None
     check = MergifyCheck("mergify", {}, [instance])
 
-    def mock_requests_get(url, *args, **kwargs):
+    def mock_requests_get(self, url, *args, **kwargs):
         return MockResponse(
             status_code=403,
             file_path=MERGIFY_RESPONSE_FIXTURES / "ratelimited_github.json",
@@ -39,7 +39,7 @@ def test_emits_warning_when_ratelimited(aggregator, instance, mocker):
 def test_check(dd_run_check, aggregator, instance, mocker):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], MockResponse) -> None
 
-    def mock_requests_get(url, *args, **kwargs):
+    def mock_requests_get(self, url, *args, **kwargs):
         if url.endswith("time_to_merge?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "time_to_merge_main.json",
@@ -189,7 +189,7 @@ def test_check(dd_run_check, aggregator, instance, mocker):
 def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], MockResponse) -> None
 
-    def mock_requests_get(url, *args, **kwargs):
+    def mock_requests_get(self, url, *args, **kwargs):
         if url.endswith("time_to_merge?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "time_to_merge_empty.json",
