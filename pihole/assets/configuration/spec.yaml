@@ -13,6 +13,18 @@ files:
       value:
         example: localhost
         type: string
+    - name: web_password
+      required: false
+      description: Set this the web password for your pihole web interface
+      value:
+        example: password
+        type: string
+    - name: legacy_check
+      required: true
+      description: Set this to true for pihole v5 support
+      value:
+        example: false
+        type: boolean
     - template: instances/default
     - template: instances/http
   - template: logs

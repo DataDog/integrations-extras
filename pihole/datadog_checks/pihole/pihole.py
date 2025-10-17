@@ -1,3 +1,5 @@
+import json
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 
@@ -14,11 +16,7 @@ class PiholeCheck(AgentCheck):
         status_code = response.status_code
         return data, status_code
 
-    def check(self, instance):
-        host = self.instance.get('host')
-        custom_tags = self.instance.get("tags", [])
-        custom_tags.append("target_host:{}".format(host))
-
+    def _legacy_check(self, host, custom_tags):
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
         data, status_code = self._collect_response(url)
         if status_code == 200:  # else is after all the metrics
@@ -104,3 +102,73 @@ class PiholeCheck(AgentCheck):
                 status_code,
             )
             raise Exception('Unexpected response from server')  # if we dont get a response code of '200'
+
+    # Supports generating a SID and CSRF using a pihole web password
+    def _auth_v6_session(self, host, web_password):
+        authUrl = 'http://' + host + '/api/auth'
+        payload = {"password": web_password}
+        json_payload = json.dumps(payload)
+        response = self.http.post(authUrl, data=json_payload)
+        return response.text, response.status_code
+
+    # flattens the returned summary result from raw json to metric format, and prepends the namespace
+    def _flatten_dict(self, d, parent_key='pihole', sep='.'):
+        items = []
+        for k, v in d.items():
+            new_key = f"{parent_key}{sep}{k}"
+            if isinstance(v, dict):
+                items.extend(self._flatten_dict(v, new_key, sep=sep).items())
+            else:
+                items.append((new_key, v))
+        return dict(items)
+
+    # Collect all metrics retunred from the /stats/summary endpoint and submit
+    def _collect_v6_metrics(self, host, headers, custom_tags):
+        statsUrl = 'http://' + host + '/api/stats/summary'
+        stats_resp = self.http.get(statsUrl, headers=headers)
+        flattened = self._flatten_dict(stats_resp.json())
+        for m, v in flattened.items():
+            self.gauge(m, v, custom_tags)
+        return stats_resp
+
+    # End session by submitting a delete request with our created SID
+    def _end_v6_session(self, host, headers):
+        delete_url = "http://" + host + "/api/auth"
+        delete_response = self.http.delete(delete_url, headers=headers, verify=False)
+        return delete_response
+
+    # Logic for version 6+ of the pihole API
+    def _v6_check(self, host, web_password, custom_tags):
+        response, status_code = self._auth_v6_session(host, web_password)
+        if status_code == 200:
+            self.service_check('pihole.running', self.OK)
+            resp_json = json.loads(response)
+            sid, csrf = (
+                resp_json["session"]["sid"],
+                resp_json["session"]["csrf"],
+            )  # Extract SID and CSRF from the json upon a sucesful auth request
+            headers = {
+                "X-FTL-SID": sid,
+                "X-FTL-CSRF": csrf,
+                "Accept": "application/json",
+            }  # Set headers needed for further requests
+            try:
+                stats_resp = self._collect_v6_metrics(host, headers, custom_tags)
+            except Exception:
+                self.log.error(
+                    "ERROR %e",
+                    stats_resp,
+                )
+            logout_resp = self._end_v6_session(host, headers)
+            self.log.debug("logout status %s", logout_resp)
+
+    def check(self, instance):
+        host = self.instance.get('host')
+        custom_tags = self.instance.get("tags", [])
+        custom_tags.append("target_host:{}".format(host))
+        web_password = self.instance.get('web_password')
+        v5_pihole = self.instance.get('legacy_check')
+        if v5_pihole:
+            self._legacy_check(host, custom_tags)
+        else:
+            self._v6_check(host, web_password, custom_tags)
