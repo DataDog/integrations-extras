@@ -1,5 +1,11 @@
 # CHANGELOG - Go-pprof-scraper
 
+## 1.0.5 / 2025-10-07
+
+***Fixed***:
+
+* Fix Unix socket fallback when Agent has default socket path configured but file doesn't exist. The integration now validates socket existence before attempting Unix socket connections and caches the working transport method to avoid repeated failed connection attempts.
+
 ## 1.0.4 / 2023-01-17
 
 ***Added***:
