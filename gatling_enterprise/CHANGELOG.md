@@ -1,5 +1,21 @@
 # CHANGELOG - Gatling Enterprise
 
+## 1.3.0 / 2025-10-10
+
+**_Added_**
+
+* Events generated for load test injection start and end
+
+**_Fixed_**
+
+* Bits metrics renamed bandwidth_usage
+* TCP metrics renamed to a simpler name
+* TLS metrics renamed to a simpler name
+
+**_Removed_**
+
+* Removed `start_date` tag from metrics
+
 ## 1.2.0 / 2025-07-21
 
 _**Fixed**_:
