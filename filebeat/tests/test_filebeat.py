@@ -269,7 +269,7 @@ def generate_http_profiler_body(body_update):
 
 def mock_request(body_update=None):
     return mock.patch(
-        "requests.get",
+        "requests.Session.get",
         return_value=mock.MagicMock(status_code=200, json=lambda: generate_http_profiler_body(body_update)),
     )
 
@@ -406,7 +406,7 @@ def test_when_the_http_call_times_out(aggregator):
 
     request_failure = mock.Mock()
     request_failure.raise_for_status.side_effect = Exception("Error")
-    with mock.patch("requests.get", return_value=request_failure):
+    with mock.patch("requests.Session.get", return_value=request_failure):
         check.check(config)
 
     aggregator.assert_metric("filebeat.harvester.running", count=0)

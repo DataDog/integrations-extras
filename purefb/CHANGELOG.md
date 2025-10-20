@@ -1,5 +1,11 @@
 # CHANGELOG - PureFB
 
+## 2.0.2 / 2025-10-17
+
+***Added***
+
+* Upgrade the datadog-checks-base to `37.20.0` [2829](@https://github.com/DataDog/integrations-extras/pull/2829)
+
 ## 2.0.1 / 2024-07-22
 
 * Renamed incorrectly named metric to correctly align with metrics namings and instrument standards.

@@ -1,5 +1,11 @@
 # CHANGELOG - neo4j
 
+## 3.0.5 / 2025-10-17
+
+***Added***
+
+* Upgrade the datadog-checks-base to `37.20.0` [2829](@https://github.com/DataDog/integrations-extras/pull/2829)
+
 ## 3.0.4 / 2024-04-06
 
 ***Changed***:

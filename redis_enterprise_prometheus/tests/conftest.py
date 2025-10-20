@@ -33,8 +33,5 @@ def mock_http_response():
     mock_response.iter_lines = lambda **kwargs: text_data.split("\n")
     mock_response.headers = {"Content-Type": "text/plain"}
 
-    with (
-        mock.patch("requests.get", return_value=mock_response),
-        mock.patch("requests.Session.get", return_value=mock_response),
-    ):
+    with mock.patch("requests.Session.get", return_value=mock_response):
         yield

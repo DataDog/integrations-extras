@@ -493,19 +493,20 @@ def test_get_api_json_exceptions(instance_good, mocker):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
 
     # Timeout
-    mocker.patch("datadog_checks.base.utils.http.requests.get", side_effect=Timeout("timeout"))
+    mocker.patch("datadog_checks.base.utils.http.requests.Session.get", side_effect=Timeout("timeout"))
     with pytest.raises(Timeout):
         check.get_api_json("https://api.cloudsmith.io/v1/timeout")
 
     # HTTPError
     mocker.patch(
-        "datadog_checks.base.utils.http.requests.get", side_effect=HTTPError("url", 500, "Internal Error", {}, None)
+        "datadog_checks.base.utils.http.requests.Session.get",
+        side_effect=HTTPError("url", 500, "Internal Error", {}, None),
     )
     with pytest.raises(HTTPError):
         check.get_api_json("https://api.cloudsmith.io/v1/http-error")
 
     # InvalidURL
-    mocker.patch("datadog_checks.base.utils.http.requests.get", side_effect=InvalidURL("bad url"))
+    mocker.patch("datadog_checks.base.utils.http.requests.Session.get", side_effect=InvalidURL("bad url"))
     with pytest.raises(InvalidURL):
         check.get_api_json("https://api.cloudsmith.io/v1/invalid")
 
@@ -516,7 +517,7 @@ def test_get_api_json_exceptions(instance_good, mocker):
         def json(self):
             raise json.JSONDecodeError("Expecting value", "doc", 0)
 
-    mocker.patch("datadog_checks.base.utils.http.requests.get", return_value=MockBadResponse())
+    mocker.patch("datadog_checks.base.utils.http.requests.Session.get", return_value=MockBadResponse())
     with pytest.raises(json.JSONDecodeError):
         check.get_api_json("https://api.cloudsmith.io/v1/bad-json")
 
@@ -533,7 +534,7 @@ def test_api_json_401_and_fallbacks(instance_good, mocker):
             return {}
 
     # Patch .http.get to return a mock 401 response for 'audit-log'
-    mocker.patch("datadog_checks.base.utils.http.requests.get", return_value=Mock401Response())
+    mocker.patch("datadog_checks.base.utils.http.requests.Session.get", return_value=Mock401Response())
 
     # Should return None and trigger fallback
     audit_result = check.get_audit_log_info()
