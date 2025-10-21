@@ -6,12 +6,19 @@ from datadog_checks.redpanda import RedpandaCheck
 
 from .common import (
     INSTANCE_ADDITIONAL_GROUPS,
+    INSTANCE_ADDITIONAL_HISTOGRAMS,
     INSTANCE_ADDITIONAL_METRICS,
     INSTANCE_DEFAULT_GROUPS,
+    INSTANCE_DEFAULT_HISTOGRAMS,
     INSTANCE_DEFAULT_METRICS,
+    INSTANCE_METRIC_GROUP_MAP,
     MOCK_REDPANDA_INSTANCE,
     get_metrics,
 )
+
+
+def assert_histogram(aggregator, metric):
+    aggregator.assert_histogram_bucket(metric, None, 0.1, 0.2, True, '', [], None, 1, False)
 
 
 @pytest.mark.unit
@@ -23,6 +30,9 @@ def test_instance_default_check(aggregator, dd_run_check, mock_http_response):
     for m in INSTANCE_DEFAULT_METRICS:
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
+
+    for m in INSTANCE_DEFAULT_HISTOGRAMS:
+        assert_histogram(aggregator, m)
 
 
 @pytest.mark.unit
@@ -48,12 +58,15 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
 
     dd_run_check(c)
 
-    metrics_to_check = get_metrics(INSTANCE_DEFAULT_GROUPS + additional_metric_groups)
+    metrics_to_check = get_metrics(INSTANCE_DEFAULT_GROUPS + additional_metric_groups, INSTANCE_METRIC_GROUP_MAP)
 
     for m in metrics_to_check:
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_service_check('redpanda.openmetrics.health', count=1)
+
+    for m in INSTANCE_ADDITIONAL_HISTOGRAMS:
+        assert_histogram(aggregator, m)
 
 
 @pytest.mark.unit
@@ -66,11 +79,14 @@ def test_instance_full_additional_check(aggregator, dd_run_check, mock_http_resp
     dd_run_check(c)
 
     metrics_to_check = INSTANCE_DEFAULT_METRICS + INSTANCE_ADDITIONAL_METRICS
-
     for m in metrics_to_check:
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_service_check('redpanda.openmetrics.health', count=1)
+
+    histograms_to_check = INSTANCE_DEFAULT_HISTOGRAMS + INSTANCE_ADDITIONAL_HISTOGRAMS
+    for m in histograms_to_check:
+        assert_histogram(aggregator, m)
 
 
 @pytest.mark.unit

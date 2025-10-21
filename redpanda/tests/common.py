@@ -30,9 +30,6 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.cloud.client_pool_utilization',
         'redpanda.cloud.client_download_backoff.count',
         'redpanda.cloud.client_downloads.count',
-        'redpanda.cloud.client_lease_duration.count',
-        'redpanda.cloud.client_lease_duration.bucket',
-        'redpanda.cloud.client_lease_duration.sum',
         'redpanda.cloud.client_not_found.count',
         'redpanda.cloud.client_num_borrows.count',
         'redpanda.cloud.client_upload_backoff.count',
@@ -108,9 +105,6 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.rpc.active_connections',
         'redpanda.rpc.received_bytes.count',
         'redpanda.rpc.request_errors.count',
-        'redpanda.rpc.request_latency_seconds.count',
-        'redpanda.rpc.request_latency_seconds.bucket',
-        'redpanda.rpc.request_latency_seconds.sum',
         'redpanda.rpc.sent_bytes.count',
     ],
     'redpanda.io_queue': [
@@ -118,23 +112,11 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.io_queue.total_write_ops.count',
     ],
     'redpanda.kafka': [
-        'redpanda.kafka.handler_latency_seconds.sum',
-        'redpanda.kafka.handler_latency_seconds.bucket',
-        'redpanda.kafka.handler_latency_seconds.count',
         'redpanda.kafka.partition_committed_offset',
         'redpanda.kafka.partitions',
-        'redpanda.kafka.quotas_client_quota_throttle_time.sum',
-        'redpanda.kafka.quotas_client_quota_throttle_time.bucket',
-        'redpanda.kafka.quotas_client_quota_throttle_time.count',
-        'redpanda.kafka.quotas_client_quota_throughput.sum',
-        'redpanda.kafka.quotas_client_quota_throughput.bucket',
-        'redpanda.kafka.quotas_client_quota_throughput.count',
         'redpanda.kafka.records_fetched.count',
         'redpanda.kafka.records_produced.count',
         'redpanda.kafka.replicas',
-        'redpanda.kafka.request_latency_seconds.sum',
-        'redpanda.kafka.request_latency_seconds.bucket',
-        'redpanda.kafka.request_latency_seconds.count',
         'redpanda.kafka.request_bytes.count',
         'redpanda.kafka.rpc_sasl_session_expiration.count',
         'redpanda.kafka.rpc_sasl_session_reauth_attempts.count',
@@ -168,9 +150,6 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.pandaproxy.inflight_requests_usage_ratio',
         'redpanda.pandaproxy.queued_requests_memory_blocked',
         'redpanda.pandaproxy.request_errors.count',
-        'redpanda.pandaproxy.request_latency.count',
-        'redpanda.pandaproxy.request_latency.bucket',
-        'redpanda.pandaproxy.request_latency.sum',
     ],
     'redpanda.partitions': [
         'redpanda.partitions.moving_from_node',
@@ -201,9 +180,6 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.schema_registry.inflight_requests_usage_ratio',
         'redpanda.schema_registry.queued_requests_memory_blocked',
         'redpanda.schema_registry.errors.count',
-        'redpanda.schema_registry.latency_seconds.count',
-        'redpanda.schema_registry.latency_seconds.sum',
-        'redpanda.schema_registry.latency_seconds.bucket',
     ],
     'redpanda.storage': [
         'redpanda.storage.cache_disk_free_bytes',
@@ -249,9 +225,6 @@ INSTANCE_METRIC_GROUP_MAP = {
     ],
     'redpanda.transform': [
         'redpanda.transform.execution_errors.count',
-        'redpanda.transform.execution_latency_sec.count',
-        'redpanda.transform.execution_latency_sec.bucket',
-        'redpanda.transform.execution_latency_sec.sum',
         'redpanda.transform.failures.count',
         'redpanda.transform.processor_lag.count',
         'redpanda.transform.read_bytes.count',
@@ -280,6 +253,50 @@ INSTANCE_METRIC_GROUP_MAP = {
     ],
 }
 # fmt: on
+
+INSTANCE_HISTOGRAM_GROUP_MAP = {
+    'redpanda.application': [],
+    'redpanda.authorization': [],
+    'redpanda.cloud': [
+        'redpanda.cloud.client_lease_duration',
+    ],
+    'redpanda.cluster': [],
+    'redpanda.controller': [],
+    'redpanda.debug_bundle': [],
+    'redpanda.iceberg': [],
+    'redpanda.io_queue': [],
+    'redpanda.kafka': [
+        'redpanda.kafka.handler_latency_seconds',
+        'redpanda.kafka.quotas_client_quota_throttle_time',
+        'redpanda.kafka.quotas_client_quota_throughput',
+        'redpanda.kafka.request_latency_seconds',
+    ],
+    'redpanda.kafka.consumer_group_info': [],
+    'redpanda.kafka.consumer_group_lag': [],
+    'redpanda.kafka.consumer_group_offset': [],
+    'redpanda.memory': [],
+    'redpanda.node_status': [],
+    'redpanda.pandaproxy': [
+        'redpanda.pandaproxy.request_latency',
+    ],
+    'redpanda.partitions': [],
+    'redpanda.raft': [],
+    'redpanda.reactor': [],
+    'redpanda.rpc': [
+        'redpanda.rpc.request_latency_seconds',
+    ],
+    'redpanda.scheduler': [],
+    'redpanda.schemaregistry': [
+        'redpanda.schema_registry.latency_seconds',
+    ],
+    'redpanda.security': [],
+    'redpanda.storage': [],
+    'redpanda.tls': [],
+    'redpanda.transform': [
+        'redpanda.transform.execution_latency_sec',
+    ],
+    'redpanda.wasm': [],
+}
 
 INSTANCE_DEFAULT_GROUPS = [
     'redpanda.application',
@@ -314,10 +331,12 @@ INSTANCE_ADDITIONAL_GROUPS = [
 ]
 
 
-def get_metrics(metric_groups):
+def get_metrics(metric_groups, group_map):
     """Given a list of metric groups, return single consolidated list"""
-    return sorted(m for g in metric_groups for m in INSTANCE_METRIC_GROUP_MAP[g])
+    return sorted(m for g in metric_groups for m in group_map[g])
 
 
-INSTANCE_DEFAULT_METRICS = get_metrics(INSTANCE_DEFAULT_GROUPS)
-INSTANCE_ADDITIONAL_METRICS = get_metrics(INSTANCE_ADDITIONAL_GROUPS)
+INSTANCE_DEFAULT_METRICS = get_metrics(INSTANCE_DEFAULT_GROUPS, INSTANCE_METRIC_GROUP_MAP)
+INSTANCE_DEFAULT_HISTOGRAMS = get_metrics(INSTANCE_DEFAULT_GROUPS, INSTANCE_HISTOGRAM_GROUP_MAP)
+INSTANCE_ADDITIONAL_METRICS = get_metrics(INSTANCE_ADDITIONAL_GROUPS, INSTANCE_METRIC_GROUP_MAP)
+INSTANCE_ADDITIONAL_HISTOGRAMS = get_metrics(INSTANCE_ADDITIONAL_GROUPS, INSTANCE_HISTOGRAM_GROUP_MAP)
