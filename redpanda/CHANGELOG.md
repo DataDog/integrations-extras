@@ -4,6 +4,10 @@
 
 Metrics update release.
 
+***Changed***:
+
+* Changed `histogram_buckets_as_distributions` default to true
+
 ***Added***:
 
 * Added new default metrics groups:
@@ -38,10 +42,6 @@ Metrics update release.
 
 * Typo: `redpanda.schema_registry_latency_seconds` is now `redpanda.schema_registry.latency_seconds`
 * Typo: `redpanda_cloud_client_dowload_backoff` is now `cloud.client_download_backoff`
-
-***Changed***:
-
-* Changed `histogram_buckets_as_distributions` default to true
 
 ## 2.1.0 / 2025-06-18
 
