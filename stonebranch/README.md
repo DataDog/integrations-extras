@@ -9,7 +9,6 @@ The Stonebranch Universal Controller integration provides comprehensive monitori
 - **Metric Collection**: Collect performance and operational metrics directly from the Universal Controller API
 - **Advanced Dashboards**: Create detailed monitoring dashboards to visualize job execution, system performance, and resource utilization
 - **Alerting**: Set up proactive alerts for critical workflows, failed jobs, and system issues
-- **Log Analysis**: Parse and analyze Universal Controller logs for troubleshooting and audit purposes
 - **Workflow Monitoring**: Monitor your automated workflows for errors and gain complete visibility into your most important tasks
 
 ## Setup
@@ -39,14 +38,6 @@ instances:
   - url: "https://your-uc-server:8080"
     username: "your-username"
     password: "your-password"
-logs:
-  - type: file
-    path: "/path/to/your/tomcat/log"
-    service: "stonebranch-uc"
-    source: "stonebranch"
-    multiline:
-      pattern_start: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"
-      match_for_start: true
 ```
 
 2. [Restart the Agent][4].
@@ -77,33 +68,12 @@ For a complete list of collected metrics including labels, visit our [Metrics Do
 
 The Stonebranch integration does not include any events.
 
-### Service Checks
-
-See [service_checks.json][8] for a list of service checks provided by this integration.
-
-## Log Collection
-
-### Log Types
-
-The integration categorizes logs into:
-
-- **Application logs**: General UC application events
-- **Job logs**: Job execution, status changes, workflow progression
-- **Audit logs**: User actions, configuration changes, security events
-- **Error logs**: System errors, exceptions, failure details
-- **Performance logs**: Resource usage, timing metrics, bottlenecks
-
-### Log Processing
-
-Logs are parsed from the tomcat log directory and optional Universal Agent log directory.
-
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Connection failures**: Verify UC server URL and credentials
-2. **Log file access**: Check file permissions and path configuration, add the datadog agent to the ubroker/stonebranch group.
-4. **Missing metrics**: Ensure UC API endpoints are accessible and the user accessing them has, at least "ops_service" permissions.
+2. **Missing metrics**: Ensure UC API endpoints are accessible and the user accessing them has, at least "ops_service" permissions.
 
 ### Debug Mode
 
