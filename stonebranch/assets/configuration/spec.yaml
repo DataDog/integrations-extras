@@ -21,31 +21,13 @@ files:
               type: string
               example: "https://your-uc-server:8080/uc/resources/metrics"
           - name: username
-            description: Username for UC authentication
+            description: Username for UC authentication, user needs to have either ops_admin or ops_service role
             required: true
             value:
               type: string
           - name: password
-            description: Password for UC authentication
+            description: Password for UC authentication, user needs to have either ops_admin or ops_service role
             required: true
             secret: true
             value:
               type: string
-          - name: log_path
-            description: Path to the Universal Controller log file
-            required: false
-            value:
-              type: string
-              example: "/path/to/uc.log"
-          - name: tomcat_log_path
-            description: Path to the Tomcat catalina.out log file
-            required: false
-            value:
-              type: string
-              example: "/stonebranch/tomcat/logs/catalina.out"
-          - name: verify_ssl
-            description: Verify SSL certificates
-            value:
-              type: boolean
-              example: true
-          - template: instances/default

@@ -1,7 +1,6 @@
 from typing import Any
 from datadog_checks.base import AgentCheck
 import re
-import os
 
 class StonebranchCheck(AgentCheck):
     __NAMESPACE__ = 'stonebranch'
@@ -11,8 +10,6 @@ class StonebranchCheck(AgentCheck):
         self.url = self.instance.get("url")
         self.username = self.instance.get("username")
         self.password = self.instance.get("password")
-        self.log_path = self.instance.get("log_path")
-        self.tomcat_log_path = self.instance.get("tomcat_log_path")
         self.verify_ssl = self.instance.get("verify_ssl", True)
         self.timeout = self.instance.get("timeout", 30)
         self.max_metrics = self.instance.get("max_metrics", 10000)
@@ -21,10 +18,6 @@ class StonebranchCheck(AgentCheck):
         try:
             if self.url:
                 self._check_api_connectivity()
-            if self.log_path:
-                self._check_log_file_access(self.log_path, "UC")
-            if self.tomcat_log_path:
-                self._check_log_file_access(self.tomcat_log_path, "Tomcat")
             self.service_check('stonebranch_uc.can_connect', self.OK)
         except Exception as e:
             self.service_check('stonebranch_uc.can_connect', self.CRITICAL, message=str(e))
@@ -203,18 +196,3 @@ class StonebranchCheck(AgentCheck):
             else:
                 current_val += char
         return labels
-
-    def _check_log_file_access(self, log_path, log_type):
-        try:
-            if not os.path.exists(log_path):
-                raise FileNotFoundError(f"{log_type} log file not found: {log_path}")
-            if not os.access(log_path, os.R_OK):
-                raise PermissionError(f"Cannot read {log_type} log file: {log_path}")
-
-            stat = os.stat(log_path)
-            self.gauge(f'stonebranch.{log_type.lower()}_log.size_bytes', stat.st_size)
-            self.gauge(f'stonebranch.{log_type.lower()}_log.last_modified', stat.st_mtime)
-            self.log.debug(f"{log_type} log file accessible: {log_path}")
-        except Exception as e:
-            self.log.error(f"Log file check failed for {log_type}: {e}")
-            raise
