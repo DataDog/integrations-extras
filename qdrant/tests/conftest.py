@@ -70,6 +70,6 @@ def mock_http_response():
                 headers={"Content-Type": "text/plain"},
             )
 
-    # Patch the requests.get method
-    with mock.patch("requests.get", side_effect=mock_get):
+    # Patch the requests.Session.get method
+    with mock.patch("requests.Session.get", side_effect=mock_get):
         yield
