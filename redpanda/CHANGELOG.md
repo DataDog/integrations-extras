@@ -2,11 +2,9 @@
 
 ## 2.2.0 / 2025-10-21
 
-Metrics update release.
-
 ***Changed***:
 
-* Changed `histogram_buckets_as_distributions` default to true
+* Set `histogram_buckets_as_distributions` to true by default to send histogram buckets as Datadog distribution metrics
 
 ***Added***:
 
