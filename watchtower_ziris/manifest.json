@@ -1,0 +1,94 @@
+{
+  "app_id": "ziris",
+  "app_uuid": "0192b8a9-8703-7f1b-989b-929307d658f7",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Broadcom WatchTower z/IRIS",
+    "description": "Stream mainframe OpenTelemetry signals to Datadog observability of services like IBM CICS, MQ or Db2.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Watch z/IRIS streams mainframe OpenTelemetry signals to Datadog.",
+        "image_url": "images/Datadog-WatchToewr-zIRIS-Errors-and-Exceptions.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "OOTB WatchTower Dashboards to visualize the health of z/OS systems.",
+        "image_url": "images/WatchTower Datadog Integration Dashboards.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "OOTB WatchTower CPU Monitor to increase mainframe  system reliability.",
+        "image_url": "images/WatchTower Datadog Integration Mainframe CPU Monitor.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Embedded error and exception documentation for faster MTTR.",
+        "image_url": "images/Datadog-zIRIS-CICS-Exceptions-and-Errors.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Mainframes",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Submitted Data Type::Traces",
+      "Submitted Data Type::Metrics"
+    ],
+    "resources": [
+      {
+        "url": "https://techdocs.broadcom.com/watchtower",
+        "resource_type": "documentation"
+      },
+      {
+        "url": "https://www.broadcom.com/products/mainframe/watchtower-observability/ziris",
+        "resource_type": "other"
+      }
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "angelika.heinrich@broadcom.com",
+    "name": "Broadcom",
+    "homepage": "https://www.broadcom.com/",
+    "sales_email": "angelika.heinrich@broadcom.com",
+    "vendor_id": "broadcom"
+  },
+  "assets": {
+    "dashboards": {
+      "WatchTower Mainframe z/OS Connect Overview": "assets/dashboards/watchtower_mainframe_z_os_connect_overview.json",
+      "WatchTower Mainframe CPU Overview": "assets/dashboards/watchtower_mainframe_cpu_overview.json",
+      "WatchTower Mainframe JVM Garbage Collection": "assets/dashboards/watchtower_mainframe_jvm_garbage_collection.json"
+    },
+    "monitors": {
+      "WatchTower Monitor: Mainframe CPU Contention is higher than manufacturer recommendation": "assets/monitors/watchtower_monitor__mainframe_cpu_contention_is_higher_than_manufacturer_recommendation.json"
+    },
+    "integration": {
+      "source_type_name": "ziris",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "ziris",
+        "check": [
+          "ziris.irontap.kafka.bytes.received"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 61837669,
+      "supports_ddr_coordinated_failover": false
+    }
+  }
+}

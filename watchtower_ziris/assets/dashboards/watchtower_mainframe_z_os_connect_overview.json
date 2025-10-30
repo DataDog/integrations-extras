@@ -1,0 +1,819 @@
+{
+  "title": "WatchTower Mainframe z/OS Connect Overview",
+  "description": "This dashboard summarizes the performance of z/OS Connect services, i.e. REST APIs. An overview of the key performance metrics highlights activity and errors.\n\nFurther reading:\n- Broadcom's [WatchTower OpenTelemetry CPU Metrics](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html) to learn more about the monitoring mainframe CPU utilization and contention.",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About Broadcom WatchTower z/IRIS",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
+              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
+              "sizing": "scale-down",
+              "margin": "md",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard summarizes the performance of z/OS Connect services, i.e. REST APIs. An overview of the key performance metrics highlights activity and errors. ",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n\n- Please see Broadcom's [WatchTower OpenTelemetry CPU Metrics](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html) to learn more about the monitoring mainframe CPU utilization and contention.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "z/OS Connect Key Performance Metrics",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4698654642100834,
+            "definition": {
+              "type": "note",
+              "content": "Total number of REST API requests processed z/OS Connect servers.\n\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 2530142959611229,
+            "definition": {
+              "type": "note",
+              "content": "The percentage z/OS Connect REST API requests that failed. A request is considered  failed when the  ***http.response.status_code*** is within the range of ***400 to 599***, e.g.  404.\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 7870388388312153,
+            "definition": {
+              "type": "note",
+              "content": "Number of z/OS Connect REST API requests that timed-out while processing on z/OS. \n\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 1412979145035409,
+            "definition": {
+              "title": "Request Count Last Hour",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:zos.connect.http.request.methods{$host, $sysplex.name, $server.name, $service}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1710411261509064,
+            "definition": {
+              "title": "Error Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "((default_zero(query1) + default_zero(query2)) / default_zero(query3)) * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:zos.connect.http.response.codes{http.response.status_code:4*, $host, $sysplex.name, $server.name, $service}",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:zos.connect.http.response.codes{http.response.status_code:5*, $host, $sysplex.name, $server.name, $service}",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:zos.connect.http.response.codes{$host, $server.name, $sysplex.name, $service}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1499272746472984,
+            "definition": {
+              "title": "Timed Out Request Count",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "type": "live",
+                "unit": "hour",
+                "value": 1
+              },
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:zos.connect.timed_out_requests{$host, $sysplex.name, $server.name, $service}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Request Activity",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Top 5 Request Count grouped by API name.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7183467356638811,
+            "definition": {
+              "title": "Top 5 Request Count by API",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:zos.connect.successful_requests{$host, $sysplex.name, $server.name, $service} by {service}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 5,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1350192747891144,
+            "definition": {
+              "type": "note",
+              "content": "Top 5 Erroneous Request Count grouped by API name.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7307844277697661,
+            "definition": {
+              "title": "Top 5 Error Count by API",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:zos.connect.http.response.codes{http.response.status_code:5*, $host, $sysplex.name, $server.name, $service} by {service}",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:zos.connect.http.response.codes{http.response.status_code:4*, $host, $sysplex.name, $server.name, $service} by {service}",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:zos.connect.http.response.codes{http.response.status_code:2*, $host, $sysplex.name, $server.name, $service} by {service}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 5,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "errors",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "error"
+                        }
+                      },
+                      "conditional_formats": [
+                        {
+                          "comparator": ">",
+                          "value": 0,
+                          "palette": "white_on_red"
+                        },
+                        {
+                          "comparator": "=",
+                          "value": 0,
+                          "palette": "white_on_green"
+                        }
+                      ],
+                      "formula": "(default_zero(query2) + default_zero(query1) + default_zero(query3)) - (default_zero(query3))"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 11
+      }
+    },
+    {
+      "id": 1814988987550839,
+      "definition": {
+        "title": "Response Time",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1250514767888197,
+            "definition": {
+              "type": "note",
+              "content": "Average Time Spent on z/OS per API request.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 405841854301089,
+            "definition": {
+              "title": "Avg. Duration by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.connect.elapsed_time{$host, $sysplex.name, $server.name, $service} by {service}.rollup(avg, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3616341517164885,
+            "definition": {
+              "type": "note",
+              "content": "Average Time Spent in z/OS Connect Server vs System-of-Record (SOR) per API request.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 2061196901805164,
+            "definition": {
+              "title": "Avg. Duration in z/OS Connect Server",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "zosconnect-duration",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:zos.connect.zcon_elapsed_time{$host, $sysplex.name, $server.name, $service}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1744439277684665,
+            "definition": {
+              "title": "Avg. Duration in System-Of-Record",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "system-of-record-time",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.connect.sor.elapsed_time{$host, $sysplex.name, $server.name, $service}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 14
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "default": "*"
+    },
+    {
+      "name": "sysplex.name",
+      "prefix": "sysplex.name",
+      "default": "*"
+    },
+    {
+      "name": "server.name",
+      "prefix": "subsystem_name",
+      "default": "*"
+    },
+    {
+      "name": "service",
+      "prefix": "service",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

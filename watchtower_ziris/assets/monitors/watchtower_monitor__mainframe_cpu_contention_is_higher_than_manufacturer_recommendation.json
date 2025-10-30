@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "title": "WatchTower Monitor: Mainframe CPU Contention is higher than manufacturer recommendation",
+  "tags": [
+    "integration:ziris"
+  ],
+  "definition": {
+    "name": "WatchTower Monitor: Mainframe CPU Contention is higher than manufacturer recommendation.",
+    "type": "query alert",
+    "query": "max(last_15m):avg:zos.cpu.in_ready_work_queue_contention{*} by {host} > 60",
+    "message": "{{#is_alert}} CPU Contention is the sum of last distribution of work units on the In-Ready queue (i.e. work executing or waiting to execute). IBM recommends that value higher than 60% implies CPU contention on mainframe.\n\n{{/is_alert}}\n\n{{#is_recovery}} CPU Contention is below the 60% threshold. {{/is_recovery}}",
+    "tags": [],
+    "options": {
+      "thresholds": {
+        "critical": 60,
+        "warning": 50
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "silenced": {}
+    }
+  },
+  "created_at": "2025-06-26",
+  "last_updated_at": "2025-06-26",
+  "description": "IBM indicates that a contention percentage higher than 60% implies CPU contention on the z/OS platform."
+}

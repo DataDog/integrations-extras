@@ -1,0 +1,713 @@
+{
+  "title": "WatchTower Mainframe JVM Garbage Collection",
+  "description": "Monitor SYSVIEW JVM GC Metrics from z/OS to identify availability or reliability issues in Java applications caused by garbage collection activity.  ",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About <integration>",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
+              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "Monitor SYSVIEW JVM GC Metrics from z/OS to identify availability or reliability issues in Java applications caused by garbage collection activity.  ",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading: \n- [WatchTower OpenTelemetry JVM GC Metrics](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-jvm-garbage-collection-metrics.html) lists the available metrics, their uses cases and attributes.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "GC Impact",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6124499827412004,
+            "definition": {
+              "type": "note",
+              "content": "Top 10 applications with highest GC duration.\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 4731731911921245,
+            "definition": {
+              "title": "Top 10 Avg GC Duration by Service",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.gc.duration{$service.name, $host, $jvm.gc.action} by {service}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "gc_duration",
+                      "cell_display_mode": "bar",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4698654642100834,
+            "definition": {
+              "type": "note",
+              "content": "Identify the impact to application availability caused by   garbage collection events. The duration of a major garbage collection events implies the time the application is not available.\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 4094384321155778,
+            "definition": {
+              "title": "Avg JVM GC Duration by Service",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.gc.duration{$host, $service.name, $jvm.gc.name, $jvm.gc.action} by {service}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "gc_duration",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 9
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "JVM Memory",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7906975561131774,
+            "definition": {
+              "type": "note",
+              "content": "Top 10 java applications with lowest uncommitted memory after the last GC event.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 3560677104314846,
+            "definition": {
+              "title": "Available Memory after GC (Bottom 10)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:zos.jvm.memory.limit{$service.name, $host} by {service}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.memory.committed_after_last_gc{$host, $service.name} by {service}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "asc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "uncommited_after_last_gc",
+                      "formula": "query2 - query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6518295529255270,
+            "definition": {
+              "type": "note",
+              "content": "Memory used by java applications before the GC action.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 8964398285564787,
+            "definition": {
+              "title": "Memory Used Before GC",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.memory.used_before_last_gc{$service.name, $host}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "max:zos.jvm.memory.used_before_last_gc{$service.name, $host}.rollup(max, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "min:zos.jvm.memory.used_before_last_gc{$service.name, $host}.rollup(min, 60)"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Avg",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Max",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Min",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3633069272581004,
+            "definition": {
+              "type": "note",
+              "content": "Memory used by java applications after the GC action.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 8431724778466375,
+            "definition": {
+              "title": "Memory Used After GC",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.memory.used_after_last_gc{$service.name, $host}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "max:zos.jvm.memory.used_after_last_gc{$service.name, $host}.rollup(max, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "min:zos.jvm.memory.used_after_last_gc{$service.name, $host}.rollup(min, 60)"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Avg",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Max",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Min",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "bytes"
+                        }
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4159603184070785,
+            "definition": {
+              "type": "note",
+              "content": "Memory committed by java applications after the GC action.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 257174505596599,
+            "definition": {
+              "title": "Avg Memory Committed after GC by Service",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.memory.committed_after_last_gc{$service.name, $host} by {service}.rollup(avg, 60)"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 13,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Heap memory committed by java applications after the GC action.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 16,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 97560989374929,
+            "definition": {
+              "title": "Avg Heap Memory Committed after GC by Service",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:zos.jvm.memory.committed_after_last_gc{$service.name, $host, jvm.memory.type:heap} by {service}.rollup(avg, 60)"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 17,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 21
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "service.name",
+      "prefix": "service.name",
+      "default": "*"
+    },
+    {
+      "name": "host",
+      "prefix": "host",
+      "default": "*"
+    },
+    {
+      "name": "jvm.gc.name",
+      "prefix": "jvm.gc.name",
+      "default": "*"
+    },
+    {
+      "name": "jvm.gc.action",
+      "prefix": "jvm.gc.action",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
