@@ -1,5 +1,11 @@
 # CHANGELOG - ns1
 
+## 1.0.1 / 2025-08-14
+
+***Added***:
+
+* Reporting for records usage and limit
+
 ## 0.0.6
 
 ***Added***:

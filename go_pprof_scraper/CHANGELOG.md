@@ -1,5 +1,17 @@
 # CHANGELOG - Go-pprof-scraper
 
+## 1.0.6 / 2025-10-17
+
+***Added***
+
+* Upgrade the datadog-checks-base to `37.20.0` [2829](@https://github.com/DataDog/integrations-extras/pull/2829)
+
+## 1.0.5 / 2025-10-07
+
+***Fixed***:
+
+* Fix Unix socket fallback when Agent has default socket path configured but file doesn't exist. The integration now validates socket existence before attempting Unix socket connections and caches the working transport method to avoid repeated failed connection attempts.
+
 ## 1.0.4 / 2023-01-17
 
 ***Added***:

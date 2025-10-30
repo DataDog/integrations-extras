@@ -33,18 +33,29 @@
           {
             "id": 1782623543348740,
             "definition": {
+<<<<<<< HEAD
               "title": "Attacks Blocked",
+=======
+              "title": "Distribution Of Attack Events",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "title_size": "16",
               "title_align": "left",
               "requests": [
                 {
+<<<<<<< HEAD
                   "response_format": "scalar",
+=======
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
+<<<<<<< HEAD
                         "query": "source:contrastadr"
+=======
+                        "query": "source:contrast-security-adr tags:attack_event"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                       },
                       "indexes": [
                         "*"
@@ -59,6 +70,7 @@
                             "metric": "count"
                           },
                           "should_exclude_missing": true
+<<<<<<< HEAD
                         },
                         {
                           "facet": "@application.name",
@@ -69,6 +81,8 @@
                             "metric": "count"
                           },
                           "should_exclude_missing": true
+=======
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                         }
                       ],
                       "compute": {
@@ -77,6 +91,7 @@
                       "storage": "hot"
                     }
                   ],
+<<<<<<< HEAD
                   "style": {
                     "palette": "datadog16"
                   },
@@ -146,6 +161,9 @@
                       "storage": "hot"
                     }
                   ],
+=======
+                  "response_format": "scalar",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                   "style": {
                     "palette": "datadog16"
                   },
@@ -172,16 +190,26 @@
               }
             },
             "layout": {
+<<<<<<< HEAD
               "x": 6,
+=======
+              "x": 0,
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "y": 0,
               "width": 6,
               "height": 4
             }
           },
           {
+<<<<<<< HEAD
             "id": 1701489096793870,
             "definition": {
               "title": "Attacks by Type",
+=======
+            "id": 2595467198821652,
+            "definition": {
+              "title": "Top 10 Attacks By Applications",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "title_size": "16",
               "title_align": "left",
               "type": "toplist",
@@ -192,7 +220,80 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
+<<<<<<< HEAD
                         "query": "source:contrastadr @rule:*"
+=======
+                        "query": "source:contrast-security-adr tags:attack_event"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@application.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1701489096793870,
+            "definition": {
+              "title": "Top 10 Attacks By Rule",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "logs",
+                      "search": {
+                        "query": "source:contrast-security-adr tags:attack_event"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                       },
                       "indexes": [
                         "*"
@@ -207,6 +308,7 @@
                             "metric": "count"
                           },
                           "should_exclude_missing": true
+<<<<<<< HEAD
                         },
                         {
                           "facet": "@application.name",
@@ -217,6 +319,8 @@
                             "metric": "count"
                           },
                           "should_exclude_missing": true
+=======
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                         }
                       ],
                       "compute": {
@@ -232,7 +336,11 @@
                     }
                   ],
                   "sort": {
+<<<<<<< HEAD
                     "count": 100,
+=======
+                    "count": 10,
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                     "order_by": [
                       {
                         "type": "formula",
@@ -247,20 +355,29 @@
                 "display": {
                   "type": "stacked",
                   "legend": "automatic"
+<<<<<<< HEAD
                 },
                 "palette": "datadog16"
+=======
+                }
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               }
             },
             "layout": {
               "x": 0,
               "y": 4,
+<<<<<<< HEAD
               "width": 6,
+=======
+              "width": 5,
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "height": 4
             }
           },
           {
             "id": 2205300797772388,
             "definition": {
+<<<<<<< HEAD
               "title": "Top 10 Most Attacked URIs",
               "title_size": "16",
               "title_align": "left",
@@ -268,19 +385,35 @@
               "requests": [
                 {
                   "response_format": "scalar",
+=======
+              "title": "Top 10 Most Attacked URLs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
+<<<<<<< HEAD
                         "query": "source:contrastadr"
+=======
+                        "query": "source:contrast-security-adr tags:attack_event"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                       },
                       "indexes": [
                         "*"
                       ],
                       "group_by": [
                         {
+<<<<<<< HEAD
                           "facet": "@attackPayload.url",
+=======
+                          "facet": "@url",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                           "limit": 10,
                           "sort": {
                             "aggregation": "count",
@@ -306,11 +439,15 @@
                       "storage": "hot"
                     }
                   ],
+<<<<<<< HEAD
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+=======
+                  "response_format": "scalar",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                   "sort": {
                     "count": 100,
                     "order_by": [
@@ -320,6 +457,7 @@
                         "order": "desc"
                       }
                     ]
+<<<<<<< HEAD
                   }
                 }
               ],
@@ -334,13 +472,34 @@
               "x": 6,
               "y": 4,
               "width": 6,
+=======
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 5,
+              "y": 4,
+              "width": 7,
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "height": 4
             }
           },
           {
             "id": 4349148145843182,
             "definition": {
+<<<<<<< HEAD
               "title": "Attacks by Type and Time",
+=======
+              "title": "Attack Timeline",
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -361,11 +520,16 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
+<<<<<<< HEAD
                         "query": "source:contrastadr"
+=======
+                        "query": "source:contrast-security-adr tags:attack_event"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                       },
                       "indexes": [
                         "*"
                       ],
+<<<<<<< HEAD
                       "group_by": [
                         {
                           "facet": "@rule",
@@ -388,6 +552,9 @@
                           "should_exclude_missing": true
                         }
                       ],
+=======
+                      "group_by": [],
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                       "compute": {
                         "aggregation": "count"
                       },
@@ -406,6 +573,34 @@
                     "line_width": "normal"
                   },
                   "display_type": "line"
+<<<<<<< HEAD
+=======
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "events",
+                      "name": "dashboard_events_overlay",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": ""
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "dashboard_events_overlay"
+                    }
+                  ],
+                  "display_type": "overlay"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
                 }
               ]
             },
@@ -429,6 +624,10 @@
   "template_variables": [],
   "layout_type": "ordered",
   "notify_list": [],
+<<<<<<< HEAD
   "reflow_type": "fixed",
   "tags": []
+=======
+  "reflow_type": "fixed"
+>>>>>>> 6a986fa796bd72906854a41d18a408ad0d16c9e4
 }

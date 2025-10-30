@@ -62,7 +62,7 @@ setup(
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
-        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ],
     # The package we're going to ship
     packages=['datadog_checks.cyral'],

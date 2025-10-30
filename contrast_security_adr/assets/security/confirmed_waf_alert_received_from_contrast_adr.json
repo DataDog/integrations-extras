@@ -1,0 +1,76 @@
+{
+  "name": "Confirmed WAF alert received from Contrast ADR",
+  "partnerRuleId": "ext-00g-gwc",
+  "message": "### Summary:\nWAF Alert Confirmed {{@evt.outcome}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n\n#### sub-query/drill-down searches:\n      list of matching alerts and events from both sources for the same source ip, target ip address\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
+  "createdAt": 1747814166967,
+  "isDefault": false,
+  "isPartner": false,
+  "isBeta": false,
+  "isDeleted": false,
+  "isDeprecated": false,
+  "queries": [
+    {
+      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR BLOCKED OR blocked) service:ContrastADR",
+      "groupByFields": [
+        "@sourceIp"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": "",
+      "dataSource": "logs"
+    },
+    {
+      "query": "source:waf_test",
+      "groupByFields": [
+        "@targetip"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": "",
+      "dataSource": "logs"
+    }
+  ],
+  "options": {
+    "evaluationWindow": 900,
+    "detectionMethod": "threshold",
+    "maxSignalDuration": 86400,
+    "keepAlive": 3600
+  },
+  "cases": [
+    {
+      "name": "Condition 1",
+      "status": "info",
+      "notifications": [],
+      "condition": "a > 0 && b > 0"
+    }
+  ],
+  "tags": [
+    "source:contrast-security-adr"
+  ],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": [],
+  "version": 16,
+  "id": "lrk-h3m-hto",
+  "updatedAt": 1758182774632,
+  "blocking": false,
+  "metadata": {
+    "entities": [],
+    "sources": [
+      "waf_test",
+      "contrast-security-adr"
+    ]
+  },
+  "creationAuthorId": 22452697,
+  "updateAuthorId": 21357583,
+  "creator": {
+    "handle": "pragati.gupta@contrastsecurity.com",
+    "name": "Pragati Gupta"
+  },
+  "updater": {
+    "handle": "thibault.barillon@contrastsecurity.com",
+    "name": "Thibault Barillon"
+  }
+}
