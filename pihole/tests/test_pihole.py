@@ -26,7 +26,6 @@ def test_invalid_config(aggregator):
 
 
 # Testing integration status check using docker (200 endpoint)
-@pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_service_check(aggregator, instance_pass):
     c = PiholeCheck('pihole', {}, [instance_pass])
@@ -36,7 +35,6 @@ def test_service_check(aggregator, instance_pass):
 
 
 # Testing integration status check using docker (404 endpoint) - no metrics returned
-@pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_response(aggregator):
     instance = {"host": "localhost:8888/fail"}
@@ -47,7 +45,6 @@ def test_bad_response(aggregator):
 
 
 # Testing integration status check using docker - bad "status" returned
-@pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_status(aggregator):
     instance = {"host": "localhost:8888/bad_status"}
@@ -58,7 +55,6 @@ def test_bad_status(aggregator):
 
 
 # Testing integration status check using docker - no "status" returned
-@pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_no_status(aggregator):
     instance = {"host": "localhost:8888/no_status"}
@@ -69,7 +65,6 @@ def test_no_status(aggregator):
 
 
 # Testing known metric value using docker - valid response
-@pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_good_response(aggregator, instance_pass):
     c = PiholeCheck('pihole', {}, [instance_pass])
@@ -93,6 +88,92 @@ def test_good_response(aggregator, instance_pass):
         "pihole.reply_ip": 317.0,
     }
     for metric, value in METRICS.items():
+        aggregator.assert_metric(name=metric, value=value)
+
+    aggregator.assert_all_metrics_covered()
+
+
+# Testing integration status check using docker (200 endpoint)
+@pytest.mark.usefixtures('v6_dd_environment_pass')
+def test_service_check_v6(aggregator, v6_instance_pass):
+    c = PiholeCheck('pihole', {}, [v6_instance_pass])
+
+    c.check(v6_instance_pass)
+    aggregator.assert_service_check('pihole.running', PiholeCheck.OK)
+
+
+# Testing known metric value using docker - valid response
+@pytest.mark.usefixtures('v6_dd_environment_pass')
+def test_v6_metrics(aggregator, v6_instance_pass):
+    c = PiholeCheck('pihole', {}, [v6_instance_pass])
+
+    c.check(v6_instance_pass)
+
+    V6_METRICS = {
+        'pihole.clients.active': 0,
+        'pihole.clients.total': 0,
+        'pihole.gravity.domains_being_blocked': 79984,
+        'pihole.gravity.last_update': 1759837296,
+        'pihole.queries.blocked': 0,
+        'pihole.queries.cached': 0,
+        'pihole.queries.forwarded': 0,
+        'pihole.queries.frequency': 0,
+        'pihole.queries.percent_blocked': 0,
+        'pihole.queries.replies.BLOB': 0,
+        'pihole.queries.replies.CNAME': 0,
+        'pihole.queries.replies.DNSSEC': 0,
+        'pihole.queries.replies.DOMAIN': 0,
+        'pihole.queries.replies.IP': 0,
+        'pihole.queries.replies.NODATA': 0,
+        'pihole.queries.replies.NONE': 0,
+        'pihole.queries.replies.NOTIMP': 0,
+        'pihole.queries.replies.NXDOMAIN': 0,
+        'pihole.queries.replies.OTHER': 0,
+        'pihole.queries.replies.REFUSED': 0,
+        'pihole.queries.replies.RRNAME': 0,
+        'pihole.queries.replies.SERVFAIL': 0,
+        'pihole.queries.replies.UNKNOWN': 0,
+        'pihole.queries.status.CACHE': 0,
+        'pihole.queries.status.CACHE_STALE': 0,
+        'pihole.queries.status.DBBUSY': 0,
+        'pihole.queries.status.DENYLIST': 0,
+        'pihole.queries.status.DENYLIST_CNAME': 0,
+        'pihole.queries.status.EXTERNAL_BLOCKED_EDE15': 0,
+        'pihole.queries.status.EXTERNAL_BLOCKED_IP': 0,
+        'pihole.queries.status.EXTERNAL_BLOCKED_NULL': 0,
+        'pihole.queries.status.EXTERNAL_BLOCKED_NXRA': 0,
+        'pihole.queries.status.FORWARDED': 0,
+        'pihole.queries.status.GRAVITY': 0,
+        'pihole.queries.status.GRAVITY_CNAME': 0,
+        'pihole.queries.status.IN_PROGRESS': 0,
+        'pihole.queries.status.REGEX': 0,
+        'pihole.queries.status.REGEX_CNAME': 0,
+        'pihole.queries.status.RETRIED': 0,
+        'pihole.queries.status.RETRIED_DNSSEC': 0,
+        'pihole.queries.status.SPECIAL_DOMAIN': 0,
+        'pihole.queries.status.UNKNOWN': 0,
+        'pihole.queries.total': 0,
+        'pihole.queries.types.A': 0,
+        'pihole.queries.types.AAAA': 0,
+        'pihole.queries.types.ANY': 0,
+        'pihole.queries.types.DNSKEY': 0,
+        'pihole.queries.types.DS': 0,
+        'pihole.queries.types.HTTPS': 0,
+        'pihole.queries.types.MX': 0,
+        'pihole.queries.types.NAPTR': 0,
+        'pihole.queries.types.NS': 0,
+        'pihole.queries.types.OTHER': 0,
+        'pihole.queries.types.PTR': 0,
+        'pihole.queries.types.RRSIG': 0,
+        'pihole.queries.types.SOA': 0,
+        'pihole.queries.types.SRV': 0,
+        'pihole.queries.types.SVCB': 0,
+        'pihole.queries.types.TXT': 0,
+        'pihole.queries.unique_domains': 0,
+        'pihole.took': 4.076957702636719e-05,
+    }
+
+    for metric, value in V6_METRICS.items():
         aggregator.assert_metric(name=metric, value=value)
 
     aggregator.assert_all_metrics_covered()
