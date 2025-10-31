@@ -12,6 +12,7 @@ METRIC = "/metrics/entitlements/"
 QUOTA = "/quota/"
 AUDIT_LOG = "/audit-log/"
 VOUNDRABILITIES = "/vulnerabilities/"
+ANALYTICS_METRICS_CLIENT_TIME_SERIES = "/analytics/metrics/client/time-series/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
 LAST_VULNERABILITY_STAMP = 0
@@ -81,6 +82,18 @@ class CloudsmithCheck(AgentCheck):
         self.base_url = self.instance.get("url")
         self.api_key = self.instance.get("cloudsmith_api_key")
         self.org = self.instance.get("organization")
+        # Simple realtime enable flag; other realtime parameters are internal constants (not user configurable).
+        self.enable_realtime_bandwidth = bool(self.instance.get("enable_realtime_bandwidth", False))
+        # Internal realtime constants
+        self._RT_INTERVAL = "minute"  # reverted to minute buckets
+        self._RT_AGGREGATE = "BYTES_DOWNLOADED_SUM"
+        self._RT_LOOKBACK_MINUTES = 120
+        self._RT_REFRESH_SECONDS = 300
+        self._RT_MIN_POINTS = 2  # require at least two minute data points
+        # Per-instance realtime state
+        self._rt_last_ts = 0
+        self._rt_last_fetch = 0
+        self._rt_metrics = {"bandwidth_bytes_interval": None}
 
         self.validate_config()
 
@@ -103,6 +116,58 @@ class CloudsmithCheck(AgentCheck):
     def get_full_path(self, path):
         url = self.base_url.rstrip("/") + path + self.org
         return url
+
+    def build_analytics_base(self):
+        base = self.base_url.rstrip("/")
+        if base.endswith("/v1"):
+            base = base[:-3] + "/v2"
+        return base + ANALYTICS_METRICS_CLIENT_TIME_SERIES + self.org + "/"
+
+    def build_analytics_url(self):
+        from datetime import timedelta
+        # Minute interval fixed
+        interval = self._RT_INTERVAL
+        interval_sec = 60  # one minute in seconds
+        if self._rt_last_ts > 0:
+            start_dt = datetime.utcfromtimestamp(self._rt_last_ts + interval_sec)
+        else:
+            # Look back a fixed window to seed initial request
+            start_dt = datetime.utcnow() - timedelta(minutes=self._RT_LOOKBACK_MINUTES)
+        # Preserve original hour/minute formatting with '+' separator
+        start_str = start_dt.strftime("%Y-%m-%d+%H:%M")
+        aggregate = self._RT_AGGREGATE
+        return self.build_analytics_base() + f"?interval={interval}&aggregate={aggregate}&start_time={start_str}"
+
+    def get_realtime_bandwidth_info(self):
+        url = self.build_analytics_url()
+        try:
+            return self.get_api_json(url)
+        except Exception:
+            return None
+
+    def parse_realtime_bandwidth(self, response_json):
+        result = {"bandwidth_bytes_interval": None}
+        if not response_json:
+            return result
+        results = response_json.get("results") or []
+        if not results:
+            return result
+        series = results[0]
+        timestamps = series.get("timestamps") or []
+        values = series.get("values") or []
+        # Accept the first datapoint immediately when using five-minute buckets
+        if len(values) < self._RT_MIN_POINTS or len(timestamps) < self._RT_MIN_POINTS:
+            return result
+        try:
+            last_val = float(values[-1])
+            last_ts_dt = datetime.strptime(timestamps[-1], "%Y-%m-%dT%H:%M:%SZ")
+            last_ts = int(last_ts_dt.timestamp())
+        except (ValueError, TypeError):
+            return result
+        # Fixed minute interval
+        result["bandwidth_bytes_interval"] = last_val
+        self._rt_last_ts = last_ts
+        return result
 
     def convert_time(self, time):
         return int(datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ").timestamp())
@@ -389,9 +454,21 @@ class CloudsmithCheck(AgentCheck):
 
         vulnerabilities_info = self.get_parsed_vulnerabilities_info()
 
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
+        realtime_metrics = {"bandwidth_bytes_interval": None}
+        if self.enable_realtime_bandwidth:
+            stale = (time.time() - self._rt_last_fetch) > self._RT_REFRESH_SECONDS
+            missing = not self._rt_metrics["bandwidth_bytes_interval"]
+            if stale or missing:
+                parsed = self.parse_realtime_bandwidth(self.get_realtime_bandwidth_info())
+                if parsed["bandwidth_bytes_interval"] is not None:
+                    self._rt_metrics = parsed
+                elif self._rt_metrics["bandwidth_bytes_interval"] is None:
+                    # Only overwrite if we have no previous good value
+                    self._rt_metrics = parsed
+                self._rt_last_fetch = time.time()
+            realtime_metrics.update(self._rt_metrics)
+
+        # Submit metrics (gauges & events). See Datadog base API docs.
 
         self.gauge("storage_used", usage_info["storage_used"], tags=self.tags)
         self.gauge("bandwidth_used", usage_info["bandwidth_used"], tags=self.tags)
@@ -406,6 +483,14 @@ class CloudsmithCheck(AgentCheck):
             entitlement_info["token_download_total"],
             tags=self.tags,
         )
+
+        # Realtime bandwidth metric (only submit if value present)
+        if self.enable_realtime_bandwidth and realtime_metrics.get("bandwidth_bytes_interval") is not None:
+            self.gauge(
+                "bandwidth_bytes_interval",
+                realtime_metrics["bandwidth_bytes_interval"],
+                tags=self.tags,
+            )
 
         # only create an event if the timestamp is newer than the last event
         # this is to prevent duplicate events as we pull down the entire audit log

@@ -94,3 +94,56 @@ def test_check_badly_formatted_json(aggregator, instance_good, entitlements_test
     aggregator.assert_metric("cloudsmith.token_bandwidth_total", -1, count=1)
     aggregator.assert_metric("cloudsmith.token_count", -1, count=1)
     aggregator.assert_metric("cloudsmith.token_download_total", -1, count=1)
+
+
+def test_realtime_bandwidth_metrics(
+    aggregator, instance_good, usage_resp_good, entitlements_test_json
+):
+    check = CloudsmithCheck(
+        'cloudsmith', {}, [dict(instance_good, enable_realtime_bandwidth=True)]
+    )
+    check.get_usage_info = MagicMock(return_value=usage_resp_good)
+    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
+    realtime_resp = {
+        "results": [
+            {
+                "dimensions": {
+                    "aggregate": "BYTES_DOWNLOADED_SUM",
+                    "unit": "bytes",
+                },
+                "timestamps": ["2025-10-29T18:34:00Z", "2025-10-29T18:35:00Z"],
+                "values": [1000, 1600],
+            }
+        ]
+    }
+    check.get_realtime_bandwidth_info = MagicMock(return_value=realtime_resp)
+    check.check(None)
+    aggregator.assert_metric(
+        "cloudsmith.bandwidth_bytes_interval", 1600.0, count=1
+    )
+
+
+def test_realtime_bandwidth_metrics_insufficient_points(
+    aggregator, instance_good, usage_resp_good, entitlements_test_json
+):
+    check = CloudsmithCheck(
+        'cloudsmith', {}, [dict(instance_good, enable_realtime_bandwidth=True)]
+    )
+    check.get_usage_info = MagicMock(return_value=usage_resp_good)
+    check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
+    realtime_resp = {
+        "results": [
+            {
+                "dimensions": {
+                    "aggregate": "BYTES_DOWNLOADED_SUM",
+                    "unit": "bytes",
+                },
+                "timestamps": ["2025-10-29T18:34:00Z"],
+                "values": [1000],
+            }
+        ]
+    }
+    check.get_realtime_bandwidth_info = MagicMock(return_value=realtime_resp)
+    check.check(None)
+    # Ensure realtime metric not emitted
+    assert "cloudsmith.bandwidth_bytes_interval" not in aggregator._metrics
