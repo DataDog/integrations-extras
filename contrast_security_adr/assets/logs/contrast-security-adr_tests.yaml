@@ -1926,12 +1926,17 @@ tests:
           - "https://dev/adr-runbooks/runbooks/path-traversal/"
         relatedRules:
           - "path-traversal"
+        resource:
+          type: "incidentalert"
+          url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6"
         score: 9.3
         service: "ContrastADR"
         severity: "Critical"
         source: "security"
         status: "Open"
         summary: " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd"
+        syslog:
+          severity: 9.3
         timestamp: "2025-10-08T12:08:22.0000Z"
         url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6"
       message: |-
@@ -1960,5 +1965,7 @@ tests:
           },
           "ddsource" : "contrast-security-adr"
         }
+      status: "critical"
       tags:
         - "source:LOGS_SOURCE"
+      timestamp: 1759926143000
