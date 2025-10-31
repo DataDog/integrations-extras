@@ -22,8 +22,8 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.application.fips_mode',
     ],
     'redpanda.controller': [
-        'redpanda.cluster.controller_log_limit_requests_available',
-        'redpanda.cluster.controller_log_limit_requests_dropped.count',
+        'redpanda.controller.log_limit_requests_available',
+        'redpanda.controller.log_limit_requests_dropped.count',
     ],
     'redpanda.cloud': [
         'redpanda.cloud.client_backoff.count',

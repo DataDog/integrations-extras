@@ -6,8 +6,8 @@ REDPANDA_APPLICATION = {
 }
 
 REDPANDA_CONTROLLER = {
-    'redpanda_cluster_controller_log_limit_requests_available_rps': 'cluster.controller_log_limit_requests_available',
-    'redpanda_cluster_controller_log_limit_requests_dropped': 'cluster.controller_log_limit_requests_dropped',
+    'redpanda_cluster_controller_log_limit_requests_available_rps': 'controller.log_limit_requests_available',
+    'redpanda_cluster_controller_log_limit_requests_dropped': 'controller.log_limit_requests_dropped',
 }
 
 REDPANDA_CLOUD = {
