@@ -601,9 +601,7 @@ def test_filter_vulnerabilities(instance_good):
     assert "Critical" in severities
 
 
-def test_realtime_bandwidth_metrics(
-    aggregator, instance_good, usage_resp_good, entitlements_test_json
-):
+def test_realtime_bandwidth_metrics(aggregator, instance_good, usage_resp_good, entitlements_test_json):
     # Enable realtime bandwidth
     check = CloudsmithCheck('cloudsmith', {}, [dict(instance_good, enable_realtime_bandwidth=True)])
 

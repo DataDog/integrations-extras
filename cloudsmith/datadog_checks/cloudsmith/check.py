@@ -127,6 +127,7 @@ class CloudsmithCheck(AgentCheck):
 
     def build_analytics_url(self):
         from datetime import timedelta
+
         interval = self._RT_INTERVAL
         interval_sec = 60
         if self._rt_last_ts > 0:
