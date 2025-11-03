@@ -1,5 +1,12 @@
 # CHANGELOG - Cloudsmith
 
+### 1.2.0 / 2025-11-03
+
+### Added
+
+* Added real-time bandwidth metric (`cloudsmith.bandwidth_bytes_interval`) and related dashboard widget
+* Dashboard widget for realtime interval bytes.
+
 ### 1.1.1 / 2025-10-17
 
 ***Added***
@@ -24,10 +31,3 @@
 ### 0.0.2 / 2021-09-08
 
 ***Added***:
-
-## 0.0.3 / 2025-10-29
-
-### Added
-
-* Added real-time bandwidth metric (`cloudsmith.bandwidth_bytes_interval`) and related dashboard widget
-* Dashboard widget for realtime interval bytes.
