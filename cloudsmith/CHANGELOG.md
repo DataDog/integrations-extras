@@ -5,7 +5,6 @@
 ### Added
 
 * Added real-time bandwidth metric (`cloudsmith.bandwidth_bytes_interval`) and related dashboard widget
-* Dashboard widget for realtime interval bytes.
 
 ### 1.1.1 / 2025-10-17
 
