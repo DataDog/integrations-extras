@@ -25,4 +25,9 @@
 
 ***Added***:
 
-* Initial Release
+## 0.0.3 / 2025-10-29
+
+### Added
+
+* Metric: `cloudsmith.bandwidth_bytes_interval` for real-time bandwidth tracking, through Cloudsmith v2 analytics endpoint (disabled by default; enable with `enable_realtime_bandwidth: true`). Uses fixed internal defaults (1-minute interval, aggregate `BYTES_DOWNLOADED_SUM`, look-back 120m, refresh 300s, min points 2).
+* Dashboard widget for realtime interval bytes.
