@@ -220,12 +220,6 @@ class ScamalyticsLogStream(LogStream):
        self._save_recent_cache()
 
 
-       yield LogRecord(
-           data={"message": f"SCAMALYTICS: checkpoint -> {newest_timestamp}"},
-           cursor={"timestamp": newest_timestamp},
-       )
-
-
    @staticmethod
    def _is_public_ip(ip: str) -> bool:
        private_ranges = [
