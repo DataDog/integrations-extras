@@ -1,6 +1,6 @@
 # CHANGELOG - Contrast Security ADR
 
-## 1.0.0 / 2025-10-29
+## 1.0.0 / 2025-11-04
 
 _**Added**_:
 
