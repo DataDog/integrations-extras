@@ -9,15 +9,10 @@ instances:
     customer_id: ""
     scamalytics_api_url: ""
     dd_site: "datadoghq.com"  # or datadoghq.eu for EU accounts
+    skip_window_hours: 24     # deduplication window in hours
 
-    ## Optional log search filter
-    ## Adjust to your security-related log sources (e.g., firewall, WAF, IDS)
-    log_query: "@network.client.ip:* @service:(firewall OR waf OR ids)"
-
-    ## How far back to search logs each run
-    time_window: "1m"
-    
-    ## How Often the Agent Check Runs
-    min_collection_interval: 60
-
+logs:
+  - type: integration    
+    source: scamalytics-ti
+    service: scamalytics
 
