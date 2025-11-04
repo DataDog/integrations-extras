@@ -1,5 +1,7 @@
 counter = {
-    'grafana_alerting_remote_alertmanager_configuration_sync_failures': 'alerting_remote_alertmanager_configuration_sync_failures',
+    'grafana_alerting_remote_alertmanager_configuration_sync_failures': (
+        'alerting_remote_alertmanager_configuration_sync_failures'
+    ),
     'grafana_alerting_state_history_writes_bytes': 'alerting_state_history_writes_bytes',
     'grafana_encryption_cache_reads': 'encryption_cache_reads',
     'grafana_registered_metrics': 'registered_metrics',
@@ -57,7 +59,9 @@ counter = {
     'grafana_disabled_metrics': 'disabled_metrics',
     'grafana_alerting_remote_alertmanager_state_syncs': 'alerting_remote_alertmanager_state_syncs',
     'grafana_access_search_user_permissions_cache_usage': 'access_search_user_permissions_cache_usage',
-    'grafana_apiserver_storage_envelope_transformation_cache_misses': 'apiserver_storage_envelope_transformation_cache_misses',
+    'grafana_apiserver_storage_envelope_transformation_cache_misses': (
+        'apiserver_storage_envelope_transformation_cache_misses'
+    ),
     'grafana_apiserver_webhooks_x509_missing_san': 'apiserver_webhooks_x509_missing_san',
     'grafana_access_permissions_cache_usage': 'access_permissions_cache_usage',
     'grafana_live_node_messages_sent_count': 'live_node_messages_sent_count',
@@ -79,10 +83,14 @@ gauge = {
     'grafana_stat_totals_annotations': 'stat_totals_annotations',
     'grafana_stat_totals_library_variables': 'stat_totals_library_variables',
     'grafana_stat_active_users': 'stat_active_users',
-    'grafana_apiserver_envelope_encryption_dek_cache_fill_percent': 'apiserver_envelope_encryption_dek_cache_fill_percent',
+    'grafana_apiserver_envelope_encryption_dek_cache_fill_percent': (
+        'apiserver_envelope_encryption_dek_cache_fill_percent'
+    ),
     'grafana_process_virtual_memory_max_bytes': 'process_virtual_memory_max_bytes',
     'grafana_alerting_alertmanager_config_match': 'alerting_alertmanager_config_match',
-    'grafana_alerting_remote_alertmanager_last_readiness_check_timestamp_seconds': 'alerting_remote_alertmanager_last_readiness_check_timestamp_seconds',
+    'grafana_alerting_remote_alertmanager_last_readiness_check_timestamp_seconds': (
+        'alerting_remote_alertmanager_last_readiness_check_timestamp_seconds'
+    ),
     'grafana_stat_total_playlists': 'stat_total_playlists',
     'grafana_live_node_num_subscriptions': 'live_node_num_subscriptions',
     'grafana_apiserver_flowcontrol_seat_fair_frac': 'apiserver_flowcontrol_seat_fair_frac',
@@ -103,13 +111,17 @@ gauge = {
     'grafana_stat_totals_active_editors': 'stat_totals_active_editors',
     'grafana_alerting_active_configurations': 'alerting_active_configurations',
     'grafana_alerting_state_history_info': 'alerting_state_history_info',
-    'grafana_alerting_remote_alertmanager_last_configuration_sync_timestamp_seconds': 'alerting_remote_alertmanager_last_configuration_sync_timestamp_seconds',
+    'grafana_alerting_remote_alertmanager_last_configuration_sync_timestamp_seconds': (
+        'alerting_remote_alertmanager_last_configuration_sync_timestamp_seconds'
+    ),
     'grafana_stat_totals_folder': 'stat_totals_folder',
     'grafana_stat_totals_data_keys': 'stat_totals_data_keys',
     'grafana_database_conn_idle': 'database_conn_idle',
     'grafana_alerting_discovered_configurations': 'alerting_discovered_configurations',
     'grafana_process_start_time_seconds': 'process_start_time_seconds',
-    'grafana_alerting_remote_alertmanager_last_state_sync_timestamp_seconds': 'alerting_remote_alertmanager_last_state_sync_timestamp_seconds',
+    'grafana_alerting_remote_alertmanager_last_state_sync_timestamp_seconds': (
+        'alerting_remote_alertmanager_last_state_sync_timestamp_seconds'
+    ),
     'grafana_stat_totals_dashboard': 'stat_totals_dashboard',
     'grafana_plugin_build_info': 'plugin_build_info',
     'grafana_stat_total_teams': 'stat_total_teams',
@@ -121,7 +133,9 @@ gauge = {
     'grafana_live_node_build': 'live_node_build',
     'grafana_stat_failed_migrated_api_keys_to_sa_tokens': 'stat_failed_migrated_api_keys_to_sa_tokens',
     'grafana_live_node_num_channels': 'live_node_num_channels',
-    'grafana_alerting_ticker_last_consumed_tick_timestamp_seconds': 'alerting_ticker_last_consumed_tick_timestamp_seconds',
+    'grafana_alerting_ticker_last_consumed_tick_timestamp_seconds': (
+        'alerting_ticker_last_consumed_tick_timestamp_seconds'
+    ),
     'grafana_alerting_nflog_snapshot_size_bytes': 'alerting_nflog_snapshot_size_bytes',
     'grafana_plugin_target_info': 'plugin_target_info',
     'grafana_process_max_fds': 'process_max_fds',
@@ -171,16 +185,22 @@ histogram = {
     'grafana_http_request_duration_seconds': 'http_request_duration_seconds',
     'grafana_frontend_plugins_preload_ms': 'frontend_plugins_preload_ms',
     'grafana_alerting_schedule_periodic_duration_seconds': 'alerting_schedule_periodic_duration_seconds',
-    'grafana_apiserver_storage_data_key_generation_duration_seconds': 'apiserver_storage_data_key_generation_duration_seconds',
+    'grafana_apiserver_storage_data_key_generation_duration_seconds': (
+        'apiserver_storage_data_key_generation_duration_seconds'
+    ),
     'grafana_access_evaluation_duration': 'access_evaluation_duration',
     'grafana_live_node_pub_sub_lag_seconds': 'live_node_pub_sub_lag_seconds',
     'grafana_access_permissions_duration': 'access_permissions_duration',
     'grafana_database_all_migrations_duration_seconds': 'database_all_migrations_duration_seconds',
     'grafana_alerting_nflog_query_duration_seconds': 'alerting_nflog_query_duration_seconds',
     'grafana_alerting_silences_query_duration_seconds': 'alerting_silences_query_duration_seconds',
-    'grafana_alerting_schedule_query_alert_rules_duration_seconds': 'alerting_schedule_query_alert_rules_duration_seconds',
+    'grafana_alerting_schedule_query_alert_rules_duration_seconds': (
+        'alerting_schedule_query_alert_rules_duration_seconds'
+    ),
     'grafana_alerting_notification_latency_seconds': 'alerting_notification_latency_seconds',
-    'grafana_idforwarding_idforwarding_token_signing_duration_seconds': 'idforwarding_idforwarding_token_signing_duration_seconds',
+    'grafana_idforwarding_idforwarding_token_signing_duration_seconds': (
+        'idforwarding_idforwarding_token_signing_duration_seconds'
+    ),
     'grafana_apiserver_client_certificate_expiration_seconds': 'apiserver_client_certificate_expiration_seconds',
     'grafana_alerting_state_calculation_duration_seconds': 'alerting_state_calculation_duration_seconds',
     'grafana_frontend_boot_first_contentful_paint_time_seconds': 'frontend_boot_first_contentful_paint_time_seconds',
@@ -191,7 +211,9 @@ summary = {
     'grafana_api_dashboard_search_milliseconds': 'api_dashboard_search_milliseconds',
     'grafana_alerting_nflog_snapshot_duration_seconds': 'alerting_nflog_snapshot_duration_seconds',
     'grafana_alerting_execution_time_milliseconds': 'alerting_execution_time_milliseconds',
-    'grafana_alerting_dispatcher_alert_processing_duration_seconds': 'alerting_dispatcher_alert_processing_duration_seconds',
+    'grafana_alerting_dispatcher_alert_processing_duration_seconds': (
+        'alerting_dispatcher_alert_processing_duration_seconds'
+    ),
     'grafana_api_dashboard_get_milliseconds': 'api_dashboard_get_milliseconds',
     'grafana_ldap_users_sync_execution_time': 'ldap_users_sync_execution_time',
     'grafana_api_dashboard_save_milliseconds': 'api_dashboard_save_milliseconds',
