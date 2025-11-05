@@ -112,9 +112,9 @@ class ScamalyticsLogStream(LogStream):
             resp = requests.post(logs_url, headers=headers, json=payload, timeout=15)
             resp.raise_for_status()
             logs = resp.json().get("data", [])
-            check.log.info(f"SCAMALYTICS: fetched {len(logs)} logs from Datadog")
+            check.log.info("SCAMALYTICS: fetched %s logs from Datadog", len(logs))
         except Exception as e:
-            check.log.error(f"SCAMALYTICS: error fetching logs: {e}")
+            check.log.error("SCAMALYTICS: error fetching logs: %s", e)
             return
 
         ip_pattern = re.compile(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b")
@@ -142,18 +142,18 @@ class ScamalyticsLogStream(LogStream):
 
                 # 1) Fast local session cache check
                 if ip in self.session_recent_cache and self.session_recent_cache[ip] is True:
-                    check.log.debug(f"SCAMALYTICS: SKIP {ip} (session cache <{self.skip_window_hours}h)")
+                    check.log.debug("SCAMALYTICS: SKIP %s (session cache <%sh)", ip, self.skip_window_hours)
                     continue
 
                 # 2) Persistent cache check (authoritative)
                 if self._processed_recently_local(ip):
-                    check.log.info(f"SCAMALYTICS: SKIP {ip} (persistent cache <{self.skip_window_hours}h)")
+                    check.log.info("SCAMALYTICS: SKIP %s (persistent cache <%sh)", ip, self.skip_window_hours)
                     self.session_recent_cache[ip] = True
                     continue
 
                 # 3) Optional remote fallback (Datadog logs) to avoid early re-send if indexing is slow
                 if self._was_recently_processed_remote(ip):
-                    check.log.info(f"SCAMALYTICS: SKIP {ip} (remote logs <{self.skip_window_hours}h)")
+                    check.log.info("SCAMALYTICS: SKIP %s (remote logs <%sh)", ip, self.skip_window_hours)
                     self._update_local_cache(ip)  # persist locally for next run
                     self.session_recent_cache[ip] = True  # also cache in-memory for this run
                     continue
@@ -170,7 +170,7 @@ class ScamalyticsLogStream(LogStream):
                     scam_resp.raise_for_status()
                     scam_data = scam_resp.json()
                 except Exception as e:
-                    check.log.error(f"SCAMALYTICS: Scamalytics API error for {ip}: {e}")
+                    check.log.error("SCAMALYTICS: Scamalytics API error for %s: %s", ip, e)
                     continue
 
                 # Emit enriched record via crawler
@@ -212,7 +212,7 @@ class ScamalyticsLogStream(LogStream):
             else:
                 self.recent_cache = {}
         except Exception as e:
-            self.check.log.warning(f"SCAMALYTICS: failed to load persistent cache: {e}")
+            self.check.log.warning("SCAMALYTICS: failed to load persistent cache: %s", e)
             self.recent_cache = {}
 
     def _save_recent_cache(self) -> None:
@@ -220,7 +220,7 @@ class ScamalyticsLogStream(LogStream):
         try:
             self.check.write_persistent_cache(self.CACHE_KEY, json.dumps(self.recent_cache))
         except Exception as e:
-            self.check.log.warning(f"SCAMALYTICS: failed to save persistent cache: {e}")
+            self.check.log.warning("SCAMALYTICS: failed to save persistent cache: %s", e)
 
     def _update_local_cache(self, ip: str) -> None:
         """Mark IP as processed at current UTC time (aware, ISO8601 Z)."""
@@ -299,6 +299,6 @@ class ScamalyticsLogStream(LogStream):
                 self.session_recent_cache[ip] = True
             return found
         except Exception as e:
-            check.log.warning(f"SCAMALYTICS: remote recent-check failed for {ip}: {e}")
+            check.log.warning("SCAMALYTICS: remote recent-check failed for %s: %s", ip, e)
             # Fail open to avoid data loss (treat as not processed)
             return False
