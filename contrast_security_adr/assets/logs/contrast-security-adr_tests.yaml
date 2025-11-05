@@ -187,15 +187,69 @@ tests:
               className: "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter"
               type: "frameCommon"
               lineNumber: 227
+        contrast_adr:
+          incident_id: "INC-2025-c51"
+        date: "1760339848000"
         detectedTime: "1760339848000"
         environment: "production"
         eventUuid: "1678918a-103f-4030-a416-3b8766e47e19"
+        evt:
+          name: "sql-injection"
+          outcome: "exploited"
         host:
           hostname: "bb8989bc"
           isDocker: true
           operatingSystem: "Linux 6.10.14-linuxkit aarch64"
           runtimePath: "/opt/java/openjdk/bin/java"
           runtimeVersion: "OpenJDK Runtime Environment 17.0.14+7"
+        http:
+          method: "GET"
+          referer:
+            - "http://localhost:8080/customers/find"
+          request:
+            headers:
+              Cookie:
+                - "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
+              accept:
+                - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+              accept-encoding:
+                - "gzip, deflate, br, zstd"
+              accept-language:
+                - "en-GB,en-US;q=0.9,en;q=0.8"
+              connection:
+                - "keep-alive"
+              host:
+                - "localhost:8080"
+              referer:
+                - "http://localhost:8080/customers/find"
+              sec-ch-ua:
+                - '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"'
+              sec-ch-ua-mobile:
+                - "?0"
+              sec-ch-ua-platform:
+                - '"macOS"'
+              sec-fetch-dest:
+                - "document"
+              sec-fetch-mode:
+                - "navigate"
+              sec-fetch-site:
+                - "same-origin"
+              sec-fetch-user:
+                - "?1"
+              upgrade-insecure-requests:
+                - "1"
+              user-agent:
+                - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+          url_details:
+            host:
+              - "localhost:8080"
+            path:
+              path: "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19"
+            queryString: "lastName=contrast-redacted-name"
+            scheme: "http"
+          user-agent:
+            - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+          version: "1.1"
         incident_id: "INC-2025-c51"
         mitreTactics:
           - id: "TA0001"
@@ -216,6 +270,10 @@ tests:
             url: "https://attack.mitre.org/tactics/TA0009/"
           - id: "TA0010"
             url: "https://attack.mitre.org/tactics/TA0010/"
+        network:
+          host:
+            ip: "7.7.7.7.7.8"
+            name: "bb8989bc"
         organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511e"
         productName: "ContrastADR"
         request:
@@ -274,6 +332,7 @@ tests:
           vectorFields:
             query: "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
             ruleUuid: "sql-injection"
+        version: "6.14.0"
       message: |-
         {
           "severity" : "critical",
@@ -414,8 +473,10 @@ tests:
           "agentVersion" : "6.14.0",
           "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
         }
+      status: "critical"
       tags:
         - "source:LOGS_SOURCE"
+      timestamp: 1
   - sample: |-
       {
         "severity" : "Critical",
