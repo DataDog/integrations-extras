@@ -2,16 +2,15 @@
 
 ## Overview
 
-Grafana is a multi-platform open source analytics and interactive visualization web application. This check monitors [grafana][1] through the Datadog Agent.
+Grafana is a multi-platform open source analytics and interactive visualization web application. This check monitors [Grafana][1] through the Datadog Agent.
 
 ## Setup
 
 ### Installation
 
-To install the grafana check on your host:
+To install the Grafana check on your host:
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/python/)
  on any machine.
 
 2. Run `ddev release build grafana` to build the package.
@@ -24,7 +23,7 @@ To install the grafana check on your host:
 
 ### Configuration
 
-1. Enable the internal Grafana metrics via the [Grafana config file](https://github.com/grafana/grafana/blob/c98259f74a835429ed2db6cca2c64a3802ebc43f/conf/defaults.ini#L1747)
+1. Enable the internal Grafana metrics using the [Grafana config file](https://github.com/grafana/grafana/blob/c98259f74a835429ed2db6cca2c64a3802ebc43f/conf/defaults.ini#L1747)
 
     ```
     #################################### Internal Grafana Metrics ############
@@ -49,7 +48,7 @@ See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Events
 
-grafana does not include any events.
+The Grafana integration does not include any events.
 
 ## Troubleshooting
 
