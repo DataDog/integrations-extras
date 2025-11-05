@@ -299,6 +299,10 @@ coverage:
         target: 75
         flags:
         - go_pprof_scraper
+      grafana:
+        target: 75
+        flags:
+        - grafana
       hikaricp:
         target: 75
         flags:
@@ -442,6 +446,11 @@ flags:
     paths:
     - go_pprof_scraper/datadog_checks/go_pprof_scraper
     - go_pprof_scraper/tests
+  grafana:
+    carryforward: true
+    paths:
+    - grafana/datadog_checks/grafana
+    - grafana/tests
   grpc_check:
     carryforward: true
     paths:
