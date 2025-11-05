@@ -1,9 +1,9 @@
 import os
-
 import pytest
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.scamalytics import ScamalyticsCheck
+
 
 # =====================================================================
 #  UNIT TESTS
@@ -25,7 +25,7 @@ def test_config_validation():
 
     valid_instance = {
         'scamalytics_api_key': 'test_key',
-        'scamalytics_api_url': 'https://api11.scamalytics.com/tiprem/?ip=',
+        'scamalytics_api_url': 'https://api-ti-us.scamalytics.com/tiprem/?ip=',
         'customer_id': 'test_customer',
         'dd_api_key': 'test_dd_key',
         'dd_app_key': 'test_dd_app',
@@ -46,7 +46,7 @@ def test_is_public_ip():
         [
             {
                 'scamalytics_api_key': 'x',
-                'scamalytics_api_url': 'https://api11.scamalytics.com/tiprem/?ip=',
+                'scamalytics_api_url': 'https://api-ti-us.scamalytics.com/tiprem/?ip=',
                 'customer_id': 'x',
                 'dd_api_key': 'x',
                 'dd_app_key': 'x',
@@ -66,15 +66,16 @@ def test_is_public_ip():
 @pytest.mark.integration
 def test_scamalytics_api_end_to_end():
     """
-    Real integration test verifying that Scamalytics API and Datadog endpoints
-    are reachable and that the check() runs without unhandled exceptions.
+    Integration test verifying that Scamalytics crawler streams work end-to-end.
+    It runs the ScamalyticsLogStream and ensures records can be produced
+    without unhandled exceptions.
     """
 
     dd_api_key = os.getenv("DD_API_KEY")
     dd_app_key = os.getenv("DD_APP_KEY")
     scam_key = os.getenv("SCAM_API_KEY")
     customer_id = os.getenv("SCAM_CUSTOMER_ID")
-    scam_api_url = os.getenv("SCAM_API_URL", "https://api11.scamalytics.com/tiprem/?ip=")
+    scam_api_url = "https://api-ti-us.scamalytics.com/tiprem/?ip="
     dd_site = os.getenv("DD_SITE", "datadoghq.com")
 
     if not all([dd_api_key, dd_app_key, scam_key, customer_id]):
@@ -89,11 +90,17 @@ def test_scamalytics_api_end_to_end():
         "customer_id": customer_id,
     }
 
+    # Initialize the check and get its crawler stream
     check = ScamalyticsCheck("scamalytics", {}, [instance])
+    streams = check.get_log_streams()
+    assert streams, "No log streams returned by ScamalyticsCheck"
+
+    stream = streams[0]
 
     try:
-        check.check(instance)
+        records = list(stream.records())
     except Exception as e:
-        pytest.fail(f"Integration check raised unexpected error: {e}")
+        pytest.fail(f"Integration crawler raised unexpected error: {e}")
 
-    assert True, "Scamalytics integration check completed successfully"
+    assert isinstance(records, list)
+    assert all(hasattr(r, "data") for r in records)
