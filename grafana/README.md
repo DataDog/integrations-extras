@@ -1,4 +1,4 @@
-# Agent Check: grafana
+# Agent Check: Grafana
 
 ## Overview
 
