@@ -54,7 +54,7 @@ The Grafana integration does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://grafana.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/containers/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/grafana/datadog_checks/grafana/data/conf.yaml.example
