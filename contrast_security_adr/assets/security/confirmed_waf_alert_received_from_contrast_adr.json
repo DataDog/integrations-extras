@@ -1,6 +1,6 @@
 {
   "name": "Confirmed WAF alert received from Contrast ADR",
-  "partnerRuleId": "ext-009-py0",
+  "partnerRuleId": "ext-00g-gwc",
   "message": "### Summary:\nWAF Alert Confirmed {{@evt.outcome}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n\n#### sub-query/drill-down searches:\n      list of matching alerts and events from both sources for the same source ip, target ip address\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "createdAt": 1747814166967,
   "isDefault": false,
@@ -46,7 +46,9 @@
       "condition": "a > 0 && b > 0"
     }
   ],
-  "tags": [],
+  "tags": [
+    "source:contrast-security-adr"
+  ],
   "hasExtendedTitle": true,
   "type": "log_detection",
   "filters": [],
