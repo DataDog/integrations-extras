@@ -1,12 +1,14 @@
 import os
+
 import pytest
+
 from datadog_checks.base import ConfigurationError
 from datadog_checks.scamalytics import ScamalyticsCheck
-
 
 # =====================================================================
 #  UNIT TESTS
 # =====================================================================
+
 
 @pytest.mark.unit
 def test_config_validation():
@@ -38,13 +40,19 @@ def test_is_public_ip():
     """
     Verify internal logic for IP classification works correctly.
     """
-    check = ScamalyticsCheck('scamalytics', {}, [{
-        'scamalytics_api_key': 'x',
-        'scamalytics_api_url': 'https://api11.scamalytics.com/tiprem/?ip=',
-        'customer_id': 'x',
-        'dd_api_key': 'x',
-        'dd_app_key': 'x',
-    }])
+    check = ScamalyticsCheck(
+        'scamalytics',
+        {},
+        [
+            {
+                'scamalytics_api_key': 'x',
+                'scamalytics_api_url': 'https://api11.scamalytics.com/tiprem/?ip=',
+                'customer_id': 'x',
+                'dd_api_key': 'x',
+                'dd_app_key': 'x',
+            }
+        ],
+    )
 
     assert check._is_public_ip("8.8.8.8")
     assert not check._is_public_ip("192.168.1.5")
@@ -53,6 +61,7 @@ def test_is_public_ip():
 # =====================================================================
 #  INTEGRATION TEST
 # =====================================================================
+
 
 @pytest.mark.integration
 def test_scamalytics_api_end_to_end():
