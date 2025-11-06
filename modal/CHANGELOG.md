@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.5.0 / 2025-11-06
+
+***Added***:
+
+* Containers running metric
+
 ## 1.4.0 / 2025-09-21
 
 ***Added***:
