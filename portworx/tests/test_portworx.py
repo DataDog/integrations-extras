@@ -20,7 +20,7 @@ def test_check_all_metrics(aggregator):
     response = mock.MagicMock(
         status_code=200, headers={"Content-Type": "text/plain"}, iter_lines=lambda **kw: data.split("\n")
     )
-    with mock.patch("requests.get", return_value=response):
+    with mock.patch("requests.Session.get", return_value=response):
         check.check(instance)
 
     aggregator.assert_metric("portworx.cluster.cpu_percent", count=1, value=0.76)
