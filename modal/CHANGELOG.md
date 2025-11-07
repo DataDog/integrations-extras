@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Containers running metric
+* Container running metric
 
 ## 1.4.0 / 2025-09-21
 
