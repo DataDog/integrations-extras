@@ -14,7 +14,7 @@ def mock_requests():
     with open(os.path.join(HERE, 'fixtures', 'sample_stats.xml'), 'r') as f:
         mock_data = f.read()
 
-    with mock.patch('requests.get', return_value=mock.MagicMock(text=mock_data, status_code=200)):
+    with mock.patch('requests.Session.get', return_value=mock.MagicMock(text=mock_data, status_code=200)):
         yield
 
 

@@ -27,7 +27,7 @@ def mock_http_response():
         text_data = f.read()
     print(os.path.join(os.path.dirname(__file__), 'data', 'metrics.txt'))
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: text_data.split("\n"),
