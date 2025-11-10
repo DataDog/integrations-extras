@@ -28,6 +28,12 @@ instances:
     #
     organization: Example CloudsmithOrg1
 
+    ## @param enable_realtime_bandwidth - boolean - optional - default: false
+    ## Enable collection of realtime bandwidth interval metric `cloudsmith.bandwidth_bytes_interval`.
+    ## This performs periodic calls to the analytics time-series endpoint.
+    ## Leave disabled if you do not require minute-level bandwidth visibility.
+    enable_realtime_bandwidth: false
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
