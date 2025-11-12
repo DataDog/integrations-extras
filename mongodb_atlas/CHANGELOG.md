@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.2.1 / 2025-10-14
+
+***Changed***:
+
+* Updated metric query on the “MongoDB Atlas – Database, Collection, and Query Overview” dashboard to use sum instead of avg and added template variables
+
 ## 1.2.0 / 2025-09-10
 
 ***Changed***:

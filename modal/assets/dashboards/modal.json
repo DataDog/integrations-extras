@@ -329,6 +329,55 @@
           {
             "id": 1036879398910492,
             "definition": {
+              "title": "Running Containers",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:modal.container.running{*}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3780716629636881,
+            "definition": {
               "title": "Container Terminations",
               "title_size": "16",
               "title_align": "left",
@@ -368,8 +417,8 @@
               ]
             },
             "layout": {
-              "x": 8,
-              "y": 6,
+              "x": 0,
+              "y": 9,
               "width": 4,
               "height": 3
             }
@@ -380,7 +429,7 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 12
+        "height": 15
       }
     }
   ],
