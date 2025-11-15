@@ -1,0 +1,632 @@
+{
+  "title": "WatchTower Mainframe CPU Overview",
+  "description": "With WatchTower's Real-Time Streaming by Broadcom , you can stream the CPU contention and utilization of z/OS systems for visualization and monitoring in Datadog. Contention depicts whether processor capacity is sufficient for the workloads running and utilization  depicts the amount workloads being processed.",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About WatchTower z/IRIS",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "/api/v2/images/fcc9d753-dde5-4da1-accf-97f9d859e55f",
+              "url_dark_theme": "/api/v2/images/de83022c-2217-4caa-b086-0080f9992fc5",
+              "sizing": "scale-down",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "With WatchTower's Real-Time Streaming by Broadcom , you can stream the CPU contention and utilization of z/OS systems for visualization and monitoring in Datadog. Contention depicts whether processor capacity is sufficient for the workloads running and utilization  depicts the amount workloads being processed.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading: \n- [WatchTower OpenTelemetry CPU Metrics ](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html)  for a list of metrics related to processor activity, including their attributes use case.\n",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "CPU Contention",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4698654642100834,
+            "definition": {
+              "type": "note",
+              "content": "Percentage of time when at least one task might not be dispatched. IBM recommends that a value higher than 60% might indicate CPU contention.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 5851987014028899,
+            "definition": {
+              "title": "CPU Contention by LPAR",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "cpu_contention",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zos.cpu.in_ready_work_queue_contention{$host, $sysplex.name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": [
+                {
+                  "label": " contention alert marker ",
+                  "value": "y = 60",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6654455324255748,
+            "definition": {
+              "type": "note",
+              "content": "The last distribution of IBM SRM samples showing the range of  work units on the \"IN-READY\" queue based on the number of online logical processors. \nFor example \"Online Processors + 150 units  = 27%\" implies  27% of the SRM samples 150 work units were waiting for a logical processor.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 4774796308424365,
+            "definition": {
+              "title": "Last Distribution of Work Units in the  In-Ready Queue",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:zos.cpu.in_ready_work_queue_utilization{$host, $sysplex.name} by {cpu.waiting_work_unit}.fill(zero)",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "text_formats": [
+                    [
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "0"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 0 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "1"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 1 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "2"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 2 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "3"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 3 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "5"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 4 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "10"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 10 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "15"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 15 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "20"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 20 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "40"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 40 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "30"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 30 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "60"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 60 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "80"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 80 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "100"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 100 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "120"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 120 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "150"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + 150 units"
+                        }
+                      },
+                      {
+                        "match": {
+                          "type": "is",
+                          "value": "150_plus"
+                        },
+                        "replace": {
+                          "type": "all",
+                          "with": "Online Processors + >150 units"
+                        }
+                      }
+                    ]
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 8
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 14
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Utilization",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Percentage of the online time that the logical general processor core was dispatched by LPAR",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7775184560280790,
+            "definition": {
+              "title": "Avg Utilization of the General Processor per LPAR",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "General Processor",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zos.cpu.mvs.lpar.utilization{$processor.type, $host, $sysplex.name}.fill(null)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 439978152873595,
+            "definition": {
+              "type": "note",
+              "content": "Percentage of the online time that the logical zIIP core was dispatched by LPAR",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 6803442994563601,
+            "definition": {
+              "title": "Avg zIIP Utilization per LPAR",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Specialty Engine zIIP",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zos.cpu.mvs.utilization{cpu.type:ziip, $sysplex.name} by {service}.fill(null)",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 11
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "default": "*"
+    },
+    {
+      "name": "processor.type",
+      "prefix": "cpu.type",
+      "default": "*"
+    },
+    {
+      "name": "sysplex.name",
+      "prefix": "sysplex.name",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
