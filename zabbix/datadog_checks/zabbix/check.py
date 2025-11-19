@@ -29,8 +29,8 @@ class ZabbixCheck(AgentCheck):
     def login(self, zabbix_user, zabbix_pass, zabbix_api):
         self.log.debug("Logging in with params user=%s api=%s", zabbix_user, zabbix_api)
 
-        # Try both 'username' (Zabbix 5.4+) and 'user' (older versions) for backward compatibility
-        for user_param in ['username', 'user']:
+        # Try both 'user' (older versions) and 'username' (Zabbix 5.4+) for backward compatibility
+        for user_param in ['user', 'username']:
             req_data = json.dumps(
                 {
                     'jsonrpc': '2.0',
@@ -45,7 +45,7 @@ class ZabbixCheck(AgentCheck):
             if token:
                 return token
 
-            # Only retry with 'user' parameter if we got an invalid params error
+            # Only retry with 'username' parameter if we got an invalid params error
             error = response.get('error', {})
             if error.get('code') != -32602:
                 break
