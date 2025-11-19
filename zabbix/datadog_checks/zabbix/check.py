@@ -27,23 +27,32 @@ class ZabbixCheck(AgentCheck):
         return res.json()
 
     def login(self, zabbix_user, zabbix_pass, zabbix_api):
-        req_data = json.dumps(
-            {
-                'jsonrpc': '2.0',
-                'method': 'user.login',
-                'params': {'user': zabbix_user, 'password': zabbix_pass},
-                'id': 1,
-            }
-        )
         self.log.debug("Logging in with params user=%s api=%s", zabbix_user, zabbix_api)
 
-        response = self.request(zabbix_api, req_data)
-        token = response.get('result')
-        if token is None:
-            raise Exception(
-                'Unable to login with params user={} api={}: {}'.format(zabbix_user, zabbix_api, response.get('error'))
+        # Try both 'username' (Zabbix 5.4+) and 'user' (older versions) for backward compatibility
+        for user_param in ['username', 'user']:
+            req_data = json.dumps(
+                {
+                    'jsonrpc': '2.0',
+                    'method': 'user.login',
+                    'params': {user_param: zabbix_user, 'password': zabbix_pass},
+                    'id': 1,
+                }
             )
-        return token
+            response = self.request(zabbix_api, req_data)
+            token = response.get('result')
+
+            if token:
+                return token
+
+            # Only retry with 'user' parameter if we got an invalid params error
+            error = response.get('error', {})
+            if error.get('code') != -32602:
+                break
+
+        raise Exception(
+            'Unable to login with params user={} api={}: {}'.format(zabbix_user, zabbix_api, response.get('error'))
+        )
 
     def logout(self, token, zabbix_api):
         req_data = json.dumps({'jsonrpc': '2.0', 'method': 'user.logout', 'params': {}, 'auth': token, 'id': 1})
