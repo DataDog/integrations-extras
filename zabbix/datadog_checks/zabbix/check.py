@@ -11,6 +11,7 @@ class ZabbixCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(ZabbixCheck, self).__init__(name, init_config, instances)
         self.tags = self.instance.get('tags', [])
+        self._auth_user_param = None  # Cache for 'user' or 'username' parameter
 
     def request(self, zabbix_api, req_data):
         req_header = {
@@ -29,8 +30,11 @@ class ZabbixCheck(AgentCheck):
     def login(self, zabbix_user, zabbix_pass, zabbix_api):
         self.log.debug("Logging in with params user=%s api=%s", zabbix_user, zabbix_api)
 
+        # If we've already discovered which parameter works, use it directly
+        params_to_try = [self._auth_user_param] if self._auth_user_param else ['user', 'username']
+
         # Try both 'user' (older versions) and 'username' (Zabbix 5.4+) for backward compatibility
-        for user_param in ['user', 'username']:
+        for user_param in params_to_try:
             req_data = json.dumps(
                 {
                     'jsonrpc': '2.0',
@@ -43,6 +47,10 @@ class ZabbixCheck(AgentCheck):
             token = response.get('result')
 
             if token:
+                # Cache the successful parameter for future requests
+                if not self._auth_user_param:
+                    self._auth_user_param = user_param
+                    self.log.debug("Cached auth parameter: %s", user_param)
                 return token
 
             # Only retry with 'username' parameter if we got an invalid params error
