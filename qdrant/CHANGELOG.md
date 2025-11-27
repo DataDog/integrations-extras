@@ -2,13 +2,13 @@
 
 ## 1.2.0 / 2025-12-08
 
+***Changed***
+
+* Deprecated `qdrant.collection.hardware.metric.cpu` in favor of `qdrant.collection.hardware.metric.cpu.count`
+
 ***Added***
 
 * Added support for [new metrics](https://github.com/qdrant/qdrant/releases/tag/v1.16.0#:~:text=Metrics) introduced in Qdrant v1.16.0
-
-***Deprecated***
-
-* Deprecated `qdrant.collection.hardware.metric.cpu` in favor of `qdrant.collection.hardware.metric.cpu.count`
 
 ## 1.1.1 / 2025-10-17
 
@@ -18,12 +18,12 @@
 
 ## 1.1.0 / 2024-12-20
 
-***Added***:
+***Added***
 
 * Support for new Hardware/Memory metrics.
 
 ## 1.0.0 / 2024-08-10
 
-***Added***:
+***Added***
 
 * Initial Release
