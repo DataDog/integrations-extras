@@ -1,5 +1,15 @@
 # CHANGELOG - Qdrant
 
+## 1.2.0 / 2025-12-08
+
+***Added***
+
+* Added support for [new metrics](https://github.com/qdrant/qdrant/releases/tag/v1.16.0#:~:text=Metrics) introduced in Qdrant v1.16.0
+
+***Deprecated***
+
+* Deprecated `qdrant.collection.hardware.metric.cpu` in favor of `qdrant.collection.hardware.metric.cpu.count`
+
 ## 1.1.1 / 2025-10-17
 
 ***Added***
