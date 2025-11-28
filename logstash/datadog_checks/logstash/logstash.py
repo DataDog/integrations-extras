@@ -86,6 +86,12 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.events.filtered": ("gauge", "events.filtered"),
         "logstash.pipeline.reloads.successes": ("gauge", "reloads.successes"),
         "logstash.pipeline.reloads.failures": ("gauge", "reloads.failures"),
+        "logstash.pipeline.flow.worker_utilization": ("gauge", "flow.worker_utilization.current"),
+        "logstash.pipeline.flow.worker_concurrency": ("gauge", "flow.worker_concurrency.current"),
+        "logstash.pipeline.flow.queue_backpressure": ("gauge", "flow.queue_backpressure.current"),
+        "logstash.pipeline.workers": ("gauge", "pipeline.workers"),
+        "logstash.pipeline.batch_size": ("gauge", "pipeline.batch_size"),
+        "logstash.pipeline.batch_delay": ("gauge", "pipeline.batch_delay"),
     }
 
     PIPELINE_QUEUE_METRICS = {
@@ -108,12 +114,15 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.plugins.outputs.events.in": ("gauge", "events.in"),
         "logstash.pipeline.plugins.outputs.events.out": ("gauge", "events.out"),
         "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+        "logstash.pipeline.plugins.outputs.flow.worker_utilization": ("gauge", "flow.worker_utilization.current"),
     }
 
     PIPELINE_FILTERS_METRICS = {
         "logstash.pipeline.plugins.filters.events.in": ("gauge", "events.in"),
         "logstash.pipeline.plugins.filters.events.out": ("gauge", "events.out"),
         "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+        "logstash.pipeline.plugins.filters.flow.worker_utilization": ("gauge", "flow.worker_utilization.current"),
+
     }
 
     def get_instance_config(self, instance):
