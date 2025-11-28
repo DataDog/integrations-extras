@@ -43,7 +43,7 @@ def test_valid_check_ipv6(aggregator, instance_ipv6):
     check = PingCheck("ping", {}, {})
 
     with mock.patch.object(check, "_exec_ping", return_value={"status": "ok", "output": mock_exec_ping(), "error": ""}):
-        check.check(instance)
+        check.check(instance_ipv6)
     aggregator.assert_service_check("network.ping.can_connect", AgentCheck.OK)
     aggregator.assert_metric("network.ping.can_connect", value=1)
     aggregator.assert_all_metrics_covered()
