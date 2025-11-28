@@ -82,7 +82,8 @@ class PingCheck(AgentCheck):
         if retcode == 0:
             return {"status": "ok", "output": lines or ""}
 
-        # NEW: Detect name resolution / invalid address errors and raise exception even when retcode == 1. This is mainly intended for Windows environment
+        # NEW: Detect name resolution / invalid address errors and raise an exception
+        # even when retcode == 1. This is mainly intended for Windows environments.
         name_resolution_patterns = [
             "could not find host",
             "Name or service not known",
