@@ -75,15 +75,34 @@ class PingCheck(AgentCheck):
         )
         self.log.debug("ping returned %s - stdout=%r - stderr=%r", retcode, lines, err)
 
+        # Normalize text for error pattern matching
+        text = "{} {}".format(lines or "", err or "")
+
         # Return structured result instead of raising on retcode==1
         if retcode == 0:
             return {"status": "ok", "output": lines or ""}
+
+        # NEW: Detect name resolution / invalid address errors and raise exception even when retcode == 1. This is mainly intended for Windows environment
+        name_resolution_patterns = [
+            "could not find host",
+            "Name or service not known",
+            "Temporary failure in name resolution",
+            "unknown host",
+            "invalid numeric address",
+        ]
+
         if retcode == 1:
             # Treat unreachable / timeout as logical failure (no exception)
+            lowered = text.lower()
+            # Detect errors caused by invalid IP address etc.
+            if any(p.lower() in lowered for p in name_resolution_patterns):
+                raise CheckException("ping returned {}: {}".format(retcode, err or lines or "").strip())
+
             return {"status": "unreachable", "output": lines or "", "error": err or ""}
 
         # Other non-zero return codes indicate an execution error (name resolution, permissions, etc.)
-        raise CheckException("ping returned {}: {}".format(retcode, err))
+        raise CheckException("ping returned {}: {}".format(retcode, err or lines or "").strip())
+    
 
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
