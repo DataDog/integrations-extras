@@ -1,75 +1,77 @@
 import json
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+
 V6_METRIC_NAMES = [
-                            # Clients
-                            'pihole.clients.active',
-                            'pihole.clients.total',
-                            # Gravity
-                            'pihole.gravity.domains_being_blocked',
-                            'pihole.gravity.last_update',
-                            # Summary
-                            'pihole.queries.blocked',
-                            'pihole.queries.cached',
-                            'pihole.queries.forwarded',
-                            'pihole.queries.frequency',
-                            'pihole.queries.percent_blocked',
-                            'pihole.queries.total',
-                            'pihole.queries.unique_domains',
-                            'pihole.took',
-                            # Replies
-                            'pihole.queries.replies.BLOB',
-                            'pihole.queries.replies.CNAME',
-                            'pihole.queries.replies.DNSSEC',
-                            'pihole.queries.replies.DOMAIN',
-                            'pihole.queries.replies.IP',
-                            'pihole.queries.replies.NODATA',
-                            'pihole.queries.replies.NONE',
-                            'pihole.queries.replies.NOTIMP',
-                            'pihole.queries.replies.NXDOMAIN',
-                            'pihole.queries.replies.OTHER',
-                            'pihole.queries.replies.REFUSED',
-                            'pihole.queries.replies.RRNAME',
-                            'pihole.queries.replies.SERVFAIL',
-                            'pihole.queries.replies.UNKNOWN',
-                            # Status
-                            'pihole.queries.status.CACHE',
-                            'pihole.queries.status.CACHE_STALE',
-                            'pihole.queries.status.DBBUSY',
-                            'pihole.queries.status.DENYLIST',
-                            'pihole.queries.status.DENYLIST_CNAME',
-                            'pihole.queries.status.EXTERNAL_BLOCKED_EDE15',
-                            'pihole.queries.status.EXTERNAL_BLOCKED_IP',
-                            'pihole.queries.status.EXTERNAL_BLOCKED_NULL',
-                            'pihole.queries.status.EXTERNAL_BLOCKED_NXRA',
-                            'pihole.queries.status.FORWARDED',
-                            'pihole.queries.status.GRAVITY',
-                            'pihole.queries.status.GRAVITY_CNAME',
-                            'pihole.queries.status.IN_PROGRESS',
-                            'pihole.queries.status.REGEX',
-                            'pihole.queries.status.REGEX_CNAME',
-                            'pihole.queries.status.RETRIED',
-                            'pihole.queries.status.RETRIED_DNSSEC',
-                            'pihole.queries.status.SPECIAL_DOMAIN',
-                            'pihole.queries.status.UNKNOWN',
-                            # Types
-                            'pihole.queries.types.A',
-                            'pihole.queries.types.AAAA',
-                            'pihole.queries.types.ANY',
-                            'pihole.queries.types.DNSKEY',
-                            'pihole.queries.types.DS',
-                            'pihole.queries.types.HTTPS',
-                            'pihole.queries.types.MX',
-                            'pihole.queries.types.NAPTR',
-                            'pihole.queries.types.NS',
-                            'pihole.queries.types.OTHER',
-                            'pihole.queries.types.PTR',
-                            'pihole.queries.types.RRSIG',
-                            'pihole.queries.types.SOA',
-                            'pihole.queries.types.SRV',
-                            'pihole.queries.types.SVCB',
-                            'pihole.queries.types.TXT',
-                            ]
+    # Clients
+    'pihole.clients.active',
+    'pihole.clients.total',
+    # Gravity
+    'pihole.gravity.domains_being_blocked',
+    'pihole.gravity.last_update',
+    # Summary
+    'pihole.queries.blocked',
+    'pihole.queries.cached',
+    'pihole.queries.forwarded',
+    'pihole.queries.frequency',
+    'pihole.queries.percent_blocked',
+    'pihole.queries.total',
+    'pihole.queries.unique_domains',
+    'pihole.took',
+    # Replies
+    'pihole.queries.replies.BLOB',
+    'pihole.queries.replies.CNAME',
+    'pihole.queries.replies.DNSSEC',
+    'pihole.queries.replies.DOMAIN',
+    'pihole.queries.replies.IP',
+    'pihole.queries.replies.NODATA',
+    'pihole.queries.replies.NONE',
+    'pihole.queries.replies.NOTIMP',
+    'pihole.queries.replies.NXDOMAIN',
+    'pihole.queries.replies.OTHER',
+    'pihole.queries.replies.REFUSED',
+    'pihole.queries.replies.RRNAME',
+    'pihole.queries.replies.SERVFAIL',
+    'pihole.queries.replies.UNKNOWN',
+    # Status
+    'pihole.queries.status.CACHE',
+    'pihole.queries.status.CACHE_STALE',
+    'pihole.queries.status.DBBUSY',
+    'pihole.queries.status.DENYLIST',
+    'pihole.queries.status.DENYLIST_CNAME',
+    'pihole.queries.status.EXTERNAL_BLOCKED_EDE15',
+    'pihole.queries.status.EXTERNAL_BLOCKED_IP',
+    'pihole.queries.status.EXTERNAL_BLOCKED_NULL',
+    'pihole.queries.status.EXTERNAL_BLOCKED_NXRA',
+    'pihole.queries.status.FORWARDED',
+    'pihole.queries.status.GRAVITY',
+    'pihole.queries.status.GRAVITY_CNAME',
+    'pihole.queries.status.IN_PROGRESS',
+    'pihole.queries.status.REGEX',
+    'pihole.queries.status.REGEX_CNAME',
+    'pihole.queries.status.RETRIED',
+    'pihole.queries.status.RETRIED_DNSSEC',
+    'pihole.queries.status.SPECIAL_DOMAIN',
+    'pihole.queries.status.UNKNOWN',
+    # Types
+    'pihole.queries.types.A',
+    'pihole.queries.types.AAAA',
+    'pihole.queries.types.ANY',
+    'pihole.queries.types.DNSKEY',
+    'pihole.queries.types.DS',
+    'pihole.queries.types.HTTPS',
+    'pihole.queries.types.MX',
+    'pihole.queries.types.NAPTR',
+    'pihole.queries.types.NS',
+    'pihole.queries.types.OTHER',
+    'pihole.queries.types.PTR',
+    'pihole.queries.types.RRSIG',
+    'pihole.queries.types.SOA',
+    'pihole.queries.types.SRV',
+    'pihole.queries.types.SVCB',
+    'pihole.queries.types.TXT',
+]
+
 
 class PiholeCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
@@ -81,7 +83,6 @@ class PiholeCheck(AgentCheck):
         self.v5_pihole = self.instance.get('legacy_check')
         self.custom_tags = self.instance.get("tags", [])
         self.custom_tags.append("target_host:{}".format(self.host))
-            
 
     def _collect_response(self, url):
         response = self.http.get(url)
@@ -194,7 +195,7 @@ class PiholeCheck(AgentCheck):
             else:
                 items.append((new_key, v))
         return dict(items)
-    
+
     # Helper function to submit a single metric safely, verifying it is present in the collected output
     def submit_metrics(self, metric_name, metrics, custom_tags):
         value = metrics.get(metric_name)
@@ -243,7 +244,6 @@ class PiholeCheck(AgentCheck):
         else:
             self.service_check('pihole.running', self.CRITICAL)
             raise Exception('Unexpected response from server')
-
 
     def check(self, instance):
         if self.v5_pihole:
