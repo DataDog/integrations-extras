@@ -112,9 +112,9 @@ class PingCheck(AgentCheck):
 
         except CheckException as e:
             # Real execution error (e.g. missing binary, permission, DNS failure)
-            # The service check is marked CRITICAL, and the check itself raises an error.
+            # The service check is marked UNKNOWN, and the check itself raises an error.
             self.log.info("%s check error (%s)", host, e)
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, custom_tags, message=str(e))
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.UNKNOWN, custom_tags, message=str(e))
             self.gauge(self.SERVICE_CHECK_NAME, 0, custom_tags)
             raise
 
