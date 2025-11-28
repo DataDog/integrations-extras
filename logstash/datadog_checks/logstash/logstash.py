@@ -122,7 +122,6 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.plugins.filters.events.out": ("gauge", "events.out"),
         "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
         "logstash.pipeline.plugins.filters.flow.worker_utilization": ("gauge", "flow.worker_utilization.current"),
-
     }
 
     def get_instance_config(self, instance):
