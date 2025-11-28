@@ -102,7 +102,6 @@ class PingCheck(AgentCheck):
 
         # Other non-zero return codes indicate an execution error (name resolution, permissions, etc.)
         raise CheckException("ping returned {}: {}".format(retcode, err or lines or "").strip())
-    
 
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
