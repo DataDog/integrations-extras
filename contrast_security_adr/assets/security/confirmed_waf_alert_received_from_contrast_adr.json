@@ -1,7 +1,7 @@
 {
   "name": "Confirmed WAF alert received from Contrast ADR",
-  "partnerRuleId": "ext-00p-vp8",
-  "message": "### Summary:\nWAF Alert Confirmed {{@evt.outcome}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n\n#### sub-query/drill-down searches:\n      list of matching alerts and events from both sources for the same source ip, target ip address\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
+  "partnerRuleId": "ext-00p-qi7",
+  "message": "### Summary:\nWAF Alert Confirmed {{@result}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "createdAt": 1747814166967,
   "isDefault": false,
   "isPartner": false,
@@ -10,7 +10,7 @@
   "isDeprecated": false,
   "queries": [
     {
-      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR BLOCKED OR blocked) service:ContrastADR",
+      "query": "source:contrast-security-adr tags:attack_event @result:((EXPLOITED OR exploited) OR (BLOCKED OR blocked)) service:ContrastADR",
       "groupByFields": [
         "@sourceIp"
       ],
@@ -33,7 +33,7 @@
     }
   ],
   "options": {
-    "evaluationWindow": 900,
+    "evaluationWindow": 300,
     "detectionMethod": "threshold",
     "maxSignalDuration": 86400,
     "keepAlive": 3600
@@ -43,16 +43,16 @@
       "name": "Condition 1",
       "status": "info",
       "notifications": [],
-      "condition": "a > 0 && b > 0"
+      "condition": "b > 0 && a > 0 "
     }
   ],
   "tags": [],
   "hasExtendedTitle": true,
   "type": "log_detection",
   "filters": [],
-  "version": 16,
+  "version": 37,
   "id": "lrk-h3m-hto",
-  "updatedAt": 1758182774632,
+  "updatedAt": 1764678406973,
   "blocking": false,
   "metadata": {
     "entities": [],
@@ -62,13 +62,13 @@
     ]
   },
   "creationAuthorId": 22452697,
-  "updateAuthorId": 21357583,
+  "updateAuthorId": 64082222,
   "creator": {
     "handle": "pragati.gupta@contrastsecurity.com",
     "name": "Pragati Gupta"
   },
   "updater": {
-    "handle": "thibault.barillon@contrastsecurity.com",
-    "name": "Thibault Barillon"
+    "handle": "harsha.nagendra@contrastsecurity.com",
+    "name": "Harsha Nagendra"
   }
 }

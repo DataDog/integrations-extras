@@ -46,6 +46,11 @@ facets:
     name: Event Name
     path: evt.name
     source: log
+  - groups:
+      - Web Access
+    name: OS
+    path: http.useragent_details.os.family
+    source: log
   - description: ""
     facetType: list
     groups:
@@ -277,6 +282,16 @@ pipeline:
             - incident_id
           sourceType: attribute
           target: contrast_adr.incident_id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `host.operatingSystem` to `http.useragent_details.os.family`
+          enabled: true
+          sources:
+            - host.operatingSystem
+          sourceType: attribute
+          target: http.useragent_details.os.family
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false

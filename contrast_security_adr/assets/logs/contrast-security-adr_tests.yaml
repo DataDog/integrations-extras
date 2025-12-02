@@ -4,7 +4,7 @@ tests:
   sample: |-
     {
       "severity" : "critical",
-      "detectedTime" : "1760339848000",
+      "detectedTime" : "1764161753000",
       "server" : {
         "name" : "Petclinic-thib",
         "id" : "27958"
@@ -61,7 +61,7 @@ tests:
       "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
       "productName" : "ContrastADR",
       "url" : "/customers",
-      "result" : "exploited",
+      "result" : "BLOCKED",
       "environment" : "production",
       "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
       "incident_id" : "INC-2025-c51",
@@ -72,15 +72,6 @@ tests:
       }, {
         "id" : "TA0002",
         "url" : "https://attack.mitre.org/tactics/TA0002/"
-      }, {
-        "id" : "TA0003",
-        "url" : "https://attack.mitre.org/tactics/TA0003/"
-      }, {
-        "id" : "TA0004",
-        "url" : "https://attack.mitre.org/tactics/TA0004/"
-      }, {
-        "id" : "TA0005",
-        "url" : "https://attack.mitre.org/tactics/TA0005/"
       }, {
         "id" : "TA0006",
         "url" : "https://attack.mitre.org/tactics/TA0006/"
@@ -99,16 +90,16 @@ tests:
         "agentLanguage" : "java",
         "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
       },
-      "sourceIp" : "7.7.7.7.7.8",
+      "sourceIp" : "7.7.7.7.7.10",
       "codeLocation" : {
         "stack" : [ {
-          "fileName" : "HikariProxyStatement.java",
-          "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
-          "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
-          "methodName" : "executeQuery",
-          "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
-          "type" : "frameSink",
-          "lineNumber" : -1
+          "fileName" : "SecurityContextHolderAwareRequestFilter.java",
+          "shortSummary" : "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179",
+          "description" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 179
         }, {
           "fileName" : "ObservationFilterChainDecorator.java",
           "shortSummary" : "wrapFilter() @ ObservationFilterChainDecorator.java:240",
@@ -125,6 +116,14 @@ tests:
           "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
           "type" : "frameCommon",
           "lineNumber" : 227
+        }, {
+          "fileName" : "ObservationFilterChainDecorator.java",
+          "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:137",
+          "description" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+          "type" : "frameCommon",
+          "lineNumber" : 137
         } ],
         "file" : "HikariProxyStatement.java",
         "method" : "executeQuery()"
@@ -168,13 +167,13 @@ tests:
         method: "executeQuery()"
         stack:
          -
-          fileName: "HikariProxyStatement.java"
-          shortSummary: "executeQuery() @ HikariProxyStatement.java:-1"
-          description: "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)"
-          methodName: "executeQuery"
-          className: "com.zaxxer.hikari.pool.HikariProxyStatement"
-          type: "frameSink"
-          lineNumber: -1
+          fileName: "SecurityContextHolderAwareRequestFilter.java"
+          shortSummary: "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179"
+          description: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"
+          type: "frameCommon"
+          lineNumber: 179
          -
           fileName: "ObservationFilterChainDecorator.java"
           shortSummary: "wrapFilter() @ ObservationFilterChainDecorator.java:240"
@@ -191,7 +190,15 @@ tests:
           className: "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter"
           type: "frameCommon"
           lineNumber: 227
-      detectedTime: "1760339848000"
+         -
+          fileName: "ObservationFilterChainDecorator.java"
+          shortSummary: "doFilter() @ ObservationFilterChainDecorator.java:137"
+          description: "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain"
+          type: "frameCommon"
+          lineNumber: 137
+      detectedTime: "1764161753000"
       environment: "production"
       eventUuid: "1678918a-103f-4030-a416-3b8766e47e19"
       host:
@@ -208,15 +215,6 @@ tests:
        -
         id: "TA0002"
         url: "https://attack.mitre.org/tactics/TA0002/"
-       -
-        id: "TA0003"
-        url: "https://attack.mitre.org/tactics/TA0003/"
-       -
-        id: "TA0004"
-        url: "https://attack.mitre.org/tactics/TA0004/"
-       -
-        id: "TA0005"
-        url: "https://attack.mitre.org/tactics/TA0005/"
        -
         id: "TA0006"
         url: "https://attack.mitre.org/tactics/TA0006/"
@@ -272,14 +270,14 @@ tests:
         protocol: "http"
         protocolVersion: "1.1"
         queryString: "lastName=contrast-redacted-name"
-      result: "exploited"
+      result: "BLOCKED"
       rule: "sql-injection"
       ruleUuid: "ssjs-injection"
       server:
         id: "27958"
         name: "Petclinic-thib"
       severity: "critical"
-      sourceIp: "7.7.7.7.7.8"
+      sourceIp: "7.7.7.7.7.10"
       uiUrl: "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
       url: "/customers"
       vectorAnalysis:
@@ -290,7 +288,7 @@ tests:
     message: |-
       {
         "severity" : "critical",
-        "detectedTime" : "1760339848000",
+        "detectedTime" : "1764161753000",
         "server" : {
           "name" : "Petclinic-thib",
           "id" : "27958"
@@ -347,7 +345,7 @@ tests:
         "eventUuid" : "1678918a-103f-4030-a416-3b8766e47e19",
         "productName" : "ContrastADR",
         "url" : "/customers",
-        "result" : "exploited",
+        "result" : "BLOCKED",
         "environment" : "production",
         "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
         "incident_id" : "INC-2025-c51",
@@ -358,15 +356,6 @@ tests:
         }, {
           "id" : "TA0002",
           "url" : "https://attack.mitre.org/tactics/TA0002/"
-        }, {
-          "id" : "TA0003",
-          "url" : "https://attack.mitre.org/tactics/TA0003/"
-        }, {
-          "id" : "TA0004",
-          "url" : "https://attack.mitre.org/tactics/TA0004/"
-        }, {
-          "id" : "TA0005",
-          "url" : "https://attack.mitre.org/tactics/TA0005/"
         }, {
           "id" : "TA0006",
           "url" : "https://attack.mitre.org/tactics/TA0006/"
@@ -385,16 +374,16 @@ tests:
           "agentLanguage" : "java",
           "id" : "08f46d44-b7da-4978-b903-fcce249f457a"
         },
-        "sourceIp" : "7.7.7.7.7.8",
+        "sourceIp" : "7.7.7.7.7.10",
         "codeLocation" : {
           "stack" : [ {
-            "fileName" : "HikariProxyStatement.java",
-            "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
-            "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
-            "methodName" : "executeQuery",
-            "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
-            "type" : "frameSink",
-            "lineNumber" : -1
+            "fileName" : "SecurityContextHolderAwareRequestFilter.java",
+            "shortSummary" : "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179",
+            "description" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)",
+            "methodName" : "doFilter",
+            "className" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+            "type" : "frameCommon",
+            "lineNumber" : 179
           }, {
             "fileName" : "ObservationFilterChainDecorator.java",
             "shortSummary" : "wrapFilter() @ ObservationFilterChainDecorator.java:240",
@@ -411,6 +400,14 @@ tests:
             "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
             "type" : "frameCommon",
             "lineNumber" : 227
+          }, {
+            "fileName" : "ObservationFilterChainDecorator.java",
+            "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:137",
+            "description" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
+            "methodName" : "doFilter",
+            "className" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
+            "type" : "frameCommon",
+            "lineNumber" : 137
           } ],
           "file" : "HikariProxyStatement.java",
           "method" : "executeQuery()"
