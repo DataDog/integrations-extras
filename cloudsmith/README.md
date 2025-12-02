@@ -43,7 +43,6 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
        cloudsmith_api_key: <API-KEY>
        organization: <ORG-NAME>
        enable_realtime_bandwidth: true
-       realtime_metric_name: bandwidth.bytes
     ```
 
 2. [Restart the Agent][6].
