@@ -153,11 +153,11 @@ class CloudsmithCheck(AgentCheck):
     def parse_realtime_bandwidth(self, response_json):
         result = {"bandwidth_bytes_interval": None}
         if not response_json:
-            self.log.debug("Realtime bandwidth endpoint returned no payload; skipping " "update.")
+            self.log.debug("Realtime bandwidth endpoint returned no payload; skipping update.")
             return result
         results = response_json.get("results") or []
         if not results:
-            self.log.debug("Realtime bandwidth endpoint returned no results; skipping " "update.")
+            self.log.debug("Realtime bandwidth endpoint returned no results; skipping update.")
             return result
         series = results[0]
         timestamps = series.get("timestamps") or []
