@@ -18,4 +18,4 @@
 
 ***Added***:
 
-* Versioning existing release.
+* Initial Release
