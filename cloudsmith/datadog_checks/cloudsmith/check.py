@@ -136,7 +136,11 @@ class CloudsmithCheck(AgentCheck):
             start_dt = datetime.utcnow() - timedelta(minutes=self._RT_LOOKBACK_MINUTES)
         start_str = start_dt.strftime("%Y-%m-%d+%H:%M")
         aggregate = self._RT_AGGREGATE
-        return self.build_analytics_base() + f"?interval={interval}&aggregate={aggregate}&start_time={start_str}"
+        return (
+            self.build_analytics_base()
+            + f"?interval={interval}&aggregate={aggregate}"
+            + f"&start_time={start_str}&http_status=<400"
+        )
 
     def get_realtime_bandwidth_info(self):
         url = self.build_analytics_url()
