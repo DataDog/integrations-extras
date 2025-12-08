@@ -7,7 +7,7 @@ from datadog_checks.dev import docker_run, get_here
 
 HOST = 'localhost:8888/pass'
 URL = 'http://localhost:8888/pass/admin/api.php'
-INSTANCE = {'host': HOST, 'legacy_check': True, 'web_password': 'test'}
+INSTANCE = {'host': HOST, 'web_password': 'test'}
 
 
 V6_HOST = 'localhost:8888'

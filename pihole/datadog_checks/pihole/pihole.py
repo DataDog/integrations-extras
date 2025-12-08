@@ -246,7 +246,9 @@ class PiholeCheck(AgentCheck):
             raise Exception('Unexpected response from server')
 
     def check(self, instance):
-        if self.v5_pihole:
-            self._legacy_check(self.host, self.custom_tags)
-        else:
+        if self.v5_pihole == False:
             self._v6_check(self.host, self.web_password, self.custom_tags)
+            
+        else:
+            self._legacy_check(self.host, self.custom_tags)
+            
