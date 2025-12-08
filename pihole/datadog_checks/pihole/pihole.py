@@ -80,7 +80,7 @@ class PiholeCheck(AgentCheck):
         if not self.host:  # Check if a host parameter exists in conf.yaml
             raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
         self.web_password = self.instance.get('web_password')
-        self.v5_pihole = self.instance.get('legacy_check')
+        self.v6_check = self.instance.get('v6_check')
         self.custom_tags = self.instance.get("tags", [])
         self.custom_tags.append("target_host:{}".format(self.host))
 
@@ -246,9 +246,7 @@ class PiholeCheck(AgentCheck):
             raise Exception('Unexpected response from server')
 
     def check(self, instance):
-        if self.v5_pihole == False:
+        if self.v6_check:
             self._v6_check(self.host, self.web_password, self.custom_tags)
-            
         else:
             self._legacy_check(self.host, self.custom_tags)
-            

@@ -12,7 +12,7 @@ INSTANCE = {'host': HOST, 'web_password': 'test'}
 
 V6_HOST = 'localhost:8888'
 V6_URL = 'http://localhost:8888/api/auth'
-V6_INSTANCE = {'host': V6_HOST, 'legacy_check': False, 'web_password': 'test'}
+V6_INSTANCE = {'host': V6_HOST, 'v6_check': True, 'web_password': 'test'}
 
 
 @pytest.fixture(scope='session')
