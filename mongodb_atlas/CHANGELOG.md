@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.2.2 / 2025-12-05
+
+***Changed***:
+
+* Updated mongodb.atlas.system.memory.* metrics to have units=kilobytes
+
 ## 1.2.1 / 2025-10-14
 
 ***Changed***:
