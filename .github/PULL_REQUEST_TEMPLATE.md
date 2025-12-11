@@ -1,11 +1,19 @@
 ### What does this PR do?
-<!-- A brief description of the change being made with this pull request. -->
+
+A brief description of the change being made with this pull request.
 
 ### Motivation
-<!-- What inspired you to submit this pull request? -->
 
-### Review checklist (to be filled by reviewers)
+What inspired you to submit this pull request?
 
-- [ ] Feature or bugfix MUST have appropriate tests (unit, integration, e2e)
-- [ ] Add the `qa/skip-qa` label if the PR doesn't need to be tested during QA.
-- [ ] If you need to backport this PR to another branch, you can add the `backport/<branch-name>` label to the PR and it will automatically open a backport PR once this one is merged
+### Review checklist
+
+- [ ] PR has a [meaningful title](https://github.com/DataDog/integrations-core/blob/master/CONTRIBUTING.md#pull-request-title) or PR has the `no-changelog` label attached
+- [ ] Feature or bugfix has tests
+- [ ] Git history is clean
+- [ ] If PR impacts documentation, docs team has been notified or an issue has been opened on the [documentation repo](https://github.com/DataDog/documentation/issues/new)
+- [ ] If this PR includes a log pipeline, please add a description describing the remappers and processors. 
+
+### Additional Notes
+
+Anything else we should know when reviewing?

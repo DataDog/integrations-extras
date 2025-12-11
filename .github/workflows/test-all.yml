@@ -6,20 +6,11 @@ on:
       repo:
         required: true
         type: string
-
       python-version:
         required: false
-        default: ""
+        default: "3.13"
         type: string
-      standard:
-        required: false
-        default: false
-        type: boolean
       latest:
-        required: false
-        default: false
-        type: boolean
-      minimum-base-package:
         required: false
         default: false
         type: boolean
@@ -33,40 +24,31 @@ on:
         type: boolean
       agent-image:
         required: false
-        default: "datadog/agent-dev:master-py3"
+        default: ""
         type: string
       agent-image-py2:
         required: false
-        default: "datadog/agent-dev:master-py2"
+        default: ""
         type: string
       agent-image-windows:
         required: false
-        default: "datadog/agent-dev:master-py3-win-servercore"
+        default: ""
         type: string
       agent-image-windows-py2:
         required: false
-        default: "datadog/agent-dev:master-py2-win-servercore"
-        type: string
-      pytest-args:
-        description: "Arguments to pass to pytest"
-        required: false
-        type: string
         default: ""
-      skip-ddev-tests:
+        type: string
+      setup-env-vars:
         required: false
-        default: false
-        type: boolean
-      context:
-        required: false
-        default: "standard"
+        default: ""
         type: string
 
 jobs:
-  jd316aba:
-    uses: ./.github/workflows/test-target.yml
+  j785d2c9:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ddev on Linux
-      target: ddev
+      job-name: aerospike_enterprise
+      target: aerospike_enterprise
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -79,15 +61,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-    if: ${{ inputs.skip-ddev-tests == false }}
-  jb232c8c:
-    uses: ./.github/workflows/test-target.yml
+  j7a4721a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Datadog Checks Base on Linux
-      target: datadog_checks_base
+      job-name: Aqua
+      target: aqua
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -100,14 +80,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j77217e9:
-    uses: ./.github/workflows/test-target.yml
+  j68e2604:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Datadog Checks Dev on Linux
-      target: datadog_checks_dev
+      job-name: AWS Pricing
+      target: aws_pricing
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -120,14 +99,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j8cdb65b:
-    uses: ./.github/workflows/test-target.yml
+  jd342fce:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Datadog Checks Downloader on Linux
-      target: datadog_checks_downloader
+      job-name: BIND 9
+      target: bind9
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -140,14 +118,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j02a4c95:
-    uses: ./.github/workflows/test-target.yml
+  j9eb5f31:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ActiveMQ
-      target: activemq
+      job-name: celerdata
+      target: celerdata
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -160,14 +137,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jb4c5802:
-    uses: ./.github/workflows/test-target.yml
+  jcb3c31b:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ActiveMQ XML
-      target: activemq_xml
+      job-name: cfssl
+      target: cfssl
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -180,14 +156,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jce7999e:
-    uses: ./.github/workflows/test-target.yml
+  j6a8ad70:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Aerospike
-      target: aerospike
+      job-name: CloudNatix
+      target: cloudnatix
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -200,14 +175,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jd58222c:
-    uses: ./.github/workflows/test-target.yml
+  ja2364fe:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Airflow
-      target: airflow
+      job-name: Cloudsmith
+      target: cloudsmith
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -220,14 +194,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jaaddf5e:
-    uses: ./.github/workflows/test-target.yml
+  ja669dc6:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Amazon Kafka
-      target: amazon_msk
+      job-name: cybersixgill_actionable_alerts
+      target: cybersixgill_actionable_alerts
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -240,14 +213,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j9c53fc8:
-    uses: ./.github/workflows/test-target.yml
+  j3263e78:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Ambari
-      target: ambari
+      job-name: Cyral
+      target: cyral
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -260,14 +232,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j87ec402:
-    uses: ./.github/workflows/test-target.yml
+  jfe56917:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Apache
-      target: apache
+      job-name: emqx
+      target: emqx
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -280,14 +251,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j89811be:
-    uses: ./.github/workflows/test-target.yml
+  j8c2c004:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Appgate SDP
-      target: appgate_sdp
+      job-name: Eventstore
+      target: eventstore
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -300,14 +270,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jacbd843:
-    uses: ./.github/workflows/test-target.yml
+  jbb3d7c9:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ArangoDB
-      target: arangodb
+      job-name: exim
+      target: exim
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -320,14 +289,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j3650884:
-    uses: ./.github/workflows/test-target.yml
+  j0180cad:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Argo Rollouts
-      target: argo_rollouts
+      job-name: fiddler
+      target: fiddler
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -340,14 +308,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j14e797c:
-    uses: ./.github/workflows/test-target.yml
+  jec10af8:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Argo Workflows
-      target: argo_workflows
+      job-name: Filebeat
+      target: filebeat
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -360,14 +327,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j92d42de:
-    uses: ./.github/workflows/test-target.yml
+  j77495f2:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ArgoCD
-      target: argocd
+      job-name: filemage
+      target: filemage
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -380,14 +346,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j924327f:
-    uses: ./.github/workflows/test-target.yml
+  jd678fea:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Avi Vantage
-      target: avi_vantage
+      job-name: Fluent Bit
+      target: fluentbit
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -400,14 +365,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jeb3e097:
-    uses: ./.github/workflows/test-target.yml
+  jb8cf774:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: AWS Neuron
-      target: aws_neuron
+      job-name: flume
+      target: flume
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -420,14 +384,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j8d83b0b:
-    uses: ./.github/workflows/test-target.yml
+  jb4053fb:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Azure IoT Edge
-      target: azure_iot_edge
+      job-name: Gatekeeper
+      target: gatekeeper
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -440,14 +403,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j5a8a3b3:
-    uses: ./.github/workflows/test-target.yml
+  j94cb576:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: BentoML
-      target: bentoml
+      job-name: Gitea
+      target: gitea
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -460,14 +422,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jfcf4b1a:
-    uses: ./.github/workflows/test-target.yml
+  jdb917e1:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Boundary
-      target: boundary
+      job-name: Gnatsd
+      target: gnatsd
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -480,14 +441,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j2883ff0:
-    uses: ./.github/workflows/test-target.yml
+  j5bcfa2e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Btrfs
-      target: btrfs
+      job-name: Gnatsd Streaming
+      target: gnatsd_streaming
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -500,14 +460,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j481d7ae:
-    uses: ./.github/workflows/test-target.yml
+  jdb696b5:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cacti
-      target: cacti
+      job-name: go_pprof_scraper
+      target: go_pprof_scraper
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -520,14 +479,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j47ac8c7:
-    uses: ./.github/workflows/test-target.yml
+  jb27a2a4:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Calico
-      target: calico
+      job-name: gRPC Check
+      target: grpc_check
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -540,14 +498,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  je3297e4:
-    uses: ./.github/workflows/test-target.yml
+  j2eba458:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cassandra
-      target: cassandra
+      job-name: hikaricp
+      target: hikaricp
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -560,14 +517,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jf75679d:
-    uses: ./.github/workflows/test-target.yml
+  j43aee0d:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cassandra Nodetool
-      target: cassandra_nodetool
+      job-name: Kepler
+      target: kepler
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -580,14 +536,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j17d78bd:
-    uses: ./.github/workflows/test-target.yml
+  ja3e78b9:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Celery
-      target: celery
+      job-name: Kernelcare
+      target: kernelcare
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -600,14 +555,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jdffb064:
-    uses: ./.github/workflows/test-target.yml
+  j68bd571:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Ceph
-      target: ceph
+      job-name: Lighthouse
+      target: lighthouse
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -620,14 +574,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  je6bb20d:
-    uses: ./.github/workflows/test-target.yml
+  j41ca94d:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: cert-manager
-      target: cert_manager
+      job-name: Logstash
+      target: logstash
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -640,14 +593,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jeb29398:
-    uses: ./.github/workflows/test-target.yml
+  j1d16977:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cilium
-      target: cilium
+      job-name: Mergify
+      target: mergify
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -660,14 +612,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j3de8d1a:
-    uses: ./.github/workflows/test-target.yml
+  j981d202:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cisco ACI
-      target: cisco_aci
+      job-name: Neo4j
+      target: neo4j
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -680,14 +631,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jafd4d40:
-    uses: ./.github/workflows/test-target.yml
+  jf1d4aee:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Citrix Hypervisor
-      target: citrix_hypervisor
+      job-name: Neutrona
+      target: neutrona
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -700,14 +650,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jdee91dd:
-    uses: ./.github/workflows/test-target.yml
+  j337128a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ClickHouse
-      target: clickhouse
+      job-name: Nextcloud
+      target: nextcloud
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -720,14 +669,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j4131274:
-    uses: ./.github/workflows/test-target.yml
+  j581723e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cloud Foundry API
-      target: cloud_foundry_api
+      job-name: Netnology SD-WAN
+      target: nn_sdwan
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -740,14 +688,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j26f9a18:
-    uses: ./.github/workflows/test-target.yml
+  j61be2af:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Cloudera
-      target: cloudera
+      job-name: NS1
+      target: ns1
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -760,14 +707,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j7faf392:
-    uses: ./.github/workflows/test-target.yml
+  je41f6a9:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: CockroachDB
-      target: cockroachdb
+      job-name: nvml
+      target: nvml
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -780,14 +726,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j89ec795:
-    uses: ./.github/workflows/test-target.yml
+  j1018635:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Confluent Platform
-      target: confluent_platform
+      job-name: Ocient
+      target: ocient
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -800,14 +745,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j13a53db:
-    uses: ./.github/workflows/test-target.yml
+  je2bd36a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Consul
-      target: consul
+      job-name: OctoPrint
+      target: octoprint
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -820,14 +764,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jb67436a:
-    uses: ./.github/workflows/test-target.yml
+  jdcde1e7:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: CoreDNS
-      target: coredns
+      job-name: open_policy_agent
+      target: open_policy_agent
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -840,14 +783,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j483e815:
-    uses: ./.github/workflows/test-target.yml
+  jdcd599a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: CouchDB
-      target: couch
+      job-name: PHP APCu
+      target: php_apcu
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -860,14 +802,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j1e84c35:
-    uses: ./.github/workflows/test-target.yml
+  jf9ca17e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Couchbase
-      target: couchbase
+      job-name: PHP OPcache
+      target: php_opcache
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -880,14 +821,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  ja3692a6:
-    uses: ./.github/workflows/test-target.yml
+  j7220ce3:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: CRI-O
-      target: crio
+      job-name: pihole
+      target: pihole
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -900,14 +840,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j2d21154:
-    uses: ./.github/workflows/test-target.yml
+  j6a4c3a4:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Datadog Cluster Agent
-      target: datadog_cluster_agent
+      job-name: Ping
+      target: ping
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -920,14 +859,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j58cf93c:
-    uses: ./.github/workflows/test-target.yml
+  jdb59cb8:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: datadog_csi_driver
-      target: datadog_csi_driver
+      job-name: Portworx
+      target: portworx
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -940,14 +878,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j69f9754:
-    uses: ./.github/workflows/test-target.yml
+  j831ad4c:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: dcgm
-      target: dcgm
+      job-name: Puma
+      target: puma
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -960,14 +897,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jc8f84c3:
-    uses: ./.github/workflows/test-target.yml
+  j689e0be:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Directory
-      target: directory
+      job-name: PureFA
+      target: purefa
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -980,14 +916,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j4b2fe2b:
-    uses: ./.github/workflows/test-target.yml
+  ja269254:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Disk on Linux
-      target: disk
+      job-name: PureFB
+      target: purefb
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1000,14 +935,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j3e27604:
-    uses: ./.github/workflows/test-target.yml
+  ja7891bb:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: DNS on Linux
-      target: dns_check
+      job-name: Qdrant
+      target: qdrant
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1020,14 +954,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j274814f:
-    uses: ./.github/workflows/test-target.yml
+  jd4cdbe0:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Druid
-      target: druid
+      job-name: Radarr
+      target: radarr
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1040,14 +973,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j9eb6aa6:
-    uses: ./.github/workflows/test-target.yml
+  j473bdb7:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: DuckDB
-      target: duckdb
+      job-name: Reboot Required
+      target: reboot_required
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1060,14 +992,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j562bfe5:
-    uses: ./.github/workflows/test-target.yml
+  jacbd216:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Amazon ECS Fargate
-      target: ecs_fargate
+      job-name: Redis Cloud
+      target: redis_cloud
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1080,14 +1011,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j72f26c1:
-    uses: ./.github/workflows/test-target.yml
+  j9989d64:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: EKS Fargate
-      target: eks_fargate
+      job-name: Redis Enterprise V2
+      target: redis_enterprise
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1100,14 +1030,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j31c819b:
-    uses: ./.github/workflows/test-target.yml
+  jd9748f1:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Elasticsearch
-      target: elastic
+      job-name: Redis Enterprise Prometheus
+      target: redis_enterprise_prometheus
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1120,14 +1049,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j93163a5:
-    uses: ./.github/workflows/test-target.yml
+  ja8f7203:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Envoy
-      target: envoy
+      job-name: Redis Sentinel
+      target: redis_sentinel
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1140,14 +1068,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jc4fef15:
-    uses: ./.github/workflows/test-target.yml
+  ja156788:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: ESXi
-      target: esxi
+      job-name: Redis Enterprise
+      target: redisenterprise
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1160,14 +1087,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jc38cbd9:
-    uses: ./.github/workflows/test-target.yml
+  jce0dc1a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: etcd
-      target: etcd
+      job-name: Redpanda
+      target: redpanda
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1180,14 +1106,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j1856b23:
-    uses: ./.github/workflows/test-target.yml
+  j09df637:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: External DNS
-      target: external_dns
+      job-name: Resilience4j
+      target: resilience4j
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1200,14 +1125,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j6e7cb83:
-    uses: ./.github/workflows/test-target.yml
+  jc5ec7c0:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Falco
-      target: falco
+      job-name: Resin
+      target: resin
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1220,14 +1144,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j4f2c848:
-    uses: ./.github/workflows/test-target.yml
+  j4accb07:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Fluentd
-      target: fluentd
+      job-name: Riak MDC Replication
+      target: riak_repl
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1240,14 +1163,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j6134697:
-    uses: ./.github/workflows/test-target.yml
+  jfcdbb05:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: fluxcd
-      target: fluxcd
+      job-name: Robust Intelligence AI Firewall
+      target: robust_intelligence_ai_firewall
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1260,14 +1182,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j5018b0d:
-    uses: ./.github/workflows/test-target.yml
+  jf772a8e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Fly.io
-      target: fly_io
+      job-name: Scalr
+      target: scalr
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1280,14 +1201,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jc364450:
-    uses: ./.github/workflows/test-target.yml
+  ja91188c:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: FoundationDB
-      target: foundationdb
+      job-name: Scaphandre
+      target: scaphandre
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1300,14 +1220,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j3becdbc:
-    uses: ./.github/workflows/test-target.yml
+  jf44ab67:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Gearman
-      target: gearmand
+      job-name: Sendmail
+      target: sendmail
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1320,14 +1239,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j4ea3f09:
-    uses: ./.github/workflows/test-target.yml
+  j190d837:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Gitlab
-      target: gitlab
+      job-name: snmpwalk
+      target: snmpwalk
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1340,14 +1258,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j563739d:
-    uses: ./.github/workflows/test-target.yml
+  jcdba2ca:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Gitlab Runner
-      target: gitlab_runner
+      job-name: Sonarr
+      target: sonarr
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1360,14 +1277,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j16f5513:
-    uses: ./.github/workflows/test-target.yml
+  j011590d:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: GlusterFS
-      target: glusterfs
+      job-name: Sortdb
+      target: sortdb
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1380,14 +1296,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j3399e09:
-    uses: ./.github/workflows/test-target.yml
+  jfc3e971:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Go Expvar
-      target: go_expvar
+      job-name: speedtest
+      target: speedtest
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1400,14 +1315,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j1fede0e:
-    uses: ./.github/workflows/test-target.yml
+  je0445d5:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Gunicorn
-      target: gunicorn
+      job-name: Stardog
+      target: stardog
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1420,14 +1334,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j5979923:
-    uses: ./.github/workflows/test-target.yml
+  j5870f9b:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: HAProxy
-      target: haproxy
+      job-name: Storm
+      target: storm
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1440,14 +1353,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j8a8c654:
-    uses: ./.github/workflows/test-target.yml
+  j9744de5:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Harbor
-      target: harbor
+      job-name: Syncthing
+      target: syncthing
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1460,14 +1372,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j9cb9f66:
-    uses: ./.github/workflows/test-target.yml
+  j0c2f158:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Hazelcast
-      target: hazelcast
+      job-name: TiDB
+      target: tidb
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1480,14 +1391,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j240a78b:
-    uses: ./.github/workflows/test-target.yml
+  jd73ec80:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: HDFS Datanode
-      target: hdfs_datanode
+      job-name: Trino
+      target: trino
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1500,14 +1410,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j00a0dd6:
-    uses: ./.github/workflows/test-target.yml
+  j6c9fa4e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: HDFS Namenode
-      target: hdfs_namenode
+      job-name: Unbound
+      target: unbound
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1520,14 +1429,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jaf48338:
-    uses: ./.github/workflows/test-target.yml
+  ja76fbf3:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Hive
-      target: hive
+      job-name: Unifi Console
+      target: unifi_console
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1540,14 +1448,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  je66898a:
-    uses: ./.github/workflows/test-target.yml
+  jfe85d2e:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: HiveMQ
-      target: hivemq
+      job-name: Upbound UXP
+      target: upbound_uxp
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1560,14 +1467,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j56d6f32:
-    uses: ./.github/workflows/test-target.yml
+  j4041974:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: HTTP
-      target: http_check
+      job-name: UPSC
+      target: upsc
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1580,14 +1486,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j95a2b08:
-    uses: ./.github/workflows/test-target.yml
+  j8fcdf27:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Hudi
-      target: hudi
+      job-name: Vespa
+      target: vespa
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1600,14 +1505,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jc3781e1:
-    uses: ./.github/workflows/test-target.yml
+  je48051a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: Hugging Face TGI
-      target: hugging_face_tgi
+      job-name: warpstream
+      target: warpstream
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1620,14 +1524,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j5a9585a:
-    uses: ./.github/workflows/test-target.yml
+  jf287d93:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: IBM ACE
-      target: ibm_ace
+      job-name: wayfinder
+      target: wayfinder
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1640,14 +1543,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j60f59ae:
-    uses: ./.github/workflows/test-target.yml
+  ja67c5ea:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: IBM Db2
-      target: ibm_db2
+      job-name: Zabbix
+      target: zabbix
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1660,14 +1562,13 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j9accedb:
-    uses: ./.github/workflows/test-target.yml
+  j7f4936a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
-      job-name: IBM i
-      target: ibm_i
+      job-name: Zenoh router
+      target: zenoh_router
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
@@ -1680,2484 +1581,5 @@ jobs:
       agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
       test-py2: ${{ inputs.test-py2 }}
       test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf4d06ee:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: IBM MQ on Linux
-      target: ibm_mq
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j440815a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: IBM WAS
-      target: ibm_was
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j0676988:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Ignite
-      target: ignite
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j5dc7466:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Impala
-      target: impala
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf082b3f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Infiniband
-      target: infiniband
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j0c16521:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Istio
-      target: istio
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j46da136:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: JBoss_WildFly
-      target: jboss_wildfly
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  je4a5f92:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kafka
-      target: kafka
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jeaad214:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kafka Consumer
-      target: kafka_consumer
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j77f29c1:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Karpenter
-      target: karpenter
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j2cb7ef0:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Keda
-      target: keda
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jaee58c5:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kong
-      target: kong
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja001417:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: KrakenD
-      target: krakend
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j92491f1:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubernetes API server metrics
-      target: kube_apiserver_metrics
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j1ce0516:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubernetes Controller Manager
-      target: kube_controller_manager
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j19a1b27:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kube DNS
-      target: kube_dns
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jd1817b8:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kube metrics server
-      target: kube_metrics_server
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j5a98c4e:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kube Proxy
-      target: kube_proxy
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jeebd4ae:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubernetes Scheduler
-      target: kube_scheduler
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j89c297c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubeflow
-      target: kubeflow
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j24a5cff:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubelet
-      target: kubelet
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j045310a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubernetes Cluster Autoscaler
-      target: kubernetes_cluster_autoscaler
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jba841f0:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kubernetes State
-      target: kubernetes_state
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jb0447e6:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: KubeVirt API
-      target: kubevirt_api
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jc4c1032:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: KubeVirt Controller
-      target: kubevirt_controller
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j4f368cf:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: KubeVirt Handler
-      target: kubevirt_handler
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j739f9be:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kuma
-      target: kuma
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j61e565f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Kyoto Tycoon
-      target: kyototycoon
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j6900ead:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: kyverno
-      target: kyverno
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j1c6adb2:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Lighttpd
-      target: lighttpd
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j8b3b099:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Linkerd
-      target: linkerd
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j29dcd3a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Linux proc extras
-      target: linux_proc_extras
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j3d7d527:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: LiteLLM
-      target: litellm
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  je63e92c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Lustre
-      target: lustre
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jc1b3d1e:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Mac Audit Logs
-      target: mac_audit_logs
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja15251c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: MapR
-      target: mapr
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j141298e:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: MapReduce
-      target: mapreduce
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j75f52a9:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Marathon
-      target: marathon
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j8d5404b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: MarkLogic
-      target: marklogic
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j5b70138:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Memcached
-      target: mcache
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jbdadec9:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Mesos Master
-      target: mesos_master
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j062aeb0:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Milvus
-      target: milvus
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j91231ff:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: MongoDB
-      target: mongo
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      target-env: ${{ matrix.target-env }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-    strategy:
-      matrix:
-        target-env:
-        - py3.13-4.4-standalone
-        - py3.13-4.4-shard
-        - py3.13-4.4-auth
-        - py3.13-4.4-tls
-        - py3.13-5.0-standalone
-        - py3.13-5.0-shard
-        - py3.13-5.0-auth
-        - py3.13-5.0-tls
-        - py3.13-6.0-standalone
-        - py3.13-6.0-shard
-        - py3.13-6.0-auth
-        - py3.13-6.0-tls
-        - py3.13-7.0-standalone
-        - py3.13-7.0-shard
-        - py3.13-7.0-auth
-        - py3.13-7.0-tls
-        - py3.13-8.0-standalone
-        - py3.13-8.0-shard
-        - py3.13-8.0-auth
-        - py3.13-8.0-tls
-        - py3.13-8.0-standalone-newyork
-      fail-fast: false
-  j211906c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: MySQL
-      target: mysql
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      target-env: ${{ matrix.target-env }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-    strategy:
-      matrix:
-        target-env:
-        - py3.13-5.7
-        - py3.13-8.0.36
-        - py3.13-8.4.0
-        - py3.13-8.0-group
-        - py3.13-mariadb-10.5
-        - py3.13-mariadb-10.6
-        - py3.13-mariadb-10.11
-        - py3.13-mariadb-11.4
-        - py3.13-percona-8.0.42
-        - py3.13-percona-8.4
-      fail-fast: false
-  j5df646e:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Nagios
-      target: nagios
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jfc1e031:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Network on Linux
-      target: network
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j6a5b846:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: NFSstat
-      target: nfsstat
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j93fea02:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: NGINX
-      target: nginx
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja114815:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: NGINX Ingress Controller
-      target: nginx_ingress_controller
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jb705691:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: nvidia_nim
-      target: nvidia_nim
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j74dc677:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Nvidia Triton
-      target: nvidia_triton
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jc2a0c60:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Octopus Deploy
-      target: octopus_deploy
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j2cf0a0a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: OpenLDAP
-      target: openldap
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jaaa5727:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: OpenMetrics
-      target: openmetrics
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j88ddb5b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: OpenStack
-      target: openstack
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j65171af:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: OpenStack Controller
-      target: openstack_controller
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j4a8166b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: PGBouncer
-      target: pgbouncer
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jaa8b34b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: PHP-FPM
-      target: php_fpm
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j54fefc0:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Postfix
-      target: postfix
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j44368ad:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Postgres
-      target: postgres
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      target-env: ${{ matrix.target-env }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-    strategy:
-      matrix:
-        target-env:
-        - py3.13-9.6-UTF8
-        - py3.13-10.0-UTF8
-        - py3.13-11.0-UTF8
-        - py3.13-12.17-UTF8
-        - py3.13-13.0-UTF8
-        - py3.13-14.0-UTF8
-        - py3.13-15.0-UTF8
-        - py3.13-16.0-UTF8
-        - py3.13-17.0-UTF8
-        - py3.13-10.0-C
-        - py3.13-11.0-C
-        - py3.13-12.17-C
-        - py3.13-13.0-C
-        - py3.13-14.0-C
-        - py3.13-15.0-C
-        - py3.13-16.0-C
-        - py3.13-17.0-C
-      fail-fast: false
-  j8e38a40:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: PowerDNS Recursor
-      target: powerdns_recursor
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jaeea6e0:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Presto
-      target: presto
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  je083bd8:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Process
-      target: process
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jbfa97cf:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Prometheus
-      target: prometheus
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf882f09:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Proxmox
-      target: proxmox
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jbb39de2:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: ProxySQL
-      target: proxysql
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j5987374:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Pulsar
-      target: pulsar
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jcc156e5:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Quarkus
-      target: quarkus
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j694032b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: RabbitMQ
-      target: rabbitmq
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jcc172a7:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Ray
-      target: ray
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja7f6415:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Redis
-      target: redisdb
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j47000ee:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: RethinkDB
-      target: rethinkdb
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jdeada9f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Riak
-      target: riak
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j21f86cb:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: RiakCS
-      target: riakcs
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j111b452:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SAP HANA
-      target: sap_hana
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j6a5cfa3:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Scylla
-      target: scylla
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j6600bce:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Silk
-      target: silk
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jdeebd5c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Silverstripe CMS
-      target: silverstripe_cms
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j02f6aa9:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SingleStore
-      target: singlestore
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j1e78283:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Slurm
-      target: slurm
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j06ca546:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SNMP
-      target: snmp
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j1dbd59f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Snowflake
-      target: snowflake
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j2d7c8f5:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Solr
-      target: solr
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j9485e6f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SonarQube
-      target: sonarqube
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j3835902:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: sonatype_nexus
-      target: sonatype_nexus
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j529bc3b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Spark
-      target: spark
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j3a8e004:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SQL Server on Linux
-      target: sqlserver
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      target-env: ${{ matrix.target-env }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-    strategy:
-      matrix:
-        target-env:
-        - py3.13-linux-FreeTDS-2019-single
-        - py3.13-linux-FreeTDS-2019-ha
-        - py3.13-linux-FreeTDS-2022-single
-        - py3.13-linux-FreeTDS-2022-ha
-        - py3.13-linux-odbc-2019-single
-        - py3.13-linux-odbc-2019-ha
-        - py3.13-linux-odbc-2022-single
-        - py3.13-linux-odbc-2022-ha
-        - py3.13-linux-2022-newyork
-        - py3.13-linux-2022-tokyo
-      fail-fast: false
-  jaf4b616:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Squid
-      target: squid
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j01c4d3c:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: SSH
-      target: ssh_check
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j2981dbe:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: StatsD
-      target: statsd
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j6f0ded4:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Strimzi
-      target: strimzi
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jfe7ceb7:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Supabase
-      target: supabase
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf04a052:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Supervisord
-      target: supervisord
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jde3891f:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: System Core
-      target: system_core
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j64445e6:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: System Swap
-      target: system_swap
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j1eeafd2:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: TCP on Linux
-      target: tcp_check
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j8217a3a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: TeamCity
-      target: teamcity
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf4a7e97:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Tekton
-      target: tekton
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  je68b3b9:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Teleport
-      target: teleport
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j840fec7:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Temporal
-      target: temporal
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jeefbe37:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Teradata
-      target: teradata
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jb4a6940:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: tibco_ems
-      target: tibco_ems
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jd1c18ec:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: TLS
-      target: tls
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j9438e1d:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Tomcat
-      target: tomcat
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j4baeba2:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: TorchServe
-      target: torchserve
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j41a575a:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Traefik Mesh
-      target: traefik_mesh
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j8a1b5bb:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Traffic Server
-      target: traffic_server
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jfc2bf01:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Twemproxy
-      target: twemproxy
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jd0626ef:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Twistlock
-      target: twistlock
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j0c8fc90:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Varnish
-      target: varnish
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j5d55c41:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Vault
-      target: vault
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jf929c3b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Velero
-      target: velero
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j9981b0b:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Vertica
-      target: vertica
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jeae0788:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: vLLM
-      target: vllm
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  jb120af1:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: VoltDB
-      target: voltdb
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j269c8a5:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: vSphere
-      target: vsphere
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  je95095e:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Weaviate
-      target: weaviate
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  j40e5c98:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: WebLogic
-      target: weblogic
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja6bc642:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: Yarn
-      target: yarn
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
-    secrets: inherit
-  ja446cea:
-    uses: ./.github/workflows/test-target.yml
-    with:
-      job-name: ZooKeeper
-      target: zk
-      platform: linux
-      runner: '["ubuntu-22.04"]'
-      repo: "${{ inputs.repo }}"
-      context: ${{ inputs.context }}
-      python-version: "${{ inputs.python-version }}"
-      latest: ${{ inputs.latest }}
-      agent-image: "${{ inputs.agent-image }}"
-      agent-image-py2: "${{ inputs.agent-image-py2 }}"
-      agent-image-windows: "${{ inputs.agent-image-windows }}"
-      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
-      test-py2: ${{ inputs.test-py2 }}
-      test-py3: ${{ inputs.test-py3 }}
-      minimum-base-package: ${{ inputs.minimum-base-package }}
-      pytest-args: ${{ inputs.pytest-args }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit

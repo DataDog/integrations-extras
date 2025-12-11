@@ -12,29 +12,20 @@ concurrency:
 
 jobs:
   run:
-    uses: ./.github/workflows/run-validations.yml
+    uses: DataDog/integrations-core/.github/workflows/run-validations.yml@574d63ba88365ffbab915280ceddbaa333c63d6a # master
     with:
-      repo: core
+      repo: extras
 
       # Validations
-      agent-reqs: true
       ci: true
-      codeowners: true
       config: true
-      dep: true
-      http: true
       imports: true
       integration-style: true
       jmx-metrics: true
-      labeler: true
       legacy-signature: true
-      license-headers: true
-      licenses: true
       metadata: true
       models: true
-      openmetrics: true
       package: true
       readmes: true
-      saved-views: true
-      version: true
+      codeowners: true
     secrets: inherit

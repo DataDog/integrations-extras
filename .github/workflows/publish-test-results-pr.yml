@@ -4,15 +4,14 @@ on:
   workflow_run:
     workflows:
     - PR
-    - PR All
     types:
     - completed
 
 jobs:
   publish:
-    uses: ./.github/workflows/test-results-pr.yml
+    uses: DataDog/integrations-core/.github/workflows/test-results-pr.yml@574d63ba88365ffbab915280ceddbaa333c63d6a # master
     if: github.event.workflow_run.conclusion != 'skipped'
-    permissions: # These permissions need to match the ones in the included workflow, see test-results-pr.yml for details
+    permissions: # For test-results-pr.yml
       checks: write
       pull-requests: write
       contents: read
