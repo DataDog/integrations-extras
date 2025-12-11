@@ -1,13 +1,14 @@
 import os
+
 import pytest
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.scamalytics.check import ScamalyticsCheck, ScamalyticsLogStream
 
-
 # =====================================================================
 #  UNIT TESTS
 # =====================================================================
+
 
 @pytest.mark.unit
 def test_config_validation():
@@ -58,6 +59,7 @@ def test_is_public_ip():
 # =====================================================================
 #  INTEGRATION TEST
 # =====================================================================
+
 
 @pytest.mark.integration
 def test_scamalytics_api_end_to_end():
