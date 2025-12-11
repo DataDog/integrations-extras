@@ -7,6 +7,8 @@ from urllib.parse import urljoin, urlparse
 from packaging.version import Version
 
 # project
+# adding a comment
+# a new comment
 from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'logstash'
