@@ -1,1180 +1,715 @@
-.github/CODEOWNERS*                                        @DataDog/agent-integrations
+# See https://help.github.com/articles/about-codeowners/ for syntax
+# Rules are matched bottom-to-top, so one team can own subdirectories
+# and another the rest of the directory.
+
+# All your base
+*                   @DataDog/agent-integrations
 
 # Documentation
-**/README.md                             @DataDog/documentation
-**/*metadata.csv                         @DataDog/documentation
-**/manifest.json                         @DataDog/documentation
-**/assets/dashboards                     @DataDog/documentation @DataDog/reporting-and-sharing
-**/assets/monitors                       @DataDog/documentation @DataDog/alerting-product
-
-# Community partners
-/1e/                                     support@1e.com @DataDog/ecosystems-review
-/ably/                                   @ably support@ably.com @DataDog/ecosystems-review
-/agora_analytics/                        @Agora zhangpeizhe@agora.io @DataDog/ecosystems-review
-/aimon/                                   @DataDog/ecosystems-review
-/akamai_datastream_2/                    @DataDog/saas-integrations
-/akeyless_gateway/                       @akljph support@akeyless.io  @DataDog/ecosystems-review
-/alertnow/                               @Uijong-Kim uijong.kim@bespinglobal.com
-/algorithmia/                            @koverholt support@algorithmia.io @DataDog/ecosystems-review
-/altostra/                               @yevk @altostra/engineering @DataDog/ecosystems-review
-/ambassador/                             @datawire hello@datawire.io
-/amixr/                                  @iskhakov ildar@amixr.io
-/apache-apisix/                          @bisakhmondal bisakhmondal00@gmail.com
-/apollo/                                 @sachindshinde sachin@apollographql.com
-/appkeeper/                              @numno1
-/apptrail/                               @Samrose-Ahmed samrose@apptrail.com @DataDog/ecosystems-review
-/aqua/                                   @DataDog/container-integrations
-/artie/                                  @danafallon
-/auth0/                                  @DataDog/agent-integrations
-/aws_pricing/                            @tsein-bc tsein@brightcove.com
-/backstage/                              @RoadieHQ support@roadie.io
-/bind9/                                  @DataDog/agent-integrations
-/blink/                                  @liavt liav@blinkops.com @ozhey @DataDog/ecosystems-review
-/bluematador/                            support@bluematador.com
-/bonsai/                                 dev@onemorecloud.com
-/botprise/                               @codechefnisha-bp nisha.kumari@botprise.com
-/bottomline_recordandreplay/             @nbk96f1 Andrew.Leon@bottomline.com @DataDog/ecosystems-review
-/buddy/                                  support@buddy.works
-/buoyant_cloud/                          @BuoyantIO/buoys @DataDog/ecosystems-review
-/causely/                                @esara support@causely.io @DataDog/ecosystems-review
-/census/                                 @sankalp04 support@getcensus.com @DataDog/ecosystems-review
-/cfssl/                                  @JeanFred
-/cloudaeye/                              @nazrul-cloudaeye nazrul@cloudaeye.com @bhavyalatha26 bhavya@cloudaeye.com @DataDog/ecosystems-review
-/cloudnatix/                             @junm-cloudnatix @kenji-cloudnatix @somik-cloudnatix @rohit-cloudnatix
-/cloudquery/                             @cloudquery/cloudquery-framework
-/cloudquery-cloud/                       @cloudquery/cloudquery-cloud
-/cloudsmith/                             @cloudsmith ccarey@cloudsmith.io @DataDog/ecosystems-review
-/cloudzero/                              @ben-dalton @mattyellen @egafford @alinaquinones
-/cockroachdb_dedicated/                  @DataDog/saas-integrations
-/concourse_ci/                           @DataDog/agent-integrations
-/configcat/                              @configcat
-/contrastsecurity/                       @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com
-/convox/                                 @DataDog/agent-integrations
-/cortex/                                 @cortexapps/engineering support@getcortexapp.com @DataDog/ecosystems-review
-/cribl_stream/                           @criblio @amiracle support@cribl.io @DataDog/ecosystems-review
-/cybersixgill_actionable_alerts/         @shahul-loginsoft sshaik@loginsoft.com @DataDog/ecosystems-review
-/cyral/                                  @tyrannosaurus-becks product@cyral.com @DataDog/ecosystems-review
-/data_runner/                            @DataDog/apps-sdk @DataDog/ecosystems-review
-/datazoom/                               @DataDog/saas-integrations @DataDog/saas-integrations
-/devcycle/                               @nikolasleblanc
-/discord/                                @DataDog/chat-integrations
-/drata/                                  @jason-drata support@drata.com @DataDog/ecosystems-review
-/docontrol/                              @lielran @DataDog/ecosystems-review
-/doctordroid/                            @dimittal @DataDog/ecosystems-review
-/dylibso-webassembly/                  @nilslice @bhelx @DataDog/ecosystems-review
-/doppler/                                @nmanoogian @apazzolini @doppler-admin @DataDog/ecosystems-review
-/doppler/assets/logs/                    @nmanoogian @apazzolini @doppler-admin @DataDog/ecosystems-review @DataDog/logs-integrations-reviewers
-/embrace_mobile/                         @jpmunz @joage @DataDog/ecosystems-review
-/eppo/                                   @emetelka support@geteppo.com
-/eventstore/                             @Xorima
-/eversql/                                @tomershay team@eversql.com @DataDog/ecosystems-review
-/exim/                                   @JeanFred
-/f5-distributed-cloud/                   @GregCoward support@f5.com @DataDog/ecosystems-review
-/fairwinds_insights_ui/                  @rbren insights@fairwinds.com @DataDog/ecosystems-review
-/fauna/                                  @fauna-chase support@fauna.com @DataDog/ecosystems-review
-/federatorai/                            @chenyingtz @yummydsky
-/fiddler/                                @nikhil-singh-01 @dannybrock sales@fiddler.ai @DataDog/ecosystems-review
-/filebeat/                               @wk8 jean@tripping.com
-/filemage/                               @devopsec
-/finout/                                 @roiravhon support@finout.io @DataDog/ecosystems-review
-/firefly/                                @sefi-infralight contact@gofirefly.io @DataDog/ecosystems-review
-/flagsmith/                              @benjarom3 support@flagsmith.com @DataDog/ecosystems-review
-/flagsmith-rum/                          @benjarom3 support@flagsmith.com @DataDog/ecosystems-review
-/fluentbit/                              @zhenyami
-/flume/                                  @KealanMaas
-/gatekeeper/                             @arapulido ara.pulido@datadoghq.com
-/gigamon/                                @Mrudula-Oruganti-Gigamon
-/gitea/                                  @FlorentClarret
-/go_pprof_scraper/                       @nsrip-dd
-/gnatsd/                                 @stephenprater @jaredhoyt dev@goldstar.com
-/gnatsd_streaming/                       @stephenprater @jaredhoyt dev@goldstar.com
-/gremlin/                                support@gremlin.com
-/grpc_check/                             @keisku
-/harness_cloud_cost_management/          @akashbdj support@harness.io @DataDog/ecosystems-review
-/harness_harness_notifications/          @DataDog/ecosystems-review
-/hasura_cloud/                           @ShraddhaAg @shahidhk support@hasura.io @DataDog/ecosystems-review
-/hbase_master/                           @everpeace
-/hbase_regionserver/                     @everpeace
-/hcp_vault/                              @himran92 @codergs
-/hikaricp/                               @bertaudamien
-/jfrog_platform_cloud/                   @jfrog/partner-engineering @DataDog/ecosystems-review
-/jfrog_platform_self_hosted/             @jfrog/partner-engineering @DataDog/ecosystems-review
-/instabug/                               @AbdallahHemdan ahemdan@instabug.com @DataDog/ecosystems-review
-/invary/                                 @tim-invary @DataDog/ecosystems-review
-/ilert/                                  @yacut support@ilert.com @DataDog/ecosystems-review
-/inngest/                                @DataDog/ecosystems-review
-/insightfinder/                          @dearmore @erinlmcmahon support@insightfinder.com @DataDog/ecosystems-review
-/isdown/                                 @ntomas support@isdown.app @DataDog/ecosystems-review
-/jamf_protect/                           @DataDog/saas-integrations
-/k6/                                     @ppcano support@k6.io
-/kameleoon/                              @slava-inyu product@kameleoon.com @DataDog/ecosystems-review
-/kernelcare/                             @grubberr schvaliuk@cloudlinux.com
-/keep/                                   @talboren tal@keephq.dev @DataDog/documentation
-/kepler/                                 @sarah-witt
-/komodor/                                @komodorio/sales-engineers @DataDog/ecosystems-review
-/launchdarkly/                           support@launchdarkly.com @DataDog/ecosystems-review
-/lacework/                               @DataDog/agent-integrations
-/lambdatest/                             @prateeksainilambdatest @DataDog/ecosystems-review
-/launchdarkly/                           support@launchdarkly.com
-/lighthouse/                             @DataDog/agent-integrations
-/loadrunner_professional/                @mihneavelinOT
-/logstash/                               @ervansetiawan ervansetiawan@gmail.com
-/logzio/                                 @DataDog/agent-integrations
-/mongodb_atlas/                          @Salil999 @JustinMason frank.sun@mongodb.com tonya.edmonds@mongodb.com
-/moovingon_ai/                           @tomm24 info@moovingon.com
-/modal/                                  @modal-labs support@modal.com @irfansharif irfan@modal.com
-/mendix/                                 @mendix/cloud @DataDog/agent-integrations @DataDog/ecosystems-review
-/mergify/                                @Mergifyio/oss-integrations
-/mergify_oauth/                          @Mergifyio/oss-integrations
-/n2ws/                                   @eliadeini eliad.eini@n2ws.com @DataDog/ecosystems-review
-/neo4j/                                  @davidfauth help@neo4j.com @DataDog/ecosystems-review
-/neoload/                                @Neotys-Labs/r-d @DataDog/ecosystems-review
-/neutrona/                               @DavidFlamini david@neutrona.com
-/nextcloud/                              @eplanet
-/ngrok/                                  @mkarnowski @DataDog/ecosystems-review
-/nn_sdwan/                               @nikhilguptanetnologyio @habibmadaninetnologyio @DataDog/ecosystems-review
-/nobl9/                                  @ian-bartholomew support@nobl9.com @DataDog/ecosystems-review
-/nomad/                                  @irabinovitch
-/ns1/                                    @Zach-Johnson zjohnson@ns1.com @DataDog/ecosystems-review
-/nvml/                                   @cep21
-/octoprint/                              @gwaldo gwaldo@gmail.com
-/onepane/                                @sajosam sajo@onepane.ai @DataDog/ecosystems-review
-/open_policy_agent/                      @arapulido ara.pulido@datadoghq.com
-/packetfabric/                           @PacketFabric/coredump dev@packetfabric.com @DataDog/ecosystems-review
-/pagerduty_ui/                           @light-Keeper support@pagerduty.com @DataDog/ecosystems-review
-/perfectscale/                           @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perimeterx/                             support@perimeterx.com
-/php_apcu/                               @withgod noname@withgod.jp
-/php_opcache/                            @withgod noname@withgod.jp
-/pihole/                                 @monganai
-/ping/                                   @jstanton617
-/planetscale/                            @DataDog/saas-integrations support@planetscale.com
-/pliant/                                 @hello-pliant hello@pliant.io
-/portworx/                               @pault84 paul@portworx.com
-/postman/                                @shashankawasthi88  integrations-partnerships@postman.com @DataDog/ecosystems-review
-/pulsar/                                 @zzzming itestmycode@gmail.com
-/pulumi/                                 @isaac-pulumi team@pulumi.com @DataDog/ecosystems-review
-/pulse/                                  @DataDog/ecosystems-review
-/puma/                                   @plasticine
-/purefa/                                 @chrroberts-pure pure-observability@purestorage.com @DataDog/ecosystems-review
-/purefb/                                 @chrroberts-pure pure-observability@purestorage.com @DataDog/ecosystems-review
-/qdrant/                                 @Anush008 info@qdrant.com
-/radarr/                                 @HadrienPatte
-/rbltracker/                             @DataDog/agent-integrations
-/reboot_required/                        @montdidier support@krugerheavyindustries.com
-/redisenterprise/                        @maguec christian@redislabs.com @DataDog/ecosystems-review
-/redis_cloud/                            @redis-field-engineering field.engineers@redis.com
-/redis_enterprise/                       @redis-field-engineering field.engineers@redis.com
-/redis_enterprise_prometheus/            @redis-field-engineering field.engineers@redis.com
-/redis_sentinel/                         @DataDog/agent-integrations
-/redpanda/                               @redpanda-data support@redpanda.com
-/resilience4j/                           @willianccs willianccs@gmail.com
-/resin/                                  @brentm5
-/retool/                                 @jamiecuffe @DataDog/ecosystems-review
-/riak_repl/                              @abtreece
-/rigor/                                  support@rigor.com
-/robust_intelligence_ai_firewall/        @MayankR
-/rookout/                                support@rookout.com @DataDog/ecosystems-review
-/rum_javascript/                         @DataDog/rum-app @DataDog/rum-browser
-/rum_android/                            @DataDog/rum-app @DataDog/rum-mobile @DataDog/rum-mobile-android
-/rum_angular/                            @DataDog/rum-app
-/rum_cypress/                            @DataDog/rum-app
-/rum_expo/                               @DataDog/rum-app @DataDog/rum-mobile
-/rum_flutter/                            @DataDog/rum-app @DataDog/rum-mobile
-/rum_ios/                                @DataDog/rum-app @DataDog/rum-mobile @DataDog/rum-mobile-ios
-/rum_react/                              @DataDog/rum-app @DataDog/rum-browser
-/rum_react_native/                       @DataDog/rum-app @DataDog/rum-mobile
-/rum_roku/                               @DataDog/rum-app @DataDog/rum-mobile
-/rundeck/                                forrest@rundeck.com
-/scalr/                                  @soltysss @DataDog/ecosystems-review
-/scaphandre/                             @sarah-witt @rahulkaukuntla @DataDog/ecosystems-review
-/seagence/                               @srinivas-bitla @DataDog/ecosystems-review
-/sedai/                                  @praveenprakash @DataDog/ecosystems-review
-/sendmail/                               @dabcoder david.bouchare@datadoghq.com
-/signl4/                                 @rons4 ron@signl4.com @DataDog/ecosystems-review
-/sigsci/                                 @signalsciences info@signalsciences.com
-/shoreline/                              @ivang-shoreline @ciprian-shoreline @alinshoreline @cioc-shoreline @cristi-shoreline support@shoreline.io @DataDog/ecosystems-review
-/sleuth/                                 @mtbnut pleal@sleuth.io @DataDog/ecosystems-review
-/snmpwalk/                               @DataDog/agent-integrations
-/sonarr/                                 @HadrienPatte
-/sortdb/                                 @namrata4 namrata.deshpande4@gmail.com
-/speedscale/                             @kenahrens ken@speedscale.com @DataDog/ecosystems-review
-/speedtest/                              @platinummonkey
-/split-rum/                              @dtk-DaveKarow
-/split/                                  @jeremy-lq
-/sqreen/                                 @DataDog/agent-integrations
-/squadcast/                              it@squadcast.com
-/stackpulse/                             @torqio/rnd support@torq.io @DataDog/ecosystems-review
-/stardog/                                @snowell support@stardog.com
-/statsig/                                @marcos-statsig support@statsig.com @DataDog/ecosystems-review
-/statsig_rum/                            @crstatsig support@statig.com
-/steadybit/                              @bripkens support@steadybit.com @DataDog/ecosystems-review
-/storm/                                  @platinummonkey
-/stormforge/                             @bradbeam @tperol support@stormforge.io @DataDog/ecosystems-review
-/superwise/                              @oryan-omer support@superwise.ai @DataDog/ecosystems-review
-/syncthing/                              @sashacmc
-/taskcall/                               @taskcall support@taskcallapp.com @DataDog/ecosystems-review
-/tailscale/                              @DataDog/saas-integrations
-/tidb/                                   @SabaPing xuyifan02@pingcap.com @DataDog/ecosystems-review
-/tidb_cloud/                             @SabaPing xuyifan02@pingcap.com @DataDog/ecosystems-review
-/torq/                                   @torqio/rnd support@torq.io
-/trino/                                  @ndrluis
-/twenty_forty_eight/                     @DataDog/apps-sdk @DataDog/ecosystems-review
-/twingate/                               @emrul partnerships@twingate.com @DataDog/ecosystems-review
-/tyk/                                    @letzya
-/unbound/                                @dbyron0 david.byron@avast.com
-/unifi_console/                          @abruneau
-/unitq/                                  @nik-unitq @DataDog/ecosystems-review
-/upbound_uxp/                            @humoflife support@upbound.io @DataDog/ecosystems-review
-/upsc/                                   @platinummonkey
-/upstash/                                @upstash support@upstash.com @DataDog/ecosystems-review
-/uptime/                                 @DataDog/ecosystems-review
-/uptycs/                                 @cgadde-uptycs support@uptycs.com
-/vantage/                                @brookemckim support@vantage.sh @DataDog/ecosystems-review
-/vercel/                                 @Datadog/serverless
-/vespa/                                  @gjoranv dd@vespa.ai
-/vns3/                                   @DataDog/agent-integrations
-/warpstream/                             @DataDog/ecosystems-review
-/wayfinder/                              @jonny-scott80 jonny_scott@outlook.com
-/webb_ai/                                @anirudhwebbai support@webb.ai
-/yugabytedb_managed/                     @DataDog/saas-integrations @DataDog/ecosystems-review daniel@yugabyte.com
-/zabbix/                                 @KosukeKamiya
-/zebrium/                                @rodbagg @DataDog/ecosystems-review
-/zenduty/                                @zenbeam shubham@zenduty.com @DataDog/ecosystems-review
-/zenoh_router/                           @sashacmc
-/zscaler/                                @BoyangHuang @DataDog/saas-integrations
-/sosivio/                                @danarlowski info@sosiv.io @DataDog/ecosystems-review
-/sym/                                    @symopsio/eng
-/emnify/                                 @EMnify/development @EMnify/rademade
-/adaptive_shield/                        @adaptiveshield @DataDog/ecosystems-review
-/typingdna_activelock/                   @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/ecosystems-review
-/sofy_sofy/                              @Sofy @DataDog/ecosystems-review
-/notion/                                 @makenotion/public-api @DataDog/ecosystems-review
-/singlestoredb_cloud/                    @tdasarathan @DataDog/ecosystems-review
-/emqx/                                   @zhongwencool @zmstone @DataDog/ecosystems-review
-/anecdote/                               @atyulyutaev @DataDog/ecosystems-review
-/celerdata/                              @yandongxiao yandongxiao@starrocks.com @DataDog/ecosystems-review
-/ocient/                                 @ocient-cliimatta @Xeograph/service-delivery-engineering
-/reflectiz/                              @reflectiz/developers
-
-# Community Partners + Documentation
-/1e/*metadata.csv                        support@1e.com @DataDog/documentation @DataDog/ecosystems-review
-/1e/manifest.json                        support@1e.com @DataDog/documentation @DataDog/ecosystems-review
-/1e/README.md                            support@1e.com @DataDog/documentation @DataDog/ecosystems-review
-/1e/assets/dashboards                    support@1e.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/1e/assets/monitors                      support@1e.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/ably/*metadata.csv                      @ably support@ably.com @DataDog/documentation @DataDog/ecosystems-review
-/ably/manifest.json                      @ably support@ably.com @DataDog/documentation @DataDog/ecosystems-review
-/ably/README.md                          @ably support@ably.com @DataDog/documentation @DataDog/ecosystems-review
-/ably/assets/dashboards                   @ably support@ably.com  @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ably/assets/monitors                      @ably support@ably.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/agora_analytic/*metadata.csv            @Zhangpeizhe zhangpeizhe@agora.io @DataDog/documentation
-/agora_analytic/manifest.json            @Zhangpeizhe zhangpeizhe@agora.io @DataDog/documentation
-/agora_analytic/README.md                @Zhangpeizhe zhangpeizhe@agora.io @DataDog/documentation
-/agora_analytic/assets/dashboards                    @Zhangpeizhe zhangpeizhe@agora.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/agora_analytic/assets/monitors                      @Zhangpeizhe zhangpeizhe@agora.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/alertnow/*metadata.csv                  @Uijong-Kim uijong.kim@bespinglobal.com @DataDog/documentation
-/alertnow/manifest.json                  @Uijong-Kim uijong.kim@bespinglobal.com @DataDog/documentation
-/alertnow/README.md                      @Uijong-Kim uijong.kim@bespinglobal.com @DataDog/documentation
-/alertnow/assets/dashboards                    @Uijong-Kim uijong.kim@bespinglobal.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/alertnow/assets/monitors                      @Uijong-Kim uijong.kim@bespinglobal.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/algorithmia/*metadata.csv               @koverholt support@algorithmia.io @DataDog/documentation
-/algorithmia/manifest.json               @koverholt support@algorithmia.io @DataDog/documentation
-/algorithmia/README.md                   @koverholt support@algorithmia.io @DataDog/documentation
-/algorithmia/assets/dashboards                    @koverholt support@algorithmia.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/algorithmia/assets/monitors                      @koverholt support@algorithmia.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/altostra/*metadata.csv                  @yevk @altostra/engineering @DataDog/documentation
-/altostra/manifest.json                  @yevk @altostra/engineering @DataDog/documentation
-/altostra/README.md                      @yevk @altostra/engineering @DataDog/documentation
-/altostra/assets/dashboards                    @yevk @altostra/engineering @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/altostra/assets/monitors                      @yevk @altostra/engineering @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/ambassador/*metadata.csv                @datawire hello@datawire.io @DataDog/documentation
-/ambassador/manifest.json                @datawire hello@datawire.io @DataDog/documentation
-/ambassador/README.md                    @datawire hello@datawire.io @DataDog/documentation
-/ambassador/assets/dashboards                    @datawire hello@datawire.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ambassador/assets/monitors                      @datawire hello@datawire.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/amixr/*metadata.csv                     @iskhakov ildar@amixr.io @DataDog/documentation
-/amixr/manifest.json                     @iskhakov ildar@amixr.io @DataDog/documentation
-/amixr/README.md                         @iskhakov ildar@amixr.io @DataDog/documentation
-/amixr/assets/dashboards                    @iskhakov ildar@amixr.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/amixr/assets/monitors                      @iskhakov ildar@amixr.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/apache-apisix/*metadata.csv             @bisakhmondal bisakhmondal00@gmail.com @DataDog/documentation
-/apache-apisix/manifest.json             @bisakhmondal bisakhmondal00@gmail.com @DataDog/documentation
-/apache-apisix/README.md                 @bisakhmondal bisakhmondal00@gmail.com @DataDog/documentation
-/apache-apisix/assets/dashboards                    @bisakhmondal bisakhmondal00@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/apache-apisix/assets/monitors                      @bisakhmondal bisakhmondal00@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/apollo/*metadata.csv                    @sachindshinde sachin@apollographql.com @DataDog/documentation
-/apollo/manifest.json                    @sachindshinde sachin@apollographql.com @DataDog/documentation
-/apollo/README.md                        @sachindshinde sachin@apollographql.com @DataDog/documentation
-/apollo/assets/dashboards                    @sachindshinde sachin@apollographql.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/apollo/assets/monitors                      @sachindshinde sachin@apollographql.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/appkeeper/*metadata.csv                 @numno1 @DataDog/documentation
-/appkeeper/manifest.json                 @numno1 @DataDog/documentation
-/appkeeper/README.md                     @numno1 @DataDog/documentation
-/appkeeper/assets/dashboards                    @numno1 @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/appkeeper/assets/monitors                      @numno1 @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/aqua/*metadata.csv                      @DataDog/container-integrations @DataDog/documentation
-/aqua/manifest.json                      @DataDog/container-integrations @DataDog/documentation
-/aqua/README.md                          @DataDog/container-integrations @DataDog/documentation
-/aqua/assets/dashboards                  @DataDog/container-integrations @DataDog/documentation @DataDog/reporting-and-sharing
-/aqua/assets/monitors                    @DataDog/container-integrations @DataDog/documentation @DataDog/alerting-product
-
-/auth0/*metadata.csv                     @DataDog/agent-integrations @DataDog/documentation
-/auth0/manifest.json                     @DataDog/agent-integrations @DataDog/documentation
-/auth0/README.md                         @DataDog/agent-integrations @DataDog/documentation
-/auth0/assets/dashboards                 @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing
-/auth0/assets/monitors                   @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product
-
-/aws_pricing/*metadata.csv               @tsein-bc tsein@brightcove.com @DataDog/documentation
-/aws_pricing/manifest.json               @tsein-bc tsein@brightcove.com @DataDog/documentation
-/aws_pricing/README.md                   @tsein-bc tsein@brightcove.com @DataDog/documentation
-/aws_pricing/assets/dashboards                    @tsein-bc tsein@brightcove.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/aws_pricing/assets/monitors                      @tsein-bc tsein@brightcove.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/bind9/*metadata.csv                     @ashuvyas45 ashuvyas45@gmail.com @DataDog/documentation
-/bind9/manifest.json                     @ashuvyas45 ashuvyas45@gmail.com @DataDog/documentation
-/bind9/README.md                         @ashuvyas45 ashuvyas45@gmail.com @DataDog/documentation
-/bind9/assets/dashboards                    @ashuvyas45 ashuvyas45@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/bind9/assets/monitors                      @ashuvyas45 ashuvyas45@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/blink/*metadata.csv                     @liavt liav@blinkops.com @ozhey @DataDog/documentation @DataDog/ecosystems-review
-/blink/manifest.json                     @liavt liav@blinkops.com @ozhey @DataDog/documentation @DataDog/ecosystems-review
-/blink/README.md                         @liavt liav@blinkops.com @ozhey @DataDog/documentation @DataDog/ecosystems-review
-/blink/assets/dashboards                    @liavt liav@blinkops.com @ozhey @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/blink/assets/monitors                      @liavt liav@blinkops.com @ozhey @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/bluematador/*metadata.csv               support@bluematador.com @DataDog/documentation
-/bluematador/manifest.json               support@bluematador.com @DataDog/documentation
-/bluematador/README.md                   support@bluematador.com @DataDog/documentation
-/bluematador/assets/dashboards                    support@bluematador.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/bluematador/assets/monitors                      support@bluematador.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/bonsai/*metadata.csv                    dev@onemorecloud.com @DataDog/documentation
-/bonsai/manifest.json                    dev@onemorecloud.com @DataDog/documentation
-/bonsai/README.md                        dev@onemorecloud.com @DataDog/documentation
-/bonsai/assets/dashboards                    dev@onemorecloud.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/bonsai/assets/monitors                      dev@onemorecloud.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/botprise/*metadata.csv                  @codechefnisha-bp nisha.kumari@botprise.com @DataDog/documentation
-/botprise/manifest.json                  @codechefnisha-bp nisha.kumari@botprise.com @DataDog/documentation
-/botprise/README.md                      @codechefnisha-bp nisha.kumari@botprise.com @DataDog/documentation
-/botprise/assets/dashboards                    @codechefnisha-bp nisha.kumari@botprise.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/botprise/assets/monitors                      @codechefnisha-bp nisha.kumari@botprise.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/buddy/*metadata.csv                     support@buddy.works @DataDog/documentation
-/buddy/manifest.json                     support@buddy.works @DataDog/documentation
-/buddy/README.md                         support@buddy.works @DataDog/documentation
-/buddy/assets/dashboards                    support@buddy.works @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/buddy/assets/monitors                      support@buddy.works @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/census/*metadata.csv                    @sankalp04 support@getcensus.com @DataDog/documentation
-/census/manifest.json                    @sankalp04 support@getcensus.com @DataDog/documentation
-/census/README.md                        @sankalp04 support@getcensus.com @DataDog/documentation
-/census/assets/dashboards                    @sankalp04 support@getcensus.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/census/assets/monitors                      @sankalp04 support@getcensus.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/cloudsmith/*metadata.csv                @cloudsmith ccarey@cloudsmith.io @DataDog/documentation @DataDog/ecosystems-review
-/cloudsmith/manifest.json                @cloudsmith ccarey@cloudsmith.io @DataDog/documentation @DataDog/ecosystems-review
-/cloudsmith/README.md                    @cloudsmith ccarey@cloudsmith.io @DataDog/documentation @DataDog/ecosystems-review
-/cloudsmith/assets/dashboards                    @cloudsmith ccarey@cloudsmith.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/cloudsmith/assets/monitors                      @cloudsmith ccarey@cloudsmith.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/concourse_ci/*metadata.csv              @DataDog/agent-integrations @DataDog/documentation
-/concourse_ci/manifest.json              @DataDog/agent-integrations @DataDog/documentation
-/concourse_ci/README.md                  @DataDog/agent-integrations @DataDog/documentation
-/concourse_ci/assets/dashboards          @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing
-/concourse_ci/assets/monitors            @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product
-
-/configcat/*metadata.csv                 @configcat @DataDog/documentation
-/configcat/manifest.json                 @configcat @DataDog/documentation
-/configcat/README.md                     @configcat @DataDog/documentation
-/configcat/assets/dashboards                    @configcat @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/configcat/assets/monitors                      @configcat @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/contrastsecurity/*metadata.csv          @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com @DataDog/documentation
-/contrastsecurity/manifest.json          @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com @DataDog/documentation
-/contrastsecurity/README.md              @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com @DataDog/documentation
-/contrastsecurity/assets/dashboards                    @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/contrastsecurity/assets/monitors                      @kristianamitchellcontrastsecurity kristiana.mitchell@contrastsecurity.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/convox/*metadata.csv                    @DataDog/agent-integrations @DataDog/documentation
-/convox/manifest.json                    @DataDog/agent-integrations @DataDog/documentation
-/convox/README.md                        @DataDog/agent-integrations @DataDog/documentation
-/convox/assets/dashboards                @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing
-/convox/assets/monitors                  @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product
-
-/cortex/*metadata.csv                    @cortexapps/engineering support@getcortexapp.com @DataDog/documentation
-/cortex/manifest.json                    @cortexapps/engineering support@getcortexapp.com @DataDog/documentation
-/cortex/README.md                        @cortexapps/engineering support@getcortexapp.com @DataDog/documentation
-/cortex/assets/dashboards                    @cortexapps/engineering support@getcortexapp.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/cortex/assets/monitors                      @cortexapps/engineering support@getcortexapp.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/cribl_stream/*metadata.csv              @criblio @amiracle @Datadog/documentation
-/cribl_stream/manifest.json              @criblio @amiracle @Datadog/documentation
-/cribl_stream/README.md                  @criblio @amiracle @Datadog/documentation
-/cribl_stream/assets/dashboards                    @criblio @amiracle @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/cribl_stream/assets/monitors                      @criblio @amiracle @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/cybersixgill_actionable_alerts/*metadata.csv         @shahul-loginsoft sshaik@loginsoft.com @DataDog/documentation @DataDog/ecosystems-review
-/cybersixgill_actionable_alerts/manifest.json         @shahul-loginsoft sshaik@loginsoft.com @DataDog/documentation @DataDog/ecosystems-review
-/cybersixgill_actionable_alerts/README.md              @shahul-loginsoft sshaik@loginsoft.com @DataDog/documentation @DataDog/ecosystems-review
-/cybersixgill_actionable_alerts/assets/dashboards                    @shahul-loginsoft sshaik@loginsoft.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/cybersixgill_actionable_alerts/assets/monitors                      @shahul-loginsoft sshaik@loginsoft.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/cyral/*metadata.csv                     @tyrannosaurus-becks product@cyral.com @DataDog/documentation
-/cyral/manifest.json                     @tyrannosaurus-becks product@cyral.com @DataDog/documentation
-/cyral/README.md                         @tyrannosaurus-becks product@cyral.com @DataDog/documentation
-/cyral/assets/dashboards                    @tyrannosaurus-becks product@cyral.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/cyral/assets/monitors                      @tyrannosaurus-becks product@cyral.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/drata/*metadata.csv                     @jason-drata support@drata.com @DataDog/documentation @DataDog/ecosystems-review
-/drata/manifest.json                     @jason-drata support@drata.com @DataDog/documentation @DataDog/ecosystems-review
-/drata/README.md                         @jason-drata support@drata.com @DataDog/documentation @DataDog/ecosystems-review
-/drata/assets/dashboards                    @jason-drata support@drata.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/drata/assets/monitors                      @jason-drata support@drata.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/embrace_mobile/*metadata.csv            @jpmunz @joage @DataDog/documentation @DataDog/ecosystems-review
-/embrace_mobile/manifest.json            @jpmunz @joage @DataDog/documentation @DataDog/ecosystems-review
-/embrace_mobile/README.md                @jpmunz @joage @DataDog/documentation @DataDog/ecosystems-review
-/embrace_mobile/assets/dashboards                    @jpmunz @joage @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/embrace_mobile/assets/monitors                      @jpmunz @joage @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/eppo/*metadata.csv                   @emetelka support@geteppo.com @DataDog/documentation
-/eppo/manifest.json                   @emetelka support@geteppo.com @DataDog/documentation
-/eppo/README.md                       @emetelka support@geteppo.com @DataDog/documentation
-/eppo/assets/dashboards                    @emetelka support@geteppo.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/eppo/assets/monitors                      @emetelka support@geteppo.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/eventstore/*metadata.csv                @xorima @DataDog/documentation
-/eventstore/manifest.json                @xorima @DataDog/documentation
-/eventstore/README.md                    @xorima @DataDog/documentation
-/eventstore/assets/dashboards                    @xorima @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/eventstore/assets/monitors                      @xorima @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/federatorai/*metadata.csv               @chenyingtz @yummydsky @DataDog/documentation
-/federatorai/manifest.json               @chenyingtz @yummydsky @DataDog/documentation
-/federatorai/README.md                   @chenyingtz @yummydsky @DataDog/documentation
-/federatorai/assets/dashboards                    @chenyingtz @yummydsky @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/federatorai/assets/monitors                      @chenyingtz @yummydsky @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/filebeat/*metadata.csv                  @wk8 jean@tripping.com @DataDog/documentation
-/filebeat/manifest.json                  @wk8 jean@tripping.com @DataDog/documentation
-/filebeat/README.md                      @wk8 jean@tripping.com @DataDog/documentation
-/filebeat/assets/dashboards                    @wk8 jean@tripping.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/filebeat/assets/monitors                      @wk8 jean@tripping.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/flagsmith/*metadata.csv                 @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith/manifest.json                 @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith/README.md                     @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith/assets/dashboards                    @benjarom3 support@flagsmith.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/flagsmith/assets/monitors                      @benjarom3 support@flagsmith.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/flagsmith-rum/*metadata.csv             @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith-rum/manifest.json             @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith-rum/README.md                 @benjarom3 support@flagsmith.com @DataDog/documentation
-/flagsmith-rum/assets/dashboards                    @benjarom3 support@flagsmith.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/flagsmith-rum/assets/monitors                      @benjarom3 support@flagsmith.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/flume/*metadata.csv                     @KealanMaas @DataDog/documentation
-/flume/manifest.json                     @KealanMaas @DataDog/documentation
-/flume/README.md                         @KealanMaas @DataDog/documentation
-/flume/assets/dashboards                    @KealanMaas @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/flume/assets/monitors                      @KealanMaas @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/gatekeeper/*metadata.csv                @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/gatekeeper/manifest.json                @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/gatekeeper/README.md                    @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/gatekeeper/assets/dashboards                    @arapulido ara.pulido@datadoghq.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/gatekeeper/assets/monitors                      @arapulido ara.pulido@datadoghq.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/gitea/*metadata.csv                     @FlorentClarret @DataDog/documentation
-/gitea/manifest.json                     @FlorentClarret @DataDog/documentation
-/gitea/README.md                         @FlorentClarret @DataDog/documentation
-/gitea/assets/dashboards                    @FlorentClarret @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/gitea/assets/monitors                      @FlorentClarret @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/gigamon/assets/logs/                       @Mrudula-Oruganti-Gigamon @DataDog/logs-integrations-reviewers
-/gnatsd_streaming/*metadata.csv          @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd_streaming/manifest.json          @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd_streaming/README.md              @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd_streaming/assets/dashboards                    @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/gnatsd_streaming/assets/monitors                      @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/gnatsd/*metadata.csv                    @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd/manifest.json                    @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd/README.md                        @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation
-/gnatsd/assets/dashboards                    @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/gnatsd/assets/monitors                      @stephenprater @jaredhoyt dev@goldstar.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/go_pprof_scraper/*metadata.csv          @nsrip-dd @DataDog/documentation
-/go_pprof_scraper/manifest.json          @nsrip-dd @DataDog/documentation
-/go_pprof_scraper/README.md              @nsrip-dd @DataDog/documentation
-/go_pprof_scraper/assets/dashboards                    @nsrip-dd @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/go_pprof_scraper/assets/monitors                      @nsrip-dd @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/gremlin/*metadata.csv                   support@gremlin.com @DataDog/documentation
-/gremlin/manifest.json                   support@gremlin.com @DataDog/documentation
-/gremlin/README.md                       support@gremlin.com @DataDog/documentation
-/gremlin/assets/dashboards                    support@gremlin.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/gremlin/assets/monitors                      support@gremlin.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/grpc_check/*metadata.csv                @keisku @DataDog/documentation
-/grpc_check/manifest.json                @keisku @DataDog/documentation
-/grpc_check/README.md                    @keisku @DataDog/documentation
-/grpc_check/assets/dashboards                    @keisku @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/grpc_check/assets/monitors                      @keisku @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/hasura_cloud/*metadata.csv              @ShraddhaAg @shahidhk support@hasura.io @DataDog/documentation
-/hasura_cloud/manifest.json              @ShraddhaAg @shahidhk support@hasura.io @DataDog/documentation
-/hasura_cloud/README.md                  @ShraddhaAg @shahidhk support@hasura.io @DataDog/documentation
-/hasura_cloud/assets/dashboards                    @ShraddhaAg @shahidhk support@hasura.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/hasura_cloud/assets/monitors                      @ShraddhaAg @shahidhk support@hasura.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/hbase_master/*metadata.csv              @everpeace @DataDog/documentation
-/hbase_master/manifest.json              @everpeace @DataDog/documentation
-/hbase_master/README.md                  @everpeace @DataDog/documentation
-/hbase_master/assets/dashboards                    @everpeace @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/hbase_master/assets/monitors                      @everpeace @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/hbase_regionserver/*metadata.csv        @everpeace @DataDog/documentation
-/hbase_regionserver/manifest.json        @everpeace @DataDog/documentation
-/hbase_regionserver/README.md            @everpeace @DataDog/documentation
-/hbase_regionserver/assets/dashboards                    @everpeace @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/hbase_regionserver/assets/monitors                      @everpeace @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/hikaricp/*metadata.csv                  @bertaudamien @DataDog/documentation
-/hikaricp/manifest.json                  @bertaudamien @DataDog/documentation
-/hikaricp/README.md                      @bertaudamien @DataDog/documentation
-/hikaricp/assets/dashboards                    @bertaudamien @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/hikaricp/assets/monitors                      @bertaudamien @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/instabug/manifest.json                  @AbdallahHemdan ahemdan@instabug.com @DataDog/documentation
-/instabug/README.md                      @AbdallahHemdan ahemdan@instabug.com @DataDog/documentation
-/instabug/assets/dashboards                    @AbdallahHemdan ahemdan@instabug.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/instabug/assets/monitors                      @AbdallahHemdan ahemdan@instabug.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/instabug/*metadata.csv                  @AbdallahHemdan ahemdan@instabug.com @DataDog/documentation
-/ilert/*metadata.csv                     @yacut support@ilert.com @DataDog/documentation
-/ilert/manifest.json                     @yacut support@ilert.com @DataDog/documentation
-/ilert/README.md                         @yacut support@ilert.com @DataDog/documentation
-/ilert/assets/dashboards                    @yacut support@ilert.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ilert/assets/monitors                      @yacut support@ilert.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/insightfinder/*metadata.csv             @dearmore @erinlmcmahon @DataDog/documentation @DataDog/ecosystems-review
-/insightfinder/manifest.json             @dearmore @erinlmcmahon @DataDog/documentation @DataDog/ecosystems-review
-/insightfinder/README.md                 @dearmore @erinlmcmahon @DataDog/documentation @DataDog/ecosystems-review
-/insightfinder/assets/dashboards                    @dearmore @erinlmcmahon @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/insightfinder/assets/monitors                      @dearmore @erinlmcmahon @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/invary/*metadata.csv  @tim-invary @DataDog/documentation @DataDog/ecosystems-review
-/invary/manifest.json  @tim-invary @DataDog/documentation @DataDog/ecosystems-review
-/invary/README.md      @tim-invary @DataDog/documentation @DataDog/ecosystems-review
-/invary/assets/dashboards                    @tim-invary @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/invary/assets/monitors                      @tim-invary @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/isdown/*metadata.csv                    @ntomas support@isdown.app @DataDog/documentation @DataDog/ecosystems-review
-/isdown/manifest.json                    @ntomas support@isdown.app @DataDog/documentation @DataDog/ecosystems-review
-/isdown/README.md                        @ntomas support@isdown.app @DataDog/documentation @DataDog/ecosystems-review
-/isdown/assets/dashboards                    @ntomas support@isdown.app @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/isdown/assets/monitors                      @ntomas support@isdown.app @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/jfrog_platform_cloud/*metadata.csv      @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_cloud/manifest.json      @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_cloud/README.md          @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_cloud/assets/dashboards                    @jfrog/partner-engineering @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/jfrog_platform_cloud/assets/monitors                      @jfrog/partner-engineering @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/jfrog_platform_self_hosted/*metadata.csv            @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_self_hosted/manifest.json            @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_self_hosted/README.md                @jfrog/partner-engineering @DataDog/documentation @DataDog/ecosystems-review
-/jfrog_platform_self_hosted/assets/dashboards                    @jfrog/partner-engineering @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/jfrog_platform_self_hosted/assets/monitors                      @jfrog/partner-engineering @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/k6/*metadata.csv                        @ppcano support@k6.io @DataDog/documentation
-/k6/manifest.json                        @ppcano support@k6.io @DataDog/documentation
-/k6/README.md                            @ppcano support@k6.io @DataDog/documentation
-/k6/assets/dashboards                    @ppcano support@k6.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/k6/assets/monitors                      @ppcano support@k6.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/kernelcare/*metadata.csv                @grubberr schvaliuk@cloudlinux.com @DataDog/documentation
-/kernelcare/manifest.json                @grubberr schvaliuk@cloudlinux.com @DataDog/documentation
-/kernelcare/README.md                    @grubberr schvaliuk@cloudlinux.com @DataDog/documentation
-/kernelcare/assets/dashboards                    @grubberr schvaliuk@cloudlinux.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/kernelcare/assets/monitors                      @grubberr schvaliuk@cloudlinux.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/lacework/*metadata.csv                  @DataDog/agent-integrations @DataDog/documentation
-/lacework/manifest.json                  @DataDog/agent-integrations @DataDog/documentation
-/lacework/README.md                      @DataDog/agent-integrations @DataDog/documentation
-/lacework/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/lacework/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/launchdarkly/*metadata.csv              support@launchdarkly.com @DataDog/documentation @DataDog/ecosystems-review
-/launchdarkly/manifest.json              support@launchdarkly.com @DataDog/documentation @DataDog/ecosystems-review
-/launchdarkly/README.md                  support@launchdarkly.com @DataDog/documentation @DataDog/ecosystems-review
-/launchdarkly/assets/dashboards                    support@launchdarkly.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/launchdarkly/assets/monitors                      support@launchdarkly.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/lighthouse/*metadata.csv                @DataDog/agent-integrations @DataDog/documentation
-/lighthouse/manifest.json                @DataDog/agent-integrations @DataDog/documentation
-/lighthouse/README.md                    @DataDog/agent-integrations @DataDog/documentation
-/lighthouse/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/lighthouse/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/logstash/*metadata.csv                  @ervansetiawan ervansetiawan@gmail.com @DataDog/documentation
-/logstash/manifest.json                  @ervansetiawan ervansetiawan@gmail.com @DataDog/documentation
-/logstash/README.md                      @ervansetiawan ervansetiawan@gmail.com @DataDog/documentation
-/logstash/assets/dashboards                    @ervansetiawan ervansetiawan@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/logstash/assets/monitors                      @ervansetiawan ervansetiawan@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/logzio/*metadata.csv                    @DataDog/agent-integrations @DataDog/documentation
-/logzio/manifest.json                    @DataDog/agent-integrations @DataDog/documentation
-/logzio/README.md                        @DataDog/agent-integrations @DataDog/documentation
-/logzio/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/logzio/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/mendix/*metadata.csv                    @mendix/cloud @DataDog/agent-integrations @DataDog/documentation
-/mendix/manifest.json                    @mendix/cloud @DataDog/agent-integrations @DataDog/documentation
-/mendix/README.md                        @mendix/cloud @DataDog/agent-integrations @DataDog/documentation
-/mendix/assets/dashboards                    @mendix/cloud @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/mendix/assets/monitors                      @mendix/cloud @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/mergify/*metadata.csv                   @Mergifyio/oss-integrations @DataDog/documentation
-/mergify/manifest.json                   @Mergifyio/oss-integrations @DataDog/documentation
-/mergify/README.md                       @Mergifyio/oss-integrations @DataDog/documentation
-/mergify/assets/dashboards                    @Mergifyio/oss-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/mergify/assets/monitors                      @Mergifyio/oss-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/n2ws/*metadata.csv                      @eliadeini eliad.eini@n2ws.com @DataDog/documentation
-/n2ws/manifest.json                      @eliadeini eliad.eini@n2ws.com @DataDog/documentation
-/n2ws/README.md                          @eliadeini eliad.eini@n2ws.com @DataDog/documentation
-/n2ws/assets/dashboards                    @eliadeini eliad.eini@n2ws.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/n2ws/assets/monitors                      @eliadeini eliad.eini@n2ws.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/neo4j/*metadata.csv                     @davidfauth help@neo4j.com @DataDog/documentation
-/neo4j/manifest.json                     @davidfauth help@neo4j.com @DataDog/documentation
-/neo4j/README.md                         @davidfauth help@neo4j.com @DataDog/documentation
-/neo4j/assets/dashboards                    @davidfauth help@neo4j.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/neo4j/assets/monitors                      @davidfauth help@neo4j.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/neoload/*metadata.csv                   @Neotys-Labs/r-d @DataDog/documentation @DataDog/ecosystems-review
-/neoload/manifest.json                   @Neotys-Labs/r-d @DataDog/documentation @DataDog/ecosystems-review
-/neoload/README.md                       @Neotys-Labs/r-d @DataDog/documentation @DataDog/ecosystems-review
-/neoload/assets/dashboards                    @Neotys-Labs/r-d @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/neoload/assets/monitors                      @Neotys-Labs/r-d @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/neutrona/*metadata.csv                  @DavidFlamini david@neutrona.com @DataDog/documentation
-/neutrona/manifest.json                  @DavidFlamini david@neutrona.com @DataDog/documentation
-/neutrona/README.md                      @DavidFlamini david@neutrona.com @DataDog/documentation
-/neutrona/assets/dashboards                    @DavidFlamini david@neutrona.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/neutrona/assets/monitors                      @DavidFlamini david@neutrona.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/nextcloud/*metadata.csv                 @eplanet @DataDog/documentation
-/nextcloud/manifest.json                 @eplanet @DataDog/documentation
-/nextcloud/README.md                     @eplanet @DataDog/documentation
-/nextcloud/assets/dashboards                    @eplanet @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/nextcloud/assets/monitors                      @eplanet @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/ngrok/*metadata.csv                     @mkarnowski @DataDog/documentation @DataDog/ecosystems-review
-/ngrok/manifest.json                     @mkarnowski @DataDog/documentation @DataDog/ecosystems-review
-/ngrok/README.json                       @mkarnowski @DataDog/documentation @DataDog/ecosystems-review
-/ngrok/assets/dashboards                    @mkarnowski @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ngrok/assets/monitors                      @mkarnowski @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/nomad/*metadata.csv                     @irabinovitch @DataDog/documentation
-/nomad/manifest.json                     @irabinovitch @DataDog/documentation
-/nomad/README.md                         @irabinovitch @DataDog/documentation
-/nomad/assets/dashboards                    @irabinovitch @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/nomad/assets/monitors                      @irabinovitch @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/notion/*metadata.csv                    @makenotion/public-api @DataDog/documentation @DataDog/ecosystems-review
-/notion/manifest.json                    @makenotion/public-api @DataDog/documentation @DataDog/ecosystems-review
-/notion/README.md                        @makenotion/public-api @DataDog/documentation @DataDog/ecosystems-review
-/notion/assets/dashboards                    @makenotion/public-api @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/notion/assets/monitors                      @makenotion/public-api @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/ns1/*metadata.csv                       @dblagojevic-daitan dblagojevic@daitan.com @DataDog/documentation @DataDog/ecosystems-review
-/ns1/manifest.json                       @dblagojevic-daitan dblagojevic@daitan.com @DataDog/documentation @DataDog/ecosystems-review
-/ns1/README.md                           @dblagojevic-daitan dblagojevic@daitan.com @DataDog/documentation @DataDog/ecosystems-review
-/ns1/assets/dashboards                    @dblagojevic-daitan dblagojevic@daitan.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ns1/assets/monitors                      @dblagojevic-daitan dblagojevic@daitan.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/nvml/*metadata.csv                      @cep21 @DataDog/documentation
-/nvml/manifest.json                      @cep21 @DataDog/documentation
-/nvml/README.md                          @cep21 @DataDog/documentation
-/nvml/assets/dashboards                    @cep21 @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/nvml/assets/monitors                      @cep21 @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/onepane/*metadata.csv                       @sajosam sajo@onepane.ai  @DataDog/documentation @DataDog/ecosystems-review
-/onepane/manifest.json                       @sajosam sajo@onepane.ai  @DataDog/documentation @DataDog/ecosystems-review
-/onepane/README.md                           @sajosam sajo@onepane.ai  @DataDog/documentation @DataDog/ecosystems-review
-/onepane/assets/dashboards                  @sajosam sajo@onepane.ai  @DataDog/reporting-and-sharing @DataDog/agent-integrations
-
-/octoprint/*metadata.csv                 @gwaldo gwaldo@gmail.com @DataDog/documentation
-/octoprint/manifest.json                 @gwaldo gwaldo@gmail.com @DataDog/documentation
-/octoprint/README.md                     @gwaldo gwaldo@gmail.com @DataDog/documentation
-/octoprint/assets/dashboards                    @gwaldo gwaldo@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/octoprint/assets/monitors                      @gwaldo gwaldo@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/open_policy_agent/*metadata.csv         @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/open_policy_agent/manifest.json         @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/open_policy_agent/README.md             @arapulido ara.pulido@datadoghq.com @DataDog/documentation
-/packetfabric/*metadata.csv              @PacketFabric/coredump dev@packetfabric.com @DataDog/documentation
-/packetfabric/manifest.json              @PacketFabric/coredump dev@packetfabric.com @DataDog/documentation
-/packetfabric/README.md                  @PacketFabric/coredump dev@packetfabric.com @DataDog/documentation
-/open_policy_agent/assets/dashboards                    @arapulido ara.pulido@datadoghq.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/open_policy_agent/assets/monitors                      @arapulido ara.pulido@datadoghq.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/perfectscale/assets/dashboards          @idan-gazit @andrwkoval @oveleten support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/assets/logos               @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/assets/service_checks.json @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/CHANGELOG.md               @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/images                     @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/manifest.json              @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-/perfectscale/README.md                  @idan-gazit support@perfectscale.io @DataDog/ecosystems-review
-
-/perimeterx/*metadata.csv                support@perimeterx.com @DataDog/documentation
-/perimeterx/manifest.json                support@perimeterx.com @DataDog/documentation
-/perimeterx/README.md                    support@perimeterx.com @DataDog/documentation
-/perimeterx/assets/dashboards                    support@perimeterx.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/perimeterx/assets/monitors                      support@perimeterx.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/php_apcu/*metadata.csv                  @withgod noname@withgod.jp @DataDog/documentation
-/php_apcu/manifest.json                  @withgod noname@withgod.jp @DataDog/documentation
-/php_apcu/README.md                      @withgod noname@withgod.jp @DataDog/documentation
-/php_apcu/assets/dashboards                    @withgod noname@withgod.jp @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/php_apcu/assets/monitors                      @withgod noname@withgod.jp @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/php_opcache/*metadata.csv               @withgod noname@withgod.jp @DataDog/documentation
-/php_opcache/manifest.json               @withgod noname@withgod.jp @DataDog/documentation
-/php_opcache/README.md                   @withgod noname@withgod.jp @DataDog/documentation
-/php_opcache/assets/dashboards                    @withgod noname@withgod.jp @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/php_opcache/assets/monitors                      @withgod noname@withgod.jp @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/pihole/*metadata.csv                    @monganai @DataDog/documentation
-/pihole/manifest.json                    @monganai @DataDog/documentation
-/pihole/README.md                        @monganai @DataDog/documentation
-/pihole/assets/dashboards                    @monganai @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/pihole/assets/monitors                      @monganai @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/ping/*metadata.csv                      @jstanton617 @DataDog/documentation
-/ping/manifest.json                      @jstanton617 @DataDog/documentation
-/ping/README.md                          @jstanton617 @DataDog/documentation
-/ping/assets/dashboards                    @jstanton617 @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/ping/assets/monitors                      @jstanton617 @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/pliant/*metadata.csv                    @hello-pliant hello@pliant.io @DataDog/documentation
-/pliant/manifest.json                    @hello-pliant hello@pliant.io @DataDog/documentation
-/pliant/README.md                        @hello-pliant hello@pliant.io @DataDog/documentation
-/pliant/assets/dashboards                    @hello-pliant hello@pliant.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/pliant/assets/monitors                      @hello-pliant hello@pliant.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/portworx/*metadata.csv                  @pault84 paul@portworx.com @DataDog/documentation
-/portworx/manifest.json                  @pault84 paul@portworx.com @DataDog/documentation
-/portworx/README.md                      @pault84 paul@portworx.com @DataDog/documentation
-/portworx/assets/dashboards                    @pault84 paul@portworx.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/portworx/assets/monitors                      @pault84 paul@portworx.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/postman/*metadata.csv                   @shashankawasthi88  integrations-partnerships@postman.com @DataDog/documentation
-/postman/manifest.json                   @shashankawasthi88  integrations-partnerships@postman.com @DataDog/documentation
-/postman/README.md                       @shashankawasthi88  integrations-partnerships@postman.com @DataDog/documentation
-/postman/assets/dashboards                    @shashankawasthi88  integrations-partnerships@postman.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/postman/assets/monitors                      @shashankawasthi88  integrations-partnerships@postman.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/pulsar/*metadata.csv                    @zzzming itestmycode@gmail.com @DataDog/documentation
-/pulsar/manifest.json                    @zzzming itestmycode@gmail.com @DataDog/documentation
-/pulsar/README.md                        @zzzming itestmycode@gmail.com @DataDog/documentation
-/pulsar/assets/dashboards                    @zzzming itestmycode@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/pulsar/assets/monitors                      @zzzming itestmycode@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/pulumi/*metadata.csv                    @isaac-pulumi team@pulumi.com @DataDog/documentation @DataDog/ecosystems-review
-/pulumi/manifest.json                    @isaac-pulumi team@pulumi.com @DataDog/documentation @DataDog/ecosystems-review
-/pulumi/README.md                        @isaac-pulumi team@pulumi.com @DataDog/documentation @DataDog/ecosystems-review
-/pulumi/assets/dashboards                    @isaac-pulumi team@pulumi.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/pulumi/assets/monitors                      @isaac-pulumi team@pulumi.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/puma/*metadata.csv                      @plasticine @DataDog/documentation
-/puma/manifest.json                      @plasticine @DataDog/documentation
-/puma/README.md                          @plasticine @DataDog/documentation
-/puma/assets/dashboards                    @plasticine @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/puma/assets/monitors                      @plasticine @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/radarr/*metadata.csv                    @HadrienPatte @DataDog/documentation
-/radarr/manifest.json                    @HadrienPatte @DataDog/documentation
-/radarr/README.md                        @HadrienPatte @DataDog/documentation
-/radarr/assets/dashboards                    @HadrienPatte @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/radarr/assets/monitors                      @HadrienPatte @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/rbltracker/*metadata.csv                @DataDog/agent-integrations @DataDog/documentation
-/rbltracker/manifest.json                @DataDog/agent-integrations @DataDog/documentation
-/rbltracker/README.md                    @DataDog/agent-integrations @DataDog/documentation
-/rbltracker/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/rbltracker/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/reboot_required/*metadata.csv           @montdidier support@krugerheavyindustries.com @DataDog/documentation
-/reboot_required/manifest.json           @montdidier support@krugerheavyindustries.com @DataDog/documentation
-/reboot_required/README.md               @montdidier support@krugerheavyindustries.com @DataDog/documentation
-/reboot_required/assets/dashboards                    @montdidier support@krugerheavyindustries.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/reboot_required/assets/monitors                      @montdidier support@krugerheavyindustries.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/redis_sentinel/*metadata.csv            @DataDog/agent-integrations @DataDog/documentation
-/redis_sentinel/manifest.json            @DataDog/agent-integrations @DataDog/documentation
-/redis_sentinel/README.md                @DataDog/agent-integrations @DataDog/documentation
-/redis_sentinel/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/redis_sentinel/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/redisenterprise/manifest.json           @maguec christian@redislabs.com @DataDog/documentation
-/redisenterprise/README.md               @maguec christian@redislabs.com @DataDog/documentation
-/redisenterprise/assets/dashboards                    @maguec christian@redislabs.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/redisenterprise/assets/monitors                      @maguec christian@redislabs.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/resin/*metadata.csv                     @brentm5 @DataDog/documentation
-/resin/manifest.json                     @brentm5 @DataDog/documentation
-/resin/README.md                         @brentm5 @DataDog/documentation
-/resin/assets/dashboards                    @brentm5 @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/resin/assets/monitors                      @brentm5 @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/retool/*metadata.csv                    @jamiecuffe @DataDog/documentation
-/retool/manifest.json                    @jamiecuffe @DataDog/documentation
-/retool/README.md                        @jamiecuffe @DataDog/documentation
-/retool/assets/dashboards                    @jamiecuffe @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/retool/assets/monitors                      @jamiecuffe @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/riak_repl/*metadata.csv                 @abtreece @DataDog/documentation
-/riak_repl/manifest.json                 @abtreece @DataDog/documentation
-/riak_repl/README.md                     @abtreece @DataDog/documentation
-/riak_repl/assets/dashboards                    @abtreece @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/riak_repl/assets/monitors                      @abtreece @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/rigor/*metadata.csv                     support@rigor.com @DataDog/documentation
-/rigor/manifest.json                     support@rigor.com @DataDog/documentation
-/rigor/README.md                         support@rigor.com @DataDog/documentation
-/rigor/assets/dashboards                    support@rigor.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/rigor/assets/monitors                      support@rigor.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/rookout/*metadata.csv                   support@rookout.com @DataDog/documentation @DataDog/ecosystems-review
-/rookout/manifest.json                   support@rookout.com @DataDog/documentation @DataDog/ecosystems-review
-/rookout/README.md                       support@rookout.com @DataDog/documentation @DataDog/ecosystems-review
-/rookout/assets/dashboards                    support@rookout.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/rookout/assets/monitors                      support@rookout.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/rundeck/*metadata.csv                   forrest@rundeck.com @DataDog/documentation
-/rundeck/manifest.json                   forrest@rundeck.com @DataDog/documentation
-/rundeck/README.md                       forrest@rundeck.com @DataDog/documentation
-/rundeck/assets/dashboards                    forrest@rundeck.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/rundeck/assets/monitors                      forrest@rundeck.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/scalr/*metadata.csv                     @soltysss @DataDog/documentation @DataDog/ecosystems-review
-/scalr/manifest.json                     @soltysss @DataDog/documentation @DataDog/ecosystems-review
-/scalr/README.md                         @soltysss @DataDog/documentation @DataDog/ecosystems-review
-/scalr/assets/dashboards                    @soltysss @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/scalr/assets/monitors                      @soltysss @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/scaphandre/*metadata.csv                  @sarah-witt @rahulkaukuntla @DataDog/documentation @DataDog/ecosystems-review
-/scaphandre/manifest.json                  @sarah-witt @rahulkaukuntla @DataDog/documentation @DataDog/ecosystems-review
-/scaphandre/README.md                      @sarah-witt @rahulkaukuntla @DataDog/documentation @DataDog/ecosystems-review
-/scaphandre/assets/dashboards                    @sarah-witt @rahulkaukuntla @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/scaphandre/assets/monitors                      @sarah-witt @rahulkaukuntla @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/seagence/*metadata.csv                  @srinivas-bitla @DataDog/documentation @DataDog/ecosystems-review
-/seagence/manifest.json                  @srinivas-bitla @DataDog/documentation @DataDog/ecosystems-review
-/seagence/README.md                      @srinivas-bitla @DataDog/documentation @DataDog/ecosystems-review
-/seagence/assets/dashboards                    @srinivas-bitla @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/seagence/assets/monitors                      @srinivas-bitla @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sendmail/*metadata.csv                  @dabcoder david.bouchare@datadoghq.com @DataDog/documentation
-/sendmail/manifest.json                  @dabcoder david.bouchare@datadoghq.com @DataDog/documentation
-/sendmail/README.md                      @dabcoder david.bouchare@datadoghq.com @DataDog/documentation
-/sendmail/assets/dashboards                    @dabcoder david.bouchare@datadoghq.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sendmail/assets/monitors                      @dabcoder david.bouchare@datadoghq.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/signl4/*metadata.csv                    @rons4 ron@signl4.com @DataDog/documentation
-/signl4/manifest.json                    @rons4 ron@signl4.com @DataDog/documentation
-/signl4/README.md                        @rons4 ron@signl4.com @DataDog/documentation
-/signl4/assets/dashboards                    @rons4 ron@signl4.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/signl4/assets/monitors                      @rons4 ron@signl4.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sigsci/*metadata.csv                    @signalsciences info@signalsciences.com @DataDog/documentation
-/sigsci/manifest.json                    @signalsciences info@signalsciences.com @DataDog/documentation
-/sigsci/README.md                        @signalsciences info@signalsciences.com @DataDog/documentation
-/sigsci/assets/dashboards                    @signalsciences info@signalsciences.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sigsci/assets/monitors                      @signalsciences info@signalsciences.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/shoreline/*metadata.csv                 @ytnytn1 support@shoreline.io @DataDog/documentation @DataDog/ecosystems-review
-/shoreline/manifest.json                 @ytnytn1 support@shoreline.io @DataDog/documentation @DataDog/ecosystems-review
-/shoreline/README.md                     @ytnytn1 support@shoreline.io @DataDog/documentation @DataDog/ecosystems-review
-/shoreline/assets/dashboards                    @ytnytn1 support@shoreline.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/shoreline/assets/monitors                      @ytnytn1 support@shoreline.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sleuth/*metadata.csv                    @mtbnut pleal@sleuth.io @DataDog/documentation
-/sleuth/manifest.json                    @mtbnut pleal@sleuth.io @DataDog/documentation
-/sleuth/README.md                        @mtbnut pleal@sleuth.io @DataDog/documentation
-/sleuth/assets/dashboards                    @mtbnut pleal@sleuth.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sleuth/assets/monitors                      @mtbnut pleal@sleuth.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/snmpwalk/*metadata.csv                  @DataDog/agent-integrations @DataDog/documentation
-/snmpwalk/manifest.json                  @DataDog/agent-integrations @DataDog/documentation
-/snmpwalk/README.md                      @DataDog/agent-integrations @DataDog/documentation
-/snmpwalk/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/snmpwalk/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sonarr/*metadata.csv                    @HadrienPatte @DataDog/documentation
-/sonarr/manifest.json                    @HadrienPatte @DataDog/documentation
-/sonarr/README.md                        @HadrienPatte @DataDog/documentation
-/sonarr/assets/dashboards                    @HadrienPatte @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sonarr/assets/monitors                      @HadrienPatte @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sortdb/*metadata.csv                    @namrata4 namrata.deshpande4@gmail.com @DataDog/documentation
-/sortdb/manifest.json                    @namrata4 namrata.deshpande4@gmail.com @DataDog/documentation
-/sortdb/README.md                        @namrata4 namrata.deshpande4@gmail.com @DataDog/documentation
-/sortdb/assets/dashboards                    @namrata4 namrata.deshpande4@gmail.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sortdb/assets/monitors                      @namrata4 namrata.deshpande4@gmail.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/speedtest/*metadata.csv                 @platinummonkey @DataDog/documentation
-/speedtest/manifest.json                 @platinummonkey @DataDog/documentation
-/speedtest/README.md                     @platinummonkey @DataDog/documentation
-/speedtest/assets/dashboards                    @platinummonkey @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/speedtest/assets/monitors                      @platinummonkey @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/split/*metadata.csv                     @jeremy-lq @DataDog/documentation
-/split/manifest.json                     @jeremy-lq @DataDog/documentation
-/split/README.md                         @jeremy-lq @DataDog/documentation
-/split/assets/dashboards                    @jeremy-lq @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/split/assets/monitors                      @jeremy-lq @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sqreen/*metadata.csv                    @DataDog/agent-integrations @DataDog/documentation
-/sqreen/manifest.json                    @DataDog/agent-integrations @DataDog/documentation
-/sqreen/README.md                        @DataDog/agent-integrations @DataDog/documentation
-/sqreen/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sqreen/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/squadcast/*metadata.csv                 it@squadcast.com @DataDog/documentation
-/squadcast/manifest.json                 it@squadcast.com @DataDog/documentation
-/squadcast/README.md                     it@squadcast.com @DataDog/documentation
-/squadcast/assets/dashboards                    it@squadcast.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/squadcast/assets/monitors                      it@squadcast.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/stackpulse/*metadata.csv                @stackpulse/rnd support@stackpulse.io @DataDog/documentation
-/stackpulse/manifest.json                @stackpulse/rnd support@stackpulse.io @DataDog/documentation
-/stackpulse/README.md                    @stackpulse/rnd support@stackpulse.io @DataDog/documentation
-/stackpulse/assets/dashboards                    @stackpulse/rnd support@stackpulse.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/stackpulse/assets/monitors                      @stackpulse/rnd support@stackpulse.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/stardog/*metadata.csv                   @buzztroll support@stardog.com @DataDog/documentation
-/stardog/manifest.json                   @buzztroll support@stardog.com @DataDog/documentation
-/stardog/README.md                       @buzztroll support@stardog.com @DataDog/documentation
-/stardog/assets/dashboards                    @buzztroll support@stardog.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/stardog/assets/monitors                      @buzztroll support@stardog.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/statsig/*metadata.csv                   @marcos-statsig support@statsig.com @DataDog/documentation
-/statsig/manifest.json                   @marcos-statsig support@statsig.com @DataDog/documentation
-/statsig/README.md                       @marcos-statsig support@statsig.com @DataDog/documentation
-/statsig/assets/dashboards                    @marcos-statsig support@statsig.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/statsig/assets/monitors                      @marcos-statsig support@statsig.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/steadybit/*metadata.csv                 @bripkens support@steadybit.com @DataDog/documentation @DataDog/ecosystems-review
-/steadybit/manifest.json                 @bripkens support@steadybit.com @DataDog/documentation @DataDog/ecosystems-review
-/steadybit/README.md                     @bripkens support@steadybit.com @DataDog/documentation @DataDog/ecosystems-review
-/steadybit/assets/dashboards                    @bripkens support@steadybit.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/steadybit/assets/monitors                      @bripkens support@steadybit.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/storm/*metadata.csv                     @platinummonkey @DataDog/documentation
-/storm/manifest.json                     @platinummonkey @DataDog/documentation
-/storm/README.md                         @platinummonkey @DataDog/documentation
-/storm/assets/dashboards                    @platinummonkey @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/storm/assets/monitors                      @platinummonkey @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/stormforge/*metadata.csv                @bradbeam @tperol support@stormforge.io @DataDog/documentation @DataDog/ecosystems-review
-/stormforge/manifest.json                @bradbeam @tperol support@stormforge.io @DataDog/documentation @DataDog/ecosystems-review
-/stormforge/README.md                    @bradbeam @tperol support@stormforge.io @DataDog/documentation @DataDog/ecosystems-review
-/stormforge/assets/dashboards                    @bradbeam @tperol support@stormforge.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/stormforge/assets/monitors                      @bradbeam @tperol support@stormforge.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/syncthing/*metadata.csv                 @sashacmc @DataDog/documentation
-/syncthing/manifest.json                 @sashacmc @DataDog/documentation
-/syncthing/README.md                     @sashacmc @DataDog/documentation
-/syncthing/assets/dashboards                    @sashacmc @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/syncthing/assets/monitors                      @sashacmc @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/taskcall/manifest.json                  @taskcall support@taskcallapp.com @DataDog/documentation @DataDog/ecosystems-review
-/taskcall/README.md                      @taskcall support@taskcallapp.com @DataDog/documentation @DataDog/ecosystems-review
-/taskcall/assets/dashboards                    @taskcall support@taskcallapp.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/taskcall/assets/monitors                      @taskcall support@taskcallapp.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/tidb/*metadata.csv                      @SabaPing xuyifan02@pingcap.com @DataDog/documentation @DataDog/ecosystems-review
-/tidb/manifest.json                      @SabaPing xuyifan02@pingcap.com @DataDog/documentation @DataDog/ecosystems-review
-/tidb/README.md                          @SabaPing xuyifan02@pingcap.com @DataDog/documentation @DataDog/ecosystems-review
-/tidb/assets/dashboards                    @SabaPing xuyifan02@pingcap.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/tidb/assets/monitors                      @SabaPing xuyifan02@pingcap.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/traefik/*metadata.csv                   @renaudhager @DataDog/documentation
-/traefik/manifest.json                   @renaudhager @DataDog/documentation
-/traefik/README.md                       @renaudhager @DataDog/documentation
-/traefik/assets/dashboards                    @renaudhager @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/traefik/assets/monitors                      @renaudhager @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-
-/twingate/*metadata.csv                  @emrul partnerships@twingate.com @DataDog/documentation @DataDog/ecosystems-review
-/twingate/manifest.json                      @emrul partnerships@twingate.com @DataDog/documentation @DataDog/ecosystems-review
-/twingate/README.md                  @emrul partnerships@twingate.com @DataDog/documentation @DataDog/ecosystems-review
-/twingate/assets/dashboards                     @emrul partnerships@twingate.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/twingate/assets/monitors                       @emrul partnerships@twingate.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-
-/tyk/*metadata.csv                       @letzya @DataDog/documentation
-/tyk/manifest.json                       @letzya @DataDog/documentation
-/tyk/README.md                           @letzya @DataDog/documentation
-/tyk/assets/dashboards                    @letzya @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/tyk/assets/monitors                      @letzya @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/unbound/*metadata.csv                   @dbyron0 david.byron@avast.com @DataDog/documentation
-/unbound/manifest.json                   @dbyron0 david.byron@avast.com @DataDog/documentation
-/unbound/README.md                       @dbyron0 david.byron@avast.com @DataDog/documentation
-/unbound/assets/dashboards                    @dbyron0 david.byron@avast.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/unbound/assets/monitors                      @dbyron0 david.byron@avast.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/upbound_uxp/*metadata.csv               @humoflife support@upbound.io @DataDog/documentation
-/upbound_uxp/manifest.json               @humoflife support@upbound.io @DataDog/documentation
-/upbound_uxp/README.md                   @humoflife support@upbound.io @DataDog/documentation
-/upbound_uxp/assets/dashboards                    @humoflife support@upbound.io @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/upbound_uxp/assets/monitors                      @humoflife support@upbound.io @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/unifi_console/*metadata.csv             @abruneau @DataDog/documentation
-/unifi_console/manifest.json             @abruneau @DataDog/documentation
-/unifi_console/README.md                 @abruneau @DataDog/documentation
-/unifi_console/assets/dashboards                    @abruneau @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/unifi_console/assets/monitors                      @abruneau @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/upsc/*metadata.csv                      @platinummonkey @DataDog/documentation
-/upsc/manifest.json                      @platinummonkey @DataDog/documentation
-/upsc/README.md                          @platinummonkey @DataDog/documentation
-/upsc/assets/dashboards                    @platinummonkey @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/upsc/assets/monitors                      @platinummonkey @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/uptime/*metadata.csv                    @DataDog/documentation
-/uptime/manifest.json                    @DataDog/documentation
-/uptime/README.md                        @DataDog/documentation
-/uptime/assets/dashboards                    @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/uptime/assets/monitors                      @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/vespa/*metadata.csv                     @gjoranv dd@vespa.ai @DataDog/documentation
-/vespa/manifest.json                     @gjoranv dd@vespa.ai @DataDog/documentation
-/vespa/README.md                         @gjoranv dd@vespa.ai @DataDog/documentation
-/vespa/assets/dashboards                    @gjoranv dd@vespa.ai @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/vespa/assets/monitors                      @gjoranv dd@vespa.ai @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/vns3/*metadata.csv                      @DataDog/agent-integrations @DataDog/documentation
-/vns3/manifest.json                      @DataDog/agent-integrations @DataDog/documentation
-/vns3/README.md                          @DataDog/agent-integrations @DataDog/documentation
-/vns3/assets/dashboards                    @DataDog/agent-integrations @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/vns3/assets/monitors                      @DataDog/agent-integrations @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/zabbix/*metadata.csv                    @KosukeKamiya @DataDog/documentation
-/zabbix/manifest.json                    @KosukeKamiya @DataDog/documentation
-/zabbix/README.md                        @KosukeKamiya @DataDog/documentation
-/zabbix/assets/dashboards                    @KosukeKamiya @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/zabbix/assets/monitors                      @KosukeKamiya @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/zenduty/*metadata.csv                   @zenbeam shubham@zenduty.com @DataDog/documentation @DataDog/ecosystems-review
-/zenduty/manifest.json                   @zenbeam shubham@zenduty.com @DataDog/documentation @DataDog/ecosystems-review
-/zenduty/README.md                       @zenbeam shubham@zenduty.com @DataDog/documentation @DataDog/ecosystems-review
-/zenduty/assets/dashboards                    @zenbeam shubham@zenduty.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/zenduty/assets/monitors                      @zenbeam shubham@zenduty.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/rookout/*metadata.csv                    @rookout/product @DataDog/documentation
-/rookout/manifest.json                    @rookout/product @DataDog/documentation
-/rookout/README.md                        @rookout/product @DataDog/documentation
-/rookout/assets/dashboards                    @rookout/product @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/rookout/assets/monitors                      @rookout/product @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/lambdatest/*metadata.csv                 @prateeksainilambdatest @DataDog/documentation @DataDog/ecosystems-review
-/lambdatest/manifest.json                 @prateeksainilambdatest @DataDog/documentation @DataDog/ecosystems-review
-/lambdatest/README.md                     @prateeksainilambdatest @DataDog/documentation @DataDog/ecosystems-review
-
-/sosivio/*metadata.csv                 @danarlowski @DataDog/documentation @DataDog/ecosystems-review
-/sosivio/manifest.json                 @danarlowski @DataDog/documentation @DataDog/ecosystems-review
-/sosivio/README.md                     @danarlowski @DataDog/documentation @DataDog/ecosystems-review
-/sosivio/assets/dashboards                    @danarlowski @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sosivio/assets/monitors                      @danarlowski @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/emnify/*metadata.csv                 @EMnify/development @EMnify/rademade @DataDog/documentation
-/emnify/manifest.json                 @EMnify/development @EMnify/rademade @DataDog/documentation
-/emnify/README.md                     @EMnify/development @EMnify/rademade @DataDog/documentation
-/emnify/assets/dashboards             @EMnify/development @EMnify/rademade @DataDog/documentation @DataDog/reporting-and-sharing
-/emnify/assets/monitors               @EMnify/development @EMnify/rademade @DataDog/documentation @DataDog/alerting-product
-
-/adaptive_shield/*metadata.csv         @adaptiveshield @DataDog/documentation @DataDog/ecosystems-review
-/adaptive_shield/manifest.json         @adaptiveshield @DataDog/documentation @DataDog/ecosystems-review
-/adaptive_shield/README.md             @adaptiveshield @DataDog/documentation @DataDog/ecosystems-review
-/adaptive_shield/assets/dashboards                    @adaptiveshield @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/adaptive_shield/assets/monitors                      @adaptiveshield @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/typingdna_activelock/*metadata.csv    @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/documentation @DataDog/ecosystems-review
-/typingdna_activelock/manifest.json    @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/documentation @DataDog/ecosystems-review
-/typingdna_activelock/README.md        @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/documentation @DataDog/ecosystems-review
-/typingdna_activelock/assets/dashboards                    @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/typingdna_activelock/assets/monitors                      @TypingDNA/logintegrations @raulpopa @endresstefan @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/sofy_sofy/*metadata.csv               @Sofy @DataDog/documentation @DataDog/ecosystems-review
-/sofy_sofy/manifest.json               @Sofy @DataDog/documentation @DataDog/ecosystems-review
-/sofy_sofy/README.md                   @Sofy @DataDog/documentation @DataDog/ecosystems-review
-/sofy_sofy/assets/dashboards                    @Sofy @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/sofy_sofy/assets/monitors                      @Sofy @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/singlestoredb_cloud/*metadata.csv     @tdasarathan @DataDog/ecosystems-review
-/singlestoredb_cloud/manifest.json     @tdasarathan @DataDog/ecosystems-review
-/singlestoredb_cloud/README.md         @tdasarathan @DataDog/ecosystems-review
-/singlestoredb_cloud/assets/dashboards                    @tdasarathan @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/singlestoredb_cloud/assets/monitors                      @tdasarathan @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/emqx/*metadata.csv                    @zhongwencool @zmstone @DataDog/documentation @DataDog/ecosystems-review
-/emqx/manifest.json                    @zhongwencool @zmstone @DataDog/documentation @DataDog/ecosystems-review
-/emqx/assets/dashboards                    @zhongwencool @zmstone @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/emqx/assets/monitors                      @zhongwencool @zmstone @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-/emqx/README.md                        @zhongwencool @zmstone @DataDog/documentation @DataDog/ecosystems-review
-
-/anecdote/metadata.csv                    @atyulyutaev  @DataDog/documentation @DataDog/ecosystems-review
-/anecdote/manifest.json                    @atyulyutaev @DataDog/documentation @DataDog/ecosystems-review
-/anecdote/assets/dashboards                    @atyulyutaev @DataDog/documentation @DataDog/dashboards-backend @DataDog/agent-integrations
-/anecdote/assets/monitors                      @atyulyutaev @DataDog/documentation @DataDog/monitor-app @DataDog/agent-integrations
-/anecdote/assets/logs/                         @atyulyutaev @DataDog/agent-integrations @DataDog/logs-integrations-reviewers
-/anecdote/README.md                        @atyulyutaev @DataDog/documentation @DataDog/ecosystems-review
-
-/celerdata/*metadata.csv                     @yandongxiao yandongxiao@starrocks.com @DataDog/documentation @DataDog/ecosystems-review
-/celerdata/manifest.json                     @yandongxiao yandongxiao@starrocks.com @DataDog/documentation @DataDog/ecosystems-review
-/celerdata/README.md                         @yandongxiao yandongxiao@starrocks.com @DataDog/documentation @DataDog/ecosystems-review
-/celerdata/assets/dashboards                    @yandongxiao yandongxiao@starrocks.com @DataDog/documentation @DataDog/reporting-and-sharing @DataDog/agent-integrations
-/celerdata/assets/monitors                      @yandongxiao yandongxiao@starrocks.com @DataDog/documentation @DataDog/alerting-product @DataDog/agent-integrations
-
-/oceanbasecloud/                             @kyle-oceanbase kyle.sj@oceanbase.com @DataDog/ecosystems-review
-
-/hawkeye_by_neubird/                        @DataDog/ecosystems-review
-/zilliz_cloud_zilliz_cloud/                 @DataDog/ecosystems-review
-/appomni/                           @DataDog/ecosystems-review
-/contrast_security_adr/              @DataDog/ecosystems-review
-/gravitee/                           @DataDog/ecosystems-review
-/gatling_enterprise/                           @DataDog/ecosystems-review
-
-/downdetector/                             @DataDog/ecosystems-review
-
-/chainguard/                 @DataDog/ecosystems-review
-
-/authzed_cloud/                 @DataDog/ecosystems-review
-/akamas/                        @DataDog/ecosystems-review
-
-/dagster/              @DataDog/ecosystems-review
-/aerospike_enterprise/ @support-aerospike @DataDog/ecosystems-review
+/docs/                @DataDog/agent-integrations
+**/README.md          @DataDog/documentation @DataDog/agent-integrations
+conf.yaml.example     @DataDog/documentation @DataDog/agent-integrations
+conf.yaml.default     @DataDog/documentation @DataDog/agent-integrations
+auto_conf.yaml        @DataDog/documentation @DataDog/agent-integrations @DataDog/container-integrations
+manifest.json         @DataDog/documentation @DataDog/agent-integrations
+**/assets             @DataDog/documentation @DataDog/agent-integrations
+**/metadata.csv       @DataDog/documentation @DataDog/agent-integrations
+
+# Dependencies
+/.deps/                            @DataDog/agent-integrations @DataDog/agent-build
+/.builders/                        @DataDog/agent-build
+/.builders/images/                 @DataDog/agent-integrations @DataDog/agent-build
+/.builders/patches/                @DataDog/agent-integrations @DataDog/agent-build
+
+# Checks base
+/datadog_checks_base/                                          @DataDog/agent-integrations
+/datadog_checks_base/datadog_checks/base/checks/openmetrics/   @DataDog/agent-integrations @DataDog/container-integrations
+/datadog_checks_base/datadog_checks/base/checks/kube_leader/   @DataDog/agent-integrations @DataDog/container-integrations
+
+# Container monitoring
+/cert_manager/                                  @DataDog/container-integrations @DataDog/agent-integrations
+/cert_manager/*.md                              @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/cert_manager/manifest.json                     @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/container/                                     @DataDog/container-integrations @DataDog/agent-integrations
+/container/*.md                                 @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/container/manifest.json                        @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/containerd/                                    @DataDog/container-integrations @DataDog/agent-integrations
+/containerd/*.md                                @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/containerd/manifest.json                       @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/cri/                                           @DataDog/container-integrations @DataDog/agent-integrations
+/cri/*.md                                       @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/cri/manifest.json                              @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/crio/                                          @DataDog/container-integrations @DataDog/agent-integrations
+/crio/*.md                                      @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/crio/manifest.json                             @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/datadog_cluster_agent/                         @DataDog/container-integrations @DataDog/agent-integrations
+/datadog_cluster_agent/*.md                     @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/datadog_csi_driver/                            @DataDog/container-platform @DataDog/agent-integrations
+/datadog_csi_driver/*.md                        @DataDog/container-platform @DataDog/agent-integrations @DataDog/documentation
+/datadog_operator/                              @DataDog/container-ecosystems @DataDog/agent-integrations
+/datadog_operator/*.md                          @DataDog/container-ecosystems @DataDog/agent-integrations @DataDog/documentation
+/docker_daemon/                                 @DataDog/container-integrations @DataDog/agent-integrations
+/docker_daemon/*.md                             @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/docker_daemon/metadata.csv                     @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/docker_daemon/manifest.json                    @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/ecs_fargate/                                   @DataDog/container-integrations @DataDog/agent-integrations
+/ecs_fargate/*.md                               @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/ecs_fargate/manifest.json                      @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/eks_fargate/                                   @DataDog/container-integrations @DataDog/agent-integrations
+/eks_fargate/*.md                               @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/eks_fargate/manifest.json                      @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/helm/                                          @DataDog/container-integrations @DataDog/agent-integrations
+/helm/*.md                                      @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/helm/manifest.json                             @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_apiserver_metrics/                        @DataDog/container-integrations @DataDog/agent-integrations
+/kube_apiserver_metrics/*.md                    @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_apiserver_metrics/manifest.json           @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_controller_manager/                       @DataDog/container-integrations @DataDog/agent-integrations
+/kube_controller_manager/*.md                   @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_controller_manager/manifest.json          @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_dns/                                      @DataDog/container-integrations @DataDog/agent-integrations
+/kube_dns/*.md                                  @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_dns/manifest.json                         @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_metrics_server/                           @DataDog/container-integrations @DataDog/agent-integrations
+/kube_metrics_server/*.md                       @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_metrics_server/manifest.json              @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_proxy/                                    @DataDog/container-integrations @DataDog/agent-integrations
+/kube_proxy/*.md                                @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_proxy/manifest.json                       @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_scheduler/                                @DataDog/container-integrations @DataDog/agent-integrations
+/kube_scheduler/*.md                            @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kube_scheduler/manifest.json                   @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubelet/                                       @DataDog/container-integrations @DataDog/agent-integrations
+/kubelet/*.md                                   @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubelet/manifest.json                          @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes/                                    @DataDog/container-integrations @DataDog/agent-integrations
+/kubernetes/*.md                                @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes/manifest.json                       @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_admission/                          @DataDog/container-platform     @DataDog/agent-integrations
+/kubernetes_cluster_autoscaler/                 @DataDog/container-integrations @DataDog/agent-integrations
+/kubernetes_cluster_autoscaler/*.md             @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_cluster_autoscaler/manifest.json    @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_state/                              @DataDog/container-integrations @DataDog/agent-integrations
+/kubernetes_state/*.md                          @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_state/manifest.json                 @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_state_core/                         @DataDog/container-integrations @DataDog/agent-integrations
+/kubernetes_state_core/*.md                     @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/kubernetes_state_core/manifest.json            @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/nginx_ingress_controller/                      @DataDog/container-integrations @DataDog/agent-integrations
+/nginx_ingress_controller/*.md                  @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/nginx_ingress_controller/manifest.json         @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/oom_kill/                                      @DataDog/container-integrations @DataDog/agent-integrations
+/oom_kill/*.md                                  @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/oom_kill/manifest.json                         @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/openmetrics/                                   @DataDog/container-integrations @DataDog/agent-integrations
+/openmetrics/*.md                               @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/openmetrics/manifest.json                      @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/podman/                                        @DataDog/container-integrations @DataDog/agent-integrations
+/podman/*.md                                    @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/podman/manifest.json                           @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/tcp_queue_length/                              @DataDog/container-integrations @DataDog/agent-integrations
+/tcp_queue_length/*.md                          @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+/tcp_queue_length/manifest.json                 @DataDog/container-integrations @DataDog/agent-integrations @DataDog/documentation
+
+# NDM
+/cisco_aci/                                                        @DataDog/ndm-integrations @DataDog/agent-integrations
+/cisco_aci/*.md                                                    @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/cisco_aci/manifest.json                                           @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/cisco_aci/metadata.csv                                            @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/cisco_aci/assets/dashboards                                       @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/cisco_aci/assets/monitors                                         @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/cisco_sdwan/                                                      @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+/snmp/                                                             @DataDog/ndm-core @DataDog/agent-integrations @DataDog/documentation
+/snmp/*.md                                                         @DataDog/ndm-core @DataDog/agent-integrations @DataDog/documentation
+/snmp_*/                                                           @DataDog/ndm-core @DataDog/agent-integrations @DataDog/documentation
+/snmp_*/*.md                                                       @DataDog/ndm-core @DataDog/agent-integrations @DataDog/documentation
+/network_path/                                                     @DataDog/network-device-monitoring @DataDog/Networks @DataDog/agent-integrations
+/network_path/*.md                                                 @DataDog/network-device-monitoring @DataDog/Networks @DataDog/agent-integrations @DataDog/documentation
+/versa/                                                            @DataDog/ndm-integrations @DataDog/agent-integrations @DataDog/documentation
+
+/datadog_checks_dev/datadog_checks/dev/tooling/commands/meta/snmp/ @DataDog/ndm-core @DataDog/agent-integrations
+/docs/developer/tutorials/snmp/                                    @DataDog/ndm-core @DataDog/agent-integrations
+
+# System checks
+/disk/                                    @DataDog/agent-integrations @DataDog/windows-products
+/disk/*.md                                @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+/disk/manifest.json                       @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+/network/                                 @DataDog/agent-integrations @DataDog/windows-products
+/network/*.md                             @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+/network/manifest.json                    @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+/process/                                 @DataDog/agent-integrations @DataDog/windows-products
+/process/*.md                             @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+/process/manifest.json                    @DataDog/agent-integrations @DataDog/windows-products @DataDog/documentation
+
+# OpenTelemetry
+/otel/                                    @DataDog/opentelemetry @DataDog/agent-integrations
+/otel/*.md                                @DataDog/opentelemetry @DataDog/agent-integrations @DataDog/documentation
+/otel/manifest.json                       @DataDog/opentelemetry @DataDog/agent-integrations @DataDog/documentation
+
+# Database monitoring
+**/base/utils/db/utils.py                           @DataDog/agent-integrations @DataDog/database-monitoring-agent
+datadog_checks_base/tests/**/test_util.py           @DataDog/agent-integrations @DataDog/database-monitoring-agent
+**/base/utils/db/sql.py                             @DataDog/database-monitoring-agent @DataDog/agent-integrations
+datadog_checks_base/tests/**/test_db_sql.py         @DataDog/database-monitoring-agent @DataDog/agent-integrations
+**/base/utils/db/statement_metrics.py               @DataDog/database-monitoring-agent @DataDog/agent-integrations
+datadog_checks_base/tests/**/test_db_statements.py  @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/postgres/                                          @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/postgres/*.md                                      @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/postgres/manifest.json                             @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/mysql/                                             @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/mysql/*.md                                         @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/mysql/manifest.json                                @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/sqlserver/                                         @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/sqlserver/*.md                                     @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/sqlserver/manifest.json                            @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/oracle/                                            @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/oracle/*.md                                        @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/oracle/manifest.json                               @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/mongo/                                             @DataDog/database-monitoring-agent @DataDog/agent-integrations
+/mongo/*.md                                         @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+/mongo/manifest.json                                @DataDog/database-monitoring @DataDog/agent-integrations @DataDog/documentation
+
+# APM Integrations
+/langchain/         @DataDog/ml-observability @DataDog/agent-integrations @DataDog/documentation
+/openai/            @DataDog/ml-observability @DataDog/agent-integrations @DataDog/documentation
+/anthropic/         @DataDog/ml-observability @DataDog/agent-integrations @DataDog/documentation
+/crewai/            @DataDog/ml-observability @DataDog/documentation
+
+# Windows agent
+datadog_checks_base/datadog_checks/base/checks/win/                  @DataDog/windows-products @DataDog/agent-integrations
+datadog_checks_base/datadog_checks/base/checks/windows/              @DataDog/windows-products @DataDog/agent-integrations
+/active_directory/                                                   @DataDog/windows-products @DataDog/agent-integrations
+/active_directory/*.md                                               @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/active_directory/manifest.json                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/aspdotnet/                                                          @DataDog/windows-products @DataDog/agent-integrations
+/aspdotnet/*.md                                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/aspdotnet/manifest.json                                             @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/dotnetclr/                                                          @DataDog/windows-products @DataDog/agent-integrations
+/dotnetclr/*.md                                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/dotnetclr/manifest.json                                             @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/exchange_server/                                                    @DataDog/windows-products @DataDog/agent-integrations
+/exchange_server/*.md                                                @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/exchange_server/manifest.json                                       @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/hyperv/                                                             @DataDog/windows-products @DataDog/agent-integrations
+/hyperv/*.md                                                         @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/hyperv/manifest.json                                                @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/iis/                                                                @DataDog/windows-products @DataDog/agent-integrations
+/iis/*.md                                                            @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/iis/manifest.json                                                   @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/pdh_check/                                                          @DataDog/windows-products @DataDog/agent-integrations
+/pdh_check/*.md                                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/pdh_check/manifest.json                                             @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/win32_event_log/                                                    @DataDog/windows-products @DataDog/agent-integrations
+/win32_event_log/*.md                                                @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/win32_event_log/manifest.json                                       @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_certificate/                                                @DataDog/windows-products @DataDog/agent-integrations
+/windows_certificate/*.md                                            @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_certificate/manifest.json                                   @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_performance_counters/                                       @DataDog/windows-products @DataDog/agent-integrations
+/windows_performance_counters/*.md                                   @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_performance_counters/manifest.json                          @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_registry/                                                   @DataDog/windows-products @DataDog/agent-integrations
+/windows_registry/*.md                                               @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_registry/manifest.json                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_service/                                                    @DataDog/windows-products @DataDog/agent-integrations
+/windows_service/*.md                                                @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/windows_service/manifest.json                                       @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/wmi_check/                                                          @DataDog/windows-products @DataDog/agent-integrations
+/wmi_check/*.md                                                      @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+/wmi_check/manifest.json                                             @DataDog/windows-products @DataDog/agent-integrations @DataDog/documentation
+
+# SaaS Integrations
+/adyen/                                                              @DataDog/saas-integrations
+/adyen/*.md                                                          @DataDog/saas-integrations @DataDog/documentation
+/adyen/manifest.json                                                 @DataDog/saas-integrations @DataDog/documentation
+/adyen/assets/logs/                                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/authorize_net/                                                      @DataDog/saas-integrations
+/authorize_net/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/authorize_net/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/authorize_net/metadata.csv                                          @DataDog/saas-integrations @DataDog/documentation
+/authorize_net/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/blazemeter/                                                        @DataDog/saas-integrations
+/blazemeter/*.md                                                    @DataDog/saas-integrations @DataDog/documentation
+/blazemeter/manifest.json                                           @DataDog/saas-integrations @DataDog/documentation
+/blazemeter/metadata.csv                                            @DataDog/saas-integrations @DataDog/documentation
+
+/brevo/                                                              @DataDog/saas-integrations
+/brevo/*.md                                                          @DataDog/saas-integrations @DataDog/documentation
+/brevo/manifest.json                                                 @DataDog/saas-integrations @DataDog/documentation
+/brevo/assets/logs/                                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/checkpoint_harmony_email_and_collaboration/                         @DataDog/saas-integrations
+/checkpoint_harmony_email_and_collaboration/*.md                     @DataDog/saas-integrations @DataDog/documentation
+/checkpoint_harmony_email_and_collaboration/manifest.json            @DataDog/saas-integrations @DataDog/documentation
+/checkpoint_harmony_email_and_collaboration/assets/logs/             @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/cisco_umbrella_dns/                                                 @DataDog/saas-integrations
+/cisco_umbrella_dns/*.md                                             @DataDog/saas-integrations @DataDog/documentation
+/cisco_umbrella_dns/manifest.json                                    @DataDog/saas-integrations @DataDog/documentation
+
+/cisco_duo/                                                          @DataDog/saas-integrations
+/cisco_duo/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/cisco_duo/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+
+/cisco_secure_endpoint/                                              @DataDog/saas-integrations
+/cisco_secure_endpoint/*.md                                          @DataDog/saas-integrations @DataDog/documentation
+/cisco_secure_endpoint/manifest.json                                 @DataDog/saas-integrations @DataDog/documentation
+/cisco_secure_endpoint/assets/logs/                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/contentful/                                                         @DataDog/saas-integrations
+/contentful/*.md                                                     @DataDog/saas-integrations @DataDog/documentation
+/contentful/manifest.json                                            @DataDog/saas-integrations @DataDog/documentation
+/contentful/assets/logs/                                             @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/eset_protect/                                                       @DataDog/agent-integrations
+/eset_protect/*.md                                                   @DataDog/agent-integrations @DataDog/documentation
+/eset_protect/manifest.json                                          @DataDog/agent-integrations @DataDog/documentation
+/eset_protect/assets/logs/                                           @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/extrahop/                                                          @DataDog/saas-integrations
+/extrahop/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/extrahop/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/extrahop/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/falco/                                                             @DataDog/agent-integrations @DataDog/saas-integrations
+/falco/*.md                                                         @DataDog/agent-integrations @DataDog/saas-integrations @DataDog/documentation
+/falco/manifest.json                                                @DataDog/agent-integrations @DataDog/saas-integrations @DataDog/documentation
+/falco/assets/logs/                                                 @DataDog/agent-integrations @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/freshservice/                                                          @DataDog/saas-integrations
+/freshservice/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/freshservice/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/freshservice/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/genesys/                                                           @DataDog/saas-integrations
+/genesys/*.md                                                       @DataDog/saas-integrations @DataDog/documentation
+/genesys/manifest.json                                              @DataDog/saas-integrations @DataDog/documentation
+/genesys/metadata.csv                                               @DataDog/saas-integrations @DataDog/documentation
+/genesys/assets/logs/                                               @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/godaddy/                                                           @DataDog/saas-integrations
+/godaddy/*.md                                                       @DataDog/saas-integrations @DataDog/documentation
+/godaddy/manifest.json                                              @DataDog/saas-integrations @DataDog/documentation
+/godaddy/metadata.csv                                               @DataDog/saas-integrations @DataDog/documentation
+
+/greenhouse/                                                          @DataDog/saas-integrations
+/greenhouse/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/greenhouse/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/greenhouse/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/iboss/                                                              @DataDog/saas-integrations @DataDog/agent-integrations
+/iboss/*.md                                                          @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/iboss/manifest.json                                                 @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/iboss/assets/logs/                                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/have_i_been_pwned/                                                  @DataDog/saas-integrations
+/have_i_been_pwned/*.md                                              @DataDog/saas-integrations @DataDog/documentation
+/have_i_been_pwned/manifest.json                                     @DataDog/saas-integrations @DataDog/documentation
+/have_i_been_pwned/assets/logs/                                      @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/have_i_been_pwned/                                                  @DataDog/saas-integrations
+/have_i_been_pwned/*.md                                              @DataDog/saas-integrations @DataDog/documentation
+/have_i_been_pwned/manifest.json                                     @DataDog/saas-integrations @DataDog/documentation
+/have_i_been_pwned/assets/logs/                                      @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/incident_io/                                                        @DataDog/saas-integrations
+/incident_io/*.md                                                    @DataDog/saas-integrations @DataDog/documentation
+/incident_io/manifest.json                                           @DataDog/saas-integrations @DataDog/documentation
+/incident_io/assets/logs/                                            @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/keeper/                                                             @DataDog/saas-integrations
+/keeper/*.md                                                         @DataDog/saas-integrations @DataDog/documentation
+/keeper/manifest.json                                                @DataDog/saas-integrations @DataDog/documentation
+/keeper/assets/logs/                                                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/lastpass/                                                          @DataDog/saas-integrations
+/lastpass/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/lastpass/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/lastpass/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/mailchimp/                                                          @DataDog/saas-integrations
+/mailchimp/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/mailchimp/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+
+/metabase/                                                          @DataDog/saas-integrations
+/metabase/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/metabase/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/metabase/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/microsoft_dns/                                                     @DataDog/agent-integrations
+/microsoft_dns/*.md                                                 @DataDog/agent-integrations @DataDog/documentation
+/microsoft_dns/manifest.json                                        @DataDog/agent-integrations @DataDog/documentation
+/microsoft_dns/assets/logs/                                         @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/microsoft_sysmon/                                                  @DataDog/agent-integrations
+/microsoft_sysmon/*.md                                              @DataDog/agent-integrations @DataDog/documentation
+/microsoft_sysmon/manifest.json                                     @DataDog/agent-integrations @DataDog/documentation
+/microsoft_sysmon/assets/logs/                                      @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/mimecast/                                                          @DataDog/saas-integrations
+/mimecast/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/mimecast/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/mimecast/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/mux/                                                               @DataDog/saas-integrations
+/mux/*.md                                                           @DataDog/saas-integrations @DataDog/documentation
+/mux/manifest.json                                                  @DataDog/saas-integrations @DataDog/documentation
+/mux/metadata.csv                                                   @DataDog/saas-integrations @DataDog/documentation
+
+/orca_security/                                                      @DataDog/saas-integrations
+/orca_security/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/orca_security/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/orca_security/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/okta_workflows/                                                     @DataDog/saas-integrations
+/okta_workflows/*.md                                                 @DataDog/saas-integrations @DataDog/documentation
+/okta_workflows/manifest.json                                        @DataDog/saas-integrations @DataDog/documentation
+/okta_workflows/assets/logs/                                         @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/palo_alto_cortex_xdr/                                               @DataDog/saas-integrations
+/palo_alto_cortex_xdr/*.md                                           @DataDog/saas-integrations @DataDog/documentation
+/palo_alto_cortex_xdr/manifest.json                                  @DataDog/saas-integrations @DataDog/documentation
+/palo_alto_cortex_xdr/assets/logs/                                   @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/plivo/                                                              @DataDog/saas-integrations
+/plivo/*.md                                                          @DataDog/saas-integrations @DataDog/documentation
+/plivo/manifest.json                                                 @DataDog/saas-integrations @DataDog/documentation
+/plivo/assets/logs/                                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/postmark/                                                          @DataDog/saas-integrations
+/postmark/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/postmark/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/postmark/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/proofpoint_on_demand/                                              @DataDog/saas-integrations
+/proofpoint_on_demand/*.md                                          @DataDog/saas-integrations @DataDog/documentation
+/proofpoint_on_demand/manifest.json                                 @DataDog/saas-integrations @DataDog/documentation
+/proofpoint_on_demand/assets/logs/                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/sanity/                                                            @DataDog/saas-integrations
+/sanity/*.md                                                        @DataDog/saas-integrations @DataDog/documentation
+/sanity/manifest.json                                               @DataDog/saas-integrations @DataDog/documentation
+/sanity/assets/logs/                                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/snowflake/                                                          @DataDog/saas-integrations
+/snowflake/*.md                                                      @DataDog/saas-integrations @DataDog/documentation @DataDog/agent-integrations
+/snowflake/changelog.d/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/agent-integrations
+/snowflake/datadog_checks/snowflake/__about__.py                     @DataDog/saas-integrations @DataDog/documentation @DataDog/agent-integrations
+/snowflake/pyproject.toml                                            @DataDog/saas-integrations @DataDog/documentation @DataDog/agent-integrations
+/snowflake/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+
+/sonatype_nexus/                                                     @DataDog/agent-integrations
+/sonatype_nexus/*.md                                                 @DataDog/agent-integrations @DataDog/documentation
+/sonatype_nexus/manifest.json                                        @DataDog/agent-integrations @DataDog/documentation
+/sonatype_nexus/metadata.csv                                         @DataDog/agent-integrations @DataDog/documentation
+
+/sonicwall_firewall/                                                  @DataDog/saas-integrations
+/sonicwall_firewall/*.md                                              @DataDog/saas-integrations @DataDog/documentation
+/sonicwall_firewall/manifest.json                                     @DataDog/saas-integrations @DataDog/documentation
+/sonicwall_firewall/assets/logs/                                      @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/sophos_central_cloud/                                               @DataDog/saas-integrations
+/sophos_central_cloud/*.md                                           @DataDog/saas-integrations @DataDog/documentation
+/sophos_central_cloud/manifest.json                                  @DataDog/saas-integrations @DataDog/documentation
+/sophos_central_cloud/assets/logs/                                   @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/squid/                                                              @DataDog/agent-integrations
+/squid/*.md                                                          @DataDog/agent-integrations @DataDog/documentation
+/squid/manifest.json                                                 @DataDog/agent-integrations @DataDog/documentation
+/squid/assets/logs/                                                  @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/ping_one/                                                           @DataDog/saas-integrations
+/ping_one/*.md                                                       @DataDog/saas-integrations @DataDog/documentation
+/ping_one/manifest.json                                              @DataDog/saas-integrations @DataDog/documentation
+/ping_one/assets/logs/                                               @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/trend_micro_vision_one_xdr/                                         @DataDog/saas-integrations
+/trend_micro_vision_one_xdr/*.md                                     @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_vision_one_xdr/manifest.json                            @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_vision_one_xdr/assets/logs/                             @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/ping_federate/                                                      @DataDog/saas-integrations
+/ping_federate/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/ping_federate/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/ping_federate/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/cisco_secure_email_threat_defense/                                 @DataDog/saas-integrations
+/cisco_secure_email_threat_defense/*.md                             @DataDog/saas-integrations @DataDog/documentation
+/cisco_secure_email_threat_defense/manifest.json                    @DataDog/saas-integrations @DataDog/documentation
+/cisco_secure_email_threat_defense/assets/logs/                     @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/ringcentral/                                                        @DataDog/saas-integrations
+/ringcentral/*.md                                                    @DataDog/saas-integrations @DataDog/documentation
+/ringcentral/manifest.json                                           @DataDog/saas-integrations @DataDog/documentation
+/ringcentral/metadata.csv                                            @DataDog/saas-integrations @DataDog/documentation
+/ringcentral/assets/logs/                                            @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/temporal_cloud/                                                    @DataDog/saas-integrations
+/temporal_cloud/*.md                                                @DataDog/saas-integrations @DataDog/documentation
+/temporal_cloud/manifest.json                                       @DataDog/saas-integrations @DataDog/documentation
+/temporal_cloud/metadata.csv                                        @DataDog/saas-integrations @DataDog/documentation
+
+/trend_micro_email_security/                                        @DataDog/saas-integrations
+/trend_micro_email_security/*.md                                    @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_email_security/manifest.json                           @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_email_security/assets/logs/                            @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/trellix_endpoint_security/                                         @DataDog/saas-integrations
+/trellix_endpoint_security/*.md                                     @DataDog/saas-integrations @DataDog/documentation
+/trellix_endpoint_security/manifest.json                            @DataDog/saas-integrations @DataDog/documentation
+/trellix_endpoint_security/assets/logs/                             @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/docusign/                                                          @DataDog/saas-integrations
+/docusign/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/docusign/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/docusign/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/trend_micro_vision_one_endpoint_security/                          @DataDog/saas-integrations
+/trend_micro_vision_one_endpoint_security/*.md                      @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_vision_one_endpoint_security/manifest.json             @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_vision_one_endpoint_security/assets/logs/              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/shopify/                                                           @DataDog/saas-integrations
+/shopify/*.md                                                       @DataDog/saas-integrations @DataDog/documentation
+/shopify/manifest.json                                              @DataDog/saas-integrations @DataDog/documentation
+/shopify/assets/logs/                                               @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/asana/                                                             @DataDog/saas-integrations
+/asana/*.md                                                         @DataDog/saas-integrations @DataDog/documentation
+/asana/manifest.json                                                @DataDog/saas-integrations @DataDog/documentation
+/asana/assets/logs/                                                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/hubspot_content_hub/                                               @DataDog/saas-integrations
+/hubspot_content_hub/*.md                                           @DataDog/saas-integrations @DataDog/documentation
+/hubspot_content_hub/manifest.json                                  @DataDog/saas-integrations @DataDog/documentation
+/hubspot_content_hub/assets/logs/                                   @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/forcepoint_secure_web_gateway/                                     @DataDog/saas-integrations
+/forcepoint_secure_web_gateway/*.md                                 @DataDog/saas-integrations @DataDog/documentation
+/forcepoint_secure_web_gateway/manifest.json                        @DataDog/saas-integrations @DataDog/documentation
+/forcepoint_secure_web_gateway/assets/logs/                         @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+vonage/                                                            @DataDog/saas-integrations
+vonage/*.md                                                        @DataDog/saas-integrations @DataDog/documentation
+vonage/manifest.json                                               @DataDog/saas-integrations @DataDog/documentation
+vonage/assets/logs/                                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/asana/                                                             @DataDog/saas-integrations
+/asana/*.md                                                         @DataDog/saas-integrations @DataDog/documentation
+/asana/manifest.json                                                @DataDog/saas-integrations @DataDog/documentation
+/asana/assets/logs/                                                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/tanium/                                                            @DataDog/saas-integrations
+/tanium/*.md                                                        @DataDog/saas-integrations @DataDog/documentation
+/tanium/manifest.json                                               @DataDog/saas-integrations @DataDog/documentation
+/tanium/assets/logs/                                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+plaid/                                                              @DataDog/saas-integrations
+plaid/*.md                                                          @DataDog/saas-integrations @DataDog/documentation
+plaid/manifest.json                                                 @DataDog/saas-integrations @DataDog/documentation
+plaid/assets/logs/                                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/streamnative/                                                      @DataDog/saas-integrations
+/streamnative/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/streamnative/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/streamnative/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/servicenow_performance/                                            @DataDog/saas-integrations
+/servicenow_performance/*.md                                        @DataDog/saas-integrations @DataDog/documentation
+/servicenow_performance/manifest.json                               @DataDog/saas-integrations @DataDog/documentation
+/servicenow_performance/assets/logs/                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/silverstripe_cms/                                                  @DataDog/agent-integrations
+/silverstripe_cms/*.md                                              @DataDog/agent-integrations @DataDog/documentation
+/silverstripe_cms/manifest.json                                     @DataDog/agent-integrations @DataDog/documentation
+/silverstripe_cms/assets/logs/                                      @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/avast/                                                             @DataDog/saas-integrations
+/avast/*.md                                                         @DataDog/saas-integrations @DataDog/documentation
+/avast/manifest.json                                                @DataDog/saas-integrations @DataDog/documentation
+/avast/assets/logs/                                                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/symantec_vip/                                                      @DataDog/saas-integrations
+/symantec_vip/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/symantec_vip/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/symantec_vip/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/tenable_io/                                                        @DataDog/saas-integrations
+/tenable_io/*.md                                                    @DataDog/saas-integrations @DataDog/documentation
+/tenable_io/manifest.json                                           @DataDog/saas-integrations @DataDog/documentation
+/tenable_io/assets/logs/                                            @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/zero_networks/                                                     @DataDog/saas-integrations
+/zero_networks/*.md                                                 @DataDog/saas-integrations @DataDog/documentation
+/zero_networks/manifest.json                                        @DataDog/saas-integrations @DataDog/documentation
+/zero_networks/assets/logs/                                         @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/bitdefender/                                                       @DataDog/saas-integrations
+/bitdefender/*.md                                                   @DataDog/saas-integrations @DataDog/documentation
+/bitdefender/manifest.json                                          @DataDog/saas-integrations @DataDog/documentation
+/bitdefender/assets/logs/                                           @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/ivanti_nzta/                                                       @DataDog/saas-integrations
+/ivanti_nzta/*.md                                                   @DataDog/saas-integrations @DataDog/documentation
+/ivanti_nzta/manifest.json                                          @DataDog/saas-integrations @DataDog/documentation
+/ivanti_nzta/assets/logs/                                           @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/box/                                                               @DataDog/saas-integrations
+/box/*.md                                                           @DataDog/saas-integrations @DataDog/documentation
+/box/manifest.json                                                  @DataDog/saas-integrations @DataDog/documentation
+/box/assets/logs/                                                   @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/jamf_pro/                                                          @DataDog/saas-integrations
+/jamf_pro/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/jamf_pro/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/jamf_pro/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/proofpoint_tap/                                                    @DataDog/saas-integrations
+/proofpoint_tap/*.md                                                @DataDog/saas-integrations @DataDog/documentation
+/proofpoint_tap/manifest.json                                       @DataDog/saas-integrations @DataDog/documentation
+/proofpoint_tap/assets/logs/                                        @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/carbon_black_cloud/                                                               @DataDog/saas-integrations
+/carbon_black_cloud/*.md                                                           @DataDog/saas-integrations @DataDog/documentation
+/carbon_black_cloud/manifest.json                                                  @DataDog/saas-integrations @DataDog/documentation
+/carbon_black_cloud/assets/logs/                                                   @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/forcepoint_security_service_edge/                                   @DataDog/saas-integrations
+/forcepoint_security_service_edge/*.md                               @DataDog/saas-integrations @DataDog/documentation
+/forcepoint_security_service_edge/manifest.json                      @DataDog/saas-integrations @DataDog/documentation
+/forcepoint_security_service_edge/assets/logs/                       @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/mac_audit_logs/                                                     @DataDog/agent-integrations
+/mac_audit_logs/*.md                                                 @DataDog/agent-integrations @DataDog/documentation
+/mac_audit_logs/manifest.json                                        @DataDog/agent-integrations @DataDog/documentation
+/mac_audit_logs/assets/logs/                                         @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/gpu/                                                                @DataDog/ebpf-platform
+/gpu/*.md                                                            @DataDog/ebpf-platform @DataDog/documentation
+/gpu/manifest.json                                                   @DataDog/ebpf-platform @DataDog/agent-integrations @DataDog/documentation
+
+/linux_audit_logs/                                                  @DataDog/agent-integrations
+/linux_audit_logs/*.md                                              @DataDog/agent-integrations @DataDog/documentation
+/linux_audit_logs/manifest.json                                     @DataDog/agent-integrations @DataDog/documentation
+/linux_audit_logs/assets/logs/                                      @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/openvpn/                                                           @DataDog/agent-integrations
+/openvpn/*.md                                                       @DataDog/agent-integrations @DataDog/documentation
+/openvpn/manifest.json                                              @DataDog/agent-integrations @DataDog/documentation
+/openvpn/assets/logs/                                               @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/watchguard_firebox/                                                  @DataDog/agent-integrations
+/watchguard_firebox/*.md                                              @DataDog/agent-integrations @DataDog/documentation
+/watchguard_firebox/manifest.json                                     @DataDog/agent-integrations @DataDog/documentation
+/watchguard_firebox/assets/logs/                                      @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/dnsfilter/                                                          @DataDog/saas-integrations
+/dnsfilter/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/dnsfilter/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/dnsfilter/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/cloudgen_firewall/                                                 @DataDog/agent-integrations
+/cloudgen_firewall/*.md                                                  @DataDog/agent-integrations @DataDog/documentation
+/cloudgen_firewall/manifest.json                                         @DataDog/agent-integrations @DataDog/documentation
+/cloudgen_firewall/assets/logs/                                          @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-backend @DataDog/logs-core
+
+/workato/                                                            @DataDog/saas-integrations
+/workato/*.md                                                        @DataDog/saas-integrations @DataDog/documentation
+/workato/manifest.json                                               @DataDog/saas-integrations @DataDog/documentation
+/workato/assets/logs/                                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/bitwarden/                                                          @DataDog/saas-integrations
+/bitwarden/*.md                                                      @DataDog/saas-integrations @DataDog/documentation
+/bitwarden/manifest.json                                             @DataDog/saas-integrations @DataDog/documentation
+/bitwarden/assets/logs/                                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/beyondtrust_identity_security_insights/                             @DataDog/saas-integrations
+/beyondtrust_identity_security_insights/*.md                         @DataDog/saas-integrations @DataDog/documentation
+/beyondtrust_identity_security_insights/manifest.json                @DataDog/saas-integrations @DataDog/documentation
+/beyondtrust_identity_security_insights/assets/logs/                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/barracuda_secure_edge/                                               @DataDog/agent-integrations
+/barracuda_secure_edge/*.md                                           @DataDog/agent-integrations @DataDog/documentation
+/barracuda_secure_edge/manifest.json                                  @DataDog/agent-integrations @DataDog/documentation
+/barracuda_secure_edge/assets/logs/                                   @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-backend @DataDog/logs-core
+
+/klaviyo/                                                            @DataDog/saas-integrations
+/klaviyo/*.md                                                        @DataDog/saas-integrations @DataDog/documentation
+/klaviyo/manifest.json                                               @DataDog/saas-integrations @DataDog/documentation
+/klaviyo/assets/logs/                                                @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/zerofox_cloud_platform/                                             @DataDog/saas-integrations
+/zerofox_cloud_platform/*.md                                         @DataDog/saas-integrations @DataDog/documentation
+/zerofox_cloud_platform/manifest.json                                @DataDog/saas-integrations @DataDog/documentation
+/zerofox_cloud_platform/assets/logs/                                 @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-backend
+
+/beyondtrust_password_safe/                                          @DataDog/saas-integrations @DataDog/agent-integrations
+/beyondtrust_password_safe/*.md                                      @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/beyondtrust_password_safe/manifest.json                             @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/beyondtrust_password_safe/assets/logs/                              @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/crowdstrike_fdr/                                                    @DataDog/saas-integrations
+/crowdstrike_fdr/*.md                                                @DataDog/saas-integrations @DataDog/documentation
+/crowdstrike_fdr/manifest.json                                       @DataDog/saas-integrations @DataDog/documentation
+/crowdstrike_fdr/assets/logs/                                        @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/databricks/                                                         @DataDog/saas-integrations
+/databricks/*.md                                                     @DataDog/saas-integrations @DataDog/documentation
+/databricks/manifest.json                                            @DataDog/saas-integrations @DataDog/documentation
+/databricks/metadata.csv                                             @DataDog/saas-integrations @DataDog/documentation
+
+/trend_micro_cloud_one/                                              @DataDog/saas-integrations
+/trend_micro_cloud_one/*.md                                          @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_cloud_one/manifest.json                                 @DataDog/saas-integrations @DataDog/documentation
+/trend_micro_cloud_one/assets/logs/                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/supply_chain_firewall/                                              @DataDog/saas-integrations @DataDog/agent-integrations
+/supply_chain_firewall/*.md                                          @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/supply_chain_firewall/manifest.json                                 @DataDog/saas-integrations @DataDog/agent-integrations @DataDog/documentation
+/supply_chain_firewall/assets/logs/                                  @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/cloudgen_firewall/                                                  @DataDog/agent-integrations
+/cloudgen_firewall/*.md                                              @DataDog/agent-integrations @DataDog/documentation
+/cloudgen_firewall/manifest.json                                     @DataDog/agent-integrations @DataDog/documentation
+/cloudgen_firewall/assets/logs/                                      @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-backend @DataDog/logs-core
+
+/checkpoint_harmony_endpoint/                                        @DataDog/agent-integrations
+/checkpoint_harmony_endpoint/*.md                                    @DataDog/agent-integrations @DataDog/documentation
+/checkpoint_harmony_endpoint/manifest.json                           @DataDog/agent-integrations @DataDog/documentation
+/checkpoint_harmony_endpoint/assets/logs/                            @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-backend @DataDog/logs-core
+
+/cofense_triage/                                                    @DataDog/saas-integrations
+/cofense_triage/*.md                                                @DataDog/saas-integrations @DataDog/documentation
+/cofense_triage/manifest.json                                       @DataDog/saas-integrations @DataDog/documentation
+/cofense_triage/assets/logs/                                        @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+/zscaler_private_access/                                             @DataDog/agent-integrations
+/zscaler_private_access/*.md                                         @DataDog/agent-integrations @DataDog/documentation
+/zscaler_private_access/manifest.json                                @DataDog/agent-integrations @DataDog/documentation
+/zscaler_private_access/assets/logs/                                 @DataDog/agent-integrations @DataDog/documentation @DataDog/logs-backend
+
+/push_security/                                                      @DataDog/saas-integrations
+/push_security/*.md                                                  @DataDog/saas-integrations @DataDog/documentation
+/push_security/manifest.json                                         @DataDog/saas-integrations @DataDog/documentation
+/push_security/assets/logs/                                          @DataDog/saas-integrations @DataDog/documentation @DataDog/logs-integrations-reviewers
+
+# To keep Security up-to-date with changes to the signing tool.
+/datadog_checks_dev/datadog_checks/dev/tooling/signing.py             @DataDog/agent-integrations
+# As well as the secure downloader.
+/datadog_checks_downloader/                                           @DataDog/agent-integrations
+docs/developer/process/integration-release.md                         @DataDog/agent-integrations
+# As well as the pipelines.
+/.github/workflows/                                                   @DataDog/agent-integrations
+/.github/workflows/resolve-build-deps.yml                             @DataDog/agent-build
+/.gitlab-ci.yml                                                       @DataDog/agent-integrations
+/.github/CODEOWNERS                                                   @DataDog/agent-integrations @DataDog/saas-integrations
+/.github/workflows/config/labeler.yml                                 @DataDog/agent-integrations @DataDog/saas-integrations
+# Dev container
+/.devcontainer/                                                        @DataDog/agent-integrations @DataDog/container-integrations
+/.devcontainer/dbm                                                     @DataDog/database-monitoring-agent
 
 # LEAVE THE FOLLOWING LOG OWNERSHIP LAST IN THE FILE
 # Make sure logs team is the full owner for all logs related files
-**/assets/logs/                          @DataDog/logs-integrations-reviewers
+**/assets/logs/                                                       @DataDog/logs-integrations-reviewers
