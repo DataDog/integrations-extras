@@ -11,6 +11,8 @@ The integration collects data from Cloudsmith's APIs and maps them to the follow
 - **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
 - **Service Checks**: Health status of quota consumption and API connectivity.
 
+Optional realtime bandwidth metric (disabled by default) can be enabled to emit `cloudsmith.bandwidth_bytes_interval`, representing bytes downloaded over the most recent analytics interval. Enable it by setting `enable_realtime_bandwidth: true` in `cloudsmith.d/conf.yaml`.
+
 With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
 
 
@@ -25,7 +27,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-cloudsmith==1.1.0
+   datadog-agent integration install -t datadog-cloudsmith==1.2.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
@@ -33,6 +35,15 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 ### Configuration
 
 1. Edit the `cloudsmith.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Cloudsmith performance data. See the [sample cloudsmith.d/conf.yaml][5] for all available configuration options.
+
+    Example snippet enabling realtime bandwidth:
+
+    ```yaml
+     - url: https://api.cloudsmith.io/v1
+       cloudsmith_api_key: <API-KEY>
+       organization: <ORG-NAME>
+       enable_realtime_bandwidth: true
+    ```
 
 2. [Restart the Agent][6].
 

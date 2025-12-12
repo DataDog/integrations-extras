@@ -15,6 +15,7 @@ VOUNDRABILITIES = "/vulnerabilities/"
 VULNERABILITY_POLICY_VIOLATION = "/vulnerability-policy-violation/"
 LICENSE_POLICY_VIOLATION = "/license-policy-violation/"
 MEMBERS = "/members/"
+ANALYTICS_METRICS_CLIENT_TIME_SERIES = "/analytics/metrics/client/time-series/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
 LAST_VULNERABILITY_STAMP = 0
@@ -85,6 +86,16 @@ class CloudsmithCheck(AgentCheck):
         self.base_url = self.instance.get("url")
         self.api_key = self.instance.get("cloudsmith_api_key")
         self.org = self.instance.get("organization")
+        # Realtime bandwidth configuration and internal state
+        self.enable_realtime_bandwidth = bool(self.instance.get("enable_realtime_bandwidth", False))
+        self._RT_INTERVAL = "minute"
+        self._RT_AGGREGATE = "BYTES_DOWNLOADED_SUM"
+        self._RT_LOOKBACK_MINUTES = 120
+        self._RT_REFRESH_SECONDS = 300
+        self._RT_MIN_POINTS = 2
+        self._rt_last_ts = 0
+        self._rt_last_fetch = 0
+        self._rt_metrics = {"bandwidth_bytes_interval": None}
 
         self.validate_config()
 
@@ -108,8 +119,73 @@ class CloudsmithCheck(AgentCheck):
         url = self.base_url.rstrip("/") + path + self.org
         return url
 
-    def convert_time(self, time):
-        return int(datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ").timestamp())
+    def build_analytics_base(self):
+        base = self.base_url.rstrip("/")
+        if base.endswith("/v1"):
+            base = base[:-3] + "/v2"
+        return base + ANALYTICS_METRICS_CLIENT_TIME_SERIES + self.org + "/"
+
+    def build_analytics_url(self):
+        from datetime import timedelta
+
+        interval = self._RT_INTERVAL
+        interval_sec = 60
+        if self._rt_last_ts > 0:
+            start_dt = datetime.utcfromtimestamp(self._rt_last_ts + interval_sec)
+        else:
+            start_dt = datetime.utcnow() - timedelta(minutes=self._RT_LOOKBACK_MINUTES)
+        start_str = start_dt.strftime("%Y-%m-%d+%H:%M")
+        aggregate = self._RT_AGGREGATE
+        return (
+            self.build_analytics_base()
+            + f"?interval={interval}&aggregate={aggregate}"
+            + f"&start_time={start_str}&http_status=<400"
+        )
+
+    def get_realtime_bandwidth_info(self):
+        url = self.build_analytics_url()
+        try:
+            return self.get_api_json(url)
+        except Exception as e:
+            self.log.warning(
+                "Failed to fetch realtime bandwidth data from %s: %s",
+                url,
+                e,
+            )
+            return None
+
+    def parse_realtime_bandwidth(self, response_json):
+        result = {"bandwidth_bytes_interval": None}
+        if not response_json:
+            self.log.debug("Realtime bandwidth endpoint returned no payload; skipping update.")
+            return result
+        results = response_json.get("results") or []
+        if not results:
+            self.log.debug("Realtime bandwidth endpoint returned no results; skipping update.")
+            return result
+        series = results[0]
+        timestamps = series.get("timestamps") or []
+        values = series.get("values") or []
+        if len(values) < self._RT_MIN_POINTS or len(timestamps) < self._RT_MIN_POINTS:
+            return result
+        try:
+            last_val = float(values[-1])
+            last_ts_dt = datetime.strptime(timestamps[-1], "%Y-%m-%dT%H:%M:%SZ")
+            last_ts = int(last_ts_dt.timestamp())
+        except (ValueError, TypeError):
+            return result
+        result["bandwidth_bytes_interval"] = last_val
+        self._rt_last_ts = last_ts
+        return result
+
+    def convert_time(self, value):
+        # Support timestamps with or without microseconds; raise if neither matches.
+        for fmt in ("%Y-%m-%dT%H:%M:%S.%fZ", "%Y-%m-%dT%H:%M:%SZ"):
+            try:
+                return int(datetime.strptime(value, fmt).timestamp())
+            except ValueError:
+                pass
+        raise ValueError(f"Invalid timestamp format: {value}")
 
     # Get stats from REST API as json
     def get_api_json(self, url):
@@ -564,6 +640,14 @@ class CloudsmithCheck(AgentCheck):
             VULNERABILITY_LAST_RUN = time.time()
         else:
             vulnerabilities_info = self.get_parsed_vulnerabilities_info()
+        # Realtime bandwidth metrics collection
+        realtime_metrics = {"bandwidth_bytes_interval": None}
+        if self.enable_realtime_bandwidth:
+            now = time.time()
+            if now - self._rt_last_fetch > self._RT_REFRESH_SECONDS:
+                response_json = self.get_realtime_bandwidth_info()
+                realtime_metrics = self.parse_realtime_bandwidth(response_json)
+                self._rt_last_fetch = now
         policy_violations_info = self.get_parsed_vuln_policy_violation_info()
         for v in policy_violations_info[: self.MAX_EVENTS]:
             event = {
@@ -679,6 +763,13 @@ class CloudsmithCheck(AgentCheck):
             entitlement_info["token_download_total"],
             tags=self.tags,
         )
+        # Submit realtime bandwidth gauge if present
+        if self.enable_realtime_bandwidth and realtime_metrics.get("bandwidth_bytes_interval") is not None:
+            self.gauge(
+                "cloudsmith.bandwidth_bytes_interval",
+                realtime_metrics["bandwidth_bytes_interval"],
+                tags=self.tags,
+            )
 
         # only create an event if the timestamp is newer than the last event
         # this is to prevent duplicate events as we pull down the entire audit log

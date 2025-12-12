@@ -24,12 +24,7 @@
               "vertical_align": "center",
               "horizontal_align": "center"
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
           },
           {
             "id": 10002,
@@ -45,12 +40,7 @@
               "tick_edge": "left",
               "has_padding": true
             },
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 6,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 2 }
           },
           {
             "id": 10003,
@@ -64,21 +54,11 @@
               "show_tick": false,
               "has_padding": true
             },
-            "layout": {
-              "x": 6,
-              "y": 2,
-              "width": 6,
-              "height": 2
-            }
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 2 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 5
-      }
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 5 }
     },
     {
       "id": 1,
@@ -98,11 +78,7 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "conditional_formats": [
                     {
                       "comparator": ">",
@@ -118,7 +94,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.storage_used{*}",
+                      "query": "avg:cloudsmith.storage_used{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "last"
@@ -129,12 +105,7 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 41510224971209,
@@ -159,7 +130,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.storage_plan_limit_gb{*}",
+                      "query": "sum:cloudsmith.storage_plan_limit_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -170,12 +141,7 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 6344085258702783,
@@ -186,11 +152,7 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "conditional_formats": [
                     {
                       "comparator": ">=",
@@ -206,7 +168,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.bandwidth_used{*}",
+                      "query": "avg:cloudsmith.bandwidth_used{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -217,12 +179,7 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 5746781690109876,
@@ -247,7 +204,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.storage_used_gb{*}",
+                      "query": "sum:cloudsmith.storage_used_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "last"
@@ -259,12 +216,7 @@
               "text_align": "center",
               "precision": 1
             },
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
           },
           {
             "id": 2681525144572276,
@@ -289,7 +241,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.bandwidth_plan_limit_gb{*}",
+                      "query": "sum:cloudsmith.bandwidth_plan_limit_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -300,12 +252,7 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 4,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
           },
           {
             "id": 1115597404915387,
@@ -330,7 +277,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.bandwidth_used_gb{*}",
+                      "query": "avg:cloudsmith.bandwidth_used_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -341,12 +288,7 @@
               "autoscale": true,
               "precision": 1
             },
-            "layout": {
-              "x": 8,
-              "y": 2,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
           },
           {
             "id": 2447736159824506,
@@ -371,7 +313,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.storage_configured_gb{*}",
+                      "query": "avg:cloudsmith.storage_configured_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -382,12 +324,7 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 0,
-              "y": 4,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 4, "width": 4, "height": 2 }
           },
           {
             "id": 4298255399604444,
@@ -412,7 +349,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.bandwidth_configured_gb{*}",
+                      "query": "sum:cloudsmith.bandwidth_configured_gb{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -423,131 +360,184 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": {
-              "x": 8,
-              "y": 4,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 436209587668119,
-            "definition": {
-              "title": "Storage Used",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "query": "sum:cloudsmith.storage_used_gb{*}",
-                      "data_source": "metrics",
-                      "name": "query1"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ],
-              "yaxis": {
-                "include_zero": true,
-                "scale": "linear",
-                "label": "",
-                "min": "auto",
-                "max": "auto"
-              },
-              "markers": []
-            },
-            "layout": {
-              "x": 0,
-              "y": 6,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 4400593597358365,
-            "definition": {
-              "title": "Bandwidth Used",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "query": "sum:cloudsmith.bandwidth_used_gb{*}",
-                      "data_source": "metrics",
-                      "name": "query1"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ],
-              "yaxis": {
-                "include_zero": true,
-                "scale": "linear",
-                "label": "",
-                "min": "auto",
-                "max": "auto"
-              },
-              "markers": []
-            },
-            "layout": {
-              "x": 6,
-              "y": 6,
-              "width": 6,
-              "height": 3
-            }
+            "layout": { "x": 8, "y": 4, "width": 4, "height": 2 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 5,
-        "width": 12,
-        "height": 10
-      }
+      "layout": { "x": 0, "y": 5, "width": 12, "height": 7 }
+    },
+    {
+      "id": 3721437193949574,
+      "definition": {
+        "title": "Realtime Bandwidth (24h)",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8453933160249526,
+            "definition": {
+              "title": "Interval Bytes (current)",
+              "time": { "type": "live", "unit": "minute", "value": 5 },
+              "type": "query_value",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth_bytes_interval{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      },
+                      "formula": "q"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 4324742412473905,
+            "definition": {
+              "title": "Interval Bytes Trend",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "time": { "type": "live", "unit": "day", "value": 1 },
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.bandwidth_bytes_interval{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      },
+                      "formula": "q"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Bytes"
+              }
+            },
+            "layout": { "x": 3, "y": 0, "width": 9, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 12, "width": 12, "height": 3 }
+    },
+    {
+      "id": 4921355289879395,
+      "definition": {
+        "title": "Quota 7d Bars",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6607620631421451,
+            "definition": {
+              "title": "Storage %",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.storage_used{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "semantic",
+                    "order_by": "tags",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Percent"
+              }
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+          },
+          {
+            "id": 131817058014610,
+            "definition": {
+              "title": "Bandwidth %",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth_used{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Percent"
+              }
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 15, "width": 12, "height": 3 }
     },
     {
       "id": 50,
@@ -577,12 +567,7 @@
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 5
-            }
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 5 }
           },
           {
             "id": 3366550224422239,
@@ -603,21 +588,11 @@
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 5,
-              "width": 12,
-              "height": 5
-            }
+            "layout": { "x": 0, "y": 5, "width": 12, "height": 5 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 15,
-        "width": 12,
-        "height": 11
-      }
+      "layout": { "x": 0, "y": 18, "width": 12, "height": 11 }
     },
     {
       "id": 3,
@@ -637,15 +612,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.token_count{*}",
+                      "query": "avg:cloudsmith.token_count{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -656,12 +627,7 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 1745585157577347,
@@ -671,20 +637,14 @@
               "title_align": "left",
               "show_legend": false,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "response_format": "timeseries",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.token_download_total{*}",
+                      "query": "avg:cloudsmith.token_download_total{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1"
                     }
@@ -701,12 +661,7 @@
               },
               "markers": []
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 5049902402844905,
@@ -716,20 +671,14 @@
               "title_align": "left",
               "show_legend": false,
               "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
               "type": "timeseries",
               "requests": [
                 {
                   "response_format": "timeseries",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.token_bandwidth_total{*}",
+                      "query": "avg:cloudsmith.token_bandwidth_total{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1"
                     }
@@ -746,18 +695,13 @@
               },
               "markers": []
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 29,
         "width": 12,
         "height": 3,
         "is_column_break": true
@@ -781,15 +725,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.member.active{*}",
+                      "query": "sum:cloudsmith.member.active{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -800,12 +740,7 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 1744461634486047,
@@ -816,15 +751,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.member.owner.count{*}",
+                      "query": "sum:cloudsmith.member.owner.count{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -835,12 +766,7 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
           },
           {
             "id": 2271713043401467,
@@ -851,15 +777,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
+                  "formulas": [{ "formula": "query1" }],
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.member.has_2fa.count{*}",
+                      "query": "avg:cloudsmith.member.has_2fa.count{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -870,21 +792,11 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 8,
-              "y": 0,
-              "width": 4,
-              "height": 2
-            }
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 3,
-        "width": 12,
-        "height": 3
-      }
+      "layout": { "x": 0, "y": 32, "width": 12, "height": 3 }
     },
     {
       "id": 51,
@@ -918,7 +830,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.license_policy_violation.count{*}",
+                      "query": "avg:cloudsmith.license_policy_violation.count{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "last"
@@ -929,12 +841,7 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
           },
           {
             "id": 1985411557706265,
@@ -959,7 +866,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "avg:cloudsmith.vulnerability_policy_violation.count{*}",
+                      "query": "avg:cloudsmith.vulnerability_policy_violation.count{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "avg"
@@ -970,12 +877,7 @@
               "autoscale": true,
               "precision": 0
             },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 3
-            }
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 3 }
           },
           {
             "id": 2282516981148608,
@@ -996,12 +898,7 @@
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 3,
-              "width": 12,
-              "height": 4
-            }
+            "layout": { "x": 0, "y": 3, "width": 12, "height": 4 }
           },
           {
             "id": 2594587029838951,
@@ -1022,12 +919,7 @@
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 7,
-              "width": 12,
-              "height": 4
-            }
+            "layout": { "x": 0, "y": 7, "width": 12, "height": 4 }
           },
           {
             "id": 1391671782281332,
@@ -1048,24 +940,21 @@
               ],
               "type": "list_stream"
             },
-            "layout": {
-              "x": 0,
-              "y": 11,
-              "width": 12,
-              "height": 4
-            }
+            "layout": { "x": 0, "y": 11, "width": 12, "height": 4 }
           }
         ]
       },
-      "layout": {
-        "x": 0,
-        "y": 6,
-        "width": 12,
-        "height": 16
-      }
+      "layout": { "x": 0, "y": 35, "width": 12, "height": 16 }
     }
   ],
-  "template_variables": [],
+  "template_variables": [
+    {
+      "name": "cloudsmith_org",
+      "prefix": "cloudsmith_org",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
   "layout_type": "ordered",
   "notify_list": [],
   "reflow_type": "fixed"
