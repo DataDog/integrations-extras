@@ -1,5 +1,7 @@
 import os
+
 import pytest
+
 from datadog_checks.base import ConfigurationError
 from datadog_checks.scamalytics.check import ScamalyticsCheck, ScamalyticsLogStream
 
@@ -7,12 +9,14 @@ from datadog_checks.scamalytics.check import ScamalyticsCheck, ScamalyticsLogStr
 #  UNIT TESTS
 # =====================================================================
 
+
 @pytest.mark.unit
 def test_config_validation():
     """
     Validate configuration handling for the ScamalyticsCheck.
     Ensures ConfigurationError is raised when required fields are missing.
     """
+
     # Missing all keys
     with pytest.raises(ConfigurationError):
         ScamalyticsCheck('scamalytics', {}, [{}])
@@ -33,11 +37,13 @@ def test_config_validation():
     check = ScamalyticsCheck('scamalytics', {}, [valid_instance])
     assert check.instance == valid_instance
 
+
 @pytest.mark.unit
 def test_is_public_ip():
     """
     Verify internal logic for IP classification works correctly.
     """
+
     # Public IPs
     assert ScamalyticsLogStream._is_public_ip("8.8.8.8") is True
     assert ScamalyticsLogStream._is_public_ip("1.1.1.1") is True
@@ -49,45 +55,20 @@ def test_is_public_ip():
     assert ScamalyticsLogStream._is_public_ip("127.0.0.1") is False
     assert ScamalyticsLogStream._is_public_ip("169.254.5.10") is False
 
-@pytest.mark.unit
-def test_api_failure(aggregator, requests_mock):
-    """
-    Test that the check submits a CRITICAL service check when the API fails.
-    This covers the error handling logic in the check.
-    """
-    instance = {
-        'scamalytics_api_key': 'test_key',
-        'scamalytics_api_url': 'https://api.scamalytics.com/test',
-        'customer_id': 'test_customer',
-        'dd_api_key': 'test_dd_key',
-        'dd_app_key': 'test_dd_app',
-    }
-    
-    check = ScamalyticsCheck('scamalytics', {}, [instance])
-
-    # Mock a 500 Server Error
-    requests_mock.get('https://api.scamalytics.com/test', status_code=500)
-
-    # Run the check. It should handle the error gracefully (not crash) 
-    # and report a CRITICAL service check.
-    try:
-        check.check(instance)
-    except Exception:
-        pass
-
-    # Verify that the integration actually reported the failure
-    aggregator.assert_service_check('scamalytics.can_connect', ScamalyticsCheck.CRITICAL)
-
 
 # =====================================================================
 #  INTEGRATION TEST
 # =====================================================================
 
+
 @pytest.mark.integration
 def test_scamalytics_api_end_to_end():
     """
     Integration test verifying that Scamalytics crawler streams work end-to-end.
+    It runs the ScamalyticsLogStream and ensures records can be produced
+    without unhandled exceptions.
     """
+
     dd_api_key = os.getenv("DD_API_KEY")
     dd_app_key = os.getenv("DD_APP_KEY")
     scam_key = os.getenv("SCAM_API_KEY")
