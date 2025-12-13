@@ -32,5 +32,5 @@ def empty_instance():
 
 @pytest.fixture(scope="session")
 def incorrect_ip_instance():
-    instance = {"host": "124.0.0.1"}
+    instance = {"host": "999.999.999.999"}
     return instance
