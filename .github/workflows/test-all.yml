@@ -482,13 +482,14 @@ jobs:
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
   j0642a7b:
-    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
       job-name: Grafana
       target: grafana
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
+      context: ${{ inputs.context }}
       python-version: "${{ inputs.python-version }}"
       latest: ${{ inputs.latest }}
       agent-image: "${{ inputs.agent-image }}"
