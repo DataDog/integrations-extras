@@ -52,7 +52,7 @@ The Grafana integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact the [maintainer](https://github.com/DataDog/integrations-extras/blob/master/grafana/manifest.json) of this integration.
 
 [1]: https://grafana.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest

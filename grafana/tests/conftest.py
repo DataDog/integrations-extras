@@ -16,7 +16,7 @@ INSTANCE_WITH_EXTRA_METRICS = {**INSTANCE, 'extra_metrics': EXTRA_METRICS}
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    compose_file = str(Path(__file__).parent.absolute() / 'docker' / 'docker-compose.yaml')
+    compose_file = str((Path(__file__).resolve().parent / "docker" / "docker-compose.yaml"))
     conditions = [
         CheckEndpoints(INSTANCE["openmetrics_endpoint"]),
     ]
