@@ -26,4 +26,4 @@ IT Ops, SREs, and platform teams can use this extension to:
 3. Edit any metrics that are unwanted in the allowlist section.
 
 ## Support
-Need help? Contact TBD.
+TBD.
