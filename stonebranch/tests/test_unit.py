@@ -66,8 +66,7 @@ def test_openmetrics_basic_auth_and_labels(aggregator, dd_run_check, mock_http_r
     aggregator.assert_metric(
         "stonebranch.uc_build_info",
         value=1.0,
-        tags=base_tags
-        + ["build:build.108", "build_date:09-26-2025_0545", "release:7.9.0.0"],
+        tags=base_tags + ["build:build.108", "build_date:09-26-2025_0545", "release:7.9.0.0"],
     )
 
     aggregator.assert_metric(
