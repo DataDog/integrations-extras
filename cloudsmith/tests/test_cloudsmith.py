@@ -599,3 +599,151 @@ def test_filter_vulnerabilities(instance_good):
     severities = {item["max_severity"] for item in filtered}
     assert "High" in severities
     assert "Critical" in severities
+
+
+def test_realtime_bandwidth_metrics(aggregator, instance_good, usage_resp_good, entitlements_test_json):
+    # Enable realtime bandwidth
+    check = CloudsmithCheck('cloudsmith', {}, [dict(instance_good, enable_realtime_bandwidth=True)])
+
+    # Mock parsed usage/entitlements (check() uses parsed versions)
+    check.get_parsed_usage_info = MagicMock(
+        return_value={
+            "storage_mark": CloudsmithCheck.OK,
+            "storage_used": 10.0,
+            "bandwidth_mark": CloudsmithCheck.OK,
+            "bandwidth_used": 5.0,
+            "storage_used_bytes": 1000,
+            "storage_plan_limit_bytes": 2000,
+            "bandwidth_used_bytes": 3000,
+            "bandwidth_plan_limit_bytes": 4000,
+            "storage_used_gb": 1.0,
+            "storage_plan_limit_gb": 2.0,
+            "bandwidth_used_gb": 3.0,
+            "bandwidth_plan_limit_gb": 4.0,
+            "storage_configured_bytes": 2000,
+            "bandwidth_configured_bytes": 4000,
+            "storage_configured_gb": 2.0,
+            "bandwidth_configured_gb": 4.0,
+        }
+    )
+    check.get_parsed_entitlement_info = MagicMock(
+        return_value={"token_count": 1, "token_bandwidth_total": 2, "token_download_total": 3}
+    )
+    # Provide required auxiliary method mocks to avoid network calls
+    now_evt = int(time.time())
+    check.get_parsed_audit_log_info = MagicMock(
+        return_value=[
+            {
+                "actor": "a",
+                "actor_kind": "user",
+                "city": "x",
+                "event": "login",
+                "event_at": now_evt,
+                "object": "obj",
+                "object_slug_perm": "slug",
+            }
+        ]
+    )
+    check.get_parsed_vulnerabilities_info = MagicMock(return_value=[])
+    check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_members_info = MagicMock(
+        return_value=[
+            {
+                "is_active": True,
+                "user": "user1",
+                "role": "admin",
+                "has_two_factor": True,
+                "last_login_method": "saml",
+                "last_login_at": now_evt,
+            }
+        ]
+    )
+
+    realtime_resp = {
+        "results": [
+            {
+                "dimensions": {"aggregate": "BYTES_DOWNLOADED_SUM", "unit": "bytes"},
+                "timestamps": ["2025-10-29T18:34:00Z", "2025-10-29T18:35:00Z"],
+                "values": [1000, 1600],
+            }
+        ]
+    }
+    check.get_realtime_bandwidth_info = MagicMock(return_value=realtime_resp)
+
+    check.check(None)
+
+    aggregator.assert_metric("cloudsmith.bandwidth_bytes_interval", 1600.0, count=1)
+
+
+def test_realtime_bandwidth_metrics_insufficient_points(
+    aggregator, instance_good, usage_resp_good, entitlements_test_json
+):
+    check = CloudsmithCheck('cloudsmith', {}, [dict(instance_good, enable_realtime_bandwidth=True)])
+    check.get_parsed_usage_info = MagicMock(
+        return_value={
+            "storage_mark": CloudsmithCheck.OK,
+            "storage_used": 10.0,
+            "bandwidth_mark": CloudsmithCheck.OK,
+            "bandwidth_used": 5.0,
+            "storage_used_bytes": 1000,
+            "storage_plan_limit_bytes": 2000,
+            "bandwidth_used_bytes": 3000,
+            "bandwidth_plan_limit_bytes": 4000,
+            "storage_used_gb": 1.0,
+            "storage_plan_limit_gb": 2.0,
+            "bandwidth_used_gb": 3.0,
+            "bandwidth_plan_limit_gb": 4.0,
+            "storage_configured_bytes": 2000,
+            "bandwidth_configured_bytes": 4000,
+            "storage_configured_gb": 2.0,
+            "bandwidth_configured_gb": 4.0,
+        }
+    )
+    check.get_parsed_entitlement_info = MagicMock(
+        return_value={"token_count": 1, "token_bandwidth_total": 2, "token_download_total": 3}
+    )
+    now_evt = int(time.time())
+    check.get_parsed_audit_log_info = MagicMock(
+        return_value=[
+            {
+                "actor": "a",
+                "actor_kind": "user",
+                "city": "x",
+                "event": "login",
+                "event_at": now_evt,
+                "object": "obj",
+                "object_slug_perm": "slug",
+            }
+        ]
+    )
+    check.get_parsed_vulnerabilities_info = MagicMock(return_value=[])
+    check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_members_info = MagicMock(
+        return_value=[
+            {
+                "is_active": True,
+                "user": "user1",
+                "role": "admin",
+                "has_two_factor": True,
+                "last_login_method": "saml",
+                "last_login_at": now_evt,
+            }
+        ]
+    )
+    realtime_resp = {
+        "results": [
+            {
+                "dimensions": {"aggregate": "BYTES_DOWNLOADED_SUM", "unit": "bytes"},
+                "timestamps": ["2025-10-29T18:34:00Z"],
+                "values": [1000],
+            }
+        ]
+    }
+    check.get_realtime_bandwidth_info = MagicMock(return_value=realtime_resp)
+
+    check.check(None)
+
+    # Ensure realtime metric not emitted
+    assert "cloudsmith.bandwidth_bytes_interval" not in aggregator._metrics
