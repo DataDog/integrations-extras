@@ -103,6 +103,47 @@ def test_config_validation_failure(instance_config):
     assert "Missing required configuration key" in str(excinfo.value)
 
 
+def test_records_happy_path_new_ip(stream):
+    """
+    Scenario:
+    1. Datadog Logs return 1 log with a public IP (8.8.8.8).
+    2. Remote Check returns EMPTY (Ensures we DO NOT skip the API call).
+    3. Scamalytics API is called.
+    4. Record is yielded.
+    """
+    # 1. Main Log Search Response (Found the IP)
+    dd_logs_found = {
+        "data": [{"attributes": {"timestamp": "2023-01-01T12:00:00Z", "message": "Connection from 8.8.8.8"}}]
+    }
+
+    # 2. Remote Deduplication Check Response (NOT Found - safe to process)
+    # This ensures the code proceeds to line 162
+    dd_remote_empty = {"data": []}
+
+    scam_resp = {"ip": "8.8.8.8", "score": 100, "risk": "high"}
+
+    with patch("requests.post") as mock_post, patch("requests.get") as mock_get:
+        # Use side_effect to handle the two distinct Datadog calls
+        mock_post.side_effect = [
+            MagicMock(status_code=200, json=lambda: dd_logs_found),  # Call 1: Fetch Logs
+            MagicMock(status_code=200, json=lambda: dd_remote_empty),  # Call 2: Remote Check
+        ]
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = scam_resp
+
+        # Run
+        records = list(stream.records(cursor=None))
+
+        # Assertions
+        assert len(records) == 1
+        assert records[0].data["attributes"]["score"] == 100
+
+        # Verify the API block actually ran
+        mock_get.assert_called_once()
+        assert "8.8.8.8" in stream.recent_cache
+
+
 def test_records_skips_private_ips(stream):
     """Scenario: Log contains 192.168.1.1. Should be ignored entirely."""
     dd_logs = {"data": [{"attributes": {"timestamp": "2023-01-01T12:00:00Z", "message": "Internal 192.168.1.1"}}]}
