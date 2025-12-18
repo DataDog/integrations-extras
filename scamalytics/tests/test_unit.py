@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 from unittest.mock import ANY, MagicMock, patch
 
 import pytest
+from requests.exceptions import HTTPError
 
 from datadog_checks.base import ConfigurationError
 
@@ -266,3 +267,45 @@ def test_cursor_handling_with_overlap(stream):
 
         # 12:00:00 - 2 seconds = 11:59:58
         assert "11:59:58" in from_param
+
+
+def test_handling_http_status_errors(stream):
+    """
+    Covers lines where the APIs fail.
+    We configure the mock to raise HTTPError to ensure we hit the exception handler
+    regardless of whether the code uses 'raise_for_status()' or manual checks.
+    """
+    # Scenario: Datadog Logs API returns 500 Internal Server Error
+    with patch("requests.post") as mock_post:
+        # Configure the mock to look like a 500 error
+        mock_post.return_value.status_code = 500
+        mock_post.return_value.text = "Internal Error"
+
+        mock_post.return_value.raise_for_status.side_effect = HTTPError("500 Error")
+
+        # Run
+        records = list(stream.records())
+
+        # Assertions
+        assert len(records) == 0
+
+        # This covers the 'except' block in your API call.
+        assert stream.check.log.error.called, "Expected an error log for HTTP 500"
+
+
+def test_malformed_timestamp_in_log(stream):
+    """
+    Covers the block where timestamp parsing fails.
+    """
+    # Log with a garbage timestamp
+    dd_logs = {"data": [{"attributes": {"timestamp": "NOT-A-DATE", "message": "8.8.8.8"}}]}
+
+    with patch("requests.post") as mock_post:
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.json.return_value = dd_logs
+
+        # Run
+        records = list(stream.records())
+
+        # Assertion: The record should be skipped
+        assert len(records) == 0
