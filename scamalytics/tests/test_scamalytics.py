@@ -2,8 +2,7 @@ import os
 
 import pytest
 
-from datadog_checks.base import ConfigurationError
-from datadog_checks.scamalytics.check import ScamalyticsCheck, ScamalyticsLogStream
+from datadog_checks.scamalytics.check import ScamalyticsCheck
 
 # =====================================================================
 #  INTEGRATION TEST
