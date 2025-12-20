@@ -1,0 +1,62 @@
+init_config:
+
+instances:
+  - openmetrics_endpoint: "https://stonebranch.controller/uc/resources/metrics" # Universal Controller Endpoint
+
+    # allowlist for metrics ingested, adjust depending on your needs
+    metrics:
+      # Important UC metrics
+      - uc_history_total
+      - uc_task_instance_active
+      - uc_task_instance_launch_total
+      - uc_task_instance_late_start_total
+      - uc_task_instance_late_finish_total
+      - uc_task_instance_early_finish_total
+      - uc_universal_event_total
+      - uc_agent_status
+      - uc_build_info
+      - uc_database_connection_pool_active
+      - uc_database_connection_pool_idle
+      - uc_database_connection_pool_idle_min
+      - uc_database_connection_pool_idle_max
+      - uc_database_connection_pool_allocated
+      - uc_database_connection_pool_max
+      - uc_oms_server_last_connected_time_seconds
+      - uc_oms_server_status
+      - uc_oms_server_session_status
+      - uc_license_agents_distributed_used
+      - uc_license_agents_distributed_max
+      - uc_license_agents_zos_used
+      - uc_license_agents_zos_max
+      - uc_license_cluster_nodes_used
+      - uc_license_cluster_nodes_max
+      - uc_license_monthly_executions_used
+      - uc_license_monthly_executions_max
+      - uc_license_task_definitions_used
+      - uc_license_task_definitions_max
+      - uc_monthly_executions
+      # Good JVM Metrics
+      - jvm_threads_current
+      - jvm_threads_peak
+      - jvm_memory_used_bytes
+      - jvm_memory_committed_bytes
+      # Good Process Metrics
+      - process_cpu_seconds_total
+      - process_resident_memory_bytes
+      - process_virtual_memory_bytes
+      - process_open_fds
+
+
+    # Basic Auth -- IMPORTANT -- the user needs to have ops_admin or ops_service role
+    auth_type: basic
+    username: "YOUR_USERNAME"
+    password: "YOUR_PASSWORD"
+
+    # Optional tagging
+    tags:
+      - env:prod
+      - service:stonebranch
+
+    # Optional TLS controls (if your endpoint uses a private CA, etc.)
+    # tls_verify: true
+    # tls_ca_cert: /path/to/ca.pem
