@@ -118,13 +118,13 @@ class ScamalyticsLogStream(LogStream):
             return
 
         ip_pattern = re.compile(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b")
-        
+
         # Initialize cursor tracking
         current_cursor_ts = cursor["timestamp"] if (cursor and cursor.get("timestamp")) else "1970-01-01T00:00:00Z"
         newest_timestamp = current_cursor_ts
-        
+
         processed_ips_this_run = set()
-        records_yielded_count = 0 
+        records_yielded_count = 0
 
         for log_entry in logs:
             attributes = log_entry.get("attributes", {})
@@ -153,13 +153,6 @@ class ScamalyticsLogStream(LogStream):
                 # 2) Persistent cache check (authoritative)
                 if self._processed_recently_local(ip):
                     check.log.info("SCAMALYTICS: SKIP %s (persistent cache <%sh)", ip, self.skip_window_hours)
-                    self.session_recent_cache[ip] = True
-                    continue
-
-                # 3) Optional remote fallback (Datadog logs)
-                if self._was_recently_processed_remote(ip):
-                    check.log.info("SCAMALYTICS: SKIP %s (remote logs <%sh)", ip, self.skip_window_hours)
-                    self._update_local_cache(ip)  # persist locally for next run
                     self.session_recent_cache[ip] = True
                     continue
 
@@ -207,10 +200,10 @@ class ScamalyticsLogStream(LogStream):
                         "service": "scamalytics",
                         "attributes": {
                             "checkpoint": True,
-                            "info": "All IPs in this batch were cached. Advancing cursor."
-                        }
+                            "info": "All IPs in this batch were cached. Advancing cursor.",
+                        },
                     },
-                    cursor={"timestamp": newest_timestamp}
+                    cursor={"timestamp": newest_timestamp},
                 )
 
         # Persist cache, prune expired, and advance cursor
