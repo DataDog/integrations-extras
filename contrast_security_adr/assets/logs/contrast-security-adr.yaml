@@ -79,12 +79,12 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `url` to `resource.url`
+          name: Map `url` to `contrast_adr.incident_url`
           enabled: true
           sources:
             - url
           sourceType: attribute
-          target: resource.url
+          target: contrast_adr.incident_url
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
@@ -272,10 +272,10 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `incident_id` to `contrast_adr.incident_id`
+          name: Map `incidentId` to `contrast_adr.incident_id`
           enabled: true
           sources:
-            - incident_id
+            - incidentId
           sourceType: attribute
           target: contrast_adr.incident_id
           targetType: attribute

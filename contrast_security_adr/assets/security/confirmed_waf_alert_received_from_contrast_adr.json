@@ -11,9 +11,7 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:attack_event @result:((EXPLOITED OR exploited) OR (BLOCKED OR blocked)) service:ContrastADR",
-      "groupByFields": [
-        "@sourceIp"
-      ],
+      "groupByFields": ["@sourceIp"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -22,9 +20,7 @@
     },
     {
       "query": "source:waf_test",
-      "groupByFields": [
-        "@targetip"
-      ],
+      "groupByFields": ["@targetip"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -56,10 +52,7 @@
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": [
-      "waf_test",
-      "contrast-security-adr"
-    ]
+    "sources": ["waf_test", "contrast-security-adr"]
   },
   "creationAuthorId": 22452697,
   "updateAuthorId": 64082222,
