@@ -1,10 +1,10 @@
-id: "contrast-security-adr"
+id: contrast-security-adr
 tests:
  -
   sample: |-
     {
       "severity" : "critical",
-      "detectedTime" : "1764161753000",
+      "detectedTime" : "1765979488",
       "server" : {
         "name" : "Petclinic-thib",
         "id" : "27958"
@@ -63,8 +63,8 @@ tests:
       "url" : "/customers",
       "result" : "BLOCKED",
       "environment" : "production",
-      "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
-      "incident_id" : "INC-2025-c51",
+      "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511g",
+      "incident_id" : "INC-2025-c13",
       "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
       "mitreTactics" : [ {
         "id" : "TA0001",
@@ -72,6 +72,15 @@ tests:
       }, {
         "id" : "TA0002",
         "url" : "https://attack.mitre.org/tactics/TA0002/"
+      }, {
+        "id" : "TA0003",
+        "url" : "https://attack.mitre.org/tactics/TA0003/"
+      }, {
+        "id" : "TA0004",
+        "url" : "https://attack.mitre.org/tactics/TA0004/"
+      }, {
+        "id" : "TA0005",
+        "url" : "https://attack.mitre.org/tactics/TA0005/"
       }, {
         "id" : "TA0006",
         "url" : "https://attack.mitre.org/tactics/TA0006/"
@@ -93,13 +102,37 @@ tests:
       "sourceIp" : "7.7.7.7.7.10",
       "codeLocation" : {
         "stack" : [ {
-          "fileName" : "SecurityContextHolderAwareRequestFilter.java",
-          "shortSummary" : "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179",
-          "description" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)",
-          "methodName" : "doFilter",
-          "className" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+          "fileName" : "HikariProxyStatement.java",
+          "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
+          "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
+          "methodName" : "executeQuery",
+          "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
+          "type" : "frameSink",
+          "lineNumber" : -1
+        }, {
+          "fileName" : "CustomerRepository.java",
+          "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
+          "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
+          "methodName" : "findByLastName",
+          "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
           "type" : "frameCommon",
-          "lineNumber" : 179
+          "lineNumber" : 31
+        }, {
+          "fileName" : "ObservationFilterChainDecorator.java",
+          "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:227",
+          "description" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 227
+        }, {
+          "fileName" : "ExceptionTranslationFilter.java",
+          "shortSummary" : "doFilter() @ ExceptionTranslationFilter.java:120",
+          "description" : "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)",
+          "methodName" : "doFilter",
+          "className" : "org.springframework.security.web.access.ExceptionTranslationFilter",
+          "type" : "frameCommon",
+          "lineNumber" : 120
         }, {
           "fileName" : "ObservationFilterChainDecorator.java",
           "shortSummary" : "wrapFilter() @ ObservationFilterChainDecorator.java:240",
@@ -116,14 +149,6 @@ tests:
           "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
           "type" : "frameCommon",
           "lineNumber" : 227
-        }, {
-          "fileName" : "ObservationFilterChainDecorator.java",
-          "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:137",
-          "description" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
-          "methodName" : "doFilter",
-          "className" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
-          "type" : "frameCommon",
-          "lineNumber" : 137
         } ],
         "file" : "HikariProxyStatement.java",
         "method" : "executeQuery()"
@@ -167,13 +192,37 @@ tests:
         method: "executeQuery()"
         stack:
          -
-          fileName: "SecurityContextHolderAwareRequestFilter.java"
-          shortSummary: "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179"
-          description: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)"
-          methodName: "doFilter"
-          className: "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"
+          fileName: "HikariProxyStatement.java"
+          shortSummary: "executeQuery() @ HikariProxyStatement.java:-1"
+          description: "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)"
+          methodName: "executeQuery"
+          className: "com.zaxxer.hikari.pool.HikariProxyStatement"
+          type: "frameSink"
+          lineNumber: -1
+         -
+          fileName: "CustomerRepository.java"
+          shortSummary: "findByLastName() @ CustomerRepository.java:31"
+          description: "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)"
+          methodName: "findByLastName"
+          className: "org.springframework.samples.petclinic.customer.CustomerRepository"
           type: "frameCommon"
-          lineNumber: 179
+          lineNumber: 31
+         -
+          fileName: "ObservationFilterChainDecorator.java"
+          shortSummary: "doFilter() @ ObservationFilterChainDecorator.java:227"
+          description: "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter"
+          type: "frameCommon"
+          lineNumber: 227
+         -
+          fileName: "ExceptionTranslationFilter.java"
+          shortSummary: "doFilter() @ ExceptionTranslationFilter.java:120"
+          description: "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)"
+          methodName: "doFilter"
+          className: "org.springframework.security.web.access.ExceptionTranslationFilter"
+          type: "frameCommon"
+          lineNumber: 120
          -
           fileName: "ObservationFilterChainDecorator.java"
           shortSummary: "wrapFilter() @ ObservationFilterChainDecorator.java:240"
@@ -190,81 +239,16 @@ tests:
           className: "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter"
           type: "frameCommon"
           lineNumber: 227
-         -
-          fileName: "ObservationFilterChainDecorator.java"
-          shortSummary: "doFilter() @ ObservationFilterChainDecorator.java:137"
-          description: "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)"
-          methodName: "doFilter"
-          className: "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain"
-          type: "frameCommon"
-          lineNumber: 137
-      contrast_adr:
-        incident_id: "INC-2025-c51"
-      date: "1764161753000"
-      detectedTime: "1764161753000"
+      detectedTime: "1765979488"
       environment: "production"
       eventUuid: "1678918a-103f-4030-a416-3b8766e47e19"
-      evt:
-        name: "sql-injection"
-        outcome: "BLOCKED"
       host:
         hostname: "bb8989bc"
         isDocker: true
         operatingSystem: "Linux 6.10.14-linuxkit aarch64"
         runtimePath: "/opt/java/openjdk/bin/java"
         runtimeVersion: "OpenJDK Runtime Environment 17.0.14+7"
-      http:
-        method: "GET"
-        referer:
-         - "http://localhost:8080/customers/find"
-        request:
-          headers:
-            Cookie:
-             - "JSESSIONID=EB2C548D2789AEFB92E843E958D2410E"
-            accept:
-             - "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
-            accept-encoding:
-             - "gzip, deflate, br, zstd"
-            accept-language:
-             - "en-GB,en-US;q=0.9,en;q=0.8"
-            connection:
-             - "keep-alive"
-            host:
-             - "localhost:8080"
-            referer:
-             - "http://localhost:8080/customers/find"
-            sec-ch-ua:
-             - "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
-            sec-ch-ua-mobile:
-             - "?0"
-            sec-ch-ua-platform:
-             - "\"macOS\""
-            sec-fetch-dest:
-             - "document"
-            sec-fetch-mode:
-             - "navigate"
-            sec-fetch-site:
-             - "same-origin"
-            sec-fetch-user:
-             - "?1"
-            upgrade-insecure-requests:
-             - "1"
-            user-agent:
-             - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
-        url_details:
-          host:
-           - "localhost:8080"
-          path:
-            path: "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19"
-          queryString: "lastName=contrast-redacted-name"
-          scheme: "http"
-        user-agent:
-         - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
-        useragent_details:
-          os:
-            family: "Linux 6.10.14-linuxkit aarch64"
-        version: "1.1"
-      incident_id: "INC-2025-c51"
+      incident_id: "INC-2025-c13"
       mitreTactics:
        -
         id: "TA0001"
@@ -272,6 +256,15 @@ tests:
        -
         id: "TA0002"
         url: "https://attack.mitre.org/tactics/TA0002/"
+       -
+        id: "TA0003"
+        url: "https://attack.mitre.org/tactics/TA0003/"
+       -
+        id: "TA0004"
+        url: "https://attack.mitre.org/tactics/TA0004/"
+       -
+        id: "TA0005"
+        url: "https://attack.mitre.org/tactics/TA0005/"
        -
         id: "TA0006"
         url: "https://attack.mitre.org/tactics/TA0006/"
@@ -284,11 +277,7 @@ tests:
        -
         id: "TA0010"
         url: "https://attack.mitre.org/tactics/TA0010/"
-      network:
-        host:
-          ip: "7.7.7.7.7.10"
-          name: "bb8989bc"
-      organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511e"
+      organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511g"
       productName: "ContrastADR"
       request:
         headers:
@@ -346,11 +335,10 @@ tests:
         vectorFields:
           query: "SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%' or 1=1; # antwerp%'"
           ruleUuid: "sql-injection"
-      version: "6.14.0"
     message: |-
       {
         "severity" : "critical",
-        "detectedTime" : "1764161753000",
+        "detectedTime" : "1765979488",
         "server" : {
           "name" : "Petclinic-thib",
           "id" : "27958"
@@ -409,8 +397,8 @@ tests:
         "url" : "/customers",
         "result" : "BLOCKED",
         "environment" : "production",
-        "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
-        "incident_id" : "INC-2025-c51",
+        "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511g",
+        "incident_id" : "INC-2025-c13",
         "apiUri" : "/api/v4/organizations/203ae021-7e10-4356-ad6e-0c4b94d8511e/applications/08f46d44-b7da-4978-b903-fcce249f457a/attack-events/1678918a-103f-4030-a416-3b8766e47e19",
         "mitreTactics" : [ {
           "id" : "TA0001",
@@ -418,6 +406,15 @@ tests:
         }, {
           "id" : "TA0002",
           "url" : "https://attack.mitre.org/tactics/TA0002/"
+        }, {
+          "id" : "TA0003",
+          "url" : "https://attack.mitre.org/tactics/TA0003/"
+        }, {
+          "id" : "TA0004",
+          "url" : "https://attack.mitre.org/tactics/TA0004/"
+        }, {
+          "id" : "TA0005",
+          "url" : "https://attack.mitre.org/tactics/TA0005/"
         }, {
           "id" : "TA0006",
           "url" : "https://attack.mitre.org/tactics/TA0006/"
@@ -439,13 +436,37 @@ tests:
         "sourceIp" : "7.7.7.7.7.10",
         "codeLocation" : {
           "stack" : [ {
-            "fileName" : "SecurityContextHolderAwareRequestFilter.java",
-            "shortSummary" : "doFilter() @ SecurityContextHolderAwareRequestFilter.java:179",
-            "description" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)",
-            "methodName" : "doFilter",
-            "className" : "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+            "fileName" : "HikariProxyStatement.java",
+            "shortSummary" : "executeQuery() @ HikariProxyStatement.java:-1",
+            "description" : "com.zaxxer.hikari.pool.HikariProxyStatement.executeQuery(HikariProxyStatement.java:-1)",
+            "methodName" : "executeQuery",
+            "className" : "com.zaxxer.hikari.pool.HikariProxyStatement",
+            "type" : "frameSink",
+            "lineNumber" : -1
+          }, {
+            "fileName" : "CustomerRepository.java",
+            "shortSummary" : "findByLastName() @ CustomerRepository.java:31",
+            "description" : "org.springframework.samples.petclinic.customer.CustomerRepository.findByLastName(CustomerRepository.java:31)",
+            "methodName" : "findByLastName",
+            "className" : "org.springframework.samples.petclinic.customer.CustomerRepository",
             "type" : "frameCommon",
-            "lineNumber" : 179
+            "lineNumber" : 31
+          }, {
+            "fileName" : "ObservationFilterChainDecorator.java",
+            "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:227",
+            "description" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)",
+            "methodName" : "doFilter",
+            "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
+            "type" : "frameCommon",
+            "lineNumber" : 227
+          }, {
+            "fileName" : "ExceptionTranslationFilter.java",
+            "shortSummary" : "doFilter() @ ExceptionTranslationFilter.java:120",
+            "description" : "org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)",
+            "methodName" : "doFilter",
+            "className" : "org.springframework.security.web.access.ExceptionTranslationFilter",
+            "type" : "frameCommon",
+            "lineNumber" : 120
           }, {
             "fileName" : "ObservationFilterChainDecorator.java",
             "shortSummary" : "wrapFilter() @ ObservationFilterChainDecorator.java:240",
@@ -462,14 +483,6 @@ tests:
             "className" : "org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter",
             "type" : "frameCommon",
             "lineNumber" : 227
-          }, {
-            "fileName" : "ObservationFilterChainDecorator.java",
-            "shortSummary" : "doFilter() @ ObservationFilterChainDecorator.java:137",
-            "description" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)",
-            "methodName" : "doFilter",
-            "className" : "org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain",
-            "type" : "frameCommon",
-            "lineNumber" : 137
           } ],
           "file" : "HikariProxyStatement.java",
           "method" : "executeQuery()"
@@ -486,7 +499,71 @@ tests:
         "agentVersion" : "6.14.0",
         "uiUrl" : "https://teamserver-scantest.contsec.com/Contrast/static/ng/index.html#/203ae021-7e10-4356-ad6e-0c4b94d8511e/attack-events/1678918a-103f-4030-a416-3b8766e47e19?groupBy=&dateRange-type=CUSTOM_DATE_RANGE&dateRange-startDate=1747217573585&dateRange-endDate=1747217693585&applicationId=08f46d44-b7da-4978-b903-fcce249f457a"
       }
-    status: "critical"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 1
+ -
+  sample: |-
+    {
+      "severity" : "Critical",
+      "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
+      "alertType" : "incident_created",
+      "alertReason" : "Incident Created",
+      "source" : "security",
+      "eventType" : "incidentalert",
+      "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ],
+      "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
+      "relatedRules" : [ "path-traversal" ],
+      "score" : 9.3,
+      "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
+      "createdTime" : "2025-12-11T11:23:22.0000Z",
+      "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ],
+      "incidentId" : "INC-2025-c11",
+      "incidentName" : "Path Traversal on \"/postjsoncmd\"",
+      "status" : "Open",
+      "timestamp" : "2025-12-17T13:36:22.0000Z"
+    }
+  result:
+    custom:
+      alertReason: "Incident Created"
+      alertType: "incident_created"
+      createdTime: "2025-12-11T11:23:22.0000Z"
+      eventType: "incidentalert"
+      incidentId: "INC-2025-c11"
+      incidentName: "Path Traversal on \"/postjsoncmd\""
+      organizationUuid: "203ae021-7e10-4356-ad6e-0c4b94d8511e"
+      recommendedActions:
+       - "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production."
+       - "Add an exclusion for this attack event."
+      recommendedRunbooks:
+       - "https://dev/adr-runbooks/runbooks/path-traversal/"
+      relatedRules:
+       - "path-traversal"
+      score: 9.3
+      severity: "Critical"
+      source: "security"
+      status: "Open"
+      summary: " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd"
+      timestamp: "2025-12-17T13:36:22.0000Z"
+      url: "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6"
+    message: |-
+      {
+        "severity" : "Critical",
+        "summary" : " observed the following suspicious value accessing the application through the HTTP Request Parameter query cat /etc/passwd",
+        "alertType" : "incident_created",
+        "alertReason" : "Incident Created",
+        "source" : "security",
+        "eventType" : "incidentalert",
+        "recommendedRunbooks" : [ "https://dev/adr-runbooks/runbooks/path-traversal/" ],
+        "url" : "https://apptwo.com/cs/index.html#/0f767995-4882-4c7c-889f-994d945ff0d5/incidents/INC-2025-6",
+        "relatedRules" : [ "path-traversal" ],
+        "score" : 9.3,
+        "organizationUuid" : "203ae021-7e10-4356-ad6e-0c4b94d8511e",
+        "createdTime" : "2025-12-11T11:23:22.0000Z",
+        "recommendedActions" : [ "We did not block this attack because blocking was not enabled for DM-ADR-Web-Application in Production.", "Add an exclusion for this attack event." ],
+        "incidentId" : "INC-2025-c11",
+        "incidentName" : "Path Traversal on \"/postjsoncmd\"",
+        "status" : "Open",
+        "timestamp" : "2025-12-17T13:36:22.0000Z"
+      }
+    tags:
+     - "source:LOGS_SOURCE"
