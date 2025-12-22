@@ -1,6 +1,6 @@
 {
   "name": "Incident event received from Contrast ADR",
-  "partnerRuleId": "ext-006-3ql",
+  "partnerRuleId": "ext-00o-ysa",
   "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@contrast_adr.incident_url}}\n",
   "createdAt": 1747811769280,
   "isDefault": false,
@@ -11,10 +11,7 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
-      "groupByFields": [
-        "@incidentId",
-        "@organizationUuid"
-      ],
+      "groupByFields": ["@incidentId", "@organizationUuid"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -23,10 +20,7 @@
     },
     {
       "query": "source:contrast-security-adr tags:attack_event service:ContrastADR",
-      "groupByFields": [
-        "@incidentId",
-        "@organizationUuid"
-      ],
+      "groupByFields": ["@incidentId", "@organizationUuid"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -58,9 +52,7 @@
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": [
-      "contrast-security-adr"
-    ]
+    "sources": ["contrast-security-adr"]
   },
   "creationAuthorId": 22452697,
   "updateAuthorId": 63957669,
