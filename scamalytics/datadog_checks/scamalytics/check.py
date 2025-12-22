@@ -17,7 +17,7 @@ def parse_iso8601_timestamp(ts_str: str) -> datetime:
       '2025-08-11T23:03:34.983+00:00' -> aware UTC
     """
     if not ts_str:
-        return None  # caller must handle
+        return None
     # Normalize trailing Z to +00:00
     if ts_str.endswith('Z'):
         ts_str = ts_str[:-1] + '+00:00'
@@ -118,8 +118,13 @@ class ScamalyticsLogStream(LogStream):
             return
 
         ip_pattern = re.compile(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b")
-        newest_timestamp = cursor["timestamp"] if (cursor and cursor.get("timestamp")) else "1970-01-01T00:00:00Z"
+        
+        # Initialize cursor tracking
+        current_cursor_ts = cursor["timestamp"] if (cursor and cursor.get("timestamp")) else "1970-01-01T00:00:00Z"
+        newest_timestamp = current_cursor_ts
+        
         processed_ips_this_run = set()
+        records_yielded_count = 0 
 
         for log_entry in logs:
             attributes = log_entry.get("attributes", {})
@@ -127,7 +132,7 @@ class ScamalyticsLogStream(LogStream):
             if not ts_str:
                 continue
 
-            # Track newest timestamp
+            # Always track the newest timestamp seen
             if ts_str > newest_timestamp:
                 newest_timestamp = ts_str
 
@@ -151,11 +156,11 @@ class ScamalyticsLogStream(LogStream):
                     self.session_recent_cache[ip] = True
                     continue
 
-                # 3) Optional remote fallback (Datadog logs) to avoid early re-send if indexing is slow
+                # 3) Optional remote fallback (Datadog logs)
                 if self._was_recently_processed_remote(ip):
                     check.log.info("SCAMALYTICS: SKIP %s (remote logs <%sh)", ip, self.skip_window_hours)
                     self._update_local_cache(ip)  # persist locally for next run
-                    self.session_recent_cache[ip] = True  # also cache in-memory for this run
+                    self.session_recent_cache[ip] = True
                     continue
 
                 # 4) Query Scamalytics API and emit enriched log
@@ -174,6 +179,7 @@ class ScamalyticsLogStream(LogStream):
                     continue
 
                 # Emit enriched record via crawler
+                records_yielded_count += 1
                 yield LogRecord(
                     data={
                         "message": f"Scamalytics report for IP {ip}",
@@ -187,6 +193,25 @@ class ScamalyticsLogStream(LogStream):
                 # Mark as processed now (both caches)
                 self._update_local_cache(ip)
                 self.session_recent_cache[ip] = True
+
+        # === CHECKPOINT FIX ===
+        # If we fetched logs but skipped ALL of them (because they were cached),
+        # we must yield a dummy record to force the Agent to update the cursor.
+        if len(logs) > 0 and records_yielded_count == 0:
+            if newest_timestamp > current_cursor_ts:
+                check.log.info("SCAMALYTICS: Batch completely skipped (cached). Emitting checkpoint to advance cursor.")
+                yield LogRecord(
+                    data={
+                        "message": "Scamalytics Checkpoint: Batch Skipped",
+                        "ddsource": "scamalytics-ti",
+                        "service": "scamalytics",
+                        "attributes": {
+                            "checkpoint": True,
+                            "info": "All IPs in this batch were cached. Advancing cursor."
+                        }
+                    },
+                    cursor={"timestamp": newest_timestamp}
+                )
 
         # Persist cache, prune expired, and advance cursor
         self._prune_expired_cache()
@@ -239,7 +264,6 @@ class ScamalyticsLogStream(LogStream):
             age = datetime.now(timezone.utc) - last_dt
             return age < timedelta(hours=self.skip_window_hours)
         except Exception:
-            # On any parse issue, fail open (treat as not processed)
             return False
 
     def _prune_expired_cache(self) -> None:
@@ -253,7 +277,6 @@ class ScamalyticsLogStream(LogStream):
                 if (now - seen_dt) > expiry:
                     expired.append(ip)
             except Exception:
-                # If unparsable, drop it
                 expired.append(ip)
         for ip in expired:
             del self.recent_cache[ip]
@@ -263,7 +286,6 @@ class ScamalyticsLogStream(LogStream):
         Fallback: search Datadog logs for a Scamalytics entry in the last window.
         Returns True if found. Also seeds local cache if found.
         """
-        # Check per-run memory cache first
         if ip in self.session_recent_cache:
             return self.session_recent_cache[ip] is True
 
@@ -279,7 +301,6 @@ class ScamalyticsLogStream(LogStream):
             "Content-Type": "application/json",
         }
 
-        # last N hours window
         window = f"now-{self.skip_window_hours}h"
 
         filter_dict = {
@@ -294,11 +315,9 @@ class ScamalyticsLogStream(LogStream):
             resp.raise_for_status()
             found = len(resp.json().get("data", [])) > 0
             if found:
-                # Seed both caches so we don't re-check this run or next runs
                 self._update_local_cache(ip)
                 self.session_recent_cache[ip] = True
             return found
         except Exception as e:
             check.log.warning("SCAMALYTICS: remote recent-check failed for %s: %s", ip, e)
-            # Fail open to avoid data loss (treat as not processed)
             return False

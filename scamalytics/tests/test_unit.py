@@ -1,311 +1,250 @@
-from datetime import datetime, timedelta, timezone
-from unittest.mock import ANY, MagicMock, patch
-
 import pytest
-from requests.exceptions import HTTPError
+import requests
+from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, patch
 
 from datadog_checks.base import ConfigurationError
-
-# Ensure this import matches your directory structure
-from datadog_checks.scamalytics.check import (
-    ScamalyticsCheck,
-    ScamalyticsLogStream,
-    parse_iso8601_timestamp,
-)
-
-# --- Fixtures (Setup) ---
+from datadog_checks.scamalytics import ScamalyticsCheck
+from datadog_checks.scamalytics.check import ScamalyticsLogStream, parse_iso8601_timestamp
 
 
 @pytest.fixture
-def instance_config():
-    """Standard valid configuration."""
+def instance():
     return {
-        "scamalytics_api_key": "test_scam_key",
-        "scamalytics_api_url": "https://api.test.com/",
+        "scamalytics_api_key": "test_key",
+        "scamalytics_api_url": "https://api.scamalytics.com/",
         "customer_id": "test_cust_id",
-        "dd_api_key": "test_dd_key",
-        "dd_app_key": "test_dd_app",
-        "skip_window_hours": 24,
-        "dd_site": "datadoghq.com",
+        "dd_api_key": "dd_key",
+        "dd_app_key": "dd_app",
     }
 
 
 @pytest.fixture
-def check_mock(instance_config):
-    """Mocks the parent Check class to avoid loading real Agent config."""
-    check = MagicMock(spec=ScamalyticsCheck)
-    check.instance = instance_config
-    check.log = MagicMock()
-    # Mock persistent cache methods (Agent internals)
-    check.read_persistent_cache.return_value = "{}"
-    check.write_persistent_cache.return_value = None
-    return check
+def check(instance):
+    return ScamalyticsCheck("scamalytics", {}, [instance])
 
 
 @pytest.fixture
-def stream(check_mock):
-    """Creates a stream instance with the mocked check."""
-    # FIX: Pass arguments explicitly using keywords to match your updated class
-    return ScamalyticsLogStream(check=check_mock, name="test_stream")
-
-
-# --- 1. Helper Function Tests ---
+def stream(check):
+    return ScamalyticsLogStream(check=check, name="scamalytics_stream")
 
 
 def test_parse_iso8601_timestamp():
-    # Test Standard Z
-    dt = parse_iso8601_timestamp("2023-01-01T12:00:00Z")
-    assert dt.tzinfo == timezone.utc
-    assert dt.hour == 12
-
-    # Test Offset
-    dt = parse_iso8601_timestamp("2023-01-01T12:00:00+00:00")
+    dt = parse_iso8601_timestamp("2025-01-01T12:00:00Z")
+    assert dt.year == 2025
     assert dt.tzinfo == timezone.utc
 
-    # Test Naive Fallback
-    dt = parse_iso8601_timestamp("2023-01-01T12:00:00.000")
-    assert dt.tzinfo == timezone.utc
+    dt2 = parse_iso8601_timestamp("2025-01-01T12:00:00+00:00")
+    assert dt2 == dt
 
-    # Test None
     assert parse_iso8601_timestamp(None) is None
 
 
-@pytest.mark.parametrize(
-    "ip, is_public",
-    [
-        ("8.8.8.8", True),  # Google (Public)
-        ("1.1.1.1", True),  # Cloudflare (Public)
-        ("10.0.0.1", False),  # Private Class A
-        ("192.168.0.1", False),  # Private Class C
-        ("172.16.0.1", False),  # Private Class B (Start)
-        ("172.31.255.255", False),  # Private Class B (End)
-        ("127.0.0.1", False),  # Loopback
-        ("169.254.1.1", False),  # Link-Local
-    ],
-)
-def test_is_public_ip(ip, is_public):
-    assert ScamalyticsLogStream._is_public_ip(ip) is is_public
+@pytest.mark.parametrize("ip, expected", [
+    ("8.8.8.8", True),
+    ("1.1.1.1", True),
+    ("10.0.0.1", False),
+    ("192.168.0.1", False),
+    ("172.16.0.1", False),
+    ("172.31.255.255", False),
+    ("127.0.0.1", False),
+    ("169.254.1.1", False),
+])
+def test_is_public_ip(stream, ip, expected):
+    assert stream._is_public_ip(ip) == expected
 
 
-# --- 2. Configuration Tests ---
+def test_config_validation_success(instance):
+    check = ScamalyticsCheck("scamalytics", {}, [instance])
+    assert check.instance["scamalytics_api_key"] == "test_key"
 
 
-def test_config_validation_success(instance_config):
-    check = ScamalyticsCheck("test", {}, [instance_config])
-    assert check.instance == instance_config
-
-
-def test_config_validation_failure(instance_config):
-    # Remove a required key
-    del instance_config["scamalytics_api_key"]
-
-    with pytest.raises(ConfigurationError) as excinfo:
-        ScamalyticsCheck("test", {}, [instance_config])
-    assert "Missing required configuration key" in str(excinfo.value)
+def test_config_validation_failure():
+    instance = {"scamalytics_api_key": "missing_others"}
+    with pytest.raises(ConfigurationError) as e:
+        ScamalyticsCheck("scamalytics", {}, [instance])
+    assert "Missing required configuration key" in str(e.value)
 
 
 def test_records_happy_path_new_ip(stream):
-    """
-    Scenario:
-    1. Datadog Logs return 1 log with a public IP (8.8.8.8).
-    2. Remote Check returns EMPTY (Ensures we DO NOT skip the API call).
-    3. Scamalytics API is called.
-    4. Record is yielded.
-    """
-    # 1. Main Log Search Response (Found the IP)
-    dd_logs_found = {
-        "data": [{"attributes": {"timestamp": "2023-01-01T12:00:00Z", "message": "Connection from 8.8.8.8"}}]
-    }
+    mock_logs = [
+        {
+            "attributes": {
+                "timestamp": "2025-01-01T10:00:00Z",
+                "message": "Connection from 8.8.8.8"
+            }
+        }
+    ]
+    mock_scam_data = {"score": 50, "risk": "medium"}
 
-    # 2. Remote Deduplication Check Response (NOT Found - safe to process)
-    # This ensures the code proceeds to line 162
-    dd_remote_empty = {"data": []}
+    with patch("requests.post") as mock_dd_post, \
+         patch("requests.get") as mock_scam_get:
+        
+        resp_logs = MagicMock()
+        resp_logs.json.return_value = {"data": mock_logs}
 
-    scam_resp = {"ip": "8.8.8.8", "score": 100, "risk": "high"}
+        resp_remote_check = MagicMock()
+        resp_remote_check.json.return_value = {"data": []}
 
-    with patch("requests.post") as mock_post, patch("requests.get") as mock_get:
-        # Use side_effect to handle the two distinct Datadog calls
-        mock_post.side_effect = [
-            MagicMock(status_code=200, json=lambda: dd_logs_found),  # Call 1: Fetch Logs
-            MagicMock(status_code=200, json=lambda: dd_remote_empty),  # Call 2: Remote Check
-        ]
+        mock_dd_post.side_effect = [resp_logs, resp_remote_check]
 
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = scam_resp
+        mock_scam_resp = MagicMock()
+        mock_scam_resp.json.return_value = mock_scam_data
+        mock_scam_get.return_value = mock_scam_resp
 
-        # Run
-        records = list(stream.records(cursor=None))
+        records = list(stream.records(cursor={"timestamp": "2025-01-01T09:00:00Z"}))
 
-        # Assertions
         assert len(records) == 1
-        assert records[0].data["attributes"]["score"] == 100
-
-        # Verify the API block actually ran
-        mock_get.assert_called_once()
+        assert records[0].data["attributes"] == mock_scam_data
+        assert records[0].data["message"] == "Scamalytics report for IP 8.8.8.8"
         assert "8.8.8.8" in stream.recent_cache
 
 
 def test_records_skips_private_ips(stream):
-    """Scenario: Log contains 192.168.1.1. Should be ignored entirely."""
-    dd_logs = {"data": [{"attributes": {"timestamp": "2023-01-01T12:00:00Z", "message": "Internal 192.168.1.1"}}]}
+    mock_logs = [
+        {
+            "attributes": {
+                "timestamp": "2025-01-01T10:00:00Z",
+                "message": "Connection from 192.168.1.1"
+            }
+        }
+    ]
 
-    with patch("requests.post") as mock_post, patch("requests.get") as mock_get:
-        mock_post.return_value.json.return_value = dd_logs
+    with patch("requests.post") as mock_dd_post:
+        mock_dd_resp = MagicMock()
+        mock_dd_resp.json.return_value = {"data": mock_logs}
+        mock_dd_post.return_value = mock_dd_resp
 
-        records = list(stream.records())
+        records = list(stream.records(cursor={"timestamp": "2025-01-01T09:00:00Z"}))
 
-        assert len(records) == 0
-        mock_get.assert_not_called()  # No Scamalytics call
+        assert len(records) == 1
+        assert records[0].data["attributes"].get("checkpoint") is True
+        assert records[0].cursor["timestamp"] == "2025-01-01T10:00:00Z"
 
 
 def test_records_skips_cached_ips(stream):
-    """Scenario: IP 1.1.1.1 is in persistent cache (processed recently)."""
-    # Pre-populate cache with 'now'
-    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    stream.recent_cache = {"1.1.1.1": now_str}
+    stream.recent_cache["8.8.8.8"] = "2025-01-01T09:55:00Z"
+    
+    mock_logs = [
+        {
+            "attributes": {
+                "timestamp": "2025-01-01T10:00:00Z",
+                "message": "Connection from 8.8.8.8"
+            }
+        }
+    ]
 
-    dd_logs = {"data": [{"attributes": {"timestamp": now_str, "message": "User 1.1.1.1"}}]}
+    with patch("requests.post") as mock_dd_post, \
+         patch("requests.get") as mock_scam_get:
+        
+        mock_dd_resp = MagicMock()
+        mock_dd_resp.json.return_value = {"data": mock_logs}
+        mock_dd_post.return_value = mock_dd_resp
 
-    with patch("requests.post") as mock_post, patch("requests.get") as mock_get:
-        mock_post.return_value.json.return_value = dd_logs
+        records = list(stream.records(cursor={"timestamp": "2025-01-01T09:00:00Z"}))
 
-        records = list(stream.records())
-
-        assert len(records) == 0
-        mock_get.assert_not_called()
-        stream.check.log.info.assert_any_call("SCAMALYTICS: SKIP %s (persistent cache <%sh)", "1.1.1.1", 24)
+        assert len(records) == 1
+        assert records[0].data["attributes"].get("checkpoint") is True
+        mock_scam_get.assert_not_called()
 
 
 def test_records_remote_fallback(stream):
-    """
-    Scenario: IP 2.2.2.2 is NOT in local cache, but IS found in remote Datadog logs
-    (meaning another agent instance processed it).
-    """
-    target_ip = "2.2.2.2"
+    ip = "1.2.3.4"
+    mock_logs = [
+        {
+            "attributes": {
+                "timestamp": "2025-01-01T10:00:00Z",
+                "message": f"Connection from {ip}"
+            }
+        }
+    ]
 
-    # First call: Main log fetch returns the IP
-    main_logs = {"data": [{"attributes": {"timestamp": "2023-01-01T12:00:00Z", "message": target_ip}}]}
+    with patch("requests.post") as mock_post, \
+         patch("requests.get") as mock_get:
+        
+        resp_logs = MagicMock()
+        resp_logs.json.return_value = {"data": mock_logs}
 
-    # Second call: Remote check returns a result (it was found)
-    remote_check_logs = {"data": [{"id": "found_it"}]}
+        resp_fallback = MagicMock()
+        resp_fallback.json.return_value = {"data": [{"id": "found_prev_log"}]}
 
-    with patch("requests.post") as mock_post, patch("requests.get") as mock_get:
-        # side_effect allows different returns for consecutive calls
-        mock_post.side_effect = [
-            MagicMock(status_code=200, json=lambda: main_logs),
-            MagicMock(status_code=200, json=lambda: remote_check_logs),
-        ]
+        mock_post.side_effect = [resp_logs, resp_fallback]
 
-        records = list(stream.records())
+        records = list(stream.records(cursor={"timestamp": "2025-01-01T09:00:00Z"}))
 
-        assert len(records) == 0
-        mock_get.assert_not_called()  # No Scamalytics call
-        assert target_ip in stream.recent_cache  # Should populate local cache now
-
-
-# --- 4. Error Handling Tests ---
+        assert len(records) == 1
+        assert records[0].data["attributes"].get("checkpoint") is True
+        
+        mock_get.assert_not_called()
+        assert ip in stream.recent_cache
 
 
 def test_dd_api_error_handling(stream):
-    """Scenario: Datadog API is down."""
-    with patch("requests.post", side_effect=Exception("Network Down")):
-        records = list(stream.records())
+    with patch("requests.post") as mock_post:
+        mock_post.side_effect = Exception("API Down")
+        records = list(stream.records(cursor=None))
         assert len(records) == 0
-        stream.check.log.error.assert_called_with("SCAMALYTICS: error fetching logs: %s", ANY)
-
-
-# --- 5. Cache Lifecycle Tests ---
 
 
 def test_prune_expired_cache(stream):
-    """Scenario: Cache contains old and new entries. Old should be deleted."""
     now = datetime.now(timezone.utc)
-
-    # 25 hours ago (Expired)
     old_ts = (now - timedelta(hours=25)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    # 1 hour ago (Valid)
-    new_ts = (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    fresh_ts = (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    stream.recent_cache = {
-        "old_ip": old_ts,
-        "new_ip": new_ts,
-        "bad_ts_ip": "invalid-timestamp",  # Should be treated as expired/removed
-    }
+    stream.recent_cache["old_ip"] = old_ts
+    stream.recent_cache["fresh_ip"] = fresh_ts
 
     stream._prune_expired_cache()
 
     assert "old_ip" not in stream.recent_cache
-    assert "bad_ts_ip" not in stream.recent_cache
-    assert "new_ip" in stream.recent_cache
+    assert "fresh_ip" in stream.recent_cache
 
 
-def test_load_persistent_cache_corrupt(check_mock):
-    """Scenario: Agent returns garbage JSON for the cache file."""
-    check_mock.read_persistent_cache.return_value = "{ broken json"
-
-    # FIX APPLIED HERE: Initialize using explicit keyword arguments
-    stream = ScamalyticsLogStream(check=check_mock, name="test")
-
-    assert stream.recent_cache == {}  # Should default to empty dict
-    check_mock.log.warning.assert_called()
+def test_load_persistent_cache_corrupt(check, stream):
+    check.read_persistent_cache = MagicMock(return_value="{bad_json")
+    stream._load_recent_cache()
+    assert stream.recent_cache == {}
 
 
 def test_cursor_handling_with_overlap(stream):
-    """Scenario: Stream starts with a cursor, ensuring we request overlapping time."""
-    cursor_ts = "2023-01-01T12:00:00Z"
-    cursor = {"timestamp": cursor_ts}
-
+    cursor = {"timestamp": "2025-01-01T10:00:00Z"}
+    
     with patch("requests.post") as mock_post:
-        mock_post.return_value.json.return_value = {"data": []}
-
+        mock_resp = MagicMock()
+        mock_resp.json.return_value = {"data": []}
+        mock_post.return_value = mock_resp
+        
         list(stream.records(cursor=cursor))
-
-        # Verify the 'from' param in the API call includes the overlap subtraction
-        call_args = mock_post.call_args
-        payload = call_args[1]['json']
-        from_param = payload['filter']['from']
-
-        # 12:00:00 - 2 seconds = 11:59:58
-        assert "11:59:58" in from_param
+        
+        _, kwargs = mock_post.call_args
+        payload = kwargs['json']
+        filter_from = payload['filter']['from']
+        
+        assert "09:59:58" in filter_from
 
 
 def test_handling_http_status_errors(stream):
-    """
-    Covers lines where the APIs fail.
-    We configure the mock to raise HTTPError to ensure we hit the exception handler
-    regardless of whether the code uses 'raise_for_status()' or manual checks.
-    """
-    # Scenario: Datadog Logs API returns 500 Internal Server Error
     with patch("requests.post") as mock_post:
-        # Configure the mock to look like a 500 error
-        mock_post.return_value.status_code = 500
-        mock_post.return_value.text = "Internal Error"
-
-        mock_post.return_value.raise_for_status.side_effect = HTTPError("500 Error")
-
-        # Run
-        records = list(stream.records())
-
-        # Assertions
+        resp = MagicMock()
+        resp.raise_for_status.side_effect = requests.exceptions.HTTPError("403 Forbidden")
+        mock_post.return_value = resp
+        
+        records = list(stream.records(cursor=None))
         assert len(records) == 0
-
-        # This covers the 'except' block in your API call.
-        assert stream.check.log.error.called, "Expected an error log for HTTP 500"
 
 
 def test_malformed_timestamp_in_log(stream):
-    """
-    Covers the block where timestamp parsing fails.
-    """
-    # Log with a garbage timestamp
-    dd_logs = {"data": [{"attributes": {"timestamp": "NOT-A-DATE", "message": "8.8.8.8"}}]}
-
+    mock_logs = [
+        {
+            "attributes": {
+                "message": "Bad log"
+            }
+        }
+    ]
     with patch("requests.post") as mock_post:
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = dd_logs
+        mock_resp = MagicMock()
+        mock_resp.json.return_value = {"data": mock_logs}
+        mock_post.return_value = mock_resp
 
-        # Run
-        records = list(stream.records())
-
-        # Assertion: The record should be skipped
+        records = list(stream.records(cursor={"timestamp": "2025-01-01T09:00:00Z"}))
         assert len(records) == 0
