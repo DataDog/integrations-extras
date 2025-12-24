@@ -11,4 +11,10 @@ class GrafanaCheck(OpenMetricsBaseCheckV2):
         super(GrafanaCheck, self).__init__(name, init_config, instances)
 
     def get_default_config(self):
-        return {"metrics": [METRIC_MAP]}
+        return {
+            "metrics": [METRIC_MAP],
+            "rename_labels": {
+                "version": "grafana_version",
+                "service": "grafana_service"
+            }
+        }
