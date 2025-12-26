@@ -72,6 +72,11 @@ The Apollo integration does not include any service checks at this time.
 
 Need help? Contact [Datadog Support][9].
 
+## Further reading
+
+Additional helpful documentation, links, and articles:
+
+- [How microservice architectures have shaped the usage of database technologies][10]
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/metrics.png
 [2]: /account/settings#integrations
@@ -82,3 +87,4 @@ Need help? Contact [Datadog Support][9].
 [7]: https://www.apollographql.com/docs/studio/datadog-integration/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/apollo/metadata.csv
 [9]: https://docs.datadoghq.com/help/
+[10]: https://www.datadoghq.com/blog/datadog-database-research/
