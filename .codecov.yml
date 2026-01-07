@@ -63,6 +63,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      Grafana:
+        target: 75
+        flags:
+        - grafana
       JFrog_Platform:
         target: 75
         flags:
@@ -446,6 +450,11 @@ flags:
     paths:
     - go_pprof_scraper/datadog_checks/go_pprof_scraper
     - go_pprof_scraper/tests
+  grafana:
+    carryforward: true
+    paths:
+    - grafana/datadog_checks/grafana
+    - grafana/tests
   grpc_check:
     carryforward: true
     paths:

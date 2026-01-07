@@ -1,7 +1,7 @@
 {
   "name": "Incident event received from Contrast ADR",
   "partnerRuleId": "ext-00o-ysa",
-  "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@url}}\n",
+  "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@contrast_adr.incident_url}}\n",
   "createdAt": 1747811769280,
   "isDefault": false,
   "isPartner": false,
@@ -11,9 +11,16 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
-      "groupByFields": [
-        "source"
-      ],
+      "groupByFields": ["@incidentId", "@organizationUuid"],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": "",
+      "dataSource": "logs"
+    },
+    {
+      "query": "source:contrast-security-adr tags:attack_event service:ContrastADR",
+      "groupByFields": ["@incidentId", "@organizationUuid"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -32,31 +39,29 @@
       "name": "",
       "status": "info",
       "notifications": [],
-      "condition": "a > 0"
+      "condition": "b > 0 && a > 0 "
     }
   ],
   "tags": [],
   "hasExtendedTitle": true,
   "type": "log_detection",
   "filters": [],
-  "version": 21,
+  "version": 25,
   "id": "2bn-ro5-p8h",
-  "updatedAt": 1764678412990,
+  "updatedAt": 1766054214650,
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": [
-      "contrast-security-adr"
-    ]
+    "sources": ["contrast-security-adr"]
   },
   "creationAuthorId": 22452697,
-  "updateAuthorId": 64082222,
+  "updateAuthorId": 63957669,
   "creator": {
     "handle": "pragati.gupta@contrastsecurity.com",
     "name": "Pragati Gupta"
   },
   "updater": {
-    "handle": "harsha.nagendra@contrastsecurity.com",
-    "name": "Harsha Nagendra"
+    "handle": "deepak.gopal@contrastsecurity.com",
+    "name": "Deepak Gopal"
   }
 }
