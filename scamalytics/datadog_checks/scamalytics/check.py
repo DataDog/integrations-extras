@@ -176,7 +176,7 @@ class ScamalyticsLogStream(LogStream):
                 yield LogRecord(
                     data={
                         "message": f"Scamalytics report for IP {ip}",
-                        "ddsource": "scamalytics-ti",
+                        "ddsource": "scamalytics",
                         "service": "scamalytics",
                         "attributes": scam_data,
                     },
@@ -196,7 +196,7 @@ class ScamalyticsLogStream(LogStream):
                 yield LogRecord(
                     data={
                         "message": "Scamalytics Checkpoint: Batch Skipped",
-                        "ddsource": "scamalytics-ti",
+                        "ddsource": "scamalytics",
                         "service": "scamalytics",
                         "attributes": {
                             "checkpoint": True,
@@ -299,7 +299,7 @@ class ScamalyticsLogStream(LogStream):
         filter_dict = {
             "from": window,
             "to": "now",
-            "query": f"source:scamalytics-ti service:scamalytics @attributes.scamalytics.ip:{ip}",
+            "query": f"source:scamalytics service:scamalytics @attributes.scamalytics.ip:{ip}",
         }
         payload = {"filter": filter_dict, "page": {"limit": 1}}
 
