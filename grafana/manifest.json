@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "6d1aa8b0-8639-4d2c-b3e3-f448546d1755",
+  "app_id": "grafana",
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "check": "grafana.openmetrics.health",
+        "metadata_path": "metadata.csv",
+        "prefix": "grafana."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_name": "Grafana",
+      "source_type_id": 61984711
+    },
+    "monitors": {},
+    "saved_views": {}
+  },
+  "author": {
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "name": "Community",
+    "sales_email": "reubentjl@gmail.com",
+    "support_email": "reubentjl@gmail.com"
+  },
+  "display_on_public_website": true,
+  "tile": {
+    "description": "Grafana is a multi-platform open source analytics and interactive visualization web application.",
+    "title": "Grafana",
+    "media": [],
+    "classifier_tags": [
+      "Category::Alerting",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Troubleshooting",
+    "changelog": "CHANGELOG.md"
+  }
+}
