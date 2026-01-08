@@ -34,6 +34,8 @@ class InstanceConfig(BaseModel):
     empty_default_hostname: Optional[bool] = None
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
+    scamalytics_api_key: str
+    scamalytics_api_url: str
     service: Optional[str] = None
     tags: Optional[tuple[str, ...]] = None
 
