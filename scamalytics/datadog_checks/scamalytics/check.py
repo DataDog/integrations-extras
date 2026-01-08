@@ -100,7 +100,7 @@ class ScamalyticsLogStream(LogStream):
 
         filter_dict = {
             "to": "now",
-            "query": "@network.ip.attributes.ip:* AND -source:scamalytics-ti AND -service:scamalytics",
+            "query": "(@network.client.ip:* OR @network.destination.ip:*) AND -source:scamalytics AND -service:scamalytics",
         }
         if from_time:
             # Always emit UTC Z format

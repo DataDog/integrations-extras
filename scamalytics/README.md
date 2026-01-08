@@ -23,17 +23,12 @@ instances:
 
     Run: datadog-agent check scamalytics
 
-### 3. Add a processor
+The Scamalytics integration automatically detects and scans IP addresses found in Datadog's standard network attributes:
 
-Add a remapper processor to your desired log source and map all IP fields to network.ip.attributes.ip, as this is the field used by the Scamalytics integration.
-
-In Datadog, go to Logs > Log Configuration > Pipelines.
-Click your desired log source's pipeline.
-Select Add Processor
-Under Select the processor type, choose Remapper.
-Name the processor.
-Set IP Fields as the attribute to remap.
-Set the target attribute to network.ip.attributes.ip
+| Traffic Type | Standard Attribute | Description |
+| :--- | :--- | :--- |
+| **Inbound** | `network.client.ip` |
+| **Outbound** | `network.destination.ip` |
 
 ## Troubleshooting
 
