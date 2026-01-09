@@ -14,10 +14,9 @@ Inside conf.d/scamalytics.d/conf.yaml, add the Scamalytics API endpoint URL, as 
 init_config:
 
 instances:
-  - url: "https://api.scamalytics.com/?ip="
-  - api_key: "<YOUR_API_KEY>" 
-  - customer-id:
-  "<YOUR_CUSTOMER-ID" 
+  - scamalytics_api_url: "https://api.scamalytics.com/?ip="
+  - scamalytics_api_key: "<YOUR_API_KEY>" 
+  - customer_id: "<YOUR_CUSTOMER-ID" 
 
 ### 2. Verify the integration is working
 
