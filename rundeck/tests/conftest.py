@@ -1,8 +1,10 @@
 import os
-from datadog_checks.rundeck.check import RundeckCheck
+
 import pytest
-from datadog_checks.dev import docker_run, get_here, get_docker_hostname
+
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 from datadog_checks.dev.conditions import CheckDockerLogs
+from datadog_checks.rundeck.check import RundeckCheck
 
 
 @pytest.fixture(scope='session')
