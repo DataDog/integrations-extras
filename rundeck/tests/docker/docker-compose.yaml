@@ -1,0 +1,44 @@
+services:
+  rundeck:
+    image: rundeck/rundeck:5.18.0
+    container_name: rundeck2
+    ports:
+      - "4440:4440"
+    environment:
+      RUNDECK_GRAILS_URL: http://localhost:4440
+      RUNDECK_TOKENS_FILE: /etc/rundeck/tokens.properties
+      RUNDECK_METRICS_ENABLED: "true"
+    volumes:
+      - ./tokens.properties:/etc/rundeck/tokens.properties:ro
+  rundeck-setup:
+    image: curlimages/curl:8.18.0
+    container_name: rundeck_init
+    depends_on:
+      - rundeck
+    volumes:
+      - ./random_pass_or_fail.yaml:/tmp/random_pass_or_fail.yaml:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        # Wait for Rundeck API to be healthy
+        echo "Waiting for Rundeck..."
+        until curl -s -f -H "X-Rundeck-Auth-Token: my-static-token-123" http://rundeck:4440/api/47/system/info; do
+          sleep 5
+        done
+
+        echo "Creating Project..."
+        curl -X POST http://rundeck:4440/api/47/projects \
+          -H "X-Rundeck-Auth-Token: my-static-token-123" \
+          -H "Content-Type: application/json" \
+          -d '{"name": "Test-Project", "config": {"project.description": "Auto-created"}}'
+        sleep 5
+
+        echo "Importing Job..."
+        if curl -s -X POST "http://rundeck:4440/api/47/project/Test-Project/jobs/import?format=yaml" \
+          -H "X-Rundeck-Auth-Token: my-static-token-123" \
+          -F "xmlBatch=@/tmp/random_pass_or_fail.yaml" | grep -q "succeeded"; then
+          echo "Import succeeded."
+        else
+          echo "Import failed."
+          exit 1
+        fi
