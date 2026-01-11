@@ -1,3 +1,4 @@
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.rundeck.constants import (
     EXECUTION_TAG_KEY_PREFIX,
     EXECUTIONS_RUNNING_DURATION_METRIC_NAME_PREFIX,
@@ -7,7 +8,6 @@ from datadog_checks.rundeck.constants import (
     SYSTEM_METRICS_TAG_MAP,
     SYSTEM_TAG_KEY_PREFIX,
 )
-from datadog_checks.dev.utils import get_metadata_metrics
 
 
 def test_e2e_rundeck(dd_agent_check, instance):
@@ -20,7 +20,9 @@ def test_e2e_rundeck(dd_agent_check, instance):
         aggregator.assert_metric_has_tag_prefix(expected_name, SYSTEM_TAG_KEY_PREFIX)
 
     # check /metrics/metrics metrics
-    candidates = [name for name in aggregator.metric_names if name.startswith(f"rundeck.{METRICS_METRICS_METRIC_NAME_PREFIX}")]
+    candidates = [
+        name for name in aggregator.metric_names if name.startswith(f"rundeck.{METRICS_METRICS_METRIC_NAME_PREFIX}")
+    ]
     for name in candidates:
         aggregator.assert_metric_has_tag_prefix(name, SYSTEM_TAG_KEY_PREFIX)
 
