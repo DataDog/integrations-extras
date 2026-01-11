@@ -8,6 +8,7 @@ from datadog_checks.rundeck.constants import (
     EXECUTION_TAG_KEY_PREFIX,
     EXECUTIONS_RUNNING_DURATION_METRIC_NAME_PREFIX,
     EXECUTIONS_RUNNING_METRIC_NAME_PREFIX,
+    METRICS_METRICS_METRIC_NAME_PREFIX,
     SYSTEM_METRIC_NAME_PREFIX,
     SYSTEM_TAG_KEY_PREFIX,
 )
@@ -163,7 +164,7 @@ def test_send_metrics_endpoint_group(instance, mocker):
     patched_rename_metric.assert_called_once_with(metric_name_with_val)
 
     assert mock_submission.call_count == 1
-    mock_submission.assert_any_call(metric_name_with_val, 0, tags=[])
+    mock_submission.assert_any_call(f"{METRICS_METRICS_METRIC_NAME_PREFIX}.{metric_name_with_val}", 0, tags=[])
 
 
 def test_check_project_executions_running(instance, mocker):
