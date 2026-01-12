@@ -20,7 +20,6 @@ services:
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
-        # Wait for Rundeck API to be healthy
         echo "Waiting for Rundeck..."
         until curl -s -f -H "X-Rundeck-Auth-Token: my-static-token-123" http://rundeck:4440/api/47/system/info; do
           sleep 5
@@ -42,3 +41,15 @@ services:
           echo "Import failed."
           exit 1
         fi
+        sleep 5
+
+        echo "Checking for running executions..."
+        while
+          curl -s -H "X-Rundeck-Auth-Token: my-static-token-123" \
+            "http://localhost:4440/api/30/project/*/executions/running" | grep -q "running"
+        do
+          echo "Executions still running, retrying in 5s..."
+          sleep 5
+        done
+
+        echo "Completed Rundeck initialization"
