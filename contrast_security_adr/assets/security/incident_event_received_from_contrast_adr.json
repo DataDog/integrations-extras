@@ -1,7 +1,7 @@
 {
   "name": "Incident event received from Contrast ADR",
   "partnerRuleId": "ext-00o-ysa",
-  "message": "### Summary:\n### sub-query/drill-down searches:\nsource=\"Contrast\" AND organizationId = {{@organizationUuid}} AND incidentId = {{@incidentId}}\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@url}}\n",
+  "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@contrast_adr.incident_url}}\n",
   "createdAt": 1747811769280,
   "isDefault": false,
   "isPartner": false,
@@ -11,9 +11,16 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
-      "groupByFields": [
-        "source"
-      ],
+      "groupByFields": ["@incidentId", "@organizationUuid"],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": "",
+      "dataSource": "logs"
+    },
+    {
+      "query": "source:contrast-security-adr tags:attack_event service:ContrastADR",
+      "groupByFields": ["@incidentId", "@organizationUuid"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -22,7 +29,7 @@
     }
   ],
   "options": {
-    "evaluationWindow": 900,
+    "evaluationWindow": 300,
     "detectionMethod": "threshold",
     "maxSignalDuration": 86400,
     "keepAlive": 3600
@@ -32,33 +39,29 @@
       "name": "",
       "status": "info",
       "notifications": [],
-      "condition": "a > 0"
+      "condition": "b > 0 && a > 0 "
     }
   ],
-  "tags": [
-    "source:contrast-security-adr"
-  ],
+  "tags": [],
   "hasExtendedTitle": true,
   "type": "log_detection",
   "filters": [],
-  "version": 11,
+  "version": 25,
   "id": "2bn-ro5-p8h",
-  "updatedAt": 1758182775207,
+  "updatedAt": 1766054214650,
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": [
-      "contrast-security-adr"
-    ]
+    "sources": ["contrast-security-adr"]
   },
   "creationAuthorId": 22452697,
-  "updateAuthorId": 21357583,
+  "updateAuthorId": 63957669,
   "creator": {
     "handle": "pragati.gupta@contrastsecurity.com",
     "name": "Pragati Gupta"
   },
   "updater": {
-    "handle": "thibault.barillon@contrastsecurity.com",
-    "name": "Thibault Barillon"
+    "handle": "deepak.gopal@contrastsecurity.com",
+    "name": "Deepak Gopal"
   }
 }

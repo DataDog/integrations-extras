@@ -1,7 +1,7 @@
 {
   "name": "Confirmed DLP event received from Contrast ADR",
   "partnerRuleId": "ext-00w-f8n",
-  "message": "### Summary:\nDLP Alert Confirmed {{@evt.outcome}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n\n#### sub-query/drill-down searches:\n      list of matching alerts and events from both sources for the same source ip, target ip address\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
+  "message": "### Summary:\n\nConfirmed active SQL Injection by Contrast ADR on  {{@url}} endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "createdAt": 1749466228666,
   "isDefault": false,
   "isPartner": false,
@@ -11,9 +11,7 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR",
-      "groupByFields": [
-        "@host.hostname"
-      ],
+      "groupByFields": ["@host.hostname"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -22,9 +20,7 @@
     },
     {
       "query": "source:dlp_test",
-      "groupByFields": [
-        "@hostname"
-      ],
+      "groupByFields": ["@hostname"],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -46,31 +42,26 @@
       "condition": "a > 0 && b > 0"
     }
   ],
-  "tags": [
-    "source:contrast-security-adr"
-  ],
+  "tags": [],
   "hasExtendedTitle": true,
   "type": "log_detection",
   "filters": [],
-  "version": 10,
+  "version": 22,
   "id": "xgy-cyz-hyl",
-  "updatedAt": 1756385774972,
+  "updatedAt": 1764678410070,
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": [
-      "contrast-security-adr",
-      "dlp_test"
-    ]
+    "sources": ["contrast-security-adr", "dlp_test"]
   },
   "creationAuthorId": 26956021,
-  "updateAuthorId": 37357442,
+  "updateAuthorId": 64082222,
   "creator": {
     "handle": "pranav.kalariya@contrastsecurity.com",
     "name": "Pranav Kalariya"
   },
   "updater": {
-    "handle": "pavan.kulkarni@contrastsecurity.com",
-    "name": "Pavan Kulkarni"
+    "handle": "harsha.nagendra@contrastsecurity.com",
+    "name": "Harsha Nagendra"
   }
 }
