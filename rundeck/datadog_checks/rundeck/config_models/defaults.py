@@ -4,6 +4,10 @@
 #     ddev -x validate models -s <INTEGRATION_NAME>
 
 
+def instance_api_version():
+    return 30
+
+
 def instance_disable_generic_tags():
     return False
 
