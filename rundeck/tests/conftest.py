@@ -12,7 +12,7 @@ def dd_environment():
     compose_file = os.path.join(get_here(), "docker", "docker-compose.yaml")
     boot_condition = CheckDockerLogs(
         compose_file,
-        r"Import succeeded.",
+        r"Completed Rundeck initialization",
         attempts=60,  # long time to bootup
         wait=5,
     )
