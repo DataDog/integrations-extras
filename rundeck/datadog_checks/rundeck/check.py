@@ -5,6 +5,7 @@ from json import JSONDecodeError
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck
+from datadog_checks.rundeck.config_models import ConfigMixin
 
 from .constants import (
     DEFAULT_API_VERSION,
@@ -20,7 +21,7 @@ from .constants import (
 )
 
 
-class RundeckCheck(AgentCheck):
+class RundeckCheck(ConfigMixin, AgentCheck):
     __NAMESPACE__ = "rundeck"
 
     def __init__(self, name, init_config, instances):
