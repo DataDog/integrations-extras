@@ -11,6 +11,7 @@ from datadog_checks.rundeck.constants import (
     SYSTEM_TAG_KEY_PREFIX,
 )
 
+
 @pytest.mark.e2e
 def test_e2e_rundeck(dd_agent_check, instance):
     aggregator = dd_agent_check(instance, rate=2)
