@@ -1,3 +1,5 @@
+import pytest
+
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.rundeck.constants import (
     EXECUTION_TAG_KEY_PREFIX,
@@ -9,7 +11,7 @@ from datadog_checks.rundeck.constants import (
     SYSTEM_TAG_KEY_PREFIX,
 )
 
-
+@pytest.mark.e2e
 def test_e2e_rundeck(dd_agent_check, instance):
     aggregator = dd_agent_check(instance, rate=2)
 

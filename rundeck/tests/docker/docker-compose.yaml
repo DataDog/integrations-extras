@@ -43,13 +43,17 @@ services:
         fi
         sleep 5
 
-        echo "Checking for running executions..."
-        while
-          curl -s -H "X-Rundeck-Auth-Token: my-static-token-123" \
-            "http://localhost:4440/api/30/project/*/executions/running" | grep -q "running"
-        do
-          echo "Executions still running, retrying in 5s..."
-          sleep 5
-        done
+        echo "Run the Job..."
+        if curl -fsS \
+          -H "X-Rundeck-Auth-Token: my-static-token-123" \
+          -X POST \
+          http://rundeck:4440/api/30/job/13fb8e14-2263-4726-a4c0-b7268471062a/run
+        then
+          echo "Job execution succeeded."
+        else
+          echo "Job execution failed."
+          exit 1
+        fi
+        sleep 5
 
         echo "Completed Rundeck initialization"
