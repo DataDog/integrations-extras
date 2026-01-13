@@ -1,0 +1,491 @@
+{
+  "title": "My Auth0 API Usage Dashboard",
+  "description": "",
+  "widgets": [
+    {
+      "id": 7257646664350490,
+      "definition": {
+        "title": "API Response Overview",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8456538807485639,
+            "definition": {
+              "title": "Request by Trend",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "number_format": {}, "alias": "Client and Server error", "formula": "query1" },
+                    { "number_format": {}, "alias": "Total rate limited", "formula": "query2" },
+                    { "number_format": {}, "alias": "Operation rate limited", "formula": "query3" },
+                    { "number_format": {}, "alias": "Success", "formula": "query4" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_other,$tenant,$client_id,$grant_type, $api} by {tenant}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_global_rate_limit,$tenant,$client_id,$grant_type, $api} by {tenant}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_operation_rate_limit,$tenant,$client_id,$grant_type, $api} by {tenant}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_success,$tenant,$client_id,$grant_type, $api} by {tenant}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": false, "scale": "log" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 7 }
+          },
+          {
+            "id": 1987242525177978,
+            "definition": {
+              "title": "Request by Trend",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_other,$tenant , $api} by {failure_code}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_global_rate_limit,$tenant , $api} by {failure_code}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_operation_rate_limit,$tenant , $api} by {failure_code}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_success,$tenant , $api} by {failure_code}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "datadog16" },
+                  "formulas": [{ "number_format": {}, "formula": "query1 + query2 + query3 + query4" }],
+                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] }
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 0, "y": 7, "width": 12, "height": 4 }
+          },
+          {
+            "id": 2265982223947706,
+            "definition": {
+              "title": "Request by Path and Trend",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "number_format": {}, "alias": "Client and Server error", "formula": "query1" },
+                    { "number_format": {}, "alias": "Total rate limited", "formula": "query2" },
+                    { "number_format": {}, "alias": "Operation rate limited", "formula": "query3" },
+                    { "number_format": {}, "alias": "Success", "formula": "query4" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_other,$tenant,$client_id,$grant_type, $api} by {tenant,operation_name}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_global_rate_limit,$tenant,$client_id,$grant_type, $api} by {tenant,operation_name}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure,failure_code:failure_code_operation_rate_limit,$tenant,$client_id,$grant_type, $api} by {tenant,operation_name}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_success,$tenant,$client_id,$grant_type, $api} by {tenant,operation_name}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": false, "scale": "log" }
+            },
+            "layout": { "x": 0, "y": 11, "width": 12, "height": 7 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 19 }
+    },
+    {
+      "id": 1563542797441151,
+      "definition": {
+        "title": "Request Failure Information",
+        "background_color": "pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8267492972943099,
+            "definition": {
+              "title": "Global Failure Overview",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure AND (failure_code:failure_code_global_rate_limit) AND $tenant AND $client_id AND $grant_type AND $api} by {api}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api} by {api}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:auth0.api_request.count{operation_result:operation_result_failure AND (failure_code:failure_code_global_rate_limit) AND $tenant AND $client_id AND $grant_type AND $api} by {api}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] },
+                  "formulas": [
+                    { "cell_display_mode": "bar", "alias": "Rate Limit Failures", "formula": "query1" },
+                    { "cell_display_mode": "bar", "alias": "Total Requests", "formula": "query2" },
+                    {
+                      "cell_display_mode": "trend",
+                      "alias": "Total Failures",
+                      "cell_display_mode_options": { "trend_type": "bars", "y_scale": "shared" },
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "Failure Rate",
+                      "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } },
+                      "formula": "100 * query1 / query2"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
+          },
+          {
+            "id": 4431715707047059,
+            "definition": {
+              "title": "Operation Failure Overview",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{failure_code:failure_code_operation_rate_limit,$tenant,$client_id,$grant_type , $api} by {api,operation_name}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api} by {api,operation_name}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:auth0.api_request.count{failure_code:failure_code_operation_rate_limit,$tenant,$client_id,$grant_type , $api} by {api,operation_name}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] },
+                  "formulas": [
+                    { "cell_display_mode": "bar", "alias": "Rate Limit Failures", "formula": "query1" },
+                    { "cell_display_mode": "bar", "alias": "Total Requests", "formula": "query2" },
+                    {
+                      "cell_display_mode": "trend",
+                      "alias": "Total Failures",
+                      "cell_display_mode_options": { "trend_type": "bars", "y_scale": "shared" },
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "Failure Rate",
+                      "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } },
+                      "formula": "100 * query1 / query2"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": { "x": 0, "y": 2, "width": 12, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 19, "width": 12, "height": 5, "is_column_break": true }
+    },
+    {
+      "id": 6749596007273174,
+      "definition": {
+        "title": "Quota Usage",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8107402245611218,
+            "definition": {
+              "title": "AVG Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    { "number_format": {}, "formula": "reduce(rollup(rollup(query1, 'max', 1), 'avg', 86400), 'max')" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 1 }
+          },
+          {
+            "id": 8333989307524371,
+            "definition": {
+              "title": "MAX Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    { "number_format": {}, "formula": "reduce(rollup(rollup(query1, 'max', 1), 'max', 86400), 'last')" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 1 }
+          },
+          {
+            "id": 459567109498261,
+            "definition": {
+              "title": "p99 Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p99', 86400), 'last')" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 3735922077762435,
+            "definition": {
+              "title": "p90 Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p90', 86400), 'last')" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 8, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 64612340275047,
+            "definition": {
+              "title": "p50 Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p50', 86400), 'last')" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 10, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 1403559492183975,
+            "definition": {
+              "title": "Requests Per Second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "number_format": {}, "alias": "RPS", "formula": "rollup(query1, 'max', 1)" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 1, "width": 12, "height": 3 }
+          },
+          {
+            "id": 1738947776796035,
+            "definition": {
+              "title": "MAX Requests Per Second by Hour",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "number_format": {}, "alias": "RPS", "formula": "rollup(query1, 'max', 3600)" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 4, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 24, "width": 12, "height": 8 }
+    }
+  ],
+  "template_variables": [
+    { "name": "tenant", "prefix": "tenant", "available_values": [], "default": "*" },
+    { "name": "api", "prefix": "api", "available_values": ["api_management", "api_authentication"], "default": "*" },
+    { "name": "client_id", "prefix": "client_id", "available_values": [], "default": "*" },
+    { "name": "grant_type", "prefix": "grant_type", "available_values": [], "default": "*" }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}
