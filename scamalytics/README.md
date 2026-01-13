@@ -9,7 +9,7 @@ The Scamalytics Datadog integration extends these capabilities by enriching logs
 
 ### 1. Update the configuration file
 
-Inside conf.d/scamalytics.d/conf.yaml, add the Scamalytics API endpoint URL, as well as your API key:
+Inside conf.d/scamalytics.d/conf.yaml, add the Scamalytics API endpoint URL, as well as your Scamalytics API key and Datadog keys:
 
 init_config:
 
@@ -17,6 +17,9 @@ instances:
   - scamalytics_api_url: "https://api.scamalytics.com/?ip="
   - scamalytics_api_key: "<YOUR_API_KEY>" 
   - customer_id: "<YOUR_CUSTOMER-ID" 
+  - dd_api_key: "<YOUR_DATADOG_API_KEY>"
+  - dd_app_key: "<YOUR_DATADOG_APP_KEY>"
+  
 
 ### 2. Verify the integration is working
 
