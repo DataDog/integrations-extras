@@ -1,11 +1,11 @@
 {
-  "title": "WatchTower Mainframe CPU Overview",
-  "description": "With WatchTower's Real-Time Streaming by Broadcom , you can stream the CPU contention and utilization of z/OS systems for visualization and monitoring in Datadog. Contention depicts whether processor capacity is sufficient for the workloads running and utilization  depicts the amount workloads being processed.",
+  "title": "WatchTower z/IRIS - CPU Overview",
+  "description": "With WatchTower's z/IRIS capability , you can stream the CPU contention and utilization of z/OS systems for visualization and monitoring in Datadog. Contention depicts whether processor capacity is sufficient for the workloads running and utilization  depicts the amount workloads being processed.",
   "widgets": [
     {
       "id": 325090501093728,
       "definition": {
-        "title": "About WatchTower z/IRIS",
+        "title": "About CPU Monitoring",
         "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
@@ -15,12 +15,12 @@
             "id": 2831545235878754,
             "definition": {
               "type": "image",
-              "url": "/api/v2/images/fcc9d753-dde5-4da1-accf-97f9d859e55f",
-              "url_dark_theme": "/api/v2/images/de83022c-2217-4caa-b086-0080f9992fc5",
-              "sizing": "scale-down",
-              "margin": "md",
-              "has_background": false,
-              "has_border": false,
+              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
+              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
+              "sizing": "contain",
+              "margin": "sm",
+              "has_background": true,
+              "has_border": true,
               "vertical_align": "center",
               "horizontal_align": "center"
             },
@@ -28,14 +28,14 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 2
+              "height": 1
             }
           },
           {
             "id": 6544225029855812,
             "definition": {
               "type": "note",
-              "content": "With WatchTower's Real-Time Streaming by Broadcom , you can stream the CPU contention and utilization of z/OS systems for visualization and monitoring in Datadog. Contention depicts whether processor capacity is sufficient for the workloads running and utilization  depicts the amount workloads being processed.",
+              "content": "With WatchTower z/IRIS , you can stream the CPU contention and utilization metrics from z/OS LPARs (i.e. hosts) for visualization and monitoring in Datadog. Due to the dynamic processor allocation capabilities on mainframe, CPU contention delivers the optimal measurement to identify the potential impact to application workloads. CPU load at 100% may not signify contention.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -47,16 +47,16 @@
             },
             "layout": {
               "x": 0,
-              "y": 2,
+              "y": 1,
               "width": 6,
-              "height": 2
+              "height": 1
             }
           },
           {
             "id": 7032118608350450,
             "definition": {
               "type": "note",
-              "content": "Further reading: \n- [WatchTower OpenTelemetry CPU Metrics ](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html)  for a list of metrics related to processor activity, including their attributes use case.\n",
+              "content": "Further reading: \n- Please see [WatchTower z/IRIS OpenTelemetry CPU Metrics ](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html)  for a list of metrics related to processor activity, including their attributes use case.\n",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -68,9 +68,9 @@
             },
             "layout": {
               "x": 6,
-              "y": 2,
+              "y": 1,
               "width": 6,
-              "height": 2
+              "height": 1
             }
           }
         ]
@@ -79,7 +79,7 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 5
+        "height": 3
       }
     },
     {
@@ -91,6 +91,31 @@
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
+          {
+            "id": 3532849738289101,
+            "definition": {
+              "title": "CPU Contention Monitor ",
+              "type": "manage_status",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": true,
+              "show_status": true,
+              "last_triggered_format": "relative",
+              "query": "CPU contention mainframe",
+              "sort": "status,asc",
+              "count": 50,
+              "start": 0,
+              "summary_type": "monitors",
+              "show_priority": false,
+              "show_last_triggered": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
           {
             "id": 4698654642100834,
             "definition": {
@@ -107,7 +132,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 0,
+              "y": 2,
               "width": 6,
               "height": 1
             }
@@ -175,7 +200,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 1,
+              "y": 3,
               "width": 6,
               "height": 3
             }
@@ -184,7 +209,7 @@
             "id": 6654455324255748,
             "definition": {
               "type": "note",
-              "content": "The last distribution of IBM SRM samples showing the range of  work units on the \"IN-READY\" queue based on the number of online logical processors. \nFor example \"Online Processors + 150 units  = 27%\" implies  27% of the SRM samples 150 work units were waiting for a logical processor.",
+              "content": "The last distribution of IBM SRM samples showing the range of  work units on the \"IN-READY\" queue based on the number of online logical processors. \nFor example \"Online Processors + 150 units  = 27%\" implies  27% of the SRM sample for 150 work units were waiting for a logical processor.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -196,7 +221,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 4,
+              "y": 6,
               "width": 6,
               "height": 1
             }
@@ -410,7 +435,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 5,
+              "y": 7,
               "width": 6,
               "height": 8
             }
@@ -421,7 +446,8 @@
         "x": 0,
         "y": 0,
         "width": 6,
-        "height": 14
+        "height": 18,
+        "is_column_break": true
       }
     },
     {
@@ -613,16 +639,19 @@
     {
       "name": "host",
       "prefix": "host",
+      "available_values": [],
       "default": "*"
     },
     {
       "name": "processor.type",
       "prefix": "cpu.type",
+      "available_values": [],
       "default": "*"
     },
     {
       "name": "sysplex.name",
       "prefix": "sysplex.name",
+      "available_values": [],
       "default": "*"
     }
   ],

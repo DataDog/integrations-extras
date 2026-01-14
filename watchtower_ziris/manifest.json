@@ -5,7 +5,7 @@
   "display_on_public_website": true,
   "tile": {
     "title": "Broadcom WatchTower z/IRIS",
-    "description": "Stream mainframe OpenTelemetry signals to Datadog observability of services like IBM CICS, MQ or Db2.",
+    "description": "Monitor your mainframe with logs, metrics, and traces from WatchTower z/IRIS in Datadog.",
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "uninstallation": "README.md#Uninstallation",
@@ -39,7 +39,8 @@
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Submitted Data Type::Traces",
-      "Submitted Data Type::Metrics"
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
     ],
     "resources": [
       {
@@ -62,12 +63,15 @@
   },
   "assets": {
     "dashboards": {
-      "WatchTower Mainframe z/OS Connect Overview": "assets/dashboards/watchtower_mainframe_z_os_connect_overview.json",
-      "WatchTower Mainframe CPU Overview": "assets/dashboards/watchtower_mainframe_cpu_overview.json",
-      "WatchTower Mainframe JVM Garbage Collection": "assets/dashboards/watchtower_mainframe_jvm_garbage_collection.json"
+      "WatchTower z/IRIS -  z/OS Connect Overview": "assets/dashboards/watchtower_z_iris____z_os_connect_overview.json",
+      "WatchTower z/IRIS - CPU Overview": "assets/dashboards/watchtower_z_iris___cpu_overview.json",
+      "WatchTower z/IRIS - JVM Garbage Collection Overview": "assets/dashboards/watchtower_z_iris___jvm_garbage_collection_overview.json"
     },
     "monitors": {
       "WatchTower Monitor: Mainframe CPU Contention is higher than manufacturer recommendation": "assets/monitors/watchtower_monitor__mainframe_cpu_contention_is_higher_than_manufacturer_recommendation.json"
+    },
+    "logs": {
+      "source": "ziris"
     },
     "integration": {
       "source_type_name": "ziris",
