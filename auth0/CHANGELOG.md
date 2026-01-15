@@ -23,14 +23,8 @@
 - Images
   - Added a screenshot of the new Auth0 API Usage dashboard `auth0/images/apiUsageDashboard.png`
 
-### Notes
-- No breaking changes.
-- No special migration steps required. The new metric will appear once the integration sends metric data (ensure Auth0 log streaming and any metric forwarding are configured as needed).
-- Suggested first steps after deploying:
-  1. Navigate to Datadog -> Metrics -> Explorer and search for `auth0.api_request.count`.
-  2. Import or open the provided dashboard at `auth0/assets/dashboards/auth0-api-usage.json` to get an out-of-the-box view of API usage and failures.
+## 1.0.0 / 2020-06-01
 
-### Files changed (in this branch)
-- `auth0/README.md` - README updated to reference metrics
-- `auth0/metadata.csv` - new metric entry added
-- `auth0/assets/dashboards/auth0-api-usage.json` - new dashboard added
+***Added***:
+
+* Initial Release
