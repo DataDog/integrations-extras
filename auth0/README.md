@@ -65,9 +65,7 @@ Auth0 logs are collected and sent to Datadog. The types of logs that could be re
 
 ### Metrics
 
-auth0 includes:
-
-* `auth0.api_request.count`:  The metric provides detailed information of the requests received by Auth0 with the following tags: `api`, `operation_name`, `operation_result`, `tenant`, `failure_code`, `client_id`, `connection_id`, `grant_type`, and `batch_seq`.
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Service Checks
 
