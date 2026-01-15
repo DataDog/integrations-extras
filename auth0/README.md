@@ -25,7 +25,7 @@ By configuring thresholds, security teams can set up alerts to notify them when 
 
 ####  Understand API usage trends
 
-By looking at the `auth0.api_request.count` metric you will know your usage patterns by api, by operation name, by operation results and others.
+By using the `auth0.api_request.count` metric, teams can gain insight into overall Auth0 API usage patterns and trends.
 
 ## Setup
 
