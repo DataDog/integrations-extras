@@ -1,6 +1,6 @@
 {
   "name": "Confirmed WAF alert received from Contrast ADR",
-  "partnerRuleId": "ext-00g-gwc",
+  "partnerRuleId": "ext-00n-ila",
   "message": "### Summary:\nWAF Alert Confirmed {{@result}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "createdAt": 1747814166967,
   "isDefault": false,
@@ -11,7 +11,9 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:attack_event @result:((EXPLOITED OR exploited) OR (BLOCKED OR blocked)) service:ContrastADR",
-      "groupByFields": ["@sourceIp"],
+      "groupByFields": [
+        "@sourceIp"
+      ],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -20,7 +22,9 @@
     },
     {
       "query": "source:waf_test",
-      "groupByFields": ["@targetip"],
+      "groupByFields": [
+        "@targetip"
+      ],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -52,7 +56,10 @@
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": ["waf_test", "contrast-security-adr"]
+    "sources": [
+      "waf_test",
+      "contrast-security-adr"
+    ]
   },
   "creationAuthorId": 22452697,
   "updateAuthorId": 64082222,

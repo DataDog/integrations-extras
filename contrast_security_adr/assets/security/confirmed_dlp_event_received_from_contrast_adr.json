@@ -1,6 +1,6 @@
 {
   "name": "Confirmed DLP event received from Contrast ADR",
-  "partnerRuleId": "ext-00w-f8n",
+  "partnerRuleId": "ext-00k-ldi",
   "message": "### Summary:\n\nConfirmed active SQL Injection by Contrast ADR on  {{@url}} endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "createdAt": 1749466228666,
   "isDefault": false,
@@ -11,7 +11,9 @@
   "queries": [
     {
       "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR",
-      "groupByFields": ["@host.hostname"],
+      "groupByFields": [
+        "@host.hostname"
+      ],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -20,7 +22,9 @@
     },
     {
       "query": "source:dlp_test",
-      "groupByFields": ["@hostname"],
+      "groupByFields": [
+        "@hostname"
+      ],
       "hasOptionalGroupByFields": false,
       "distinctFields": [],
       "aggregation": "count",
@@ -52,7 +56,10 @@
   "blocking": false,
   "metadata": {
     "entities": [],
-    "sources": ["contrast-security-adr", "dlp_test"]
+    "sources": [
+      "contrast-security-adr",
+      "dlp_test"
+    ]
   },
   "creationAuthorId": 26956021,
   "updateAuthorId": 64082222,
