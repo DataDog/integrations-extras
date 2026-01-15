@@ -23,7 +23,7 @@ Identity information can be used to quickly identify security and performance in
 
 By configuring thresholds, security teams can set up alerts to notify them when suspicious events take place, allowing them to more quickly respond to security incidents.
 
-####  Know your usage patterns
+####  Understand API usage trends
 
 By looking at the `auth0.api_request.count` metric you will know your usage patterns by api, by operation name, by operation results and others.
 
