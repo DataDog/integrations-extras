@@ -1,5 +1,12 @@
 # CHANGELOG - Upstash
 
+## 1.2.0 / 2024-08-14
+
+***Added***:
+
+* Upstash QStash Metrics enabled
+* Upstash Kafka Metrics deprecated
+
 ## 1.1.0 / 2024-08-14
 
 ***Added***:
