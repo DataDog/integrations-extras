@@ -1,25 +1,20 @@
-# Upstash
+# Upstash Integration
 
 ## Overview
 
-Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. Upstash uses the Redis and Kafka APIs, and is designed for:
+[Upstash][2] is a serverless database platform that offers various data solutions, including **Redis**, **QStash**, and **Vector** databases.
 
-* Serverless functions (AWS Lambda)
-* Cloudflare Workers
-* Fastly Compute@Edge
-* Next.js Edge, Remix, and more
-* Client-side web or mobile applications
-* AI development
-* WebAssembly and other environments where HTTP is preferred over TCP connections
+Key features of all Upstash products include:
 
-To centralize your monitoring stack and enable a comprehensive view of your data, the Upstash integration sends the following metrics to Datadog:
-    * Hit/Miss Rate
-    * Read/Write Latency (p99)
-    * Keyspace
-    * Number of Connections
-    * Bandwidth
-    * Total Data Size
-    * Throughput
+* **Serverless Architecture:** No need to manage or provision servers.
+* **Scale to Zero:** Pay only for actual usage. Resources scale down to minimal levels during periods of low or no activity.
+* **REST API:** Ideal for environments that do not allow TCP connections, such as Cloudflare Workers.
+* **Global Database:** Low latency access worldwide.
+* **Per-request Pricing:** A model perfectly suited for edge and serverless functions.
+
+These features make Upstash a powerful fit for serverless and edge computing environments, allowing developers to focus on building applications rather than resource management.
+
+---
 
 ## Setup
 
