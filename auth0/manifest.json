@@ -11,7 +11,13 @@
     "changelog": "CHANGELOG.md",
     "description": "View and analyze your Auth0 events.",
     "title": "Auth0",
-    "media": [],
+    "media": [
+        {
+          "media_type": "image",
+          "caption": "Auth0 Dashboard",
+          "image_url": "images/apiUsageDashboard.png"
+        }
+    ],
     "classifier_tags": [
       "Category::Incidents",
       "Category::Log Collection",
@@ -19,7 +25,8 @@
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
-      "Offering::Integration"
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
     ]
   },
   "author": {
@@ -29,6 +36,11 @@
     "name": "Auth0"
   },
   "assets": {
+      "dashboards": {
+        "Auth0": "auth0/assets/dashboards/auth0-api-usage.json"
+      },
+
+
     "integration": {
       "source_type_name": "Auth0",
       "configuration": {},
@@ -37,7 +49,9 @@
       },
       "metrics": {
         "prefix": "auth0.",
-        "check": [],
+        "check": [
+          "auth0.api_request.count"
+        ],
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
