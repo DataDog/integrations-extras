@@ -86,3 +86,4 @@ Read more about this integration in our [blog post][6].
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
 [6]: https://www.datadoghq.com/blog/monitor-auth0-with-datadog/
 [7]: https://docs.datadoghq.com/getting_started/site/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/auth0/metadata.csv
