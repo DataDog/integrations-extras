@@ -1,7 +1,87 @@
 {
   "title": "Auth0",
-  "description": "",
+  "description": "This dashboard provides the Auth0 API usage metrics.",
   "widgets": [
+    {
+      "id": 7137663064396068,
+      "definition": {
+        "title": "About Auth0",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5539461374432957,
+            "definition": {
+              "type": "image",
+              "url": "https://raw.githubusercontent.com/Datadog/datadog-integrations-extras/89f231c3aed55af1addb90c5c6eb2b04fd821175/auth0/assets/logos/auth0_light_mode.svg",
+              "url_dark_theme": "https://raw.githubusercontent.com/Datadog/datadog-integrations-extras/89f231c3aed55af1addb90c5c6eb2b04fd821175/auth0/assets/logos/auth0_dark_mode.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 2846125607515543,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides insights into Auth0 API requests.\n\n* Visualize of Overall Traffic Health\n* Determine which APIs or Endpoints are the root cause of failures",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 3294141736628682,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n\n* [Auth0 Datadog Integration Docs](https://docs.datadoghq.com/integrations/auth0/)\n* [Auth0 API Requests Reference](https://auth0.com/docs/api)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5
+      }
+    },
     {
       "id": 7257646664350490,
       "definition": {
@@ -19,15 +99,37 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    { "number_format": {}, "alias": "Client and Server error", "formula": "query1" },
-                    { "number_format": {}, "alias": "Total rate limited", "formula": "query2" },
-                    { "number_format": {}, "alias": "Operation rate limited", "formula": "query3" },
-                    { "number_format": {}, "alias": "Success", "formula": "query4" }
+                    {
+                      "number_format": {},
+                      "alias": "Client and Server error",
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Total rate limited",
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Operation rate limited",
+                      "formula": "query3"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Success",
+                      "formula": "query4"
+                    }
                   ],
                   "queries": [
                     {
@@ -52,13 +154,25 @@
                     }
                   ],
                   "response_format": "timeseries",
-                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_reverse": false,
+                    "line_width": "normal"
+                  },
                   "display_type": "line"
                 }
               ],
-              "yaxis": { "include_zero": false, "scale": "log" }
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
             },
-            "layout": { "x": 0, "y": 0, "width": 12, "height": 7 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 7
+            }
           },
           {
             "id": 1987242525177978,
@@ -95,15 +209,38 @@
                     }
                   ],
                   "response_format": "scalar",
-                  "style": { "palette": "datadog16" },
-                  "formulas": [{ "number_format": {}, "formula": "query1 + query2 + query3 + query4" }],
-                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] }
+                  "style": {
+                    "palette": "datadog16"
+                  },
+                  "formulas": [
+                    {
+                      "number_format": {},
+                      "formula": "query1 + query2 + query3 + query4"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
               "type": "sunburst",
-              "legend": { "type": "automatic" }
+              "legend": {
+                "type": "automatic"
+              }
             },
-            "layout": { "x": 0, "y": 7, "width": 12, "height": 4 }
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 4
+            }
           },
           {
             "id": 2265982223947706,
@@ -113,15 +250,37 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
-                    { "number_format": {}, "alias": "Client and Server error", "formula": "query1" },
-                    { "number_format": {}, "alias": "Total rate limited", "formula": "query2" },
-                    { "number_format": {}, "alias": "Operation rate limited", "formula": "query3" },
-                    { "number_format": {}, "alias": "Success", "formula": "query4" }
+                    {
+                      "number_format": {},
+                      "alias": "Client and Server error",
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Total rate limited",
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Operation rate limited",
+                      "formula": "query3"
+                    },
+                    {
+                      "number_format": {},
+                      "alias": "Success",
+                      "formula": "query4"
+                    }
                   ],
                   "queries": [
                     {
@@ -146,17 +305,34 @@
                     }
                   ],
                   "response_format": "timeseries",
-                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_reverse": false,
+                    "line_width": "normal"
+                  },
                   "display_type": "line"
                 }
               ],
-              "yaxis": { "include_zero": false, "scale": "log" }
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
             },
-            "layout": { "x": 0, "y": 11, "width": 12, "height": 7 }
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 12,
+              "height": 7
+            }
           }
         ]
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 19 }
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 12,
+        "height": 19
+      }
     },
     {
       "id": 1563542797441151,
@@ -197,19 +373,44 @@
                     }
                   ],
                   "response_format": "scalar",
-                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] },
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
                   "formulas": [
-                    { "cell_display_mode": "bar", "alias": "Rate Limit Failures", "formula": "query1" },
-                    { "cell_display_mode": "bar", "alias": "Total Requests", "formula": "query2" },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Rate Limit Failures",
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Total Requests",
+                      "formula": "query2"
+                    },
                     {
                       "cell_display_mode": "trend",
                       "alias": "Total Failures",
-                      "cell_display_mode_options": { "trend_type": "bars", "y_scale": "shared" },
+                      "cell_display_mode_options": {
+                        "trend_type": "bars",
+                        "y_scale": "shared"
+                      },
                       "formula": "query3"
                     },
                     {
                       "alias": "Failure Rate",
-                      "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
                       "formula": "100 * query1 / query2"
                     }
                   ]
@@ -217,7 +418,12 @@
               ],
               "has_search_bar": "auto"
             },
-            "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
           },
           {
             "id": 4431715707047059,
@@ -249,19 +455,44 @@
                     }
                   ],
                   "response_format": "scalar",
-                  "sort": { "count": 500, "order_by": [{ "type": "formula", "index": 0, "order": "desc" }] },
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
                   "formulas": [
-                    { "cell_display_mode": "bar", "alias": "Rate Limit Failures", "formula": "query1" },
-                    { "cell_display_mode": "bar", "alias": "Total Requests", "formula": "query2" },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Rate Limit Failures",
+                      "formula": "query1"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Total Requests",
+                      "formula": "query2"
+                    },
                     {
                       "cell_display_mode": "trend",
                       "alias": "Total Failures",
-                      "cell_display_mode_options": { "trend_type": "bars", "y_scale": "shared" },
+                      "cell_display_mode_options": {
+                        "trend_type": "bars",
+                        "y_scale": "shared"
+                      },
                       "formula": "query3"
                     },
                     {
                       "alias": "Failure Rate",
-                      "number_format": { "unit": { "type": "canonical_unit", "unit_name": "percent" } },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
                       "formula": "100 * query1 / query2"
                     }
                   ]
@@ -269,11 +500,22 @@
               ],
               "has_search_bar": "auto"
             },
-            "layout": { "x": 0, "y": 2, "width": 12, "height": 2 }
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 2
+            }
           }
         ]
       },
-      "layout": { "x": 0, "y": 19, "width": 12, "height": 5, "is_column_break": true }
+      "layout": {
+        "x": 0,
+        "y": 24,
+        "width": 12,
+        "height": 5,
+        "is_column_break": true
+      }
     },
     {
       "id": 6749596007273174,
@@ -294,7 +536,10 @@
               "requests": [
                 {
                   "formulas": [
-                    { "number_format": {}, "formula": "reduce(rollup(rollup(query1, 'max', 1), 'avg', 86400), 'max')" }
+                    {
+                      "number_format": {},
+                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'avg', 86400), 'max')"
+                    }
                   ],
                   "queries": [
                     {
@@ -309,7 +554,12 @@
               "autoscale": true,
               "precision": 2
             },
-            "layout": { "x": 0, "y": 0, "width": 3, "height": 1 }
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 8333989307524371,
@@ -321,7 +571,10 @@
               "requests": [
                 {
                   "formulas": [
-                    { "number_format": {}, "formula": "reduce(rollup(rollup(query1, 'max', 1), 'max', 86400), 'last')" }
+                    {
+                      "number_format": {},
+                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'max', 86400), 'last')"
+                    }
                   ],
                   "queries": [
                     {
@@ -335,9 +588,16 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": { "type": "area" }
+              "timeseries_background": {
+                "type": "area"
+              }
             },
-            "layout": { "x": 3, "y": 0, "width": 3, "height": 1 }
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 1
+            }
           },
           {
             "id": 459567109498261,
@@ -348,7 +608,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p99', 86400), 'last')" }],
+                  "formulas": [
+                    {
+                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p99', 86400), 'last')"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -361,9 +625,16 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": { "type": "area" }
+              "timeseries_background": {
+                "type": "area"
+              }
             },
-            "layout": { "x": 6, "y": 0, "width": 2, "height": 1 }
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 1
+            }
           },
           {
             "id": 3735922077762435,
@@ -374,7 +645,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p90', 86400), 'last')" }],
+                  "formulas": [
+                    {
+                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p90', 86400), 'last')"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -387,9 +662,16 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": { "type": "area" }
+              "timeseries_background": {
+                "type": "area"
+              }
             },
-            "layout": { "x": 8, "y": 0, "width": 2, "height": 1 }
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 2,
+              "height": 1
+            }
           },
           {
             "id": 64612340275047,
@@ -400,7 +682,11 @@
               "type": "query_value",
               "requests": [
                 {
-                  "formulas": [{ "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p50', 86400), 'last')" }],
+                  "formulas": [
+                    {
+                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p50', 86400), 'last')"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -413,9 +699,16 @@
               ],
               "autoscale": true,
               "precision": 2,
-              "timeseries_background": { "type": "area" }
+              "timeseries_background": {
+                "type": "area"
+              }
             },
-            "layout": { "x": 10, "y": 0, "width": 2, "height": 1 }
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 1
+            }
           },
           {
             "id": 1403559492183975,
@@ -425,11 +718,23 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [{ "number_format": {}, "alias": "RPS", "formula": "rollup(query1, 'max', 1)" }],
+                  "formulas": [
+                    {
+                      "number_format": {},
+                      "alias": "RPS",
+                      "formula": "rollup(query1, 'max', 1)"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -438,12 +743,21 @@
                     }
                   ],
                   "response_format": "timeseries",
-                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_reverse": false,
+                    "line_width": "normal"
+                  },
                   "display_type": "line"
                 }
               ]
             },
-            "layout": { "x": 0, "y": 1, "width": 12, "height": 3 }
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
           },
           {
             "id": 1738947776796035,
@@ -453,11 +767,23 @@
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "vertical",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
-                  "formulas": [{ "number_format": {}, "alias": "RPS", "formula": "rollup(query1, 'max', 3600)" }],
+                  "formulas": [
+                    {
+                      "number_format": {},
+                      "alias": "RPS",
+                      "formula": "rollup(query1, 'max', 3600)"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -466,23 +792,60 @@
                     }
                   ],
                   "response_format": "timeseries",
-                  "style": { "palette": "dog_classic", "order_reverse": false, "line_width": "normal" },
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_reverse": false,
+                    "line_width": "normal"
+                  },
                   "display_type": "bars"
                 }
               ]
             },
-            "layout": { "x": 0, "y": 4, "width": 12, "height": 3 }
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 3
+            }
           }
         ]
       },
-      "layout": { "x": 0, "y": 24, "width": 12, "height": 8 }
+      "layout": {
+        "x": 0,
+        "y": 29,
+        "width": 12,
+        "height": 8
+      }
     }
   ],
   "template_variables": [
-    { "name": "tenant", "prefix": "tenant", "available_values": [], "default": "*" },
-    { "name": "api", "prefix": "api", "available_values": ["api_management", "api_authentication"], "default": "*" },
-    { "name": "client_id", "prefix": "client_id", "available_values": [], "default": "*" },
-    { "name": "grant_type", "prefix": "grant_type", "available_values": [], "default": "*" }
+    {
+      "name": "tenant",
+      "prefix": "tenant",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "api",
+      "prefix": "api",
+      "available_values": [
+        "api_management",
+        "api_authentication"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "client_id",
+      "prefix": "client_id",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "grant_type",
+      "prefix": "grant_type",
+      "available_values": [],
+      "default": "*"
+    }
   ],
   "layout_type": "ordered",
   "notify_list": [],
