@@ -5,15 +5,21 @@ from json import JSONDecodeError
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck
+from datadog_checks.base.utils.persistent_cache import config_set_persistent_cache_id
 from datadog_checks.rundeck.config_models import ConfigMixin
+from datadog_checks.rundeck.config_models.defaults import instance_api_version
 
 from .constants import (
-    DEFAULT_API_VERSION,
-    EXECUTION_TAG_KEY_PREFIX,
-    EXECUTIONS_RUNNING_DURATION_METRIC_NAME_PREFIX,
-    EXECUTIONS_RUNNING_METRIC_NAME_PREFIX,
+    CACHE_KEY_TIMESTAMP,
+    COMPLETED_EXEC_TAG_MAP,
+    EXEC_COMPLETED_DURATION_METRIC_NAME,
+    EXEC_RUNNING_DURATION_METRIC_NAME,
+    EXEC_STATUS_METRIC_NAME,
+    EXEC_STATUS_RUNNING,
+    EXEC_TAG_MAP,
+    EXEC_TAG_TEMPLATE,
+    EXEC_TAGS_LIST_VALUED,
     METRICS_METRICS_METRIC_NAME_PREFIX,
-    RUNNING_EXECUTIONS_TAG_MAP,
     SYSTEM_INFO_TAG_MAP,
     SYSTEM_METRIC_NAME_PREFIX,
     SYSTEM_METRICS_TAG_MAP,
@@ -28,16 +34,19 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         super(RundeckCheck, self).__init__(name, init_config, instances)
 
         self.base_url = self.instance.get("url")
-        self.api_version = self.instance.get("api_version", DEFAULT_API_VERSION)
+        self.api_version = self.instance.get("api_version", instance_api_version())
         self.system_base_tags = []
 
         token = self.instance.get("access_token")
         self.http.options['headers'].update({"X-Rundeck-Auth-Token": token})
 
-    def access_api(self, endpoint: str):
+    def persistent_cache_id(self):
+        return config_set_persistent_cache_id(self, instance_config_options=['url', 'api_version'])
+
+    def access_api(self, endpoint, query_params=None):
         """Call the rundeck API"""
         try:
-            response = self.http.get(self.base_url + f"/api/{self.api_version}" + endpoint)
+            response = self.http.get(self.base_url + f"/api/{self.api_version}" + endpoint, params=query_params)
             response.raise_for_status()
             response_json = response.json()
             self.log.debug("rundeck API response(%s): %s", endpoint, response_json)
@@ -53,22 +62,25 @@ class RundeckCheck(ConfigMixin, AgentCheck):
 
         return response_json
 
-    def access_api_with_pagination(self, endpoint: str, limit: int = 20):
+    def access_api_with_pagination(self, endpoint, limit=20, query_params=None):
         """Call the rundeck API with pagination"""
         responses = []
+        offset_key = "offset"
+        if query_params is None:
+            query_params = {"max": limit, offset_key: 0}
+        else:
+            query_params["max"] = limit
+            query_params[offset_key] = 0
 
-        offset = 0
         while True:
-            paginated_endpoint = f"{endpoint}?max={limit}&offset={offset}"
-
-            response = self.access_api(paginated_endpoint)
+            response = self.access_api(endpoint, query_params)
             responses.append(response)
 
             paging = response.get("paging", {})
             count = paging.get("count", 0)
-            offset += count
+            query_params[offset_key] += count
 
-            if offset >= paging.get("total", 0):
+            if count == 0 or query_params.get(offset_key) >= paging.get("total", 0):
                 break
 
         return responses
@@ -162,25 +174,86 @@ class RundeckCheck(ConfigMixin, AgentCheck):
             for execution in response["executions"]
         ]
         for execution in running_executions_info:
-            self.send_running_execution(execution)
+            self.send_execution_status(execution)
 
-    def send_running_execution(self, execution):
-        """Send metrics extracted from /project/*/executions/running API"""
+    def get_completed_execution_tags(self, execution):
+        """Create the list of tags for completed execution"""
+        tag_list = []
+        for tag_key, key_list in COMPLETED_EXEC_TAG_MAP.items():
+            tag_value = self.get_nested_val(execution, key_list)
+            if tag_value is None:
+                continue
+
+            values = tag_value if tag_key in EXEC_TAGS_LIST_VALUED else [tag_value]
+            for value in values:
+                tag_list.append(EXEC_TAG_TEMPLATE.format(key=tag_key, value=value))
+        return tag_list
+
+    def send_execution_status(self, execution):
+        """Send status & duration metrics extracted from execution"""
         tag_list = [
-            f"{EXECUTION_TAG_KEY_PREFIX}_{tag_key}:{tag_value}"
-            for tag_key, key_list in RUNNING_EXECUTIONS_TAG_MAP.items()
-            if (tag_value := self.get_nested_val(execution, key_list)) is not None
+            EXEC_TAG_TEMPLATE.format(key=tag_key, value=tag_value)
+            for tag_key, key_list in EXEC_TAG_MAP.items()
+            if (tag_value := self.get_nested_val(execution, key_list)) not in (None, "")
         ]
+        if execution.get("status") != EXEC_STATUS_RUNNING:
+            completed_tag_list = self.get_completed_execution_tags(execution)
+            tag_list.extend(completed_tag_list)
         tag_list.extend(self.system_base_tags)
 
-        self.gauge(EXECUTIONS_RUNNING_METRIC_NAME_PREFIX, 1, tags=tag_list)
+        self.gauge(EXEC_STATUS_METRIC_NAME, 1, tags=tag_list)
+        self.send_execution_duration(execution, tag_list)
+        self.log.info("rundeck sent %s metric. %s", execution["status"], execution)
 
+    def send_execution_duration(self, execution, execution_tags):
+        """Send duration metrics for each execution"""
         started_ms = self.get_nested_val(execution, ["date-started", "unixtime"])
-        if started_ms is not None:
+        if started_ms is None:
+            self.log.warning("Unable to send duration metric. started-ms missing from execution.")
+            return
+
+        if execution.get("status") == EXEC_STATUS_RUNNING:
             duration_ms = int(time.time() * 1000) - started_ms
-            self.gauge(EXECUTIONS_RUNNING_DURATION_METRIC_NAME_PREFIX, duration_ms, tags=tag_list)
+            self.gauge(EXEC_RUNNING_DURATION_METRIC_NAME, duration_ms, tags=execution_tags)
+            return
+
+        # execution completed
+        ended_ms = self.get_nested_val(execution, ["date-ended", "unixtime"])
+        if ended_ms is None:
+            self.log.warning("Unable to send duration metric. ended-ms missing from execution.")
+            return
+        duration_ms = ended_ms - started_ms
+        self.gauge(EXEC_COMPLETED_DURATION_METRIC_NAME, duration_ms, tags=execution_tags)
+
+    def check_project_executions_completed(self, begin: int, end: int):
+        """Handle /project/[PROJECT]/executions API"""
+        projects = self.access_api("/projects")
+
+        for project in projects:
+            name = project.get("name")
+            if name is None:
+                self.log.warning("Unable to send metrics for project. Name missing from project.")
+                continue
+
+            param = {"begin": begin, "end": end}
+
+            completed_executions_info = [
+                execution
+                for response in self.access_api_with_pagination(f"/project/{name}/executions", query_params=param)
+                for execution in response["executions"]
+            ]
+            for execution in completed_executions_info:
+                self.send_execution_status(execution)
 
     def check(self, _):
+        last_timestamp = self.read_persistent_cache(CACHE_KEY_TIMESTAMP)
+        now_timestamp = time.time_ns() // 1_000_000
+
         self.check_system_info_endpoint()
         self.check_metrics_endpoint()
         self.check_project_executions_running()
+
+        if last_timestamp != "":
+            self.check_project_executions_completed(int(last_timestamp), now_timestamp)
+
+        self.write_persistent_cache(CACHE_KEY_TIMESTAMP, str(now_timestamp))

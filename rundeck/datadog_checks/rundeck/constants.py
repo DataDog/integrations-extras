@@ -1,3 +1,5 @@
+CACHE_KEY_TIMESTAMP = "last_timestamp"
+
 SYSTEM_INFO_TAG_MAP = {
     "executions_active": ["executions", "active"],
     "executions_execution_mode": ["executions", "executionMode"],
@@ -28,7 +30,7 @@ SYSTEM_METRICS_TAG_MAP = {
 }
 SYSTEM_METRIC_NAME_PREFIX = "system.stats"
 
-RUNNING_EXECUTIONS_TAG_MAP = {
+EXEC_TAG_MAP = {
     "id": ["id"],
     "status": ["status"],
     "project_name": ["project"],
@@ -38,10 +40,22 @@ RUNNING_EXECUTIONS_TAG_MAP = {
     "job_name": ["job", "name"],
     "job_group": ["job", "group"],
 }
-EXECUTION_TAG_KEY_PREFIX = "execution"
-EXECUTIONS_RUNNING_METRIC_NAME_PREFIX = "project.executions.running"
-EXECUTIONS_RUNNING_DURATION_METRIC_NAME_PREFIX = f"{EXECUTIONS_RUNNING_METRIC_NAME_PREFIX}.duration"
+COMPLETED_EXEC_TAG_MAP = {
+    "custom_status": ["customStatus"],
+    "successful_nodes": ["successfulNodes"],
+    "failed_nodes": ["failedNodes"],
+}
+
+EXEC_STATUS_RUNNING = "running"
+
+EXEC_TAGS_LIST_VALUED = {"successful_nodes", "failed_nodes"}
+EXEC_TAG_KEY_PREFIX = "execution"
+EXEC_TAG_TEMPLATE = EXEC_TAG_KEY_PREFIX + "_{key}:{value}"
+
+EXEC_STATUS_METRIC_NAME = "project.executions.status"
+
+EXEC_DURATION_METRIC_NAME = "project.executions.duration"
+EXEC_RUNNING_DURATION_METRIC_NAME = f"{EXEC_DURATION_METRIC_NAME}.running"
+EXEC_COMPLETED_DURATION_METRIC_NAME = f"{EXEC_DURATION_METRIC_NAME}.completed"
 
 METRICS_METRICS_METRIC_NAME_PREFIX = "metrics.metrics"
-
-DEFAULT_API_VERSION = 30
