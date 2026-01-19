@@ -23,7 +23,7 @@ def test_e2e_rundeck(dd_agent_check, instance):
             f"http://{get_docker_hostname()}:4440/api/30/job/{job}/run",
             headers={"X-Rundeck-Auth-Token": "my-static-token-123"},
         )
-    aggregator = dd_agent_check(instance)
+    aggregator = dd_agent_check(instance, rate=2)
 
     # check /system/info metrics
     for name_postfix in SYSTEM_METRICS_TAG_MAP:
