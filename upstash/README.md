@@ -4,17 +4,7 @@
 
 [Upstash][2] is a serverless database platform that offers various data solutions, including **Redis**, **QStash**, and **Vector** databases.
 
-Key features of all Upstash products include:
-
-* **Serverless Architecture:** No need to manage or provision servers.
-* **Scale to Zero:** Pay only for actual usage. Resources scale down to minimal levels during periods of low or no activity.
-* **REST API:** Ideal for environments that do not allow TCP connections, such as Cloudflare Workers.
-* **Global Database:** Low latency access worldwide.
-* **Per-request Pricing:** A model perfectly suited for edge and serverless functions.
-
-These features make Upstash a powerful fit for serverless and edge computing environments, allowing developers to focus on building applications rather than resource management.
-
----
+The Upstash integration enables you to monitor the health and performance of your serverless databases directly within Datadog. By collecting key metrics—such as active connections, command throughput, latency, and storage usage—this integration provides deep visibility into your data layer, helping you optimize performance and troubleshoot issues alongside the rest of your application telemetry.
 
 ## Setup
 
@@ -32,15 +22,37 @@ Additionally, ensure that all API keys associated with this integration have bee
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this integration.
+The Upstash integration collects metrics for both **Redis** and **QStash** products, namespaced under `upstash.db.*` and `upstash.qstash.*` respectively.
+
+**Redis Metrics**
+* **Performance:** Read and write latency (p99), throughput (commands per second), and cache hit/miss rates.
+* **Resource Usage:** Active connections (TCP and REST), total data size, and keyspace count.
+* **Billing & Volume:** Daily/monthly processed commands, bandwidth usage, and estimated monthly cost.
+
+**QStash Metrics**
+* **Message Activity:** Counts for delivered, failed, canceled, and retried messages.
+* **Workflow Telemetry:** Workflow runs, steps executed, and success/failure rates.
+* **System Health:** Queue counts, schedule counts, and bandwidth utilization.
+
+See [metadata.csv][6] for a complete list of metrics provided by this integration.
+
 ### Events
+
 The Upstash integration does not include any events.
- 
+
 ### Service Checks
 
 The Upstash integration does not include any service checks.
 
+## Dashboards
+
+The Upstash integration includes two out-of-the-box dashboards to visualize your data:
+
+1.  **Upstash Redis - Overview:** Provides a high-level view of your database health, including latency heatmaps, command throughput, storage breakdown, and connection statistics.
+2.  **Upstash QStash - Overview:** Tracks message delivery statuses, workflow executions, and bandwidth consumption for your messaging pipeline.
+
 ## Support
+
 Need help? Contact [Upstash support][7].
 
 [1]: https://console.upstash.com/integration/datadog

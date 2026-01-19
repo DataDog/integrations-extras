@@ -7,6 +7,7 @@
 * Enabled Upstash QStash metrics
 
 ***Removed***:
+
 * Deprecated Upstash Kafka metrics
 
 ## 1.1.0 / 2024-08-14

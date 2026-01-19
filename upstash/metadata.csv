@@ -1,36 +1,55 @@
-metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
-upstash.db.totaldatasize,gauge,60,unit,,The size of total data that you stored.,0,upstash,data size,
-upstash.db.missrate,rate,60,miss,,Miss rate of read requests.,0,upstash,total misses,
-upstash.db.hitrate,rate,60,hit,,Hit rate of read requests.,0,upstash,total hits,
-upstash.db.writelatencyp99,gauge,60,millisecond,,Write latency details p99 in ms.,0,upstash,write latency,
-upstash.db.readlatencyp99,gauge,60,millisecond,,Read latency details p99 in ms.,0,upstash,read latency,
-upstash.db.dailybandwidth,gauge,60,unit,,Daily bandwidth usage.,0,upstash,daily bandwith,
-upstash.db.monthlycost,gauge,60,unit,,Monthly cost of database.,0,upstash,monthly cost,
-upstash.db.dailyprocessedcommands,gauge,60,unit,,Number of daily processed commands.,0,upstash,daily processed commands,
-upstash.db.dailywritecommands,gauge,60,unit,,Number of daily write commands.,0,upstash,daily write commands,
-upstash.db.dailyreadcommands,gauge,60,unit,,Number of daily read commands.,0,upstash,daily read commands,
-upstash.db.throughput,gauge,60,unit,,Database throughput metric.,0,upstash,throughput,
-upstash.db.readpersecond,gauge,60,unit,,Read per second metric.,0,upstash,read per second,
-upstash.db.writepersecond,gauge,60,unit,,Write per second metric.,0,upstash,write per second,
-upstash.db.keyspace,gauge,60,unit,,Database keyspace metric.,0,upstash,keyspace,
-upstash.db.connections,gauge,60,connection,,Database connection count.,0,upstash,connections,
-upstash.db.restconnections,gauge,60,connection,,Database rest connection count.,0,upstash,rest connections,
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric,sample_tags
+upstash.db.totaldatasize,gauge,60,unit,,The size of total data that you stored.,0,upstash,data size,,"team,database"
+upstash.db.missrate,rate,60,miss,,Miss rate of read requests.,0,upstash,total misses,,"team,database"
+upstash.db.hitrate,rate,60,hit,,Hit rate of read requests.,0,upstash,total hits,,"team,database"
+upstash.db.writelatencyp99,gauge,60,millisecond,,Write latency details p99 in ms.,0,upstash,write latency,,"team,database"
+upstash.db.readlatencyp99,gauge,60,millisecond,,Read latency details p99 in ms.,0,upstash,read latency,,"team,database"
+upstash.db.dailybandwidth,gauge,60,unit,,Daily bandwidth usage.,0,upstash,daily bandwith,,"team,database"
+upstash.db.monthlycost,gauge,60,unit,,Monthly cost of database.,0,upstash,monthly cost,,"team,database"
+upstash.db.dailyprocessedcommands,gauge,60,unit,,Number of daily processed commands.,0,upstash,daily processed commands,,"team,database"
+upstash.db.dailywritecommands,gauge,60,unit,,Number of daily write commands.,0,upstash,daily write commands,,"team,database"
+upstash.db.dailyreadcommands,gauge,60,unit,,Number of daily read commands.,0,upstash,daily read commands,,"team,database"
+upstash.db.throughput,gauge,60,unit,,Database throughput metric.,0,upstash,throughput,,"team,database"
+upstash.db.readpersecond,gauge,60,unit,,Read per second metric.,0,upstash,read per second,,"team,database"
+upstash.db.writepersecond,gauge,60,unit,,Write per second metric.,0,upstash,write per second,,"team,database"
+upstash.db.keyspace,gauge,60,unit,,Database keyspace metric.,0,upstash,keyspace,,"team,database"
+upstash.db.connections,gauge,60,connection,,Database connection count.,0,upstash,connections,,"team,database"
+upstash.db.restconnections,gauge,60,connection,,Database rest connection count.,0,upstash,rest connections,,"team,database"
 
-upstash.qstash.daily_messages,gauge,60,unit,,Number of daily requests.,0,upstash,daily messages,
-upstash.qstash.daily_delivered,gauge,60,unit,,Number of daily delivered messages.,0,upstash,daily delivered,
-upstash.qstash.daily_canceled,gauge,60,unit,,Number of daily canceled messages.,0,upstash,daily canceled,
-upstash.qstash.daily_error,gauge,60,unit,,Number of daily error messages.,0,upstash,daily error,
-upstash.qstash.daily_retry,gauge,60,unit,,Number of daily retries.,0,upstash,daily retry,
-upstash.qstash.daily_failed,gauge,60,unit,,Number of daily failed messages.,0,upstash,daily failed,
-upstash.qstash.daily_workflow_runs,gauge,60,unit,,Number of daily workflow runs.,0,upstash,daily workflow runs,
-upstash.qstash.daily_workflow_steps,gauge,60,unit,,Number of daily workflow steps.,0,upstash,daily workflow steps,
-upstash.qstash.daily_workflow_run_success,gauge,60,unit,,Number of daily successful workflow runs.,0,upstash,daily workflow run success,
-upstash.qstash.daily_workflow_run_canceled,gauge,60,unit,,Number of daily canceled workflow runs.,0,upstash,daily workflow run canceled,
-upstash.qstash.daily_workflow_run_failed,gauge,60,unit,,Number of daily failed workflow runs.,0,upstash,daily workflow run failed,
-upstash.qstash.daily_bandwidth_used,gauge,60,unit,,Daily bandwidth usage.,0,upstash,daily bandwidth used,
-upstash.qstash.schedule_count,gauge,60,unit,,Number of active schedules.,0,upstash,schedule count,
-upstash.qstash.topic_count,gauge,60,unit,,Number of active topics.,0,upstash,topic count,
-upstash.qstash.queue_count,gauge,60,unit,,Number of active queues.,0,upstash,queue count,
-upstash.qstash.dlq_message_count,gauge,60,unit,,Number of messages in DLQ.,0,upstash,dlq message count,
+upstash.kafkacluster.daily_storage,gauge,60,unit,,[Deprecated]The size of total data that you stored.,0,upstash,data size,,"team,topic,kafkacluster"
+upstash.kafkacluster.total_throughput,gauge,60,unit,,[Deprecated]Kafka Cluster Total throughput metric.,0,upstash,kafka cluster total throughput,,"team,topic,kafkacluster"
+upstash.kafkacluster.consume_throughput,gauge,60,unit,,[Deprecated]Kafka Cluster Consume throughput metric.,0,upstash,kafka cluster consume throughput,,"team,topic,kafkacluster"
+upstash.kafkacluster.produce_throughput,gauge,60,unit,,[Deprecated]Kafka Cluster Produce throughput metric.,0,upstash,kafka cluster produce throughput,,"team,topic,kafkacluster"
+upstash.kafkacluster.monthly_cost,gauge,60,unit,,[Deprecated]Number of monthly cost per Kafka Cluster.,0,upstash,kafka cluster monthly cost,,"team,topic,kafkacluster"
+upstash.kafkacluster.consumed_daily_messages,gauge,60,unit,,[Deprecated]Number of daily consumed messages per Kafka Cluster.,0,upstash,kafka cluster consumed messages,,"team,topic,kafkacluster"
+upstash.kafkacluster.produced_daily_messages,gauge,60,unit,,[Deprecated]Number of daily produced messages to Kafka Cluster.,0,upstash,kafka cluster produced messages,,"team,topic,kafkacluster"
+upstash.kafkacluster.consumed_monthly_messages,gauge,60,unit,,[Deprecated]Number of monthly consumed messages per Kafka Cluster.,0,upstash,kafka cluster consumed messages monthly,,"team,topic,kafkacluster"
+upstash.kafkacluster.produced_monthly_messages,gauge,60,unit,,[Deprecated]Number of monthly produced messages to Kafka Cluster.,0,upstash,kafka cluster produced messages monthly,,"team,topic,kafkacluster"
+upstash.kafkacluster.replication,gauge,60,unit,,[Deprecated]Replication count of certain Kafka Cluster.,0,upstash,kafka cluster replication,,"team,topic,kafkacluster"
+upstash.kafkacluster.topic_count,gauge,60,unit,,[Deprecated]Topic count of certain Kafka Cluster.,0,upstash,kafka cluster topic count,,"team,topic,kafkacluster"
+upstash.kafkacluster.partitions_count,gauge,60,unit,,[Deprecated]Partition count of Kafka Cluster.,0,upstash,kafka cluster partition count,,"team,topic,kafkacluster"
+upstash.topic.daily_produced,gauge,60,unit,,[Deprecated]The size of total data that you stored.,0,upstash,data size,,"team,topic,kafkacluster"
+upstash.topic.daily_consumed,gauge,60,unit,,[Deprecated]The size of total data consumed by certain Kafka topic.,0,upstash,data size,,"team,topic,kafkacluster"
+upstash.topic.daily_bytes,gauge,60,unit,,[Deprecated]The amount of byte transmitted by certain Kafka topics.,0,upstash,daily byte,,"team,topic,kafkacluster"
+upstash.topic.monthly_produced,gauge,60,unit,,[Deprecated]The amount of byte produced by certain Kafka topics.,0,upstash,topic produced byte,,"team,topic,kafkacluster"
+upstash.topic.monthly_consumed,gauge,60,unit,,[Deprecated]The amount of byte consumed by certain Kafka topics.,0,upstash,topic consumed byte,,"team,topic,kafkacluster"
+upstash.topic.monthly_bytes,gauge,60,unit,,[Deprecated]The amount of byte transmitted for certain Kafka topics.,0,upstash,topic monthly total byte,,"team,topic,kafkacluster"
 
-upstash.metadata.metric_publish,gauge,60,unit,,The healthcheck metrics for upstash integration.,0,upstash,integration status,
+upstash.qstash.daily_messages,gauge,60,unit,,Number of daily requests.,0,upstash,daily messages,,"team,type,region"
+upstash.qstash.daily_delivered,gauge,60,unit,,Number of daily delivered messages.,0,upstash,daily delivered,,"team,type,region"
+upstash.qstash.daily_canceled,gauge,60,unit,,Number of daily canceled messages.,0,upstash,daily canceled,,"team,type,region"
+upstash.qstash.daily_error,gauge,60,unit,,Number of daily error messages.,0,upstash,daily error,,"team,type,region"
+upstash.qstash.daily_retry,gauge,60,unit,,Number of daily retries.,0,upstash,daily retry,,"team,type,region"
+upstash.qstash.daily_failed,gauge,60,unit,,Number of daily failed messages.,0,upstash,daily failed,,"team,type,region"
+upstash.qstash.daily_workflow_runs,gauge,60,unit,,Number of daily workflow runs.,0,upstash,daily workflow runs,,"team,type,region"
+upstash.qstash.daily_workflow_steps,gauge,60,unit,,Number of daily workflow steps.,0,upstash,daily workflow steps,,"team,type,region"
+upstash.qstash.daily_workflow_run_success,gauge,60,unit,,Number of daily successful workflow runs.,0,upstash,daily workflow run success,,"team,type,region"
+upstash.qstash.daily_workflow_run_canceled,gauge,60,unit,,Number of daily canceled workflow runs.,0,upstash,daily workflow run canceled,,"team,type,region"
+upstash.qstash.daily_workflow_run_failed,gauge,60,unit,,Number of daily failed workflow runs.,0,upstash,daily workflow run failed,,"team,type,region"
+upstash.qstash.daily_bandwidth_used,gauge,60,unit,,Daily bandwidth usage.,0,upstash,daily bandwidth used,,"team,type,region"
+upstash.qstash.schedule_count,gauge,60,unit,,Number of active schedules.,0,upstash,schedule count,,"team,type,region"
+upstash.qstash.topic_count,gauge,60,unit,,Number of active topics.,0,upstash,topic count,,"team,type,region"
+upstash.qstash.queue_count,gauge,60,unit,,Number of active queues.,0,upstash,queue count,,"team,type,region"
+upstash.qstash.dlq_message_count,gauge,60,unit,,Number of messages in DLQ.,0,upstash,dlq message count,,"team,type,region"
+
+upstash.metadata.metric_publish,gauge,60,unit,,The healthcheck metrics for upstash integration.,0,upstash,integration status,,
