@@ -1,3 +1,4 @@
+import time
 import pytest
 import requests
 
@@ -17,12 +18,14 @@ from datadog_checks.rundeck.constants import (
 
 @pytest.mark.e2e
 def test_e2e_rundeck(dd_agent_check, instance):
+    dd_agent_check(instance)
     # trigger fast job to ensure metric produced
     for job in ["1fastjob-pass-1111-1111-111111111111", "1fastjob-fail-1111-1111-111111111111"]:
         requests.post(
             f"http://{get_docker_hostname()}:4440/api/30/job/{job}/run",
             headers={"X-Rundeck-Auth-Token": "my-static-token-123"},
         )
+    time.sleep(3)
     aggregator = dd_agent_check(instance, rate=2)
 
     # check /system/info metrics
