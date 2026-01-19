@@ -2,9 +2,7 @@
 
 ## Overview
 
-[Upstash][2] is a serverless database platform that offers various data solutions, including **Redis**, **QStash**, and **Vector** databases.
-
-The Upstash integration enables you to monitor the health and performance of your serverless databases directly within Datadog. By collecting key metrics—such as active connections, command throughput, latency, and storage usage—this integration provides deep visibility into your data layer, helping you optimize performance and troubleshoot issues alongside the rest of your application telemetry.
+The Upstash integration enables you to monitor the health and performance of your serverless databases directly within Datadog. By collecting key metrics such as active connections, command throughput, latency, and storage usage, this integration provides deep visibility into your data layer, helping you optimize performance and troubleshoot issues alongside the rest of your application telemetry.
 
 ## Setup
 
