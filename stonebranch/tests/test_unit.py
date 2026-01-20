@@ -1,4 +1,5 @@
 import io
+
 import requests
 
 from datadog_checks.stonebranch import StonebranchCheck
