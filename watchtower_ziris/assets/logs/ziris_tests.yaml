@@ -3,57 +3,57 @@ tests:
  -
   sample: |-
     {
-      "id" : "AwAAAZowm6mDAhH0zQAAABhBWm93bTFHX0FBQ1ltc1piUXhjMFZRQUIAAAAkZjE5YTMwOWItYTk4My00NDA3LWE0YWUtYjg2NjVkYjQ5MDE0AAAAAA",
+      "id" : "AwAAAZvbli5hI4dCZAAAABhBWnZibC1UbUFBQmhhb2xRWVhDSUZBQUEAAAAkZjE5YmRiOTYtMmU2MS00NTYzLTgzZmEtZmI4NGRiZjA4NjgyAAAAAA",
       "content" : {
-        "service" : "TASKREG",
-        "host" : "LPAR",
+        "service" : "CTS1T01",
+        "host" : "R144",
         "attributes" : {
           "hostname" : "R144",
-          "@timestamp" : "2025-10-29T15:34:59.203Z",
+          "@timestamp" : "2026-01-20T13:26:51.233Z",
           "os" : {
             "type" : "z_os"
           },
           "ziris" : {
             "debug" : {
               "collector" : {
-                "name" : "OpenTelemetry Collector for Test Purposes",
-                "version" : "0.116.1"
+                "name" : "OpenTelemetry Collector for Demo Purposes",
+                "version" : "0.139.0"
               }
             }
           },
           "service" : {
-            "name" : "TASKREG"
+            "name" : "CTS1T01"
           },
           "host" : {
-            "name" : "LPAR",
+            "name" : "R144",
             "arch" : "s390x"
           },
           "otel" : {
             "severity_text" : "ERROR",
             "severity_number" : "17",
-            "timestamp" : "1761752099203600000"
+            "timestamp" : "1768915611233459000"
           },
           "deployment" : {
             "environment" : {
-              "name" : "test-ziris-1.3.0"
+              "name" : "demo-ziris-1.3.0"
             }
           },
           "status" : "ERROR",
           "zos" : {
             "cics" : {
               "exception" : {
-                "number" : "1",
+                "number" : 1,
                 "resource_type" : "STORAGE",
-                "resource_id" : "ECDSA",
+                "resource_id" : "EPCDSA",
                 "type" : "WAIT"
               },
-              "region_name" : "TASKREG",
+              "region_name" : "CTS1T01",
               "transaction" : {
-                "number" : "32739",
+                "number" : 94,
                 "user_id" : "EOSCICS",
-                "id" : "TRN1",
+                "id" : "SSPN",
                 "program" : {
-                  "name" : "PGMNAME"
+                  "name" : "PKANGET"
                 },
                 "priority" : "00000001",
                 "start_type" : "SD"
@@ -62,131 +62,131 @@ tests:
             "subsystem_name" : "CICS",
             "vtam" : {
               "application" : {
-                "id" : "TASKREG"
+                "id" : "CTS1T01"
               }
             }
           }
         },
-        "message" : "Exception Type: WAIT\nException Resource Type: STORAGE\nException Resource Id: ECDSA\nMeaning: Exception Type: 'WAIT' with Resource Type: 'STORAGE' found. No further information available!",
-        "timestamp" : "2025-10-29T15:34:59.203Z",
-        "tags" : [ "env:test-ziris-1.3.0", "service:TASKREG", "otel_source:datadog_exporter", "os.type:z_os", "source:otlp_log_ingestion", "datadog.submission_auth:api_key" ]
+        "message" : "Exception Type: WAIT\nException Resource Type: STORAGE\nException Resource Id: EPCDSA\nMeaning: Exception Type: 'WAIT' with Resource Type: 'STORAGE' found. No further information available!",
+        "timestamp" : "2026-01-20T13:26:51.233Z",
+        "tags" : [ "env:demo-ziris-1.3.0", "service:cts1t01", "otel_source:datadog_exporter", "os.type:z_os", "source:otlp_log_ingestion", "datadog.submission_auth:api_key" ]
       }
     }
   result:
     custom:
       content:
         attributes:
-          '@timestamp': "2025-10-29T15:34:59.203Z"
+          '@timestamp': "2026-01-20T13:26:51.233Z"
           deployment:
             environment:
-              name: "test-ziris-1.3.0"
+              name: "demo-ziris-1.3.0"
           host:
             arch: "s390x"
-            name: "LPAR"
+            name: "R144"
           hostname: "R144"
           os:
             type: "z_os"
           otel:
             severity_number: "17"
             severity_text: "ERROR"
-            timestamp: "1761752099203600000"
+            timestamp: "1768915611233459000"
           service:
-            name: "TASKREG"
+            name: "CTS1T01"
           status: "ERROR"
           ziris:
             debug:
               collector:
-                name: "OpenTelemetry Collector for Test Purposes"
-                version: "0.116.1"
+                name: "OpenTelemetry Collector for Demo Purposes"
+                version: "0.139.0"
           zos:
             cics:
               exception:
-                number: "1"
-                resource_id: "ECDSA"
+                number: 1
+                resource_id: "EPCDSA"
                 resource_type: "STORAGE"
                 type: "WAIT"
-              region_name: "TASKREG"
+              region_name: "CTS1T01"
               transaction:
-                id: "TRN1"
-                number: "32739"
+                id: "SSPN"
+                number: 94
                 priority: "00000001"
                 program:
-                  name: "PGMNAME"
+                  name: "PKANGET"
                 start_type: "SD"
                 user_id: "EOSCICS"
             subsystem_name: "CICS"
             vtam:
               application:
-                id: "TASKREG"
-        host: "LPAR"
+                id: "CTS1T01"
+        host: "R144"
         message: |-
           Exception Type: WAIT
           Exception Resource Type: STORAGE
-          Exception Resource Id: ECDSA
+          Exception Resource Id: EPCDSA
           Meaning: Exception Type: 'WAIT' with Resource Type: 'STORAGE' found. No further information available!
-        service: "TASKREG"
+        service: "CTS1T01"
         tags:
-         - "env:test-ziris-1.3.0"
-         - "service:TASKREG"
+         - "env:demo-ziris-1.3.0"
+         - "service:cts1t01"
          - "otel_source:datadog_exporter"
          - "os.type:z_os"
          - "source:otlp_log_ingestion"
          - "datadog.submission_auth:api_key"
-        timestamp: "2025-10-29T15:34:59.203Z"
-      id: "AwAAAZowm6mDAhH0zQAAABhBWm93bTFHX0FBQ1ltc1piUXhjMFZRQUIAAAAkZjE5YTMwOWItYTk4My00NDA3LWE0YWUtYjg2NjVkYjQ5MDE0AAAAAA"
+        timestamp: "2026-01-20T13:26:51.233Z"
+      id: "AwAAAZvbli5hI4dCZAAAABhBWnZibC1UbUFBQmhhb2xRWVhDSUZBQUEAAAAkZjE5YmRiOTYtMmU2MS00NTYzLTgzZmEtZmI4NGRiZjA4NjgyAAAAAA"
     message: |-
       {
-        "id" : "AwAAAZowm6mDAhH0zQAAABhBWm93bTFHX0FBQ1ltc1piUXhjMFZRQUIAAAAkZjE5YTMwOWItYTk4My00NDA3LWE0YWUtYjg2NjVkYjQ5MDE0AAAAAA",
+        "id" : "AwAAAZvbli5hI4dCZAAAABhBWnZibC1UbUFBQmhhb2xRWVhDSUZBQUEAAAAkZjE5YmRiOTYtMmU2MS00NTYzLTgzZmEtZmI4NGRiZjA4NjgyAAAAAA",
         "content" : {
-          "service" : "TASKREG",
-          "host" : "LPAR",
+          "service" : "CTS1T01",
+          "host" : "R144",
           "attributes" : {
             "hostname" : "R144",
-            "@timestamp" : "2025-10-29T15:34:59.203Z",
+            "@timestamp" : "2026-01-20T13:26:51.233Z",
             "os" : {
               "type" : "z_os"
             },
             "ziris" : {
               "debug" : {
                 "collector" : {
-                  "name" : "OpenTelemetry Collector for Test Purposes",
-                  "version" : "0.116.1"
+                  "name" : "OpenTelemetry Collector for Demo Purposes",
+                  "version" : "0.139.0"
                 }
               }
             },
             "service" : {
-              "name" : "TASKREG"
+              "name" : "CTS1T01"
             },
             "host" : {
-              "name" : "LPAR",
+              "name" : "R144",
               "arch" : "s390x"
             },
             "otel" : {
               "severity_text" : "ERROR",
               "severity_number" : "17",
-              "timestamp" : "1761752099203600000"
+              "timestamp" : "1768915611233459000"
             },
             "deployment" : {
               "environment" : {
-                "name" : "test-ziris-1.3.0"
+                "name" : "demo-ziris-1.3.0"
               }
             },
             "status" : "ERROR",
             "zos" : {
               "cics" : {
                 "exception" : {
-                  "number" : "1",
+                  "number" : 1,
                   "resource_type" : "STORAGE",
-                  "resource_id" : "ECDSA",
+                  "resource_id" : "EPCDSA",
                   "type" : "WAIT"
                 },
-                "region_name" : "TASKREG",
+                "region_name" : "CTS1T01",
                 "transaction" : {
-                  "number" : "32739",
+                  "number" : 94,
                   "user_id" : "EOSCICS",
-                  "id" : "TRN1",
+                  "id" : "SSPN",
                   "program" : {
-                    "name" : "PGMNAME"
+                    "name" : "PKANGET"
                   },
                   "priority" : "00000001",
                   "start_type" : "SD"
@@ -195,14 +195,14 @@ tests:
               "subsystem_name" : "CICS",
               "vtam" : {
                 "application" : {
-                  "id" : "TASKREG"
+                  "id" : "CTS1T01"
                 }
               }
             }
           },
-          "message" : "Exception Type: WAIT\nException Resource Type: STORAGE\nException Resource Id: ECDSA\nMeaning: Exception Type: 'WAIT' with Resource Type: 'STORAGE' found. No further information available!",
-          "timestamp" : "2025-10-29T15:34:59.203Z",
-          "tags" : [ "env:test-ziris-1.3.0", "service:TASKREG", "otel_source:datadog_exporter", "os.type:z_os", "source:otlp_log_ingestion", "datadog.submission_auth:api_key" ]
+          "message" : "Exception Type: WAIT\nException Resource Type: STORAGE\nException Resource Id: EPCDSA\nMeaning: Exception Type: 'WAIT' with Resource Type: 'STORAGE' found. No further information available!",
+          "timestamp" : "2026-01-20T13:26:51.233Z",
+          "tags" : [ "env:demo-ziris-1.3.0", "service:cts1t01", "otel_source:datadog_exporter", "os.type:z_os", "source:otlp_log_ingestion", "datadog.submission_auth:api_key" ]
         }
       }
     tags:

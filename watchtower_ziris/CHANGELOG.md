@@ -1,6 +1,6 @@
 # CHANGELOG - Broadcom WatchTower z/IRIS
 
-## 1.0.0 / 2026-01-13
+## 1.0.0 / 2026-01-21
 
 _**New Features**_:
 

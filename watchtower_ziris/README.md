@@ -23,6 +23,7 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
    
    WatchTower z/IRIS can export telemetry over HTTP or gRPC. Refer to the  z/IRIS IronTap configuration to verify the appropriate receiver is configured.
    
+   - [Enable OTLP logs ingestion][2]
    - Add a Transform Processor
 
    Use the OpenTelemetry Transform Processor to prefix all OpenTelemetry-based metrics streamed from z/IRIS with `ziris.`:
@@ -37,16 +38,18 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
                - set(metric.name,Concat(["ziris", metric.name], ".")) where HasPrefix(metric.name, "irontap.")
    ```
 
-2. [Configure the Datadog Exporter and Connector][2]
+2. [Configure the Datadog Exporter and Connector][3]
 
    Follow Datadog's documentation to add the Datadog exporter to your collector configuration and provide your API key.
    Add the processor transform/datadog to the relevant pipelines exporting signals to your Datadog tenant.
 
-3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][3] and verify that mainframe traces and spans are streaming.
+3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and verify that mainframe traces and spans are streaming.
 
 4. In Datadog, open the WatchTower z/IRIS integration tile and click **Install**.
 
-   Dashboards will be cloned into your organization, and the monitors will be available on the [Monitor Templates][4] page.
+   Dashboards will be cloned into your organization, and the monitors will be available on the [Monitor Templates][5] page.
+   
+5.  In Datadog, open Log explorer and verify that the z/IRIS custom group facets is available for filtering 
 
 
 
@@ -57,11 +60,12 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 
 ## Support
 
-Need help? Contact Broadcom by visiting [support.broadcom.com][5] and creating a support case for WatchTower z/IRIS.
+Need help? Contact Broadcom by visiting [support.broadcom.com][6] and creating a support case for WatchTower z/IRIS.
 
 
 [1]: https://techdocs.broadcom.com/
-[2]: https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/install/#2---configure-the-datadog-exporter-and-connector
-[3]: https://app.datadoghq.com/metric/explorer
-[4]: https://app.datadoghq.com/monitors/templates
-[5]: https://support.broadcom.com/
+[2]: https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest_in_the_agent/?tab=host#enabling-otlp-logs-ingestion
+[3]: https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/install/#2---configure-the-datadog-exporter-and-connector
+[4]: https://app.datadoghq.com/metric/explorer
+[5]: https://app.datadoghq.com/monitors/templates
+[6]: https://support.broadcom.com/

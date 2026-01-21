@@ -5,11 +5,73 @@ metric_id: ziris
 # If for some reason id must be different than app_id, add the app_id in this field instead.
 # If id and app_id already match, this field can be left blank.
 backend_only: false
-facets: null
+facets:
+  - description: >-
+      CICS Exceptions from z/IRIS can be grouped by the system resource that is
+      reporting contention.
+
+      Possible values include:
+
+      - DATABASE
+
+      - DB2CONN
+
+      - FILE
+
+      - PROGRAM
+
+      - STORAGE
+    facetType: list
+    groups:
+      - z/IRIS
+    name: ziris_cics_resource
+    path: otlp_log_ingestion.ziris_cics_resource
+    source: log
+    type: string
 pipeline:
   type: pipeline
   name: z/IRIS CICS Transaction Exceptions
   enabled: true
   filter:
     query: source:otlp_log_ingestion AND @zos.cics.exception.type:*
-  processors: []
+  processors:
+    - type: date-remapper
+      name: ziris_date_remapper
+      enabled: true
+      sources:
+        - "@otel.timestamp"
+    - type: attribute-remapper
+      name: ziris_host_remapper
+      enabled: true
+      sources:
+        - "@host.name"
+      sourceType: attribute
+      target: host
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: service-remapper
+      name: ziris_service_remapper
+      enabled: true
+      sources:
+        - "@service.name"
+    - type: message-remapper
+      name: ziris_message_remapper
+      enabled: true
+      sources:
+        - message
+    - type: status-remapper
+      name: ziris_status_remapper
+      enabled: true
+      sources:
+        - "@status"
+    - type: attribute-remapper
+      name: ziris_cics_resource_remapper
+      enabled: true
+      sources:
+        - "@zos.cics.exception.resource_type"
+      sourceType: attribute
+      target: "@otlp_log_ingestion.ziris_cics_resource"
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
