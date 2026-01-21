@@ -29,13 +29,6 @@ The Upstash integration does not include any events.
 
 The Upstash integration does not include any service checks.
 
-## Dashboards
-
-The Upstash integration includes two out-of-the-box dashboards to visualize your data:
-
-1.  **Upstash Redis - Overview:** Provides a high-level view of your database health, including latency heatmaps, command throughput, storage breakdown, and connection statistics.
-2.  **Upstash QStash - Overview:** Tracks message delivery statuses, workflow executions, and bandwidth consumption for your messaging pipeline.
-
 ## Support
 
 Need help? Contact [Upstash support][7].
