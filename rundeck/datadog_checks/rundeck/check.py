@@ -38,7 +38,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         self.system_base_tags = []
 
         token = self.instance.get("access_token")
-        self.http.options['headers'].update({"X-Rundeck-Auth-Token": token})
+        self.http.options['headers'].update({"X-Rundeck-Auth-Token": token, "Accept": "application/json"})
 
     def persistent_cache_id(self):
         return config_set_persistent_cache_id(self, instance_config_options=['url', 'api_version'])
