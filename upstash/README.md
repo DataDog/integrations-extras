@@ -21,6 +21,7 @@ Additionally, ensure that all API keys associated with this integration have bee
 ### Metrics
 
 See [metadata.csv][6] for a list of metrics provided by this integration.
+
 ### Events
 
 The Upstash integration does not include any events.
