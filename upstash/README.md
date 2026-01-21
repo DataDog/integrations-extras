@@ -20,20 +20,7 @@ Additionally, ensure that all API keys associated with this integration have bee
 
 ### Metrics
 
-The Upstash integration collects metrics for both **Redis** and **QStash** products, namespaced under `upstash.db.*` and `upstash.qstash.*` respectively.
-
-**Redis Metrics**
-* **Performance:** Read and write latency (p99), throughput (commands per second), and cache hit/miss rates.
-* **Resource Usage:** Active connections (TCP and REST), total data size, and keyspace count.
-* **Billing & Volume:** Daily/monthly processed commands, bandwidth usage, and estimated monthly cost.
-
-**QStash Metrics**
-* **Message Activity:** Counts for delivered, failed, canceled, and retried messages.
-* **Workflow Telemetry:** Workflow runs, steps executed, and success/failure rates.
-* **System Health:** Queue counts, schedule counts, and bandwidth utilization.
-
-See [metadata.csv][6] for a complete list of metrics provided by this integration.
-
+See [metadata.csv][6] for a list of metrics provided by this integration.
 ### Events
 
 The Upstash integration does not include any events.
