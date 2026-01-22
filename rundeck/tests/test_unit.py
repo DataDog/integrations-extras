@@ -201,16 +201,30 @@ def test_check_project_executions_running(instance, mocker):
     check = RundeckCheck("rundeck", {}, [instance])
 
     # setup
-    check.send_execution_status = mocker.MagicMock()
+    project_name = "test-project"
+    api_endpoint = f"/project/{project_name}/executions/running"
+    api_params = None
+
     execution_one = {"id": 1000}
     execution_two = {"id": 1001}
     payload = [{"executions": [execution_one]}, {"executions": [execution_two]}]
-    mocker.patch.object(check, "access_api_with_pagination", return_value=payload)
+
+    def mock_access_api_with_pagination(endpoint, limit=20, query_params=None):
+        if endpoint == api_endpoint and query_params == api_params:
+            return payload
+        raise ValueError(f"Unexpected call with url={endpoint}, params={query_params}")
+
+    mocker.patch.object(check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
+
+    check.send_execution_status = mocker.MagicMock()
 
     # run
-    check.check_project_executions_running()
+    check.check_project_executions_running(project_name)
 
     # check
+    assert check.access_api_with_pagination.call_count == 1
+    check.access_api_with_pagination.assert_called_with(api_endpoint)
+
     assert check.send_execution_status.call_count == 2
     check.send_execution_status.assert_any_call(execution_one)
     check.send_execution_status.assert_any_call(execution_two)
@@ -365,34 +379,12 @@ def test_send_execution_duration_completed_exec(instance, mocker):
     check.gauge.assert_called_with(EXEC_COMPLETED_DURATION_METRIC_NAME, ended_ms - started_ms, tags=[])
 
 
-def test_check_project_executions_completed_no_projects(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # setup
-    check.access_api_with_pagination = mocker.MagicMock()
-    check.send_execution_status = mocker.MagicMock()
-
-    def mock_access_api(url):
-        if url == "/projects":
-            return []
-        raise ValueError(f"Unexpected call with url={url}")
-
-    mocker.patch.object(check, "access_api", side_effect=mock_access_api)
-
-    # run
-    check.check_project_executions_completed(0, 0)
-
-    # check
-    assert check.access_api.call_count == 1
-    assert check.access_api_with_pagination.call_count == 0
-    assert check.send_execution_status.call_count == 0
-
-
 def test_check_project_executions_completed(instance, mocker):
     check = RundeckCheck("rundeck", {}, [instance])
 
     # setup
     project_name = "test-project"
+    check.projects = [{"name": project_name}, {"label": "missing name"}]
     api_endpoint = f"/project/{project_name}/executions"
     api_params = {"begin": 0, "end": 0}
 
@@ -405,21 +397,86 @@ def test_check_project_executions_completed(instance, mocker):
 
     mocker.patch.object(check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
 
-    def mock_access_api(url):
-        if url == "/projects":
-            return [{"name": project_name}, {"label": "missing name"}]
-        raise ValueError(f"Unexpected call with url={url}")
-
-    mocker.patch.object(check, "access_api", side_effect=mock_access_api)
-
     # run
-    check.check_project_executions_completed(0, 0)
+    check.check_project_executions_completed(0, 0, project_name)
 
     # check
-    assert check.access_api.call_count == 1
     assert check.access_api_with_pagination.call_count == 1
     check.access_api_with_pagination.assert_called_with(api_endpoint, query_params=api_params)
     assert check.send_execution_status.call_count == 1
+
+
+def test_check_project_executions_no_projects(instance, mocker):
+    check = RundeckCheck("rundeck", {}, [instance])
+
+    # setup
+    check.projects = []
+    check.check_project_executions_running = mocker.MagicMock()
+    check.check_project_executions_completed = mocker.MagicMock()
+
+    # run
+    check.check_project_executions(0, 0)
+
+    # check
+    assert check.check_project_executions_running.call_count == 0
+    assert check.check_project_executions_completed.call_count == 0
+
+
+def test_check_project_executions_project_missing_name(instance, mocker):
+    check = RundeckCheck("rundeck", {}, [instance])
+
+    # setup
+    check.projects = [{"id": "missing name key"}]
+    check.check_project_executions_running = mocker.MagicMock()
+    check.check_project_executions_completed = mocker.MagicMock()
+
+    # run
+    check.check_project_executions(0, 0)
+
+    # check
+    assert check.check_project_executions_running.call_count == 0
+    assert check.check_project_executions_completed.call_count == 0
+
+
+def test_check_project_executions_project_begin_None(instance, mocker):
+    check = RundeckCheck("rundeck", {}, [instance])
+
+    # setup
+    project_name = "my-project"
+    check.projects = [{"name": project_name}]
+    check.check_project_executions_running = mocker.MagicMock()
+    check.check_project_executions_completed = mocker.MagicMock()
+
+    # run
+    check.check_project_executions(None, 0)
+
+    # check
+    assert check.check_project_executions_running.call_count == 1
+    check.check_project_executions_running.assert_called_with(project_name)
+
+    assert check.check_project_executions_completed.call_count == 0
+
+
+def test_check_project_executions_project_begin_not_None(instance, mocker):
+    check = RundeckCheck("rundeck", {}, [instance])
+
+    # setup
+    project_name = "my-project"
+    check.projects = [{"name": project_name}]
+    check.check_project_executions_running = mocker.MagicMock()
+    check.check_project_executions_completed = mocker.MagicMock()
+
+    # run
+    begin = 0
+    end = 2
+    check.check_project_executions(begin, end)
+
+    # check
+    assert check.check_project_executions_running.call_count == 1
+    check.check_project_executions_running.assert_called_with(project_name)
+
+    assert check.check_project_executions_completed.call_count == 1
+    check.check_project_executions_completed.assert_called_with(begin, end, project_name)
 
 
 def test_check_last_timestamp_empty(instance, mocker):
@@ -431,23 +488,23 @@ def test_check_last_timestamp_empty(instance, mocker):
 
     mocker.patch("time.time_ns", return_value=2_000_000)
 
+    check.check_project_endpoint = mocker.MagicMock()
     check.check_system_info_endpoint = mocker.MagicMock()
     check.check_metrics_endpoint = mocker.MagicMock()
-    check.check_project_executions_running = mocker.MagicMock()
-
-    check.check_project_executions_completed = mocker.MagicMock()
-
+    check.check_project_executions = mocker.MagicMock()
     check.write_persistent_cache = mocker.MagicMock()
 
     # run
     check.check(None)
 
     # check
-    assert check.read_persistent_cache.call_count == 1
-    assert check.check_system_info_endpoint
-    assert check.check_metrics_endpoint
-    assert check.check_project_executions_running.call_count == 1
-    assert check.check_project_executions_completed.call_count == 0
+    assert check.check_project_endpoint.call_count == 1
+    assert check.check_system_info_endpoint.call_count == 1
+    assert check.check_metrics_endpoint.call_count == 1
+
+    assert check.check_project_executions.call_count == 1
+    check.check_project_executions.assert_called_with(None, 2)
+
     assert check.write_persistent_cache.call_count == 1
     check.write_persistent_cache.assert_called_with(CACHE_KEY_TIMESTAMP, "2")
 
@@ -461,23 +518,22 @@ def test_check_last_timestamp_not_empty(instance, mocker):
 
     mocker.patch("time.time_ns", return_value=2_000_000)
 
+    check.check_project_endpoint = mocker.MagicMock()
     check.check_system_info_endpoint = mocker.MagicMock()
     check.check_metrics_endpoint = mocker.MagicMock()
-    check.check_project_executions_running = mocker.MagicMock()
-
-    check.check_project_executions_completed = mocker.MagicMock()
-
+    check.check_project_executions = mocker.MagicMock()
     check.write_persistent_cache = mocker.MagicMock()
 
     # run
     check.check(None)
 
     # check
-    assert check.read_persistent_cache.call_count == 1
-    assert check.check_system_info_endpoint
-    assert check.check_metrics_endpoint
-    assert check.check_project_executions_running.call_count == 1
-    assert check.check_project_executions_completed.call_count == 1
-    check.check_project_executions_completed.assert_called_with(1, 2)
+    assert check.check_project_endpoint.call_count == 1
+    assert check.check_system_info_endpoint.call_count == 1
+    assert check.check_metrics_endpoint.call_count == 1
+
+    assert check.check_project_executions.call_count == 1
+    check.check_project_executions.assert_called_with(1, 2)
+
     assert check.write_persistent_cache.call_count == 1
     check.write_persistent_cache.assert_called_with(CACHE_KEY_TIMESTAMP, "2")

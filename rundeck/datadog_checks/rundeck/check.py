@@ -36,6 +36,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         self.base_url = self.instance.get("url")
         self.api_version = self.instance.get("api_version", instance_api_version())
         self.system_base_tags = []
+        self.projects = []
 
         token = self.instance.get("access_token")
         self.http.options['headers'].update({"X-Rundeck-Auth-Token": token, "Accept": "application/json"})
@@ -166,11 +167,11 @@ class RundeckCheck(ConfigMixin, AgentCheck):
             if value is not None:
                 self.gauge(f"{SYSTEM_METRIC_NAME_PREFIX}.{name}", value, self.system_base_tags)
 
-    def check_project_executions_running(self):
-        """Handle /project/*/executions/running API"""
+    def check_project_executions_running(self, project_name: str):
+        """Handle /project/[PROJECT]/executions/running API"""
         running_executions_info = [
             execution
-            for response in self.access_api_with_pagination("/project/*/executions/running")
+            for response in self.access_api_with_pagination(f"/project/{project_name}/executions/running")
             for execution in response["executions"]
         ]
         for execution in running_executions_info:
@@ -225,35 +226,43 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         duration_ms = ended_ms - started_ms
         self.gauge(EXEC_COMPLETED_DURATION_METRIC_NAME, duration_ms, tags=execution_tags)
 
-    def check_project_executions_completed(self, begin: int, end: int):
+    def check_project_executions_completed(self, begin: int, end: int, project_name: str):
         """Handle /project/[PROJECT]/executions API"""
-        projects = self.access_api("/projects")
+        param = {"begin": begin, "end": end}
 
-        for project in projects:
+        completed_executions_info = [
+            execution
+            for response in self.access_api_with_pagination(f"/project/{project_name}/executions", query_params=param)
+            for execution in response["executions"]
+        ]
+        for execution in completed_executions_info:
+            self.send_execution_status(execution)
+
+    def check_project_executions(self, begin: int | None, end: int):
+        """Check all projects executions"""
+        for project in self.projects:
             name = project.get("name")
             if name is None:
                 self.log.warning("Unable to send metrics for project. Name missing from project.")
                 continue
 
-            param = {"begin": begin, "end": end}
+            self.check_project_executions_running(name)
+            if begin is not None:
+                self.check_project_executions_completed(begin, end, name)
 
-            completed_executions_info = [
-                execution
-                for response in self.access_api_with_pagination(f"/project/{name}/executions", query_params=param)
-                for execution in response["executions"]
-            ]
-            for execution in completed_executions_info:
-                self.send_execution_status(execution)
+    def check_project_endpoint(self):
+        """Handle /projects API"""
+        self.projects = self.access_api("/projects")
 
     def check(self, _):
-        last_timestamp = self.read_persistent_cache(CACHE_KEY_TIMESTAMP)
+        last_timestamp = (
+            None if (cache_value := self.read_persistent_cache(CACHE_KEY_TIMESTAMP)) == "" else int(cache_value)
+        )
         now_timestamp = time.time_ns() // 1_000_000
 
+        self.check_project_endpoint()
         self.check_system_info_endpoint()
         self.check_metrics_endpoint()
-        self.check_project_executions_running()
-
-        if last_timestamp != "":
-            self.check_project_executions_completed(int(last_timestamp), now_timestamp)
+        self.check_project_executions(last_timestamp, now_timestamp)
 
         self.write_persistent_cache(CACHE_KEY_TIMESTAMP, str(now_timestamp))

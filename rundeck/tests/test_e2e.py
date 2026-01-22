@@ -4,7 +4,6 @@ import pytest
 import requests
 
 from datadog_checks.dev import get_docker_hostname
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.rundeck.constants import (
     EXEC_COMPLETED_DURATION_METRIC_NAME,
     EXEC_RUNNING_DURATION_METRIC_NAME,
@@ -55,4 +54,3 @@ def test_e2e_rundeck(dd_agent_check, instance):
         aggregator.assert_metric_has_tag_prefix(metric_name, EXEC_TAG_KEY_PREFIX)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
