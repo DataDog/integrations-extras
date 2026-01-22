@@ -4,6 +4,7 @@ run_rundeck_job() {
 	local jobid="$1"
 	if curl -fsS \
 		-H "X-Rundeck-Auth-Token: my-static-token-123" \
+		-H "Accept: application/json" \
 		-X POST \
 		"http://rundeck:4440/api/30/job/${jobid}/run"; then
 		echo "Job execution succeeded."
@@ -14,23 +15,26 @@ run_rundeck_job() {
 }
 
 echo "Waiting for Rundeck..."
-until curl -s -f -H "X-Rundeck-Auth-Token: my-static-token-123" http://rundeck:4440/api/47/system/info; do
+until curl -s -f -H "X-Rundeck-Auth-Token: my-static-token-123" -H "Accept: application/json" http://rundeck:4440/api/30/system/info; do
+	echo "Rundeck not ready yet, retrying in 5s..."
 	sleep 5
 done
 
 echo "Creating Project..."
-curl -X POST http://rundeck:4440/api/47/projects \
+curl -X POST http://rundeck:4440/api/30/projects \
 	-H "X-Rundeck-Auth-Token: my-static-token-123" \
+	-H "Accept: application/json" \
 	-H "Content-Type: application/json" \
 	-d '{"name": "Test-Project", "config": {"project.description": "Auto-created"}}'
 sleep 5
 
 echo "Importing Job File..."
-if
-	curl -s -X POST "http://rundeck:4440/api/47/project/Test-Project/jobs/import?format=yaml" \
+response=$(curl -X POST "http://rundeck:4440/api/30/project/Test-Project/jobs/import?format=yaml" \
 		-H "X-Rundeck-Auth-Token: my-static-token-123" \
-		-F "xmlBatch=@/tmp/jobs.yaml" | grep -q "succeeded"
-then
+		-H "Accept: application/json" \
+		-H "Content-Type: application/yaml" \
+		--data-binary @/tmp/jobs.yaml)
+if echo "$response" | grep -q '"failed":\[\]'; then
 	echo "Import succeeded."
 else
 	echo "Import failed."
