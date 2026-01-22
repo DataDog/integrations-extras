@@ -2,3 +2,13 @@
 
 [[envs.default.matrix]]
 python = ["3.13"]
+version = [
+    "5.18.0",   # current version
+    "5.0.0",    # earliest 5.x.x version
+    "4.17.6",   # latest 4.x.x version
+    "4.0.0",    # earliest 4.x.x version
+    "3.0.14"    # lowest version supporting api version 30
+]
+
+[envs.default.overrides]
+matrix.version.env-vars = "RUNDECK_VERSION"

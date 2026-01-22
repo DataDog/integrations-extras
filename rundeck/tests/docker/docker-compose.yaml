@@ -1,7 +1,7 @@
 services:
   rundeck:
-    image: rundeck/rundeck:5.18.0
-    container_name: rundeck2
+    image: rundeck/rundeck:${RUNDECK_VERSION}
+    container_name: rundeck_${RUNDECK_VERSION}
     ports:
       - "4440:4440"
     environment:
@@ -12,7 +12,7 @@ services:
       - ./tokens.properties:/etc/rundeck/tokens.properties:ro
   rundeck-setup:
     image: curlimages/curl:8.18.0
-    container_name: rundeck_init
+    container_name: rundeck_init_${RUNDECK_VERSION}
     depends_on:
       - rundeck
     volumes:
