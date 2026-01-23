@@ -16,8 +16,7 @@ from datadog_checks.rundeck.constants import (
 )
 
 
-def test_access_api_valid(instance, mock_http_response):
-    check = RundeckCheck("rundeck", {}, [instance])
+def test_access_api_valid(unit_check, mock_http_response):
     endpoint = "/metrics/metrics"
 
     # setup
@@ -27,13 +26,12 @@ def test_access_api_valid(instance, mock_http_response):
         status_code=200,
     )
     # run
-    actual = check.access_api(endpoint)
+    actual = unit_check.access_api(endpoint)
     # check
     assert actual == mock_response
 
 
-def test_access_api_invalid(instance, mock_http_response):
-    check = RundeckCheck("rundeck", {}, [instance])
+def test_access_api_invalid(unit_check, mock_http_response):
     endpoint = "/metrics/metrics"
 
     # setup
@@ -44,11 +42,10 @@ def test_access_api_invalid(instance, mock_http_response):
     )
     # run and check
     with pytest.raises(HTTPError):
-        check.access_api(endpoint)
+        unit_check.access_api(endpoint)
 
 
-def test_access_api_with_pagination_without_params(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
+def test_access_api_with_pagination_without_params(unit_check, mocker):
     endpoint = "/metrics/metrics"
 
     # setup
@@ -63,41 +60,39 @@ def test_access_api_with_pagination_without_params(instance, mocker):
             return mock_response_two
         raise ValueError(f"Unexpected call with url={url} and params={params}")
 
-    mocker.patch.object(check, "access_api", side_effect=mock_access_api)
+    mocker.patch.object(unit_check, "access_api", side_effect=mock_access_api)
     # run
-    actual = check.access_api_with_pagination(endpoint, response_count_limit)
+    actual = unit_check.access_api_with_pagination(endpoint, response_count_limit)
     # check
     assert len(actual) == 2
 
 
-def test_access_api_with_pagination_with_params(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
+def test_access_api_with_pagination_with_params(unit_check, mocker):
     endpoint = "/metrics/metrics"
 
     # setup
-    params = {"before": 123}
+    mock_params = {"before": 123}
     response_count_limit = 20
     mock_response_one = {"paging": {"count": 20, "total": 25}}
     mock_response_two = {"paging": {"count": 5, "total": 25}}
 
     def mock_access_api(url, params):
-        if url == endpoint and params == {**params, "max": response_count_limit, "offset": 0}:
+        if url == endpoint and params == {**mock_params, "max": response_count_limit, "offset": 0}:
             return mock_response_one
-        if url == endpoint and params == {**params, "max": response_count_limit, "offset": 20}:
+        if url == endpoint and params == {**mock_params, "max": response_count_limit, "offset": 20}:
             return mock_response_two
         raise ValueError(f"Unexpected call with url={url} and params={params}")
 
-    mocker.patch.object(check, "access_api", side_effect=mock_access_api)
+    mocker.patch.object(unit_check, "access_api", side_effect=mock_access_api)
     # run
-    actual = check.access_api_with_pagination(endpoint, response_count_limit, params)
+    actual = unit_check.access_api_with_pagination(endpoint, response_count_limit, mock_params)
     # check
     assert len(actual) == 2
 
 
-def test_send_metrics_endpoint_group(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
+def test_send_metrics_endpoint_group(unit_check, mocker):
     mock_submission = mocker.MagicMock()
-    patched_rename_metric = mocker.patch.object(check, 'rename_metric', side_effect=lambda x: x)
+    patched_rename_metric = mocker.patch.object(unit_check, 'rename_metric', side_effect=lambda x: x)
 
     group_key = "gauges"
     data_key = "value"
@@ -105,7 +100,7 @@ def test_send_metrics_endpoint_group(instance, mocker):
     metric_name_without_val = "rundeck.services.execution_service.execution_job"
     raw_metrics = {group_key: {metric_name_with_val: {data_key: 0}, metric_name_without_val: {data_key: None}}}
 
-    check.send_metrics_endpoint_group(raw_metrics, group_key, data_key, mock_submission)
+    unit_check.send_metrics_endpoint_group(raw_metrics, group_key, data_key, mock_submission)
 
     assert patched_rename_metric.call_count == 1
     patched_rename_metric.assert_called_once_with(metric_name_with_val)
@@ -114,92 +109,86 @@ def test_send_metrics_endpoint_group(instance, mocker):
     mock_submission.assert_any_call(f"{METRICS_METRICS_METRIC_NAME_PREFIX}.{metric_name_with_val}", 0, tags=[])
 
 
-def test_rename_metric(instance):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # with/without prefix removal
-    expected = "abc"
-    assert check.rename_metric(f"{RundeckCheck.__NAMESPACE__}.{expected}") == expected
-    assert check.rename_metric(expected) == expected
-
-    # multiple parts
-    assert (
-        check.rename_metric("rundeck.services.AuthorizationService.systemAuthorization")
-        == "services.authorization_service.system_authorization"
-    )
-
-
-def test_convert_case(instance):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # empty part
-    assert check.convert_case("") == ""
-
-    # single char part
-    assert check.convert_case("a") == "a"
-    assert check.convert_case("A") == "a"
-
-    # multiple char part
-    assert check.convert_case("ExecutionService") == "execution_service"
+@pytest.mark.parametrize(
+    "mock_input,output",
+    [
+        pytest.param(f"{RundeckCheck.__NAMESPACE__}.abc", "abc", id="with prefix removal"),
+        pytest.param("abc", "abc", id="without prefix removal"),
+        pytest.param(
+            "rundeck.services.AuthorizationService.systemAuthorization",
+            "services.authorization_service.system_authorization",
+            id="multiple parts removal",
+        ),
+    ],
+)
+def test_rename_metric(unit_check, mock_input, output):
+    assert unit_check.rename_metric(mock_input) == output
 
 
-def test_check_system_info_endpoint(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-    check.set_system_base_tags = mocker.MagicMock()
-    check.send_system_info = mocker.MagicMock()
+@pytest.mark.parametrize(
+    "mock_input,output",
+    [
+        pytest.param("", "", id="empty part"),
+        pytest.param("a", "a", id="single char part, never convert"),
+        pytest.param("A", "a", id="single char part, must convert"),
+        pytest.param("ExecutionService", "execution_service", id="multiple char part"),
+    ],
+)
+def test_convert_case(unit_check, mock_input, output):
+    assert unit_check.convert_case(mock_input) == output
+
+
+def test_check_system_info_endpoint(unit_check, mocker):
+    unit_check.set_system_base_tags = mocker.MagicMock()
+    unit_check.send_system_info = mocker.MagicMock()
 
     # invalid api response
     payload = {}
-    mocker.patch.object(check, "access_api", return_value=payload)
-    check.check_system_info_endpoint()
-    check.set_system_base_tags.assert_not_called()
-    check.send_system_info.assert_not_called()
+    mocker.patch.object(unit_check, "access_api", return_value=payload)
+    unit_check.check_system_info_endpoint()
+    unit_check.set_system_base_tags.assert_not_called()
+    unit_check.send_system_info.assert_not_called()
 
     # reset
-    check.set_system_base_tags.reset_mock()
-    check.send_system_info.reset_mock()
+    unit_check.set_system_base_tags.reset_mock()
+    unit_check.send_system_info.reset_mock()
 
     # valid response
     payload = {"system": {}}
-    mocker.patch.object(check, "access_api", return_value=payload)
-    check.check_system_info_endpoint()
-    assert check.set_system_base_tags.call_count == 1
-    assert check.send_system_info.call_count == 1
+    mocker.patch.object(unit_check, "access_api", return_value=payload)
+    unit_check.check_system_info_endpoint()
+    assert unit_check.set_system_base_tags.call_count == 1
+    assert unit_check.send_system_info.call_count == 1
 
 
-def test_set_system_base_tags(instance):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_set_system_base_tags(unit_check):
     # with and without value
     system_data = {"executions": {"active": True}, "rundeck": {}}
-    check.set_system_base_tags(system_data)
-    assert len(check.system_base_tags) == 1
-    assert f"{SYSTEM_TAG_KEY_PREFIX}_executions_active:True" in check.system_base_tags
+    unit_check.set_system_base_tags(system_data)
+    assert len(unit_check.system_base_tags) == 1
+    assert f"{SYSTEM_TAG_KEY_PREFIX}_executions_active:True" in unit_check.system_base_tags
 
     # ensure reset with empty api response
     empty_system_data = {}
-    check.set_system_base_tags(empty_system_data)
-    assert len(check.system_base_tags) == 0
+    unit_check.set_system_base_tags(empty_system_data)
+    assert len(unit_check.system_base_tags) == 0
 
 
-def test_send_system_info(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-    check.gauge = mocker.MagicMock()
+def test_send_system_info(unit_check, mocker):
+    unit_check.gauge = mocker.MagicMock()
 
     # without stats data
-    check.send_system_info({})
-    check.gauge.assert_not_called()
+    unit_check.send_system_info({})
+    unit_check.gauge.assert_not_called()
 
     # with stats data, some empty
     system_data = {"stats": {"cpu": {"loadAverage": {"average": 0, "unit": "percent"}}, "memory": {"free": None}}}
-    check.send_system_info(system_data)
-    assert check.gauge.call_count == 1
-    check.gauge.assert_any_call(f"{SYSTEM_METRIC_NAME_PREFIX}.cpu.load_average.average", 0, [])
+    unit_check.send_system_info(system_data)
+    assert unit_check.gauge.call_count == 1
+    unit_check.gauge.assert_any_call(f"{SYSTEM_METRIC_NAME_PREFIX}.cpu.load_average.average", 0, [])
 
 
-def test_check_project_executions_running(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_check_project_executions_running(unit_check, mocker):
     # setup
     project_name = "test-project"
     api_endpoint = f"/project/{project_name}/executions/running"
@@ -214,116 +203,117 @@ def test_check_project_executions_running(instance, mocker):
             return payload
         raise ValueError(f"Unexpected call with url={endpoint}, params={query_params}")
 
-    mocker.patch.object(check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
+    mocker.patch.object(unit_check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
 
-    check.send_execution_status = mocker.MagicMock()
+    unit_check.send_execution_status = mocker.MagicMock()
 
     # run
-    check.check_project_executions_running(project_name)
+    unit_check.check_project_executions_running(project_name)
 
     # check
-    assert check.access_api_with_pagination.call_count == 1
-    check.access_api_with_pagination.assert_called_with(api_endpoint)
+    assert unit_check.access_api_with_pagination.call_count == 1
+    unit_check.access_api_with_pagination.assert_called_with(api_endpoint)
 
-    assert check.send_execution_status.call_count == 2
-    check.send_execution_status.assert_any_call(execution_one)
-    check.send_execution_status.assert_any_call(execution_two)
-
-
-def test_get_completed_execution_tags(instance):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # check handle tag_value==None
-    execution = {"customStatus": None}
-    actual = check.get_completed_execution_tags(execution)
-    assert len(actual) == 0
-
-    # check handle tag_value==str
-    execution = {"customStatus": "status"}
-    actual = check.get_completed_execution_tags(execution)
-    assert len(actual) == 1
-    assert actual[0] == EXEC_TAG_TEMPLATE.format(key="custom_status", value="status")
-
-    # check handle tag_value==empty list
-    execution = {"successfulNodes": []}
-    actual = check.get_completed_execution_tags(execution)
-    assert len(actual) == 0
-
-    # check handle tag_value==not empty list
-    execution = {"successfulNodes": ["abc"]}
-    actual = check.get_completed_execution_tags(execution)
-    assert len(actual) == 1
-    assert actual[0] == EXEC_TAG_TEMPLATE.format(key="successful_nodes", value="abc")
+    assert unit_check.send_execution_status.call_count == 2
+    unit_check.send_execution_status.assert_any_call(execution_one)
+    unit_check.send_execution_status.assert_any_call(execution_two)
 
 
-def test_send_execution_status_running_exec(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
+@pytest.mark.parametrize(
+    "execution,expected_len,expected_value",
+    [
+        pytest.param({"customStatus": None}, 0, None, id="tag_value is None"),
+        pytest.param({"successfulNodes": []}, 0, None, id="tag_value is empty list"),
+        pytest.param(
+            {"customStatus": "status"},
+            1,
+            EXEC_TAG_TEMPLATE.format(key="custom_status", value="status"),
+            id="tag_value is string",
+        ),
+        pytest.param(
+            {"successfulNodes": ["abc"]},
+            1,
+            EXEC_TAG_TEMPLATE.format(key="successful_nodes", value="abc"),
+            id="tag_value is list of 1 string",
+        ),
+    ],
+)
+def test_get_completed_execution_tags_param(unit_check, execution, expected_len, expected_value):
+    actual = unit_check.get_completed_execution_tags(execution)
+    assert len(actual) == expected_len
 
+    if expected_len > 0:
+        assert actual[0] == expected_value
+
+
+def test_send_execution_status_running_exec(unit_check, mocker):
     # setup
     system_tags = ["system_executions_active:true"]
-    check.system_base_tags = system_tags
-    check.gauge = mocker.MagicMock()
-    check.get_completed_execution_tags = mocker.MagicMock()
-    check.send_execution_duration = mocker.MagicMock()
+    unit_check.system_base_tags = system_tags
+    unit_check.gauge = mocker.MagicMock()
+    unit_check.get_completed_execution_tags = mocker.MagicMock()
+    unit_check.send_execution_duration = mocker.MagicMock()
     execution = {"id": 1000, "status": EXEC_STATUS_RUNNING, "user": None, "job_group": ""}
 
     # run
-    check.send_execution_status(execution)
+    unit_check.send_execution_status(execution)
 
     # check
     expected_tags = [f"{EXEC_TAG_KEY_PREFIX}_id:1000", f"{EXEC_TAG_KEY_PREFIX}_status:running"] + system_tags
-    assert check.get_completed_execution_tags.call_count == 0
-    assert check.gauge.call_count == 1
-    check.gauge.assert_called_with(EXEC_STATUS_METRIC_NAME, 1, tags=expected_tags)
+    assert unit_check.get_completed_execution_tags.call_count == 0
+    assert unit_check.gauge.call_count == 1
+    unit_check.gauge.assert_called_with(EXEC_STATUS_METRIC_NAME, 1, tags=expected_tags)
 
-    assert check.send_execution_duration.call_count == 1
-    check.send_execution_duration.assert_called_with(execution, expected_tags)
+    assert unit_check.send_execution_duration.call_count == 1
+    unit_check.send_execution_duration.assert_called_with(execution, expected_tags)
 
 
-def test_send_execution_status_completed_exec(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_send_execution_status_completed_exec(unit_check, mocker):
     # setup
     system_tags = ["system_executions_active:true"]
-    exec_completed_tag = f"{EXEC_TAG_KEY_PREFIX}_custom_status:my-status"
-    check.system_base_tags = system_tags
-    check.gauge = mocker.MagicMock()
-    check.get_completed_execution_tags = mocker.MagicMock()
-    check.get_completed_execution_tags.return_value = [exec_completed_tag]
-    check.send_execution_duration = mocker.MagicMock()
+    unit_check.system_base_tags = system_tags
+    unit_check.gauge = mocker.MagicMock()
+    unit_check.get_completed_execution_tags = mocker.MagicMock()
+    unit_check.send_execution_duration = mocker.MagicMock()
     execution = {"status": "failed"}
 
+    exec_completed_tag = f"{EXEC_TAG_KEY_PREFIX}_custom_status:my-status"
+    unit_check.get_completed_execution_tags.return_value = [exec_completed_tag]
+
     # run
-    check.send_execution_status(execution)
+    unit_check.send_execution_status(execution)
 
     # check
-    assert check.get_completed_execution_tags.call_count == 1
-    check.get_completed_execution_tags.assert_called_with(execution)
-
     expected_tags = [f"{EXEC_TAG_KEY_PREFIX}_status:failed", exec_completed_tag] + system_tags
-    assert check.gauge.call_count == 1
-    check.gauge.assert_called_with(EXEC_STATUS_METRIC_NAME, 1, tags=expected_tags)
-    assert check.send_execution_duration.call_count == 1
-    check.send_execution_duration.assert_called_with(execution, expected_tags)
+    assert unit_check.get_completed_execution_tags.call_count == 1
+    unit_check.get_completed_execution_tags.assert_called_with(execution)
+
+    assert unit_check.gauge.call_count == 1
+    unit_check.gauge.assert_called_with(EXEC_STATUS_METRIC_NAME, 1, tags=expected_tags)
+
+    assert unit_check.send_execution_duration.call_count == 1
+    unit_check.send_execution_duration.assert_called_with(execution, expected_tags)
 
 
-def test_send_execution_duration_missing_start_ms(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+@pytest.mark.parametrize(
+    "execution",
+    [
+        pytest.param({}, id="missing start ms"),
+        pytest.param({"status": "succeeded", "date-started": {"unixtime": 1_700_000_000_000}}, id="missing end ms"),
+    ],
+)
+def test_send_execution_duration_never_send(unit_check, mocker, execution):
     # setup
-    check.gauge = mocker.MagicMock()
-    execution = {}
+    unit_check.gauge = mocker.MagicMock()
 
     # run
-    check.send_execution_duration(execution, [])
+    unit_check.send_execution_duration(execution, [])
 
     # check
-    assert check.gauge.call_count == 0
+    assert unit_check.gauge.call_count == 0
 
 
-def test_send_execution_duration_running_exec(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_send_execution_duration_running_exec(unit_check, mocker):
     # setup
     frozen_time = 1_700_000_000.0
     duration = 10000
@@ -333,34 +323,17 @@ def test_send_execution_duration_running_exec(instance, mocker):
         "date-started": {"unixtime": started_ms},
     }
     mocker.patch("time.time", return_value=frozen_time)
-    check.gauge = mocker.MagicMock()
+    unit_check.gauge = mocker.MagicMock()
 
     # run
-    check.send_execution_duration(execution, [])
+    unit_check.send_execution_duration(execution, [])
 
     # check
-    assert check.gauge.call_count == 1
-    check.gauge.assert_called_with(EXEC_RUNNING_DURATION_METRIC_NAME, duration, tags=[])
+    assert unit_check.gauge.call_count == 1
+    unit_check.gauge.assert_called_with(EXEC_RUNNING_DURATION_METRIC_NAME, duration, tags=[])
 
 
-def test_send_execution_duration_completed_exec_missing_end_ms(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # setup
-    started_ms = 1_700_000_000_000
-    execution = {"status": "succeeded", "date-started": {"unixtime": started_ms}}
-    check.gauge = mocker.MagicMock()
-
-    # run
-    check.send_execution_duration(execution, [])
-
-    # check
-    assert check.gauge.call_count == 0
-
-
-def test_send_execution_duration_completed_exec(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_send_execution_duration_completed_exec(unit_check, mocker):
     # setup
     started_ms = 1_700_000_000_000
     ended_ms = 2_000_000_000_000
@@ -369,171 +342,112 @@ def test_send_execution_duration_completed_exec(instance, mocker):
         "date-started": {"unixtime": started_ms},
         "date-ended": {"unixtime": ended_ms},
     }
-    check.gauge = mocker.MagicMock()
+    unit_check.gauge = mocker.MagicMock()
 
     # run
-    check.send_execution_duration(execution, [])
+    unit_check.send_execution_duration(execution, [])
 
     # check
-    assert check.gauge.call_count == 1
-    check.gauge.assert_called_with(EXEC_COMPLETED_DURATION_METRIC_NAME, ended_ms - started_ms, tags=[])
+    assert unit_check.gauge.call_count == 1
+    unit_check.gauge.assert_called_with(EXEC_COMPLETED_DURATION_METRIC_NAME, ended_ms - started_ms, tags=[])
 
 
-def test_check_project_executions_completed(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+def test_check_project_executions_completed(unit_check, mocker):
     # setup
     project_name = "test-project"
-    check.projects = [{"name": project_name}, {"label": "missing name"}]
+    unit_check.projects = [{"name": project_name}, {"label": "missing name"}]
     api_endpoint = f"/project/{project_name}/executions"
     api_params = {"begin": 0, "end": 0}
 
-    check.send_execution_status = mocker.MagicMock()
+    unit_check.send_execution_status = mocker.MagicMock()
 
     def mock_access_api_with_pagination(endpoint, limit=20, query_params=None):
         if endpoint == api_endpoint and query_params == api_params:
             return [{"executions": [{}]}]
         raise ValueError(f"Unexpected call with url={endpoint}, params={query_params}")
 
-    mocker.patch.object(check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
+    mocker.patch.object(unit_check, "access_api_with_pagination", side_effect=mock_access_api_with_pagination)
 
     # run
-    check.check_project_executions_completed(0, 0, project_name)
+    unit_check.check_project_executions_completed(0, 0, project_name)
 
     # check
-    assert check.access_api_with_pagination.call_count == 1
-    check.access_api_with_pagination.assert_called_with(api_endpoint, query_params=api_params)
-    assert check.send_execution_status.call_count == 1
+    assert unit_check.access_api_with_pagination.call_count == 1
+    unit_check.access_api_with_pagination.assert_called_with(api_endpoint, query_params=api_params)
+    assert unit_check.send_execution_status.call_count == 1
 
 
-def test_check_project_executions_no_projects(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+@pytest.mark.parametrize(
+    "projects",
+    [pytest.param([], id="no projects"), pytest.param([{"id": "missing name key"}], id="name missing from project")],
+)
+def test_check_project_executions_cannot_call(unit_check, mocker, projects):
     # setup
-    check.projects = []
-    check.check_project_executions_running = mocker.MagicMock()
-    check.check_project_executions_completed = mocker.MagicMock()
+    unit_check.projects = projects
+    unit_check.check_project_executions_running = mocker.MagicMock()
+    unit_check.check_project_executions_completed = mocker.MagicMock()
 
     # run
-    check.check_project_executions(0, 0)
+    unit_check.check_project_executions(0, 0)
 
     # check
-    assert check.check_project_executions_running.call_count == 0
-    assert check.check_project_executions_completed.call_count == 0
+    assert unit_check.check_project_executions_running.call_count == 0
+    assert unit_check.check_project_executions_completed.call_count == 0
 
 
-def test_check_project_executions_project_missing_name(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # setup
-    check.projects = [{"id": "missing name key"}]
-    check.check_project_executions_running = mocker.MagicMock()
-    check.check_project_executions_completed = mocker.MagicMock()
-
-    # run
-    check.check_project_executions(0, 0)
-
-    # check
-    assert check.check_project_executions_running.call_count == 0
-    assert check.check_project_executions_completed.call_count == 0
-
-
-def test_check_project_executions_project_begin_None(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+@pytest.mark.parametrize(
+    "begin,end,completed_call_count",
+    [pytest.param(None, 0, 0, id="begin is None"), pytest.param(0, 2, 1, id="begin is not None")],
+)
+def test_check_project_executions_can_call(unit_check, mocker, begin, end, completed_call_count):
     # setup
     project_name = "my-project"
-    check.projects = [{"name": project_name}]
-    check.check_project_executions_running = mocker.MagicMock()
-    check.check_project_executions_completed = mocker.MagicMock()
+    unit_check.projects = [{"name": project_name}]
+    unit_check.check_project_executions_running = mocker.MagicMock()
+    unit_check.check_project_executions_completed = mocker.MagicMock()
 
     # run
-    check.check_project_executions(None, 0)
+    unit_check.check_project_executions(begin, end)
 
     # check
-    assert check.check_project_executions_running.call_count == 1
-    check.check_project_executions_running.assert_called_with(project_name)
+    assert unit_check.check_project_executions_running.call_count == 1
+    unit_check.check_project_executions_running.assert_called_with(project_name)
 
-    assert check.check_project_executions_completed.call_count == 0
+    assert unit_check.check_project_executions_completed.call_count == completed_call_count
+    if completed_call_count > 0:
+        unit_check.check_project_executions_completed.assert_called_with(begin, end, project_name)
 
 
-def test_check_project_executions_project_begin_not_None(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
+@pytest.mark.parametrize(
+    "cache_value,expected_begin,expected_end",
+    [
+        pytest.param("", None, 2, id="empty cache"),
+        pytest.param("1", 1, 2, id="cache with value"),
+    ],
+)
+def test_check_timestamp_cache(unit_check, mocker, cache_value, expected_begin, expected_end):
     # setup
-    project_name = "my-project"
-    check.projects = [{"name": project_name}]
-    check.check_project_executions_running = mocker.MagicMock()
-    check.check_project_executions_completed = mocker.MagicMock()
-
-    # run
-    begin = 0
-    end = 2
-    check.check_project_executions(begin, end)
-
-    # check
-    assert check.check_project_executions_running.call_count == 1
-    check.check_project_executions_running.assert_called_with(project_name)
-
-    assert check.check_project_executions_completed.call_count == 1
-    check.check_project_executions_completed.assert_called_with(begin, end, project_name)
-
-
-def test_check_last_timestamp_empty(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # setup
-    check.read_persistent_cache = mocker.MagicMock()
-    check.read_persistent_cache.return_value = ""
+    unit_check.read_persistent_cache = mocker.MagicMock()
+    unit_check.read_persistent_cache.return_value = cache_value
 
     mocker.patch("time.time_ns", return_value=2_000_000)
 
-    check.check_project_endpoint = mocker.MagicMock()
-    check.check_system_info_endpoint = mocker.MagicMock()
-    check.check_metrics_endpoint = mocker.MagicMock()
-    check.check_project_executions = mocker.MagicMock()
-    check.write_persistent_cache = mocker.MagicMock()
+    unit_check.check_project_endpoint = mocker.MagicMock()
+    unit_check.check_system_info_endpoint = mocker.MagicMock()
+    unit_check.check_metrics_endpoint = mocker.MagicMock()
+    unit_check.check_project_executions = mocker.MagicMock()
+    unit_check.write_persistent_cache = mocker.MagicMock()
 
     # run
-    check.check(None)
+    unit_check.check(None)
 
     # check
-    assert check.check_project_endpoint.call_count == 1
-    assert check.check_system_info_endpoint.call_count == 1
-    assert check.check_metrics_endpoint.call_count == 1
+    assert unit_check.check_project_endpoint.call_count == 1
+    assert unit_check.check_system_info_endpoint.call_count == 1
+    assert unit_check.check_metrics_endpoint.call_count == 1
 
-    assert check.check_project_executions.call_count == 1
-    check.check_project_executions.assert_called_with(None, 2)
+    assert unit_check.check_project_executions.call_count == 1
+    unit_check.check_project_executions.assert_called_with(expected_begin, expected_end)
 
-    assert check.write_persistent_cache.call_count == 1
-    check.write_persistent_cache.assert_called_with(CACHE_KEY_TIMESTAMP, "2")
-
-
-def test_check_last_timestamp_not_empty(instance, mocker):
-    check = RundeckCheck("rundeck", {}, [instance])
-
-    # setup
-    check.read_persistent_cache = mocker.MagicMock()
-    check.read_persistent_cache.return_value = "1"
-
-    mocker.patch("time.time_ns", return_value=2_000_000)
-
-    check.check_project_endpoint = mocker.MagicMock()
-    check.check_system_info_endpoint = mocker.MagicMock()
-    check.check_metrics_endpoint = mocker.MagicMock()
-    check.check_project_executions = mocker.MagicMock()
-    check.write_persistent_cache = mocker.MagicMock()
-
-    # run
-    check.check(None)
-
-    # check
-    assert check.check_project_endpoint.call_count == 1
-    assert check.check_system_info_endpoint.call_count == 1
-    assert check.check_metrics_endpoint.call_count == 1
-
-    assert check.check_project_executions.call_count == 1
-    check.check_project_executions.assert_called_with(1, 2)
-
-    assert check.write_persistent_cache.call_count == 1
-    check.write_persistent_cache.assert_called_with(CACHE_KEY_TIMESTAMP, "2")
+    assert unit_check.write_persistent_cache.call_count == 1
+    unit_check.write_persistent_cache.assert_called_with(CACHE_KEY_TIMESTAMP, "2")

@@ -29,3 +29,8 @@ def instance():
 @pytest.fixture
 def check(instance):
     return RundeckCheck("rundeck", {}, [instance])
+
+
+@pytest.fixture
+def unit_check():
+    return RundeckCheck("rundeck", {}, [{"url": "http://localhost:4440", "access_token": "my-static-token-123"}])
