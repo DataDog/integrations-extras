@@ -1,0 +1,75 @@
+{
+  "app_id": "starburst-galaxy",
+  "app_uuid": "019bece1-a911-7543-a286-a9f9ce6e4539",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Starburst Galaxy",
+    "description": "Data platform for agents and AI. Empowers teams to discover, trust, and act on data with built-in governance & context.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "dashboard-1",
+        "image_url": "images/Screenshot 2026-01-22 at 2.15.17\u202fPM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "dashboard-2",
+        "image_url": "images/Screenshot 2026-01-22 at 2.19.31\u202fPM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "dashboard-3",
+        "image_url": "images/Screenshot 2026-01-22 at 2.20.50\u202fPM.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Data Stores",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@starburstdata.com",
+    "name": "Starburst",
+    "homepage": "https://www.starburst.io/",
+    "sales_email": "sales@starburstdata.com",
+    "vendor_id": "starburst"
+  },
+  "assets": {
+    "dashboards": {
+      "Starburst Galaxy Cluster Overview": "assets/dashboards/starburst_galaxy_cluster_overview.json"
+    },
+    "integration": {
+      "source_type_name": "starburst-galaxy",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "starburst_galaxy",
+        "check": [
+          "starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_RunningQueries"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 69206561,
+      "supports_ddr_coordinated_failover": false
+    }
+  },
+  "owner": "integrations-developer-platform"
+}
