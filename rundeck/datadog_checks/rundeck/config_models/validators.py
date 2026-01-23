@@ -1,9 +1,8 @@
 # Here you can include additional config validators or transformers
-#
-# def initialize_instance(values, **kwargs):
-#     if 'my_option' not in values and 'my_legacy_option' in values:
-#         values['my_option'] = values['my_legacy_option']
-#     if values.get('my_number') > 10:
-#         raise ValueError('my_number max value is 10, got %s' % str(values.get('my_number')))
-#
-#     return values
+
+
+def initialize_instance(values, **kwargs):
+    api_version = values.get("api_version")
+    if api_version is not None and api_version < 30:
+        raise ValueError(f"Minimum API version is 30, got {api_version}")
+    return values
