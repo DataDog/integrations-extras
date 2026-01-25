@@ -1,7 +1,6 @@
 import pytest
 from requests.exceptions import HTTPError
 
-from datadog_checks.rundeck import RundeckCheck
 from datadog_checks.rundeck.constants import (
     CACHE_KEY_TIMESTAMP,
     EXEC_COMPLETED_DURATION_METRIC_NAME,
@@ -92,7 +91,7 @@ def test_access_api_with_pagination_with_params(unit_check, mocker):
 
 def test_send_metrics_endpoint_group(unit_check, mocker):
     mock_submission = mocker.MagicMock()
-    patched_rename_metric = mocker.patch.object(unit_check, 'rename_metric', side_effect=lambda x: x)
+    patched_rename_metric = mocker.patch('datadog_checks.rundeck.check.rename_metric', side_effect=lambda x, y: x)
 
     group_key = "gauges"
     data_key = "value"
@@ -103,39 +102,10 @@ def test_send_metrics_endpoint_group(unit_check, mocker):
     unit_check.send_metrics_endpoint_group(raw_metrics, group_key, data_key, mock_submission)
 
     assert patched_rename_metric.call_count == 1
-    patched_rename_metric.assert_called_once_with(metric_name_with_val)
+    patched_rename_metric.assert_called_once_with(metric_name_with_val, unit_check.__NAMESPACE__)
 
     assert mock_submission.call_count == 1
     mock_submission.assert_any_call(f"{METRICS_METRICS_METRIC_NAME_PREFIX}.{metric_name_with_val}", 0, tags=[])
-
-
-@pytest.mark.parametrize(
-    "mock_input,output",
-    [
-        pytest.param(f"{RundeckCheck.__NAMESPACE__}.abc", "abc", id="with prefix removal"),
-        pytest.param("abc", "abc", id="without prefix removal"),
-        pytest.param(
-            "rundeck.services.AuthorizationService.systemAuthorization",
-            "services.authorization_service.system_authorization",
-            id="multiple parts removal",
-        ),
-    ],
-)
-def test_rename_metric(unit_check, mock_input, output):
-    assert unit_check.rename_metric(mock_input) == output
-
-
-@pytest.mark.parametrize(
-    "mock_input,output",
-    [
-        pytest.param("", "", id="empty part"),
-        pytest.param("a", "a", id="single char part, never convert"),
-        pytest.param("A", "a", id="single char part, must convert"),
-        pytest.param("ExecutionService", "execution_service", id="multiple char part"),
-    ],
-)
-def test_convert_case(unit_check, mock_input, output):
-    assert unit_check.convert_case(mock_input) == output
 
 
 def test_check_system_info_endpoint(unit_check, mocker):

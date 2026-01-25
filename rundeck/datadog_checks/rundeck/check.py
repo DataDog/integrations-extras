@@ -8,6 +8,7 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.persistent_cache import config_set_persistent_cache_id
 from datadog_checks.rundeck.config_models import ConfigMixin
 from datadog_checks.rundeck.config_models.defaults import instance_api_version
+from datadog_checks.rundeck.utils import get_nested_val, rename_metric
 
 from .constants import (
     CACHE_KEY_TIMESTAMP,
@@ -100,41 +101,10 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         for metric_name, metric_stats in data.items():
             metric_val = metric_stats.get(data_key)
             if metric_val is not None:
-                renamed = self.rename_metric(metric_name)
+                renamed = rename_metric(metric_name, self.__NAMESPACE__)
                 submission_method(
                     f"{METRICS_METRICS_METRIC_NAME_PREFIX}.{renamed}", metric_val, tags=self.system_base_tags
                 )
-
-    def rename_metric(self, original_name):
-        """Rename the original metric name from /metrics/metrics API"""
-        if original_name.startswith(f"{RundeckCheck.__NAMESPACE__}."):
-            parts = original_name[8:].split(".")
-        else:
-            parts = original_name.split(".")
-
-        final_parts = [self.convert_case(part) for part in parts]
-
-        return ".".join(final_parts)
-
-    def convert_case(self, part):
-        """Convert string from camelCase or PascalCase to snake_case"""
-        chars = []
-        for i, char in enumerate(part):
-            if char.isupper() and i > 0:
-                chars.append("_")
-            chars.append(char.lower())
-        return "".join(chars)
-
-    def get_nested_val(self, data, key_list):
-        """Extract nested key value from a dict"""
-        current_node = data
-        for key in key_list:
-            if isinstance(current_node, dict) and key in current_node:
-                current_node = current_node[key]
-            else:
-                return None
-
-        return current_node
 
     def check_system_info_endpoint(self):
         """Handle /system/info API"""
@@ -152,7 +122,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         self.system_base_tags = [
             f"{SYSTEM_TAG_KEY_PREFIX}_{tag_key}:{tag_value}"
             for tag_key, key_list in SYSTEM_INFO_TAG_MAP.items()
-            if (tag_value := self.get_nested_val(system_data, key_list)) is not None
+            if (tag_value := get_nested_val(system_data, key_list)) is not None
         ]
 
     def send_system_info(self, system_data):
@@ -163,7 +133,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
             return
 
         for name, key_list in SYSTEM_METRICS_TAG_MAP.items():
-            value = self.get_nested_val(stats, key_list)
+            value = get_nested_val(stats, key_list)
             if value is not None:
                 self.gauge(f"{SYSTEM_METRIC_NAME_PREFIX}.{name}", value, self.system_base_tags)
 
@@ -181,7 +151,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         """Create the list of tags for completed execution"""
         tag_list = []
         for tag_key, key_list in COMPLETED_EXEC_TAG_MAP.items():
-            tag_value = self.get_nested_val(execution, key_list)
+            tag_value = get_nested_val(execution, key_list)
             if tag_value is None:
                 continue
 
@@ -195,7 +165,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
         tag_list = [
             EXEC_TAG_TEMPLATE.format(key=tag_key, value=tag_value)
             for tag_key, key_list in EXEC_TAG_MAP.items()
-            if (tag_value := self.get_nested_val(execution, key_list)) not in (None, "")
+            if (tag_value := get_nested_val(execution, key_list)) not in (None, "")
         ]
         if execution.get("status") != EXEC_STATUS_RUNNING:
             completed_tag_list = self.get_completed_execution_tags(execution)
@@ -208,7 +178,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
 
     def send_execution_duration(self, execution, execution_tags):
         """Send duration metrics for each execution"""
-        started_ms = self.get_nested_val(execution, ["date-started", "unixtime"])
+        started_ms = get_nested_val(execution, ["date-started", "unixtime"])
         if started_ms is None:
             self.log.warning("Unable to send duration metric. started-ms missing from execution.")
             return
@@ -219,7 +189,7 @@ class RundeckCheck(ConfigMixin, AgentCheck):
             return
 
         # execution completed
-        ended_ms = self.get_nested_val(execution, ["date-ended", "unixtime"])
+        ended_ms = get_nested_val(execution, ["date-ended", "unixtime"])
         if ended_ms is None:
             self.log.warning("Unable to send duration metric. ended-ms missing from execution.")
             return
