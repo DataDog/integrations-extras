@@ -12,25 +12,30 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
 
     def __init__(self, name, init_config, instances):
         super().__init__(name, init_config, instances)
+
+        # Security: verify TLS by default
         self.instance.setdefault("tls_verify", True)
-        self.check_initializations.appendleft(self._parse_config)
 
-    def _parse_config(self) -> None:
-        self.scraper_configs = []
-
+    def get_default_config(self) -> dict[str, Any]:
+        """
+        OpenMetricsBaseCheckV2 builds its scraper configuration from this method.
+        Returning a fully-populated config here is the most reliable way to ensure:
+          - our computed metrics allowlist is applied
+          - our namespace is enforced
+          - our endpoint is validated
+        """
         endpoint = self.instance.get("openmetrics_endpoint")
         if not endpoint:
             raise ConfigurationError("`openmetrics_endpoint` must be set")
 
-        user_metrics = self.instance.get("metrics")
-
         # Precedence:
-        # 1) explicit allowlist `metrics` (override)
+        # 1) explicit allowlist `metrics` in instance config (override)
         # 2) DEFAULT_METRICS + opt-in metric_groups - exclude_metric_names
+        user_metrics = self.instance.get("metrics")
         if user_metrics:
             metrics = self._coerce_metrics(user_metrics)
         else:
-            metrics = list(DEFAULT_METRICS)
+            metrics: list[dict[str, str]] = list(DEFAULT_METRICS)
 
             groups = self.instance.get("metric_groups") or []
             for group in groups:
@@ -56,15 +61,14 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
                 },
             }
         )
-
-        self.scraper_configs.append(config)
+        return config
 
     @staticmethod
     def _coerce_metrics(value: Any) -> list[dict[str, str]]:
         """
         Accept either:
         - list[str] (metric names) -> convert to OpenMetrics mapping format
-        - list[dict] (OpenMetrics v2 mappings) -> pass through
+        - list[dict[str, str]] (OpenMetrics v2 mappings) -> pass through
         """
         if isinstance(value, list) and all(isinstance(x, str) for x in value):
             return [{n: n} for n in value]

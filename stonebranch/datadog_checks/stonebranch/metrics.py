@@ -20,7 +20,9 @@ DEFAULT_METRICS = [
     {"uc_oms_server_last_connected_time_seconds": "uc_oms_server_last_connected_time_seconds"},
     {"uc_oms_server_status": "uc_oms_server_status"},
     {"uc_oms_server_session_status": "uc_oms_server_session_status"},
-    {"uc_monthly_executions": "uc_monthly_executions"},
+    {
+        "uc_monthly_executions": "uc_monthly_executions",
+    },
 ]
 
 # Opt-in groups
