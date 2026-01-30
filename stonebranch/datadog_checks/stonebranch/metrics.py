@@ -20,9 +20,7 @@ DEFAULT_METRICS = [
     {"uc_oms_server_last_connected_time_seconds": "uc_oms_server_last_connected_time_seconds"},
     {"uc_oms_server_status": "uc_oms_server_status"},
     {"uc_oms_server_session_status": "uc_oms_server_session_status"},
-    {
-        "uc_monthly_executions": "uc_monthly_executions",
-    },
+    {"uc_monthly_executions": "uc_monthly_executions"},
 ]
 
 # Opt-in groups
@@ -32,14 +30,12 @@ ADDITIONAL_METRICS = {
         {"jvm_threads_peak": "jvm_threads_peak"},
         {"jvm_memory_used_bytes": "jvm_memory_used_bytes"},
         {"jvm_memory_committed_bytes": "jvm_memory_committed_bytes"},
-        # add more later
     ],
     "process": [
         {"process_cpu_seconds_total": "process_cpu_seconds_total"},
         {"process_resident_memory_bytes": "process_resident_memory_bytes"},
         {"process_virtual_memory_bytes": "process_virtual_memory_bytes"},
         {"process_open_fds": "process_open_fds"},
-        # add more later
     ],
     "license_details": [
         {"uc_license_agents_distributed_used": "uc_license_agents_distributed_used"},

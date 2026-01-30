@@ -13,7 +13,6 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
     def __init__(self, name, init_config, instances):
         super().__init__(name, init_config, instances)
 
-        # Security: verify TLS by default
         self.instance.setdefault("tls_verify", True)
 
     def get_default_config(self) -> dict[str, Any]:
@@ -28,9 +27,6 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
         if not endpoint:
             raise ConfigurationError("`openmetrics_endpoint` must be set")
 
-        # Precedence:
-        # 1) explicit allowlist `metrics` in instance config (override)
-        # 2) DEFAULT_METRICS + opt-in metric_groups - exclude_metric_names
         user_metrics = self.instance.get("metrics")
         if user_metrics:
             metrics = self._coerce_metrics(user_metrics)
@@ -47,7 +43,6 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
             if excludes:
                 metrics = [m for m in metrics if next(iter(m.keys())) not in excludes]
 
-        # Build config: start with instance pass-through, then enforce computed fields
         config: dict[str, Any] = dict(self.instance)
         config.update(
             {
