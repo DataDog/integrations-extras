@@ -27,10 +27,8 @@ def make_streaming_response(url: str, text: str) -> requests.Response:
     r.headers["Content-Type"] = "text/plain; version=0.0.4; charset=utf-8"
     r.encoding = "utf-8"
 
-    # Critical for OpenMetrics v2: iter_lines() reads from response.raw.read()
     r.raw = io.BytesIO(text.encode("utf-8"))
 
-    # Some code paths expect a prepared request to exist
     r.request = requests.Request("GET", url).prepare()
     return r
 
@@ -79,7 +77,6 @@ def test_openmetrics_basic_auth_and_labels(aggregator, dd_run_check, mocker):
         tags=base_tags + ["db_type:MySQL", "pool:Client"],
     )
 
-    # Optional sanity check: basic auth actually flowed to requests
     _, kwargs = mocked_request.call_args
     assert kwargs.get("auth") is not None
 
