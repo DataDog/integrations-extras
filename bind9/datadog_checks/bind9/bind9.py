@@ -10,7 +10,7 @@ EPOCH = datetime(1970, 1, 1)
 
 
 class Bind9Check(AgentCheck):
-    BIND_SERVICE_CHECK = "bind9.can_connect"
+    BIND_SERVICE_CHECK = "bind9.can_connect" # test
     QUERY_ARRAY = ["opcode", "qtype", "nsstat", "zonestat", "resstat", "sockstat"]
 
     def check(self, instance):
