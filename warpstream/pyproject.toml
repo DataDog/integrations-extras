@@ -1,0 +1,60 @@
+[build-system]
+requires = [
+    "hatchling>=0.13.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "datadog-warpstream"
+description = "The WarpStream check"
+#readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.11"
+keywords = [
+    "datadog",
+    "datadog agent",
+    "datadog check",
+    "warpstream",
+]
+authors = [
+    { name = "Emmanuel Pot", email = "support@warpstreamlabs.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: BSD License",
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "datadog-checks-base>=37.21.0",
+]
+dynamic = [
+    "version",
+]
+
+[project.optional-dependencies]
+deps = []
+
+[project.urls]
+Source = "https://github.com/DataDog/integrations-extras"
+
+[tool.hatch.version]
+path = "datadog_checks/warpstream/__about__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/datadog_checks",
+    "/tests",
+    "/manifest.json",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/datadog_checks/warpstream",
+]
+dev-mode-dirs = [
+    ".",
+]
