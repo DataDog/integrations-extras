@@ -149,7 +149,7 @@ output {
 }
 ```
 
-**Note**: Set `host` to your region {{< region-param key="http_endpoint" code="true" >}}.
+**Note**: Set `host` to your region: {{< region-param key="http_endpoint" code="true" >}}.
 
 ##### Advanced endpoint configuration
 
