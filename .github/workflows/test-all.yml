@@ -481,6 +481,25 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
+  j0642a7b:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
+    with:
+      job-name: Grafana
+      target: grafana
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      context: ${{ inputs.context }}
+      python-version: "${{ inputs.python-version }}"
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
   jb27a2a4:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
     with:
@@ -1189,6 +1208,25 @@ jobs:
     with:
       job-name: Scalr
       target: scalr
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      context: ${{ inputs.context }}
+      python-version: "${{ inputs.python-version }}"
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  jfe697d2:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@574d63ba88365ffbab915280ceddbaa333c63d6a
+    with:
+      job-name: scamalytics
+      target: scamalytics
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"

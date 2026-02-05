@@ -1,62 +1,75 @@
 {
   "name": "Incident event received from Contrast ADR",
   "partnerRuleId": "ext-00o-ysa",
-  "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@url}}\n",
-  "createdAt": 1747811769280,
-  "isDefault": false,
-  "isPartner": false,
-  "isBeta": false,
-  "isDeleted": false,
-  "isDeprecated": false,
-  "queries": [
-    {
-      "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
-      "groupByFields": [
-        "source"
-      ],
-      "hasOptionalGroupByFields": false,
-      "distinctFields": [],
-      "aggregation": "count",
-      "name": "",
-      "dataSource": "logs"
-    }
-  ],
-  "options": {
-    "evaluationWindow": 300,
-    "detectionMethod": "threshold",
-    "maxSignalDuration": 86400,
-    "keepAlive": 3600
-  },
+  "message": "### Summary:\n\n{{@summary}}\n\n### Actions:\nView recommended runbook at {{@recommendedRunbooks}}\nView in Contrast Security ADR: {{@contrast_adr.incident_url}}\n",
+  "id": "2bn-ro5-p8h",
+  "tags": [],
+  "type": "log_detection",
   "cases": [
     {
       "name": "",
       "status": "info",
-      "notifications": [],
-      "condition": "a > 0"
+      "condition": "b > 0 && a > 0 ",
+      "notifications": []
     }
   ],
-  "tags": [],
-  "hasExtendedTitle": true,
-  "type": "log_detection",
+  "isBeta": false,
+  "creator": {
+    "name": "Pragati Gupta",
+    "handle": "pragati.gupta@contrastsecurity.com"
+  },
   "filters": [],
-  "version": 21,
-  "id": "2bn-ro5-p8h",
-  "updatedAt": 1764678412990,
+  "options": {
+    "keepAlive": 3600,
+    "detectionMethod": "threshold",
+    "evaluationWindow": 300,
+    "maxSignalDuration": 86400
+  },
+  "queries": [
+    {
+      "name": "",
+      "query": "source:contrast-security-adr tags:incident_event service:ContrastADR",
+      "dataSource": "logs",
+      "aggregation": "count",
+      "groupByFields": [
+        "@incidentId",
+        "@organizationUuid"
+      ],
+      "distinctFields": [],
+      "hasOptionalGroupByFields": false
+    },
+    {
+      "name": "",
+      "query": "source:contrast-security-adr tags:attack_event service:ContrastADR",
+      "dataSource": "logs",
+      "aggregation": "count",
+      "groupByFields": [
+        "@incidentId",
+        "@organizationUuid"
+      ],
+      "distinctFields": [],
+      "hasOptionalGroupByFields": false
+    }
+  ],
+  "updater": {
+    "name": "Deepak Gopal",
+    "handle": "deepak.gopal@contrastsecurity.com"
+  },
+  "version": 25,
   "blocking": false,
   "metadata": {
-    "entities": [],
     "sources": [
       "contrast-security-adr"
-    ]
+    ],
+    "entities": []
   },
+  "createdAt": 1747811769280,
+  "isDefault": false,
+  "isDeleted": false,
+  "isPartner": false,
+  "updatedAt": 1766054214650,
+  "isDeprecated": false,
+  "updateAuthorId": 63957669,
   "creationAuthorId": 22452697,
-  "updateAuthorId": 64082222,
-  "creator": {
-    "handle": "pragati.gupta@contrastsecurity.com",
-    "name": "Pragati Gupta"
-  },
-  "updater": {
-    "handle": "harsha.nagendra@contrastsecurity.com",
-    "name": "Harsha Nagendra"
-  }
+  "hasExtendedTitle": true
 }

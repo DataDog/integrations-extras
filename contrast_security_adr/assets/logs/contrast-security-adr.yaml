@@ -79,30 +79,20 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `url` to `resource.url`
+          name: Map `url` to `contrast_adr.incident_url`
           enabled: true
           sources:
             - url
           sourceType: attribute
-          target: resource.url
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
-          name: Map `createdTime` to `date`
-          enabled: true
-          sources:
-            - createdTime
-          sourceType: attribute
-          target: date
+          target: contrast_adr.incident_url
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: date' as date of the log
+          name: Define `createdTime` as the official date of the log
           enabled: true
           sources:
-            - date
+            - createdTime
         - type: attribute-remapper
           name: Map `eventType` to `resource.type`
           enabled: true
@@ -170,20 +160,10 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: Map `date` as the date of log
-          enabled: true
-          sources:
-            - date
-        - type: attribute-remapper
-          name: Map 'detectedTime' to  'date'
+          name: Define `detectedTime` as the official date of the log
           enabled: true
           sources:
             - detectedTime
-          sourceType: attribute
-          target: date
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
         - type: attribute-remapper
           name: Map `result` to `evt.outcome`
           enabled: true
@@ -272,10 +252,10 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `incident_id` to `contrast_adr.incident_id`
+          name: Map `incidentId` to `contrast_adr.incident_id`
           enabled: true
           sources:
-            - incident_id
+            - incidentId
           sourceType: attribute
           target: contrast_adr.incident_id
           targetType: attribute

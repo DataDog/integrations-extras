@@ -2,73 +2,73 @@
   "name": "Confirmed DLP event received from Contrast ADR",
   "partnerRuleId": "ext-00w-f8n",
   "message": "### Summary:\n\nConfirmed active SQL Injection by Contrast ADR on  {{@url}} endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
-  "createdAt": 1749466228666,
-  "isDefault": false,
-  "isPartner": false,
-  "isBeta": false,
-  "isDeleted": false,
-  "isDeprecated": false,
-  "queries": [
-    {
-      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR",
-      "groupByFields": [
-        "@host.hostname"
-      ],
-      "hasOptionalGroupByFields": false,
-      "distinctFields": [],
-      "aggregation": "count",
-      "name": "",
-      "dataSource": "logs"
-    },
-    {
-      "query": "source:dlp_test",
-      "groupByFields": [
-        "@hostname"
-      ],
-      "hasOptionalGroupByFields": false,
-      "distinctFields": [],
-      "aggregation": "count",
-      "name": "",
-      "dataSource": "logs"
-    }
-  ],
-  "options": {
-    "evaluationWindow": 300,
-    "detectionMethod": "threshold",
-    "maxSignalDuration": 86400,
-    "keepAlive": 3600
-  },
+  "id": "xgy-cyz-hyl",
+  "tags": [],
+  "type": "log_detection",
   "cases": [
     {
       "name": "Condition 1",
       "status": "info",
-      "notifications": [],
-      "condition": "a > 0 && b > 0"
+      "condition": "a > 0 && b > 0",
+      "notifications": []
     }
   ],
-  "tags": [],
-  "hasExtendedTitle": true,
-  "type": "log_detection",
+  "isBeta": false,
+  "creator": {
+    "name": "Pranav Kalariya",
+    "handle": "pranav.kalariya@contrastsecurity.com"
+  },
   "filters": [],
+  "options": {
+    "keepAlive": 3600,
+    "detectionMethod": "threshold",
+    "evaluationWindow": 300,
+    "maxSignalDuration": 86400
+  },
+  "queries": [
+    {
+      "name": "",
+      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR",
+      "dataSource": "logs",
+      "aggregation": "count",
+      "groupByFields": [
+        "@host.hostname"
+      ],
+      "distinctFields": [],
+      "hasOptionalGroupByFields": false
+    },
+    {
+      "name": "",
+      "query": "source:dlp_test",
+      "dataSource": "logs",
+      "aggregation": "count",
+      "groupByFields": [
+        "@hostname"
+      ],
+      "distinctFields": [],
+      "hasOptionalGroupByFields": false
+    }
+  ],
+  "updater": {
+    "name": "Harsha Nagendra",
+    "handle": "harsha.nagendra@contrastsecurity.com"
+  },
   "version": 22,
-  "id": "xgy-cyz-hyl",
-  "updatedAt": 1764678410070,
   "blocking": false,
   "metadata": {
-    "entities": [],
     "sources": [
       "contrast-security-adr",
       "dlp_test"
-    ]
+    ],
+    "entities": []
   },
-  "creationAuthorId": 26956021,
+  "createdAt": 1749466228666,
+  "isDefault": false,
+  "isDeleted": false,
+  "isPartner": false,
+  "updatedAt": 1764678410070,
+  "isDeprecated": false,
   "updateAuthorId": 64082222,
-  "creator": {
-    "handle": "pranav.kalariya@contrastsecurity.com",
-    "name": "Pranav Kalariya"
-  },
-  "updater": {
-    "handle": "harsha.nagendra@contrastsecurity.com",
-    "name": "Harsha Nagendra"
-  }
+  "creationAuthorId": 26956021,
+  "hasExtendedTitle": true
 }
