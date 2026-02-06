@@ -5,7 +5,7 @@
 Auth0 is an identity platform for development teams which provides developers and enterprises with the building blocks they need to secure their applications.
 
 
-This integration leverages Auth0's Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions. The integration also exposes a metric to provide additional insight into usage.
+This integration leverages Auth0's Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions. The integration also collects metrics to provide insight into API usage.
 
 ### Key use cases
 
