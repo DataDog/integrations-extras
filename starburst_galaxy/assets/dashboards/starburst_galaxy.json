@@ -25,11 +25,13 @@
       "id": 2,
       "definition": {
         "title": "Query Execution Overview",
+        "background_color": "vivid_purple",
+        "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 1442897157404352,
+            "id": 3007673422827347,
             "definition": {
               "title": "Running Queries",
               "title_size": "16",
@@ -75,7 +77,7 @@
             }
           },
           {
-            "id": 4416967805296163,
+            "id": 5599257162117479,
             "definition": {
               "title": "Queued Queries",
               "title_size": "16",
@@ -133,12 +135,13 @@
       "id": 3,
       "definition": {
         "title": "Query Outcomes",
+        "background_color": "vivid_purple",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 6568784185151001,
+            "id": 7481462572790263,
             "definition": {
               "title": "Completed Queries (rate)",
               "title_size": "16",
@@ -184,7 +187,7 @@
             }
           },
           {
-            "id": 3191237224200499,
+            "id": 582911277523238,
             "definition": {
               "title": "Failed Queries (rate)",
               "title_size": "16",
@@ -230,7 +233,7 @@
             }
           },
           {
-            "id": 7581930015924424,
+            "id": 137262883790571,
             "definition": {
               "title": "Canceled Queries (rate)",
               "title_size": "16",
@@ -276,7 +279,7 @@
             }
           },
           {
-            "id": 4656499514608844,
+            "id": 1288184107964767,
             "definition": {
               "title": "Running Queries",
               "title_size": "16",
@@ -311,7 +314,7 @@
             }
           },
           {
-            "id": 7212428615138824,
+            "id": 3724682384020207,
             "definition": {
               "title": "Queued Queries",
               "title_size": "16",
@@ -341,7 +344,7 @@
             }
           },
           {
-            "id": 4232125562867589,
+            "id": 2405541068171761,
             "definition": {
               "title": "Total Completed",
               "title_size": "16",
@@ -371,7 +374,7 @@
             }
           },
           {
-            "id": 5179152441379873,
+            "id": 4956605850501288,
             "definition": {
               "title": "Total Failed",
               "title_size": "16",
@@ -401,7 +404,7 @@
             }
           },
           {
-            "id": 5393665379538299,
+            "id": 5899892712226763,
             "definition": {
               "title": "Internal Failures",
               "title_size": "16",
@@ -431,7 +434,7 @@
             }
           },
           {
-            "id": 3272712279426773,
+            "id": 2033569648570322,
             "definition": {
               "title": "User Error Failures",
               "title_size": "16",
@@ -473,11 +476,13 @@
       "id": 4,
       "definition": {
         "title": "Query Performance",
+        "background_color": "vivid_purple",
+        "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 8437890682508285,
+            "id": 173452594426724,
             "definition": {
               "title": "Query Execution Time (p50, p95, p99)",
               "title_size": "16",
@@ -590,7 +595,7 @@
             }
           },
           {
-            "id": 4232560539082969,
+            "id": 5710993962172881,
             "definition": {
               "title": "Query Queued Time (p50, p95, p99)",
               "title_size": "16",
@@ -703,7 +708,7 @@
             }
           },
           {
-            "id": 8637180345381225,
+            "id": 1903787491117594,
             "definition": {
               "title": "Avg Execution Time",
               "title_size": "16",
@@ -750,7 +755,7 @@
             }
           },
           {
-            "id": 1403083709393309,
+            "id": 7385124390362357,
             "definition": {
               "title": "Avg Queued Time",
               "title_size": "16",
@@ -800,20 +805,201 @@
       },
       "layout": {
         "x": 0,
-        "y": 12,
+        "y": 0,
         "width": 12,
-        "height": 6
+        "height": 6,
+        "is_column_break": true
       }
     },
     {
       "id": 5,
       "definition": {
         "title": "Resource Utilization",
+        "background_color": "vivid_purple",
+        "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 2754219599613523,
+            "id": 1051598284666103,
+            "definition": {
+              "title": "Node Status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "max",
+                "value"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "active",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ActiveNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "inactive",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_InactiveNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "draining",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_DrainingNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Active",
+                      "formula": "active"
+                    },
+                    {
+                      "alias": "Inactive",
+                      "formula": "inactive"
+                    },
+                    {
+                      "alias": "Draining",
+                      "formula": "draining"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6018723852030013,
+            "definition": {
+              "title": "Active Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ActiveNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 2995002350701600,
+            "definition": {
+              "title": "Inactive Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_InactiveNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 3934622718093292,
+            "definition": {
+              "title": "Draining Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_DrainingNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4076651713965000,
             "definition": {
               "title": "Memory Utilization (%)",
               "title_size": "16",
@@ -864,13 +1050,13 @@
             },
             "layout": {
               "x": 0,
-              "y": 0,
+              "y": 3,
               "width": 9,
               "height": 3
             }
           },
           {
-            "id": 4736098053359294,
+            "id": 1296704134878870,
             "definition": {
               "title": "Memory Utilization",
               "title_size": "16",
@@ -906,7 +1092,7 @@
             },
             "layout": {
               "x": 9,
-              "y": 0,
+              "y": 3,
               "width": 3,
               "height": 3
             }
@@ -915,9 +1101,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 18,
+        "y": 6,
         "width": 12,
-        "height": 4
+        "height": 7
       }
     }
   ],
