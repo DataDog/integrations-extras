@@ -13,7 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the OctoPrint check on your host by running:
 
 ```shell
-sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>
+sudo -u dd-agent -- datadog-agent integration install -t datadog-octoprint==<VERSION>
 ```
 
 **Note**: The `VERSION` is listed at the top of this page.
