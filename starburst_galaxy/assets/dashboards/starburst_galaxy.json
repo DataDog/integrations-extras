@@ -1,0 +1,1127 @@
+{
+  "title": "Starburst Galaxy",
+  "description": "Monitor query execution, performance, and resource utilization across your Starburst Galaxy clusters",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "type": "note",
+        "content": "![Starburst Galaxy](https://galaxy.starburst.io/images/light/starburst_galaxy_logo.light.svg)\n\nReal-time monitoring of your analytics infrastructure with comprehensive metrics for query execution and cluster performance.",
+        "background_color": "white",
+        "font_size": "16",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": false,
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 2
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Query Execution Overview",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3007673422827347,
+            "definition": {
+              "title": "Running Queries",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_RunningQueries{$account_id,$warehouse_id} by {warehouse_id}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5599257162117479,
+            "definition": {
+              "title": "Queued Queries",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedQueries{$account_id,$warehouse_id} by {warehouse_id}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Query Outcomes",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7481462572790263,
+            "definition": {
+              "title": "Completed Queries (rate)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_CompletedQueries{$account_id,$warehouse_id} by {warehouse_id}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 582911277523238,
+            "definition": {
+              "title": "Failed Queries (rate)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_FailedQueries{$account_id,$warehouse_id} by {warehouse_id}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 137262883790571,
+            "definition": {
+              "title": "Canceled Queries (rate)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_CanceledQueries{$account_id,$warehouse_id} by {warehouse_id}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1288184107964767,
+            "definition": {
+              "title": "Running Queries",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_RunningQueries{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 3724682384020207,
+            "definition": {
+              "title": "Queued Queries",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedQueries{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 2,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 2405541068171761,
+            "definition": {
+              "title": "Total Completed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_CompletedQueries{$account_id,$warehouse_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 4956605850501288,
+            "definition": {
+              "title": "Total Failed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_FailedQueries{$account_id,$warehouse_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5899892712226763,
+            "definition": {
+              "title": "Internal Failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_InternalFailures{$account_id,$warehouse_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 8,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 2033569648570322,
+            "definition": {
+              "title": "User Error Failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_UserErrorFailures{$account_id,$warehouse_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 10,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Query Performance",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 173452594426724,
+            "definition": {
+              "title": "Query Execution Time (p50, p95, p99)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ExecutionTime.quantile{$account_id,$warehouse_id,quantile:0.5}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p50",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ExecutionTime.quantile{$account_id,$warehouse_id,quantile:0.95}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p95",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ExecutionTime.quantile{$account_id,$warehouse_id,quantile:0.99}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p99",
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5710993962172881,
+            "definition": {
+              "title": "Query Queued Time (p50, p95, p99)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedTime.quantile{$account_id,$warehouse_id,quantile:0.5}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p50",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedTime.quantile{$account_id,$warehouse_id,quantile:0.95}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p95",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedTime.quantile{$account_id,$warehouse_id,quantile:0.99}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "alias": "p99",
+                      "formula": "query3"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1903787491117594,
+            "definition": {
+              "title": "Avg Execution Time",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ExecutionTime.sum{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ExecutionTime.count{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1 / query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 7385124390362357,
+            "definition": {
+              "title": "Avg Queued Time",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedTime.sum{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_QueuedTime.count{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1 / query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 3,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Resource Utilization",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1051598284666103,
+            "definition": {
+              "title": "Node Status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "max",
+                "value"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "active",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ActiveNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "inactive",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_InactiveNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "draining",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_DrainingNodeCount{$account_id,$warehouse_id} by {warehouse_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Active",
+                      "formula": "active"
+                    },
+                    {
+                      "alias": "Inactive",
+                      "formula": "inactive"
+                    },
+                    {
+                      "alias": "Draining",
+                      "formula": "draining"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6018723852030013,
+            "definition": {
+              "title": "Active Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_ActiveNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 2995002350701600,
+            "definition": {
+              "title": "Inactive Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_InactiveNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 3934622718093292,
+            "definition": {
+              "title": "Draining Nodes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_DrainingNodeCount{$account_id,$warehouse_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4076651713965000,
+            "definition": {
+              "title": "Memory Utilization (%)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "max",
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_FreeDistributedBytes{$account_id,$warehouse_id} by {warehouse_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_TotalDistributedBytes{$account_id,$warehouse_id} by {warehouse_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Memory Utilization",
+                      "formula": "(1 - (query1 / query2)) * 100"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0",
+                "max": "100"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 1296704134878870,
+            "definition": {
+              "title": "Memory Utilization",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_FreeDistributedBytes{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_TotalDistributedBytes{$account_id,$warehouse_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "(1 - (query1 / query2)) * 100"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 1
+            },
+            "layout": {
+              "x": 9,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 7
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "account_id",
+      "prefix": "account_id",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "warehouse_id",
+      "prefix": "warehouse_id",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

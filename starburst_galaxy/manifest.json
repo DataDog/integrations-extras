@@ -1,0 +1,85 @@
+{
+  "app_id": "starburst-galaxy",
+  "app_uuid": "019bece1-a911-7543-a286-a9f9ce6e4539",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Starburst Galaxy",
+    "description": "Collect cluster performance metrics from Starburst Galaxy",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Full Dashboard",
+        "image_url": "images/Screenshot 2026-02-06 at 10.15.39\u202fAM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Query Execution",
+        "image_url": "images/Screenshot 2026-02-06 at 10.10.20\u202fAM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Query Outcomes",
+        "image_url": "images/Screenshot 2026-02-06 at 10.11.38\u202fAM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Query Performance",
+        "image_url": "images/Screenshot 2026-02-06 at 10.12.08\u202fAM.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Resource Utilization",
+        "image_url": "images/Screenshot 2026-02-06 at 10.15.13\u202fAM.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Data Stores",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "support@starburstdata.com",
+    "name": "Starburst",
+    "homepage": "https://www.starburst.io/",
+    "sales_email": "sales@starburstdata.com",
+    "vendor_id": "starburst"
+  },
+  "assets": {
+    "dashboards": {
+      "Starburst Galaxy": "assets/dashboards/starburst_galaxy.json"
+    },
+    "integration": {
+      "source_type_name": "starburst-galaxy",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "starburst_galaxy",
+        "check": [
+          "starburst_galaxy.io_starburst_galaxy_name_GalaxyMetrics_RunningQueries"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 69206561,
+      "supports_ddr_coordinated_failover": false
+    }
+  },
+  "owner": "integrations-developer-platform"
+}
