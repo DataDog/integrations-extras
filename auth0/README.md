@@ -55,7 +55,7 @@ View logs in Datadog:
 1. Navigate to **Logs** > **Livetail**.
 2. See Auth0 logs by setting `source:auth0`.
 3. Navigate to **Metrics** > **Explorer**.
-4. Check the `auth0.api_request.count` metric
+4. Verify the `auth0.api_request.count` metric is being collected.
 
 ## Data Collected
 
