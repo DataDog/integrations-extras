@@ -23,7 +23,7 @@ class UnboundCheck(AgentCheck):
 
         command = []
         if use_sudo:
-            test_sudo = os.system('setsid sudo -l < /dev/null')
+            test_sudo = os.system('setsid sudo -l < /dev/null > /dev/null 2>&1')
             if test_sudo != 0:
                 raise Exception('The dd-agent user does not have sudo access')
             command.append('sudo')
