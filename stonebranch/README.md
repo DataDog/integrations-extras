@@ -55,7 +55,7 @@ Install the Stonebranch integration using the Datadog Agent integration command.
    * Optional metric groups can be enabled using `metric_groups`.
    * Individual metrics can be excluded using `exclude_metric_names`.
 
-   See the sample `stonebranch.d/conf.yaml.example` file for the full list of available configuration options and check the [Stonebranch Documentation][2] for the full list of metrics available
+   See the sample `stonebranch.d/conf.yaml.example` file for the full list of available configuration options and check the [Stonebranch documentation][2] for the complete list of available metrics.
 
 2. Restart the Datadog Agent.
 
