@@ -145,3 +145,4 @@ Need help? Contact [Stonebranch support][3].
 
 [1]: https://github.com/DataDog/integrations-extras
 [2]: https://stonebranchdocs.atlassian.net/wiki/spaces/UC79/pages/1614446871/Universal+Controller+-+Provided+Metrics
+[3]: https://www.stonebranch.com/contact
