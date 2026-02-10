@@ -1,6 +1,6 @@
-# CHANGELOG - Starburst Galaxy
+# CHANGELOG - starburst-galaxy
 
-## 1.0.0 / 2026-02-06
+## 1.0.0 / 2026-02-10
 
 _**Added**_:
 
