@@ -4,7 +4,7 @@
 
 Stonebranch Universal Automation Center (UAC) is an enterprise workload automation platform used to orchestrate, schedule, and monitor complex workflows across distributed systems, applications, and infrastructure.
 
-The Stonebranch integration provides visibility into UAC by scraping metrics exposed by the Universal Controller's Prometheus endpoint and surfacing them in Datadog. This enables operations, SRE, and platform teams to monitor automation health, execution activity, and system capacity from a single observability platform.
+The Stonebranch integration provides visibility into UAC by scraping metrics exposed by the Universal Controller Prometheus endpoint and surfacing them in Datadog. This enables operations, SRE, and platform teams to monitor automation health, execution activity, and system capacity from a single observability platform.
 
 The integration automatically collects a curated set of core UC metrics and supports optional metric groups for deeper JVM, process, and license-level insights. Metrics are enriched with labels emitted by the UC, enabling Datadog users to build workflow-, agent-, and controller-centric views and dashboards.
 
