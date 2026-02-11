@@ -1,0 +1,79 @@
+{
+  "title": "Mixpeek Overview",
+  "description": "Overview of Mixpeek multimodal content enrichment and search metrics.",
+  "widgets": [
+    {
+      "definition": {
+        "title": "Pipeline Processed Items",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:mixpeek.pipeline.processed{*}.as_count()",
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Pipeline Latency",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:mixpeek.pipeline.latency{*}",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Search Queries",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:mixpeek.search.queries{*}.as_count()",
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Search Latency",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:mixpeek.search.latency{*}",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Content Enrichment by Modality",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:mixpeek.enrichment.images{*}.as_count()",
+            "display_type": "line"
+          },
+          {
+            "q": "sum:mixpeek.enrichment.videos{*}.as_count()",
+            "display_type": "line"
+          },
+          {
+            "q": "sum:mixpeek.enrichment.audio{*}.as_count()",
+            "display_type": "line"
+          },
+          {
+            "q": "sum:mixpeek.enrichment.text{*}.as_count()",
+            "display_type": "line"
+          }
+        ]
+      }
+    }
+  ],
+  "layout_type": "ordered"
+}

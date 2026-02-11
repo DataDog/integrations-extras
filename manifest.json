@@ -1,0 +1,51 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "app_id": "mixpeek",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your Mixpeek multimodal search and content enrichment pipelines.",
+    "title": "Mixpeek",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "mixpeek",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "mixpeek.",
+        "metadata_path": "metadata.csv",
+        "check": "mixpeek.pipeline.processed"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "auto_install": true
+    },
+    "dashboards": {
+      "Mixpeek Overview": "assets/dashboards/mixpeek_overview.json"
+    }
+  },
+  "author": {
+    "support_email": "support@mixpeek.com",
+    "name": "Mixpeek",
+    "homepage": "https://mixpeek.com",
+    "sales_email": "ethan@mixpeek.com"
+  }
+}
