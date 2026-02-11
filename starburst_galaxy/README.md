@@ -16,7 +16,7 @@ The Starburst Galaxy integration with Datadog enables you to monitor and visuali
 4. Click  **Validate**  to test the connection. Starburst Galaxy verifies that the API key is valid and the selected Datadog site is accessible.
 5. After validation succeeds, click  **Connect**. Metrics appear in your Datadog account within a few minutes.
 
-Once you enable the integration, you should see a **Connected** status in the Datadog panel on Starburst Galaxy's **Partner Connect** page. If you encounter setup issues, contact Starburst support.
+After you enable the integration, the integration status shows as **Connected** in the Datadog panel on Starburst Galaxy's **Partner Connect** page. If you encounter setup issues, contact Starburst support.
 
  ### Update Configuration
 
@@ -36,7 +36,7 @@ To rotate API keys or update the integration configuration:
 2. Click **Delete connection**.
 3. Confirm the deletion when prompted.
 
-When deactivated, the integration status in the panel will show as **Inactive**.
+When deactivated, the integration status in the panel shows as **Inactive**.
 
 ### In Datadog
 
