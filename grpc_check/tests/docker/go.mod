@@ -1,6 +1,6 @@
 module grpc_check
 
-go 1.18
+go 1.25.7
 
 require google.golang.org/grpc v1.48.0
 
