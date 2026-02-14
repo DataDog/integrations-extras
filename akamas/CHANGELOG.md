@@ -4,4 +4,6 @@
 
 _**Added**_:
 
+This is a new line.
+
 * Initial Release
