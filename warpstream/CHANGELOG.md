@@ -1,4 +1,4 @@
-# CHANGELOG - warpstream
+# CHANGELOG - WarpStream
 
 ## 1.0.0 / 2025-07-04
 
