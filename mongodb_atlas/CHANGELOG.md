@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.3.0 / 2026-02-17
+
+***Added***:
+
+* Add connection, ingress session queue, transaction, cursor, sharding statistics, profiler, WiredTiger cache, and disk throughput metrics
+
 ## 1.2.2 / 2025-12-05
 
 ***Changed***:
