@@ -4,7 +4,7 @@
 
 Stonebranch Universal Automation Center (UAC) is an enterprise workload automation platform used to orchestrate, schedule, and monitor complex workflows across distributed systems, applications, and infrastructure.
 
-The Stonebranch integration provides visibility into UAC by scraping metrics exposed by the Universal Controller's Prometheus endpoint and surfacing them in Datadog. This enables operations, SRE, and platform teams to monitor automation health, execution activity, and system capacity from a single observability platform.
+The Stonebranch integration provides visibility into UAC by scraping metrics exposed by the Universal Controller Prometheus endpoint and surfacing them in Datadog. This enables operations, SRE, and platform teams to monitor automation health, execution activity, and system capacity from a single observability platform.
 
 The integration automatically collects a curated set of core UC metrics and supports optional metric groups for deeper JVM, process, and license-level insights. Metrics are enriched with labels emitted by the UC, enabling Datadog users to build workflow-, agent-, and controller-centric views and dashboards.
 
@@ -55,7 +55,7 @@ Install the Stonebranch integration using the Datadog Agent integration command.
    * Optional metric groups can be enabled using `metric_groups`.
    * Individual metrics can be excluded using `exclude_metric_names`.
 
-   See the sample `stonebranch.d/conf.yaml.example` file for the full list of available configuration options and check the [Stonebranch Documentation][2] for the full list of metrics available
+   See the sample `stonebranch.d/conf.yaml.example` file for the full list of available configuration options and check the [Stonebranch documentation][2] for the complete list of available metrics.
 
 2. Restart the Datadog Agent.
 
@@ -121,7 +121,7 @@ This option removes metrics by exact Prometheus metric name and is applied after
 
 * Default Stonebranch metrics are collected unless explicitly excluded using `exclude_metric_names`.
 * Metric groups are optional and disabled unless explicitly configured.
-* Advanced OpenMetrics filtering options (such as regex-based exclusions and label-based filtering) are available via standard OpenMetrics configuration options. See the sample configuration file for details.
+* Advanced OpenMetrics filtering options (such as regex-based exclusions and label-based filtering) are available through standard OpenMetrics configuration options. See the sample configuration file for details.
 
 
 ## Data Collected
@@ -140,7 +140,9 @@ See `metadata.csv` for the complete list of metrics exposed by this integration.
 
 ## Support
 
-TBD
+Need help? Contact [Stonebranch support][3].
+
 
 [1]: https://github.com/DataDog/integrations-extras
 [2]: https://stonebranchdocs.atlassian.net/wiki/spaces/UC79/pages/1614446871/Universal+Controller+-+Provided+Metrics
+[3]: https://www.stonebranch.com/contact
