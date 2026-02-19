@@ -119,7 +119,7 @@ This option removes metrics by exact Prometheus metric name and is applied after
 
 ### Notes
 
-* Default Stonebranch metrics are always collected and cannot be disabled.
+* Default Stonebranch metrics are collected unless explicitly excluded using `exclude_metric_names`.
 * Metric groups are optional and disabled unless explicitly configured.
 * Advanced OpenMetrics filtering options (such as regex-based exclusions and label-based filtering) are available via standard OpenMetrics configuration options. See the sample configuration file for details.
 

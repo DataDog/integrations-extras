@@ -2,6 +2,7 @@ import io
 
 import requests
 
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.stonebranch import StonebranchCheck
 
 PROM_TEXT = """\
@@ -37,7 +38,11 @@ def test_openmetrics_basic_auth_and_labels(aggregator, dd_run_check, mocker):
     url = "http://test.local/metrics"
     instance = {
         "openmetrics_endpoint": url,
-        "metrics": ["uc_agent_status", "uc_build_info", "uc_database_connection_pool_allocated"],
+        "metrics": [
+            {"uc_agent_status": "uc_agent.status"},
+            {"uc_build_info": "uc_build.info"},
+            {"uc_database_connection_pool_allocated": "uc_database_connection_pool.allocated"},
+        ],
         "auth_type": "basic",
         "username": "user1",
         "password": "pass1",
@@ -57,22 +62,22 @@ def test_openmetrics_basic_auth_and_labels(aggregator, dd_run_check, mocker):
     base_tags = ["environment:test", endpoint_tag]
 
     aggregator.assert_metric(
-        "stonebranch.uc_agent_status",
+        "stonebranch.uc_agent.status",
         value=1.0,
         tags=base_tags + ["agent_id:AGNT0006"],
     )
     aggregator.assert_metric(
-        "stonebranch.uc_agent_status",
+        "stonebranch.uc_agent.status",
         value=0.0,
         tags=base_tags + ["agent_id:AGNT0007"],
     )
     aggregator.assert_metric(
-        "stonebranch.uc_build_info",
+        "stonebranch.uc_build.info",
         value=1.0,
         tags=base_tags + ["build:build.108", "build_date:09-26-2025_0545", "release:7.9.0.0"],
     )
     aggregator.assert_metric(
-        "stonebranch.uc_database_connection_pool_allocated",
+        "stonebranch.uc_database_connection_pool.allocated",
         value=5.0,
         tags=base_tags + ["db_type:MySQL", "pool:Client"],
     )
@@ -81,3 +86,4 @@ def test_openmetrics_basic_auth_and_labels(aggregator, dd_run_check, mocker):
     assert kwargs.get("auth") is not None
 
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
