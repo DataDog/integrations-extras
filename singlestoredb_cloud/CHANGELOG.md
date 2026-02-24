@@ -1,6 +1,6 @@
 # CHANGELOG - SingleStore DB Cloud
 
-## 1.0.2 / 2027-02-24
+## 1.1.0 / 2026-02-24
 
 ***Changed***: 
 
