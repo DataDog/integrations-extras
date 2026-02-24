@@ -1,0 +1,96 @@
+{
+  "app_id": "n8n",
+  "app_uuid": "019bfadd-2620-7676-bb28-31146ce37ab6",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": false,
+  "tile": {
+    "title": "n8n",
+    "description": "Monitor the health and performance of n8n.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "n8n dashboard",
+        "image_url": "images/dash-1-n8n.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "n8n dashboard",
+        "image_url": "images/dash-2-n8n.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "n8n dashboard",
+        "image_url": "images/dash-3-n8n.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "n8n dashboard",
+        "image_url": "images/dash-4-n8n.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Log Collection",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "name": "Datadog",
+    "homepage": "https://www.datadoghq.com",
+    "sales_email": "info@datadoghq.com",
+    "vendor_id": "datadog"
+  },
+  "assets": {
+    "dashboards": {
+      "n8n Overview": "assets/dashboards/n8n_overview.json"
+    },
+    "monitors": {
+      "[n8n] Combined Queue Health (Backlog OR Wait Time)": "assets/monitors/_n8n__combined_queue_health__backlog_or_wait_time_.json",
+      "[n8n] Workflow Execution Failures Anomaly": "assets/monitors/_n8n__workflow_execution_failures_anomaly.json",
+      "[n8n] High Job Failure Rate (Queue Jobs)": "assets/monitors/_n8n__high_job_failure_rate__queue_jobs_.json",
+      "[n8n] High Queue Wait Time (Oldest Queued Age)": "assets/monitors/_n8n__high_queue_wait_time__oldest_queued_age_.json",
+      "[n8n] Queue Processing Stalled (No Dequeues)": "assets/monitors/_n8n__queue_processing_stalled__no_dequeues_.json",
+      "[n8n] Workflow Duration Exceeds SLO (p95)": "assets/monitors/_n8n__workflow_duration_exceeds_slo__p95_.json",
+      "[n8n] Worker Heartbeat Stale (No Recent Activity)": "assets/monitors/_n8n__worker_heartbeat_stale__no_recent_activity_.json",
+      "[n8n] High Queue Backlog Size": "assets/monitors/_n8n__high_queue_backlog_size.json",
+      "[n8n] High Workflow Failure Rate": "assets/monitors/_n8n__high_workflow_failure_rate.json"
+    },
+    "logs": {
+      "source": "n8n"
+    },
+    "integration": {
+      "source_type_name": "n8n",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "n8n",
+        "check": [
+          "n8n.process.uptime.seconds"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 69440304,
+      "supports_ddr_coordinated_failover": false
+    }
+  },
+  "owner": "agent-integrations"
+}
