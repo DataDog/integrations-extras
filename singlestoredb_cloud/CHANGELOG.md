@@ -4,7 +4,7 @@
 
 ***Changed***: 
 
-* Updated dashboard for better experience
+* Updated dashboard to include disk I/O, memory breakdown and pipeline monitoring widgets
 
 ## 1.0.1 / 2023-10-16
 
