@@ -513,6 +513,7 @@ def test_get_api_json_exceptions(instance_good, mocker):
     # JSONDecodeError
     class MockBadResponse:
         status_code = 200
+        headers = {}
 
         def json(self):
             raise json.JSONDecodeError("Expecting value", "doc", 0)
@@ -766,6 +767,7 @@ def test_get_api_json_429_retry_success(instance_good, mocker, aggregator):
 
     class Mock200Response:
         status_code = 200
+        headers = {}
 
         def json(self):
             return {"ok": True}
@@ -811,6 +813,7 @@ def test_get_api_json_429_no_headers_uses_default_wait(instance_good, mocker, ag
 
     class Mock200Response:
         status_code = 200
+        headers = {}
 
         def json(self):
             return {"ok": True}
