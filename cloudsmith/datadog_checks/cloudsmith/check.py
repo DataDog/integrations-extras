@@ -195,13 +195,9 @@ class CloudsmithCheck(AgentCheck):
 
     def get_api_json(self, url):
         # Skip call if we already know quota is exhausted
-        if (
-            self._ratelimit_remaining is not None
-            and self._ratelimit_remaining <= 0
-        ):
+        if self._ratelimit_remaining is not None and self._ratelimit_remaining <= 0:
             self.log.warning(
-                "Skipping %s — rate-limit quota exhausted "
-                "(remaining=0).",
+                "Skipping %s — rate-limit quota exhausted (remaining=0).",
                 url,
             )
             return None
@@ -278,14 +274,9 @@ class CloudsmithCheck(AgentCheck):
                         if attempt >= self.RATE_LIMIT_MAX_RETRIES
                         else f"reset too far away ({wait:.0f}s > {self.RATE_LIMIT_MAX_WAIT}s cap)"
                     )
-                    error_message = (
-                        f"Rate limited (429) on {url}, {reason}. "
-                        "Skipping this endpoint for now."
-                    )
+                    error_message = f"Rate limited (429) on {url}, {reason}. Skipping this endpoint for now."
                     self.log.warning(error_message)
-                    self.service_check(
-                        "cloudsmith.can_connect", AgentCheck.WARNING, message=error_message
-                    )
+                    self.service_check("cloudsmith.can_connect", AgentCheck.WARNING, message=error_message)
                     return None
 
             if response.status_code != 200:
@@ -307,9 +298,7 @@ class CloudsmithCheck(AgentCheck):
     def _update_ratelimit_headers(self, response):
         """Store rate-limit quota from response headers."""
         try:
-            self._ratelimit_remaining = int(
-                response.headers["x-ratelimit-remaining"]
-            )
+            self._ratelimit_remaining = int(response.headers["x-ratelimit-remaining"])
         except (KeyError, ValueError, TypeError):
             pass
 
