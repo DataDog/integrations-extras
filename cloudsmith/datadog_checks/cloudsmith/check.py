@@ -11,7 +11,7 @@ from datadog_checks.base.errors import CheckException
 METRIC = "/metrics/entitlements/"
 QUOTA = "/quota/"
 AUDIT_LOG = "/audit-log/"
-VOUNDRABILITIES = "/vulnerabilities/"
+VULNERABILITIES = "/vulnerabilities/"
 VULNERABILITY_POLICY_VIOLATION = "/vulnerability-policy-violation/"
 LICENSE_POLICY_VIOLATION = "/license-policy-violation/"
 MEMBERS = "/members/"
@@ -96,6 +96,9 @@ class CloudsmithCheck(AgentCheck):
         self._rt_last_ts = 0
         self._rt_last_fetch = 0
         self._rt_metrics = {"bandwidth_bytes_interval": None}
+
+        # Track rate-limit quota from API response headers
+        self._ratelimit_remaining = None
 
         self.validate_config()
 
@@ -187,62 +190,127 @@ class CloudsmithCheck(AgentCheck):
                 pass
         raise ValueError(f"Invalid timestamp format: {value}")
 
-    # Get stats from REST API as json
+    RATE_LIMIT_MAX_RETRIES = 3
+    RATE_LIMIT_MAX_WAIT = 10
+
     def get_api_json(self, url):
-        try:
-            key = self.api_key
-            headers = {"X-Api-Key": key, "content-type": "application/json"}
-            response = self.http.get(url, headers=headers, timeout=60)
-        except Timeout as e:
-            error_message = "Request timeout: {}, {}".format(url, e)
-            self.log.warning(error_message)
-            self.service_check(
-                "cloudsmith.can_connect",
-                AgentCheck.CRITICAL,
-                message=error_message,
+        # Skip call if we already know quota is exhausted
+        if self._ratelimit_remaining is not None and self._ratelimit_remaining <= 0:
+            self.log.warning(
+                "Skipping %s — rate-limit quota exhausted (remaining=0).",
+                url,
             )
-            raise
-
-        except (HTTPError, InvalidURL, ConnectionError) as e:
-            error_message = "Request failed: {}, {}".format(url, e)
-            self.log.warning(error_message)
-            self.service_check(
-                "cloudsmith.can_connect",
-                AgentCheck.CRITICAL,
-                message=error_message,
-            )
-            raise
-
-        except JSONDecodeError as e:
-            error_message = "JSON Parse failed: {}, {}".format(url, e)
-            self.log.warning(error_message)
-            self.service_check(
-                "cloudsmith.can_connect",
-                AgentCheck.CRITICAL,
-                message=error_message,
-            )
-            raise
-
-        except ValueError as e:
-            error_message = str(e)
-            self.log.warning(error_message)
-            self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
-            raise
-
-        # if status is 401 and url includes the words "audit-log" or "vulnerabilities", then return mock data
-        if response.status_code == 401 and ("audit-log" in url or "vulnerabilities" in url):
             return None
 
-        if response.status_code != 200:
-            error_message = f"""Expected status code 200 for url {url}, but got status code:
-            {response.status_code} check your config information"""
-            self.log.warning(error_message)
-            self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
-            raise CheckException(error_message)
-        else:
-            self.service_check("cloudsmith.can_connect", AgentCheck.OK)
+        for attempt in range(self.RATE_LIMIT_MAX_RETRIES + 1):
+            try:
+                key = self.api_key
+                headers = {"X-Api-Key": key, "content-type": "application/json"}
+                response = self.http.get(url, headers=headers, timeout=60)
+            except Timeout as e:
+                error_message = "Request timeout: {}, {}".format(url, e)
+                self.log.warning(error_message)
+                self.service_check(
+                    "cloudsmith.can_connect",
+                    AgentCheck.CRITICAL,
+                    message=error_message,
+                )
+                raise
 
-        return response.json()
+            except (HTTPError, InvalidURL, ConnectionError) as e:
+                error_message = "Request failed: {}, {}".format(url, e)
+                self.log.warning(error_message)
+                self.service_check(
+                    "cloudsmith.can_connect",
+                    AgentCheck.CRITICAL,
+                    message=error_message,
+                )
+                raise
+
+            except JSONDecodeError as e:
+                error_message = "JSON Parse failed: {}, {}".format(url, e)
+                self.log.warning(error_message)
+                self.service_check(
+                    "cloudsmith.can_connect",
+                    AgentCheck.CRITICAL,
+                    message=error_message,
+                )
+                raise
+
+            except ValueError as e:
+                error_message = str(e)
+                self.log.warning(error_message)
+                self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
+                raise
+
+            # if status is 401 and url includes the words "audit-log" or "vulnerabilities", then return mock data
+            if response.status_code == 401 and ("audit-log" in url or "vulnerabilities" in url):
+                return None
+
+            # Handle rate limiting (HTTP 429) using API response headers.
+            if response.status_code == 429:
+                wait = self._get_rate_limit_wait(response)
+                remaining = response.headers.get("x-ratelimit-remaining")
+                limit = response.headers.get("x-ratelimit-limit")
+                self.log.warning(
+                    "Rate limited (429) on %s (attempt %d/%d, limit=%s, remaining=%s, reset_wait=%.1fs).",
+                    url,
+                    attempt + 1,
+                    self.RATE_LIMIT_MAX_RETRIES,
+                    limit,
+                    remaining,
+                    wait,
+                )
+                # Only retry if we have attempts left AND the reset is soon
+                # enough to be worth waiting for.  If the reset window is
+                # beyond RATE_LIMIT_MAX_WAIT, retrying would just waste time
+                # because the limit won't have cleared.
+                if attempt < self.RATE_LIMIT_MAX_RETRIES and wait <= self.RATE_LIMIT_MAX_WAIT:
+                    time.sleep(wait)
+                    continue
+                else:
+                    reason = (
+                        "retries exhausted"
+                        if attempt >= self.RATE_LIMIT_MAX_RETRIES
+                        else f"reset too far away ({wait:.0f}s > {self.RATE_LIMIT_MAX_WAIT}s cap)"
+                    )
+                    error_message = f"Rate limited (429) on {url}, {reason}. Skipping this endpoint for now."
+                    self.log.warning(error_message)
+                    self.service_check("cloudsmith.can_connect", AgentCheck.WARNING, message=error_message)
+                    return None
+
+            if response.status_code != 200:
+                error_message = f"""Expected status code 200 for url {url}, but got status code:
+                {response.status_code} check your config information"""
+                self.log.warning(error_message)
+                self.service_check("cloudsmith.can_connect", AgentCheck.CRITICAL, message=error_message)
+                raise CheckException(error_message)
+            else:
+                self.service_check("cloudsmith.can_connect", AgentCheck.OK)
+
+            # Track rate-limit headers from every successful response
+            self._update_ratelimit_headers(response)
+
+            return response.json()
+
+        return None
+
+    def _update_ratelimit_headers(self, response):
+        """Store rate-limit quota from response headers."""
+        try:
+            self._ratelimit_remaining = int(response.headers["x-ratelimit-remaining"])
+        except (KeyError, ValueError, TypeError):
+            pass
+
+    def _get_rate_limit_wait(self, response):
+        """Return seconds to wait based on the X-RateLimit-Reset header."""
+        value = response.headers.get("x-ratelimit-reset")
+        if value is not None:
+            try:
+                return max(float(value) - time.time(), 1)
+            except (ValueError, TypeError):
+                pass
+        return 5
 
     def get_usage_info(self):
         url = self.get_full_path(QUOTA)
@@ -262,7 +330,7 @@ class CloudsmithCheck(AgentCheck):
         return response_json
 
     def get_vulnerabilities_info(self):
-        url = self.get_full_path(VOUNDRABILITIES)
+        url = self.get_full_path(VULNERABILITIES)
         all_results = []
         while url:
             response_json = self.get_api_json(url)
@@ -590,6 +658,18 @@ class CloudsmithCheck(AgentCheck):
             "storage_used": -1,
             "bandwidth_mark": CloudsmithCheck.UNKNOWN,
             "bandwidth_used": -1,
+            "storage_used_bytes": -1,
+            "storage_plan_limit_bytes": -1,
+            "bandwidth_used_bytes": -1,
+            "bandwidth_plan_limit_bytes": -1,
+            "storage_used_gb": -1,
+            "storage_plan_limit_gb": -1,
+            "bandwidth_used_gb": -1,
+            "bandwidth_plan_limit_gb": -1,
+            "storage_configured_bytes": -1,
+            "bandwidth_configured_bytes": -1,
+            "storage_configured_gb": -1,
+            "bandwidth_configured_gb": -1,
         }
         entitlement_info = {
             "token_count": -1,
@@ -620,26 +700,42 @@ class CloudsmithCheck(AgentCheck):
             }
         ]
 
+        policy_violations_info = []
+        license_violations_info = []
+        members_info = []
+
         global LAST_AUDIT_LOG_STAMP
         global LAST_VULNERABILITY_STAMP
         global AUDIT_LOG_LAST_RUN
         global VULNERABILITY_LAST_RUN
 
-        usage_info = self.get_parsed_usage_info()
-        entitlement_info = self.get_parsed_entitlement_info()
+        try:
+            usage_info = self.get_parsed_usage_info()
+        except Exception as e:
+            self.log.warning("Failed to collect usage info, continuing with defaults: %s", e)
+
+        try:
+            entitlement_info = self.get_parsed_entitlement_info()
+        except Exception as e:
+            self.log.warning("Failed to collect entitlement info, continuing with defaults: %s", e)
 
         # Only run audit log and vulnerability checks if the last check was more than 5 minutes ago
         # This will prevent the check from running too often and hitting the rate limit
 
         if (time.time() - AUDIT_LOG_LAST_RUN) > 300:
-            audit_log_info = self.get_parsed_audit_log_info()
-            AUDIT_LOG_LAST_RUN = time.time()
+            try:
+                audit_log_info = self.get_parsed_audit_log_info()
+                AUDIT_LOG_LAST_RUN = time.time()
+            except Exception as e:
+                self.log.warning("Failed to collect audit log info, continuing with defaults: %s", e)
 
         if (time.time() - VULNERABILITY_LAST_RUN) > 300:
-            vulnerabilities_info = self.get_parsed_vulnerabilities_info()
-            VULNERABILITY_LAST_RUN = time.time()
-        else:
-            vulnerabilities_info = self.get_parsed_vulnerabilities_info()
+            try:
+                vulnerabilities_info = self.get_parsed_vulnerabilities_info()
+                VULNERABILITY_LAST_RUN = time.time()
+            except Exception as e:
+                self.log.warning("Failed to collect vulnerabilities info, continuing with defaults: %s", e)
+
         # Realtime bandwidth metrics collection
         realtime_metrics = {"bandwidth_bytes_interval": None}
         if self.enable_realtime_bandwidth:
@@ -648,7 +744,11 @@ class CloudsmithCheck(AgentCheck):
                 response_json = self.get_realtime_bandwidth_info()
                 realtime_metrics = self.parse_realtime_bandwidth(response_json)
                 self._rt_last_fetch = now
-        policy_violations_info = self.get_parsed_vuln_policy_violation_info()
+
+        try:
+            policy_violations_info = self.get_parsed_vuln_policy_violation_info()
+        except Exception as e:
+            self.log.warning("Failed to collect vulnerability policy violations, continuing: %s", e)
         for v in policy_violations_info[: self.MAX_EVENTS]:
             event = {
                 "timestamp": v["last_detected"],
@@ -672,7 +772,12 @@ class CloudsmithCheck(AgentCheck):
             if "source_type_name" not in event:
                 event["source_type_name"] = "cloudsmith"
             self.event(event)
-        license_violations_info = self.get_parsed_license_policy_violation_info()
+
+        try:
+            license_violations_info = self.get_parsed_license_policy_violation_info()
+        except Exception as e:
+            self.log.warning("Failed to collect license policy violations, continuing: %s", e)
+
         global LICENSE_VIOLATION_LAST_RUN
         current_time = int(time.time())
         if (current_time - LICENSE_VIOLATION_LAST_RUN) > 300:
@@ -812,7 +917,11 @@ class CloudsmithCheck(AgentCheck):
             usage_info["bandwidth_mark"],
             message=bandwith_msg if usage_info["bandwidth_mark"] != AgentCheck.OK else "",
         )
-        members_info = self.get_parsed_members_info()
+
+        try:
+            members_info = self.get_parsed_members_info()
+        except Exception as e:
+            self.log.warning("Failed to collect members info, continuing: %s", e)
         for m in members_info:
             self.gauge(
                 "cloudsmith.member.active",

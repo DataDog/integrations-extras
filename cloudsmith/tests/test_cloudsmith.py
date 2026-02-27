@@ -513,6 +513,7 @@ def test_get_api_json_exceptions(instance_good, mocker):
     # JSONDecodeError
     class MockBadResponse:
         status_code = 200
+        headers = {}
 
         def json(self):
             raise json.JSONDecodeError("Expecting value", "doc", 0)
@@ -747,3 +748,198 @@ def test_realtime_bandwidth_metrics_insufficient_points(
 
     # Ensure realtime metric not emitted
     assert "cloudsmith.bandwidth_bytes_interval" not in aggregator._metrics
+
+
+# --- Rate-limit (429) and resilience tests ---
+
+
+def test_get_api_json_429_retry_success(instance_good, mocker, aggregator):
+    """A 429 followed by a 200 should succeed after a short retry."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    class Mock429Response:
+        status_code = 429
+        headers = {
+            "x-ratelimit-reset": str(time.time() + 2),
+            "x-ratelimit-remaining": "0",
+            "x-ratelimit-limit": "10800",
+        }
+
+    class Mock200Response:
+        status_code = 200
+        headers = {}
+
+        def json(self):
+            return {"ok": True}
+
+    mocker.patch(
+        "datadog_checks.base.utils.http.requests.Session.get",
+        side_effect=[Mock429Response(), Mock200Response()],
+    )
+    mocker.patch("time.sleep")  # Don't actually sleep in tests
+
+    result = check.get_api_json("https://api.cloudsmith.io/v1/test")
+    assert result == {"ok": True}
+    # Verify we slept once (for the retry)
+    time.sleep.assert_called_once()
+
+
+def test_get_api_json_429_exhausted_retries(instance_good, mocker, aggregator):
+    """All retries exhausted on 429 should return None and set WARNING service check."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    class Mock429Response:
+        status_code = 429
+        headers = {"Retry-After": "1"}
+
+    mocker.patch(
+        "datadog_checks.base.utils.http.requests.Session.get",
+        return_value=Mock429Response(),
+    )
+    mocker.patch("time.sleep")
+
+    result = check.get_api_json("https://api.cloudsmith.io/v1/test")
+    assert result is None
+    aggregator.assert_service_check("cloudsmith.can_connect", CloudsmithCheck.WARNING)
+
+
+def test_get_api_json_429_no_headers_uses_default_wait(instance_good, mocker, aggregator):
+    """When 429 has no rate-limit headers, use a sensible default wait."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    class Mock429NoHeaders:
+        status_code = 429
+        headers = {}
+
+    class Mock200Response:
+        status_code = 200
+        headers = {}
+
+        def json(self):
+            return {"ok": True}
+
+    mocker.patch(
+        "datadog_checks.base.utils.http.requests.Session.get",
+        side_effect=[Mock429NoHeaders(), Mock200Response()],
+    )
+    mocker.patch("time.sleep")
+
+    result = check.get_api_json("https://api.cloudsmith.io/v1/test")
+    assert result == {"ok": True}
+    # Default wait is 5 seconds when no headers present
+    time.sleep.assert_called_once_with(5)
+
+
+def test_get_api_json_429_reset_too_far_skips_retries(instance_good, mocker, aggregator):
+    """If x-ratelimit-reset is far in the future (> RATE_LIMIT_MAX_WAIT),
+    skip retries immediately instead of wasting time sleeping."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    class Mock429FarReset:
+        status_code = 429
+        headers = {
+            # Reset 120s in the future — way beyond the 10s cap
+            "x-ratelimit-reset": str(time.time() + 120),
+            "x-ratelimit-remaining": "0",
+            "x-ratelimit-limit": "10800",
+        }
+
+    mocker.patch(
+        "datadog_checks.base.utils.http.requests.Session.get",
+        return_value=Mock429FarReset(),
+    )
+    mocker.patch("time.sleep")
+
+    result = check.get_api_json("https://api.cloudsmith.io/v1/test")
+    assert result is None
+    # Should NOT have slept at all — bail out immediately
+    time.sleep.assert_not_called()
+    aggregator.assert_service_check("cloudsmith.can_connect", CloudsmithCheck.WARNING)
+
+
+def test_check_continues_on_usage_api_failure(aggregator, instance_good, mocker):
+    """If get_parsed_usage_info raises, the rest of the check still runs."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    check.get_parsed_usage_info = MagicMock(side_effect=Exception("usage API down"))
+    check.get_parsed_entitlement_info = MagicMock(
+        return_value={"token_count": 5, "token_bandwidth_total": 100, "token_download_total": 10}
+    )
+    check.get_parsed_audit_log_info = MagicMock(
+        return_value=[
+            {
+                "actor": "a",
+                "actor_kind": "user",
+                "city": "x",
+                "event": "login",
+                "event_at": int(time.time()),
+                "object": "obj",
+                "object_slug_perm": "slug",
+            }
+        ]
+    )
+    check.get_parsed_vulnerabilities_info = MagicMock(return_value=[])
+    check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_members_info = MagicMock(return_value=[])
+
+    # Should not raise
+    check.check(None)
+
+    # Usage defaults should be used (-1), but entitlement metrics should still be submitted
+    aggregator.assert_metric("cloudsmith.token_count", 5)
+    aggregator.assert_metric("cloudsmith.storage_used", -1)
+
+
+def test_check_continues_on_members_api_failure(aggregator, instance_good, mocker):
+    """If get_parsed_members_info raises, the check still submits other metrics."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    check.get_parsed_usage_info = MagicMock(
+        return_value={
+            "storage_mark": CloudsmithCheck.OK,
+            "storage_used": 10.0,
+            "bandwidth_mark": CloudsmithCheck.OK,
+            "bandwidth_used": 5.0,
+            "storage_used_bytes": 1000,
+            "storage_plan_limit_bytes": 2000,
+            "bandwidth_used_bytes": 3000,
+            "bandwidth_plan_limit_bytes": 4000,
+            "storage_used_gb": 1.0,
+            "storage_plan_limit_gb": 2.0,
+            "bandwidth_used_gb": 3.0,
+            "bandwidth_plan_limit_gb": 4.0,
+            "storage_configured_bytes": 2000,
+            "bandwidth_configured_bytes": 4000,
+            "storage_configured_gb": 2.0,
+            "bandwidth_configured_gb": 4.0,
+        }
+    )
+    check.get_parsed_entitlement_info = MagicMock(
+        return_value={"token_count": 5, "token_bandwidth_total": 100, "token_download_total": 10}
+    )
+    check.get_parsed_audit_log_info = MagicMock(
+        return_value=[
+            {
+                "actor": "a",
+                "actor_kind": "user",
+                "city": "x",
+                "event": "login",
+                "event_at": int(time.time()),
+                "object": "obj",
+                "object_slug_perm": "slug",
+            }
+        ]
+    )
+    check.get_parsed_vulnerabilities_info = MagicMock(return_value=[])
+    check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
+    check.get_parsed_members_info = MagicMock(side_effect=Exception("members API down"))
+
+    # Should not raise
+    check.check(None)
+
+    # Other metrics should still be submitted
+    aggregator.assert_metric("cloudsmith.storage_used", 10.0)
+    aggregator.assert_metric("cloudsmith.token_count", 5)
+    aggregator.assert_service_check("cloudsmith.storage", CloudsmithCheck.OK)
