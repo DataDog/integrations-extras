@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Backstage][1] is an open platform for building Developer Portals. This integration enables you to embed Datadog graphs and dashboards into your Backstage instance.
+[Backstage][1] is an open platform for building Developer Portals. This integration enables you to embed Datadog graphs and dashboards into your Backstage instance. You can also use the [Datadog Backstage plugin][5] to sync Backstage catalog entities into Datadog Software Catalog.
 
 ## Setup
 
@@ -10,25 +10,25 @@
 
 1. Install the Datadog plugin into Backstage:
 
-```shell
-cd packages/app
-yarn add @roadiehq/backstage-plugin-datadog
-```
+   ```shell
+   cd packages/app
+   yarn add @roadiehq/backstage-plugin-datadog
+   ```
 
 2. Add the Datadog plugin widget to your Backstage Overview tab. See the [detailed instructions][2] for more information.
 3. Find or create the [public URL][3] for your Datadog dashboard. 
 4. Add the dashboard URL to the plugin's metadata:
 
-```yaml
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: sample-service
-  description: |
-    A sample service
-  annotations:
-    datadoghq.com/dashboard-url: <DATADOGURL>
-```
+   ```yaml
+   apiVersion: backstage.io/v1alpha1
+   kind: Component
+   metadata:
+     name: sample-service
+     description: |
+       A sample service
+     annotations:
+       datadoghq.com/dashboard-url: <DATADOGURL>
+   ```
 
 ### Verification
 
@@ -56,3 +56,4 @@ Need help? Reach out to the [Backstage Community](https://backstage.io/community
 [2]: https://roadie.io/backstage/plugins/datadog/
 [3]: https://docs.datadoghq.com/dashboards/sharing/#share-a-dashboard-by-public-url
 [4]: https://raw.githubusercontent.com/RoadieHQ/roadie-backstage-plugins/main/plugins/frontend/backstage-plugin-datadog/docs/datadog-widget.png
+[5]: https://docs.datadoghq.com/internal_developer_portal/software_catalog/set_up/import_entities/#sync-backstage-entities-into-datadog-software-catalog
