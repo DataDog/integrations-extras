@@ -1,0 +1,62 @@
+- name: fast-job-pass
+  uuid: 1fastjob-pass-1111-1111-111111111111
+  description: ''
+  executionEnabled: true
+  loglevel: INFO
+  multipleExecutions: true
+  sequence:
+    keepgoing: false
+    strategy: node-first
+    commands:
+    - script: |-
+        #!/bin/bash
+        echo "Task completed successfully."
+        exit 0
+- name: fast-job-fail
+  uuid: 1fastjob-fail-1111-1111-111111111111
+  description: ''
+  executionEnabled: true
+  loglevel: INFO
+  multipleExecutions: true
+  sequence:
+    keepgoing: false
+    strategy: node-first
+    commands:
+    - script: |-
+        #!/bin/bash
+        echo "Task failed successfully."
+        exit 1
+- name: slow-random-pass-or-fail
+  uuid: 1slowjob-pass-fail-1111-111111111111
+  description: ''
+  executionEnabled: true
+  loglevel: INFO
+  multipleExecutions: true
+  schedule:
+    month: '*'
+    time:
+      hour: '*'
+      minute: '*'
+      seconds: '0'
+    weekday:
+      day: '*'
+    year: '*'
+  scheduleEnabled: true
+  sequence:
+    keepgoing: false
+    strategy: node-first
+    commands:
+    - script: |-
+        #!/bin/bash
+        SLEEP_TIME=$(( (RANDOM % 61) + 80 ))
+        echo "Sleeping for ${SLEEP_TIME} seconds..."
+        sleep $SLEEP_TIME
+
+        # Fail if the number is 20 or less (20% chance)
+        if [ $(( $RANDOM % 100 + 1 )) -le 20 ]; then
+            echo "Random failure triggered!" >&2
+            exit 1
+        fi
+
+        echo "Task completed successfully."
+        exit 0
