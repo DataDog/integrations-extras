@@ -8,6 +8,10 @@
 * Allow different profiles (with custom filters) to extract more granural bandwidth data
 * New dashboard group "Org Bandwidth Overview" with query-value and timeseries widgets
 
+### FIXED
+
+* Quota endpoint converations were off by slight margin, this has now been resolved
+
 ### 1.2.0 / 2025-11-03
 
 ### Added

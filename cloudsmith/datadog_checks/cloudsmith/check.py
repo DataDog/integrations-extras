@@ -536,7 +536,6 @@ class CloudsmithCheck(AgentCheck):
         bandwidth_used = -1
         storage_mark = self.UNKNOWN
         bandwidth_mark = self.UNKNOWN
-        storage_peak_bytes = -1
         storage_configured_bytes = -1
         storage_plan_limit_bytes = -1
         bandwidth_used_bytes = -1
@@ -544,8 +543,8 @@ class CloudsmithCheck(AgentCheck):
         bandwidth_configured_bytes = -1
 
         if "usage" in response_json and "raw" in response_json["usage"]:
-            # Extract raw bytes and plan limits using peak instead of used
-            storage_peak_bytes = response_json["usage"]["raw"]["storage"].get("peak", -1)
+            # Extract raw bytes and plan limits
+            storage_used_bytes_val = response_json["usage"]["raw"]["storage"].get("used", -1)
             storage_configured_bytes = response_json["usage"]["raw"]["storage"].get("configured", -1)
             storage_plan_limit_bytes = response_json["usage"]["raw"]["storage"].get("plan_limit", -1)
             bandwidth_used_bytes = response_json["usage"]["raw"]["bandwidth"].get("used", -1)
@@ -571,25 +570,25 @@ class CloudsmithCheck(AgentCheck):
         else:
             self.log.warning("Error while parsing JSON for usage information")
 
-        # Update GB conversions using peak
-        storage_used_gb = round(storage_peak_bytes / (1024**3), 2) if storage_peak_bytes != -1 else -1
-        storage_plan_limit_gb = round(storage_plan_limit_bytes / (1024**3), 2) if storage_plan_limit_bytes != -1 else -1
-        bandwidth_used_gb = round(bandwidth_used_bytes / (1024**3), 2) if bandwidth_used_bytes != -1 else -1
-        bandwidth_plan_limit_gb = (
-            round(bandwidth_plan_limit_bytes / (1024**3), 2) if bandwidth_plan_limit_bytes != -1 else -1
+        # Convert raw bytes to GB using Cloudsmith's convention (bytes * 1000 / 1024^4)
+        storage_used_gb = round(storage_used_bytes_val * 1000 / (1024**4), 2) if storage_used_bytes_val != -1 else -1
+        storage_plan_limit_gb = (
+            round(storage_plan_limit_bytes * 1000 / (1024**4), 2) if storage_plan_limit_bytes != -1 else -1
         )
-        # New: configured values in GB
-        storage_configured_gb = round(storage_configured_bytes / (1024**3), 2) if storage_configured_bytes != -1 else -1
+        bandwidth_used_gb = round(bandwidth_used_bytes * 1000 / (1024**4), 2) if bandwidth_used_bytes != -1 else -1
+        bandwidth_plan_limit_gb = (
+            round(bandwidth_plan_limit_bytes * 1000 / (1024**4), 2) if bandwidth_plan_limit_bytes != -1 else -1
+        )
+        # Configured values in GB
+        storage_configured_gb = (
+            round(storage_configured_bytes * 1000 / (1024**4), 2) if storage_configured_bytes != -1 else -1
+        )
         bandwidth_configured_gb = (
-            round(bandwidth_configured_bytes / (1024**3), 2) if bandwidth_configured_bytes != -1 else -1
+            round(bandwidth_configured_bytes * 1000 / (1024**4), 2) if bandwidth_configured_bytes != -1 else -1
         )
 
-        # Update percentage used: peak / configured * 100
-        storage_used = (
-            round((storage_peak_bytes / storage_configured_bytes) * 100, 3)
-            if (storage_peak_bytes != -1 and storage_configured_bytes != -1)
-            else -1
-        )
+        # Use API-provided percentage (consistent with how bandwidth_used is handled)
+        storage_used = response_json["usage"]["raw"]["storage"].get("percentage_used", -1)
 
         if storage_mark == self.OK:
             if storage_used >= CRITICAL_QUOTA:
@@ -608,8 +607,7 @@ class CloudsmithCheck(AgentCheck):
             "storage_used": storage_used,
             "bandwidth_mark": bandwidth_mark,
             "bandwidth_used": bandwidth_used,
-            # Note: for bytes, we keep the peak value for storage, and used for bandwidth
-            "storage_used_bytes": storage_peak_bytes,
+            "storage_used_bytes": storage_used_bytes_val,
             "storage_plan_limit_bytes": storage_plan_limit_bytes,
             "bandwidth_used_bytes": bandwidth_used_bytes,
             "bandwidth_plan_limit_bytes": bandwidth_plan_limit_bytes,
