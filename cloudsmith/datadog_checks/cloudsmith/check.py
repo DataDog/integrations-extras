@@ -1,14 +1,14 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from json import JSONDecodeError
 from urllib.error import HTTPError
+from urllib.parse import urlencode
 
 from requests.exceptions import InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
 
-METRIC = "/metrics/entitlements/"
 QUOTA = "/quota/"
 AUDIT_LOG = "/audit-log/"
 VULNERABILITIES = "/vulnerabilities/"
@@ -18,11 +18,52 @@ MEMBERS = "/members/"
 ANALYTICS_METRICS_CLIENT_TIME_SERIES = "/analytics/metrics/client/time-series/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
+
+# Bandwidth analytics profile constants
+VALID_INTERVALS = {
+    "minute": 60,
+    "five_minutes": 300,
+    "fifteen_minutes": 900,
+    "hour": 3600,
+    "day": 86400,
+    "week": 604800,
+    "month": 2592000,
+    "year": 31536000,
+}
+VALID_AGGREGATES = {"bytes_downloaded_sum", "request_count"}
+VALID_FILTERS = [
+    "repository",
+    "repository_type",
+    "broadcast_state",
+    "package",
+    "package_format",
+    "user",
+    "user_type",
+    "entitlement_token",
+    "ip_address",
+    "country",
+    "http_status",
+    "edge_response",
+]
+LOOKBACK_INTERVALS = 3
+
 LAST_VULNERABILITY_STAMP = 0
 LAST_AUDIT_LOG_STAMP = 0
 AUDIT_LOG_LAST_RUN = 0
 VULNERABILITY_LAST_RUN = 0
 LICENSE_VIOLATION_LAST_RUN = 0
+
+# Mapping from aggregate name to Datadog metric suffix
+AGGREGATE_METRIC_MAP = {
+    "bytes_downloaded_sum": "cloudsmith.analytics.bytes_downloaded_sum",
+    "request_count": "cloudsmith.analytics.request_count",
+}
+
+# Org-wide bandwidth metric names (no profile tag)
+ORG_METRIC_MAP = {
+    "bytes_downloaded_sum": "cloudsmith.bandwidth.bytes_downloaded",
+    "request_count": "cloudsmith.bandwidth.request_count",
+}
 
 
 def audit_log_resp_good():
@@ -86,21 +127,41 @@ class CloudsmithCheck(AgentCheck):
         self.base_url = self.instance.get("url")
         self.api_key = self.instance.get("cloudsmith_api_key")
         self.org = self.instance.get("organization")
-        # Realtime bandwidth configuration and internal state
-        self.enable_realtime_bandwidth = bool(self.instance.get("enable_realtime_bandwidth", False))
-        self._RT_INTERVAL = "minute"
-        self._RT_AGGREGATE = "BYTES_DOWNLOADED_SUM"
-        self._RT_LOOKBACK_MINUTES = 120
-        self._RT_REFRESH_SECONDS = 300
-        self._RT_MIN_POINTS = 2
-        self._rt_last_ts = 0
-        self._rt_last_fetch = 0
-        self._rt_metrics = {"bandwidth_bytes_interval": None}
 
         # Track rate-limit quota from API response headers
         self._ratelimit_remaining = None
 
         self.validate_config()
+
+        # Global bandwidth interval (used by both org-wide and profiles)
+        self.bandwidth_interval = self.instance.get("bandwidth_interval", "five_minutes")
+        if self.bandwidth_interval not in VALID_INTERVALS:
+            raise ConfigurationError(
+                "bandwidth_interval must be one of {}, got '{}'.".format(
+                    list(VALID_INTERVALS.keys()), self.bandwidth_interval
+                )
+            )
+
+        # Org-wide realtime bandwidth toggle
+        self.enable_realtime_bandwidth = self.instance.get("enable_realtime_bandwidth", True)
+
+        # Parse and validate bandwidth profiles
+        self.bandwidth_profiles = self.instance.get("bandwidth_profiles", [])
+        self._validate_bandwidth_profiles()
+
+        # Track last submitted API timestamp per profile (epoch int) for dedup
+        self._profile_last_ts = {}
+        # Pre-compute tags per profile — emit tags for ALL configured filter keys
+        self._profile_tags = {}
+        for profile in self.bandwidth_profiles:
+            pname = profile["name"]
+            ptags = ["profile:{}".format(pname)]
+            for key in VALID_FILTERS:
+                values = profile.get(key)
+                if values:
+                    for v in values:
+                        ptags.append("{}:{}".format(key, v))
+            self._profile_tags[pname] = ptags
 
         self.log.debug("Cloudsmith monitoring starting on %s", self.base_url)
 
@@ -122,64 +183,193 @@ class CloudsmithCheck(AgentCheck):
         url = self.base_url.rstrip("/") + path + self.org
         return url
 
-    def build_analytics_base(self):
+    def _validate_bandwidth_profiles(self):
+        """Validate bandwidth_profiles configuration at init time."""
+        seen_names = set()
+        for i, profile in enumerate(self.bandwidth_profiles):
+            if not isinstance(profile, dict):
+                raise ConfigurationError("bandwidth_profiles[{}]: each profile must be a mapping.".format(i))
+            name = profile.get("name")
+            if not name or not isinstance(name, str):
+                raise ConfigurationError("bandwidth_profiles[{}]: 'name' is required and must be a string.".format(i))
+            if name in seen_names:
+                raise ConfigurationError("bandwidth_profiles: duplicate profile name '{}'.".format(name))
+            seen_names.add(name)
+
+            # Per-profile interval is no longer supported — use bandwidth_interval
+            if "interval" in profile:
+                raise ConfigurationError(
+                    "bandwidth_profiles[{}] ('{}'): per-profile 'interval' is no longer supported. "
+                    "Use the top-level 'bandwidth_interval' setting instead.".format(i, name)
+                )
+
+            aggregate = profile.get("aggregate")
+            if not aggregate or aggregate not in VALID_AGGREGATES:
+                raise ConfigurationError(
+                    "bandwidth_profiles[{}] ('{}'): 'aggregate' must be one of {}.".format(
+                        i, name, sorted(VALID_AGGREGATES)
+                    )
+                )
+
+            # Normalise list filter values — ensure single strings become lists
+            for key in VALID_FILTERS:
+                val = profile.get(key)
+                if val is not None and not isinstance(val, list):
+                    profile[key] = [val]
+
+    def _build_analytics_base_url(self):
+        """Build v2 analytics base URL from the configured v1 base URL."""
         base = self.base_url.rstrip("/")
         if base.endswith("/v1"):
             base = base[:-3] + "/v2"
+        elif not base.endswith("/v2"):
+            base = base + "/v2"
         return base + ANALYTICS_METRICS_CLIENT_TIME_SERIES + self.org + "/"
 
-    def build_analytics_url(self):
-        from datetime import timedelta
+    def _build_analytics_url(self, aggregate, filters=None):
+        """Build an analytics API URL.
 
-        interval = self._RT_INTERVAL
-        interval_sec = 60
-        if self._rt_last_ts > 0:
-            start_dt = datetime.utcfromtimestamp(self._rt_last_ts + interval_sec)
-        else:
-            start_dt = datetime.utcnow() - timedelta(minutes=self._RT_LOOKBACK_MINUTES)
-        start_str = start_dt.strftime("%Y-%m-%d+%H:%M")
-        aggregate = self._RT_AGGREGATE
-        return (
-            self.build_analytics_base()
-            + f"?interval={interval}&aggregate={aggregate}"
-            + f"&start_time={start_str}&http_status=<400"
-        )
+        Args:
+            aggregate: The aggregate type (e.g. 'bytes_downloaded_sum').
+            filters: Optional dict-like object with filter keys from VALID_FILTERS.
+                     When provided, matching key/value pairs are appended as query params.
+        """
+        base = self._build_analytics_base_url()
+        interval_seconds = VALID_INTERVALS[self.bandwidth_interval]
 
-    def get_realtime_bandwidth_info(self):
-        url = self.build_analytics_url()
-        try:
-            return self.get_api_json(url)
-        except Exception as e:
-            self.log.warning(
-                "Failed to fetch realtime bandwidth data from %s: %s",
-                url,
-                e,
-            )
-            return None
+        now_utc = datetime.now(timezone.utc)
+        start_dt = now_utc - timedelta(seconds=LOOKBACK_INTERVALS * interval_seconds)
+        start_str = start_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    def parse_realtime_bandwidth(self, response_json):
-        result = {"bandwidth_bytes_interval": None}
-        if not response_json:
-            self.log.debug("Realtime bandwidth endpoint returned no payload; skipping update.")
-            return result
-        results = response_json.get("results") or []
+        params = [
+            ("interval", self.bandwidth_interval),
+            ("aggregate", aggregate),
+            ("start_time", start_str),
+        ]
+
+        if filters:
+            for key in VALID_FILTERS:
+                values = filters.get(key)
+                if values:
+                    for v in values:
+                        params.append((key, str(v)))
+
+        return base + "?" + urlencode(params)
+
+    def _process_timeseries(self, response_json, metric_name, tags, dedup_key, label):
+        """Process an analytics time-series API response and submit the latest data point.
+
+        Handles empty responses, incomplete-bucket trimming, API-settle trimming,
+        and deduplication.  Submits a zero gauge when no actionable data is available
+        so that Datadog doesn't interpolate stale values.
+
+        Args:
+            response_json: Parsed JSON from the analytics API (may be None).
+            metric_name: The Datadog metric name to submit.
+            tags: List of tags for the gauge.
+            dedup_key: Key into ``_profile_last_ts`` for deduplication.
+            label: Human-readable label for log messages (e.g. "profile 'prod'").
+        """
+        if response_json is None:
+            return
+
+        results = response_json.get("results", [])
         if not results:
-            self.log.debug("Realtime bandwidth endpoint returned no results; skipping update.")
-            return result
+            self.log.debug("No data for %s; submitting zero.", label)
+            self.gauge(metric_name, 0.0, tags=tags)
+            return
+
         series = results[0]
         timestamps = series.get("timestamps") or []
         values = series.get("values") or []
-        if len(values) < self._RT_MIN_POINTS or len(timestamps) < self._RT_MIN_POINTS:
-            return result
+
+        if not timestamps or not values:
+            self.log.debug("Empty time-series for %s; submitting zero.", label)
+            self.gauge(metric_name, 0.0, tags=tags)
+            return
+
+        # Drop the last bucket if its interval window hasn't closed yet.
+        interval_seconds = VALID_INTERVALS[self.bandwidth_interval]
+        now_epoch = int(datetime.now(timezone.utc).timestamp())
+
         try:
-            last_val = float(values[-1])
-            last_ts_dt = datetime.strptime(timestamps[-1], "%Y-%m-%dT%H:%M:%SZ")
-            last_ts = int(last_ts_dt.timestamp())
-        except (ValueError, TypeError):
-            return result
-        result["bandwidth_bytes_interval"] = last_val
-        self._rt_last_ts = last_ts
-        return result
+            last_ts_epoch = self.convert_time(timestamps[-1])
+        except ValueError:
+            last_ts_epoch = 0
+
+        if last_ts_epoch + interval_seconds > now_epoch:
+            self.log.debug("%s: dropping incomplete bucket at %s.", label, timestamps[-1])
+            timestamps = timestamps[:-1]
+            values = values[:-1]
+
+        if not timestamps or not values:
+            self.log.debug("Only incomplete data for %s; submitting zero.", label)
+            self.gauge(metric_name, 0.0, tags=tags)
+            return
+
+        latest_ts_str = timestamps[-1]
+        latest_val = values[-1]
+
+        if not latest_ts_str or latest_val is None:
+            self.log.debug("Missing timestamp or value for %s; skipping.", label)
+            return
+
+        try:
+            latest_ts_epoch = self.convert_time(latest_ts_str)
+        except ValueError:
+            self.log.warning("Could not parse timestamp '%s' for %s.", latest_ts_str, label)
+            return
+
+        # Dedup: only submit if this timestamp is newer than the last one we submitted.
+        last_submitted = self._profile_last_ts.get(dedup_key, 0)
+        if latest_ts_epoch <= last_submitted:
+            self.log.debug("No new data for %s; submitting zero.", label)
+            self.gauge(metric_name, 0.0, tags=tags)
+            return
+
+        self.gauge(metric_name, float(latest_val), tags=tags)
+        self._profile_last_ts[dedup_key] = latest_ts_epoch
+        self.log.debug("Submitted %s=%.2f for %s (ts=%s).", metric_name, float(latest_val), label, latest_ts_str)
+
+    def _collect_bandwidth_profiles(self):
+        """Fetch and submit metrics for all configured bandwidth profiles."""
+        if not self.bandwidth_profiles:
+            return
+
+        for profile in self.bandwidth_profiles:
+            pname = profile["name"]
+            try:
+                self._collect_single_profile(profile)
+            except Exception as e:
+                self.log.warning("Failed to collect bandwidth profile '%s': %s", pname, e)
+
+    def _collect_org_bandwidth(self):
+        """Fetch and submit org-wide bandwidth metrics (both aggregates, no filters)."""
+        if not self.enable_realtime_bandwidth:
+            return
+
+        for aggregate, metric_name in ORG_METRIC_MAP.items():
+            dedup_key = "_org_{}".format(aggregate)
+            label = "org bandwidth '{}'".format(aggregate)
+            url = self._build_analytics_url(aggregate)
+            self.log.debug("%s requesting URL: %s", label, url)
+            try:
+                response_json = self.get_api_json(url)
+                self._process_timeseries(response_json, metric_name, self.tags, dedup_key, label)
+            except Exception as e:
+                self.log.warning("Failed to collect %s: %s", label, e)
+
+    def _collect_single_profile(self, profile):
+        """Fetch analytics data for one profile and submit the latest new data point."""
+        pname = profile["name"]
+        metric_name = AGGREGATE_METRIC_MAP[profile["aggregate"]]
+        profile_tags = self.tags + self._profile_tags.get(pname, [])
+        label = "profile '{}'".format(pname)
+
+        url = self._build_analytics_url(profile["aggregate"], filters=profile)
+        self.log.debug("%s requesting URL: %s", label, url)
+        response_json = self.get_api_json(url)
+        self._process_timeseries(response_json, metric_name, profile_tags, pname, label)
 
     def convert_time(self, value):
         # Support timestamps with or without microseconds; raise if neither matches.
@@ -317,11 +507,6 @@ class CloudsmithCheck(AgentCheck):
         response_json = self.get_api_json(url)
         return response_json
 
-    def get_entitlement_info(self):
-        url = self.get_full_path(METRIC)
-        response_json = self.get_api_json(url)
-        return response_json
-
     def get_audit_log_info(self):
         url = self.get_full_path(AUDIT_LOG)
         response_json = self.get_api_json(url)
@@ -343,44 +528,6 @@ class CloudsmithCheck(AgentCheck):
                 all_results.extend(response_json.get("results", []))
                 url = response_json.get("next")
         return all_results
-
-    def get_parsed_entitlement_info(self):
-        token_count = -1
-        bandwidth_total = -1
-        download_total = -1
-
-        response_json = self.get_entitlement_info()
-
-        if "tokens" in response_json:
-            if "total" in response_json["tokens"]:
-                token_count = response_json["tokens"]["total"]
-            else:
-                self.log.warning("Error when parsing JSON for total token usage")
-            if (
-                "bandwidth" in response_json["tokens"]
-                and "total" in response_json["tokens"]["bandwidth"]
-                and "value" in response_json["tokens"]["bandwidth"]["total"]
-            ):
-                bandwidth_total = response_json["tokens"]["bandwidth"]["total"]["value"]
-            else:
-                self.log.warning("Error when parsing JSON for total token bandwidth usage")
-            if (
-                "downloads" in response_json["tokens"]
-                and "total" in response_json["tokens"]["downloads"]
-                and "value" in response_json["tokens"]["downloads"]["total"]
-            ):
-                download_total = response_json["tokens"]["downloads"]["total"]["value"]
-            else:
-                self.log.warning("Error when parsing JSON for total token download usage")
-        else:
-            self.log.warning("Error when parsing JSON for tokens")
-
-        entitlement_info = {
-            "token_count": token_count,
-            "token_bandwidth_total": bandwidth_total,
-            "token_download_total": download_total,
-        }
-        return entitlement_info
 
     def get_parsed_usage_info(self):
         response_json = self.get_usage_info()
@@ -671,11 +818,6 @@ class CloudsmithCheck(AgentCheck):
             "storage_configured_gb": -1,
             "bandwidth_configured_gb": -1,
         }
-        entitlement_info = {
-            "token_count": -1,
-            "token_bandwidth_total": -1,
-            "token_download_total": -1,
-        }
 
         audit_log_info = [
             {
@@ -714,10 +856,17 @@ class CloudsmithCheck(AgentCheck):
         except Exception as e:
             self.log.warning("Failed to collect usage info, continuing with defaults: %s", e)
 
+        # Org-wide realtime bandwidth
         try:
-            entitlement_info = self.get_parsed_entitlement_info()
+            self._collect_org_bandwidth()
         except Exception as e:
-            self.log.warning("Failed to collect entitlement info, continuing with defaults: %s", e)
+            self.log.warning("Failed to collect org bandwidth: %s", e)
+
+        # Bandwidth analytics profiles
+        try:
+            self._collect_bandwidth_profiles()
+        except Exception as e:
+            self.log.warning("Failed to collect bandwidth profiles: %s", e)
 
         # Only run audit log and vulnerability checks if the last check was more than 5 minutes ago
         # This will prevent the check from running too often and hitting the rate limit
@@ -736,15 +885,6 @@ class CloudsmithCheck(AgentCheck):
             except Exception as e:
                 self.log.warning("Failed to collect vulnerabilities info, continuing with defaults: %s", e)
 
-        # Realtime bandwidth metrics collection
-        realtime_metrics = {"bandwidth_bytes_interval": None}
-        if self.enable_realtime_bandwidth:
-            now = time.time()
-            if now - self._rt_last_fetch > self._RT_REFRESH_SECONDS:
-                response_json = self.get_realtime_bandwidth_info()
-                realtime_metrics = self.parse_realtime_bandwidth(response_json)
-                self._rt_last_fetch = now
-
         try:
             policy_violations_info = self.get_parsed_vuln_policy_violation_info()
         except Exception as e:
@@ -758,7 +898,7 @@ class CloudsmithCheck(AgentCheck):
                     f"Package: {v['package']}\n"
                     f"Policy: `{v['policy']}`\n"
                     f"Violations: {v['violations']}\n"
-                    f"Detected at: {datetime.utcfromtimestamp(v['last_detected']).isoformat()}"
+                    f"Detected at: {datetime.fromtimestamp(v['last_detected'], tz=timezone.utc).isoformat()}"
                 ),
                 "aggregation_key": "vulnerability_policy_violation",
                 "tags": self.tags + [f"package:{v['package']}", f"policy:{v['policy']}"],
@@ -857,24 +997,6 @@ class CloudsmithCheck(AgentCheck):
         self.gauge("cloudsmith.bandwidth_configured_bytes", usage_info["bandwidth_configured_bytes"], tags=self.tags)
         self.gauge("cloudsmith.storage_configured_gb", usage_info["storage_configured_gb"], tags=self.tags)
         self.gauge("cloudsmith.bandwidth_configured_gb", usage_info["bandwidth_configured_gb"], tags=self.tags)
-        self.gauge("cloudsmith.token_count", entitlement_info["token_count"], tags=self.tags)
-        self.gauge(
-            "cloudsmith.token_bandwidth_total",
-            entitlement_info["token_bandwidth_total"],
-            tags=self.tags,
-        )
-        self.gauge(
-            "cloudsmith.token_download_total",
-            entitlement_info["token_download_total"],
-            tags=self.tags,
-        )
-        # Submit realtime bandwidth gauge if present
-        if self.enable_realtime_bandwidth and realtime_metrics.get("bandwidth_bytes_interval") is not None:
-            self.gauge(
-                "cloudsmith.bandwidth_bytes_interval",
-                realtime_metrics["bandwidth_bytes_interval"],
-                tags=self.tags,
-            )
 
         # only create an event if the timestamp is newer than the last event
         # this is to prevent duplicate events as we pull down the entire audit log
@@ -971,7 +1093,8 @@ class CloudsmithCheck(AgentCheck):
         member_summary = "\n".join(
             f"{m.get('user_name', 'unknown')} ({m.get('role', 'unknown')}), "
             f"2FA: {m.get('has_two_factor', False)}, "
-            f"Last Login: {datetime.utcfromtimestamp(m.get('last_login_at', int(time.time()))).isoformat()}, "
+            f"Last Login: "
+            f"{datetime.fromtimestamp(m.get('last_login_at', int(time.time())), tz=timezone.utc).isoformat()}, "
             f"Slug: {m.get('user', 'unknown')}"
             for m in unique_members
         )

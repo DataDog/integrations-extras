@@ -28,8 +28,47 @@ files:
         example: Example CloudsmithOrg1
     - name: enable_realtime_bandwidth
       required: false
-      description: Enable realtime bandwidth metrics.
+      description: |
+        Enable org-wide realtime bandwidth monitoring.  When true (the default),
+        the check fetches total bytes downloaded and request count for the
+        entire organisation with no filters.  The interval used is controlled
+        by bandwidth_interval.
       value:
         type: boolean
-        example: false
+        example: true
+    - name: bandwidth_interval
+      required: false
+      description: |
+        Time granularity for all bandwidth collection (org-wide AND profiles).
+        Must be one of: minute, five_minutes, fifteen_minutes, hour, day,
+        week, month, year.  Defaults to five_minutes.
+      value:
+        type: string
+        example: five_minutes
+    - name: bandwidth_profiles
+      required: false
+      description: |
+        Named bandwidth monitoring profiles.  Each profile queries the Cloudsmith
+        analytics time-series API with its own aggregate and filters.  The
+        interval is shared via the top-level bandwidth_interval setting.
+        Metrics are tagged with profile:<name> plus tags for every configured
+        filter key.
+      value:
+        type: array
+        items:
+          type: object
+          properties:
+          - name: name
+            type: string
+            required: true
+          - name: aggregate
+            type: string
+            required: true
+        example:
+          - name: prod-python
+            aggregate: bytes_downloaded_sum
+            repository:
+              - production
+            package_format:
+              - python
     - template: instances/default

@@ -1,5 +1,13 @@
 # CHANGELOG - Cloudsmith
 
+### 1.34.0 / 2026-03-02
+
+### Added
+
+* Org-wide realtime bandwidth monitoring (`enable_realtime_bandwidth`, default `true`) — submits `cloudsmith.bandwidth.bytes_downloaded` and `cloudsmith.bandwidth.request_count` for the entire organisation with no filters
+* Allow different profiles (with custom filters) to extract more granural bandwidth data
+* New dashboard group "Org Bandwidth Overview" with query-value and timeseries widgets
+
 ### 1.2.0 / 2025-11-03
 
 ### Added
