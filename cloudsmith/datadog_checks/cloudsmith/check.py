@@ -589,7 +589,8 @@ class CloudsmithCheck(AgentCheck):
         )
 
         # Use API-provided percentage (consistent with how bandwidth_used is handled)
-        storage_used = response_json["usage"]["raw"]["storage"].get("percentage_used", -1)
+        if "usage" in response_json and "raw" in response_json["usage"] and "storage" in response_json["usage"]["raw"]:
+            storage_used = response_json["usage"]["raw"]["storage"].get("percentage_used", -1)
 
         if storage_mark == self.OK:
             if storage_used >= CRITICAL_QUOTA:
