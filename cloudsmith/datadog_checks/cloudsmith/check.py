@@ -536,6 +536,7 @@ class CloudsmithCheck(AgentCheck):
         bandwidth_used = -1
         storage_mark = self.UNKNOWN
         bandwidth_mark = self.UNKNOWN
+        storage_used_bytes_val = -1
         storage_configured_bytes = -1
         storage_plan_limit_bytes = -1
         bandwidth_used_bytes = -1
