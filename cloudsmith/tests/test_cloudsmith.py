@@ -50,6 +50,7 @@ def _mock_non_analytics(check):
     check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_members_info = MagicMock(return_value=[])
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
 
 
 @pytest.mark.unit
@@ -131,6 +132,19 @@ def test_check(
             }
         ]
     )
+    check.get_parsed_repositories_info = MagicMock(
+        return_value=[
+            {
+                "repository": "prod",
+                "repository_type": "private",
+                "storage_region": "default",
+                "visibility": "private",
+                "storage_bytes": 226620351,
+                "package_count": 42,
+                "download_count": 7,
+            }
+        ]
+    )
     check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
     check.get_vuln_policy_violation_info = MagicMock(return_value={"results": []})
 
@@ -152,6 +166,9 @@ def test_check(
     aggregator.assert_metric("cloudsmith.storage_configured_gb", 100.0, count=1)
     aggregator.assert_metric("cloudsmith.bandwidth_configured_bytes", 100000000000, count=1)
     aggregator.assert_metric("cloudsmith.bandwidth_configured_gb", 100.0, count=1)
+    aggregator.assert_metric("cloudsmith.repository.storage_bytes", 226620351, count=1)
+    aggregator.assert_metric("cloudsmith.repository.package_count", 42, count=1)
+    aggregator.assert_metric("cloudsmith.repository.download_count", 7, count=1)
     aggregator.assert_metric(
         "cloudsmith.member.active",
         1,
@@ -185,6 +202,7 @@ def test_check(
 def test_check_bad_usage(aggregator, instance_good, usage_resp_warning, usage_resp_critical):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_parsed_members_info = MagicMock(return_value=[])
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
 
     # Check for usage warning
     check.get_parsed_usage_info = MagicMock(
@@ -248,6 +266,7 @@ def test_check_bad_usage(aggregator, instance_good, usage_resp_warning, usage_re
 def test_check_badly_formatted_json(aggregator, instance_good, usage_resp_bad_json):
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_parsed_members_info = MagicMock(return_value=[])
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
 
     # Check for results if json usage doesn't have the expected keys
     check.get_parsed_usage_info = MagicMock(
@@ -324,6 +343,7 @@ def test_vulnerability_and_license_violations(
     )
     check.get_parsed_vulnerabilities_info = MagicMock(return_value=[])
     check.get_parsed_members_info = MagicMock(return_value=[])
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
     check.get_license_policy_violation_info = MagicMock(return_value={"results": []})
     check.get_vuln_policy_violation_info = MagicMock(return_value={"results": []})
 
@@ -401,6 +421,7 @@ def test_member_metrics_and_events(
     check.get_parsed_members_info = MagicMock(
         return_value=[{"is_active": True, "user": "testuser", "role": "admin", "has_two_factor": True}]
     )
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
     check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
     check.get_vuln_policy_violation_info = MagicMock(return_value={"results": []})
 
@@ -613,6 +634,56 @@ def test_filter_vulnerabilities(instance_good):
     assert "Critical" in severities
 
 
+def test_get_repositories_info_pagination(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+
+    def _mock_page(url):
+        if "page=1" in url:
+            check._pagination_page = 1
+            check._pagination_page_total = 2
+            return [
+                {"slug": "repo-a", "size": 10},
+                {"slug": "repo-b", "size": 20},
+            ]
+        check._pagination_page = 2
+        check._pagination_page_total = 2
+        return [{"slug": "repo-c", "size": 30}]
+
+    check.get_api_json = MagicMock(side_effect=_mock_page)
+
+    parsed = check.get_repositories_info()
+
+    assert len(parsed["results"]) == 3
+    assert [repo["slug"] for repo in parsed["results"]] == ["repo-a", "repo-b", "repo-c"]
+
+
+def test_get_parsed_repositories_info(instance_good):
+    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
+    check.get_repositories_info = MagicMock(
+        return_value={
+            "results": [
+                {
+                    "slug": "python",
+                    "repository_type_str": "Private",
+                    "storage_region": "default",
+                    "is_private": True,
+                    "size": 226620351,
+                    "package_count": 8,
+                    "num_downloads": 5,
+                }
+            ]
+        }
+    )
+
+    parsed = check.get_parsed_repositories_info()
+
+    assert parsed[0]["repository"] == "python"
+    assert parsed[0]["repository_type"] == "private"
+    assert parsed[0]["visibility"] == "private"
+    assert parsed[0]["storage_bytes"] == 226620351
+    assert parsed[0]["package_count"] == 8
+
+
 # --- Rate-limit (429) and resilience tests ---
 
 
@@ -742,6 +813,7 @@ def test_check_continues_on_usage_api_failure(aggregator, instance_good, mocker)
     check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_members_info = MagicMock(return_value=[])
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
 
     # Should not raise
     check.check(None)
@@ -791,6 +863,7 @@ def test_check_continues_on_members_api_failure(aggregator, instance_good, mocke
     check.get_parsed_vuln_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_license_policy_violation_info = MagicMock(return_value=[])
     check.get_parsed_members_info = MagicMock(side_effect=Exception("members API down"))
+    check.get_parsed_repositories_info = MagicMock(return_value=[])
 
     # Should not raise
     check.check(None)

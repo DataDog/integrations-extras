@@ -7,13 +7,15 @@ Cloudsmith is a fully managed cloud-native package management platform, used to 
 This integration enhances visibility into your Cloudsmith organization by collecting real-time observability data and surfacing it within the Datadog platform. Teams can monitor resource usage, enforce security compliance, and audit user activity-directly from within Datadog dashboards and monitors.
 
 The integration collects data from Cloudsmith's APIs and maps them to the following Datadog telemetry types:
-- **Metrics**: Storage and bandwidth usage, token activity, and active user metrics.
+- **Metrics**: Storage and bandwidth usage, repository-level storage/package/download counters, token activity, and active user metrics.
 - **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
 - **Service Checks**: Health status of quota consumption and API connectivity.
 
 Optional realtime bandwidth metric (disabled by default) can be enabled to emit `cloudsmith.bandwidth_bytes_interval`, representing bytes downloaded over the most recent analytics interval. Enable it by setting `enable_realtime_bandwidth: true` in `cloudsmith.d/conf.yaml`.
 
 With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
+
+Repository metrics from the Cloudsmith repositories endpoint are tagged with `repository:<slug>`, so users can filter dynamically in Datadog (for example, selecting one or two repositories from the `repository` dashboard template variable) without calling a separate per-repository endpoint.
 
 
 ## Setup
@@ -27,7 +29,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-cloudsmith==1.2.0
+   datadog-agent integration install -t datadog-cloudsmith==1.3.0
    ```
 
 2. Configure your integration similar to core [integrations][4].

@@ -1,12 +1,14 @@
 # CHANGELOG - Cloudsmith
 
-### UNRELEASED
+### 1.3.0 / 2026-03-03
 
 ### Added
 
 * Org-wide realtime bandwidth monitoring (`enable_realtime_bandwidth`, default `true`) — submits `cloudsmith.bandwidth.bytes_downloaded` and `cloudsmith.bandwidth.request_count` for the entire organisation with no filters
 * Allow different profiles (with custom filters) to extract more granural bandwidth data
 * New dashboard group "Org Bandwidth Overview" with query-value and timeseries widgets
+* Added repository-level gauges from `/repos/{owner}/` for live repository storage and operational counters: `cloudsmith.repository.storage_bytes`, `cloudsmith.repository.package_count`, and `cloudsmith.repository.download_count`
+* New dashboard group "Repository Overview" with repository-filtered query values and top lists for storage, package count, and download count
 
 ### FIXED
 

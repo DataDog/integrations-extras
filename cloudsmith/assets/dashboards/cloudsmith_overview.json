@@ -1000,6 +1000,174 @@
         ]
       },
       "layout": { "x": 0, "y": 39, "width": 12, "height": 16 }
+    },
+    {
+      "id": 2206100241327001,
+      "definition": {
+        "title": "Repository Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2206100241327002,
+            "definition": {
+              "title": "Total Repository Storage (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.storage_bytes{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327003,
+            "definition": {
+              "title": "Total Repository Package Count (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.package_count{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327004,
+            "definition": {
+              "title": "Total Repository Downloads (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.download_count{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327005,
+            "definition": {
+              "title": "Top Repositories by Storage",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.repository.storage_bytes{cloudsmith_org:$cloudsmith_org.value} by {repository}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2206100241327006,
+            "definition": {
+              "title": "Top Repositories by Package Count",
+              "type": "toplist",
+              "requests": [
+                {
+                  "q": "top(avg:cloudsmith.repository.package_count{cloudsmith_org:$cloudsmith_org.value} by {repository}, 10, 'mean', 'desc')"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2206100241327007,
+            "definition": {
+              "title": "Top Repositories by Download Count",
+              "type": "toplist",
+              "requests": [
+                {
+                  "q": "top(avg:cloudsmith.repository.download_count{cloudsmith_org:$cloudsmith_org.value} by {repository}, 10, 'mean', 'desc')"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 5, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 55, "width": 12, "height": 9 }
     }
   ],
   "template_variables": [

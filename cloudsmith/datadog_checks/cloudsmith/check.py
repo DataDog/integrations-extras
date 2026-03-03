@@ -15,6 +15,7 @@ VULNERABILITIES = "/vulnerabilities/"
 VULNERABILITY_POLICY_VIOLATION = "/vulnerability-policy-violation/"
 LICENSE_POLICY_VIOLATION = "/license-policy-violation/"
 MEMBERS = "/members/"
+REPOSITORIES = "/repos/"
 ANALYTICS_METRICS_CLIENT_TIME_SERIES = "/analytics/metrics/client/time-series/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
@@ -130,6 +131,8 @@ class CloudsmithCheck(AgentCheck):
 
         # Track rate-limit quota from API response headers
         self._ratelimit_remaining = None
+        self._pagination_page = None
+        self._pagination_page_total = None
 
         self.validate_config()
 
@@ -480,6 +483,7 @@ class CloudsmithCheck(AgentCheck):
 
             # Track rate-limit headers from every successful response
             self._update_ratelimit_headers(response)
+            self._update_pagination_headers(response)
 
             return response.json()
 
@@ -491,6 +495,17 @@ class CloudsmithCheck(AgentCheck):
             self._ratelimit_remaining = int(response.headers["x-ratelimit-remaining"])
         except (KeyError, ValueError, TypeError):
             pass
+
+    def _update_pagination_headers(self, response):
+        """Store pagination headers from the latest response, when available."""
+        try:
+            self._pagination_page = int(response.headers["x-pagination-page"])
+        except (KeyError, ValueError, TypeError):
+            self._pagination_page = None
+        try:
+            self._pagination_page_total = int(response.headers["x-pagination-pagetotal"])
+        except (KeyError, ValueError, TypeError):
+            self._pagination_page_total = None
 
     def _get_rate_limit_wait(self, response):
         """Return seconds to wait based on the X-RateLimit-Reset header."""
@@ -740,6 +755,40 @@ class CloudsmithCheck(AgentCheck):
 
         return {"results": all_results}
 
+    def get_repositories_info(self):
+        base_url = f"{self.base_url.rstrip('/')}{REPOSITORIES}{self.org}/"
+        all_results = []
+        page = 1
+        page_size = 100
+
+        while True:
+            url = f"{base_url}?page={page}&page_size={page_size}"
+            response_json = self.get_api_json(url)
+            if not response_json:
+                if page == 1:
+                    self.log.warning("No repositories data found or API call failed.")
+                break
+
+            if isinstance(response_json, list):
+                page_results = response_json
+            elif isinstance(response_json, dict):
+                page_results = response_json.get("results", [])
+            else:
+                self.log.warning("Unexpected response format for repositories endpoint.")
+                break
+
+            all_results.extend(page_results)
+
+            if self._pagination_page is not None and self._pagination_page_total is not None:
+                if self._pagination_page >= self._pagination_page_total:
+                    break
+            elif len(page_results) < page_size:
+                break
+
+            page += 1
+
+        return {"results": all_results}
+
     def get_parsed_members_info(self):
         response_json = self.get_members_info()
         parsed = []
@@ -760,6 +809,33 @@ class CloudsmithCheck(AgentCheck):
                     "last_login_method": item.get("last_login_method", "unknown"),
                 }
             )
+        return parsed
+
+    def get_parsed_repositories_info(self):
+        response_json = self.get_repositories_info()
+        parsed = []
+        for item in response_json.get("results", []):
+            repository = item.get("slug") or item.get("name") or "unknown"
+            repository_type = (item.get("repository_type_str") or "unknown").lower()
+            storage_region = item.get("storage_region") or "unknown"
+            visibility = "private" if item.get("is_private") else "public" if item.get("is_public") else "unknown"
+
+            parsed.append(
+                {
+                    "repository": repository,
+                    "repository_type": repository_type,
+                    "storage_region": storage_region,
+                    "visibility": visibility,
+                    "storage_bytes": item.get("size", 0) if isinstance(item.get("size"), (int, float)) else 0,
+                    "package_count": (
+                        item.get("package_count", 0) if isinstance(item.get("package_count"), (int, float)) else 0
+                    ),
+                    "download_count": (
+                        item.get("num_downloads", 0) if isinstance(item.get("num_downloads"), (int, float)) else 0
+                    ),
+                }
+            )
+
         return parsed
 
     def get_parsed_vuln_policy_violation_info(self):
@@ -845,6 +921,7 @@ class CloudsmithCheck(AgentCheck):
         policy_violations_info = []
         license_violations_info = []
         members_info = []
+        repositories_info = []
 
         global LAST_AUDIT_LOG_STAMP
         global LAST_VULNERABILITY_STAMP
@@ -867,6 +944,11 @@ class CloudsmithCheck(AgentCheck):
             self._collect_bandwidth_profiles()
         except Exception as e:
             self.log.warning("Failed to collect bandwidth profiles: %s", e)
+
+        try:
+            repositories_info = self.get_parsed_repositories_info()
+        except Exception as e:
+            self.log.warning("Failed to collect repositories info, continuing: %s", e)
 
         # Only run audit log and vulnerability checks if the last check was more than 5 minutes ago
         # This will prevent the check from running too often and hitting the rate limit
@@ -997,6 +1079,16 @@ class CloudsmithCheck(AgentCheck):
         self.gauge("cloudsmith.bandwidth_configured_bytes", usage_info["bandwidth_configured_bytes"], tags=self.tags)
         self.gauge("cloudsmith.storage_configured_gb", usage_info["storage_configured_gb"], tags=self.tags)
         self.gauge("cloudsmith.bandwidth_configured_gb", usage_info["bandwidth_configured_gb"], tags=self.tags)
+        for repo in repositories_info:
+            repository_tags = self.tags + [
+                "repository:{}".format(repo["repository"]),
+                "repository_type:{}".format(repo["repository_type"]),
+                "storage_region:{}".format(repo["storage_region"]),
+                "visibility:{}".format(repo["visibility"]),
+            ]
+            self.gauge("cloudsmith.repository.storage_bytes", repo["storage_bytes"], tags=repository_tags)
+            self.gauge("cloudsmith.repository.package_count", repo["package_count"], tags=repository_tags)
+            self.gauge("cloudsmith.repository.download_count", repo["download_count"], tags=repository_tags)
 
         # only create an event if the timestamp is newer than the last event
         # this is to prevent duplicate events as we pull down the entire audit log
