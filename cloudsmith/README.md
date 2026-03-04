@@ -11,7 +11,7 @@ The integration collects data from Cloudsmith's APIs and maps them to the follow
 - **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
 - **Service Checks**: Health status of quota consumption and API connectivity.
 
-Optional realtime bandwidth metric (disabled by default) can be enabled to emit `cloudsmith.bandwidth_bytes_interval`, representing bytes downloaded over the most recent analytics interval. Enable it by setting `enable_realtime_bandwidth: true` in `cloudsmith.d/conf.yaml`.
+Realtime org bandwidth metrics are enabled by default and can be controlled with `enable_realtime_bandwidth`. The analytics interval defaults to `five_minutes` via `bandwidth_interval`.
 
 With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
 
@@ -38,13 +38,26 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 
 1. Edit the `cloudsmith.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Cloudsmith performance data. See the [sample cloudsmith.d/conf.yaml][5] for all available configuration options.
 
-    Example snippet enabling realtime bandwidth:
+    Example snippet with recommended defaults and profile filtering:
 
     ```yaml
      - url: https://api.cloudsmith.io/v1
        cloudsmith_api_key: <API-KEY>
        organization: <ORG-NAME>
        enable_realtime_bandwidth: true
+       bandwidth_interval: five_minutes
+       bandwidth_profiles:
+         - name: prod-python
+           aggregate: bytes_downloaded_sum
+           repository:
+             - production
+           package_format:
+             - python
+         - name: by-country
+           aggregate: request_count
+           country:
+             - US
+             - GB
     ```
 
 2. [Restart the Agent][6].
