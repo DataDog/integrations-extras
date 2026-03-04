@@ -154,6 +154,8 @@ class CloudsmithCheck(AgentCheck):
 
         # Track last submitted API timestamp per profile (epoch int) for dedup
         self._profile_last_ts = {}
+        # Track last API poll time per analytics stream key (monotonic clock).
+        self._analytics_last_poll = {}
         # Pre-compute tags per profile — emit tags for ALL configured filter keys
         self._profile_tags = {}
         for profile in self.bandwidth_profiles:
@@ -259,6 +261,29 @@ class CloudsmithCheck(AgentCheck):
 
         return base + "?" + urlencode(params)
 
+    def _should_poll_analytics(self, poll_key):
+        """Return True if this analytics stream should be polled now.
+
+        Uses monotonic time and the configured ``bandwidth_interval`` to avoid
+        calling Cloudsmith analytics endpoints more frequently than new buckets
+        are expected to be available.
+        """
+        interval_seconds = VALID_INTERVALS[self.bandwidth_interval]
+        now_mono = time.monotonic()
+        last_poll = self._analytics_last_poll.get(poll_key)
+
+        if last_poll is None or (now_mono - last_poll) >= interval_seconds:
+            self._analytics_last_poll[poll_key] = now_mono
+            return True
+
+        remaining = interval_seconds - (now_mono - last_poll)
+        self.log.debug(
+            "Skipping analytics poll for %s; %.1fs remaining until next poll window.",
+            poll_key,
+            remaining,
+        )
+        return False
+
     def _process_timeseries(self, response_json, metric_name, tags, dedup_key, label):
         """Process an analytics time-series API response and submit the latest data point.
 
@@ -354,6 +379,12 @@ class CloudsmithCheck(AgentCheck):
         for aggregate, metric_name in ORG_METRIC_MAP.items():
             dedup_key = "_org_{}".format(aggregate)
             label = "org bandwidth '{}'".format(aggregate)
+
+            if not self._should_poll_analytics(dedup_key):
+                # Keep metric continuity while avoiding unnecessary API calls.
+                self.gauge(metric_name, 0.0, tags=self.tags)
+                continue
+
             url = self._build_analytics_url(aggregate)
             self.log.debug("%s requesting URL: %s", label, url)
             try:
@@ -368,6 +399,11 @@ class CloudsmithCheck(AgentCheck):
         metric_name = AGGREGATE_METRIC_MAP[profile["aggregate"]]
         profile_tags = self.tags + self._profile_tags.get(pname, [])
         label = "profile '{}'".format(pname)
+
+        if not self._should_poll_analytics(pname):
+            # Keep metric continuity while avoiding unnecessary API calls.
+            self.gauge(metric_name, 0.0, tags=profile_tags)
+            return
 
         url = self._build_analytics_url(profile["aggregate"], filters=profile)
         self.log.debug("%s requesting URL: %s", label, url)

@@ -1178,3 +1178,52 @@ def test_bandwidth_profile_filter_tags(aggregator, analytics_response_bytes):
         ],
         count=1,
     )
+
+
+def test_bandwidth_profile_poll_throttled_by_interval(aggregator, instance_with_profiles, analytics_response_bytes):
+    """Second check run within the same interval should not call analytics API again."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_with_profiles])
+    _mock_non_analytics(check)
+    check.get_api_json = MagicMock(return_value=analytics_response_bytes)
+
+    check.check(None)
+    assert check.get_api_json.call_count == 1
+
+    aggregator.reset()
+    check.get_api_json = MagicMock(side_effect=AssertionError("API should not be called within throttle window"))
+    check.check(None)
+    aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 0.0, count=1)
+
+
+def test_bandwidth_profile_poll_resumes_after_interval(aggregator, instance_with_profiles, analytics_response_bytes):
+    """Analytics polling should resume once the configured interval has elapsed."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_with_profiles])
+    _mock_non_analytics(check)
+    check.get_api_json = MagicMock(return_value=analytics_response_bytes)
+
+    check.check(None)
+    # Simulate interval passing without waiting in real time.
+    check._analytics_last_poll["prod-python"] -= 300
+
+    aggregator.reset()
+    check.get_api_json = MagicMock(return_value=analytics_response_bytes)
+    check.check(None)
+    assert check.get_api_json.call_count == 1
+
+
+def test_org_bandwidth_poll_throttled_by_interval(
+    aggregator, instance_with_realtime, analytics_response_bytes, analytics_response_requests
+):
+    """Org-wide analytics should not be called again until the interval window elapses."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_with_realtime])
+    _mock_non_analytics(check)
+    check.get_api_json = MagicMock(side_effect=[analytics_response_bytes, analytics_response_requests])
+
+    check.check(None)
+    assert check.get_api_json.call_count == 2
+
+    aggregator.reset()
+    check.get_api_json = MagicMock(side_effect=AssertionError("Org analytics API should be throttled"))
+    check.check(None)
+    aggregator.assert_metric("cloudsmith.bandwidth.bytes_downloaded", 0.0, count=1)
+    aggregator.assert_metric("cloudsmith.bandwidth.request_count", 0.0, count=1)
