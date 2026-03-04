@@ -12,7 +12,7 @@
 
 ### FIXED
 
-* Quota endpoint converations were off by slight margin, this has now been resolved
+* Quota endpoint conversions were off by slight margin, this has now been resolved
 
 ### 1.2.0 / 2025-11-03
 
