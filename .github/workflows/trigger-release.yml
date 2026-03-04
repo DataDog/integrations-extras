@@ -1,0 +1,30 @@
+name: Trigger Wheel Builds
+
+# Thin wrapper — all tagging and dispatch logic lives in integrations-core's
+# reusable dispatch-release.yml workflow.
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      integrations:
+        description: "JSON array of integration names (optional — auto-detected if omitted)"
+        required: false
+        type: string
+      source-repo-ref:
+        description: "Commit SHA or ref to build from"
+        required: true
+        type: string
+
+jobs:
+  dispatch:
+    uses: DataDog/integrations-core/.github/workflows/dispatch-release.yml@master
+    with:
+      source-repo: integrations-extras
+      integrations: ${{ inputs.integrations || '' }}
+      source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
+    permissions:
+      id-token: write
+      contents: write
