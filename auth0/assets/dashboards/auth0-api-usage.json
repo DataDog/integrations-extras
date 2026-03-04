@@ -538,14 +538,14 @@
                   "formulas": [
                     {
                       "number_format": {},
-                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'avg', 86400), 'max')"
+                      "formula": "reduce(rollup(rollup(query1, 'max', 10), 'avg', 86400), 'max')"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "scalar"
@@ -573,14 +573,14 @@
                   "formulas": [
                     {
                       "number_format": {},
-                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'max', 86400), 'last')"
+                      "formula": "reduce(rollup(rollup(query1, 'max', 10), 'max', 86400), 'last')"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "scalar"
@@ -610,14 +610,14 @@
                 {
                   "formulas": [
                     {
-                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p99', 86400), 'last')"
+                      "formula": "reduce(rollup(rollup(query1, 'max', 10), 'p99', 86400), 'last')"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "scalar"
@@ -647,14 +647,14 @@
                 {
                   "formulas": [
                     {
-                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p90', 86400), 'last')"
+                      "formula": "reduce(rollup(rollup(query1, 'max', 10), 'p90', 86400), 'last')"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "scalar"
@@ -684,14 +684,14 @@
                 {
                   "formulas": [
                     {
-                      "formula": "reduce(rollup(rollup(query1, 'max', 1), 'p50', 86400), 'last')"
+                      "formula": "reduce(rollup(rollup(query1, 'max', 10), 'p50', 86400), 'last')"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type,$api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "scalar"
@@ -732,14 +732,14 @@
                     {
                       "number_format": {},
                       "alias": "RPS",
-                      "formula": "rollup(query1, 'max', 1)"
+                      "formula": "rollup(query1, 'max', 10)"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -788,7 +788,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 1)"
+                      "query": "sum:auth0.api_request.count{$tenant,$client_id,$grant_type , $api}.as_rate().rollup(sum, 10)"
                     }
                   ],
                   "response_format": "timeseries",
