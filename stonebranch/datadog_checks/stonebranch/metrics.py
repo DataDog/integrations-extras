@@ -2,7 +2,7 @@
 
 # Curated: UC essentials only
 DEFAULT_METRICS = [
-    {"uc_history_total": "uc_history.total"},
+    {"uc_history": "uc_history.total"},
     {"uc_task_instance_active": "uc_task_instance.active"},
     {"uc_task_instance_launch_total": "uc_task_instance.launch.total"},
     {"uc_task_instance_late_start_total": "uc_task_instance.late_start.total"},
