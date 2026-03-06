@@ -1,5 +1,11 @@
 # CHANGELOG - SingleStore DB Cloud
 
+## 1.1.0 / 2026-02-24
+
+***Changed***: 
+
+* Updated dashboard to include disk I/O, memory breakdown, and pipeline monitoring widgets.
+
 ## 1.0.1 / 2023-10-16
 
 ***Changed***: 
