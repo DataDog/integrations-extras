@@ -1,4 +1,4 @@
-# CHANGELOG - AuthZed Cloud
+# CHANGELOG - authzed-cloud
 
 ## 1.0.0 / 2025-05-19
 

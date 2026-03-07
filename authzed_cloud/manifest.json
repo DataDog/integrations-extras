@@ -1,6 +1,5 @@
 {
   "app_id": "authzed-cloud",
-  "owner": "integrations-developer-platform",
   "app_uuid": "01957258-b7bc-701c-b7f5-1ae15bba0209",
   "manifest_version": "2.0.0",
   "display_on_public_website": true,
@@ -53,8 +52,9 @@
       "Authzed Cloud Overview": "assets/dashboards/authzed_cloud_overview.json"
     },
     "integration": {
-      "source_type_name": "authzed_cloud",
+      "source_type_name": "authzed-cloud",
       "auto_install": true,
+      "configuration": {},
       "process_signatures": [],
       "metrics": {
         "prefix": "authzed_cloud",
@@ -63,11 +63,15 @@
         ],
         "metadata_path": "metadata.csv"
       },
+      "events": {
+        "creates_events": false
+      },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       },
       "source_type_id": 42246681,
       "supports_ddr_coordinated_failover": false
     }
-  }
+  },
+  "owner": "integrations-developer-platform"
 }
