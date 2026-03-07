@@ -1,5 +1,20 @@
 # CHANGELOG - Cloudsmith
 
+### 1.3.0 / 2026-03-03
+
+### Added
+
+* Org-wide realtime bandwidth monitoring (`enable_realtime_bandwidth`, default `true`) — submits `cloudsmith.bandwidth.bytes_downloaded` and `cloudsmith.bandwidth.request_count` for the entire organization with no filters
+* Allow different profiles (with custom filters) to extract more granular bandwidth data
+* New dashboard group "Org Bandwidth Overview" with query-value and timeseries widgets
+* Added repository-level gauges from `/repos/{owner}/` for live repository storage and operational counters: `cloudsmith.repository.storage_bytes`, `cloudsmith.repository.package_count`, and `cloudsmith.repository.download_count`
+* New dashboard group "Repository Overview" with repository-filtered query values and top lists for storage, package count, and download count
+
+### FIXED
+
+* Quota endpoint conversions were off by slight margin, this has now been resolved
+* Improved rate-limit handling to respect Cloudsmith quota headers and skip extra API calls when quota is exhausted, improving stability during 429 windows
+
 ### 1.2.0 / 2025-11-03
 
 ### Added
