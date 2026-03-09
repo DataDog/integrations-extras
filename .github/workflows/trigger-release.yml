@@ -9,8 +9,10 @@ on:
       - master
   workflow_dispatch:
     inputs:
-      integrations:
-        description: "JSON array of integration names (optional — auto-detected if omitted)"
+      packages:
+        description: >-
+          Packages to release. JSON array (e.g. '["postgres","datadog_checks_base"]'),
+          'all' to release every Python package in the repo, or omit to auto-detect from new tags.
         required: false
         type: string
       source-repo-ref:
@@ -25,15 +27,21 @@ on:
           - dev
           - prod
         default: dev
+      dry-run:
+        description: "Print what would be released without pushing tags or starting builds"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   dispatch:
     uses: DataDog/integrations-core/.github/workflows/dispatch-release.yml@master
     with:
       source-repo: integrations-extras
-      integrations: ${{ inputs.integrations || '' }}
+      packages: ${{ inputs.packages || '' }}
       source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
       target: ${{ inputs.target || 'dev' }} # TODO: switch default to prod once the new pipeline is validated
+      dry-run: ${{ inputs.dry-run || false }}
     permissions:
       id-token: write
       contents: write
