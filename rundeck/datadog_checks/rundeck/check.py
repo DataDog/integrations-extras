@@ -51,7 +51,6 @@ class RundeckCheck(ConfigMixin, AgentCheck):
             response = self.http.get(self.base_url + f"/api/{self.api_version}" + endpoint, params=query_params)
             response.raise_for_status()
             response_json = response.json()
-            self.log.debug("rundeck API response(%s): %s", endpoint, response_json)
         except (HTTPError, InvalidURL, ConnectionError, Timeout):
             self.log.exception("Could not connect")
             raise
