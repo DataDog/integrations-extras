@@ -188,6 +188,7 @@ warpstream.tableflow_tables_limit,gauge,,,,max number of Tableflow tables on a g
 warpstream.tableflow_files_limit,gauge,,,,max number of Tableflow files on a given cluster,0,warpstream,tableflow_files_limit,
 warpstream.tableflow_partitions_limit,gauge,,,,max number of Tableflow partitions on a given cluster,0,warpstream,tableflow_partitions_limit,
 warpstream.agent_tableflow_files_written,count,,,,number of files written by WarpStream Agents while ingesting from Kafka to Tableflow tagged by `source_topic`,1,warpstream,agent_tableflow_files_written,
+warpstream.ingestion_job_kafka_time_lag_ms,gauge,,millisecond,,time lag of the Tableflow ingestion job that is consuming from Kafka and producing Tableflow files - this is deprecated please use `warpstream.tableflow_partition_time_lag_seconds`,1,warpstream,ingestion_job_kafka_time_lag_ms,
 warpstream.ingestion_job_dlq_skip_strategy_counter,count,,,,counts the number of records that were skipped during Tableflow ingestion while using the skip strategy tagged by `topic`,1,warpstream,ingestion_job_dlq_skip_strategy_counter,
 warpstream.tableflow_tables_count,count,,,,counts the number of Tableflow tables created by WarpStream Agents,0,warpstream,tableflow_tables_count,
 warpstream.tableflow_snapshots_count,count,,,,counts the number of Tableflow snapshots created by WarpStream Agents,0,warpstream,tableflow_snapshots_count,
