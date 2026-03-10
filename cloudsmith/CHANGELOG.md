@@ -10,7 +10,7 @@
 * Added repository-level gauges from `/repos/{owner}/` for live repository storage and operational counters: `cloudsmith.repository.storage_bytes`, `cloudsmith.repository.package_count`, and `cloudsmith.repository.download_count`
 * New dashboard group "Repository Overview" with repository-filtered query values and top lists for storage, package count, and download count
 
-### FIXED
+### Fixed
 
 * Quota endpoint conversions were off by slight margin, this has now been resolved
 * Improved rate-limit handling to respect Cloudsmith quota headers and skip extra API calls when quota is exhausted, improving stability during 429 windows
