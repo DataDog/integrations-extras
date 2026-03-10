@@ -11,11 +11,7 @@ The integration collects data from Cloudsmith's APIs and maps them to the follow
 - **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
 - **Service Checks**: Health status of quota consumption and API connectivity.
 
-Realtime org bandwidth metrics are enabled by default and can be controlled with `enable_realtime_bandwidth`. The analytics interval defaults to `five_minutes` via `bandwidth_interval`.
-
 With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
-
-Repository metrics from the Cloudsmith repositories endpoint are tagged with `repository:<slug>`, so users can filter dynamically in Datadog (for example, selecting one or two repositories from the `repository` dashboard template variable) without calling a separate per-repository endpoint.
 
 
 ## Setup
@@ -59,6 +55,10 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
              - US
              - GB
     ```
+
+    Org-wide realtime bandwidth metrics are enabled by default and can be controlled with `enable_realtime_bandwidth`. The analytics interval defaults to `five_minutes` via `bandwidth_interval`.
+
+    Repository metrics from the Cloudsmith repositories endpoint are tagged with `repository:<slug>`, so users can filter dynamically in Datadog (for example, selecting one or two repositories from the `repository` dashboard template variable) without calling a separate per-repository endpoint.
 
 2. [Restart the Agent][6].
 
