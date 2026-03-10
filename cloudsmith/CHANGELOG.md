@@ -12,8 +12,8 @@
 
 ### Fixed
 
-* Quota endpoint conversions were off by slight margin, this has now been resolved
-* Improved rate-limit handling to respect Cloudsmith quota headers and skip extra API calls when quota is exhausted, improving stability during 429 windows
+* Resolved minor quota conversion discrepancies
+* Improved rate-limit handling to respect Cloudsmith quota headers and reduce unnecessary API calls during 429 responses
 
 ### 1.2.0 / 2025-11-03
 
