@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Backstage][1] is an open platform for building Developer Portals. This integration enables you to embed Datadog graphs and dashboards into your Backstage instance. You can also use the [Datadog Backstage plugin][5] to sync Backstage catalog entities into Datadog Software Catalog.
+[Backstage][1] is an open platform for building Developer Portals. This integration enables you to embed Datadog graphs and dashboards into your Backstage instance. To sync Backstage catalog entities to Datadog Software Catalog, use the [Datadog Backstage plugin][5].
 
 ## Setup
 
