@@ -1,0 +1,20 @@
+name: TEST - Trigger Wheel Builds on PR (dry-run)
+
+# TEST ONLY: Exercises the release pipeline in dry-run mode on pull requests.
+# Remove or disable this workflow once the pipeline is validated.
+
+on:
+  pull_request:
+
+jobs:
+  dispatch:
+    uses: DataDog/integrations-core/.github/workflows/dispatch-release.yml@dk/test-release-trigger
+    with:
+      source-repo: integrations-extras
+      packages: '["fluentbit","argo_rollouts","aqua"]'
+      source-repo-ref: ${{ github.event.pull_request.head.sha }}
+      target: dev
+      dry-run: true
+    permissions:
+      id-token: write
+      contents: write
