@@ -146,7 +146,7 @@ class CloudsmithCheck(AgentCheck):
             )
 
         # Org-wide realtime bandwidth toggle
-        self.enable_realtime_bandwidth = self.instance.get("enable_realtime_bandwidth", True)
+        self.enable_realtime_bandwidth = self.instance.get("enable_realtime_bandwidth", False)
 
         # Parse and validate bandwidth profiles
         self.bandwidth_profiles = self.instance.get("bandwidth_profiles", [])
@@ -383,6 +383,8 @@ class CloudsmithCheck(AgentCheck):
             if not self._should_poll_analytics(dedup_key):
                 # Keep metric continuity while avoiding unnecessary API calls.
                 self.gauge(metric_name, 0.0, tags=self.tags)
+                if aggregate == "bytes_downloaded_sum":
+                    self.gauge("cloudsmith.bandwidth_bytes_interval", 0.0, tags=self.tags)
                 continue
 
             url = self._build_analytics_url(aggregate)
@@ -390,6 +392,14 @@ class CloudsmithCheck(AgentCheck):
             try:
                 response_json = self.get_api_json(url)
                 self._process_timeseries(response_json, metric_name, self.tags, dedup_key, label)
+                if aggregate == "bytes_downloaded_sum":
+                    self._process_timeseries(
+                        response_json,
+                        "cloudsmith.bandwidth_bytes_interval",
+                        self.tags,
+                        "_org_bandwidth_bytes_interval",
+                        "bandwidth_bytes_interval (deprecated)",
+                    )
             except Exception as e:
                 self.log.warning("Failed to collect %s: %s", label, e)
 
