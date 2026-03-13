@@ -32,6 +32,10 @@ on:
         required: false
         type: boolean
         default: false
+      ddev-version:
+        description: "ddev version, defaults to latest."
+        required: false
+        type: string
 
 jobs:
   dispatch:
@@ -42,6 +46,7 @@ jobs:
       source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
       target: ${{ inputs.target || 'dev' }} # TODO: switch default to prod once the new pipeline is validated
       dry-run: ${{ inputs.dry-run || false }}
+      ddev-version: ${{ inputs.ddev-version || '' }}
     permissions:
       id-token: write
       contents: write
