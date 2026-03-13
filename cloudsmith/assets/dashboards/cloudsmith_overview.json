@@ -1,6 +1,6 @@
 {
   "title": "Cloudsmith Overview",
-  "description": "Monitor your Cloudsmith repository usage, member activity, and security posture with key metrics like storage/bandwidth consumption, token usage, and policy violations. Ideal for tracking plan limits and enforcing best practices across your organization.",
+  "description": "Monitor your Cloudsmith repository usage, member activity, and security posture with key metrics like storage/bandwidth consumption, analytics bandwidth profiles, and policy violations. Ideal for tracking plan limits and enforcing best practices across your organization.",
   "widgets": [
     {
       "id": 2,
@@ -367,62 +367,89 @@
       "layout": { "x": 0, "y": 5, "width": 12, "height": 7 }
     },
     {
-      "id": 3721437193949574,
+      "id": 5501234567890001,
       "definition": {
-        "title": "Realtime Bandwidth (24h)",
+        "title": "Org Bandwidth Overview",
         "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
           {
-            "id": 8453933160249526,
+            "id": 5501234567890002,
             "definition": {
-              "title": "Interval Bytes (current)",
-              "time": { "type": "live", "unit": "minute", "value": 5 },
+              "title": "Bytes Downloaded (org-wide)",
+              "title_size": "16",
+              "title_align": "left",
               "type": "query_value",
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "query": "avg:cloudsmith.bandwidth_bytes_interval{cloudsmith_org:$cloudsmith_org.value}",
-                      "data_source": "metrics",
-                      "name": "q"
-                    }
-                  ],
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte_in_decimal_bytes_family"
                         }
-                      },
-                      "formula": "q"
+                      }
                     }
                   ],
-                  "response_format": "scalar"
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth.bytes_downloaded{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+          },
+          {
+            "id": 5501234567890003,
+            "definition": {
+              "title": "Request Count (org-wide)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth.request_count{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
                 }
               ],
               "autoscale": true,
               "precision": 0
             },
-            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
           },
           {
-            "id": 4324742412473905,
+            "id": 5501234567890004,
             "definition": {
-              "title": "Interval Bytes Trend",
-              "show_legend": false,
+              "title": "Bytes Downloaded Over Time (org-wide)",
+              "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": { "type": "live", "unit": "day", "value": 1 },
               "type": "timeseries",
               "requests": [
                 {
                   "queries": [
                     {
-                      "query": "sum:cloudsmith.bandwidth_bytes_interval{cloudsmith_org:$cloudsmith_org.value}",
+                      "query": "avg:cloudsmith.bandwidth.bytes_downloaded{cloudsmith_org:$cloudsmith_org.value}",
                       "data_source": "metrics",
                       "name": "q"
                     }
@@ -444,7 +471,7 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "line"
+                  "display_type": "bars"
                 }
               ],
               "yaxis": {
@@ -453,11 +480,152 @@
                 "label": "Bytes"
               }
             },
-            "layout": { "x": 3, "y": 0, "width": 9, "height": 2 }
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 5501234567890005,
+            "definition": {
+              "title": "Request Count Over Time (org-wide)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth.request_count{cloudsmith_org:$cloudsmith_org.value}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "formulas": [{ "formula": "q" }],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Requests"
+              }
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
           }
         ]
       },
-      "layout": { "x": 0, "y": 12, "width": 12, "height": 3 }
+      "layout": { "x": 0, "y": 12, "width": 12, "height": 6 }
+    },
+    {
+      "id": 3721437193949574,
+      "definition": {
+        "title": "Bandwidth Analytics",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8453933160249526,
+            "definition": {
+              "title": "Bytes Downloaded (by profile)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.analytics.bytes_downloaded_sum{cloudsmith_org:$cloudsmith_org.value,profile:$profile.value} by {profile}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      },
+                      "formula": "q"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Bytes"
+              }
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 4324742412473905,
+            "definition": {
+              "title": "Request Count (by profile)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.analytics.request_count{cloudsmith_org:$cloudsmith_org.value,profile:$profile.value} by {profile}",
+                      "data_source": "metrics",
+                      "name": "q"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "formulas": [{ "formula": "q" }],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "Requests"
+              }
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 8453933160249528,
+            "definition": {
+              "title": "Top Repositories by Bandwidth (current value)",
+              "type": "toplist",
+              "requests": [
+                {
+                  "q": "top(avg:cloudsmith.analytics.bytes_downloaded_sum{cloudsmith_org:$cloudsmith_org.value,profile:$profile.value} by {repository}, 10, 'mean', 'desc')"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 3, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 18, "width": 12, "height": 7 }
     },
     {
       "id": 4921355289879395,
@@ -537,7 +705,7 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 15, "width": 12, "height": 3 }
+      "layout": { "x": 0, "y": 22, "width": 12, "height": 3 }
     },
     {
       "id": 50,
@@ -592,120 +760,7 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 18, "width": 12, "height": 11 }
-    },
-    {
-      "id": 3,
-      "definition": {
-        "title": "Token Overview",
-        "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 2012617695632698,
-            "definition": {
-              "title": "Token Count",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [{ "formula": "query1" }],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "query": "avg:cloudsmith.token_count{cloudsmith_org:$cloudsmith_org.value}",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "aggregator": "avg"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0
-            },
-            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
-          },
-          {
-            "id": 1745585157577347,
-            "definition": {
-              "title": "Total Downloads by Tokens",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "query": "avg:cloudsmith.token_download_total{cloudsmith_org:$cloudsmith_org.value}",
-                      "data_source": "metrics",
-                      "name": "query1"
-                    }
-                  ],
-                  "display_type": "line"
-                }
-              ],
-              "yaxis": {
-                "include_zero": true,
-                "scale": "linear",
-                "label": "",
-                "min": "auto",
-                "max": "auto"
-              },
-              "markers": []
-            },
-            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
-          },
-          {
-            "id": 5049902402844905,
-            "definition": {
-              "title": "Total Bandwidth Consumed by Tokens",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
-              "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "query": "avg:cloudsmith.token_bandwidth_total{cloudsmith_org:$cloudsmith_org.value}",
-                      "data_source": "metrics",
-                      "name": "query1"
-                    }
-                  ],
-                  "display_type": "line"
-                }
-              ],
-              "yaxis": {
-                "include_zero": true,
-                "scale": "linear",
-                "label": "",
-                "min": "auto",
-                "max": "auto"
-              },
-              "markers": []
-            },
-            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 29,
-        "width": 12,
-        "height": 3,
-        "is_column_break": true
-      }
+      "layout": { "x": 0, "y": 25, "width": 12, "height": 11 }
     },
     {
       "id": 7325778829482119,
@@ -796,7 +851,7 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 32, "width": 12, "height": 3 }
+      "layout": { "x": 0, "y": 36, "width": 12, "height": 3 }
     },
     {
       "id": 51,
@@ -944,13 +999,211 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 35, "width": 12, "height": 16 }
+      "layout": { "x": 0, "y": 39, "width": 12, "height": 16 }
+    },
+    {
+      "id": 2206100241327001,
+      "definition": {
+        "title": "Repository Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2206100241327002,
+            "definition": {
+              "title": "Total Repository Storage (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.storage_bytes{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327003,
+            "definition": {
+              "title": "Total Repository Package Count (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.package_count{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327004,
+            "definition": {
+              "title": "Total Repository Downloads (Selection)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:cloudsmith.repository.download_count{cloudsmith_org:$cloudsmith_org.value,repository:$repository.value}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2206100241327005,
+            "definition": {
+              "title": "Top Repositories by Storage",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.repository.storage_bytes{cloudsmith_org:$cloudsmith_org.value} by {repository}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_decimal_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2206100241327006,
+            "definition": {
+              "title": "Top Repositories by Package Count",
+              "type": "toplist",
+              "requests": [
+                {
+                  "q": "top(avg:cloudsmith.repository.package_count{cloudsmith_org:$cloudsmith_org.value} by {repository}, 10, 'mean', 'desc')"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2206100241327007,
+            "definition": {
+              "title": "Top Repositories by Download Count",
+              "type": "toplist",
+              "requests": [
+                {
+                  "q": "top(avg:cloudsmith.repository.download_count{cloudsmith_org:$cloudsmith_org.value} by {repository}, 10, 'mean', 'desc')"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 5, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 55, "width": 12, "height": 9 }
     }
   ],
   "template_variables": [
     {
       "name": "cloudsmith_org",
       "prefix": "cloudsmith_org",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "profile",
+      "prefix": "profile",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "repository",
+      "prefix": "repository",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "package_format",
+      "prefix": "package_format",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "user",
+      "prefix": "user",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "country",
+      "prefix": "country",
       "available_values": [],
       "default": "*"
     }
