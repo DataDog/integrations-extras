@@ -17,6 +17,43 @@ jobs:
        # needed for compute-matrix in test-target.yml
        contents: read
 
+  upload-coverage:
+    needs:
+    - test
+    if: >
+      !github.event.repository.private &&
+      (success() || failure())
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+    - name: Download all coverage artifacts
+      uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
+      with:
+        pattern: coverage-*
+        path: coverage-reports
+        merge-multiple: false
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de
+      with:
+        use_oidc: true
+        directory: coverage-reports
+        fail_ci_if_error: false
+
+    - name: Upload coverage to Datadog
+      if: always()
+      continue-on-error: true
+      uses: DataDog/coverage-upload-github-action@9bbbf86d16f7db1b14c5b885e61cf0d96053686a # v1.0.0
+      with:
+        api_key: ${{ secrets.DD_API_KEY }}
+        files: coverage-reports
+        format: cobertura
+
   publish-test-results:
     needs:
     - test
