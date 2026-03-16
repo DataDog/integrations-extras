@@ -288,8 +288,8 @@ class CloudsmithCheck(AgentCheck):
         """Process an analytics time-series API response and submit the latest data point.
 
         Handles empty responses, incomplete-bucket trimming, API-settle trimming,
-        and deduplication.  Submits a zero gauge when no actionable data is available
-        so that Datadog doesn't interpolate stale values.
+        and deduplication. Skips submission when no new completed bucket is
+        available so missing samples remain query-controlled in Datadog.
 
         Args:
             response_json: Parsed JSON from the analytics API (may be None).
@@ -303,8 +303,7 @@ class CloudsmithCheck(AgentCheck):
 
         results = response_json.get("results", [])
         if not results:
-            self.log.debug("No data for %s; submitting zero.", label)
-            self.gauge(metric_name, 0.0, tags=tags)
+            self.log.debug("No data for %s; skipping submission.", label)
             return
 
         series = results[0]
@@ -312,8 +311,7 @@ class CloudsmithCheck(AgentCheck):
         values = series.get("values") or []
 
         if not timestamps or not values:
-            self.log.debug("Empty time-series for %s; submitting zero.", label)
-            self.gauge(metric_name, 0.0, tags=tags)
+            self.log.debug("Empty time-series for %s; skipping submission.", label)
             return
 
         # Drop the last bucket if its interval window hasn't closed yet.
@@ -331,8 +329,7 @@ class CloudsmithCheck(AgentCheck):
             values = values[:-1]
 
         if not timestamps or not values:
-            self.log.debug("Only incomplete data for %s; submitting zero.", label)
-            self.gauge(metric_name, 0.0, tags=tags)
+            self.log.debug("Only incomplete data for %s; skipping submission.", label)
             return
 
         latest_ts_str = timestamps[-1]
@@ -351,8 +348,7 @@ class CloudsmithCheck(AgentCheck):
         # Dedup: only submit if this timestamp is newer than the last one we submitted.
         last_submitted = self._profile_last_ts.get(dedup_key, 0)
         if latest_ts_epoch <= last_submitted:
-            self.log.debug("No new data for %s; submitting zero.", label)
-            self.gauge(metric_name, 0.0, tags=tags)
+            self.log.debug("No new data for %s; skipping submission.", label)
             return
 
         self.gauge(metric_name, float(latest_val), tags=tags)
@@ -381,10 +377,6 @@ class CloudsmithCheck(AgentCheck):
             label = "org bandwidth '{}'".format(aggregate)
 
             if not self._should_poll_analytics(dedup_key):
-                # Keep metric continuity while avoiding unnecessary API calls.
-                self.gauge(metric_name, 0.0, tags=self.tags)
-                if aggregate == "bytes_downloaded_sum":
-                    self.gauge("cloudsmith.bandwidth_bytes_interval", 0.0, tags=self.tags)
                 continue
 
             url = self._build_analytics_url(aggregate)
@@ -411,8 +403,6 @@ class CloudsmithCheck(AgentCheck):
         label = "profile '{}'".format(pname)
 
         if not self._should_poll_analytics(pname):
-            # Keep metric continuity while avoiding unnecessary API calls.
-            self.gauge(metric_name, 0.0, tags=profile_tags)
             return
 
         url = self._build_analytics_url(profile["aggregate"], filters=profile)

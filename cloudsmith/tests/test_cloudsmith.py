@@ -900,14 +900,14 @@ def test_bandwidth_profile_submits_latest_data_point(aggregator, instance_with_p
 
 
 def test_bandwidth_profile_empty_data_no_metric(aggregator, instance_with_profiles, analytics_response_empty):
-    """When the API returns empty data, a zero gauge should be submitted to prevent interpolation."""
+    """When the API returns empty data, no metric should be submitted."""
     check = CloudsmithCheck('cloudsmith', {}, [instance_with_profiles])
     _mock_non_analytics(check)
     check.get_api_json = MagicMock(return_value=analytics_response_empty)
 
     check.check(None)
 
-    aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 0.0, count=1)
+    assert "cloudsmith.analytics.bytes_downloaded_sum" not in aggregator._metrics
 
 
 def test_bandwidth_profile_dedup_skips_stale_data(aggregator, instance_with_profiles, analytics_response_bytes):
@@ -920,10 +920,10 @@ def test_bandwidth_profile_dedup_skips_stale_data(aggregator, instance_with_prof
     check.check(None)
     aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 67890.0, count=1)
 
-    # Reset aggregator and check again — same data, should submit zero (dedup)
+    # Reset aggregator and check again — same data, should not submit another point
     aggregator.reset()
     check.check(None)
-    aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 0.0, count=1)
+    assert "cloudsmith.analytics.bytes_downloaded_sum" not in aggregator._metrics
 
 
 def test_bandwidth_profile_drops_incomplete_bucket(aggregator, instance_with_profiles):
@@ -960,7 +960,7 @@ def test_bandwidth_profile_drops_incomplete_bucket(aggregator, instance_with_pro
 
 def test_bandwidth_profile_all_buckets_incomplete(aggregator, instance_with_profiles):
     """When all buckets are incomplete (only one bucket, still accumulating),
-    a zero should be submitted."""
+    no metric should be submitted."""
     from datetime import datetime, timedelta, timezone
 
     now = datetime.now(timezone.utc)
@@ -982,8 +982,8 @@ def test_bandwidth_profile_all_buckets_incomplete(aggregator, instance_with_prof
 
     check.check(None)
 
-    # Only bucket was incomplete — should submit zero
-    aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 0.0, count=1)
+    # Only bucket was incomplete — nothing settled yet, so nothing should be submitted.
+    assert "cloudsmith.analytics.bytes_downloaded_sum" not in aggregator._metrics
 
 
 def test_bandwidth_profile_api_returns_none(aggregator, instance_with_profiles):
@@ -1117,7 +1117,7 @@ def test_org_bandwidth_disabled(aggregator, instance_good):
 
 
 def test_org_bandwidth_dedup(aggregator, instance_with_realtime, analytics_response_bytes, analytics_response_requests):
-    """On second run with same data, org bandwidth should submit zero (dedup)."""
+    """On second run with same data, org bandwidth should not re-submit stale points."""
     check = CloudsmithCheck('cloudsmith', {}, [instance_with_realtime])
     _mock_non_analytics(check)
     check.get_api_json = MagicMock(side_effect=[analytics_response_bytes, analytics_response_requests])
@@ -1127,12 +1127,12 @@ def test_org_bandwidth_dedup(aggregator, instance_with_realtime, analytics_respo
     aggregator.assert_metric("cloudsmith.bandwidth.bytes_downloaded", 67890.0, count=1)
     aggregator.assert_metric("cloudsmith.bandwidth.request_count", 99.0, count=1)
 
-    # Second check with same data — should submit zeros (dedup)
+    # Second check with same data — should not submit stale points again
     aggregator.reset()
     check.get_api_json = MagicMock(side_effect=[analytics_response_bytes, analytics_response_requests])
     check.check(None)
-    aggregator.assert_metric("cloudsmith.bandwidth.bytes_downloaded", 0.0, count=1)
-    aggregator.assert_metric("cloudsmith.bandwidth.request_count", 0.0, count=1)
+    assert "cloudsmith.bandwidth.bytes_downloaded" not in aggregator._metrics
+    assert "cloudsmith.bandwidth.request_count" not in aggregator._metrics
 
 
 def test_org_bandwidth_invalid_interval_raises(instance_good):
@@ -1192,7 +1192,7 @@ def test_bandwidth_profile_poll_throttled_by_interval(aggregator, instance_with_
     aggregator.reset()
     check.get_api_json = MagicMock(side_effect=AssertionError("API should not be called within throttle window"))
     check.check(None)
-    aggregator.assert_metric("cloudsmith.analytics.bytes_downloaded_sum", 0.0, count=1)
+    assert "cloudsmith.analytics.bytes_downloaded_sum" not in aggregator._metrics
 
 
 def test_bandwidth_profile_poll_resumes_after_interval(aggregator, instance_with_profiles, analytics_response_bytes):
@@ -1225,5 +1225,5 @@ def test_org_bandwidth_poll_throttled_by_interval(
     aggregator.reset()
     check.get_api_json = MagicMock(side_effect=AssertionError("Org analytics API should be throttled"))
     check.check(None)
-    aggregator.assert_metric("cloudsmith.bandwidth.bytes_downloaded", 0.0, count=1)
-    aggregator.assert_metric("cloudsmith.bandwidth.request_count", 0.0, count=1)
+    assert "cloudsmith.bandwidth.bytes_downloaded" not in aggregator._metrics
+    assert "cloudsmith.bandwidth.request_count" not in aggregator._metrics
