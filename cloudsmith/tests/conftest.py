@@ -108,6 +108,47 @@ def analytics_response_empty():
 
 
 @pytest.fixture()
+def entitlements_test_json():
+    entitlements_json = {
+        'tokens': {
+            'active': 19,
+            'inactive': 100,
+            'total': 119,
+            'bandwidth': {
+                'lowest': {'value': 1460, 'units': 'bytes', 'display': '1.4 KB'},
+                'average': {'value': 1453939, 'units': 'bytes', 'display': '1.4 MB'},
+                'highest': {'value': 28062489, 'units': 'bytes', 'display': '26.8 MB'},
+                'total': {'value': 37802418, 'units': 'bytes', 'display': '36.1 MB'},
+            },
+            'downloads': {
+                'lowest': {'value': 1},
+                'average': {'value': 9},
+                'highest': {'value': 64},
+                'total': {'value': 240},
+            },
+        }
+    }
+    return entitlements_json
+
+
+@pytest.fixture()
+def entitlements_test_bad_json():
+    entitlements_test_bad_json = {
+        'tokens': {
+            'active': 19,
+            'inactive': 100,
+            'bandwidth': {
+                'lowest': {'value': 1460, 'units': 'bytes', 'display': '1.4 KB'},
+                'average': {'value': 1453939, 'units': 'bytes', 'display': '1.4 MB'},
+                'highest': {'value': 28062489, 'units': 'bytes', 'display': '26.8 MB'},
+            },
+            'downloads': {'lowest': {'value': 1}, 'average': {'value': 9}, 'highest': {'value': 64}},
+        }
+    }
+    return entitlements_test_bad_json
+
+
+@pytest.fixture()
 def not_found_json():
     not_found_json = {"detail": "Not found."}
     return not_found_json

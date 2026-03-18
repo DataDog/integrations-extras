@@ -9,6 +9,7 @@ from requests.exceptions import InvalidURL, Timeout
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
 
+METRIC = "/metrics/entitlements/"
 QUOTA = "/quota/"
 AUDIT_LOG = "/audit-log/"
 VULNERABILITIES = "/vulnerabilities/"
@@ -553,6 +554,49 @@ class CloudsmithCheck(AgentCheck):
                 pass
         return 5
 
+    def get_entitlement_info(self):
+        url = self.get_full_path(METRIC)
+        response_json = self.get_api_json(url)
+        return response_json
+
+    def get_parsed_entitlement_info(self):
+        token_count = -1
+        bandwidth_total = -1
+        download_total = -1
+
+        response_json = self.get_entitlement_info()
+
+        if "tokens" in response_json:
+            if "total" in response_json["tokens"]:
+                token_count = response_json["tokens"]["total"]
+            else:
+                self.log.warning("Error when parsing JSON for total token usage")
+            if (
+                "bandwidth" in response_json["tokens"]
+                and "total" in response_json["tokens"]["bandwidth"]
+                and "value" in response_json["tokens"]["bandwidth"]["total"]
+            ):
+                bandwidth_total = response_json["tokens"]["bandwidth"]["total"]["value"]
+            else:
+                self.log.warning("Error when parsing JSON for total token bandwidth usage")
+            if (
+                "downloads" in response_json["tokens"]
+                and "total" in response_json["tokens"]["downloads"]
+                and "value" in response_json["tokens"]["downloads"]["total"]
+            ):
+                download_total = response_json["tokens"]["downloads"]["total"]["value"]
+            else:
+                self.log.warning("Error when parsing JSON for total token download usage")
+        else:
+            self.log.warning("Error when parsing JSON for tokens")
+
+        entitlement_info = {
+            "token_count": token_count,
+            "token_bandwidth_total": bandwidth_total,
+            "token_download_total": download_total,
+        }
+        return entitlement_info
+
     def get_usage_info(self):
         url = self.get_full_path(QUOTA)
         response_json = self.get_api_json(url)
@@ -931,6 +975,12 @@ class CloudsmithCheck(AgentCheck):
             "bandwidth_configured_gb": -1,
         }
 
+        entitlement_info = {
+            "token_count": -1,
+            "token_bandwidth_total": -1,
+            "token_download_total": -1,
+        }
+
         audit_log_info = [
             {
                 "actor": CloudsmithCheck.UNKNOWN,
@@ -968,6 +1018,11 @@ class CloudsmithCheck(AgentCheck):
             usage_info = self.get_parsed_usage_info()
         except Exception as e:
             self.log.warning("Failed to collect usage info, continuing with defaults: %s", e)
+
+        try:
+            entitlement_info = self.get_parsed_entitlement_info()
+        except Exception as e:
+            self.log.warning("Failed to collect entitlement info, continuing with defaults: %s", e)
 
         # Org-wide realtime bandwidth
         try:
@@ -1115,6 +1170,17 @@ class CloudsmithCheck(AgentCheck):
         self.gauge("cloudsmith.bandwidth_configured_bytes", usage_info["bandwidth_configured_bytes"], tags=self.tags)
         self.gauge("cloudsmith.storage_configured_gb", usage_info["storage_configured_gb"], tags=self.tags)
         self.gauge("cloudsmith.bandwidth_configured_gb", usage_info["bandwidth_configured_gb"], tags=self.tags)
+        self.gauge("cloudsmith.token_count", entitlement_info["token_count"], tags=self.tags)
+        self.gauge(
+            "cloudsmith.token_bandwidth_total",
+            entitlement_info["token_bandwidth_total"],
+            tags=self.tags,
+        )
+        self.gauge(
+            "cloudsmith.token_download_total",
+            entitlement_info["token_download_total"],
+            tags=self.tags,
+        )
         for repo in repositories_info:
             repository_tags = self.tags + [
                 "repository:{}".format(repo["repository"]),
