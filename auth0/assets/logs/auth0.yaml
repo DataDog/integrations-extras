@@ -896,12 +896,23 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
-          name: Map `data.hostname` to `ocsf.dst_endpoint.hostname`
+          name: Map `data.hostname`, `data.client_name` to `ocsf.dst_endpoint.hostname`
           enabled: true
           sources:
             - data.hostname
+            - data.client_name
           sourceType: attribute
           target: ocsf.dst_endpoint.hostname
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `data.client_id` to `ocsf.dst_endpoint.uid`
+          enabled: true
+          sources:
+            - data.client_id
+          sourceType: attribute
+          target: ocsf.dst_endpoint.uid
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
