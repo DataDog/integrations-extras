@@ -1,7 +1,7 @@
 name: Trigger Wheel Builds
 
 # Thin wrapper — all tagging and dispatch logic lives in integrations-core's
-# reusable dispatch-release.yml workflow.
+# reusable release-dispatch.yml workflow.
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
   dispatch:
     name: Release
     needs: context
-    uses: DataDog/integrations-core/.github/workflows/dispatch-release.yml@master
+    uses: DataDog/integrations-core/.github/workflows/release-dispatch.yml@master
     with:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
