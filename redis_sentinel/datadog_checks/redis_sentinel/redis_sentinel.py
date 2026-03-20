@@ -56,7 +56,7 @@ class RedisSentinelCheck(AgentCheck):
             db=0,
             socket_timeout=socket_timeout,
             socket_connect_timeout=socket_timeout,
-            **ssl_kwargs
+            **ssl_kwargs,
         )
 
         for master_name in instance['masters']:
