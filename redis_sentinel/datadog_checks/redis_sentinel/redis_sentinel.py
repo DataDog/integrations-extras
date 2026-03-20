@@ -24,6 +24,8 @@ class RedisSentinelCheck(AgentCheck):
             raise ConfigurationError('Configuration error. "sentinel_port" must be an int.')
 
         passwd = instance.get('sentinel_password', None)
+        username = instance.get('sentinel_username', None)
+        socket_timeout = instance.get('socket_timeout', 5)
 
         ssl_kwargs = {}
         if instance.get('ssl', False):
@@ -38,15 +40,24 @@ class RedisSentinelCheck(AgentCheck):
             if ssl_ca_certs:
                 ssl_kwargs['ssl_ca_certs'] = ssl_ca_certs
             ssl_cert_reqs = instance.get('ssl_cert_reqs')
-            if ssl_cert_reqs:
+            if ssl_cert_reqs is not None:
                 ssl_kwargs['ssl_cert_reqs'] = ssl_cert_reqs
 
-        return host, port, passwd, ssl_kwargs
+        return host, port, passwd, username, socket_timeout, ssl_kwargs
 
     def check(self, instance):
-        host, port, password, ssl_kwargs = self._load_config(instance)
+        host, port, password, username, socket_timeout, ssl_kwargs = self._load_config(instance)
 
-        redis_conn = redis.StrictRedis(host=host, port=port, password=password, db=0, **ssl_kwargs)
+        redis_conn = redis.StrictRedis(
+            host=host,
+            port=port,
+            password=password,
+            username=username,
+            db=0,
+            socket_timeout=socket_timeout,
+            socket_connect_timeout=socket_timeout,
+            **ssl_kwargs
+        )
 
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])
@@ -59,6 +70,15 @@ class RedisSentinelCheck(AgentCheck):
         master_tags = self._process_master_stats(redis_conn, master_name, base_tags)
         self._process_slaves_stats(redis_conn, master_name, base_tags, master_tags)
         self._process_sentinels_stats(redis_conn, master_name, base_tags, master_tags)
+
+    def _get_sentinel_replicas(self, redis_conn, master_name):
+        """Get replica stats using sentinel_replicas() (Redis 7+) with fallback to sentinel_slaves()."""
+        if hasattr(redis_conn, 'sentinel_replicas'):
+            try:
+                return redis_conn.sentinel_replicas(master_name)
+            except Exception:
+                pass
+        return redis_conn.sentinel_slaves(master_name)
 
     def _process_sentinels_stats(self, redis_conn, master_name, base_tags, master_tags):
         """
@@ -140,7 +160,7 @@ class RedisSentinelCheck(AgentCheck):
             'slave-repl-offset': 12345678,
         }]
         """
-        slaves_stats = redis_conn.sentinel_slaves(master_name)
+        slaves_stats = self._get_sentinel_replicas(redis_conn, master_name)
         slaves_odown = 0
         slaves_sdown = 0
 
