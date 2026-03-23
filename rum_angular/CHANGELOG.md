@@ -1,8 +1,11 @@
-# CHANGELOG - AngularJS
+# CHANGELOG - Angular
+
+## 2.0.0
+
+* Add documentation for the RUM Angular integration plugin
 
 ## 1.0.0
 
-***Added***:
+**_Added_**:
 
-* Initial AngularJS RUM Integration Tile.
-
+* Initial Angular RUM Integration Tile.
