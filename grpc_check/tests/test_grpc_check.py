@@ -1,4 +1,5 @@
 from concurrent import futures
+from unittest import mock
 
 import grpc
 import pytest
@@ -231,19 +232,28 @@ def test_unavailable(dd_run_check, aggregator):
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
-def test_timeout(dd_run_check, aggregator):
+def test_timeout_deadline_exceeded(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50051",
-        "timeout": 0.00001,
+        "timeout": 1,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
-    grpc_server = create_insecure_grpc_server()
-    grpc_server.start()
 
     check = GrpcCheck("grpc_check", {}, [instance])
-    dd_run_check(check)
-    grpc_server.stop(None)
+
+    class MockRpcError(grpc.RpcError):
+        def code(self):
+            return grpc.StatusCode.DEADLINE_EXCEEDED
+
+        def details(self):
+            return "Deadline Exceeded"
+
+    mock_stub_instance = mock.Mock()
+    mock_stub_instance.Check.side_effect = MockRpcError()
+
+    with mock.patch('grpc_health.v1.health_pb2_grpc.HealthStub', return_value=mock_stub_instance):
+        dd_run_check(check)
 
     expected_tags = [
         "grpc_server_service:grpc.test",
