@@ -1,5 +1,7 @@
 # RUM Browser Monitoring - NEXTJS integration
 
+> **Note**: This integration is in beta. Features and configuration may change.
+
 ## Overview
 
 With the Datadog RUM Next.js integration, resolve performance issues quickly in Next.js applications by:
