@@ -161,27 +161,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 }
 ```
 
-For server-side errors, use `addNextjsError` in your custom error page:
-
-```tsx
-// pages/_error.tsx
-import { useEffect } from 'react'
-import { addNextjsError } from '@datadog/browser-rum-nextjs'
-
-export default function ErrorPage({ err }: { err?: Error }) {
-  useEffect(() => {
-    if (err) addNextjsError(err)
-  }, [err])
-
-  return <div>Something went wrong</div>
-}
-
-ErrorPage.getInitialProps = ({ res, err }: { res?: { statusCode: number }; err?: Error }) => {
-  const statusCode = res ? res.statusCode : err ? 500 : 404
-  return { statusCode, err }
-}
-```
-
 ## Route Tracking
 
 The `DatadogPagesRouter` and `DatadogAppRouter` components automatically track route changes and normalize dynamic segments into parameterized view names:
