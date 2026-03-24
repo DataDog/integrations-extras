@@ -1,5 +1,12 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.4.0 / 2026-03-02
+
+***Added***:
+
+* Add Atlas Search index stats metrics for required memory and maximum indexed fields, nGram fields, and Lucene docs
+* Add Atlas Search process memory metrics for resident, virtual, and shared memory
+
 ## 1.3.0 / 2026-02-17
 
 ***Added***:
