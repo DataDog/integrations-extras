@@ -153,10 +153,17 @@ import { DatadogPagesRouter, ErrorBoundary } from '@datadog/browser-rum-nextjs'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ErrorBoundary fallback={() => <div>Something went wrong</div>}>
+    <>
       <DatadogPagesRouter />
-      <Component {...pageProps} />
-    </ErrorBoundary>
+      <ErrorBoundary fallback={({ resetError }) => (
+        <div>
+          <p>Something went wrong</p>
+          <button onClick={resetError}>Try again</button>
+        </div>
+      )}>
+        <Component {...pageProps} />
+      </ErrorBoundary>
+    </>
   )
 }
 ```
