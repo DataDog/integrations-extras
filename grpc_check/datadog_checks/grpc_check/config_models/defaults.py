@@ -28,9 +28,5 @@ def instance_min_collection_interval():
     return 15
 
 
-def instance_secure_channel():
-    return True
-
-
 def instance_timeout():
     return 1000

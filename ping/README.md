@@ -21,7 +21,9 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the ping che
 
 1. Run the one of the following commands to install the Agent integration:
 
-To find the integration version, refer to the [integration's changelog][14] on GitHub or the Release Notes tab in the integration tile.
+  <div class="alert alert-info">
+To find the integration version, refer to the <a href="https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md">integration's changelog</a> on GitHub or the Release Notes tab in the integration tile.
+</div>
 
    ```shell
    # Linux
@@ -95,4 +97,3 @@ Need help? Contact [Datadog support][11].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
 [11]: https://docs.datadoghq.com/help/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/ping/assets/service_checks.json
-[14]: https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md

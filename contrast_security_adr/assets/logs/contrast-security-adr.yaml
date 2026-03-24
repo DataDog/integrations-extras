@@ -88,11 +88,21 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: date-remapper
-          name: Define `createdTime` as the official date of the log
+        - type: attribute-remapper
+          name: Map `createdTime` to `date`
           enabled: true
           sources:
             - createdTime
+          sourceType: attribute
+          target: date
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: date-remapper
+          name: date' as date of the log
+          enabled: true
+          sources:
+            - date
         - type: attribute-remapper
           name: Map `eventType` to `resource.type`
           enabled: true
@@ -160,10 +170,20 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: date-remapper
-          name: Define `detectedTime` as the official date of the log
+          name: Map `date` as the date of log
+          enabled: true
+          sources:
+            - date
+        - type: attribute-remapper
+          name: Map 'detectedTime' to  'date'
           enabled: true
           sources:
             - detectedTime
+          sourceType: attribute
+          target: date
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
         - type: attribute-remapper
           name: Map `result` to `evt.outcome`
           enabled: true
