@@ -19,7 +19,7 @@ Monitor your Next.js applications from end-to-end by:
 
 ## Setup
 
-Start by setting up [Datadog RUM][2] in your Next.js application. If you're creating a new RUM application in the Datadog App, select Next.js as the application type. If you already have an existing RUM application, you can update its type to Next.js instead. Once configured, the Datadog App will provide instructions for integrating the [RUM-Next.js plugin][8] with the Browser SDK.
+Start by setting up [Datadog RUM][2] in your Next.js application. If you're creating a new RUM application in the Datadog App, select Next.js as the application type. If you already have an existing RUM application, you can update its type to Next.js instead. Once configured, the Datadog App will provide instructions for integrating the [RUM-Next.js plugin][8] with the Browser SDK. If Next.js is not available as an option, select React and follow the steps below to integrate the plugin manually.
 
 Both routers require **Next.js v15.3+**, which supports the [`instrumentation-client`][1] file convention.
 
@@ -83,7 +83,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 }
 ```
 
-For errors in the **root layout**, use `global-error.tsx` it must provide its own `<html>` and `<body>` tags since the root layout is replaced:
+For errors in the **root layout**, use `global-error.tsx`; it must provide its own `<html>` and `<body>` tags since the root layout is replaced:
 
 ```tsx
 // app/global-error.tsx
@@ -105,12 +105,6 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
     </html>
   )
 }
-```
-
-You can also pass custom context:
-
-```ts
-addNextjsError(error, { route: '/dashboard', userId: '123' })
 ```
 
 # Pages Router Usage
@@ -148,9 +142,49 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 }
 ```
 
+## 3. Report errors from error boundaries
+
+Use the `ErrorBoundary` component in your custom App to catch React rendering errors and report them to Datadog RUM:
+
+```tsx
+// pages/_app.tsx
+import type { AppProps } from 'next/app'
+import { DatadogPagesRouter, ErrorBoundary } from '@datadog/browser-rum-nextjs'
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ErrorBoundary fallback={() => <div>Something went wrong</div>}>
+      <DatadogPagesRouter />
+      <Component {...pageProps} />
+    </ErrorBoundary>
+  )
+}
+```
+
+For server-side errors, use `addNextjsError` in your custom error page:
+
+```tsx
+// pages/_error.tsx
+import { useEffect } from 'react'
+import { addNextjsError } from '@datadog/browser-rum-nextjs'
+
+export default function ErrorPage({ err }: { err?: Error }) {
+  useEffect(() => {
+    if (err) addNextjsError(err)
+  }, [err])
+
+  return <div>Something went wrong</div>
+}
+
+ErrorPage.getInitialProps = ({ res, err }: { res?: { statusCode: number }; err?: Error }) => {
+  const statusCode = res ? res.statusCode : err ? 500 : 404
+  return { statusCode, err }
+}
+```
+
 ## Route Tracking
 
-The `DatadogRumProvider` automatically tracks route changes and normalizes dynamic segments into parameterized view names:
+The `DatadogPagesRouter` and `DatadogAppRouter` components automatically track route changes and normalize dynamic segments into parameterized view names:
 
 | Actual URL | View name |
 |---|---|
@@ -158,16 +192,6 @@ The `DatadogRumProvider` automatically tracks route changes and normalizes dynam
 | `/users/123` | `/users/[id]` |
 | `/users/123/posts/456` | `/users/[userId]/posts/[postId]` |
 | `/docs/a/b/c` | `/docs/[...slug]` |
-
-### Manual view tracking
-
-If you need to start a view manually, use `startNextjsView`:
-
-```javascript
-import { startNextjsView } from '@datadog/browser-rum-nextjs'
-
-startNextjsView('/my-custom-view-name')
-```
 
 ## Go Further with Datadog Next.js Integration
 
