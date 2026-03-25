@@ -15,7 +15,7 @@ on:
       packages:
         description: >-
           Packages to release. JSON array (e.g. '["postgres","datadog_checks_base"]'),
-          'all' to release every Python package in the repo, or omit to auto-detect from new tags.
+          or omit to auto-detect from tags pointing at the specified ref.
         required: false
         type: string
       source-repo-ref:
@@ -26,6 +26,7 @@ on:
         description: "Print what would be released without pushing tags or starting builds"
         required: false
         type: boolean
+        # TODO: flip back to false once agent-integration-wheels-release is updated to handle the new payload
         default: true
       ddev-version:
         description: "ddev version, pinned by default."
@@ -55,7 +56,7 @@ jobs:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
       source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
-      dry-run: ${{ inputs.dry-run || true }}
+      dry-run: ${{ inputs.dry-run || true }}  # TODO: flip back to false
       ddev-version: ${{ inputs.ddev-version || '' }}
       is-stable-release: ${{ needs.context.outputs.is-stable-release }}
     permissions:
