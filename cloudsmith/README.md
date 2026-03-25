@@ -7,11 +7,9 @@ Cloudsmith is a fully managed cloud-native package management platform, used to 
 This integration enhances visibility into your Cloudsmith organization by collecting real-time observability data and surfacing it within the Datadog platform. Teams can monitor resource usage, enforce security compliance, and audit user activity-directly from within Datadog dashboards and monitors.
 
 The integration collects data from Cloudsmith's APIs and maps them to the following Datadog telemetry types:
-- **Metrics**: Storage and bandwidth usage, token activity, and active user metrics.
+- **Metrics**: Storage and bandwidth usage, repository-level storage/package/download counters, token activity, and active user metrics.
 - **Events**: Security vulnerability findings, audit log activity, license and vulnerability policy violations, member summaries, and quota usage snapshots.
 - **Service Checks**: Health status of quota consumption and API connectivity.
-
-Optional realtime bandwidth metric (disabled by default) can be enabled to emit `cloudsmith.bandwidth_bytes_interval`, representing bytes downloaded over the most recent analytics interval. Enable it by setting `enable_realtime_bandwidth: true` in `cloudsmith.d/conf.yaml`.
 
 With this integration, customers gain centralized observability over their Cloudsmith package infrastructure, helping enforce compliance, troubleshoot issues faster, and optimize resource planning.
 
@@ -20,6 +18,10 @@ With this integration, customers gain centralized observability over their Cloud
 
 The Cloudsmith check is not included in the [Datadog Agent][2] package, so you need to install it.
 
+Org-wide realtime bandwidth metrics are enabled by default and can be controlled with `enable_realtime_bandwidth`. The analytics interval defaults to `five_minutes` via `bandwidth_interval`.
+
+Repository metrics from the Cloudsmith repositories endpoint are tagged with `repository:<slug>`, so users can filter dynamically in Datadog (for example, selecting one or two repositories from the `repository` dashboard template variable) without calling a separate per-repository endpoint.
+
 ### Installation
 
 For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmith check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
@@ -27,7 +29,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-cloudsmith==1.2.0
+   datadog-agent integration install -t datadog-cloudsmith==1.3.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
@@ -36,13 +38,26 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 
 1. Edit the `cloudsmith.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Cloudsmith performance data. See the [sample cloudsmith.d/conf.yaml][5] for all available configuration options.
 
-    Example snippet enabling realtime bandwidth:
+    Example snippet with recommended defaults and profile filtering:
 
     ```yaml
      - url: https://api.cloudsmith.io/v1
        cloudsmith_api_key: <API-KEY>
        organization: <ORG-NAME>
        enable_realtime_bandwidth: true
+       bandwidth_interval: five_minutes
+       bandwidth_profiles:
+         - name: prod-python
+           aggregate: bytes_downloaded_sum
+           repository:
+             - production
+           package_format:
+             - python
+         - name: by-country
+           aggregate: request_count
+           country:
+             - US
+             - GB
     ```
 
 2. [Restart the Agent][6].
