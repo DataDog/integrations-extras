@@ -1,6 +1,5 @@
 import pytest
 
-
 INSTANCE = {
     "min_collection_interval": 15,
     "tags": ["region:local"],
