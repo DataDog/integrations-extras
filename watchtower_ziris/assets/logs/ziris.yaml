@@ -30,10 +30,10 @@ facets:
     type: string
 pipeline:
   type: pipeline
-  name: z/IRIS CICS Transaction Exceptions
+  name: z/IRIS CICS Transaction Exceptions Logs
   enabled: true
   filter:
-    query: source:otlp_log_ingestion AND @zos.cics.exception.type:*
+    query: source:ziris AND @zos.cics.exception.type:*
   processors:
     - type: date-remapper
       name: ziris_date_remapper
@@ -50,11 +50,6 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-    - type: service-remapper
-      name: ziris_service_remapper
-      enabled: true
-      sources:
-        - "@service.name"
     - type: message-remapper
       name: ziris_message_remapper
       enabled: true
@@ -75,3 +70,8 @@ pipeline:
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
+    - type: service-remapper
+      name: ziris_service_remapper
+      enabled: true
+      sources:
+        - "@service.name"

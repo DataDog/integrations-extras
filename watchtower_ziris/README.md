@@ -41,7 +41,7 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 2. [Configure the Datadog Exporter and Connector][3]
 
    Follow Datadog's documentation to add the Datadog exporter to your collector configuration and provide your API key.
-   Add the processor transform/datadog to the relevant pipelines exporting signals to your Datadog tenant.
+   Add the processor `transform/datadog` to the relevant pipelines exporting signals to your Datadog tenant.
 
 3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and verify that mainframe traces and spans are streaming.
 
