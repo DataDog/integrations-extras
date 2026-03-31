@@ -13,51 +13,7 @@ init_config:
 #
 instances:
 
-    ## @param url - string - required
-    ## The URL to check
-    #
-  - url: https://api.cloudsmith.io/v1
-
-    ## @param cloudsmith_api_key - string - required
-    ## The API key for Cloudsmith
-    #
-    cloudsmith_api_key: ABC123
-
-    ## @param organization - string - required
-    ## Repository organization.
-    #
-    organization: Example CloudsmithOrg1
-
-    ## @param enable_realtime_bandwidth - boolean - optional - default: true
-    ## Enable org-wide realtime bandwidth monitoring.  When true (the default),
-    ## the check fetches total bytes downloaded and request count for the
-    ## entire organization with no filters.  The interval used is controlled
-    ## by bandwidth_interval.
-    #
-    # enable_realtime_bandwidth: true
-
-    ## @param bandwidth_interval - string - optional - default: five_minutes
-    ## Time granularity for all bandwidth collection (org-wide AND profiles).
-    ## Must be one of: minute, five_minutes, fifteen_minutes, hour, day,
-    ## week, month, year.  Defaults to five_minutes.
-    #
-    # bandwidth_interval: five_minutes
-
-    ## @param bandwidth_profiles - list of mappings - optional
-    ## Named bandwidth monitoring profiles.  Each profile queries the Cloudsmith
-    ## analytics time-series API with its own aggregate and filters.  The
-    ## interval is shared via the top-level bandwidth_interval setting.
-    ## Metrics are tagged with profile:<name> plus tags for every configured
-    ## filter key.
-    #
-    # bandwidth_profiles:
-    #   - name: prod-python
-    #     aggregate: bytes_downloaded_sum
-    #     repository:
-    #     - production
-    #     package_format:
-    #     - python
-
+  -
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
@@ -97,3 +53,18 @@ instances:
     #   - <INCLUDE_REGEX>
     #   exclude:
     #   - <EXCLUDE_REGEX>
+
+    ## @param url - string - required
+    ## Rundeck url
+    #
+    url: http://localhost:4440
+
+    ## @param access_token - string - required
+    ## The access token used to call Rundeck APIs.
+    #
+    access_token: <ACCESS_TOKEN>
+
+    ## @param api_version - number - optional - default: 30
+    ## The Rundeck API version used, defaults to 30.
+    #
+    # api_version: <API_VERSION>
