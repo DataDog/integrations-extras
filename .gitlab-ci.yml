@@ -23,7 +23,6 @@ release-auto:
     - ddev --version
     - ddev config set repos.extras .
     - ddev config set repo extras
-    - ./.gitlab/release/git-auth.sh
     # Prefix every line with a timestamp
     - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
   tags: ["arch:amd64"]
