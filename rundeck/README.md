@@ -69,7 +69,7 @@ Other plugins, such as Advanced Run Job, can also be used, depending on your use
    ```shell
    datadog-agent integration install -t datadog-rundeck==1.1.0
    ```
-    > **Note**: For containerized environments, see the [Datadog documentation page][10]. 
+   **Note**: For containerized environments, see the [Use Community and Marketplace Integrations][10].
    
 2. Configure `conf.d/rundeck.d/conf.yaml`. For more information, see [Agent Configuration Files][8].
     - `url`: Rundeck URL
