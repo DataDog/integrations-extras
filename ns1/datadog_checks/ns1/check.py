@@ -475,7 +475,7 @@ class Ns1Check(AgentCheck):
             for b_res, values in metric_value.items():
                 # {"queries": {...}, "records: {...}"}
                 # add tag as either queries or records
-                for k, v in values:
+                for k, v in values.items():
                     # {"usage": 1234, "limit": 500000}
                     # add tag as either usage or limit
                     tags = ["billing:{}".format(k), "billing_resource:{}".format(b_res)]
