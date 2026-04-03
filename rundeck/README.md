@@ -75,8 +75,8 @@ Other plugins, such as Advanced Run Job, can also be used, depending on your use
     - `url`: Rundeck URL
     - `access_token`: Rundeck API token
 
-4. [Restart][9] the Agent.
-5. Verify the installation:
+3. [Restart][9] the Agent.
+4. Verify the installation:
     ```shell
     datadog-agent check rundeck
     ```
