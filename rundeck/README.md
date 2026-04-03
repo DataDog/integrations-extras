@@ -40,6 +40,9 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 **Note**: If you are using a firewall, add the [Datadog IP ranges][7] to your allowlist.
 
 #### Datadog setup
+
+##### Webhook configuration
+
 1. Open Datadog and go to **Integrations** > **Integrations**.
 2. Search for "webhooks".
 
@@ -59,6 +62,24 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 Add this integration to any alert notification in Datadog by adding the recipient of `@webhook-Rundeck_Restart_Service`. The name varies based on what you name the webhook in step 4a. When the monitor triggers an alert, the webhook runs the associated job.
 
 Other plugins, such as Advanced Run Job, can also be used, depending on your use case.
+
+##### Agent configuration
+
+1. Run the following command to install the Agent integration:
+   ```shell
+   datadog-agent integration install -t datadog-rundeck==1.1.0
+   ```
+    > **Note**: For containerized environments, see the [Datadog documentation page][10]. 
+   
+2. Configure `conf.d/rundeck.d/conf.yaml`. For more information, see [Agent Configuration Files][8].
+     - `url`: Rundeck URL
+     - `access_token`: Rundeck API token
+
+4. [Restart][9] the Agent.
+5. Verify the installation:
+    ```shell
+    datadog-agent check rundeck
+    ```
 
 ## Data Collected
 
@@ -85,3 +106,6 @@ Need help? Contact [Datadog support][6].
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhook-fill.png
 [6]: https://docs.datadoghq.com/help/
 [7]: https://docs.datadoghq.com/api/latest/ip-ranges/
+[8]: https://docs.datadoghq.com/agent/configuration/agent-configuration-files/#main-configuration-file
+[9]: https://docs.datadoghq.com/agent/configuration/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=containerized
