@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 import requests
+
 from datadog_checks.clickhouse_cloud.check import (
     GAUGE_QUERY_LOG_ROWS,
     GAUGE_TEXT_LOG_ROWS,
