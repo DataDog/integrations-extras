@@ -79,6 +79,7 @@ class GrpcCheck(AgentCheck):
         self.client_cert = self.instance.get("client_cert", "")
         self.client_key = self.instance.get("client_key", "")
         self.ca_cert = self.instance.get("ca_cert", "")
+        self.secure_channel = self.instance.get("secure_channel", False)
         self._validate_configuration()
         self.tags = self.instance.get("tags", [])
         self.tags.append("grpc_server_address:{}".format(self.grpc_server_address))
@@ -117,7 +118,13 @@ class GrpcCheck(AgentCheck):
                 ca,
             )
             return grpc.secure_channel(self.grpc_server_address, credentials)
-
+        if self.secure_channel:
+            grpc_server = self.grpc_server_address.split(":")[0]
+            return grpc.secure_channel(
+                self.grpc_server_address,
+                grpc.ssl_channel_credentials(),
+                options=(('grpc.ssl_target_name_override', grpc_server), ('grpc.default_authority', grpc_server)),
+            )
         self.log.debug("creating an insecure channel")
         return grpc.insecure_channel(self.grpc_server_address)
 

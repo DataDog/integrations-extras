@@ -1,5 +1,31 @@
 # CHANGELOG - Cloudsmith
 
+### 1.3.0 / 2026-03-03
+
+### Added
+
+* Org-wide real-time bandwidth monitoring
+* Enhanced bandwidth filtering for more granular analysis
+* Repository-level storage and operational metrics
+* New dashboard widget groups: Org Bandwidth Overview and Repository Overview
+
+### Fixed
+
+* Resolved minor quota conversion discrepancies
+* Improved rate-limit handling to respect Cloudsmith quota headers and reduce unnecessary API calls during 429 responses
+
+### 1.2.0 / 2025-11-03
+
+### Added
+
+* Added real-time bandwidth metric (`cloudsmith.bandwidth_bytes_interval`) and related dashboard widget
+
+### 1.1.1 / 2025-10-17
+
+***Added***
+
+* Upgrade the datadog-checks-base to `37.20.0` [#2829](https://github.com/DataDog/integrations-extras/pull/2829)
+
 ### 1.1.0 / 2025-06-20
 
 ***Added***:
@@ -18,5 +44,3 @@
 ### 0.0.2 / 2021-09-08
 
 ***Added***:
-
-* Initial Release

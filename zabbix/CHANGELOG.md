@@ -1,5 +1,11 @@
 # CHANGELOG - zabbix
 
+# 1.2.0 / 2025-11-20
+
+***Added***:
+
+* Added authentication params for newer Zabbix API versions
+
 ## 1.1.1 / 2022-11-04
 
 ***Fixed***:

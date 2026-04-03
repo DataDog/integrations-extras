@@ -1,11 +1,14 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric,sample_tags
 cloudsmith.storage_used,gauge,,percent,,"The percentage of storage used",0,cloudsmith,storage_used,,
 cloudsmith.bandwidth_used,gauge,,percent,,"The percentage of bandwidth used",0,cloudsmith,bandwidth_used,,
-cloudsmith.token_count,gauge,,item,,"The number of tokens in an organization",0,cloudsmith,token_count,,
-cloudsmith.token_bandwidth_total,gauge,,byte,,"The total bandwidth used by tokens",0,cloudsmith,token_bandwidth_total,,
-cloudsmith.token_download_total,gauge,,item,,"The total downloads used by tokens",0,cloudsmith,token_download_total,,
+cloudsmith.token_count,gauge,,item,,"[Deprecated] The number of tokens in an organization",0,cloudsmith,token_count,,
+cloudsmith.token_bandwidth_total,gauge,,byte,,"[Deprecated] The total bandwidth used by tokens",0,cloudsmith,token_bandwidth_total,,
+cloudsmith.token_download_total,gauge,,item,,"[Deprecated] The total downloads used by tokens",0,cloudsmith,token_download_total,,
 cloudsmith.storage_used_bytes,gauge,,byte,,"The amount of storage used in bytes",0,cloudsmith,storage_used_bytes,,
 cloudsmith.bandwidth_used_bytes,gauge,,byte,,"The amount of bandwidth used in bytes",0,cloudsmith,bandwidth_used_bytes,,
+cloudsmith.repository.storage_bytes,gauge,,byte,,"Current storage usage for a repository in bytes",0,cloudsmith,repository_storage_bytes,,repository
+cloudsmith.repository.package_count,gauge,,item,,"Number of packages in the repository",0,cloudsmith,repository_package_count,,repository
+cloudsmith.repository.download_count,gauge,,item,,"Total package downloads for the repository",0,cloudsmith,repository_download_count,,repository
 cloudsmith.member.active,gauge,,item,,"The number of active members in the organization",0,cloudsmith,member_active_status,,user
 cloudsmith.license_policy_violation.count,gauge,,item,,"The number of license policy violations",0,cloudsmith,license_policy_violation_count,,
 cloudsmith.vulnerability_policy_violation.count,gauge,,item,,"The number of vulnerability policy violations",0,cloudsmith,vulnerability_policy_violation_count,,
@@ -26,3 +29,8 @@ cloudsmith.storage_configured_bytes,gauge,,byte,,"The configured storage in byte
 cloudsmith.storage_configured_gb,gauge,,byte,,"The configured storage in gigabytes, including plan and overage",0,cloudsmith,storage_configured_gb,,
 cloudsmith.bandwidth_configured_gb,gauge,,byte,,"The configured bandwidth in gigabytes, including plan and overage",0,cloudsmith,bandwidth_configured_gb,,
 cloudsmith.bandwidth_configured_bytes,gauge,,byte,,"The configured bandwidth in bytes, including plan and overage",0,cloudsmith,bandwidth_configured_bytes,,
+cloudsmith.bandwidth_bytes_interval,gauge,,byte,,"[Deprecated] Bandwidth bytes transferred over the configured bandwidth interval",0,cloudsmith,bandwidth_bytes_interval,,
+cloudsmith.analytics.bytes_downloaded_sum,gauge,,byte,,"Total bytes downloaded in the configured collection interval",0,cloudsmith,analytics_bytes_downloaded_sum,,profile
+cloudsmith.analytics.request_count,gauge,,item,,"Total download request count in the configured collection interval",0,cloudsmith,analytics_request_count,,profile
+cloudsmith.bandwidth.bytes_downloaded,gauge,,byte,,"Org-wide total bytes downloaded in the configured bandwidth interval",0,cloudsmith,bandwidth_bytes_downloaded,,
+cloudsmith.bandwidth.request_count,gauge,,item,,"Org-wide total download request count in the configured bandwidth interval",0,cloudsmith,bandwidth_request_count,,

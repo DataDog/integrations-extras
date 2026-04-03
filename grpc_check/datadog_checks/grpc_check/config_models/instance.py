@@ -40,6 +40,7 @@ class InstanceConfig(BaseModel):
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
     rpc_header: Optional[tuple[str, ...]] = None
+    secure_channel: Optional[bool] = None
     service: Optional[str] = None
     tags: Optional[tuple[str, ...]] = None
     timeout: Optional[int] = None
