@@ -1,0 +1,117 @@
+name: ClickHouse Cloud
+files:
+- name: clickhouse_cloud.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: service_id
+      required: true
+      value:
+        type: string
+        example: "<SERVICE_UUID>"
+      description: |
+        ClickHouse Cloud service UUID.
+        Found in the ClickHouse Cloud console under your service's connection details.
+    - name: key_id
+      required: true
+      value:
+        type: string
+        example: "<API_KEY_ID>"
+      description: |
+        ClickHouse Cloud API key ID.
+        Create one at https://clickhouse.cloud/settings/api-keys with query access.
+    - name: key_secret
+      required: true
+      secret: true
+      value:
+        type: string
+        example: "<API_KEY_SECRET>"
+      description: |
+        ClickHouse Cloud API key secret (paired with key_id above).
+    - name: cluster_name
+      value:
+        type: string
+        example: clickhouse
+        default: clickhouse
+      description: |
+        Friendly name for this ClickHouse Cloud service.
+        Used as the "service" field on every Datadog log entry, making it easy
+        to filter logs by cluster in the Datadog Logs Explorer.
+    - name: collect_query_logs
+      value:
+        type: boolean
+        example: true
+        default: true
+      description: |
+        Enable collection of query logs from system.query_log.
+        Captures completed queries and exceptions with duration, memory, and row stats.
+    - name: collect_text_logs
+      value:
+        type: boolean
+        example: true
+        default: true
+      description: |
+        Enable collection of server logs from system.text_log.
+        Captures Error, Warning, Fatal, and Critical level server-side log entries.
+    - name: exclude_internal_users
+      value:
+        type: boolean
+        example: true
+        default: true
+      description: |
+        Exclude queries from ClickHouse Cloud internal service accounts.
+        ClickHouse Cloud runs health checks, backups, and observability queries under
+        system accounts (e.g. clickhouse-cloud-monitor, *-internal, prometheus-exporter)
+        that generate ~99% of query_log volume on idle clusters with no operational value
+        for application teams. Set to false if you need visibility into internal platform queries.
+    - name: log_batch_size
+      value:
+        type: integer
+        example: 1000
+        default: 1000
+        minimum: 1
+        maximum: 10000
+      description: |
+        Maximum number of log rows fetched per check run, per table.
+        Higher values reduce API calls but increase memory usage.
+    - name: slow_query_threshold_ms
+      value:
+        type: integer
+        example: 5000
+        default: 5000
+        minimum: 0
+        maximum: 3600000
+      description: |
+        Queries slower than this threshold (in milliseconds) are tagged with
+        status "warning" instead of "info" in Datadog Logs.
+        Set to 0 to disable slow-query highlighting.
+    - name: initial_backfill_minutes
+      value:
+        type: integer
+        example: 60
+        default: 60
+        minimum: 1
+        maximum: 1440
+      description: |
+        How far back (in minutes) to look on the very first check run when
+        no cursor exists yet. Subsequent runs resume from the last cursor.
+    - name: query_timeout_seconds
+      value:
+        type: integer
+        example: 30
+        default: 30
+        minimum: 5
+        maximum: 300
+      description: |
+        HTTP timeout in seconds for each ClickHouse Cloud Query API request.
+        Increase if you see timeout errors with large batch sizes.
+    - template: instances/default
+  - template: logs
+    required: true
+    example:
+    - type: integration
+      source: clickhouse
+      service: clickhouse
