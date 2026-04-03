@@ -1,8 +1,14 @@
 # CHANGELOG - JFrog Platform Self-Hosted
 
+## Unreleased
+
+***Changed***:
+
+* Bump minimum `datadog-checks-base` version for integrations missed during Python 3.13 compatibility bump
+
 ## 1.3.0 / 2023-08-11
 
-***Fixed***:
+***Changed***:
 
 * Modified installation steps for sending logs, metrics and violations data to Datadog
 * Supporting only OS/VM, docker and k8s forms of installation for JFrog Platform

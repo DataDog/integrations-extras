@@ -1,5 +1,11 @@
 # CHANGELOG - puma
 
+## Unreleased
+
+***Changed***:
+
+* Bump minimum `datadog-checks-base` version for integrations missed during Python 3.13 compatibility bump
+
 ## 1.3.0 / 2025-07-19
 
 * Add busy_threads metric to Puma integration ([#2697](https://github.com/DataDog/integrations-extras/pull/2697)).
@@ -10,7 +16,7 @@
 
 ## 1.2.1 / 2023-10-05
 
-***Fixed***:
+***Changed***:
 
 * Update conf.yaml to reflect http prefix ([#1887](https://github.com/DataDog/integrations-extras/pull/1887))
 
@@ -21,7 +27,7 @@
 * Add requests_count metric for Puma running in single mode ([#1135](https://github.com/DataDog/integrations-extras/pull/1135). Thanks [anakinj](https://github.com/anakinj))
 * Add allow_redirects option to config ([#1001](https://github.com/DataDog/integrations-extras/pull/1001))
 
-***Fixed***:
+***Changed***:
 
 * Update conf.yaml.example files ([#1147](https://github.com/DataDog/integrations-extras/pull/1147))
 
