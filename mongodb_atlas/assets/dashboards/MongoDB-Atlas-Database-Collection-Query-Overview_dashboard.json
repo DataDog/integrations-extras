@@ -17,7 +17,6 @@
               "title": "# of Collections",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -53,7 +52,6 @@
               "title": "Avg Object Size",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -95,7 +93,6 @@
               "title": "Avg Index Size",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -164,7 +161,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -552,7 +548,7 @@
             "layout": {
               "x": 0,
               "y": 8,
-              "width": 6,
+              "width": 4,
               "height": 2
             }
           },
@@ -599,9 +595,59 @@
               ]
             },
             "layout": {
-              "x": 6,
+              "x": 4,
               "y": 8,
-              "width": 6,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4145054374097899,
+            "definition": {
+              "title": "CPU Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:mongodb.atlas.querystats.cpu_nanos_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "cpu_nanos_sum_total",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 8,
+              "width": 4,
               "height": 2
             }
           }
@@ -609,7 +655,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 10,
         "width": 12,
         "height": 11,
         "is_column_break": true
@@ -728,5 +774,6 @@
   ],
   "layout_type": "ordered",
   "notify_list": [],
+  "pause_auto_refresh": false,
   "reflow_type": "fixed"
 }
