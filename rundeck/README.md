@@ -72,7 +72,7 @@ Other plugins, such as Advanced Run Job, can also be used, depending on your use
     > **Note**: For containerized environments, see the [Datadog documentation page][10]. 
    
 2. Configure `conf.d/rundeck.d/conf.yaml`. For more information, see [Agent Configuration Files][8].
-     - `url`: Rundeck URL
+    - `url`: Rundeck URL
      - `access_token`: Rundeck API token
 
 4. [Restart][9] the Agent.
