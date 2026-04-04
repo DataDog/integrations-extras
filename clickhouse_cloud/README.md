@@ -2,172 +2,69 @@
 
 ## Overview
 
-[ClickHouse Cloud][1] is a fully managed cloud-native data warehouse for real-time analytics. This integration collects query logs and server logs from ClickHouse Cloud via the [Cloud Query API][2] and ships them to Datadog Logs.
+[ClickHouse Cloud][1] is a fully managed cloud-native data warehouse for real-time analytics, built on the open-source ClickHouse database.
 
-The check queries two ClickHouse system tables:
-
-- **`system.query_log`** - Completed queries and exceptions with duration, memory usage, read/write stats, and error details.
-- **`system.text_log`** - Server-side log entries at Error, Warning, Fatal, and Critical levels.
-
-Key features:
-
-- Cursor-based pagination that resumes where it left off across Agent restarts.
-- Automatic filtering of ClickHouse Cloud internal service accounts (~99% noise reduction on idle clusters).
-- Slow query highlighting with configurable threshold.
-- Two service checks for connectivity monitoring.
+This integration collects query logs and server logs from ClickHouse Cloud via the [Cloud Query API][2] and ships them to Datadog Logs. It monitors completed queries and exceptions from `system.query_log`, as well as error and warning entries from `system.text_log`, providing visibility into query performance, failures, and server health.
 
 ## Setup
 
-### Prerequisites
-
-1. A ClickHouse Cloud service with the **Cloud Query API** enabled.
-2. An API key pair (key ID + key secret) created at [ClickHouse Cloud API Keys][3] with query access permissions.
-
 ### Installation
 
-Run the following command to install the Agent integration:
+The ClickHouse Cloud check is not included in the [Datadog Agent][3] package, so you need to install it.
 
-```shell
-datadog-agent integration install -t datadog-clickhouse_cloud==0.1.0
-```
+For Agent v7.21+ / v6.21+, follow the instructions below to install the ClickHouse Cloud check on your host. See [Use Community Integrations][4] to install with the Docker Agent or earlier versions of the Agent.
 
-For containerized environments, see the [Datadog documentation][4].
+1. Run the following command to install the Agent integration:
+
+   ```shell
+   datadog-agent integration install -t datadog-clickhouse_cloud==0.1.0
+   ```
+
+2. Configure your integration similar to core [integrations][5].
 
 ### Configuration
 
-1. Edit the `clickhouse_cloud.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory.
+1. Edit the `clickhouse_cloud.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your ClickHouse Cloud data. See the [sample clickhouse_cloud.d/conf.yaml][6] for all available configuration options.
 
-   ```yaml
-   instances:
-     - service_id: "<YOUR_SERVICE_UUID>"
-       key_id: "<YOUR_API_KEY_ID>"
-       key_secret: "<YOUR_API_KEY_SECRET>"
-       cluster_name: "production-clickhouse"
+2. [Restart the Agent][7].
 
-   logs:
-     - type: integration
-       source: clickhouse
-   ```
-
-   **Important:** The `logs:` section is required. Without it, `send_log()` silently fails.
-
-2. [Restart the Agent][5].
-
-See the [example configuration][6] for all available options.
-
-### Multi-Service Monitoring
-
-To monitor multiple ClickHouse Cloud services, add one instance block per service:
-
-```yaml
-instances:
-  - service_id: "<PROD_SERVICE_UUID>"
-    key_id: "<PROD_KEY_ID>"
-    key_secret: "<PROD_KEY_SECRET>"
-    cluster_name: "prod-clickhouse"
-
-  - service_id: "<STAGING_SERVICE_UUID>"
-    key_id: "<STAGING_KEY_ID>"
-    key_secret: "<STAGING_KEY_SECRET>"
-    cluster_name: "staging-clickhouse"
-```
+**Note:** The `logs:` section with `type: integration` in the configuration file is required for log collection to function. Ensure `logs_enabled: true` is set in your main `datadog.yaml`.
 
 ### Validation
 
-Run the [Agent's status subcommand][7] and look for `clickhouse_cloud` under the Checks section.
+[Run the Agent's status subcommand][8] and look for `clickhouse_cloud` under the Checks section.
 
 ## Data Collected
 
-### Logs
-
-This integration collects logs from ClickHouse Cloud system tables and sends them to Datadog with the following attributes:
-
-**Query Logs** (`system.query_log`):
-
-| Attribute | Description |
-|---|---|
-| `clickhouse.query_id` | Unique query identifier |
-| `clickhouse.user` | User who executed the query |
-| `clickhouse.duration_ms` | Query execution time in milliseconds |
-| `clickhouse.memory_bytes` | Peak memory usage |
-| `clickhouse.read_rows` | Number of rows read |
-| `clickhouse.read_bytes` | Number of bytes read |
-| `clickhouse.written_rows` | Number of rows written |
-| `clickhouse.written_bytes` | Number of bytes written |
-| `clickhouse.exception` | Exception message (if any) |
-| `clickhouse.exception_code` | ClickHouse error code |
-| `clickhouse.query_type` | `finish` or `exception` |
-| `clickhouse.query_kind` | `Select`, `Insert`, `Create`, etc. |
-| `clickhouse.database` | Target database |
-| `clickhouse.tables` | Tables accessed |
-| `clickhouse.client` | Client application name |
-
-**Text Logs** (`system.text_log`):
-
-| Attribute | Description |
-|---|---|
-| `clickhouse.logger` | ClickHouse logger component name |
-| `clickhouse.thread_id` | Thread identifier |
-| `clickhouse.query_id` | Associated query identifier |
-
 ### Metrics
 
-| Metric | Type | Description |
-|---|---|---|
-| `clickhouse_cloud.query_log.rows_collected` | gauge | Number of query log rows collected per check run |
-| `clickhouse_cloud.text_log.rows_collected` | gauge | Number of text log rows collected per check run |
+This integration submits the following operational metrics to track log collection throughput:
+
+- **`clickhouse_cloud.query_log.rows_collected`**: Number of query log rows collected per check run.
+- **`clickhouse_cloud.text_log.rows_collected`**: Number of text log rows collected per check run.
+
+See [metadata.csv][9] for the full list.
 
 ### Service Checks
 
-**clickhouse_cloud.query_log.can_connect**
-
-Returns `CRITICAL` if the check cannot query the ClickHouse Cloud Query API for query logs. Returns `OK` otherwise.
-
-**clickhouse_cloud.text_log.can_connect**
-
-Returns `CRITICAL` if the check cannot query the ClickHouse Cloud Query API for server text logs. Returns `OK` otherwise.
+See [service_checks.json][10] for a list of service checks provided by this integration.
 
 ### Events
 
-ClickHouse Cloud does not include any events.
-
-## Troubleshooting
-
-### No logs appearing
-
-1. Verify the `logs:` section exists in your `conf.yaml` with `type: integration` and `source: clickhouse`.
-2. Check that `logs_enabled: true` is set in your main `datadog.yaml`.
-3. Run `datadog-agent status` and look for the check under the Collector section.
-
-### "file is nil" error
-
-This means the `logs:` block is missing from your configuration. Add it:
-
-```yaml
-logs:
-  - type: integration
-    source: clickhouse
-```
-
-### High log volume
-
-Set `exclude_internal_users: true` (the default) to filter ClickHouse Cloud internal service accounts. On idle clusters, this reduces query_log volume by ~99%.
-
-Need help? Contact [rahuljain3109@gmail.com][8].
+The ClickHouse Cloud integration does not include any events.
 
 ## Support
 
-For support or feature requests, contact the author:
-
-- Email: [rahuljain3109@gmail.com][8]
-- Repository: [github.com/pythonicrahul/datadog-clickhouse-cloud][9]
+Need help? Contact [Datadog support][11].
 
 [1]: https://clickhouse.com/cloud
 [2]: https://clickhouse.com/docs/en/cloud/manage/query-api
-[3]: https://clickhouse.cloud/settings/api-keys
+[3]: https://app.datadoghq.com/account/settings/agent/latest
 [4]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[5]: https://docs.datadoghq.com/getting_started/integrations/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/clickhouse_cloud/datadog_checks/clickhouse_cloud/data/conf.yaml.example
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: mailto:rahuljain3109@gmail.com
-[9]: https://github.com/pythonicrahul/datadog-clickhouse-cloud
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[9]: https://github.com/DataDog/integrations-extras/blob/master/clickhouse_cloud/metadata.csv
+[10]: https://github.com/DataDog/integrations-extras/blob/master/clickhouse_cloud/assets/service_checks.json
+[11]: https://docs.datadoghq.com/help/
