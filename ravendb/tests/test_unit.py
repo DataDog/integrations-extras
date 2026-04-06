@@ -23,7 +23,9 @@ FIXTURE = Path(__file__).parent / "fixtures" / "ravendb_metrics.txt"
 FIXTURE_NO_DB = Path(__file__).parent / "fixtures" / "ravendb_metrics_no_db_metrics.txt"
 FIXTURE_NO_DB_NO_IDX = Path(__file__).parent / "fixtures" / "ravendb_metrics_no_db_idx_metrics.txt"
 FIXTURE_NO_DB_NO_IDX_NO_COLLEC = Path(__file__).parent / "fixtures" / "ravendb_metrics_no_db_idx_collec_metrics.txt"
-FIXTURE_NO_DB_NO_IDX_NO_COLLEC_NO_GC = Path(__file__).parent / "fixtures" / "ravendb_metrics_no_db_idx_collec_gc_metrics.txt"
+FIXTURE_NO_DB_NO_IDX_NO_COLLEC_NO_GC = (
+    Path(__file__).parent / "fixtures" / "ravendb_metrics_no_db_idx_collec_gc_metrics.txt"
+)
 
 METRIC_WITH_LABELS = "ravendb.server.info"
 EXCLUDED_LABEL_PREFIXES = [
@@ -36,7 +38,6 @@ EXCLUDED_LABEL_PREFIXES = [
 
 
 def test_check_default(dd_run_check, aggregator, instance, mock_http_response):
-
     mock_http_response(file_path=FIXTURE_NO_DB_NO_IDX_NO_COLLEC_NO_GC)
     check = RavendbCheck("ravendb", {}, [instance])
 
@@ -56,7 +57,6 @@ def test_check_default(dd_run_check, aggregator, instance, mock_http_response):
 
 
 def test_check_all_enabled(dd_run_check, aggregator, instance, mock_http_response):
-
     mock_http_response(file_path=FIXTURE)
 
     instance["enable_gc_metrics"] = True
@@ -77,7 +77,6 @@ def test_check_all_enabled(dd_run_check, aggregator, instance, mock_http_respons
 
 
 def test_check_no_db_metrics(dd_run_check, aggregator, instance, mock_http_response):
-
     mock_http_response(file_path=FIXTURE_NO_DB)
 
     instance["enable_gc_metrics"] = True
@@ -127,7 +126,7 @@ def test_rename_labels_applied(dd_run_check, aggregator, instance, mock_http_res
 
 def test_metric_patterns_exclude_prevents_emission(dd_run_check, aggregator, instance, mock_http_response):
     mock_http_response(file_path=FIXTURE_NO_DB_NO_IDX_NO_COLLEC)
-    
+
     check = RavendbCheck("ravendb", {}, [instance])
 
     dd_run_check(check)

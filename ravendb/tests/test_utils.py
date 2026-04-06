@@ -1,5 +1,6 @@
 import pytest
 
+
 def metric_emitted_if_any_series_is_finite(aggregator, instance):
     # special case where same metric can be emitted and not based on value (dd filter NaN/+-inf vals).
     # for example:
@@ -60,6 +61,7 @@ def is_excluded_metric(metric_name, instance):
         excluded.append("ravendb.collection.")
 
     return metric_name.startswith(tuple(excluded))
+
 
 def emitted_metric_names(aggregator):
     return sorted(aggregator._metrics.keys())

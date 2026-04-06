@@ -130,7 +130,7 @@ The RavenDB integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact the [maintainer](https://github.com/DataDog/integrations-extras/blob/master/ravendb/manifest.json) of this integration.
+Need help? Contact the support@ravendb.net of this integration.
 
 [1]: https://ravendb.net
 [2]: https://app.datadoghq.com/account/settings/agent/latest
