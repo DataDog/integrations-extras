@@ -1,0 +1,2206 @@
+{
+	"title": "RavenDB",
+	"description": "[[suggested_dashboards]]",
+	"widgets": [
+		{
+			"id": 4290800148396839,
+			"definition": {
+				"title": "Network",
+				"title_align": "left",
+				"background_color": "vivid_green",
+				"show_title": true,
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 1839287202159790,
+						"definition": {
+							"title": "Network Load",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "horizontal",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"name": "query3",
+											"data_source": "metrics",
+											"query": "sum:ravendb.network.total.requests.count{$node_tag} by {node_tag}"
+										}
+									],
+									"formulas": [
+										{
+											"alias": "Requests / sec",
+											"number_format": {},
+											"formula": "per_second(query3)"
+										}
+									],
+									"style": {
+										"palette": "green",
+										"order_by": "values",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"min": "0"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 4,
+							"height": 2
+						}
+					},
+					{
+						"id": 1200904098481151,
+						"definition": {
+							"title": "Concurrent Requests",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "horizontal",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.network.concurrent.requests.count{$node_tag} by {node_tag}"
+										}
+									],
+									"formulas": [
+										{
+											"alias": "Concurrent Requests",
+											"number_format": {},
+											"formula": "query1"
+										}
+									],
+									"style": {
+										"palette": "green",
+										"order_by": "values",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"min": "0"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 2,
+							"width": 4,
+							"height": 2
+						}
+					},
+					{
+						"id": 7109491522859853,
+						"definition": {
+							"title": "TCP Connections",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "horizontal",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"name": "query2",
+											"data_source": "metrics",
+											"query": "avg:ravendb.network.tcp.active.connections{$node_tag} by {node_tag}"
+										}
+									],
+									"formulas": [
+										{
+											"alias": "TCP Connections",
+											"number_format": {},
+											"formula": "query2"
+										}
+									],
+									"style": {
+										"palette": "green",
+										"order_by": "values",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"min": "0"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 4,
+							"width": 4,
+							"height": 2
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 0,
+				"y": 0,
+				"width": 4,
+				"height": 7
+			}
+		},
+		{
+			"id": 7991615138116017,
+			"definition": {
+				"type": "image",
+				"url": "https://raw.githubusercontent.com/ravendb/ravendb/v7.1/docs/logoBlue.png",
+				"sizing": "contain",
+				"margin": "md",
+				"has_background": true,
+				"has_border": true,
+				"vertical_align": "center",
+				"horizontal_align": "center"
+			},
+			"layout": {
+				"x": 4,
+				"y": 0,
+				"width": 4,
+				"height": 2
+			}
+		},
+		{
+			"id": 3349711295891325,
+			"definition": {
+				"title": "Overview",
+				"background_color": "vivid_blue",
+				"show_title": true,
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 619061729459255,
+						"definition": {
+							"title": "Info",
+							"title_size": "16",
+							"title_align": "left",
+							"time": {
+								"type": "live",
+								"unit": "minute",
+								"value": 5
+							},
+							"type": "query_table",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "avg:ravendb.server.info{$node_tag} by {node_tag,ravendb_server_full_version,host,endpoint}",
+											"aggregator": "avg"
+										}
+									],
+									"response_format": "scalar",
+									"sort": {
+										"count": 500,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "asc"
+											}
+										]
+									},
+									"formulas": [
+										{
+											"conditional_formats": [
+												{
+													"comparator": "=",
+													"value": 1,
+													"palette": "white_on_green"
+												}
+											],
+											"cell_display_mode": "bar",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit"
+												}
+											},
+											"formula": "query1"
+										}
+									]
+								}
+							],
+							"has_search_bar": "auto"
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 4,
+							"height": 2
+						}
+					},
+					{
+						"id": 6624786440972535,
+						"definition": {
+							"title": "Hosts",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "hostmap",
+							"requests": {
+								"fill": {
+									"q": "sum:ravendb.cpu.process.usage{$node_tag} by {host}"
+								}
+							},
+							"node_type": "host",
+							"no_metric_hosts": true,
+							"no_group_hosts": true,
+							"group": [],
+							"scope": [],
+							"style": {
+								"palette": "green_to_orange",
+								"palette_flip": false,
+								"fill_min": "auto",
+								"fill_max": "auto"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 2,
+							"width": 2,
+							"height": 2
+						}
+					},
+					{
+						"id": 5639142828598093,
+						"definition": {
+							"title": "License expires in (days)",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.license.expiration.left.seconds{$node_tag}",
+											"aggregator": "avg"
+										}
+									],
+									"conditional_formats": [
+										{
+											"comparator": "<",
+											"value": 60,
+											"palette": "black_on_light_red"
+										},
+										{
+											"comparator": "<",
+											"value": 7,
+											"palette": "white_on_red"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1 / 86400",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "day"
+												}
+											}
+										}
+									]
+								}
+							],
+							"autoscale": true,
+							"text_align": "center",
+							"precision": 0,
+							"timeseries_background": {
+								"type": "area"
+							}
+						},
+						"layout": {
+							"x": 2,
+							"y": 2,
+							"width": 2,
+							"height": 2
+						}
+					},
+					{
+						"id": 1544365179587496,
+						"definition": {
+							"title": "License type",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.license.type{$node_tag}",
+											"aggregator": "avg"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"conditional_formats": [
+										{
+											"comparator": "=",
+											"value": -1,
+											"palette": "white_on_red"
+										},
+										{
+											"comparator": "=",
+											"value": 0,
+											"palette": "custom_bg",
+											"custom_bg_color": "#9b96a2"
+										},
+										{
+											"comparator": "=",
+											"value": 1,
+											"palette": "custom_bg",
+											"custom_bg_color": "#0c2fa5"
+										},
+										{
+											"comparator": "=",
+											"value": 2,
+											"palette": "custom_bg",
+											"custom_bg_color": "#c2529c"
+										},
+										{
+											"comparator": "=",
+											"value": 3,
+											"palette": "custom_bg",
+											"custom_bg_color": "#388ee9"
+										},
+										{
+											"comparator": "=",
+											"value": 5,
+											"palette": "custom_bg",
+											"custom_bg_color": "#1cc8ee"
+										},
+										{
+											"comparator": "=",
+											"value": 6,
+											"palette": "custom_bg",
+											"custom_bg_color": "#ea905d"
+										},
+										{
+											"comparator": "=",
+											"value": 7,
+											"palette": "custom_bg",
+											"custom_bg_color": "#7b51ff"
+										},
+										{
+											"comparator": "=",
+											"value": 4,
+											"palette": "custom_bg",
+											"custom_bg_color": "#1cc8ee"
+										}
+									]
+								}
+							],
+							"autoscale": false,
+							"text_align": "center",
+							"precision": 0
+						},
+						"layout": {
+							"x": 0,
+							"y": 4,
+							"width": 1,
+							"height": 2
+						}
+					},
+					{
+						"id": 6649462541485865,
+						"definition": {
+							"type": "note",
+							"content": "[License types:](https://ravendb.net/buy)   \n0 = None   \n1 = Community   \n2 = Reserved   \n3 = Professional   \n4 = Enterprise   \n5 = Developer   \n6 = Essential   \n7 = EnterpriseAI   \n-1= Invalid",
+							"background_color": "vivid_purple",
+							"font_size": "12",
+							"text_align": "left",
+							"vertical_align": "center",
+							"show_tick": true,
+							"tick_pos": "25%",
+							"tick_edge": "left",
+							"has_padding": true
+						},
+						"layout": {
+							"x": 1,
+							"y": 4,
+							"width": 1,
+							"height": 2
+						}
+					},
+					{
+						"id": 3494287180829660,
+						"definition": {
+							"title": "Certificate expires in (days)",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.certificate.server.certificate.expiration.left.seconds{$node_tag}",
+											"aggregator": "avg"
+										}
+									],
+									"conditional_formats": [
+										{
+											"comparator": "<",
+											"value": 60,
+											"palette": "black_on_light_red"
+										},
+										{
+											"comparator": "<",
+											"value": 7,
+											"palette": "white_on_red"
+										}
+									],
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "hour"
+												}
+											},
+											"formula": "query1 / 86400"
+										}
+									]
+								}
+							],
+							"autoscale": true,
+							"text_align": "center",
+							"precision": 0,
+							"timeseries_background": {
+								"type": "area"
+							}
+						},
+						"layout": {
+							"x": 2,
+							"y": 4,
+							"width": 2,
+							"height": 2
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 8,
+				"y": 0,
+				"width": 4,
+				"height": 7
+			}
+		},
+		{
+			"id": 2280133248500958,
+			"definition": {
+				"type": "note",
+				"content": "#### About this dashboard : \nThis dashboard provides an operational overview of RavenDB servers, databases, collections, and indexes.   \n   \nIt is designed to answer practical questions:  \n• Is the cluster healthy?  \n• Are resources under pressure?   \n• Are databases and indexes keeping up?  \n• Is storage, memory, or indexing becoming a bottleneck?  \n\nAll metrics are collected directly from the RavenDB monitoring endpoints via the Datadog Agent.\n",
+				"background_color": "vivid_blue",
+				"font_size": "12",
+				"text_align": "left",
+				"show_tick": false,
+				"tick_pos": "50%",
+				"tick_edge": "left"
+			},
+			"layout": {
+				"x": 4,
+				"y": 2,
+				"width": 2,
+				"height": 1
+			}
+		},
+		{
+			"id": 5832883414442289,
+			"definition": {
+				"type": "note",
+				"content": "**Resources & documentation**\n\nRavenDB documentation:\nhttps://ravendb.net/docs\n\nMonitoring & metrics reference:\nhttps://docs.ravendb.net/server/administration/monitoring/prometheus\n\nDatadog integration source:\nhttps://github.com/DataDog/integrations-extras\n\nTroubleshooting tip:\nWhen investigating issues, correlate spikes across Resource Utilization, Databases, and Indexes sections.\n",
+				"background_color": "vivid_blue",
+				"font_size": "12",
+				"text_align": "left",
+				"vertical_align": "center",
+				"show_tick": false,
+				"tick_pos": "50%",
+				"tick_edge": "left",
+				"has_padding": true
+			},
+			"layout": {
+				"x": 6,
+				"y": 2,
+				"width": 2,
+				"height": 1
+			}
+		},
+		{
+			"id": 3793145156119287,
+			"definition": {
+				"title": "Node Uptime",
+				"title_size": "16",
+				"title_align": "left",
+				"description": "Time since last restart (per node)\n",
+				"show_legend": true,
+				"legend_layout": "horizontal",
+				"legend_columns": [
+					"min",
+					"max",
+					"value"
+				],
+				"type": "timeseries",
+				"requests": [
+					{
+						"response_format": "timeseries",
+						"queries": [
+							{
+								"name": "query1",
+								"data_source": "metrics",
+								"query": "avg:ravendb.server.uptime.seconds{$node_tag} by {node_tag}"
+							}
+						],
+						"formulas": [
+							{
+								"number_format": {
+									"unit": {
+										"type": "canonical_unit",
+										"unit_name": "second"
+									}
+								},
+								"formula": "query1"
+							}
+						],
+						"style": {
+							"palette": "dog_classic",
+							"order_by": "values",
+							"line_type": "dotted",
+							"line_width": "normal"
+						},
+						"display_type": "line"
+					}
+				],
+				"yaxis": {
+					"include_zero": true,
+					"min": "0"
+				},
+				"markers": [
+					{
+						"value": "y = 0",
+						"display_type": "error dashed"
+					}
+				]
+			},
+			"layout": {
+				"x": 4,
+				"y": 3,
+				"width": 4,
+				"height": 2
+			}
+		},
+		{
+			"id": 1752841211296539,
+			"definition": {
+				"title": "Cluster Elections (Term Changes)",
+				"title_size": "16",
+				"title_align": "left",
+				"description": "Number of Raft term changes per interval (leader elections)\n",
+				"show_legend": true,
+				"legend_layout": "auto",
+				"legend_columns": [
+					"avg",
+					"min",
+					"max",
+					"value",
+					"sum"
+				],
+				"type": "timeseries",
+				"requests": [
+					{
+						"response_format": "timeseries",
+						"queries": [
+							{
+								"name": "query1",
+								"data_source": "metrics",
+								"query": "max:ravendb.cluster.current.term{ravendb_cluster:*,$node_tag}"
+							}
+						],
+						"formulas": [
+							{
+								"formula": "diff(query1)"
+							}
+						],
+						"style": {
+							"palette": "dog_classic",
+							"order_by": "values",
+							"line_type": "solid",
+							"line_width": "normal"
+						},
+						"display_type": "bars"
+					}
+				],
+				"yaxis": {
+					"include_zero": true,
+					"min": "0"
+				},
+				"markers": [
+					{
+						"value": "y = 0",
+						"display_type": "error dashed"
+					}
+				]
+			},
+			"layout": {
+				"x": 4,
+				"y": 5,
+				"width": 4,
+				"height": 2
+			}
+		},
+		{
+			"id": 7684025922797773,
+			"definition": {
+				"title": "RavenDB Logs",
+				"title_size": "16",
+				"title_align": "left",
+				"requests": [
+					{
+						"response_format": "event_list",
+						"query": {
+							"data_source": "logs_stream",
+							"query_string": "source:ravendb $node_tag",
+							"indexes": [],
+							"storage": "hot"
+						},
+						"columns": [
+							{
+								"field": "status_line",
+								"width": "auto"
+							},
+							{
+								"field": "host",
+								"width": "auto"
+							},
+							{
+								"field": "service",
+								"width": "auto"
+							},
+							{
+								"field": "content",
+								"width": "auto"
+							}
+						]
+					}
+				],
+				"type": "list_stream"
+			},
+			"layout": {
+				"x": 0,
+				"y": 7,
+				"width": 12,
+				"height": 3
+			}
+		},
+		{
+			"id": 6381736551406955,
+			"definition": {
+				"title": "Resource Utilization",
+				"title_align": "left",
+				"background_color": "vivid_blue",
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 1925856860750062,
+						"definition": {
+							"title": "CPU usage (process vs machine)",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"alias": "RavenDB process CPU",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "percent"
+												}
+											},
+											"formula": "query1"
+										},
+										{
+											"alias": "Machine CPU",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "percent"
+												}
+											},
+											"formula": "query2"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.cpu.process.usage{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										},
+										{
+											"query": "avg:ravendb.cpu.machine.usage{$node_tag} by {host}",
+											"data_source": "metrics",
+											"name": "query2"
+										}
+									],
+									"style": {
+										"palette": "cool",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "0",
+								"max": "100"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 4,
+							"height": 3
+						}
+					},
+					{
+						"id": 7543908843181428,
+						"definition": {
+							"title": "CPU IO wait",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "horizontal",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.cpu.machine.io.wait{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "percent"
+												}
+											},
+											"formula": "query1"
+										}
+									],
+									"style": {
+										"palette": "datadog16",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "0",
+								"max": "100"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 4,
+							"y": 0,
+							"width": 3,
+							"height": 3
+						}
+					},
+					{
+						"id": 2400621824342306,
+						"definition": {
+							"title": "Memory usage & availability",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"alias": "Allocated (managed)",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"formula": "query1"
+										},
+										{
+											"alias": "Physical",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"formula": "query2"
+										},
+										{
+											"alias": "Available for processing",
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"formula": "query3"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.memory.allocated.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										},
+										{
+											"query": "avg:ravendb.memory.physical.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query2"
+										},
+										{
+											"query": "avg:ravendb.available.memory.for.processing.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query3"
+										}
+									],
+									"style": {
+										"palette": "dog_classic",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 0,
+							"y": 3,
+							"width": 7,
+							"height": 3
+						}
+					},
+					{
+						"id": 5161165865452801,
+						"definition": {
+							"title": "GC Pause %",
+							"title_size": "16",
+							"title_align": "left",
+							"description": "Time spent paused for GC since previous collection\n",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.gc.pause.time.percentage{ravendb_cluster:*,$node_tag} by {node_tag}"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"style": {
+										"palette": "dog_classic",
+										"order_by": "values",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"min": "0"
+							},
+							"markers": [
+								{
+									"label": "  > 5 ",
+									"value": "y = 5",
+									"display_type": "warning dashed"
+								},
+								{
+									"label": " > 10 ",
+									"value": "y = 10",
+									"display_type": "error dashed"
+								}
+							]
+						},
+						"layout": {
+							"x": 0,
+							"y": 6,
+							"width": 5,
+							"height": 3
+						}
+					},
+					{
+						"id": 5138270174933985,
+						"definition": {
+							"title": "Memory headroom (Average across nodes)",
+							"title_size": "16",
+							"title_align": "left",
+							"time": {},
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.available.memory.for.processing.bytes{$node_tag} by {host}",
+											"aggregator": "avg"
+										}
+									],
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"formula": "query1"
+										}
+									],
+									"comparison": {
+										"type": "absolute",
+										"duration": {
+											"type": "previous_timeframe"
+										},
+										"directionality": "increase_better"
+									}
+								}
+							],
+							"autoscale": true,
+							"precision": 1,
+							"timeseries_background": {
+								"type": "area"
+							}
+						},
+						"layout": {
+							"x": 5,
+							"y": 6,
+							"width": 2,
+							"height": 3
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 0,
+				"y": 10,
+				"width": 7,
+				"height": 10
+			}
+		},
+		{
+			"id": 5580002753674842,
+			"definition": {
+				"title": "Disk & Storage",
+				"title_align": "left",
+				"background_color": "vivid_purple",
+				"show_title": true,
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 4947920389948171,
+						"definition": {
+							"title": "Disk remaining (%)",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "avg:ravendb.server.disk.remaining.storage.space.percentage{$node_tag} by {host}",
+											"aggregator": "avg"
+										}
+									],
+									"conditional_formats": [
+										{
+											"comparator": ">",
+											"value": 40,
+											"palette": "white_on_green"
+										}
+									],
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "percent"
+												}
+											},
+											"formula": "query1"
+										}
+									],
+									"comparison": {
+										"type": "absolute",
+										"duration": {
+											"type": "previous_timeframe"
+										},
+										"directionality": "increase_better"
+									}
+								}
+							],
+							"autoscale": true,
+							"precision": 0,
+							"timeseries_background": {
+								"type": "area"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 2,
+							"height": 3
+						}
+					},
+					{
+						"id": 7905729140852510,
+						"definition": {
+							"title": "Disk space (used vs free)",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"alias": "Used",
+											"formula": "query1"
+										},
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"alias": "Free",
+											"formula": "query2"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.server.disk.system.store.used.data.file.size.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										},
+										{
+											"query": "avg:ravendb.server.storage.total.free.space.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query2"
+										}
+									],
+									"style": {
+										"palette": "orange",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "area"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 2,
+							"y": 0,
+							"width": 3,
+							"height": 3
+						}
+					},
+					{
+						"id": 4550302438920302,
+						"definition": {
+							"title": "Disk IO operations (read vs write)",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {},
+											"alias": "Read",
+											"formula": "query1"
+										},
+										{
+											"number_format": {},
+											"alias": "Write",
+											"formula": "query2"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.server.storage.io.read.operations{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										},
+										{
+											"query": "avg:ravendb.server.storage.io.write.operations{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query2"
+										}
+									],
+									"style": {
+										"palette": "red",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 0,
+							"y": 3,
+							"width": 5,
+							"height": 3
+						}
+					},
+					{
+						"id": 5499086820567980,
+						"definition": {
+							"title": "Disk IO throughput (read vs write)",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"alias": "Read",
+											"formula": "query1"
+										},
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"alias": "Write",
+											"formula": "query2"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.server.storage.read.throughput.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query1"
+										},
+										{
+											"query": "avg:ravendb.server.storage.write.throughput.bytes{$node_tag} by {ravendb_node}",
+											"data_source": "metrics",
+											"name": "query2"
+										}
+									],
+									"style": {
+										"palette": "dog_classic",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 0,
+							"y": 6,
+							"width": 5,
+							"height": 3
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 7,
+				"y": 10,
+				"width": 5,
+				"height": 10
+			}
+		},
+		{
+			"id": 5328335616578533,
+			"definition": {
+				"title": "Databases & Collections",
+				"title_align": "left",
+				"background_color": "vivid_orange",
+				"show_title": true,
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 1691359408970260,
+						"definition": {
+							"title": "Database request rate",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "auto",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "request"
+												}
+											},
+											"alias": "Requests/sec",
+											"style": {
+												"palette": "warm"
+											},
+											"formula": "query1"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.database.statistics.requests.per.second{$node_tag} by {database_name}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"style": {
+										"palette": "orange",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 5682873813548824,
+						"definition": {
+							"title": "Document writes rate",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "auto",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "second"
+												}
+											},
+											"alias": "Docs/sec",
+											"style": {
+												"palette": "green"
+											},
+											"formula": "query1"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.database.statistics.doc.puts.per.second{$node_tag} by {database_name}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"style": {
+										"palette": "orange",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 3,
+							"y": 0,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 207005479671473,
+						"definition": {
+							"title": "Database average request duration",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "auto",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "second"
+												}
+											},
+											"alias": "Avg duration",
+											"style": {
+												"palette": "purple"
+											},
+											"formula": "query1"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.database.statistics.request.average.duration.seconds{$node_tag} by {database_name}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"style": {
+										"palette": "orange",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 6,
+							"y": 0,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 7096475275325943,
+						"definition": {
+							"title": "Databases loaded",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "query_value",
+							"requests": [
+								{
+									"response_format": "scalar",
+									"queries": [
+										{
+											"name": "query1",
+											"data_source": "metrics",
+											"query": "min:ravendb.databases.loaded.count{$node_tag}",
+											"aggregator": "last"
+										}
+									],
+									"conditional_formats": [
+										{
+											"comparator": ">",
+											"value": 40,
+											"palette": "white_on_green"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									]
+								}
+							],
+							"autoscale": true,
+							"precision": 0
+						},
+						"layout": {
+							"x": 9,
+							"y": 0,
+							"width": 1,
+							"height": 2
+						}
+					},
+					{
+						"id": 7509737939906656,
+						"definition": {
+							"title": "Database alerts count (per DB)",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "bar_chart",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "max:ravendb.database.alerts.count{$node_tag} by {database_name}",
+											"aggregator": "max"
+										}
+									],
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "alert"
+												}
+											},
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									},
+									"response_format": "scalar",
+									"conditional_formats": [
+										{
+											"comparator": ">",
+											"value": 0,
+											"palette": "white_on_red"
+										}
+									]
+								}
+							],
+							"style": {
+								"display": {
+									"type": "stacked",
+									"legend": "automatic"
+								}
+							}
+						},
+						"layout": {
+							"x": 10,
+							"y": 0,
+							"width": 2,
+							"height": 2
+						}
+					},
+					{
+						"id": 6899622209334133,
+						"definition": {
+							"title": "Database storage size",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "toplist",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "max:ravendb.database.storage.total.allocated.storage.file.bytes{$node_tag} by {database_name}",
+											"aggregator": "last"
+										}
+									],
+									"response_format": "scalar",
+									"formulas": [
+										{
+											"number_format": {
+												"unit": {
+													"type": "canonical_unit",
+													"unit_name": "byte_in_decimal_bytes_family"
+												}
+											},
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									}
+								}
+							],
+							"style": {
+								"display": {
+									"type": "stacked",
+									"legend": "automatic"
+								},
+								"palette": "semantic"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 2,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 2136954134512583,
+						"definition": {
+							"title": "Collection document count",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "toplist",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "max:ravendb.collection.documents.count{$node_tag} by {database_name,collection_name}",
+											"aggregator": "last"
+										}
+									],
+									"response_format": "scalar",
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									}
+								}
+							],
+							"style": {
+								"display": {
+									"type": "flat"
+								},
+								"palette": "orange"
+							}
+						},
+						"layout": {
+							"x": 3,
+							"y": 2,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 3777521782679469,
+						"definition": {
+							"title": "Backups Running",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "auto",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {},
+											"formula": "query1"
+										}
+									],
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "max:ravendb.backup.current.number.of.running.backups{$node_tag}.rollup(max, 60)"
+										}
+									],
+									"response_format": "timeseries",
+									"style": {
+										"palette": "datadog16",
+										"order_by": "values",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 6,
+							"y": 2,
+							"width": 6,
+							"height": 2
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 0,
+				"y": 40,
+				"width": 12,
+				"height": 5,
+				"is_column_break": true
+			}
+		},
+		{
+			"id": 5310628121419380,
+			"definition": {
+				"title": "Indexes",
+				"title_align": "left",
+				"background_color": "vivid_green",
+				"show_title": true,
+				"type": "group",
+				"layout_type": "ordered",
+				"widgets": [
+					{
+						"id": 5879972705959205,
+						"definition": {
+							"title": "Index count per database",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "toplist",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "avg:ravendb.database.indexes.count{$node_tag} by {database_name}",
+											"aggregator": "last"
+										}
+									],
+									"response_format": "scalar",
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									}
+								}
+							],
+							"style": {
+								"display": {
+									"type": "stacked",
+									"legend": "automatic"
+								},
+								"palette": "semantic"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 1569390060949668,
+						"definition": {
+							"title": "Map Indexing Throughput",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {},
+											"alias": "Mapped/sec",
+											"formula": "query1"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.database.statistics.map.index.indexes.per.second{$node_tag} by {database_name}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"style": {
+										"palette": "semantic",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 3,
+							"y": 0,
+							"width": 9,
+							"height": 3
+						}
+					},
+					{
+						"id": 61030377589096,
+						"definition": {
+							"title": "Stale indexes",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "toplist",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "avg:ravendb.database.indexes.stale.count{$node_tag} by {database_name}",
+											"aggregator": "max"
+										}
+									],
+									"response_format": "scalar",
+									"conditional_formats": [
+										{
+											"comparator": ">=",
+											"value": 1,
+											"palette": "custom_bg",
+											"custom_bg_color": "#8c8c8c"
+										},
+										{
+											"comparator": "=",
+											"value": 0,
+											"palette": "white_on_green"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									}
+								}
+							],
+							"style": {
+								"display": {
+									"type": "stacked",
+									"legend": "automatic"
+								},
+								"palette": "datadog16"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 2,
+							"width": 3,
+							"height": 2
+						}
+					},
+					{
+						"id": 5338636286176223,
+						"definition": {
+							"title": "Indexing Reduced throughput",
+							"title_size": "16",
+							"title_align": "left",
+							"show_legend": true,
+							"legend_layout": "vertical",
+							"legend_columns": [
+								"avg",
+								"min",
+								"max",
+								"value",
+								"sum"
+							],
+							"type": "timeseries",
+							"requests": [
+								{
+									"formulas": [
+										{
+											"number_format": {},
+											"alias": "Reduced/sec",
+											"formula": "query1"
+										}
+									],
+									"response_format": "timeseries",
+									"queries": [
+										{
+											"query": "avg:ravendb.index.reduced.per.second{$node_tag} by {index_name,database_name}",
+											"data_source": "metrics",
+											"name": "query1"
+										}
+									],
+									"style": {
+										"palette": "semantic",
+										"line_type": "solid",
+										"line_width": "normal"
+									},
+									"display_type": "line"
+								}
+							],
+							"yaxis": {
+								"include_zero": true,
+								"scale": "linear",
+								"label": "",
+								"min": "auto",
+								"max": "auto"
+							},
+							"markers": []
+						},
+						"layout": {
+							"x": 3,
+							"y": 3,
+							"width": 9,
+							"height": 3
+						}
+					},
+					{
+						"id": 2860137808892284,
+						"definition": {
+							"title": "Indexes with errors",
+							"title_size": "16",
+							"title_align": "left",
+							"type": "toplist",
+							"requests": [
+								{
+									"queries": [
+										{
+											"data_source": "metrics",
+											"name": "query1",
+											"query": "avg:ravendb.database.indexes.errors.count{$node_tag} by {database_name}",
+											"aggregator": "avg"
+										}
+									],
+									"response_format": "scalar",
+									"conditional_formats": [
+										{
+											"comparator": ">=",
+											"value": 1,
+											"palette": "white_on_red"
+										},
+										{
+											"comparator": "=",
+											"value": 0,
+											"palette": "white_on_green"
+										}
+									],
+									"formulas": [
+										{
+											"formula": "query1"
+										}
+									],
+									"sort": {
+										"count": 10,
+										"order_by": [
+											{
+												"type": "formula",
+												"index": 0,
+												"order": "desc"
+											}
+										]
+									}
+								}
+							],
+							"style": {
+								"display": {
+									"type": "stacked",
+									"legend": "automatic"
+								},
+								"palette": "datadog16"
+							}
+						},
+						"layout": {
+							"x": 0,
+							"y": 4,
+							"width": 3,
+							"height": 2
+						}
+					}
+				]
+			},
+			"layout": {
+				"x": 0,
+				"y": 45,
+				"width": 12,
+				"height": 7
+			}
+		}
+	],
+	"template_variables": [
+		{
+			"name": "node_tag",
+			"prefix": "node_tag",
+			"available_values": [],
+			"default": "*"
+		}
+	],
+	"layout_type": "ordered",
+	"notify_list": [],
+	"pause_auto_refresh": false,
+	"reflow_type": "fixed"
+}
