@@ -1,5 +1,11 @@
 # CHANGELOG - ns1
 
+## 2.0.1 / 2026-04-06
+
+*** Fixed ***
+
+* Fixed inner loop in send_metrics to correctly interate using a dictionary
+
 ## 1.0.1 / 2025-08-14
 
 ***Added***:
