@@ -1,6 +1,6 @@
 # CHANGELOG - ns1
 
-## Unreleased
+## 2.0.0 / 2026-04-06
 
 ***Changed***:
 
@@ -26,7 +26,7 @@
 * Added NS1 logo to dashboard
 * New log entry to print metrics
 
-***Changed***:
+***Fixed***:
 
 * Fixed some typos
 

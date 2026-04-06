@@ -1,6 +1,6 @@
 # CHANGELOG - kernelcare
 
-## Unreleased
+## 2.0.0 / 2026-04-06
 
 ***Changed***:
 

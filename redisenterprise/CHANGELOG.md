@@ -1,6 +1,6 @@
 # CHANGELOG - RedisEnterprise
 
-## Unreleased
+## 2.0.0 / 2026-04-06
 
 ***Changed***:
 
@@ -15,7 +15,7 @@
 * Add `pyproject.toml` file ([#1184](https://github.com/DataDog/integrations-extras/pull/1184))
 * Add curated_metric column to metadata.csv files ([#1209](https://github.com/DataDog/integrations-extras/pull/1209))
 
-***Changed***:
+***Fixed***:
 
 * Remove overwriting host references in metric submission ([#1886](https://github.com/DataDog/integrations-extras/pull/1886))
 * Sync config ([#1689](https://github.com/DataDog/integrations-extras/pull/1689))
@@ -23,7 +23,7 @@
 
 ## 1.1.1
 
-***Changed***:
+***Fixed***:
 
 * Unable to get monitor results without a hostname set - fixed
 
@@ -33,18 +33,18 @@
 
 * Collect statistics on Active/Active(CRDT) databases
 
-***Changed***:
+***Fixed***:
 
 * the http wrapper now allows get params, so revert usage of python requests
 
 ## 1.0.0
 
-***Changed***:
+***Fixed***:
 
 * The http wrapper did not honor settings to not follow redirects - confirmed with Datadog team
 
 ## 0.3.1
 
-***Changed***:
+***Fixed***:
 
 * This stops the integration from throwing an error when there are no databases create on the cluster
