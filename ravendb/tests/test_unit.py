@@ -3,18 +3,11 @@ from pathlib import Path
 import pytest
 
 from datadog_checks.ravendb import RavendbCheck
-from datadog_checks.ravendb.metrics import METRIC_MAP
 
 from .common import METRICS
-from .common_no_db import METRICS_NO_DB
-from .common_no_db_no_idx import METRICS_NO_DB_NO_IDX
-from .common_no_db_no_idx_no_collec import METRICS_NO_DB_NO_IDX_NO_COLLEC
 from .common_no_db_no_idx_no_collec_no_gc import METRICS_NO_DB_NO_IDX_NO_COLLEC_NO_GC
-
 from .test_utils import (
-    assert_any_metric_with_prefix_emitted,
     is_excluded_metric,
-    metric_emitted_if_any_series_is_finite,
     metric_stubs,
     tags_contain_prefix,
 )
