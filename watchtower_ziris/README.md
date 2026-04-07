@@ -24,13 +24,20 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
    WatchTower z/IRIS can export telemetry over HTTP or gRPC. Refer to the  z/IRIS IronTap configuration to verify the appropriate receiver is configured.
    
    - [Enable OTLP logs ingestion][2]
-   - Add a Transform Processor
+   - Add a Transform Processor to set the source of OTLP logs from z/IRIS
+
+   ```yaml
+    transform/datadoglogs:
+        log_statements:
+	  - context: resource
+	     statements:
+			 - set(attributes["datadog.log.source"],"ziris")
+   ```
 
    Use the OpenTelemetry Transform Processor to prefix all OpenTelemetry-based metrics streamed from z/IRIS with `ziris.`:
 
-   ```json
-   processors:
-     transform/datadog:
+   ```yaml
+    transform/datadogmetrics:
         metric_statements:
            - context: metric
              statements:
@@ -41,7 +48,7 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 2. [Configure the Datadog Exporter and Connector][3]
 
    Follow Datadog's documentation to add the Datadog exporter to your collector configuration and provide your API key.
-   Add the processor `transform/datadog` to the relevant pipelines exporting signals to your Datadog tenant.
+   Add the processors `transform/datadoglogs` and `transform/datadogmetrics` to the relevant pipelines exporting signals to your Datadog tenant.
 
 3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and verify that mainframe traces and spans are streaming.
 
@@ -49,7 +56,7 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 
    Dashboards will be cloned into your organization, and the monitors will be available on the [Monitor Templates][5] page.
    
-5.  In Datadog, open Log explorer and verify that the z/IRIS custom group facets is available for filtering 
+5.  In Datadog, open Log explorer and verify that the z/IRIS custom group facets is available for filtering.
 
 
 
