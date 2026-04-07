@@ -4,7 +4,7 @@
 
 *** Fixed ***
 
-* Fixed inner loop in send_metrics to correctly interate using a dictionary
+* Fixed inner loop in send_metrics to correctly iterate using a dictionary ([#2953](https://github.com/DataDog/integrations-extras/pull/2953))
 
 ## 1.0.1 / 2025-08-14
 
