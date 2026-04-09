@@ -20,8 +20,16 @@ def instance_enable_database_metrics():
     return False
 
 
+def instance_enable_gc_metrics():
+    return False
+
+
 def instance_enable_index_metrics():
     return False
+
+
+def instance_enable_legacy_tags_normalization():
+    return True
 
 
 def instance_min_collection_interval():

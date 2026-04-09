@@ -34,7 +34,9 @@ class InstanceConfig(BaseModel):
     empty_default_hostname: Optional[bool] = None
     enable_collection_metrics: Optional[bool] = None
     enable_database_metrics: Optional[bool] = None
+    enable_gc_metrics: Optional[bool] = None
     enable_index_metrics: Optional[bool] = None
+    enable_legacy_tags_normalization: Optional[bool] = None
     exclude_metrics: Optional[tuple[str, ...]] = None
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
