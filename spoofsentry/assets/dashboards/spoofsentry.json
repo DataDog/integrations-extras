@@ -1,0 +1,160 @@
+{
+  "title": "SpoofSentry - Domain Security Overview",
+  "description": "DMARC monitoring, spoofing detection, lookalike domains, and takedown orchestration events from SpoofSentry.",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "Security Events (24h)",
+        "type": "query_value",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Critical & High Threats (24h)",
+        "type": "query_value",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry (severity:critical OR severity:high)" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Events by Severity",
+        "type": "timeseries",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  { "facet": "@severity", "limit": 5, "sort": { "aggregation": "count", "order": "desc" } }
+                ]
+              }
+            ],
+            "response_format": "timeseries",
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Events by Type",
+        "type": "toplist",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  { "facet": "@eventType", "limit": 10, "sort": { "aggregation": "count", "order": "desc" } }
+                ]
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Events by Domain",
+        "type": "toplist",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  { "facet": "host", "limit": 10, "sort": { "aggregation": "count", "order": "desc" } }
+                ]
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "Takedown Activity",
+        "type": "timeseries",
+        "requests": [
+          {
+            "queries": [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "search": { "query": "source:spoofsentry @eventType:(TAKEDOWN_*)" },
+                "indexes": ["*"],
+                "compute": { "aggregation": "count" },
+                "group_by": [
+                  { "facet": "@eventType", "limit": 5, "sort": { "aggregation": "count", "order": "desc" } }
+                ]
+              }
+            ],
+            "response_format": "timeseries",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "definition": {
+        "title": "Recent Security Events",
+        "type": "log_stream",
+        "query": "source:spoofsentry",
+        "columns": ["@eventType", "@severity", "host", "@tenantId"],
+        "sort": { "column": "time", "order": "desc" },
+        "message_display": "expanded-md"
+      }
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
