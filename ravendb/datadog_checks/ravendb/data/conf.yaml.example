@@ -34,10 +34,7 @@ instances:
     # enable_collection_metrics: false
 
     ## @param enable_gc_metrics - boolean - optional - default: false
-    ## Enable collection of GC (Garbage Collection) metrics.
-    ##
-    ## When enabled, the integration will query the RavenDB Prometheus endpoint
-    ## with `includeGcMetrics=true` and emit GC-related metrics.
+    ## Enable collection of GC (Garbage Collection) metrics exposed by RavenDB.
     #
     # enable_gc_metrics: false
 
@@ -108,8 +105,3 @@ instances:
 #     path: /var/log/ravendb/logs/*.log
 #     source: ravendb
 #     service: ravendb
-#
-#     log_processing_rules:
-#       - type: multi_line
-#         name: ravendb_multiline
-#         pattern: '^\d{4}-\d{2}-\d{2}'
