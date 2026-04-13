@@ -1,11 +1,12 @@
 {
   "manifest_version": "2.0.0",
-  "app_uuid": "spoofsentry-domainseal",
+  "app_uuid": "87ffb85e-b1e8-4f3d-8978-ce5a2d43036f",
   "app_id": "spoofsentry",
   "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
     "description": "Ingest DMARC monitoring, spoofing detection, and takedown events from SpoofSentry",
@@ -24,9 +25,19 @@
       "SpoofSentry - Domain Security Overview": "assets/dashboards/spoofsentry.json"
     },
     "logs": {
-      "spoofsentry": "assets/logs/spoofsentry.yaml"
+      "source": "spoofsentry"
     },
-    "monitors": {}
+    "integration": {
+      "source_type_name": "SpoofSentry",
+      "auto_install": true,
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   },
   "author": {
     "homepage": "https://spoofsentry.com",
