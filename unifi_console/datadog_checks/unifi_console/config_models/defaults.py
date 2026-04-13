@@ -28,6 +28,10 @@ def instance_empty_default_hostname():
     return True
 
 
+def instance_enable_legacy_tags_normalization():
+    return True
+
+
 def instance_kerberos_auth():
     return 'disabled'
 
