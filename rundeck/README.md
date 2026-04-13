@@ -74,9 +74,16 @@ Other plugins, such as Advanced Run Job, can also be used, depending on your use
 2. Configure `conf.d/rundeck.d/conf.yaml`. For more information, see [Agent Configuration Files][8].
     - `url`: Rundeck URL
     - `access_token`: Rundeck API token
+        - To generate an API token, refer to the official [Rundeck documentation](https://docs.rundeck.com/docs/manual/10-user.html#generate-api-token)
+        - The token must have access to the following endpoints:
+            - `GET /metrics/metrics`
+            - `GET /system/info`
+            - `GET /project/[PROJECT]/executions`
+            - `GET /project/[PROJECT]/executions/running`
+            - `GET /projects`
 
-3. [Restart][9] the Agent.
-4. Verify the installation:
+4. [Restart][9] the Agent.
+5. Verify the installation:
     ```shell
     datadog-agent check rundeck
     ```
