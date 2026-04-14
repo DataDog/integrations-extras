@@ -4,201 +4,146 @@
   "widgets": [
     {
       "id": 325090501093728,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 3
-      },
       "definition": {
-        "type": "group",
         "title": "About CPU Monitoring",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
         "widgets": [
           {
             "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
+              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
+              "sizing": "contain",
+              "margin": "sm",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
             "layout": {
               "x": 0,
               "y": 0,
               "width": 12,
               "height": 1
-            },
-            "definition": {
-              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
-              "type": "image",
-              "margin": "sm",
-              "sizing": "contain",
-              "has_border": true,
-              "has_background": true,
-              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
-              "vertical_align": "center",
-              "horizontal_align": "center"
             }
           },
           {
             "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "With WatchTower z/IRIS , you can stream the CPU contention and utilization metrics from z/OS LPARs (i.e. hosts) for visualization and monitoring in Datadog. Due to the dynamic processor allocation capabilities on mainframe, CPU contention delivers the optimal measurement to identify the potential impact to application workloads. CPU load at 100% may not signify contention.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
             "layout": {
               "x": 0,
               "y": 1,
               "width": 6,
               "height": 1
-            },
-            "definition": {
-              "type": "note",
-              "content": "With WatchTower z/IRIS , you can stream the CPU contention and utilization metrics from z/OS LPARs (i.e. hosts) for visualization and monitoring in Datadog. Due to the dynamic processor allocation capabilities on mainframe, CPU contention delivers the optimal measurement to identify the potential impact to application workloads. CPU load at 100% may not signify contention.",
-              "tick_pos": "50%",
-              "font_size": "14",
-              "show_tick": false,
-              "tick_edge": "left",
-              "text_align": "left",
-              "has_padding": true,
-              "vertical_align": "top",
-              "background_color": "white"
             }
           },
           {
             "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading: \n- Please see [WatchTower z/IRIS OpenTelemetry CPU Metrics ](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html)  for a list of metrics related to processor activity, including their attributes use case.\n",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
             "layout": {
               "x": 6,
               "y": 1,
               "width": 6,
               "height": 1
-            },
-            "definition": {
-              "type": "note",
-              "content": "Further reading: \n- Please see [WatchTower z/IRIS OpenTelemetry CPU Metrics ](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-2/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-cpu-metrics.html)  for a list of metrics related to processor activity, including their attributes use case.\n",
-              "tick_pos": "50%",
-              "font_size": "14",
-              "show_tick": false,
-              "tick_edge": "left",
-              "text_align": "left",
-              "has_padding": true,
-              "vertical_align": "top",
-              "background_color": "white"
             }
           }
-        ],
-        "show_title": true,
-        "layout_type": "ordered",
-        "background_color": "vivid_purple"
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 3
       }
     },
     {
       "id": 3955370034957714,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 18,
-        "is_column_break": true
-      },
       "definition": {
-        "type": "group",
         "title": "CPU Contention",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
         "widgets": [
           {
             "id": 3532849738289101,
+            "definition": {
+              "title": "CPU Contention Monitor ",
+              "type": "manage_status",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": true,
+              "show_status": true,
+              "last_triggered_format": "relative",
+              "query": "CPU contention mainframe",
+              "sort": "status,asc",
+              "count": 50,
+              "start": 0,
+              "summary_type": "monitors",
+              "show_priority": false,
+              "show_last_triggered": false
+            },
             "layout": {
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 2
-            },
-            "definition": {
-              "sort": "status,asc",
-              "type": "manage_status",
-              "count": 50,
-              "query": "CPU contention mainframe",
-              "start": 0,
-              "title": "CPU Contention Monitor ",
-              "show_status": true,
-              "summary_type": "monitors",
-              "show_priority": false,
-              "display_format": "countsAndList",
-              "color_preference": "text",
-              "hide_zero_counts": true,
-              "show_last_triggered": false,
-              "last_triggered_format": "relative"
+              "height": 3
             }
           },
           {
             "id": 4698654642100834,
-            "layout": {
-              "x": 0,
-              "y": 2,
-              "width": 6,
-              "height": 1
-            },
             "definition": {
               "type": "note",
               "content": "Percentage of time when at least one task might not be dispatched. IBM recommends that a value higher than 60% might indicate CPU contention.",
-              "tick_pos": "50%",
+              "background_color": "green",
               "font_size": "14",
-              "show_tick": true,
-              "tick_edge": "bottom",
               "text_align": "left",
-              "has_padding": true,
               "vertical_align": "center",
-              "background_color": "green"
-            }
-          },
-          {
-            "id": 5851987014028899,
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
             "layout": {
               "x": 0,
               "y": 3,
               "width": 6,
-              "height": 3
-            },
+              "height": 1
+            }
+          },
+          {
+            "id": 5851987014028899,
             "definition": {
-              "type": "timeseries",
               "title": "CPU Contention by LPAR",
-              "yaxis": {
-                "max": "auto",
-                "min": "auto",
-                "label": "",
-                "scale": "linear",
-                "include_zero": true
-              },
-              "markers": [
-                {
-                  "label": " contention alert marker ",
-                  "value": "y = 60",
-                  "display_type": "error dashed"
-                }
-              ],
-              "requests": [
-                {
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "query": "avg:zos.cpu.in_ready_work_queue_contention{$host, $sysplex.name}",
-                      "data_source": "metrics"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "alias": "cpu_contention",
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "percent"
-                        }
-                      }
-                    }
-                  ],
-                  "display_type": "bars",
-                  "response_format": "timeseries"
-                }
-              ],
               "title_size": "16",
-              "show_legend": true,
               "title_align": "left",
+              "show_legend": true,
               "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
@@ -206,72 +151,101 @@
                 "max",
                 "value",
                 "sum"
-              ]
-            }
-          },
-          {
-            "id": 6654455324255748,
-            "layout": {
-              "x": 0,
-              "y": 6,
-              "width": 6,
-              "height": 1
-            },
-            "definition": {
-              "type": "note",
-              "content": "The last distribution of IBM SRM samples showing the range of  work units on the \"IN-READY\" queue based on the number of online logical processors. \nFor example \"Online Processors + 150 units  = 27%\" implies  27% of the SRM sample for 150 work units were waiting for a logical processor.",
-              "tick_pos": "50%",
-              "font_size": "14",
-              "show_tick": true,
-              "tick_edge": "bottom",
-              "text_align": "left",
-              "has_padding": true,
-              "vertical_align": "center",
-              "background_color": "green"
-            }
-          },
-          {
-            "id": 4774796308424365,
-            "layout": {
-              "x": 0,
-              "y": 7,
-              "width": 6,
-              "height": 8
-            },
-            "definition": {
-              "type": "query_table",
-              "title": "Last Distribution of Work Units in the  In-Ready Queue",
+              ],
+              "time": {},
+              "type": "timeseries",
               "requests": [
                 {
-                  "sort": {
-                    "count": 500,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "query": "avg:zos.cpu.in_ready_work_queue_utilization{$host, $sysplex.name} by {cpu.waiting_work_unit}.fill(zero)",
-                      "aggregator": "last",
-                      "data_source": "metrics"
-                    }
-                  ],
                   "formulas": [
                     {
-                      "formula": "query1",
+                      "alias": "cpu_contention",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      }
+                      },
+                      "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "query": "avg:ziris.zos.cpu.in_ready_work_queue_contention{$host, $sysplex.name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": [
+                {
+                  "label": " contention alert marker ",
+                  "value": "y = 60",
+                  "display_type": "error dashed"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6654455324255748,
+            "definition": {
+              "type": "note",
+              "content": "The last distribution of IBM SRM samples showing the range of  work units on the \"IN-READY\" queue based on the number of online logical processors. \nFor example \"Online Processors + 150 units  = 27%\" implies  27% of the SRM sample for 150 work units were waiting for a logical processor.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 4774796308424365,
+            "definition": {
+              "title": "Last Distribution of Work Units in the  In-Ready Queue",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "query": "avg:ziris.zos.cpu.in_ready_work_queue_utilization{$host, $sysplex.name} by {cpu.waiting_work_unit}.fill(zero)",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "text_formats": [
                     [
                       {
@@ -436,188 +410,169 @@
                       }
                     ]
                   ],
-                  "response_format": "scalar"
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ]
                 }
               ],
-              "title_size": "16",
-              "title_align": "left",
               "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 8
             }
           }
-        ],
-        "show_title": true,
-        "layout_type": "ordered",
-        "background_color": "vivid_green"
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 6,
+        "height": 18,
+        "is_column_break": true
       }
     },
     {
       "id": 274546046144418,
-      "layout": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 11
-      },
       "definition": {
-        "type": "group",
         "title": "Utilization",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
         "widgets": [
           {
             "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Percentage of the online time that the logical general processor core was dispatched by LPAR",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
             "layout": {
               "x": 0,
               "y": 0,
               "width": 6,
               "height": 1
-            },
-            "definition": {
-              "type": "note",
-              "content": "Percentage of the online time that the logical general processor core was dispatched by LPAR",
-              "tick_pos": "50%",
-              "font_size": "14",
-              "show_tick": true,
-              "tick_edge": "bottom",
-              "text_align": "left",
-              "has_padding": true,
-              "vertical_align": "center",
-              "background_color": "orange"
             }
           },
           {
             "id": 7775184560280790,
+            "definition": {
+              "title": "Avg Utilization of the General Processor per LPAR",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "vertical",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "General Processor",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:ziris.zos.cpu.mvs.lpar.utilization{$processor.type, $host, $sysplex.name}.fill(null)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
             "layout": {
               "x": 0,
               "y": 1,
               "width": 6,
               "height": 3
-            },
-            "definition": {
-              "type": "timeseries",
-              "title": "Avg Utilization of the General Processor per LPAR",
-              "yaxis": {
-                "max": "auto",
-                "min": "auto",
-                "label": "",
-                "scale": "linear",
-                "include_zero": true
-              },
-              "markers": [],
-              "requests": [
-                {
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "query": "avg:zos.cpu.mvs.lpar.utilization{$processor.type, $host, $sysplex.name}.fill(null)",
-                      "data_source": "metrics"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "alias": "General Processor",
-                      "formula": "query1",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "percent"
-                        }
-                      }
-                    }
-                  ],
-                  "display_type": "bars",
-                  "response_format": "timeseries"
-                }
-              ],
-              "title_size": "16",
-              "show_legend": true,
-              "title_align": "left",
-              "legend_layout": "vertical",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ]
             }
           },
           {
             "id": 439978152873595,
+            "definition": {
+              "type": "note",
+              "content": "Percentage of the online time that the logical zIIP core was dispatched by LPAR",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
             "layout": {
               "x": 0,
               "y": 4,
               "width": 6,
               "height": 1
-            },
-            "definition": {
-              "type": "note",
-              "content": "Percentage of the online time that the logical zIIP core was dispatched by LPAR",
-              "tick_pos": "50%",
-              "font_size": "14",
-              "show_tick": true,
-              "tick_edge": "bottom",
-              "text_align": "left",
-              "has_padding": true,
-              "vertical_align": "center",
-              "background_color": "orange"
             }
           },
           {
             "id": 6803442994563601,
-            "layout": {
-              "x": 0,
-              "y": 5,
-              "width": 6,
-              "height": 4
-            },
             "definition": {
-              "type": "timeseries",
               "title": "Avg zIIP Utilization per LPAR",
-              "yaxis": {
-                "max": "auto",
-                "min": "auto",
-                "label": "",
-                "scale": "linear",
-                "include_zero": true
-              },
-              "markers": [],
-              "requests": [
-                {
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "queries": [
-                    {
-                      "name": "query2",
-                      "query": "avg:zos.cpu.mvs.utilization{cpu.type:ziip, $sysplex.name} by {service}.fill(null)",
-                      "data_source": "metrics"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "alias": "Specialty Engine zIIP",
-                      "formula": "query2",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "percent"
-                        }
-                      }
-                    }
-                  ],
-                  "display_type": "bars",
-                  "response_format": "timeseries"
-                }
-              ],
               "title_size": "16",
-              "show_legend": true,
               "title_align": "left",
+              "show_legend": true,
               "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
@@ -625,13 +580,62 @@
                 "max",
                 "value",
                 "sum"
-              ]
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Specialty Engine zIIP",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:ziris.zos.cpu.mvs.lpar.utilization{cpu.type:ziip, $sysplex.name} by {service}.fill(null)",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 4
             }
           }
-        ],
-        "show_title": true,
-        "layout_type": "ordered",
-        "background_color": "vivid_orange"
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 3,
+        "width": 6,
+        "height": 11
       }
     }
   ],
@@ -639,20 +643,20 @@
     {
       "name": "host",
       "prefix": "host",
-      "default": "*",
-      "available_values": []
+      "available_values": [],
+      "default": "*"
     },
     {
       "name": "processor.type",
       "prefix": "cpu.type",
-      "default": "*",
-      "available_values": []
+      "available_values": [],
+      "default": "*"
     },
     {
       "name": "sysplex.name",
       "prefix": "sysplex.name",
-      "default": "*",
-      "available_values": []
+      "available_values": [],
+      "default": "*"
     }
   ],
   "layout_type": "ordered",

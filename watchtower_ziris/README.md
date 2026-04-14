@@ -27,28 +27,28 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
    - Add a Transform Processor to set the source of OTLP logs from z/IRIS
 
    ```yaml
-    transform/datadoglogs:
-        log_statements:
-	  - context: resource
-	     statements:
-			 - set(attributes["datadog.log.source"],"ziris")
+     transform/datadog: 
+      log_statements:
+        - context: log
+          statements:
+            # set resource attribute if the instrumentation_scope name matches
+            - set(resource.attributes["datadog.log.source"], "ziris") where scope.name == "com.broadcom.ziris.irontap"
    ```
 
-   Use the OpenTelemetry Transform Processor to prefix all OpenTelemetry-based metrics streamed from z/IRIS with `ziris.`:
+   Add a transformation to prefix all metrics streamed from z/IRIS with `ziris.`:
 
    ```yaml
-    transform/datadogmetrics:
-        metric_statements:
-           - context: metric
-             statements:
-               - set(metric.name,Concat(["ziris", metric.name], ".")) where HasPrefix(metric.name, "zos.")
-               - set(metric.name,Concat(["ziris", metric.name], ".")) where HasPrefix(metric.name, "irontap.")
+       metric_statements:
+        - context: metric
+          statements:
+            # Concat "ziris" and the current metric name with a "." separator
+            - set(name, Concat(["ziris", name], ".")) where scope.name == "com.broadcom.ziris.irontap"
    ```
 
 2. [Configure the Datadog Exporter and Connector][3]
 
    Follow Datadog's documentation to add the Datadog exporter to your collector configuration and provide your API key.
-   Add the processors `transform/datadoglogs` and `transform/datadogmetrics` to the relevant pipelines exporting signals to your Datadog tenant.
+   Add the processors `transform/datadog`  to the z/IRIS pipelines exporting signals to your Datadog tenant.
 
 3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and verify that mainframe traces and spans are streaming.
 
