@@ -74,7 +74,7 @@ datadogRum.init({
 
 ### 2. Create your router with the Datadog wrapper
 
-Replace Vue Router's `createRouter` with the one from `@datadog/browser-rum-vue/vue-router-v4`:
+Import the `createRouter` from `@datadog/browser-rum-vue/vue-router-v4` instead of from `vue-router`:
 
 ```javascript
 import { createWebHistory } from 'vue-router'
