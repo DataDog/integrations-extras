@@ -20,7 +20,7 @@ Start by setting up [Datadog RUM][1] in your Vue application:
 
 After configuration, the Datadog App provides instructions for integrating the [RUM-Vue plugin][2] with the Browser SDK.
 
-This integration requires **Vue v3.5+** and **Vue Router v4+** (if using router view tracking).
+This integration requires **Vue v3.5+**, or **Vue Router v4+** if you are using router view tracking.
 
 ## Basic usage
 
