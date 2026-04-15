@@ -13,7 +13,7 @@ Combined with Datadog RUM's core capabilities, you can debug performance bottlen
 
 ## Setup
 
-Start by setting up [Datadog RUM][1] in your Vue application:
+Set up [Datadog RUM][1] in your Vue application:
 
 - If you are creating a RUM application, select **Vue** as the application type.
 - If Vue is not available as an option, select **JavaScript** and follow the steps below to integrate the plugin manually.
