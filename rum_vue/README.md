@@ -56,7 +56,7 @@ app.mount('#app')
 
 ## Router view tracking
 
-To automatically track route changes as RUM views, enable the `router` option in the plugin and use the Datadog `createRouter` wrapper instead of Vue Router's native one.
+To automatically track route changes as RUM views, enable the `router` option in the plugin then replace the Vue Router's native wrapper with Datadog's `createRouter` wrapper.
 
 ### 1. Initialize the RUM SDK with router tracking enabled
 
