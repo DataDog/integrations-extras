@@ -26,7 +26,7 @@ This integration requires **Vue v3.5+**, or **Vue Router v4+** if you are using 
 
 ### 1. Initialize the Datadog RUM SDK with the Vue plugin
 
-In your `main.ts` (or `main.js`):
+Add the following to your `main.ts` (or `main.js`) file:
 
 ```javascript
 import { datadogRum } from '@datadog/browser-rum'
