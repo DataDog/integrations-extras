@@ -5,7 +5,7 @@
 The Datadog RUM Vue integration provides framework-specific instrumentation to help you monitor and debug Vue 3 applications. This integration adds:
 
 - **Automatic route change detection** using Vue Router v4
-- **View name normalization** that maps dynamic route segments to their parameterized definitions (e.g. `/users/123` becomes `/users/:id`)
+- **View name normalization** that maps dynamic route segments to their parameterized definitions (for example, `/users/123` becomes `/users/:id`)
 - **Error reporting** through Vue's global error handler with full component stack traces
 - **Full-stack visibility** by correlating frontend performance with backend traces and logs
 
