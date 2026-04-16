@@ -5,7 +5,7 @@
     {
       "id": 1,
       "definition": {
-        "title": "Security Events (24h)",
+        "title": "Security Events",
         "type": "query_value",
         "requests": [
           {
@@ -26,7 +26,7 @@
     {
       "id": 2,
       "definition": {
-        "title": "Critical & High Threats (24h)",
+        "title": "Critical & High Threats",
         "type": "query_value",
         "requests": [
           {
@@ -108,7 +108,7 @@
                 "indexes": ["*"],
                 "compute": { "aggregation": "count" },
                 "group_by": [
-                  { "facet": "host", "limit": 10, "sort": { "aggregation": "count", "order": "desc" } }
+                  { "facet": "@network.destination.domain", "limit": 10, "sort": { "aggregation": "count", "order": "desc" } }
                 ]
               }
             ],
@@ -148,7 +148,7 @@
         "title": "Recent Security Events",
         "type": "log_stream",
         "query": "source:spoofsentry",
-        "columns": ["@eventType", "@severity", "host", "@tenantId"],
+        "columns": ["@eventType", "@severity", "@network.destination.domain", "@tenantId"],
         "sort": { "column": "time", "order": "desc" },
         "message_display": "expanded-md"
       }
