@@ -22,6 +22,8 @@ This integration requires **Vue v3.5+** and **Vue Router v4+** (if using router 
 
 ## Basic usage
 
+To get started, initialize the RUM SDK with the Vue plugin and attach the error handler to your app.
+
 ### 1. Initialize the Datadog RUM SDK with the Vue plugin
 
 Add the following to your `main.ts` (or `main.js`) file:
