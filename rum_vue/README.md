@@ -15,12 +15,10 @@ Combined with Datadog RUM's core capabilities, you can debug performance bottlen
 
 Set up [Datadog RUM][1] in your Vue application:
 
-- If you are creating a RUM application, select **Vue** as the application type.
+- If you are creating a RUM application, select **Vue** as the application type. The Datadog App provides instructions for integrating the [RUM-Vue plugin][2] with the Browser SDK.
 - If Vue is not available as an option, select **JavaScript** and follow the steps below to integrate the plugin manually.
 
-After you configure your application, see Datadog for instructions on integrating the [RUM-Vue plugin][2] with the Browser SDK.
-
-This integration requires **Vue v3.5+**, or **Vue Router v4+** if you are using router view tracking.
+This integration requires **Vue v3.5+** and **Vue Router v4+** (if using router view tracking).
 
 ## Basic usage
 
