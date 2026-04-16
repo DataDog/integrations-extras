@@ -13,42 +13,67 @@ Events include:
 
 ### In SpoofSentry
 
-1. Log in to [SpoofSentry](https://spoofsentry.com)
-2. Go to **Settings > Integrations > SIEM**
-3. Select **Datadog**
-4. Enter your **Datadog API key** (from Datadog > Organization Settings > API Keys)
-5. Select your **Datadog site** (US: `datadoghq.com`, EU: `datadoghq.eu`)
-6. Click **Test Connection** to verify
+1. Log in to [SpoofSentry][1].
+2. Go to **Settings > Integrations > SIEM**.
+3. Select **Datadog**.
+4. Enter your **Datadog API key** (from Datadog > Organization Settings > API Keys).
+5. Select your **Datadog site** (US: `datadoghq.com`, EU: `datadoghq.eu`).
+6. Click **Test Connection** to verify.
 
 ### In Datadog
 
-Events appear automatically in **Logs** with `source:spoofsentry`. The pre-built dashboard is installed with this integration.
+Events appear automatically in **Logs** with `source:spoofsentry`. A prebuilt dashboard is installed with this integration.
+
+### Validation
+
+To confirm the integration is working:
+
+1. In SpoofSentry, send a test event from **Settings > Integrations > SIEM > Datadog > Test Connection**.
+2. In Datadog, navigate to **Logs** and filter by `source:spoofsentry`.
+3. Verify that test events appear with the expected fields (`eventType`, `severity`, `domain`).
 
 ### Log Pipeline
 
-A log pipeline is included that:
+The integration includes a log pipeline that:
 - Maps `eventType` to `evt.name`
 - Maps `severity` to log status
 - Maps `domain` to `network.destination.domain`
 - Categorizes severity levels
 
+## Uninstallation
+
+1. In SpoofSentry, go to **Settings > Integrations > SIEM** and remove the Datadog configuration.
+2. In Datadog, uninstall the SpoofSentry integration from **Integrations > Integrations**.
+
 ## Data Collected
 
 ### Logs
 
-SpoofSentry sends domain security events as JSON logs via the Datadog Logs API.
+SpoofSentry sends domain security events as JSON logs through the Datadog Logs API.
 
 | Field | Description |
 |-------|-------------|
-| `eventType` | Event classification (e.g., `SPOOF_THREAT_DETECTED`) |
+| `eventType` | Event classification (for example, `SPOOF_THREAT_DETECTED`) |
 | `severity` | `critical`, `high`, `medium`, `low`, `info` |
 | `domain` | Target domain |
 | `tenantId` | Customer tenant identifier |
 | `message` | Human-readable event summary |
 
+### Metrics
+
+The SpoofSentry integration does not include any metrics.
+
+### Service Checks
+
+The SpoofSentry integration does not include any service checks.
+
+### Events
+
+The SpoofSentry integration does not include any events.
+
 ### Tags
 
-All events include these tags:
+All events include the following tags:
 - `service:spoofsentry`
 - `event_type:<type>`
 - `severity:<level>`
@@ -56,6 +81,7 @@ All events include these tags:
 
 ## Support
 
-- Email: hello@spoofsentry.com
-- Documentation: [https://spoofsentry.com/docs/integrations/datadog](https://spoofsentry.com/docs/integrations/datadog)
-- Status: [https://spoofsentry.com/status](https://spoofsentry.com/status)
+Need help? Contact [SpoofSentry support][2].
+
+[1]: https://spoofsentry.com
+[2]: mailto:hello@spoofsentry.com
