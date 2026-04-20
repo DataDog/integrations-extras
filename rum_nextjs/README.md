@@ -1,4 +1,4 @@
-# RUM Browser Monitoring - NEXTJS integration
+# RUM Browser Monitoring - Next.js integration
 
 ## Overview
 
@@ -11,6 +11,10 @@ The Datadog RUM Next.js integration provides framework-specific instrumentation 
 
 Combined with Datadog RUM's core capabilities, you can debug performance bottlenecks, track user journeys, monitor Core Web Vitals, and analyze every user session with context.
 
+## Prerequisites
+
+Both routers require Next.js v15.3+, which supports the [instrumentation-client][3] file convention.
+
 ## Setup
 
 Start by setting up [Datadog RUM][1] in your Next.js application:
@@ -18,9 +22,7 @@ Start by setting up [Datadog RUM][1] in your Next.js application:
 - If you are creating a RUM application, select **Next.js** as the application type.
 - If Next.js is not available as an option, select **React** and follow the steps below to integrate the plugin manually.
 
-After configuration, the Datadog App provides instructions for integrating the [RUM-Next.js plugin][2] with the Browser SDK.
-
-Both routers require **Next.js v15.3+**, which supports the [`instrumentation-client`][3] file convention.
+After configuration, the Datadog App provides instructions for integrating the [RUM-Next.js plugin][2] with the Browser SDK. If Next.js is not available as an app type, or to configure manually, follow the steps below.  
 
 ## App router usage
 
@@ -42,7 +44,7 @@ datadogRum.init({
 })
 ```
 
-### 2. Call the DatadogAppRouter component from your root layout.
+### 2. Call the DatadogAppRouter component from your root layout
 
 ```tsx
 // app/layout.tsx
@@ -64,7 +66,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 Next.js uses [error boundaries](https://nextjs.org/docs/app/api-reference/file-conventions/error) (`error.tsx` files) to catch uncaught exceptions in each route segment. Use `addNextjsError` inside these boundaries to report errors to Datadog RUM.
 
-For **Server Component** errors, Next.js sends a generic message to the client and attaches `error.digest`, a hash that links the client-side error to your server-side logs. For **Client Component** errors, `error.message` is the original message and `digest` is absent.
+Error behavior differs by component type:  
+
+- **Server Component errors**: Next.js sends a generic message to the client and attaches `error.digest`, a hash that links the client-side error to your server-side logs.  
+- **Client Component errors**: `error.message` is the original message and `digest` is absent.  
+
 
 ```tsx
 // app/error.tsx (or app/dashboard/error.tsx, etc.)
@@ -105,6 +111,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
   )
 }
 ```
+For details on how view names are normalized from dynamic route segments, see [Route tracking](#route-tracking).  
 
 ## Pages router usage
 
@@ -168,6 +175,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 ```
+For details on how view names are normalized from dynamic route segments, see [Route tracking](#route-tracking) below.  
 
 ## Route tracking
 

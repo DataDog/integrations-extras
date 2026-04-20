@@ -2,6 +2,6 @@
 
 ## 1.0.0
 
-**_Added_**:
+**Added**:
 
 * Initial NextJS RUM Integration Tile.
