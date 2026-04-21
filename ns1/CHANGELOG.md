@@ -1,5 +1,17 @@
 # CHANGELOG - ns1
 
+## 2.0.1 / 2026-04-06
+
+***Fixed***
+
+* Fixed inner loop in send_metrics to correctly iterate using a dictionary ([#2953](https://github.com/DataDog/integrations-extras/pull/2953))
+
+## 2.0.0 / 2026-04-06
+
+***Changed***:
+
+* Bump minimum `datadog-checks-base` version for integrations missed during Python 3.13 compatibility bump ([#2957](https://github.com/DataDog/integrations-extras/pull/2957))
+
 ## 1.0.1 / 2025-08-14
 
 ***Added***:

@@ -1,5 +1,19 @@
 # CHANGELOG - Cloudsmith
 
+### 1.3.0 / 2026-03-03
+
+### Added
+
+* Org-wide real-time bandwidth monitoring
+* Enhanced bandwidth filtering for more granular analysis
+* Repository-level storage and operational metrics
+* New dashboard widget groups: Org Bandwidth Overview and Repository Overview
+
+### Fixed
+
+* Resolved minor quota conversion discrepancies
+* Improved rate-limit handling to respect Cloudsmith quota headers and reduce unnecessary API calls during 429 responses
+
 ### 1.2.0 / 2025-11-03
 
 ### Added
