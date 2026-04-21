@@ -1,5 +1,7 @@
 # Sym Log Destination
 
+This is a test line.
+
 ## Overview
 
 [Sym][1] is a platform that allows you to define simple automations that turn just-in-time access policies into easy-to-operate workflows, executed in Slack. Define access flows in Terraform, customize and integrate with other systems in code, and use our API or Slack App to request and approve/deny access.
