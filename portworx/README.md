@@ -12,7 +12,7 @@ Get metrics from Portworx service in real time to:
 
 ### Installation
 
-#### Step 1 – Create Datadog credentials Secret
+#### Step 1 - Create Datadog credentials Secret
 
 Autopilot uses Datadog's Metrics API and requires a Datadog API key and Application key to authenticate. Create a Kubernetes Secret:
 
@@ -37,7 +37,7 @@ data:
 - Ensure Autopilot has RBAC permission to read this Secret.
 - The `app-key` must have metrics Read permission.
 
-#### Step 2 – Configure the Datadog Agent to export PX metrics
+#### Step 2 - Configure the Datadog Agent to export PX metrics
 
 **2.1** Create a Datadog Agent values file (for example, `datadog_config.yaml`):
 
@@ -70,7 +70,7 @@ helm upgrade --install datadog-agent datadog/datadog -f ./datadog_config.yaml
 
 ### Configuration
 
-#### Step 2.3 – Annotate PX, Stork, and Autopilot pods
+#### Step 2.3 - Annotate PX, Stork, and Autopilot pods
 
 Configure Datadog auto-discovery annotations so the Agent knows which endpoints to scrape. The typical Prometheus-style service endpoints are:
 
@@ -153,7 +153,7 @@ You can verify the Agent is scraping metrics by running `kubectl exec <datadog-a
 
 However, Autopilot is not yet configured to use the Datadog provider.
 
-#### Step 3 – Configure the Autopilot Datadog provider in StorageCluster
+#### Step 3 - Configure the Autopilot Datadog provider in StorageCluster
 
 Enable the Datadog provider in your `StorageCluster` spec under the `autopilot` section:
 
