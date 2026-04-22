@@ -23,6 +23,10 @@ coverage:
         target: 75
         flags:
         - bind9
+      ClickHouse_Cloud:
+        target: 75
+        flags:
+        - clickhouse_cloud
       CloudNatix:
         target: 75
         flags:
@@ -374,6 +378,11 @@ flags:
     paths:
     - cfssl/datadog_checks/cfssl
     - cfssl/tests
+  clickhouse_cloud:
+    carryforward: true
+    paths:
+    - clickhouse_cloud/datadog_checks/clickhouse_cloud
+    - clickhouse_cloud/tests
   cloudnatix:
     carryforward: true
     paths:
