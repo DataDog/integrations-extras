@@ -1477,6 +1477,13 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
+              name: Map `ocsf.finding_info.analytic.type` to `ocsf.finding_info.analytic.type`
+              sources:
+                - ocsf.finding_info.analytic.type
+              target: ocsf.finding_info.analytic.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ocsf.finding_info.analytic.type_id` to `ocsf.finding_info.analytic.type_id`
               sources:
                 - ocsf.finding_info.analytic.type_id
@@ -1762,6 +1769,13 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
+              name: Map `ocsf.finding_info.data_sources` to `ocsf.finding_info.data_sources`
+              sources:
+                - ocsf.finding_info.data_sources
+              target: ocsf.finding_info.data_sources
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ruleName` to `ocsf.finding_info.analytic.name`
               sources:
                 - ruleName
@@ -1790,6 +1804,13 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
+              name: Map `ocsf.finding_info.analytic.type` to `ocsf.finding_info.analytic.type`
+              sources:
+                - ocsf.finding_info.analytic.type
+              target: ocsf.finding_info.analytic.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ocsf.finding_info.analytic.type_id` to `ocsf.finding_info.analytic.type_id`
               sources:
                 - ocsf.finding_info.analytic.type_id
@@ -1805,6 +1826,13 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
               targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.finding_info.types` to `ocsf.finding_info.types`
+              sources:
+                - ocsf.finding_info.types
+              target: ocsf.finding_info.types
+              preserveSource: true
+              overrideOnConflict: true
             - type: schema-remapper
               name: Map `status` to `ocsf.status_code`
               sources:
@@ -2007,6 +2035,13 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
               targetFormat: string
+            - type: schema-remapper
+              name: Map `ocsf.data_security.data_lifecycle_state` to `ocsf.data_security.data_lifecycle_state`
+              sources:
+                - ocsf.data_security.data_lifecycle_state
+              target: ocsf.data_security.data_lifecycle_state
+              preserveSource: true
+              overrideOnConflict: true
             - type: schema-remapper
               name: Map `ocsf.data_security.data_lifecycle_state_id` to `ocsf.data_security.data_lifecycle_state_id`
               sources:
@@ -2245,6 +2280,13 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
+              name: Map `ocsf.data_security.detection_system` to `ocsf.data_security.detection_system`
+              sources:
+                - ocsf.data_security.detection_system
+              target: ocsf.data_security.detection_system
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ocsf.data_security.detection_system_id` to `ocsf.data_security.detection_system_id`
               sources:
                 - ocsf.data_security.detection_system_id
@@ -2416,6 +2458,20 @@ pipeline:
           name: Apply OCSF schema for 3002
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.is_remote` to `ocsf.is_remote`
+              sources:
+                - ocsf.is_remote
+              target: ocsf.is_remote
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.logon_type` to `ocsf.logon_type`
+              sources:
+                - ocsf.logon_type
+              target: ocsf.logon_type
+              preserveSource: true
+              overrideOnConflict: true
             - type: schema-remapper
               name: Map `zscaler.adminid` to `ocsf.user.name`
               sources:
@@ -2877,6 +2933,13 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
+              name: Map `ocsf.connection_info.direction` to `ocsf.connection_info.direction`
+              sources:
+                - ocsf.connection_info.direction
+              target: ocsf.connection_info.direction
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ocsf.connection_info.direction_id` to `ocsf.connection_info.direction_id`
               sources:
                 - ocsf.connection_info.direction_id
@@ -2959,6 +3022,13 @@ pipeline:
               sources:
                 - zscaler.protocol
               target: ocsf.http_request.url.scheme
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.http_request.http_method` to `ocsf.http_request.http_method`
+              sources:
+                - ocsf.http_request.http_method
+              target: ocsf.http_request.http_method
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -3217,6 +3287,13 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
+              name: Map `ocsf.answers` to `ocsf.answers`
+              sources:
+                - ocsf.answers
+              target: ocsf.answers
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
               name: Map `ocsf.query_time` to `ocsf.query_time`
               sources:
                 - ocsf.query_time
@@ -3340,6 +3417,20 @@ pipeline:
           name: Apply OCSF schema for 4014
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.session.is_remote` to `ocsf.session.is_remote`
+              sources:
+                - ocsf.session.is_remote
+              target: ocsf.session.is_remote
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.device.type` to `ocsf.device.type`
+              sources:
+                - ocsf.device.type
+              target: ocsf.device.type
+              preserveSource: true
+              overrideOnConflict: true
             - type: schema-remapper
               name: Map `ocsf.device.type_id` to `ocsf.device.type_id`
               sources:
@@ -3800,6 +3891,13 @@ pipeline:
                 - zscaler.object_name_1
                 - zscaler.filename
               target: ocsf.file.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.file.type` to `ocsf.file.type`
+              sources:
+                - ocsf.file.type
+              target: ocsf.file.type
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
