@@ -17,7 +17,7 @@ Monitor your Angular applications from end-to-end by:
 
 ## Setup
 
-Start by setting up [Datadog RUM][1] in your Angular application. If you're creating a new RUM application in the Datadog App, select Angular as the application type. If you already have an existing RUM application, you can update its type to Angular instead. Once configured, the Datadog App will provide instructions for integrating the [RUM-Angular plugin][2] with the Browser SDK.
+Set up [Datadog RUM][1] in your Angular application. If you're creating a new RUM application in the Datadog App, select Angular as the application type. If you have an existing RUM application, you can update its type to Angular instead. After you configure your RUM application, the Datadog App provides instructions for integrating the [RUM-Angular plugin][2] with the Browser SDK.
 
 ## Error Tracking
 
@@ -35,8 +35,8 @@ import { angularPlugin, provideDatadogErrorHandler } from '@datadog/browser-rum-
 import { datadogRum } from '@datadog/browser-rum'
 
 datadogRum.init({
-  applicationId: '...',
-  clientToken: '...',
+  applicationId: '<APP_ID>',
+  clientToken: '<CLIENT_TOKEN>',
   plugins: [angularPlugin()],
 })
 
@@ -54,8 +54,8 @@ import { angularPlugin, provideDatadogErrorHandler } from '@datadog/browser-rum-
 import { datadogRum } from '@datadog/browser-rum'
 
 datadogRum.init({
-  applicationId: '...',
-  clientToken: '...',
+  applicationId: '<APP_ID>',
+  clientToken: '<CLIENT_TOKEN>',
   plugins: [angularPlugin()],
 })
 
@@ -81,7 +81,7 @@ class MyCustomErrorHandler implements ErrorHandler {
 }
 ```
 
-## Angular Router Integration
+## Angular router integration
 
 To track route changes with Angular's built-in router, initialize the `angularPlugin` with the `router: true` option and add `provideDatadogRouter()` to your providers.
 
@@ -94,8 +94,8 @@ import { angularPlugin, provideDatadogRouter } from '@datadog/browser-rum-angula
 import { datadogRum } from '@datadog/browser-rum'
 
 datadogRum.init({
-  applicationId: '...',
-  clientToken: '...',
+  applicationId: '<APP_ID>',
+  clientToken: '<CLIENT_TOKEN>',
   plugins: [angularPlugin({ router: true })],
 })
 
@@ -114,8 +114,8 @@ import { angularPlugin, provideDatadogRouter } from '@datadog/browser-rum-angula
 import { datadogRum } from '@datadog/browser-rum'
 
 datadogRum.init({
-  applicationId: '...',
-  clientToken: '...',
+  applicationId: '<APP_ID>',
+  clientToken: '<CLIENT_TOKEN>',
   plugins: [angularPlugin({ router: true })],
 })
 
@@ -126,7 +126,7 @@ datadogRum.init({
 export class AppModule {}
 ```
 
-When enabled, the integration uses route patterns as view names instead of resolved URLs. For example, navigating to `/article/2` generates a view named `/article/:articleId` instead.
+When enabled, the integration uses route patterns as view names instead of resolved URLs. For example, navigating to `/article/2` generates a view named `/article/:articleId`.
 
 ## Go Further with Datadog Angular Integration
 
