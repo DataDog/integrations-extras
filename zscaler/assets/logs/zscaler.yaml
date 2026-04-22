@@ -2052,8 +2052,8 @@ pipeline:
                   id: 3
                 - filter:
                     query: "@sourcetype:zscalernss-alert"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -2070,8 +2070,8 @@ pipeline:
                   id: 4
                 - filter:
                     query: "@sourcetype:zscalernss-alert"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -2596,8 +2596,8 @@ pipeline:
                   id: 5
                 - filter:
                     query: "@zscaler.devicetype:*"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.device.type
                 id: ocsf.device.type_id
@@ -2755,8 +2755,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@zscaler.action:*"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -2773,8 +2773,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@zscaler.result:*"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3019,8 +3019,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@sourcetype:zscalernss-fw"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3049,8 +3049,8 @@ pipeline:
                   id: 301
                 - filter:
                     query: "@sourcetype:zscalernss-fw"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.src_endpoint.os.type
                 id: ocsf.src_endpoint.os.type_id
@@ -3381,8 +3381,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@zscaler.action:*"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3563,8 +3563,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@zscaler.reqaction:* OR @zscaler.resaction:*"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3603,13 +3603,13 @@ pipeline:
         - type: string-builder-processor
           name: Add ocsf.device.type
           enabled: true
-          template: "Other"
+          template: "Unknown"
           target: ocsf.device.type
           replaceMissing: false
         - type: string-builder-processor
           name: Add ocsf.device.type_id
           enabled: true
-          template: "99"
+          template: "0"
           target: ocsf.device.type_id
           replaceMissing: false
         - type: schema-processor
@@ -3762,8 +3762,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@sourcetype:zscalernss-tunnel"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -3780,8 +3780,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@sourcetype:zscalernss-tunnel"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3979,8 +3979,8 @@ pipeline:
                   id: 2
                 - filter:
                     query: "@sourcetype:zscalernss-audit"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -4132,8 +4132,8 @@ pipeline:
                   id: 3
                 - filter:
                     query: "@sourcetype:zscalernss-casb"
-                  name: Other
-                  id: 99
+                  name: Unknown
+                  id: 0
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
