@@ -1623,7 +1623,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -1787,7 +1787,7 @@ pipeline:
           grok:
             supportRules: ""
             matchRules: |-
-              activity_count .*Activity count:\s*%{integer:activity_count}.*
+              activity_count .*?Activity count:\s*%{integer:activity_count}.*
         - type: string-builder-processor
           name: Add ocsf.is_alert
           enabled: true
@@ -1850,7 +1850,7 @@ pipeline:
             matchRules: |-
               types %{data:ocsf.finding_info.types:array("[]",",")}
         - type: schema-processor
-          name: Apply OCSF schema for 2004 (ZIA Alert)
+          name: Apply OCSF schema for 2004
           enabled: true
           mappers:
             - type: schema-remapper
@@ -2150,11 +2150,11 @@ pipeline:
             matchRules: |-
               convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
         - type: schema-processor
-          name: Apply OCSF schema for 2006 (Email DLP)
+          name: Apply OCSF schema for 2006
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -2329,11 +2329,11 @@ pipeline:
             matchRules: |-
               convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
         - type: schema-processor
-          name: Apply OCSF schema for 2006 (Endpoint DLP)
+          name: Apply OCSF schema for 2006
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -2843,7 +2843,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -2851,7 +2851,7 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id
@@ -3117,7 +3117,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id
@@ -3463,7 +3463,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -3471,7 +3471,7 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id
@@ -3860,7 +3860,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id
@@ -3926,7 +3926,7 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id
@@ -4182,7 +4182,7 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
-              name: Cast `ocsf.activity_id` to integer
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
@@ -4190,7 +4190,7 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Cast `ocsf.severity_id` to integer
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
                 - ocsf.severity_id
               target: ocsf.severity_id

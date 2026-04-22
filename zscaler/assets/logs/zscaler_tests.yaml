@@ -183,13 +183,67 @@ tests:
         version: "1.1"
       network:
         client:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "0"
         destination:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "0"
+      ocsf:
+        activity_id: 0
+        activity_name: "Unknown"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "HTTP Activity"
+        class_uid: 4002
+        connection_info:
+          direction: "Unknown"
+          direction_id: 0
+          protocol_name: "SSL"
+        dst_endpoint:
+          hostname: "dns.google"
+          ip: "10.10.10.10"
+        http_request:
+          length: 0
+          referrer: "www.google.com"
+          uid: "7534023050404691969"
+          url:
+            hostname: "dns.google"
+            scheme: "SSL"
+            url_string: "dns.google"
+          user_agent: "Windows Microsoft Windows 11 Pro ZTunnel/1.0"
+        http_response:
+          body_length: 0
+          code: 0
+          content_type: "Other"
+          latency: 0
+          length: 0
+          status: "NA"
+        message: "Dropped due to failed client SSL handshake"
+        metadata:
+          log_name: "zscalernss-web"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "web"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          version: "1.5.0"
+        severity: "Informational"
+        severity_id: 1
+        src_endpoint:
+          ip: "10.10.10.10"
+          location:
+            city: "Road Warrior"
+        status: "Failure"
+        status_code: "NA"
+        status_id: 2
+        time: 1754150969000
+        traffic:
+          bytes: 0
+          bytes_in: 0
+          bytes_out: 0
       sourcetype: "zscalernss-web"
       status: "critical"
       usr:
@@ -238,16 +292,16 @@ tests:
         df_hosthead: "None"
         df_hostname: "THINKPADSMITH"
         dlpdicthitcount:
-          - "4"
-          - "5"
-          - "1"
-          - "2"
+         - "4"
+         - "5"
+         - "1"
+         - "2"
         dlpdictionaries:
-          - "Credit Cards"
-          - "Gambling"
-          - "MRN Numbers"
+         - "Credit Cards"
+         - "Gambling"
+         - "MRN Numbers"
         dlpengine:
-          - "HIPAA"
+         - "HIPAA"
         dlpidentifier: "0"
         dlpmd5: "154f149b1443fbfa8c121d13e5c019a1"
         dlprulename: "DLP_Rule_1"
@@ -351,60 +405,6 @@ tests:
         vendor: "Zscaler"
         zpa_app_seg_name: "ZPA_test_app_segment"
         ztunnelversion: "ZTUNNEL_1_0"
-      ocsf:
-        severity: "Informational"
-        http_response:
-          code: 0
-          content_type: "Other"
-          latency: 0
-          length: 0
-          body_length: 0
-          status: "NA"
-        activity_name: "Unknown"
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "web"
-          log_name: "zscalernss-web"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        category_uid: 4
-        category_name: "Network Activity"
-        status_code: "NA"
-        src_endpoint:
-          ip: "10.10.10.10"
-          location:
-            city: "Road Warrior"
-        message: "Dropped due to failed client SSL handshake"
-        status_id: 2
-        connection_info:
-          direction_id: 0
-          direction: "Unknown"
-          protocol_name: "SSL"
-        class_uid: 4002
-        activity_id: 0
-        http_request:
-          uid: "7534023050404691969"
-          referrer: "www.google.com"
-          length: 0
-          url:
-            hostname: "dns.google"
-            scheme: "SSL"
-            url_string: "dns.google"
-          user_agent: "Windows Microsoft Windows 11 Pro ZTunnel/1.0"
-        severity_id: 1
-        time: 1754150969000
-        dst_endpoint:
-          hostname: "dns.google"
-          ip: "10.10.10.10"
-        class_name: "HTTP Activity"
-        traffic:
-          bytes_out: 0
-          bytes_in: 0
-          bytes: 0
-        status: "Failure"
     message: |-
       {
         "sourcetype" : "zscalernss-web",
@@ -564,7 +564,7 @@ tests:
     service: "zscalernss-web"
     status: "critical"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -643,13 +643,47 @@ tests:
         bytes_read: "5476"
         bytes_written: "2738"
         client:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "56039"
         destination:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "443"
+      ocsf:
+        activity_id: 1
+        activity_name: "Create"
+        category_name: "Findings"
+        category_uid: 2
+        class_name: "Detection Finding"
+        class_uid: 2004
+        confidence: "Unknown"
+        confidence_id: 0
+        finding_info:
+          analytic:
+            name: "Default IPS Rule"
+            type: "Rule"
+            type_id: 1
+            uid: "Default IPS Rule"
+          desc: "Linux.Backdoor.Tsunami"
+          related_events_count: 1
+          title: "Block QUIC"
+          uid: "7534021044391772162"
+          uid_alt: "43139974/fw/663ba8fd30b50001.pcap"
+        is_alert: true
+        message: "Linux.Backdoor.Tsunami"
+        metadata:
+          log_name: "zscalernss-fw"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "fw"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          version: "1.5.0"
+        severity: "Unknown"
+        severity_id: 0
+        time: 1754150969000
       sourcetype: "zscalernss-fw"
       status: "critical"
       usr:
@@ -713,40 +747,6 @@ tests:
         user: "johndoe@yahoo.com"
         zpa_app_seg_name: "ZPA_test_app_segment"
         ztunnelversion: "ZTUNNEL_2_0_DTLS1_2"
-      ocsf:
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "fw"
-          log_name: "zscalernss-fw"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        activity_name: "Create"
-        category_uid: 2
-        activity_id: 1
-        class_uid: 2004
-        time: 1754150969000
-        class_name: "Detection Finding"
-        category_name: "Findings"
-        confidence: "Unknown"
-        is_alert: true
-        message: "Linux.Backdoor.Tsunami"
-        finding_info:
-          uid: "7534021044391772162"
-          related_events_count: 1
-          uid_alt: "43139974/fw/663ba8fd30b50001.pcap"
-          title: "Block QUIC"
-          analytic:
-            uid: "Default IPS Rule"
-            type_id: 1
-            name: "Default IPS Rule"
-            type: "Rule"
-          desc: "Linux.Backdoor.Tsunami"
-        confidence_id: 0
-        severity: "Unknown"
-        severity_id: 0
     message: |-
       {
         "sourcetype" : "zscalernss-fw",
@@ -817,7 +817,7 @@ tests:
     service: "zscalernss-fw"
     status: "critical"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -885,18 +885,57 @@ tests:
           type: "A"
       network:
         client:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
         destination:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "53"
+      ocsf:
+        activity_id: 6
+        activity_name: "Traffic"
+        answers:
+         -
+          rdata: "NXDOMAIN"
+          type: "A"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "DNS Activity"
+        class_uid: 4003
+        dst_endpoint:
+          ip: "10.10.10.10"
+          port: 53
+        metadata:
+          log_name: "zscalernss-dns"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "dns"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          version: "1.5.0"
+        query:
+          hostname: "ycapital.fr"
+          type: "A"
+        query_time: 1754150969000
+        severity: "Informational"
+        severity_id: 1
+        src_endpoint:
+          ip: "10.10.10.10"
+          location:
+            city: "Road Warrior"
+          owner:
+            name: "johndoe@yahoo.com"
+        status: "Success"
+        status_id: 1
+        time: 1754150969000
       sourcetype: "zscalernss-dns"
       usr:
         id: "johndoe@yahoo.com"
       zscaler:
         category: "Miscellaneous or Unknown"
         cloudname: "zscalertwo.net"
+        clt_sip: "10.10.10.10"
         company: "Zscaler"
         datacenter: "BOM6"
         datacentercity: "Mu"
@@ -911,10 +950,12 @@ tests:
         deviceosversion: "Microsoft Windows 11 Pro;64 bit"
         deviceowner: "Zscaler"
         devicetype: ""
+        dns_req: "ycapital.fr"
+        dns_reqtype: "A"
         dns_resp: "NXDOMAIN"
         dnsapp: "sm_fw_dns"
         dnsappcat: "network_service"
-        dnsgw_slot: "DNS GATEWAY Rule 1	"
+        dnsgw_slot: "DNS GATEWAY Rule 1\t"
         dnsgw_srv_proto: "UDP"
         durationms: "0"
         ecs_prefix: "0.0.0.0"
@@ -932,49 +973,9 @@ tests:
         resaction: "Allow"
         respipcat: "Other"
         resrulelabel: "rule-1"
+        srv_dip: "10.10.10.10"
         srv_dport: "53"
         user: "johndoe@yahoo.com"
-        dns_reqtype: "A"
-        srv_dip: "10.10.10.10"
-        clt_sip: "10.10.10.10"
-        dns_req: "ycapital.fr"
-      ocsf:
-        severity: "Informational"
-        activity_name: "Traffic"
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "dns"
-          log_name: "zscalernss-dns"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        category_uid: 4
-        category_name: "Network Activity"
-        src_endpoint:
-          owner:
-            name: "johndoe@yahoo.com"
-          location:
-            city: "Road Warrior"
-          ip: "10.10.10.10"
-        answers:
-          - rdata: "NXDOMAIN"
-            type: "A"
-        status_id: 1
-        activity_id: 6
-        class_uid: 4003
-        severity_id: 1
-        dst_endpoint:
-          port: 53
-          ip: "10.10.10.10"
-        class_name: "DNS Activity"
-        status: "Success"
-        query:
-          hostname: "ycapital.fr"
-          type: "A"
-        time: 1754150969000
-        query_time: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-dns",
@@ -1028,7 +1029,7 @@ tests:
       }
     service: "zscalernss-dns"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1069,14 +1070,56 @@ tests:
         outcome: "SUCCESS"
       network:
         client:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
+      ocsf:
+        activity_id: 1
+        activity_name: "Create"
+        actor:
+          user:
+            email_addr: "johndoe@yahoo.com"
+            name: "johndoe@yahoo.com"
+        api:
+          operation: "CREATE"
+          request:
+            uid: "988"
+          service:
+            name: "UI"
+        category_name: "Application Activity"
+        category_uid: 6
+        class_name: "API Activity"
+        class_uid: 6003
+        metadata:
+          log_name: "zscalernss-audit"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "audit"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          uid: "988"
+          version: "1.5.0"
+        resources:
+         -
+          uid: "SSL Rule Name"
+          name: "SSL Rule Name"
+          type: "CASB"
+        severity: "Informational"
+        severity_id: 1
+        src_endpoint:
+          ip: "10.10.10.10"
+        status: "Unknown"
+        status_code: "AUTHENTICATION_FAILED"
+        status_detail: "AUTHENTICATION_FAILED"
+        status_id: 0
+        time: 1754150969000
       sourcetype: "zscalernss-audit"
       zscaler:
         action: "CREATE"
         adminid: "johndoe@yahoo.com"
         auditlogtype: "ZIA"
         category: "CASB"
+        clientip: "10.10.10.10"
         datetime: "2025-08-02 16:09:29"
         errorcode: "AUTHENTICATION_FAILED"
         interface: "UI"
@@ -1090,54 +1133,13 @@ tests:
           scanFromInSecs: 0
           scanOption: "CASB_TENANT_SCAN_OPTION_EVERYTHING"
           scanPolicies:
-            - "CASB_TENANT_SCAN_POLICY_DLP"
-            - "CASB_TENANT_SCAN_POLICY_MALWARE"
+           - "CASB_TENANT_SCAN_POLICY_DLP"
+           - "CASB_TENANT_SCAN_POLICY_MALWARE"
           tenantId: 144591926
           tenantName: "googledrive"
         recordid: "988"
         resource: "SSL Rule Name"
         subcategory: "CASB_SCAN_CONFIGURATION"
-        clientip: "10.10.10.10"
-      ocsf:
-        activity_name: "Create"
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "audit"
-          log_name: "zscalernss-audit"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-          uid: "988"
-        category_uid: 6
-        category_name: "Application Activity"
-        status_code: "AUTHENTICATION_FAILED"
-        status_detail: "AUTHENTICATION_FAILED"
-        class_uid: 6003
-        activity_id: 1
-        time: 1754150969000
-        class_name: "API Activity"
-        severity: "Informational"
-        severity_id: 1
-        status_id: 0
-        status: "Unknown"
-        resources:
-          - uid: "SSL Rule Name"
-            name: "SSL Rule Name"
-            type: "CASB"
-        actor:
-          user:
-            email_addr: "johndoe@yahoo.com"
-            name: "johndoe@yahoo.com"
-        api:
-          request:
-            uid: "988"
-          service:
-            name: "UI"
-          operation: "CREATE"
-        src_endpoint:
-          ip: "10.10.10.10"
     message: |-
       {
         "sourcetype" : "zscalernss-audit",
@@ -1171,7 +1173,7 @@ tests:
       }
     service: "zscalernss-audit"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1200,8 +1202,46 @@ tests:
       date: 1754150969000
       network:
         client:
-          geoip:
+          geoip: {}
           ip: "165.225.0.243"
+      ocsf:
+        activity_id: 0
+        activity_name: "Unknown"
+        actor:
+          app_name: "GOOGLEDRIVE"
+          user:
+            email_addr: "unknown_saas_user$@83788722.zscalertwo.net"
+            name: "unknown_saas_user$@83788722.zscalertwo.net"
+        category_name: "Application Activity"
+        category_uid: 6
+        class_name: "File Hosting Activity"
+        class_uid: 6006
+        dst_endpoint:
+          name: "sahil@example.io"
+        file:
+          name: "gen_file2_file_no_0.py"
+          type: "Regular File"
+          type_id: 1
+        metadata:
+          log_name: "zscalernss-casb"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "casb"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          tenant_uid: "googledrive"
+          version: "1.5.0"
+        severity: "Informational"
+        severity_id: 1
+        src_endpoint:
+          hostname: "googledrive"
+          ip: "165.225.0.243"
+          owner:
+            name: "unknown_saas_user$@83788722.zscalertwo.net"
+        status: "Success"
+        status_id: 1
+        time: 1754150969000
       sourcetype: "zscalernss-casb"
       usr:
         id: "unknown_saas_user$@83788722.zscalertwo.net"
@@ -1221,47 +1261,9 @@ tests:
         postaction:
           cloudNssSiemConfiguration:
             connectionHeaders: ""
+        src_ip: "165.225.0.243"
         subtype: "activity"
         tenant: "googledrive"
-        src_ip: "165.225.0.243"
-      ocsf:
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "casb"
-          tenant_uid: "googledrive"
-          log_name: "zscalernss-casb"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        category_uid: 6
-        file:
-          type_id: 1
-          type: "Regular File"
-          name: "gen_file2_file_no_0.py"
-        category_name: "Application Activity"
-        class_uid: 6006
-        time: 1754150969000
-        class_name: "File Hosting Activity"
-        severity: "Informational"
-        activity_name: "Unknown"
-        activity_id: 0
-        severity_id: 1
-        status_id: 1
-        status: "Success"
-        src_endpoint:
-          owner:
-            name: "unknown_saas_user$@83788722.zscalertwo.net"
-          ip: "165.225.0.243"
-          hostname: "googledrive"
-        actor:
-          app_name: "GOOGLEDRIVE"
-          user:
-            email_addr: "unknown_saas_user$@83788722.zscalertwo.net"
-            name: "unknown_saas_user$@83788722.zscalertwo.net"
-        dst_endpoint:
-          name: "sahil@example.io"
     message: |-
       {
         "sourcetype" : "zscalernss-casb",
@@ -1285,7 +1287,7 @@ tests:
       }
     service: "zscalernss-casb"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1316,12 +1318,48 @@ tests:
       date: 1754150969000
       network:
         client:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
           port: "121"
         destination:
-          geoip:
+          geoip: {}
           ip: "10.10.10.10"
+      ocsf:
+        activity_id: 0
+        activity_name: "Unknown"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "Tunnel Activity"
+        class_uid: 4014
+        device:
+          ip: "10.10.10.10"
+          name: "QUICKSEC"
+          type: "Unknown"
+          type_id: 0
+          vendor_name: "QUICKSEC"
+        dst_endpoint:
+          ip: "10.10.10.10"
+        metadata:
+          log_name: "zscalernss-tunnel"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "tunnel"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          version: "1.5.0"
+        session:
+          is_remote: true
+          uid: "7083029673927507968"
+        severity: "Informational"
+        severity_id: 1
+        src_endpoint:
+          ip: "10.10.10.10"
+          port: 121
+        status: "Unknown"
+        status_id: 0
+        time: 1754150969000
+        tunnel_type: "GRE"
       sourcetype: "zscalernss-tunnel"
       usr:
         id: "jdoe@example.com"
@@ -1343,42 +1381,6 @@ tests:
         txbytes: "0"
         user: "jdoe@example.com"
         vendorname: "QUICKSEC"
-      ocsf:
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "tunnel"
-          log_name: "zscalernss-tunnel"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        category_uid: 4
-        category_name: "Network Activity"
-        session:
-          uid: "7083029673927507968"
-          is_remote: true
-        src_endpoint:
-          ip: "10.10.10.10"
-          port: 121
-        class_uid: 4014
-        time: 1754150969000
-        device:
-          type_id: 0
-          ip: "10.10.10.10"
-          name: "QUICKSEC"
-          vendor_name: "QUICKSEC"
-          type: "Unknown"
-        class_name: "Tunnel Activity"
-        tunnel_type: "GRE"
-        severity: "Informational"
-        activity_name: "Unknown"
-        activity_id: 0
-        severity_id: 1
-        dst_endpoint:
-          ip: "10.10.10.10"
-        status_id: 0
-        status: "Unknown"
     message: |-
       {
         "sourcetype" : "zscalernss-tunnel",
@@ -1404,7 +1406,7 @@ tests:
       }
     service: "zscalernss-tunnel"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1467,6 +1469,56 @@ tests:
       date: 1754150969000
       evt:
         outcome: "allow"
+      ocsf:
+        activity_id: 1
+        activity_name: "Create"
+        actor:
+          user:
+            name: "TempUser"
+        category_name: "Findings"
+        category_uid: 2
+        class_name: "Data Security Finding"
+        class_uid: 2006
+        data_security:
+          data_lifecycle_state: "Unknown"
+          data_lifecycle_state_id: 0
+          detection_system: "Endpoint"
+          detection_system_id: 1
+          policy:
+            uid: "12"
+        device:
+          hostname: "Host"
+          model: "Model-2022"
+          name: "Dev 1"
+          os:
+            name: "Windows"
+            type: "Windows"
+            type_id: 100
+            version: "Win-11"
+          owner:
+            name: "Administrator"
+          type: "Unknown"
+          type_id: 0
+        file:
+          name: "endpoint_dlp"
+          path: "source_path"
+          type: "Unknown"
+          type_id: 0
+        finding_info:
+          uid: "12"
+        is_alert: true
+        metadata:
+          log_name: "zscalernss-endpointdlp"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "endpointdlp"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          version: "1.5.0"
+        severity: "Unknown"
+        severity_id: 0
+        time: 1754150969000
       sourcetype: "zscalernss-endpointdlp"
       status: "critical"
       usr:
@@ -1493,13 +1545,13 @@ tests:
         devicetype: "WinUser"
         dlpdictcount: "12|13"
         dlpdictionaries:
-          - "dlp: dlp discription"
-          - "dlp2: dlp discription2"
-          - "dlp3: dlp discription3"
+         - "dlp: dlp discription"
+         - "dlp2: dlp discription2"
+         - "dlp3: dlp discription3"
         dlpengine:
-          - "dlpengine"
-          - "dlpengine1"
-          - "dlpengine2"
+         - "dlpengine"
+         - "dlpengine1"
+         - "dlpengine2"
         dlpidentifier: "12"
         dsttype: "personal_cloud_storage"
         expectedaction: "block"
@@ -1526,57 +1578,6 @@ tests:
         triggeredrule: "configured_rule"
         user: "TempUser"
         zdpmode: "block mode"
-      ocsf:
-        severity: "Unknown"
-        activity_name: "Create"
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "endpointdlp"
-          log_name: "zscalernss-endpointdlp"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-        category_uid: 2
-        category_name: "Findings"
-        is_alert: true
-        actor:
-          user:
-            email_addr: "TempUser"
-            name: "TempUser"
-        finding_info:
-          uid: "12"
-        file:
-          path: "source_path"
-          type_id: 0
-          name: "endpoint_dlp"
-          type: "Unknown"
-        activity_id: 1
-        class_uid: 2006
-        time: 1754150969000
-        severity_id: 0
-        class_name: "Data Security Finding"
-        device:
-          owner:
-            name: "Administrator"
-          hostname: "Host"
-          os:
-            type_id: 100
-            name: "Windows"
-            type: "Windows"
-            version: "Win-11"
-          type_id: 0
-          name: "Dev 1"
-          model: "Model-2022"
-          type: "Unknown"
-        data_security:
-          detection_system: "Endpoint"
-          detection_system_id: 1
-          data_lifecycle_state_id: 0
-          data_lifecycle_state: "Unknown"
-          policy:
-            uid: "12"
     message: |-
       {
         "sourcetype" : "zscalernss-endpointdlp",
@@ -1635,7 +1636,7 @@ tests:
     service: "zscalernss-endpointdlp"
     status: "critical"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -2287,153 +2288,153 @@ tests:
     {
       "sourcetype" : "zscalernss-fw",
       "event" : {
-        "action" : "Allow",
+        "devicehostname" : "laptop-eng-042",
+        "nwService" : "HTTPS",
         "rulelabel" : "Default Firewall Filtering Rule",
-        "login" : "jdoe@example.com",
-        "dept" : "Engineering",
-        "location" : "Road Warrior",
-        "csip" : "10.20.30.40",
-        "csport" : 52431,
         "cdip" : "93.184.216.34",
         "cdport" : 443,
-        "cdfqdn" : "example.com",
-        "ipproto" : "TCP",
-        "nwService" : "HTTPS",
-        "nwApp" : "HTTPS",
         "inbytes" : 18432,
-        "outbytes" : 2048,
-        "durationms" : 1250,
-        "numsessions" : 1,
-        "datetime" : "2025-08-02 16:09:29",
-        "devicehostname" : "laptop-eng-042",
-        "devicename" : "macbook-eng-042",
-        "deviceostype" : "macOS",
-        "deviceosversion" : "14.4.1",
+        "csport" : 52431,
+        "dept" : "Engineering",
+        "login" : "jdoe@example.com",
+        "ipproto" : "TCP",
+        "recordid" : "9876543210",
         "deviceowner" : "jdoe@example.com",
-        "recordid" : "9876543210"
+        "datetime" : "2025-08-02 16:09:29",
+        "deviceosversion" : "14.4.1",
+        "outbytes" : 2048,
+        "cdfqdn" : "example.com",
+        "action" : "Allow",
+        "csip" : "10.20.30.40",
+        "location" : "Road Warrior",
+        "devicename" : "macbook-eng-042",
+        "numsessions" : 1,
+        "nwApp" : "HTTPS",
+        "durationms" : 1250,
+        "deviceostype" : "macOS"
       }
     }
   tags:
    - "source:LOGS_SOURCE"
   result:
-    service: "zscalernss-fw"
     custom:
       date: 1754150969000
       evt:
         outcome: "Allow"
-      zscaler:
-        devicehostname: "laptop-eng-042"
-        nwService: "HTTPS"
-        rulelabel: "Default Firewall Filtering Rule"
-        cdip: "93.184.216.34"
-        inbytes: 18432
-        dept: "Engineering"
-        login: "jdoe@example.com"
-        ipproto: "TCP"
-        recordid: "9876543210"
-        deviceowner: "jdoe@example.com"
-        datetime: "2025-08-02 16:09:29"
-        deviceosversion: "14.4.1"
-        outbytes: 2048
-        cdfqdn: "example.com"
-        action: "Allow"
-        location: "Road Warrior"
-        devicename: "macbook-eng-042"
-        numsessions: 1
-        nwApp: "HTTPS"
-        durationms: 1250
-        deviceostype: "macOS"
+      network:
+        bytes_read: 18432
+        bytes_written: 2048
+        client:
+          geoip: {}
+          ip: "10.20.30.40"
+          port: 52431
+        destination:
+          geoip: {}
+          ip: "93.184.216.34"
+          port: 443
       ocsf:
-        severity: "Informational"
+        activity_id: 6
         activity_name: "Traffic"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "Network Activity"
+        class_uid: 4001
+        connection_info:
+          direction: "Unknown"
+          direction_id: 0
+          protocol_name: "TCP"
+        count: 1
+        dst_endpoint:
+          hostname: "example.com"
+          ip: "93.184.216.34"
+        duration: 1250
         metadata:
-          uid: "9876543210"
+          log_name: "zscalernss-fw"
+          logged_time: 1754150969000
+          original_time: "2025-08-02 16:09:29"
           product:
             feature:
               name: "fw"
             name: "ZIA"
             vendor_name: "Zscaler"
-          log_name: "zscalernss-fw"
-          logged_time: 1754150969000
-          original_time: "2025-08-02 16:09:29"
+          uid: "9876543210"
           version: "1.5.0"
-        category_uid: 4
-        category_name: "Network Activity"
-        count: 1
-        duration: 1250
-        status_id: 1
-        connection_info:
-          protocol_name: "TCP"
-          direction_id: 0
-          direction: "Unknown"
-        activity_id: 6
-        class_uid: 4001
+        severity: "Informational"
         severity_id: 1
-        time: 1754150969000
-        dst_endpoint:
-          hostname: "example.com"
-          ip: "93.184.216.34"
-        class_name: "Network Activity"
-        traffic:
-          bytes_out: 2048
-          bytes_in: 18432
-        status: "Success"
         src_endpoint:
+          hostname: "laptop-eng-042"
+          name: "macbook-eng-042"
+          os:
+            name: "macOS"
+            type: "macOS"
+            type_id: 300
+            version: "14.4.1"
           owner:
             email_addr: "jdoe@example.com"
             name: "jdoe@example.com"
-          os:
-            type_id: 300
-            name: "macOS"
-            type: "macOS"
-            version: "14.4.1"
-          name: "macbook-eng-042"
-          hostname: "laptop-eng-042"
+        status: "Success"
+        status_id: 1
+        time: 1754150969000
+        traffic:
+          bytes_in: 18432
+          bytes_out: 2048
+      sourcetype: "zscalernss-fw"
       usr:
         id: "jdoe@example.com"
-      sourcetype: "zscalernss-fw"
-      network:
-        bytes_written: 2048
-        destination:
-          geoip:
-          port: 443
-          ip: "93.184.216.34"
-        client:
-          geoip:
-          port: 52431
-          ip: "10.20.30.40"
-        bytes_read: 18432
+      zscaler:
+        action: "Allow"
+        cdfqdn: "example.com"
+        cdip: "93.184.216.34"
+        datetime: "2025-08-02 16:09:29"
+        dept: "Engineering"
+        devicehostname: "laptop-eng-042"
+        devicename: "macbook-eng-042"
+        deviceostype: "macOS"
+        deviceosversion: "14.4.1"
+        deviceowner: "jdoe@example.com"
+        durationms: 1250
+        inbytes: 18432
+        ipproto: "TCP"
+        location: "Road Warrior"
+        login: "jdoe@example.com"
+        numsessions: 1
+        nwApp: "HTTPS"
+        nwService: "HTTPS"
+        outbytes: 2048
+        recordid: "9876543210"
+        rulelabel: "Default Firewall Filtering Rule"
     message: |-
       {
         "sourcetype" : "zscalernss-fw",
         "event" : {
-          "action" : "Allow",
+          "devicehostname" : "laptop-eng-042",
+          "nwService" : "HTTPS",
           "rulelabel" : "Default Firewall Filtering Rule",
-          "login" : "jdoe@example.com",
-          "dept" : "Engineering",
-          "location" : "Road Warrior",
-          "csip" : "10.20.30.40",
-          "csport" : 52431,
           "cdip" : "93.184.216.34",
           "cdport" : 443,
-          "cdfqdn" : "example.com",
-          "ipproto" : "TCP",
-          "nwService" : "HTTPS",
-          "nwApp" : "HTTPS",
           "inbytes" : 18432,
-          "outbytes" : 2048,
-          "durationms" : 1250,
-          "numsessions" : 1,
-          "datetime" : "2025-08-02 16:09:29",
-          "devicehostname" : "laptop-eng-042",
-          "devicename" : "macbook-eng-042",
-          "deviceostype" : "macOS",
-          "deviceosversion" : "14.4.1",
+          "csport" : 52431,
+          "dept" : "Engineering",
+          "login" : "jdoe@example.com",
+          "ipproto" : "TCP",
+          "recordid" : "9876543210",
           "deviceowner" : "jdoe@example.com",
-          "recordid" : "9876543210"
+          "datetime" : "2025-08-02 16:09:29",
+          "deviceosversion" : "14.4.1",
+          "outbytes" : 2048,
+          "cdfqdn" : "example.com",
+          "action" : "Allow",
+          "csip" : "10.20.30.40",
+          "location" : "Road Warrior",
+          "devicename" : "macbook-eng-042",
+          "numsessions" : 1,
+          "nwApp" : "HTTPS",
+          "durationms" : 1250,
+          "deviceostype" : "macOS"
         }
       }
+    service: "zscalernss-fw"
     tags:
-      - "source:LOGS_SOURCE"
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
