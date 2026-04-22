@@ -1791,23 +1791,23 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Map `company` to `ocsf.finding_info.product.name`
+              name: Map `ocsf.metadata.product.name` to `ocsf.finding_info.product.name`
               sources:
-                - company
+                - ocsf.metadata.product.name
               target: ocsf.finding_info.product.name
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `company` to `ocsf.finding_info.product.vendor_name`
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.finding_info.product.vendor_name`
               sources:
-                - company
+                - ocsf.metadata.product.vendor_name
               target: ocsf.finding_info.product.vendor_name
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `alias` to `ocsf.finding_info.product.feature.name`
+              name: Map `ocsf.metadata.product.feature.name` to `ocsf.finding_info.product.feature.name`
               sources:
-                - alias
+                - ocsf.metadata.product.feature.name
               target: ocsf.finding_info.product.feature.name
               preserveSource: true
               overrideOnConflict: true
