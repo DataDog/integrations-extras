@@ -461,7 +461,7 @@ facets:
     source: log
 pipeline:
   type: pipeline
-  name: Zscaler
+  name: Zscaler - Crash
   enabled: true
   filter:
     query: source:zscaler
@@ -498,8 +498,8 @@ pipeline:
       enabled: true
       source: zscaler.datetime
       samples:
-        - 2021-09-22 17:53:52
-        - Wed Sep 22 17:54:17 2021
+        - "2021-09-22 17:53:52"
+        - "Wed Sep 22 17:54:17 2021"
       grok:
         supportRules: ""
         matchRules: |-
@@ -1367,16 +1367,6 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: attribute-remapper
-          name: Map `date` to `ocsf.time`
-          enabled: true
-          sources:
-            - date
-          sourceType: attribute
-          target: ocsf.time
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
     - type: pipeline
       name: OCSF sub pipeline for class Detection Finding [2004] (Firewall Threat)
       enabled: true
@@ -1396,6 +1386,12 @@ pipeline:
           enabled: true
           template: "Create"
           target: ocsf.activity_name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.finding_info.analytic.category
+          enabled: true
+          template: "IPS"
+          target: ocsf.finding_info.analytic.category
           replaceMissing: false
         - type: string-builder-processor
           name: Add ocsf.finding_info.analytic.type
@@ -1430,6 +1426,28 @@ pipeline:
           name: Apply OCSF schema for 2004
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
@@ -1492,17 +1510,20 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Map `zscaler.ipsrulelabel` to `ocsf.finding_info.analytic.name`
+              name: Map `zscaler.ipsrulelabel`, `zscaler.apprulelabel`, `zscaler.rulelabel`, `zscaler.threatname` to `ocsf.finding_info.analytic.name`
               sources:
                 - zscaler.ipsrulelabel
+                - zscaler.apprulelabel
+                - zscaler.rulelabel
+                - zscaler.threatname
               target: ocsf.finding_info.analytic.name
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.ipsrulelabel` to `ocsf.finding_info.analytic.uid`
+              name: Map `ocsf.finding_info.analytic.category` to `ocsf.finding_info.analytic.category`
               sources:
-                - zscaler.ipsrulelabel
-              target: ocsf.finding_info.analytic.uid
+                - ocsf.finding_info.analytic.category
+              target: ocsf.finding_info.analytic.category
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -1661,6 +1682,28 @@ pipeline:
           name: Apply OCSF schema for 2004
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `alias` to `ocsf.metadata.log_name`
               sources:
@@ -1962,6 +2005,28 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
@@ -2140,6 +2205,28 @@ pipeline:
           name: Apply OCSF schema for 2006
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
@@ -2459,6 +2546,28 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `ocsf.is_remote` to `ocsf.is_remote`
               sources:
                 - ocsf.is_remote
@@ -2650,6 +2759,28 @@ pipeline:
           name: Apply OCSF schema for 4001
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
@@ -2924,6 +3055,28 @@ pipeline:
           name: Apply OCSF schema for 4002
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
@@ -3271,6 +3424,28 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:
                 - ocsf.activity_id
@@ -3418,6 +3593,28 @@ pipeline:
           enabled: true
           mappers:
             - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `ocsf.session.is_remote` to `ocsf.session.is_remote`
               sources:
                 - ocsf.session.is_remote
@@ -3512,13 +3709,6 @@ pipeline:
               sources:
                 - zscaler.vpncredentialname
               target: ocsf.user.name
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.vpncredentialname` to `ocsf.user.email_addr`
-              sources:
-                - zscaler.vpncredentialname
-              target: ocsf.user.email_addr
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -3667,6 +3857,28 @@ pipeline:
           name: Apply OCSF schema for 6003
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.severity_id` to `ocsf.severity_id`
               sources:
@@ -3822,6 +4034,28 @@ pipeline:
           name: Apply OCSF schema for 6006
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `zscaler.tenant` to `ocsf.metadata.tenant_uid`
               sources:
@@ -3989,6 +4223,28 @@ pipeline:
           name: Apply OCSF schema for 0
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `ocsf.activity_id` to `ocsf.activity_id`
               sources:

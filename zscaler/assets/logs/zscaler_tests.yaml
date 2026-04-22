@@ -643,11 +643,11 @@ tests:
         bytes_read: "5476"
         bytes_written: "2738"
         client:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "56039"
         destination:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "443"
       ocsf:
@@ -664,7 +664,7 @@ tests:
             name: "Default IPS Rule"
             type: "Rule"
             type_id: 1
-            uid: "Default IPS Rule"
+            category: "IPS"
           desc: "Linux.Backdoor.Tsunami"
           related_events_count: 1
           title: "Block QUIC"
@@ -817,7 +817,7 @@ tests:
     service: "zscalernss-fw"
     status: "critical"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
