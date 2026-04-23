@@ -854,6 +854,508 @@
                 "x": 0,
                 "y": 17
             }
+        },
+        {
+            "definition": {
+                "background_color": "vivid_green",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "TiDB query internals",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "area",
+                                    "formulas": [{"alias": "query / s", "formula": "query1"}],
+                                    "queries": [{"data_source": "metrics", "name": "query1", "query": "sum:tidb_cluster.tidb_server_query_total{$cluster_name,$host} by {type}.as_rate()"}],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Total queries per second",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000001,
+                        "layout": {"height": 3, "width": 6, "x": 0, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "area",
+                                    "formulas": [
+                                        {"alias": "hit / s", "formula": "query1"},
+                                        {"alias": "miss / s", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "sum:tidb_cluster.tidb_server_plan_cache_total{$cluster_name,$host}.as_rate()"},
+                                        {"data_source": "metrics", "name": "query2", "query": "sum:tidb_cluster.tidb_server_plan_cache_miss_total{$cluster_name,$host}.as_rate()"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Plan cache hits/misses per second",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000002,
+                        "layout": {"height": 3, "width": 6, "x": 6, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tidb_session_parse_duration_seconds{$cluster_name,$host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tidb_session_parse_duration_seconds{$cluster_name,$host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Parse duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000003,
+                        "layout": {"height": 3, "width": 4, "x": 0, "y": 3}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tidb_session_compile_duration_seconds{$cluster_name,$host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tidb_session_compile_duration_seconds{$cluster_name,$host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Compile duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000004,
+                        "layout": {"height": 3, "width": 4, "x": 4, "y": 3}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tidb_session_execute_duration_seconds{$cluster_name,$host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tidb_session_execute_duration_seconds{$cluster_name,$host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Execute duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000005,
+                        "layout": {"height": 3, "width": 4, "x": 8, "y": 3}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tidb_tikvclient_request_seconds{$cluster_name,$host} by {type}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tidb_tikvclient_request_seconds{$cluster_name,$host} by {type}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV client request duration (from TiDB)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000006,
+                        "layout": {"height": 3, "width": 6, "x": 0, "y": 6}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tidb_server_conn_idle_duration_seconds{$cluster_name,$host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tidb_server_conn_idle_duration_seconds{$cluster_name,$host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Connection idle duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1001000000000007,
+                        "layout": {"height": 3, "width": 6, "x": 6, "y": 6}
+                    }
+                ]
+            },
+            "id": 1001000000000000,
+            "layout": {"height": 10, "width": 12, "x": 0, "y": 21}
+        },
+        {
+            "definition": {
+                "background_color": "vivid_orange",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "TiFlash replication",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p50", "formula": "query2"},
+                                        {"alias": "p95", "formula": "query3"},
+                                        {"alias": "p99", "formula": "query4"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tiflash_syncing_data_freshness{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p50:tidb_cluster.tiflash_syncing_data_freshness{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query3", "query": "p95:tidb_cluster.tiflash_syncing_data_freshness{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query4", "query": "p99:tidb_cluster.tiflash_syncing_data_freshness{$cluster_name,$host} by {host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiFlash replication lag (seconds)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1002000000000001,
+                        "layout": {"height": 3, "width": 12, "x": 0, "y": 0}
+                    }
+                ]
+            },
+            "id": 1002000000000000,
+            "layout": {"height": 4, "width": 12, "x": 0, "y": 31}
+        },
+        {
+            "definition": {
+                "background_color": "vivid_purple",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "TiKV raftstore & gRPC",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "append p99", "formula": "query1"},
+                                        {"alias": "apply p99", "formula": "query2"},
+                                        {"alias": "commit p99", "formula": "query3"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "p99:tidb_cluster.tikv_raftstore_append_log_duration_seconds{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tikv_raftstore_apply_log_duration_seconds{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query3", "query": "p99:tidb_cluster.tikv_raftstore_commit_log_duration_seconds{$cluster_name,$host} by {host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Raftstore log duration p99 (append / apply / commit)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1003000000000001,
+                        "layout": {"height": 3, "width": 4, "x": 0, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tikv_grpc_msg_duration_seconds{$cluster_name,$host} by {type}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tikv_grpc_msg_duration_seconds{$cluster_name,$host} by {type}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV gRPC message duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1003000000000002,
+                        "layout": {"height": 3, "width": 4, "x": 4, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "area",
+                                    "formulas": [
+                                        {"alias": "read / s", "formula": "query1"},
+                                        {"alias": "write / s", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "sum:tidb_cluster.tikv_engine_flow_bytes{type:bytes_read,$cluster_name,$host} by {host}.as_rate()"},
+                                        {"data_source": "metrics", "name": "query2", "query": "sum:tidb_cluster.tikv_engine_flow_bytes{type:bytes_written,$cluster_name,$host} by {host}.as_rate()"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV engine flow bytes per second",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1003000000000003,
+                        "layout": {"height": 3, "width": 4, "x": 8, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "store p99", "formula": "query1"},
+                                        {"alias": "apply p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "p99:tidb_cluster.tikv_raftstore_store_duration_secs{$cluster_name,$host} by {host}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tikv_raftstore_apply_duration_secs{$cluster_name,$host} by {host}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Raftstore store/apply duration p99",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1003000000000004,
+                        "layout": {"height": 3, "width": 6, "x": 0, "y": 3}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.tikv_storage_engine_async_request_duration_seconds{$cluster_name,$host} by {type}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.tikv_storage_engine_async_request_duration_seconds{$cluster_name,$host} by {type}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV async storage request duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1003000000000005,
+                        "layout": {"height": 3, "width": 6, "x": 6, "y": 3}
+                    }
+                ]
+            },
+            "id": 1003000000000000,
+            "layout": {"height": 7, "width": 12, "x": 0, "y": 35}
+        },
+        {
+            "definition": {
+                "background_color": "vivid_yellow",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "PD client",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.pd_client_cmd_handle_cmds_duration_seconds{$cluster_name,$host} by {type}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.pd_client_cmd_handle_cmds_duration_seconds{$cluster_name,$host} by {type}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "PD command duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1004000000000001,
+                        "layout": {"height": 3, "width": 6, "x": 0, "y": 0}
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": ["avg", "min", "max"],
+                            "legend_layout": "auto",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {"alias": "avg", "formula": "query1"},
+                                        {"alias": "p99", "formula": "query2"}
+                                    ],
+                                    "queries": [
+                                        {"data_source": "metrics", "name": "query1", "query": "avg:tidb_cluster.pd_client_request_handle_requests_duration_seconds{$cluster_name,$host} by {type}"},
+                                        {"data_source": "metrics", "name": "query2", "query": "p99:tidb_cluster.pd_client_request_handle_requests_duration_seconds{$cluster_name,$host} by {type}"}
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {"line_type": "solid", "line_width": "normal", "palette": "dog_classic"}
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "PD request duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {"include_zero": true, "label": "", "max": "auto", "min": "auto", "scale": "linear"}
+                        },
+                        "id": 1004000000000002,
+                        "layout": {"height": 3, "width": 6, "x": 6, "y": 0}
+                    }
+                ]
+            },
+            "id": 1004000000000000,
+            "layout": {"height": 4, "width": 12, "x": 0, "y": 42}
         }
     ]
 }
