@@ -73,6 +73,19 @@ def mock_tikv_metrics():
         yield
 
 
+@pytest.fixture()
+def mock_pd_metrics():
+    with mock.patch(
+        'requests.Session.get',
+        return_value=mock.MagicMock(
+            status_code=200,
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_pd_metrics.txt").split("\n"),
+            headers={'Content-Type': "text/plain"},
+        ),
+    ):
+        yield
+
+
 def _get_mock_metrics(filename):
     f_name = os.path.join(os.path.dirname(__file__), 'fixtures', filename)
     with open(f_name, 'r') as f:
@@ -114,6 +127,15 @@ def tiflash_proxy_instance():
 def tikv_instance():
     return {
         'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
+        'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
+    }
+
+
+@pytest.fixture(scope="session")
+def pd_instance():
+    return {
+        'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
         'max_returned_metrics': "10000",
         'tags': ['tidb_cluster_name:test'],
     }

@@ -4,7 +4,7 @@ import pytest
 from datadog_checks.base.utils.tagging import GENERIC_TAGS
 from datadog_checks.tidb import TiDBCheck
 
-from .expected import EXPECTED_TIDB, EXPECTED_TIFLASH, EXPECTED_TIFLASH_PROXY, EXPECTED_TIKV
+from .expected import EXPECTED_PD, EXPECTED_TIDB, EXPECTED_TIFLASH, EXPECTED_TIFLASH_PROXY, EXPECTED_TIKV
 
 
 @pytest.mark.unit
@@ -39,6 +39,12 @@ def test_tiflash_proxy_mock_metrics(aggregator, mock_tiflash_proxy_metrics, tifl
 def test_tikv_mock_metrics(aggregator, mock_tikv_metrics, tikv_instance):
     check = TiDBCheck("test_tidb_mock_metrics", {}, [tikv_instance])
     _check_and_assert(aggregator, EXPECTED_TIKV, check)
+
+
+@pytest.mark.unit
+def test_pd_mock_metrics(aggregator, mock_pd_metrics, pd_instance):
+    check = TiDBCheck("test_pd_mock_metrics", {}, [pd_instance])
+    _check_and_assert(aggregator, EXPECTED_PD, check)
 
 
 @pytest.mark.integration
