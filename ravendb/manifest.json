@@ -1,0 +1,65 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "15689da4-5ca3-4355-af03-5b7e2f1e7e25",
+  "app_id": "ravendb",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "RavenDB",
+    "description": "Monitor RavenDB performance, cluster health, databases, and indexes using Datadog.",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Configuration",
+    "support": "README.md#Troubleshooting",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "caption": "RavenDB - Overview",
+        "image_url": "images/ravendb_overview.png",
+        "media_type": "image"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Data Stores",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Queried Data Type::Metrics",
+      "Submitted Data Type::Logs",
+      "Submitted Data Type::Metrics"
+      
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://www.datadoghq.com",
+    "sales_email": "info@datadoghq.com",
+    "name": "Datadog"
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "RavenDB",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "ravendb.",
+        "check": "ravendb.openmetrics.health",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "auto_install": true
+    },
+    "dashboards": {
+      "RavenDB - Overview": "assets/dashboards/ravendb_overview.json"
+    },
+    "logs": {
+      "source": "ravendb"
+    }
+  }
+}

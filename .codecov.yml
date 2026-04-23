@@ -155,6 +155,10 @@ coverage:
         target: 75
         flags:
         - radarr
+      RavenDB:
+        target: 75
+        flags:
+        - ravendb
       Reboot_Required:
         target: 75
         flags:
@@ -594,6 +598,11 @@ flags:
     paths:
     - radarr/datadog_checks/radarr
     - radarr/tests
+  ravendb:
+    carryforward: true
+    paths:
+    - ravendb/datadog_checks/ravendb
+    - ravendb/tests
   reboot_required:
     carryforward: true
     paths:
