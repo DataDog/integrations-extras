@@ -1,0 +1,67 @@
+id: spoofsentry
+type: pipeline
+name: SpoofSentry
+enabled: true
+filter:
+  query: "source:spoofsentry"
+processors:
+  - type: attribute-remapper
+    name: Map eventType to evt.name
+    enabled: true
+    sources:
+      - eventType
+    target: evt.name
+    preserveSource: true
+    sourceType: attribute
+    targetType: attribute
+
+  - type: attribute-remapper
+    name: Map severity to log status
+    enabled: true
+    sources:
+      - severity
+    target: status
+    preserveSource: true
+    sourceType: attribute
+    targetType: attribute
+
+  - type: attribute-remapper
+    name: Map domain to network.destination.domain
+    enabled: true
+    sources:
+      - domain
+    target: network.destination.domain
+    preserveSource: true
+    sourceType: attribute
+    targetType: attribute
+
+  - type: attribute-remapper
+    name: Map tenantId to usr.id
+    enabled: true
+    sources:
+      - tenantId
+    target: usr.id
+    preserveSource: true
+    sourceType: attribute
+    targetType: attribute
+
+  - type: category-processor
+    name: Categorize severity levels
+    enabled: true
+    categories:
+      - filter:
+          query: "@severity:critical"
+        name: Critical
+      - filter:
+          query: "@severity:high"
+        name: High
+      - filter:
+          query: "@severity:medium"
+        name: Medium
+      - filter:
+          query: "@severity:low"
+        name: Low
+      - filter:
+          query: "@severity:info"
+        name: Info
+    target: severity_category
