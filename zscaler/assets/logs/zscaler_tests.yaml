@@ -693,6 +693,9 @@ tests:
         bypassed_session: "0"
         cdfqdn: "dns.google"
         cdip: "10.10.10.10"
+        cdport: "443"
+        csip: "10.10.10.10"
+        csport: "56039"
         datacenter: "BOM6"
         datacentercity: "Mu"
         datacentercountry: "IN"
@@ -1088,18 +1091,17 @@ tests:
           uid: "988"
           version: "1.5.0"
         resources:
-         -
-          uid: "SSL Rule Name"
-          name: "SSL Rule Name"
-          type: "CASB"
+          - name: "SSL Rule Name"
+              type: "CASB"
+              uid: "SSL Rule Name"
         severity: "Informational"
         severity_id: 1
         src_endpoint:
           ip: "10.10.10.10"
-        status: "Unknown"
+        status: "Success"
         status_code: "AUTHENTICATION_FAILED"
         status_detail: "AUTHENTICATION_FAILED"
-        status_id: 0
+        status_id: 1
         time: 1754150969000
       sourcetype: "zscalernss-audit"
       zscaler:
@@ -1127,6 +1129,7 @@ tests:
           tenantName: "googledrive"
         recordid: "988"
         resource: "SSL Rule Name"
+        result: "SUCCESS"
         subcategory: "CASB_SCAN_CONFIGURATION"
     message: |-
       {
@@ -2340,6 +2343,7 @@ tests:
         dst_endpoint:
           hostname: "example.com"
           ip: "93.184.216.34"
+          port: 443
         duration: 1250
         metadata:
           log_name: "zscalernss-fw"
@@ -2356,6 +2360,7 @@ tests:
         severity_id: 1
         src_endpoint:
           hostname: "laptop-eng-042"
+          ip: "10.20.30.40"
           name: "macbook-eng-042"
           os:
             name: "macOS"
@@ -2365,6 +2370,7 @@ tests:
           owner:
             email_addr: "jdoe@example.com"
             name: "jdoe@example.com"
+          port: 52431
         status: "Success"
         status_id: 1
         time: 1754150969000
@@ -2378,6 +2384,9 @@ tests:
         action: "Allow"
         cdfqdn: "example.com"
         cdip: "93.184.216.34"
+        cdport: 443
+        csip: "10.20.30.40"
+        csport: 52431
         datetime: "2025-08-02 16:09:29"
         dept: "Engineering"
         devicehostname: "laptop-eng-042"
@@ -2492,8 +2501,10 @@ tests:
         severity_id: 1
         src_endpoint:
           ip: "10.10.10.10"
+        status: "Success"
         status_code: "None"
         status_detail: "None"
+        status_id: 1
         time: 1770879348000
         user:
           email_addr: "admin@example.com"
@@ -2514,6 +2525,7 @@ tests:
           status: "signed_out"
         recordid: "7001234567890000001"
         resource: "None"
+        result: "SUCCESS"
         subcategory: "ADMIN_LOGIN"
         time: "Thu Feb 12 06:55:48 2026"
     message: |-
@@ -2595,8 +2607,10 @@ tests:
         severity_id: 1
         src_endpoint:
           ip: "10.10.10.10"
+        status: "Success"
         status_code: "None"
         status_detail: "None"
+        status_id: 1
         time: 1770880222000
         user:
           name: "jdoe@example.com"
@@ -2625,6 +2639,7 @@ tests:
           name: "John Doe"
         recordid: "7001234567890000002"
         resource: "jdoe@example.com"
+        result: "SUCCESS"
         subcategory: "USERS"
         time: "Thu Feb 12 07:10:22 2026"
     message: |-
@@ -2706,8 +2721,10 @@ tests:
         severity_id: 1
         src_endpoint:
           ip: "10.10.10.10"
+        status: "Success"
         status_code: "None"
         status_detail: "None"
+        status_id: 1
         time: 1770881115000
         user:
           name: "SecurityAuditor"
@@ -2731,6 +2748,7 @@ tests:
           scope: "ORGANIZATION"
         recordid: "7001234567890000003"
         resource: "SecurityAuditor"
+        result: "SUCCESS"
         subcategory: "ADMIN_ROLE"
         time: "Thu Feb 12 07:25:15 2026"
     message: |-

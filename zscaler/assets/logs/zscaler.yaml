@@ -461,7 +461,7 @@ facets:
     source: log
 pipeline:
   type: pipeline
-  name: Zscaler - Crash
+  name: Zscaler
   enabled: true
   filter:
     query: source:zscaler
@@ -741,7 +741,7 @@ pipeline:
           sourceType: attribute
           target: network.client.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `csport` to `network.client.port`
@@ -751,7 +751,7 @@ pipeline:
           sourceType: attribute
           target: network.client.port
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `cdip` to `network.destination.ip`
@@ -771,7 +771,7 @@ pipeline:
           sourceType: attribute
           target: network.destination.port
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `action` to `evt.outcome`
@@ -991,7 +991,7 @@ pipeline:
           sourceType: attribute
           target: evt.outcome
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
     - type: pipeline
       name: SaaS Security
@@ -4308,23 +4308,23 @@ pipeline:
               name: ocsf.activity_id
               categories:
                 - filter:
-                    query: "@zscaler.act_type_name:FILE_UPLOADED"
+                    query: "@zscaler.activity_type_name:FILE_UPLOADED"
                   name: Upload
                   id: 7
                 - filter:
-                    query: "@zscaler.act_type_name:FILE_DOWNLOADED"
+                    query: "@zscaler.activity_type_name:FILE_DOWNLOADED"
                   name: Download
                   id: 8
                 - filter:
-                    query: "@zscaler.act_type_name:FILE_DELETED"
+                    query: "@zscaler.activity_type_name:FILE_DELETED"
                   name: Delete
                   id: 4
                 - filter:
-                    query: "@zscaler.act_type_name:FILE_SHARED_EXTERNAL"
+                    query: "@zscaler.activity_type_name:FILE_SHARED_EXTERNAL"
                   name: Share
                   id: 12
                 - filter:
-                    query: "@zscaler.act_type_name:LOGIN_SUCCESS"
+                    query: "@zscaler.activity_type_name:LOGIN_SUCCESS"
                   name: Access
                   id: 3
                 - filter:
