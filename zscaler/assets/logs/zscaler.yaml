@@ -493,6 +493,16 @@ pipeline:
       enabled: true
       sources:
         - sourcetype
+    - type: attribute-remapper
+      name: Map `zscaler.time` to `zscaler.datetime`
+      enabled: true
+      sources:
+        - zscaler.time
+      sourceType: attribute
+      target: zscaler.datetime
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
     - type: grok-parser
       name: Convert `datetime` to epoch timestamp
       enabled: true
@@ -1989,6 +1999,18 @@ pipeline:
           template: "2"
           target: ocsf.data_security.data_lifecycle_state_id
           replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.data_security.detection_system
+          enabled: true
+          template: "Secure Email Gateway"
+          target: ocsf.data_security.detection_system
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.data_security.detection_system_id
+          enabled: true
+          template: "6"
+          target: ocsf.data_security.detection_system_id
+          replaceMissing: false
         - type: grok-parser
           name: Convert `ocsf.is_alert` to boolean type
           enabled: true
@@ -2092,6 +2114,21 @@ pipeline:
               target: ocsf.data_security.policy.name
               preserveSource: true
               overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.data_security.detection_system` to `ocsf.data_security.detection_system`
+              sources:
+                - ocsf.data_security.detection_system
+              target: ocsf.data_security.detection_system
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.data_security.detection_system_id` to `ocsf.data_security.detection_system_id`
+              sources:
+                - ocsf.data_security.detection_system_id
+              target: ocsf.data_security.detection_system_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
             - type: schema-remapper
               name: Map `zscaler.dlpidentifier` to `ocsf.data_security.policy.uid`
               sources:
@@ -2344,6 +2381,21 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
+              name: Map `ocsf.data_security.detection_system` to `ocsf.data_security.detection_system`
+              sources:
+                - ocsf.data_security.detection_system
+              target: ocsf.data_security.detection_system
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.data_security.detection_system_id` to `ocsf.data_security.detection_system_id`
+              sources:
+                - ocsf.data_security.detection_system_id
+              target: ocsf.data_security.detection_system_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `zscaler.triggeredrulelabel` to `ocsf.data_security.policy.name`
               sources:
                 - zscaler.triggeredrulelabel
@@ -2511,12 +2563,177 @@ pipeline:
             extensions: []
             profiles: []
     - type: pipeline
+      name: OCSF sub pipeline for class Account Change [3001]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-audit AND @zscaler.category:(USER_MANAGEMENT OR ROLE_MANAGEMENT)"
+      processors:
+        - type: schema-processor
+          name: Apply OCSF schema for 3001
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `date` to `ocsf.time`
+              sources:
+                - date
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.resource` to `ocsf.user.name`
+              sources:
+                - zscaler.resource
+              target: ocsf.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.clientip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clientip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_code`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_detail`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_detail
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
+              sources:
+                - ocsf.activity_id
+              target: ocsf.activity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:CREATE"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:DELETE"
+                  name: Delete
+                  id: 6
+                - filter:
+                    query: "@zscaler.action:UPDATE"
+                  name: Update
+                  id: 99
+                - filter:
+                    query: "@zscaler.action:*"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.result:SUCCESS"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.result:FAILURE"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@zscaler.result:*"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: "@zscaler.result:SUCCESS"
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: "@zscaler.result:FAILURE"
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: "@zscaler.result:*"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Account Change
+            classUid: 3001
+            extensions: []
+            profiles: []
+    - type: pipeline
       name: OCSF sub pipeline for class Authentication [3002]
       enabled: true
       ocsf:
         isOcsf: true
       filter:
-        query: "@sourcetype:zscalernss-audit AND @zscaler.category:AUTH"
+        query: "@sourcetype:zscalernss-audit AND @zscaler.category:(LOGIN)"
       processors:
         - type: string-builder-processor
           name: Add ocsf.is_remote
@@ -2529,6 +2746,12 @@ pipeline:
           enabled: true
           template: "%{zscaler.interface}"
           target: ocsf.logon_type
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.logon_type_id
+          enabled: true
+          template: "99"
+          target: ocsf.logon_type_id
           replaceMissing: false
         - type: grok-parser
           name: Convert `ocsf.is_remote` to boolean type
@@ -2582,17 +2805,18 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
+              name: Map `ocsf.logon_type_id` to `ocsf.logon_type_id`
+              sources:
+                - ocsf.logon_type_id
+              target: ocsf.logon_type_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `zscaler.adminid` to `ocsf.user.name`
               sources:
                 - zscaler.adminid
               target: ocsf.user.name
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.adminid` to `ocsf.user.uid`
-              sources:
-                - zscaler.adminid
-              target: ocsf.user.uid
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -2706,6 +2930,14 @@ pipeline:
               targets:
                 name: ocsf.severity
                 id: ocsf.severity_id
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
           schema:
             schemaType: ocsf
             version: 1.5.0
@@ -2745,16 +2977,6 @@ pipeline:
           template: "0"
           target: ocsf.connection_info.direction_id
           replaceMissing: false
-        - type: grok-parser
-          name: Convert `ocsf.connection_info.direction_id` to integer
-          enabled: true
-          source: ocsf.connection_info.direction_id
-          samples:
-            - "0"
-          grok:
-            supportRules: ""
-            matchRules: |-
-              direction_id %{integer:ocsf.connection_info.direction_id}
         - type: schema-processor
           name: Apply OCSF schema for 4001
           enabled: true
@@ -2786,6 +3008,21 @@ pipeline:
               sources:
                 - ocsf.activity_id
               target: ocsf.activity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction` to `ocsf.connection_info.direction`
+              sources:
+                - ocsf.connection_info.direction
+              target: ocsf.connection_info.direction
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction_id` to `ocsf.connection_info.direction_id`
+              sources:
+                - ocsf.connection_info.direction_id
+              target: ocsf.connection_info.direction_id
               preserveSource: true
               overrideOnConflict: true
               targetFormat: integer
@@ -3013,16 +3250,6 @@ pipeline:
           template: "0"
           target: ocsf.connection_info.direction_id
           replaceMissing: false
-        - type: grok-parser
-          name: Convert `ocsf.connection_info.direction_id` to integer
-          enabled: true
-          source: ocsf.connection_info.direction_id
-          samples:
-            - "0"
-          grok:
-            supportRules: ""
-            matchRules: |-
-              direction_id %{integer:ocsf.connection_info.direction_id}
         - type: string-builder-processor
           name: Add ocsf.http_response.code
           enabled: true
@@ -3115,17 +3342,24 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.location` to `ocsf.src_endpoint.location.city`
+              name: Map `zscaler.srcip_country` to `ocsf.src_endpoint.location.country`
               sources:
-                - zscaler.location
-              target: ocsf.src_endpoint.location.city
+                - zscaler.srcip_country
+              target: ocsf.src_endpoint.location.country
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.hostname` to `ocsf.dst_endpoint.hostname`
+              name: Map `zscaler.srcip_country` to `ocsf.src_endpoint.location.country`
+              sources:
+                - zscaler.dstip_country
+              target: ocsf.dst_endpoint.location.country
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.hostname` to `ocsf.http_request.url.hostname`
               sources:
                 - zscaler.hostname
-              target: ocsf.dst_endpoint.hostname
+              target: ocsf.http_request.url.hostname
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -3161,13 +3395,6 @@ pipeline:
               sources:
                 - zscaler.url
               target: ocsf.http_request.url.url_string
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.hostname` to `ocsf.http_request.url.hostname`
-              sources:
-                - zscaler.hostname
-              target: ocsf.http_request.url.hostname
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
@@ -3215,14 +3442,6 @@ pipeline:
               overrideOnConflict: true
               targetFormat: integer
             - type: schema-remapper
-              name: Map `zscaler.responsesize` to `ocsf.http_response.body_length`
-              sources:
-                - zscaler.responsesize
-              target: ocsf.http_response.body_length
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
               name: Map `zscaler.responsesize` to `ocsf.http_response.length`
               sources:
                 - zscaler.responsesize
@@ -3238,14 +3457,6 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.servertranstime` to `ocsf.http_response.latency`
-              sources:
-                - zscaler.servertranstime
-              target: ocsf.http_response.latency
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
               name: Map `zscaler.status` to `ocsf.http_response.status`
               sources:
                 - zscaler.status
@@ -3257,22 +3468,6 @@ pipeline:
               sources:
                 - zscaler.transactionsize
               target: ocsf.traffic.bytes
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
-              name: Map `zscaler.responsesize` to `ocsf.traffic.bytes_in`
-              sources:
-                - zscaler.responsesize
-              target: ocsf.traffic.bytes_in
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
-              name: Map `zscaler.requestsize` to `ocsf.traffic.bytes_out`
-              sources:
-                - zscaler.requestsize
-              target: ocsf.traffic.bytes_out
               preserveSource: true
               overrideOnConflict: true
               targetFormat: integer
@@ -3364,7 +3559,7 @@ pipeline:
         - type: string-builder-processor
           name: Add ocsf.activity_id
           enabled: true
-          template: "6"
+          template: "2"
           target: ocsf.activity_id
           replaceMissing: false
         - type: attribute-remapper
@@ -3374,16 +3569,6 @@ pipeline:
             - zscaler.dns_resp
           sourceType: attribute
           target: ocsf.answer.rdata
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
-          name: Map `zscaler.dns_reqtype` to `ocsf.answer.type`
-          enabled: true
-          sources:
-            - zscaler.dns_reqtype
-          sourceType: attribute
-          target: ocsf.answer.type
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
@@ -3484,35 +3669,6 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.location` to `ocsf.src_endpoint.location.city`
-              sources:
-                - zscaler.location
-              target: ocsf.src_endpoint.location.city
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.user` to `ocsf.src_endpoint.owner.name`
-              sources:
-                - zscaler.user
-              target: ocsf.src_endpoint.owner.name
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.srv_dip` to `ocsf.dst_endpoint.ip`
-              sources:
-                - zscaler.srv_dip
-              target: ocsf.dst_endpoint.ip
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.srv_dport` to `ocsf.dst_endpoint.port`
-              sources:
-                - zscaler.srv_dport
-              target: ocsf.dst_endpoint.port
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
               name: Map `zscaler.dns_req` to `ocsf.query.hostname`
               sources:
                 - zscaler.dns_req
@@ -3587,6 +3743,18 @@ pipeline:
           enabled: true
           template: "0"
           target: ocsf.device.type_id
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Map `zscaler.tunneltype` to `ocsf.tunnel_type`
+          enabled: true
+          template: "Unknown"
+          target: ocsf.tunnel_type
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Map `zscaler.tunneltype` to `ocsf.tunnel_type_id`
+          enabled: true
+          template: 99
+          target: ocsf.tunnel_type_id
           replaceMissing: false
         - type: schema-processor
           name: Apply OCSF schema for 4014
@@ -3676,6 +3844,14 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
+              name: Map `ocsf.tunnel_type_id` to `ocsf.tunnel_type_id`
+              sources:
+                - ocsf.tunnel_type_id
+              target: ocsf.tunnel_type_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
               name: Map `zscaler.vpncredentialname` to `ocsf.session.credential_uid`
               sources:
                 - zscaler.vpncredentialname
@@ -3691,23 +3867,9 @@ pipeline:
               overrideOnConflict: true
               targetFormat: string
             - type: schema-remapper
-              name: Map `zscaler.ovpncredentialname` to `ocsf.session.uid_alt`
+              name: Map `zscaler.user` to `ocsf.user.name`
               sources:
-                - zscaler.ovpncredentialname
-              target: ocsf.session.uid_alt
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.eventreason` to `ocsf.session.expiration_reason`
-              sources:
-                - zscaler.eventreason
-              target: ocsf.session.expiration_reason
-              preserveSource: true
-              overrideOnConflict: true
-            - type: schema-remapper
-              name: Map `zscaler.vpncredentialname` to `ocsf.user.name`
-              sources:
-                - zscaler.vpncredentialname
+                - zscaler.user
               target: ocsf.user.name
               preserveSource: true
               overrideOnConflict: true
@@ -3807,7 +3969,7 @@ pipeline:
       ocsf:
         isOcsf: true
       filter:
-        query: "@sourcetype:zscalernss-audit AND -@zscaler.category:AUTH"
+        query: "@sourcetype:zscalernss-audit AND -@zscaler.category:(AUTH OR LOGIN OR USER_MANAGEMENT OR ROLE_MANAGEMENT)"
       processors:
         - type: string-builder-processor
           name: Add ocsf.api.operation

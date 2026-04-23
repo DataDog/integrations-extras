@@ -183,11 +183,11 @@ tests:
         version: "1.1"
       network:
         client:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "0"
         destination:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "0"
       ocsf:
@@ -202,8 +202,9 @@ tests:
           direction_id: 0
           protocol_name: "SSL"
         dst_endpoint:
-          hostname: "dns.google"
           ip: "10.10.10.10"
+          location:
+            country: "Portugal"
         http_request:
           length: 0
           referrer: "www.google.com"
@@ -214,10 +215,8 @@ tests:
             url_string: "dns.google"
           user_agent: "Windows Microsoft Windows 11 Pro ZTunnel/1.0"
         http_response:
-          body_length: 0
           code: 0
           content_type: "Other"
-          latency: 0
           length: 0
           status: "NA"
         message: "Dropped due to failed client SSL handshake"
@@ -235,15 +234,13 @@ tests:
         src_endpoint:
           ip: "10.10.10.10"
           location:
-            city: "Road Warrior"
+            country: "Afghanistan"
         status: "Failure"
         status_code: "NA"
         status_id: 2
         time: 1754150969000
         traffic:
           bytes: 0
-          bytes_in: 0
-          bytes_out: 0
       sourcetype: "zscalernss-web"
       status: "critical"
       usr:
@@ -292,16 +289,16 @@ tests:
         df_hosthead: "None"
         df_hostname: "THINKPADSMITH"
         dlpdicthitcount:
-         - "4"
-         - "5"
-         - "1"
-         - "2"
+          - "4"
+          - "5"
+          - "1"
+          - "2"
         dlpdictionaries:
-         - "Credit Cards"
-         - "Gambling"
-         - "MRN Numbers"
+          - "Credit Cards"
+          - "Gambling"
+          - "MRN Numbers"
         dlpengine:
-         - "HIPAA"
+          - "HIPAA"
         dlpidentifier: "0"
         dlpmd5: "154f149b1443fbfa8c121d13e5c019a1"
         dlprulename: "DLP_Rule_1"
@@ -564,7 +561,7 @@ tests:
     service: "zscalernss-web"
     status: "critical"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -885,26 +882,21 @@ tests:
           type: "A"
       network:
         client:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
         destination:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "53"
       ocsf:
-        activity_id: 6
+        activity_id: 2
         activity_name: "Traffic"
         answers:
-         -
-          rdata: "NXDOMAIN"
-          type: "A"
+          - rdata: "NXDOMAIN"
         category_name: "Network Activity"
         category_uid: 4
         class_name: "DNS Activity"
         class_uid: 4003
-        dst_endpoint:
-          ip: "10.10.10.10"
-          port: 53
         metadata:
           log_name: "zscalernss-dns"
           original_time: "2025-08-02 16:09:29"
@@ -922,10 +914,6 @@ tests:
         severity_id: 1
         src_endpoint:
           ip: "10.10.10.10"
-          location:
-            city: "Road Warrior"
-          owner:
-            name: "johndoe@yahoo.com"
         status: "Success"
         status_id: 1
         time: 1754150969000
@@ -955,7 +943,7 @@ tests:
         dns_resp: "NXDOMAIN"
         dnsapp: "sm_fw_dns"
         dnsappcat: "network_service"
-        dnsgw_slot: "DNS GATEWAY Rule 1\t"
+        dnsgw_slot: "DNS GATEWAY Rule 1	"
         dnsgw_srv_proto: "UDP"
         durationms: "0"
         ecs_prefix: "0.0.0.0"
@@ -1029,7 +1017,7 @@ tests:
       }
     service: "zscalernss-dns"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1318,11 +1306,11 @@ tests:
       date: 1754150969000
       network:
         client:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
           port: "121"
         destination:
-          geoip: {}
+          geoip:
           ip: "10.10.10.10"
       ocsf:
         activity_id: 0
@@ -1360,6 +1348,9 @@ tests:
         status_id: 0
         time: 1754150969000
         tunnel_type: "GRE"
+        tunnel_type_id: 99
+        user:
+          name: "jdoe@example.com"
       sourcetype: "zscalernss-tunnel"
       usr:
         id: "jdoe@example.com"
@@ -1406,7 +1397,7 @@ tests:
       }
     service: "zscalernss-tunnel"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
@@ -1788,6 +1779,8 @@ tests:
           data_lifecycle_state: "Data in-Transit"
           policy:
             uid: "7353686383933915137"
+          detection_system: "Secure Email Gateway"
+          detection_system_id: 6
     message: |-
       {
         "sourcetype" : "zscalernss-emaildlp",
@@ -2438,3 +2431,330 @@ tests:
      - "source:LOGS_SOURCE"
      - "source:LOGS_SOURCE"
     timestamp: 1754150969000
+ -
+  sample: |-
+    {
+      "sourcetype": "zscalernss-audit",
+      "event": {
+        "time": "Thu Feb 12 06:55:48 2026",
+        "recordid": "7001234567890000001",
+        "action": "SIGN_IN",
+        "category": "LOGIN",
+        "subcategory": "ADMIN_LOGIN",
+        "resource": "None",
+        "interface": "UI",
+        "adminid": "admin@example.com",
+        "clientip": "10.10.10.10",
+        "result": "SUCCESS",
+        "errorcode": "None",
+        "auditlogtype": "ZIA",
+        "preaction": {"status": "signed_out"},
+        "postaction": {"status": "signed_in"}
+      }
+    }
+  result:
+    service: "zscalernss-audit"
+    custom:
+      evt:
+        outcome: "SUCCESS"
+      zscaler:
+        postaction:
+          status: "signed_in"
+        preaction:
+          status: "signed_out"
+        resource: "None"
+        interface: "UI"
+        auditlogtype: "ZIA"
+        recordid: "7001234567890000001"
+        clientip: "10.10.10.10"
+        adminid: "admin@example.com"
+        action: "SIGN_IN"
+        time: "Thu Feb 12 06:55:48 2026"
+        category: "LOGIN"
+        subcategory: "ADMIN_LOGIN"
+        errorcode: "None"
+        datetime: "Thu Feb 12 06:55:48 2026"
+      ocsf:
+        severity: "Informational"
+        activity_name: "Logon"
+        metadata:
+          product:
+            feature:
+              name: "audit"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          log_name: "zscalernss-audit"
+          version: "1.5.0"
+          original_time: "Thu Feb 12 06:55:48 2026"
+        category_uid: 3
+        category_name: "Identity & Access Management"
+        status_code: "None"
+        session:
+          uid: "7001234567890000001"
+        src_endpoint:
+          ip: "10.10.10.10"
+        is_remote: true
+        logon_type: "UI"
+        status_detail: "None"
+        actor:
+          user:
+            email_addr: "admin@example.com"
+            name: "admin@example.com"
+        service:
+          name: "None"
+        class_uid: 3002
+        activity_id: 1
+        severity_id: 1
+        class_name: "Authentication"
+        user:
+          email_addr: "admin@example.com"
+          name: "admin@example.com"
+        time: 1770879348000
+        logon_type_id: 99
+      sourcetype: "zscalernss-audit"
+      network:
+        client:
+          geoip:
+          ip: "10.10.10.10"
+      date: 1770879348000
+    message: |-
+      {
+        "sourcetype": "zscalernss-audit",
+        "event": {
+          "time": "Thu Feb 12 06:55:48 2026",
+          "recordid": "7001234567890000001",
+          "action": "SIGN_IN",
+          "category": "LOGIN",
+          "subcategory": "ADMIN_LOGIN",
+          "resource": "None",
+          "interface": "UI",
+          "adminid": "admin@example.com",
+          "clientip": "10.10.10.10",
+          "result": "SUCCESS",
+          "errorcode": "None",
+          "auditlogtype": "ZIA",
+          "preaction": {"status": "signed_out"},
+          "postaction": {"status": "signed_in"}
+        }
+      }
+    tags:
+      - "source:LOGS_SOURCE"
+    timestamp: 1770879348000
+ -
+  sample: |-
+    {
+      "sourcetype": "zscalernss-audit",
+      "event": {
+        "time": "Thu Feb 12 07:10:22 2026",
+        "recordid": "7001234567890000002",
+        "action": "UPDATE",
+        "category": "USER_MANAGEMENT",
+        "subcategory": "USERS",
+        "resource": "jdoe@example.com",
+        "interface": "UI",
+        "adminid": "admin@example.com",
+        "clientip": "10.10.10.10",
+        "result": "SUCCESS",
+        "errorcode": "None",
+        "auditlogtype": "ZIA",
+        "preaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Sales", "groups": ["Employees"]},
+        "postaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Marketing", "groups": ["Employees", "Marketing"]}
+      }
+    }
+  result:
+    service: "zscalernss-audit"
+    custom:
+      evt:
+        outcome: "SUCCESS"
+      zscaler:
+        postaction:
+          name: "John Doe"
+          groups:
+            - "Employees"
+            - "Marketing"
+          department: "Marketing"
+          email: "jdoe@example.com"
+        preaction:
+          name: "John Doe"
+          groups:
+            - "Employees"
+          department: "Sales"
+          email: "jdoe@example.com"
+        resource: "jdoe@example.com"
+        interface: "UI"
+        auditlogtype: "ZIA"
+        recordid: "7001234567890000002"
+        clientip: "10.10.10.10"
+        adminid: "admin@example.com"
+        action: "UPDATE"
+        time: "Thu Feb 12 07:10:22 2026"
+        category: "USER_MANAGEMENT"
+        subcategory: "USERS"
+        errorcode: "None"
+        datetime: "Thu Feb 12 07:10:22 2026"
+      ocsf:
+        severity: "Informational"
+        activity_name: "Update"
+        metadata:
+          uid: "7001234567890000002"
+          product:
+            feature:
+              name: "audit"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          log_name: "zscalernss-audit"
+          version: "1.5.0"
+          original_time: "Thu Feb 12 07:10:22 2026"
+        category_uid: 3
+        category_name: "Identity & Access Management"
+        status_code: "None"
+        src_endpoint:
+          ip: "10.10.10.10"
+        status_detail: "None"
+        actor:
+          user:
+            email_addr: "admin@example.com"
+            name: "admin@example.com"
+        class_uid: 3001
+        activity_id: 99
+        severity_id: 1
+        class_name: "Account Change"
+        user:
+          name: "jdoe@example.com"
+        time: 1770880222000
+      sourcetype: "zscalernss-audit"
+      network:
+        client:
+          geoip:
+          ip: "10.10.10.10"
+      date: 1770880222000
+    message: |-
+      {
+        "sourcetype": "zscalernss-audit",
+        "event": {
+          "time": "Thu Feb 12 07:10:22 2026",
+          "recordid": "7001234567890000002",
+          "action": "UPDATE",
+          "category": "USER_MANAGEMENT",
+          "subcategory": "USERS",
+          "resource": "jdoe@example.com",
+          "interface": "UI",
+          "adminid": "admin@example.com",
+          "clientip": "10.10.10.10",
+          "result": "SUCCESS",
+          "errorcode": "None",
+          "auditlogtype": "ZIA",
+          "preaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Sales", "groups": ["Employees"]},
+          "postaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Marketing", "groups": ["Employees", "Marketing"]}
+        }
+      }
+    tags:
+      - "source:LOGS_SOURCE"
+    timestamp: 1770880222000
+ -
+  sample: |-
+    {
+      "sourcetype": "zscalernss-audit",
+      "event": {
+        "time": "Thu Feb 12 07:25:15 2026",
+        "recordid": "7001234567890000003",
+        "action": "CREATE",
+        "category": "ROLE_MANAGEMENT",
+        "subcategory": "ADMIN_ROLE",
+        "resource": "SecurityAuditor",
+        "interface": "UI",
+        "adminid": "admin@example.com",
+        "clientip": "10.10.10.10",
+        "result": "SUCCESS",
+        "errorcode": "None",
+        "auditlogtype": "ZIA",
+        "preaction": {},
+        "postaction": {"roleName": "SecurityAuditor", "rank": 5, "permissions": ["USER_MANAGEMENT", "AUDIT_LOGS"], "accessLevel": "READ_ONLY", "scope": "ORGANIZATION"}
+      }
+    }
+  result:
+    service: "zscalernss-audit"
+    custom:
+      evt:
+        outcome: "SUCCESS"
+      zscaler:
+        postaction:
+          accessLevel: "READ_ONLY"
+          permissions:
+            - "USER_MANAGEMENT"
+            - "AUDIT_LOGS"
+          scope: "ORGANIZATION"
+          roleName: "SecurityAuditor"
+          rank: 5
+        preaction:
+        resource: "SecurityAuditor"
+        interface: "UI"
+        auditlogtype: "ZIA"
+        recordid: "7001234567890000003"
+        clientip: "10.10.10.10"
+        adminid: "admin@example.com"
+        action: "CREATE"
+        time: "Thu Feb 12 07:25:15 2026"
+        category: "ROLE_MANAGEMENT"
+        subcategory: "ADMIN_ROLE"
+        errorcode: "None"
+        datetime: "Thu Feb 12 07:25:15 2026"
+      ocsf:
+        severity: "Informational"
+        activity_name: "Create"
+        metadata:
+          uid: "7001234567890000003"
+          product:
+            feature:
+              name: "audit"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          log_name: "zscalernss-audit"
+          version: "1.5.0"
+          original_time: "Thu Feb 12 07:25:15 2026"
+        category_uid: 3
+        category_name: "Identity & Access Management"
+        status_code: "None"
+        src_endpoint:
+          ip: "10.10.10.10"
+        status_detail: "None"
+        actor:
+          user:
+            email_addr: "admin@example.com"
+            name: "admin@example.com"
+        class_uid: 3001
+        activity_id: 1
+        severity_id: 1
+        class_name: "Account Change"
+        time: 1770881115000
+        user:
+          name: "SecurityAuditor"
+      sourcetype: "zscalernss-audit"
+      network:
+        client:
+          geoip:
+          ip: "10.10.10.10"
+      date: 1770881115000
+    message: |-
+      {
+        "sourcetype": "zscalernss-audit",
+        "event": {
+          "time": "Thu Feb 12 07:25:15 2026",
+          "recordid": "7001234567890000003",
+          "action": "CREATE",
+          "category": "ROLE_MANAGEMENT",
+          "subcategory": "ADMIN_ROLE",
+          "resource": "SecurityAuditor",
+          "interface": "UI",
+          "adminid": "admin@example.com",
+          "clientip": "10.10.10.10",
+          "result": "SUCCESS",
+          "errorcode": "None",
+          "auditlogtype": "ZIA",
+          "preaction": {},
+          "postaction": {"roleName": "SecurityAuditor", "rank": 5, "permissions": ["USER_MANAGEMENT", "AUDIT_LOGS"], "accessLevel": "READ_ONLY", "scope": "ORGANIZATION"}
+        }
+      }
+    tags:
+      - "source:LOGS_SOURCE"
+    timestamp: 1770881115000
