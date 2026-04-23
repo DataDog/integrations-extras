@@ -1,5 +1,11 @@
 # CHANGELOG - ns1
 
+## 2.0.1 / 2026-04-06
+
+***Fixed***
+
+* Fixed inner loop in send_metrics to correctly iterate using a dictionary ([#2953](https://github.com/DataDog/integrations-extras/pull/2953))
+
 ## 2.0.0 / 2026-04-06
 
 ***Changed***:
