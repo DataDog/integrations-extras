@@ -39,3 +39,53 @@ process_cpu_seconds_total 7.01
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
 process_resident_memory_bytes 640008192
+# HELP tikv_engine_flow_bytes Bytes of read/written.
+# TYPE tikv_engine_flow_bytes counter
+tikv_engine_flow_bytes{db="kv",type="keys_read"} 1234
+tikv_engine_flow_bytes{db="kv",type="bytes_read"} 56789
+# HELP tikv_thread_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE tikv_thread_cpu_seconds_total counter
+tikv_thread_cpu_seconds_total{name="raftstore"} 3.21
+tikv_thread_cpu_seconds_total{name="apply"} 1.54
+# HELP tikv_grpc_msg_duration_seconds Bucketed histogram of grpc message handling.
+# TYPE tikv_grpc_msg_duration_seconds histogram
+tikv_grpc_msg_duration_seconds_bucket{type="kv_get",le="0.005"} 200
+tikv_grpc_msg_duration_seconds_bucket{type="kv_get",le="+Inf"} 200
+tikv_grpc_msg_duration_seconds_sum{type="kv_get"} 0.32
+tikv_grpc_msg_duration_seconds_count{type="kv_get"} 200
+# HELP tikv_raftstore_append_log_duration_seconds Bucketed histogram of peer appending log duration.
+# TYPE tikv_raftstore_append_log_duration_seconds histogram
+tikv_raftstore_append_log_duration_seconds_bucket{type="normal",le="0.005"} 150
+tikv_raftstore_append_log_duration_seconds_bucket{type="normal",le="+Inf"} 150
+tikv_raftstore_append_log_duration_seconds_sum{type="normal"} 0.18
+tikv_raftstore_append_log_duration_seconds_count{type="normal"} 150
+# HELP tikv_raftstore_apply_log_duration_seconds Bucketed histogram of peer applying log duration.
+# TYPE tikv_raftstore_apply_log_duration_seconds histogram
+tikv_raftstore_apply_log_duration_seconds_bucket{type="normal",le="0.005"} 148
+tikv_raftstore_apply_log_duration_seconds_bucket{type="normal",le="+Inf"} 148
+tikv_raftstore_apply_log_duration_seconds_sum{type="normal"} 0.17
+tikv_raftstore_apply_log_duration_seconds_count{type="normal"} 148
+# HELP tikv_raftstore_commit_log_duration_seconds Bucketed histogram of peer committing log duration.
+# TYPE tikv_raftstore_commit_log_duration_seconds histogram
+tikv_raftstore_commit_log_duration_seconds_bucket{type="normal",le="0.005"} 148
+tikv_raftstore_commit_log_duration_seconds_bucket{type="normal",le="+Inf"} 148
+tikv_raftstore_commit_log_duration_seconds_sum{type="normal"} 0.16
+tikv_raftstore_commit_log_duration_seconds_count{type="normal"} 148
+# HELP tikv_raftstore_store_duration_secs Bucketed histogram of store writing duration.
+# TYPE tikv_raftstore_store_duration_secs histogram
+tikv_raftstore_store_duration_secs_bucket{type="normal",le="0.005"} 300
+tikv_raftstore_store_duration_secs_bucket{type="normal",le="+Inf"} 300
+tikv_raftstore_store_duration_secs_sum{type="normal"} 0.45
+tikv_raftstore_store_duration_secs_count{type="normal"} 300
+# HELP tikv_raftstore_apply_duration_secs Bucketed histogram of apply duration.
+# TYPE tikv_raftstore_apply_duration_secs histogram
+tikv_raftstore_apply_duration_secs_bucket{type="normal",le="0.005"} 295
+tikv_raftstore_apply_duration_secs_bucket{type="normal",le="+Inf"} 295
+tikv_raftstore_apply_duration_secs_sum{type="normal"} 0.44
+tikv_raftstore_apply_duration_secs_count{type="normal"} 295
+# HELP tikv_storage_engine_async_request_duration_seconds Bucketed histogram of processing durations of async requests.
+# TYPE tikv_storage_engine_async_request_duration_seconds histogram
+tikv_storage_engine_async_request_duration_seconds_bucket{type="write",le="0.005"} 100
+tikv_storage_engine_async_request_duration_seconds_bucket{type="write",le="+Inf"} 100
+tikv_storage_engine_async_request_duration_seconds_sum{type="write"} 0.12
+tikv_storage_engine_async_request_duration_seconds_count{type="write"} 100

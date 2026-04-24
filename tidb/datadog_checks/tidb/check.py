@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from datadog_checks.base import OpenMetricsBaseCheck
 
-from .metrics import TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
+from .metrics import PD_METRICS, TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
 from .utils import build_check
 
 
@@ -29,14 +29,14 @@ class TiDBCheck(OpenMetricsBaseCheck):
                 "pd",
                 {
                     'pd_metric_url': 'http://localhost:2379/metrics',
-                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS + PD_METRICS,
                 },
             ),
             'tidb_cloud': build_check(
                 "pd",
                 {
                     'pd_metric_url': 'http://localhost:2379/metrics',
-                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS + PD_METRICS,
                 },
             ),
         }

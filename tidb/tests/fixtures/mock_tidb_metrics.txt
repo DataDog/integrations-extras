@@ -472,3 +472,58 @@ tidb_server_execute_error_total{type="schema:1146"} 4
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
 process_resident_memory_bytes 9.3704192e+07
+# HELP tidb_server_query_total Counter of queries.
+# TYPE tidb_server_query_total counter
+tidb_server_query_total{type="OK"} 150
+tidb_server_query_total{type="Error"} 2
+# HELP tidb_server_disconnection_total Counter of disconnections.
+# TYPE tidb_server_disconnection_total counter
+tidb_server_disconnection_total{result="ok"} 5
+# HELP tidb_server_plan_cache_total Counter of plan cache hit.
+# TYPE tidb_server_plan_cache_total counter
+tidb_server_plan_cache_total{type="hit"} 42
+# HELP tidb_server_plan_cache_miss_total Counter of plan cache miss.
+# TYPE tidb_server_plan_cache_miss_total counter
+tidb_server_plan_cache_miss_total{type="miss"} 8
+# HELP tidb_session_parse_duration_seconds Bucketed histogram of processing time (s) in parse phase.
+# TYPE tidb_session_parse_duration_seconds histogram
+tidb_session_parse_duration_seconds_bucket{sql_type="general",le="0.0005"} 10
+tidb_session_parse_duration_seconds_bucket{sql_type="general",le="+Inf"} 10
+tidb_session_parse_duration_seconds_sum{sql_type="general"} 0.0012
+tidb_session_parse_duration_seconds_count{sql_type="general"} 10
+# HELP tidb_session_compile_duration_seconds Bucketed histogram of processing time (s) in compile phase.
+# TYPE tidb_session_compile_duration_seconds histogram
+tidb_session_compile_duration_seconds_bucket{sql_type="general",le="0.0005"} 10
+tidb_session_compile_duration_seconds_bucket{sql_type="general",le="+Inf"} 10
+tidb_session_compile_duration_seconds_sum{sql_type="general"} 0.0015
+tidb_session_compile_duration_seconds_count{sql_type="general"} 10
+# HELP tidb_session_execute_duration_seconds Bucketed histogram of processing time (s) in execute phase.
+# TYPE tidb_session_execute_duration_seconds histogram
+tidb_session_execute_duration_seconds_bucket{type="general",le="0.0005"} 8
+tidb_session_execute_duration_seconds_bucket{type="general",le="+Inf"} 8
+tidb_session_execute_duration_seconds_sum{type="general"} 0.0089
+tidb_session_execute_duration_seconds_count{type="general"} 8
+# HELP tidb_session_transaction_duration_seconds Bucketed histogram of processing time (s) for transaction.
+# TYPE tidb_session_transaction_duration_seconds histogram
+tidb_session_transaction_duration_seconds_bucket{sql_type="general",type="commit",le="0.001"} 3
+tidb_session_transaction_duration_seconds_bucket{sql_type="general",type="commit",le="+Inf"} 3
+tidb_session_transaction_duration_seconds_sum{sql_type="general",type="commit"} 0.0031
+tidb_session_transaction_duration_seconds_count{sql_type="general",type="commit"} 3
+# HELP tidb_server_get_token_duration_seconds Duration (us) for getting token, it should be small until concurrency limit is reached.
+# TYPE tidb_server_get_token_duration_seconds histogram
+tidb_server_get_token_duration_seconds_bucket{le="1"} 100
+tidb_server_get_token_duration_seconds_bucket{le="+Inf"} 100
+tidb_server_get_token_duration_seconds_sum 0.05
+tidb_server_get_token_duration_seconds_count 100
+# HELP tidb_server_conn_idle_duration_seconds Bucketed histogram of connection idle duration.
+# TYPE tidb_server_conn_idle_duration_seconds histogram
+tidb_server_conn_idle_duration_seconds_bucket{in_txn="0",le="0.1"} 20
+tidb_server_conn_idle_duration_seconds_bucket{in_txn="0",le="+Inf"} 20
+tidb_server_conn_idle_duration_seconds_sum{in_txn="0"} 1.2
+tidb_server_conn_idle_duration_seconds_count{in_txn="0"} 20
+# HELP tidb_tikvclient_request_seconds Bucketed histogram of time spent in TiKV requests.
+# TYPE tidb_tikvclient_request_seconds histogram
+tidb_tikvclient_request_seconds_bucket{store="1",type="Prewrite",le="0.001"} 5
+tidb_tikvclient_request_seconds_bucket{store="1",type="Prewrite",le="+Inf"} 5
+tidb_tikvclient_request_seconds_sum{store="1",type="Prewrite"} 0.004
+tidb_tikvclient_request_seconds_count{store="1",type="Prewrite"} 5
