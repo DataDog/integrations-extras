@@ -108,6 +108,7 @@ EXPECTED_TIFLASH = {
             'tidb_cluster_name:test',
         ],
         'tidb_cluster.tiflash_syncing_data_freshness.count': [
+            'upper_bound:none',
             'tidb_cluster_component:tiflash',
             'tidb_cluster_name:test',
         ],
