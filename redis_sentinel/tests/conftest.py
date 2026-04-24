@@ -1,7 +1,6 @@
 import os
 
 import pytest
-
 from datadog_checks.dev.docker import docker_run, get_docker_hostname
 
 HERE = os.path.dirname(os.path.abspath(__file__))
