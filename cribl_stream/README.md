@@ -51,6 +51,9 @@ The Cribl Stream integration does not include any events.
 The Cribl Stream integration does not include any service checks.
 
 ## Troubleshooting
+
+If you're using Cribl Stream to send data to Cloud SIEM and are having trouble with OOTB dashboards and detection rules, see [Troubleshoot using Cribl Stream with Cloud SIEM][9].
+
 Need help? Contact [Cribl Support][8].
 
 [1]: https://cribl.io/stream
@@ -61,3 +64,4 @@ Need help? Contact [Cribl Support][8].
 [6]: http://docs.cribl.io/logstream/sources-cribl-internal/
 [7]: /organization-settings/api-keys
 [8]: https://cribl.io/support
+[9]: https://docs.datadoghq.com/security/cloud_siem/guide/troubleshoot-cribl-stream-cloud-siem/
