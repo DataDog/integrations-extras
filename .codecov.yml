@@ -23,6 +23,10 @@ coverage:
         target: 75
         flags:
         - bind9
+      Chrony:
+        target: 75
+        flags:
+        - chrony
       CloudNatix:
         target: 75
         flags:
@@ -374,6 +378,11 @@ flags:
     paths:
     - cfssl/datadog_checks/cfssl
     - cfssl/tests
+  chrony:
+    carryforward: true
+    paths:
+    - chrony/datadog_checks/chrony
+    - chrony/tests
   cloudnatix:
     carryforward: true
     paths:
