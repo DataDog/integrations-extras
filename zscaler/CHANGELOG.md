@@ -39,6 +39,13 @@
   * Firewall protocol mapper reads from both `zscaler.proto` (the
     field name in the documented NSS feed format) and
     `zscaler.ipproto`.
+  * Wildcard catch-alls in OCSF schema-category-mappers now emit
+    `Other`/`99` (rather than `Unknown`/`0`) when a known source
+    field carries a value that doesn't map to an OCSF enum entry.
+    This preserves the vendor's signal in the OCSF output rather
+    than collapsing all unmapped values to `Unknown`. The single
+    numeric-range catch-all (`zscaler.threat_score`) still uses
+    `Unknown`/`0` since there's no categorical label to preserve.
 
 ## 2.0.0 / 2025-08-27
 
