@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "title": "Mainframe CPU Contention Monitor",
+  "title": "",
   "tags": [
     "integration:ziris"
   ],
   "definition": {
     "name": "CPU Contention Monitor - Mainframe LPAR {{host.name}}  CPU contention exceeds recommended threshold",
     "type": "query alert",
-    "query": "max(last_15m):max:zos.cpu.in_ready_work_queue_contention{*} by {host.name}.fill(linear) > 0.59",
+    "query": "max(last_15m):max:ziris.zos.cpu.in_ready_work_queue_contention{*} by {host.name}.fill(linear) > 0.59",
     "message": "This monitor evaluates the WatchTower z/IRIS CPU Metric `zos.cpu.in_ready_work_queue_contention` exceeds 60% which indicates CPU contention on z/OS LPARs.\n \nCPU contention exceeded the 60% on {{host.name}} . Application availability may be impacted. \n\nNext Steps:\n1. Engage Mainframe SMEs to address resource contention",
     "tags": [
       "mainframe-cpu"
@@ -25,6 +25,6 @@
     }
   },
   "created_at": "2025-10-27",
-  "last_updated_at": "2026-03-27",
-  "description": "This monitor will trigger when CPU contention increases above 60% for one or more logical partitions (LPARs) on mainframe platforms"
+  "last_updated_at": "2026-04-07",
+  "description": ""
 }
