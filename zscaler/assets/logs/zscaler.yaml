@@ -1548,23 +1548,23 @@ pipeline:
               name: ocsf.severity_id
               categories:
                 - filter:
-                    query: "@zscaler.threatseverity:Informational"
+                    query: "@zscaler.threatseverity:informational"
                   name: Informational
                   id: 1
                 - filter:
-                    query: "@zscaler.threatseverity:Low"
+                    query: "@zscaler.threatseverity:low"
                   name: Low
                   id: 2
                 - filter:
-                    query: "@zscaler.threatseverity:Medium"
+                    query: "@zscaler.threatseverity:medium"
                   name: Medium
                   id: 3
                 - filter:
-                    query: "@zscaler.threatseverity:High"
+                    query: "@zscaler.threatseverity:high"
                   name: High
                   id: 4
                 - filter:
-                    query: "@zscaler.threatseverity:Critical"
+                    query: "@zscaler.threatseverity:critical"
                   name: Critical
                   id: 5
                 - filter:
@@ -2156,23 +2156,23 @@ pipeline:
               name: ocsf.severity_id
               categories:
                 - filter:
-                    query: "@zscaler.severity:Informational"
+                    query: '@zscaler.severity:"Info Severity"'
                   name: Informational
                   id: 1
                 - filter:
-                    query: "@zscaler.severity:Low"
+                    query: '@zscaler.severity:"Low Severity"'
                   name: Low
                   id: 2
                 - filter:
-                    query: "@zscaler.severity:Medium"
+                    query: '@zscaler.severity:"Medium Severity"'
                   name: Medium
                   id: 3
                 - filter:
-                    query: "@zscaler.severity:High"
+                    query: '@zscaler.severity:"High Severity"'
                   name: High
                   id: 4
                 - filter:
-                    query: "@zscaler.severity:Critical"
+                    query: '@zscaler.severity:"Critical Severity"'
                   name: Critical
                   id: 5
                 - filter:
@@ -2455,23 +2455,23 @@ pipeline:
               name: ocsf.severity_id
               categories:
                 - filter:
-                    query: "@zscaler.severity:Informational"
+                    query: '@zscaler.severity:"Info Severity"'
                   name: Informational
                   id: 1
                 - filter:
-                    query: "@zscaler.severity:Low"
+                    query: '@zscaler.severity:"Low Severity"'
                   name: Low
                   id: 2
                 - filter:
-                    query: "@zscaler.severity:Medium"
+                    query: '@zscaler.severity:"Medium Severity"'
                   name: Medium
                   id: 3
                 - filter:
-                    query: "@zscaler.severity:High"
+                    query: '@zscaler.severity:"High Severity"'
                   name: High
                   id: 4
                 - filter:
-                    query: "@zscaler.severity:Critical"
+                    query: '@zscaler.severity:"Critical Severity"'
                   name: Critical
                   id: 5
                 - filter:
@@ -3088,8 +3088,9 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.ipproto` to `ocsf.connection_info.protocol_name`
+              name: Map `zscaler.proto`/`zscaler.ipproto` to `ocsf.connection_info.protocol_name`
               sources:
+                - zscaler.proto
                 - zscaler.ipproto
               target: ocsf.connection_info.protocol_name
               preserveSource: true

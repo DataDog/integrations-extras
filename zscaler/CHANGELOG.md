@@ -14,8 +14,9 @@
   * `zscalernss-casb` → File Hosting Activity [6006]
   * `zscalernss-emaildlp` → Data Security Finding [2006]
   * `zscalernss-endpointdlp` → Data Security Finding [2006]
-  * `zscalernss-audit` (SIGN_IN / SIGN_OUT) → Authentication [3002]
-  * `zscalernss-audit` (config CRUD) → API Activity [6003]
+  * `zscalernss-audit` (`LOGIN` category) → Authentication [3002]
+  * `zscalernss-audit` (`USER_MANAGEMENT` or `ROLE_MANAGEMENT` category) → Account Change [3001]
+  * `zscalernss-audit` (any other category) → API Activity [6003]
   * `zscalernss-alert` (ZIA + UEBA) → Detection Finding [2004]
   * All other logs → Base Event [0]
 * Set `ocsf.metadata.product.name` to `"ZIA"` (the product) and
@@ -27,6 +28,17 @@
   product.feature.name, etc.).
 * Added OCSF test expectations for all 12 test cases (one new test case
   added to exercise Network Activity for a non-threat fw Allow event).
+* Aligned OCSF schema-category-mapper filters with the values actually
+  emitted by NSS:
+  * Firewall threat severity filters use lowercase
+    (`informational`/`low`/`medium`/`high`/`critical`) to match the
+    pre-OCSF lowercase normalization of `zscaler.threatseverity`.
+  * Email DLP and Endpoint DLP severity filters use the literal NSS
+    labels (`"Info Severity"`, `"Low Severity"`, `"Medium Severity"`,
+    `"High Severity"`, `"Critical Severity"`).
+  * Firewall protocol mapper reads from both `zscaler.proto` (the
+    field name in the documented NSS feed format) and
+    `zscaler.ipproto`.
 
 ## 2.0.0 / 2025-08-27
 
