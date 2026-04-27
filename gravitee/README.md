@@ -18,7 +18,7 @@ This integration includes a pre-built Datadog dashboard to support comprehensive
   ```yaml
 gateway:
   additionalPlugins:
-    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-5.0.0.zip
+    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-7.2.1.zip
 ```
 4. Create a [Datadog API Key][3].  You will need this when _configuring_ the Reporter in Gravitee.
 
