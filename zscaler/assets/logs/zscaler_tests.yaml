@@ -2443,22 +2443,26 @@ tests:
  -
   sample: |-
     {
-      "sourcetype": "zscalernss-audit",
-      "event": {
-        "time": "Thu Feb 12 06:55:48 2026",
-        "recordid": "7001234567890000001",
-        "action": "SIGN_IN",
-        "category": "LOGIN",
-        "subcategory": "ADMIN_LOGIN",
-        "resource": "None",
-        "interface": "UI",
-        "adminid": "admin@example.com",
-        "clientip": "10.10.10.10",
-        "result": "SUCCESS",
-        "errorcode": "None",
-        "auditlogtype": "ZIA",
-        "preaction": {"status": "signed_out"},
-        "postaction": {"status": "signed_in"}
+      "sourcetype" : "zscalernss-audit",
+      "event" : {
+        "postaction" : {
+          "status" : "signed_in"
+        },
+        "preaction" : {
+          "status" : "signed_out"
+        },
+        "resource" : "None",
+        "interface" : "UI",
+        "auditlogtype" : "ZIA",
+        "recordid" : "7001234567890000001",
+        "result" : "SUCCESS",
+        "clientip" : "10.10.10.10",
+        "adminid" : "admin@example.com",
+        "action" : "SIGN_IN",
+        "time" : "Thu Feb 12 06:55:48 2026",
+        "category" : "LOGIN",
+        "subcategory" : "ADMIN_LOGIN",
+        "errorcode" : "None"
       }
     }
   result:
@@ -2530,47 +2534,61 @@ tests:
         time: "Thu Feb 12 06:55:48 2026"
     message: |-
       {
-        "sourcetype": "zscalernss-audit",
-        "event": {
-          "time": "Thu Feb 12 06:55:48 2026",
-          "recordid": "7001234567890000001",
-          "action": "SIGN_IN",
-          "category": "LOGIN",
-          "subcategory": "ADMIN_LOGIN",
-          "resource": "None",
-          "interface": "UI",
-          "adminid": "admin@example.com",
-          "clientip": "10.10.10.10",
-          "result": "SUCCESS",
-          "errorcode": "None",
-          "auditlogtype": "ZIA",
-          "preaction": {"status": "signed_out"},
-          "postaction": {"status": "signed_in"}
+        "sourcetype" : "zscalernss-audit",
+        "event" : {
+          "postaction" : {
+            "status" : "signed_in"
+          },
+          "preaction" : {
+            "status" : "signed_out"
+          },
+          "resource" : "None",
+          "interface" : "UI",
+          "auditlogtype" : "ZIA",
+          "recordid" : "7001234567890000001",
+          "result" : "SUCCESS",
+          "clientip" : "10.10.10.10",
+          "adminid" : "admin@example.com",
+          "action" : "SIGN_IN",
+          "time" : "Thu Feb 12 06:55:48 2026",
+          "category" : "LOGIN",
+          "subcategory" : "ADMIN_LOGIN",
+          "errorcode" : "None"
         }
       }
     service: "zscalernss-audit"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1770879348000
  -
   sample: |-
     {
-      "sourcetype": "zscalernss-audit",
-      "event": {
-        "time": "Thu Feb 12 07:10:22 2026",
-        "recordid": "7001234567890000002",
-        "action": "UPDATE",
-        "category": "USER_MANAGEMENT",
-        "subcategory": "USERS",
-        "resource": "jdoe@example.com",
-        "interface": "UI",
-        "adminid": "admin@example.com",
-        "clientip": "10.10.10.10",
-        "result": "SUCCESS",
-        "errorcode": "None",
-        "auditlogtype": "ZIA",
-        "preaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Sales", "groups": ["Employees"]},
-        "postaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Marketing", "groups": ["Employees", "Marketing"]}
+      "sourcetype" : "zscalernss-audit",
+      "event" : {
+        "postaction" : {
+          "name" : "John Doe",
+          "groups" : [ "Employees", "Marketing" ],
+          "department" : "Marketing",
+          "email" : "jdoe@example.com"
+        },
+        "preaction" : {
+          "name" : "John Doe",
+          "groups" : [ "Employees" ],
+          "department" : "Sales",
+          "email" : "jdoe@example.com"
+        },
+        "resource" : "jdoe@example.com",
+        "interface" : "UI",
+        "auditlogtype" : "ZIA",
+        "recordid" : "7001234567890000002",
+        "result" : "SUCCESS",
+        "clientip" : "10.10.10.10",
+        "adminid" : "admin@example.com",
+        "action" : "UPDATE",
+        "time" : "Thu Feb 12 07:10:22 2026",
+        "category" : "USER_MANAGEMENT",
+        "subcategory" : "USERS",
+        "errorcode" : "None"
       }
     }
   result:
@@ -2628,14 +2646,14 @@ tests:
           department: "Marketing"
           email: "jdoe@example.com"
           groups:
-           - "Employees"
-           - "Marketing"
+            - "Employees"
+            - "Marketing"
           name: "John Doe"
         preaction:
           department: "Sales"
           email: "jdoe@example.com"
           groups:
-           - "Employees"
+            - "Employees"
           name: "John Doe"
         recordid: "7001234567890000002"
         resource: "jdoe@example.com"
@@ -2644,47 +2662,62 @@ tests:
         time: "Thu Feb 12 07:10:22 2026"
     message: |-
       {
-        "sourcetype": "zscalernss-audit",
-        "event": {
-          "time": "Thu Feb 12 07:10:22 2026",
-          "recordid": "7001234567890000002",
-          "action": "UPDATE",
-          "category": "USER_MANAGEMENT",
-          "subcategory": "USERS",
-          "resource": "jdoe@example.com",
-          "interface": "UI",
-          "adminid": "admin@example.com",
-          "clientip": "10.10.10.10",
-          "result": "SUCCESS",
-          "errorcode": "None",
-          "auditlogtype": "ZIA",
-          "preaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Sales", "groups": ["Employees"]},
-          "postaction": {"name": "John Doe", "email": "jdoe@example.com", "department": "Marketing", "groups": ["Employees", "Marketing"]}
+        "sourcetype" : "zscalernss-audit",
+        "event" : {
+          "postaction" : {
+            "name" : "John Doe",
+            "groups" : [ "Employees", "Marketing" ],
+            "department" : "Marketing",
+            "email" : "jdoe@example.com"
+          },
+          "preaction" : {
+            "name" : "John Doe",
+            "groups" : [ "Employees" ],
+            "department" : "Sales",
+            "email" : "jdoe@example.com"
+          },
+          "resource" : "jdoe@example.com",
+          "interface" : "UI",
+          "auditlogtype" : "ZIA",
+          "recordid" : "7001234567890000002",
+          "result" : "SUCCESS",
+          "clientip" : "10.10.10.10",
+          "adminid" : "admin@example.com",
+          "action" : "UPDATE",
+          "time" : "Thu Feb 12 07:10:22 2026",
+          "category" : "USER_MANAGEMENT",
+          "subcategory" : "USERS",
+          "errorcode" : "None"
         }
       }
     service: "zscalernss-audit"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1770880222000
  -
   sample: |-
     {
-      "sourcetype": "zscalernss-audit",
-      "event": {
-        "time": "Thu Feb 12 07:25:15 2026",
-        "recordid": "7001234567890000003",
-        "action": "CREATE",
-        "category": "ROLE_MANAGEMENT",
-        "subcategory": "ADMIN_ROLE",
-        "resource": "SecurityAuditor",
-        "interface": "UI",
-        "adminid": "admin@example.com",
-        "clientip": "10.10.10.10",
-        "result": "SUCCESS",
-        "errorcode": "None",
-        "auditlogtype": "ZIA",
-        "preaction": {},
-        "postaction": {"roleName": "SecurityAuditor", "rank": 5, "permissions": ["USER_MANAGEMENT", "AUDIT_LOGS"], "accessLevel": "READ_ONLY", "scope": "ORGANIZATION"}
+      "sourcetype" : "zscalernss-audit",
+      "event" : {
+        "postaction" : {
+          "accessLevel" : "READ_ONLY",
+          "permissions" : [ "USER_MANAGEMENT", "AUDIT_LOGS" ],
+          "scope" : "ORGANIZATION",
+          "roleName" : "SecurityAuditor",
+          "rank" : 5
+        },
+        "resource" : "SecurityAuditor",
+        "interface" : "UI",
+        "auditlogtype" : "ZIA",
+        "recordid" : "7001234567890000003",
+        "result" : "SUCCESS",
+        "clientip" : "10.10.10.10",
+        "adminid" : "admin@example.com",
+        "action" : "CREATE",
+        "time" : "Thu Feb 12 07:25:15 2026",
+        "category" : "ROLE_MANAGEMENT",
+        "subcategory" : "ADMIN_ROLE",
+        "errorcode" : "None"
       }
     }
   result:
@@ -2741,8 +2774,8 @@ tests:
         postaction:
           accessLevel: "READ_ONLY"
           permissions:
-           - "USER_MANAGEMENT"
-           - "AUDIT_LOGS"
+            - "USER_MANAGEMENT"
+            - "AUDIT_LOGS"
           rank: 5
           roleName: "SecurityAuditor"
           scope: "ORGANIZATION"
@@ -2753,25 +2786,30 @@ tests:
         time: "Thu Feb 12 07:25:15 2026"
     message: |-
       {
-        "sourcetype": "zscalernss-audit",
-        "event": {
-          "time": "Thu Feb 12 07:25:15 2026",
-          "recordid": "7001234567890000003",
-          "action": "CREATE",
-          "category": "ROLE_MANAGEMENT",
-          "subcategory": "ADMIN_ROLE",
-          "resource": "SecurityAuditor",
-          "interface": "UI",
-          "adminid": "admin@example.com",
-          "clientip": "10.10.10.10",
-          "result": "SUCCESS",
-          "errorcode": "None",
-          "auditlogtype": "ZIA",
-          "preaction": {},
-          "postaction": {"roleName": "SecurityAuditor", "rank": 5, "permissions": ["USER_MANAGEMENT", "AUDIT_LOGS"], "accessLevel": "READ_ONLY", "scope": "ORGANIZATION"}
+        "sourcetype" : "zscalernss-audit",
+        "event" : {
+          "postaction" : {
+            "accessLevel" : "READ_ONLY",
+            "permissions" : [ "USER_MANAGEMENT", "AUDIT_LOGS" ],
+            "scope" : "ORGANIZATION",
+            "roleName" : "SecurityAuditor",
+            "rank" : 5
+          },
+          "resource" : "SecurityAuditor",
+          "interface" : "UI",
+          "auditlogtype" : "ZIA",
+          "recordid" : "7001234567890000003",
+          "result" : "SUCCESS",
+          "clientip" : "10.10.10.10",
+          "adminid" : "admin@example.com",
+          "action" : "CREATE",
+          "time" : "Thu Feb 12 07:25:15 2026",
+          "category" : "ROLE_MANAGEMENT",
+          "subcategory" : "ADMIN_ROLE",
+          "errorcode" : "None"
         }
       }
     service: "zscalernss-audit"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1770881115000
