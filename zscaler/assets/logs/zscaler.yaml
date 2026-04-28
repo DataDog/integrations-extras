@@ -211,9 +211,13 @@ facets:
     source: log
   - groups:
       - zscaler
-    name: byte
+    name: Total Bytes
     path: zscaler.transactionsize
     source: log
+    type: integer
+    unit:
+      family: bytes
+      name: byte
   - groups:
       - zscaler
     name: Zscaler App Class
@@ -271,9 +275,13 @@ facets:
     source: log
   - groups:
       - zscaler
-    name: byte
+    name: Zscaler Request Size
     path: zscaler.requestsize
     source: log
+    type: integer
+    unit:
+      family: bytes
+      name: byte
   - groups:
       - zscaler
     name: Zscaler Response Action
@@ -286,9 +294,13 @@ facets:
     source: log
   - groups:
       - zscaler
-    name: byte
+    name: Zscaler Response Size
     path: zscaler.responsesize
     source: log
+    type: integer
+    unit:
+      family: bytes
+      name: byte
   - groups:
       - zscaler
     name: Zscaler Threat Class
@@ -1537,7 +1549,7 @@ pipeline:
       ocsf:
         isOcsf: true
       filter:
-        query: "@sourcetype:zscalernss-fw AND (@zscaler.ipsrulelabel:* OR @zscaler.threatname:*) AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
+        query: "@sourcetype:zscalernss-fw AND ((@zscaler.ipsrulelabel:* -@zscaler.ipsrulelabel:(None OR none)) OR (@zscaler.threatname:* -@zscaler.threatname:(None OR none))) AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
       processors:
         - type: string-builder-processor
           name: Add ocsf.finding_info.analytic.category
@@ -2938,7 +2950,7 @@ pipeline:
       ocsf:
         isOcsf: true
       filter:
-        query: "@sourcetype:zscalernss-fw AND -@zscaler.ipsrulelabel:* AND -@zscaler.threatname:* AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
+        query: "@sourcetype:zscalernss-fw AND (-@zscaler.ipsrulelabel:* OR @zscaler.ipsrulelabel:(None OR none)) AND (-@zscaler.threatname:* OR @zscaler.threatname:(None OR none)) AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
       processors:
         - type: string-builder-processor
           name: Add ocsf.activity_id
