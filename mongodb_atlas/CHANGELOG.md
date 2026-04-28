@@ -1,5 +1,11 @@
 # CHANGELOG - MongoDB Atlas
 
+## 1.5.0 / 2026-04-03
+
+***Added***:
+
+* Add `mongodb.atlas.querystats.cpu_nanos_sum_total` metric and CPU Time widget to the MongoDB Atlas - Database, Collection, and Query Overview dashboard. Available for MDB 8.2 and higher.
+
 ## 1.4.0 / 2026-03-02
 
 ***Added***:
