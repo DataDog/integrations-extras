@@ -477,7 +477,7 @@ pipeline:
       sources:
         - sourcetype
     - type: grok-parser
-      name: Convert `datetime` to epoch timestamp
+      name: Parse `zscaler.datetime` to epoch ms in `ocsf.time`
       enabled: true
       source: zscaler.datetime
       samples:
@@ -488,28 +488,6 @@ pipeline:
         matchRules: |-
           date_1 %{date("yyyy-MM-dd HH:mm:ss"):ocsf.time}
           date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.time}
-    - type: grok-parser
-      name: Convert `zscaler.time` (audit logs) to epoch timestamp
-      enabled: true
-      source: zscaler.time
-      samples:
-        - "2021-09-22 17:53:52"
-        - "Wed Sep 22 17:54:17 2021"
-      grok:
-        supportRules: ""
-        matchRules: |-
-          date_1 %{date("yyyy-MM-dd HH:mm:ss"):ocsf.time}
-          date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.time}
-    - type: grok-parser
-      name: Scale `createTime` (alert logs) to epoch ms `ocsf.time`
-      enabled: true
-      source: createTime
-      samples:
-        - "1755569028"
-      grok:
-        supportRules: ""
-        matchRules: |-
-          create_time %{integer:ocsf.time:scale(1000)}
     - type: date-remapper
       name: Define `ocsf.time` as the official date of the log
       enabled: true
