@@ -1,0 +1,19 @@
+# Trust policy for the validation workflow in DataDog/integrations-extras
+#
+# This policy grants the workflow permission to post PR comments with
+# validation results when any validation fails.
+#
+# Permissions granted:
+#   - pull_requests: write  - Post a comment on the pull request with validation results
+
+issuer: https://token.actions.githubusercontent.com
+
+subject_pattern: repo:DataDog/integrations-extras:pull_request
+
+claim_pattern:
+  event_name: pull_request
+  job_workflow_ref: DataDog/integrations-extras/\.github/workflows/validate\.yml@.*
+  repository: DataDog/integrations-extras
+
+permissions:
+  pull_requests: write
