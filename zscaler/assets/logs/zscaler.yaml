@@ -194,199 +194,266 @@ facets:
     name: User ID
     path: usr.id
     source: log
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: DNS Request
     path: zscaler.dns_req
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: DNS Request Type
     path: zscaler.dns_reqtype
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: File Type
     path: zscaler.filetype
     source: log
-    type: string
-  - description: ''
-    facetType: range
-    groups:
+  - groups:
       - zscaler
-    name: Total Bytes
+    name: byte
     path: zscaler.transactionsize
     source: log
-    type: integer
-    unit:
-      family: bytes
-      name: byte
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler App Class
     path: zscaler.appclass
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Category
     path: zscaler.category
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Content Type
     path: zscaler.contenttype
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Department
     path: zscaler.department
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler IP Category
     path: zscaler.ipcat
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler odevicehostname
     path: zscaler.odevicehostname
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler odeviceowner
     path: zscaler.odeviceowner
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Protocol
     path: zscaler.protocol
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Reason
     path: zscaler.reason
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Record Type
     path: zscaler.Recordtype
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Request Rule Label
     path: zscaler.reqrulelabel
     source: log
-    type: string
-  - description: ''
-    facetType: range
-    groups:
+  - groups:
       - zscaler
-    name: Zscaler Request Size
+    name: byte
     path: zscaler.requestsize
     source: log
-    type: integer
-    unit:
-      family: bytes
-      name: byte
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Response Action
     path: zscaler.resaction
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Response Rule Label
     path: zscaler.resrulelabel
     source: log
-    type: string
-  - description: ''
-    facetType: range
-    groups:
+  - groups:
       - zscaler
-    name: Zscaler Response Size
+    name: byte
     path: zscaler.responsesize
     source: log
-    type: integer
-    unit:
-      family: bytes
-      name: byte
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Threat Class
     path: zscaler.threatclass
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Threat Name
     path: zscaler.threatname
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: Zscaler Tunnel Type
     path: zscaler.tunneltype
     source: log
-    type: string
-  - description: ''
-    facetType: list
-    groups:
+  - groups:
       - zscaler
     name: zscaler.appname
     path: zscaler.appname
     source: log
-    type: string
+  - groups:
+      - OCSF
+    name: Activity ID
+    path: ocsf.activity_id
+    source: log
+  - groups:
+      - OCSF
+    name: Activity Name
+    path: ocsf.activity_name
+    source: log
+  - groups:
+      - OCSF
+    name: Category ID
+    path: ocsf.category_uid
+    source: log
+  - groups:
+      - OCSF
+    name: Category
+    path: ocsf.category_name
+    source: log
+  - groups:
+      - OCSF
+    name: Class ID
+    path: ocsf.class_uid
+    source: log
+  - groups:
+      - OCSF
+    name: Class
+    path: ocsf.class_name
+    source: log
+  - groups:
+      - OCSF
+    name: Source IP Address
+    path: ocsf.src_endpoint.ip
+    source: log
+  - groups:
+      - OCSF
+    name: Destination IP Address
+    path: ocsf.dst_endpoint.ip
+    source: log
+  - groups:
+      - OCSF
+    name: Status
+    path: ocsf.status
+    source: log
+  - groups:
+      - OCSF
+    name: Status ID
+    path: ocsf.status_id
+    source: log
+  - groups:
+      - OCSF
+    name: Severity
+    path: ocsf.severity
+    source: log
+  - groups:
+      - OCSF
+    name: Severity ID
+    path: ocsf.severity_id
+    source: log
+  - groups:
+      - OCSF
+    name: Request URL String
+    path: ocsf.http_request.url.url_string
+    source: log
+  - groups:
+      - OCSF
+    name: HTTP Method
+    path: ocsf.http_request.http_method
+    source: log
+  - groups:
+      - OCSF
+    name: DNS Query Hostname
+    path: ocsf.query.hostname
+    source: log
+  - groups:
+      - OCSF
+    name: Name
+    path: ocsf.actor.user.name
+    source: log
+  - groups:
+      - OCSF
+    name: Target Name
+    path: ocsf.user.name
+    source: log
+  - groups:
+      - OCSF
+    name: File Name
+    path: ocsf.file.name
+    source: log
+  - groups:
+      - OCSF
+    name: File Type
+    path: ocsf.file.type
+    source: log
+  - groups:
+      - OCSF
+    name: Finding Info Title
+    path: ocsf.finding_info.title
+    source: log
+  - groups:
+      - OCSF
+    name: Finding Info Unique ID
+    path: ocsf.finding_info.uid
+    source: log
+  - groups:
+      - OCSF
+    name: Message
+    path: ocsf.message
+    source: log
+  - groups:
+      - OCSF
+    name: Logon Type
+    path: ocsf.logon_type
+    source: log
+  - groups:
+      - OCSF
+    name: Data Security Category
+    path: ocsf.data_security.category
+    source: log
+  - groups:
+      - OCSF
+    name: Data Security Detection System
+    path: ocsf.data_security.detection_system
+    source: log
+  - groups:
+      - OCSF
+    name: Source Endpoint Hostname
+    path: ocsf.src_endpoint.hostname
+    source: log
+  - groups:
+      - OCSF
+    name: Source Endpoint Owner Name
+    path: ocsf.src_endpoint.owner.name
+    source: log
+  - groups:
+      - OCSF
+    name: Resource Type
+    path: ocsf.resources.type
+    source: log
+  - groups:
+      - OCSF
+    name: Session Credential UID
+    path: ocsf.session.credential_uid
+    source: log
 pipeline:
   type: pipeline
   name: Zscaler
@@ -404,40 +471,28 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-    - type: pipeline
-      name: Define sourcetype for alert log
-      enabled: true
-      filter:
-        query: -@sourcetype:* @alertId:*
-      processors:
-        - type: string-builder-processor
-          name: set `sourcetype` attribute
-          enabled: true
-          template: zscalernss-alert
-          target: sourcetype
-          replaceMissing: true
     - type: service-remapper
       name: Define `sourcetype` as the official service of the log
       enabled: true
       sources:
         - sourcetype
     - type: grok-parser
-      name: Convert `datetime` to epoch timestamp
+      name: Parse `zscaler.datetime` to epoch ms in `ocsf.time`
       enabled: true
       source: zscaler.datetime
       samples:
-        - 2021-09-22 17:53:52
-        - Wed Sep 22 17:54:17 2021
+        - "2021-09-22 17:53:52"
+        - "Wed Sep 22 17:54:17 2021"
       grok:
         supportRules: ""
         matchRules: |-
-          date_1 %{date("yyyy-MM-dd HH:mm:ss"):date}
-          date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):date}
+          date_1 %{date("yyyy-MM-dd HH:mm:ss"):ocsf.time}
+          date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.time}
     - type: date-remapper
-      name: Define `date` as the official date of the log
+      name: Define `ocsf.time` as the official date of the log
       enabled: true
       sources:
-        - date
+        - ocsf.time
     - type: attribute-remapper
       name: Map `user` and `login` to `usr.id`
       enabled: true
@@ -649,7 +704,7 @@ pipeline:
           sourceType: attribute
           target: network.client.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `csport` to `network.client.port`
@@ -659,7 +714,7 @@ pipeline:
           sourceType: attribute
           target: network.client.port
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `cdip` to `network.destination.ip`
@@ -679,7 +734,7 @@ pipeline:
           sourceType: attribute
           target: network.destination.port
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `action` to `evt.outcome`
@@ -745,7 +800,7 @@ pipeline:
           sourceType: attribute
           target: network.client.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `srv_dip` to `network.destination.ip`
@@ -755,7 +810,7 @@ pipeline:
           sourceType: attribute
           target: network.destination.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `srv_dport` to `network.destination.port`
@@ -775,7 +830,7 @@ pipeline:
           sourceType: attribute
           target: dns.question.name
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `dns_reqtype` to `dns.question.type`
@@ -785,7 +840,7 @@ pipeline:
           sourceType: attribute
           target: dns.question.type
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `dns_resp` to `dns.answer.name`
@@ -867,7 +922,7 @@ pipeline:
           sourceType: attribute
           target: network.client.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: string-builder-processor
           name: Reset `postaction.cloudNssSiemConfiguration.connectionHeaders` attribute
@@ -889,7 +944,7 @@ pipeline:
           sourceType: attribute
           target: network.client.ip
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
         - type: attribute-remapper
           name: Map `result` to `evt.outcome`
@@ -899,7 +954,7 @@ pipeline:
           sourceType: attribute
           target: evt.outcome
           targetType: attribute
-          preserveSource: false
+          preserveSource: true
           overrideOnConflict: false
     - type: pipeline
       name: SaaS Security
@@ -1145,64 +1200,6 @@ pipeline:
                 query: '@zscaler.severity:("Low Severity" OR "Info Severity")'
               name: info
           target: status
-    - type: pipeline
-      name: Alert
-      enabled: true
-      filter:
-        query: service:zscalernss-alert
-      processors:
-        - type: grok-parser
-          name: Extracting alert type from the description
-          enabled: true
-          source: description
-          samples:
-            - "Alert ID: 123456| Rule Name: Default Bulk Download of Data Alert
-              | Alert Type: Bulk download alert | User: test@example.com |
-              Activity count: 107 | ZIA-URL:
-              https://admin.zscalertwo.net/#alert-details?alertId=123456&startT\
-              ime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&eval\
-              uationInterval=1440"
-          grok:
-            supportRules: ""
-            matchRules: "alert_type_rule .+?Alert Type: %{data:alert_type} \\|.*"
-        - type: grok-parser
-          name: Extracting user from the description
-          enabled: true
-          source: description
-          samples:
-            - "Alert ID: 123456| Rule Name: Default Bulk Download of Data Alert
-              | Alert Type: Bulk download alert | User: test@example.com |
-              Activity count: 107 | ZIA-URL:
-              https://admin.zscalertwo.net/#alert-details?alertId=123456&startT\
-              ime=1755569028&alertType=UEBA_BULK_DOWNLOAD&channel=UEBA_API&eval\
-              uationInterval=1440"
-          grok:
-            supportRules: ""
-            matchRules: "user_rule .+?User: %{notSpace:usr.id} \\|.*"
-        - type: grok-parser
-          name: Extracting event type from the description
-          enabled: true
-          source: description
-          samples:
-            - "Alert ID: 567890 | Alert Status: Ended |  Rule Name: Self Created
-              | Event Type: Malicious URLs | Indexed By:
-              www.institutolockmann.com.br"
-          grok:
-            supportRules: ""
-            matchRules: "event_type_rule .+?Event Type: %{data:event_type} \\|.*"
-        - type: grok-parser
-          name: Extracting indexed by from the description
-          enabled: true
-          source: description
-          samples:
-            - "Alert ID: 567890 | Alert Status: Ended |  Rule Name: Self Created
-              | Event Type: Malicious URLs | Indexed By:
-              www.institutolockmann.com.br | ZIA-URL:
-              https://admin.zscalertwo.net/#alert-details?alertId=567890&startT\
-              ime=1755525600"
-          grok:
-            supportRules: ""
-            matchRules: "indexed_by_rule .+?Indexed By: %{notSpace:indexed} \\|.*"
     - type: geo-ip-parser
       name: Extracting geolocation information from the Client IP
       enabled: true
@@ -1222,3 +1219,3147 @@ pipeline:
       enabled: true
       sources:
         - status
+    - type: pipeline
+      name: OCSF pre transformations
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "*"
+      processors:
+        - type: string-builder-processor
+          name: Add product name
+          enabled: true
+          template: "ZIA"
+          target: ocsf.metadata.product.name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add product vendor
+          enabled: true
+          template: "Zscaler"
+          target: ocsf.metadata.product.vendor_name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add default ocsf.severity
+          enabled: true
+          template: "Informational"
+          target: ocsf.severity
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add default ocsf.severity_id
+          enabled: true
+          template: "1"
+          target: ocsf.severity_id
+          replaceMissing: false
+        - type: attribute-remapper
+          name: Map `sourcetype` to `ocsf.metadata.log_name`
+          enabled: true
+          sources:
+            - sourcetype
+          sourceType: attribute
+          target: ocsf.metadata.log_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: grok-parser
+          name: Parse `sourcetype` to `ocsf.metadata.product.feature.name`
+          enabled: true
+          source: sourcetype
+          samples:
+            - "zscalernss-fw"
+            - "zscalernss-audit"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              feature_name zscalernss-%{data:ocsf.metadata.product.feature.name}
+        - type: attribute-remapper
+          name: Map `zscaler.datetime` to `ocsf.metadata.original_time`
+          enabled: true
+          sources:
+            - zscaler.datetime
+          sourceType: attribute
+          target: ocsf.metadata.original_time
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: pipeline
+          name: Build ocsf.file.hashes MD5 entry
+          enabled: true
+          filter:
+            query: "@zscaler.filemd5:* -@zscaler.filemd5:None"
+          processors:
+            - type: string-builder-processor
+              name: Add tmp_md5.algorithm
+              enabled: true
+              template: "MD5"
+              target: tmp_md5.algorithm
+              replaceMissing: false
+            - type: string-builder-processor
+              name: Add tmp_md5.algorithm_id
+              enabled: true
+              template: "1"
+              target: tmp_md5.algorithm_id
+              replaceMissing: false
+            - type: grok-parser
+              name: Cast tmp_md5.algorithm_id to integer
+              enabled: true
+              source: tmp_md5.algorithm_id
+              samples:
+                - "1"
+              grok:
+                supportRules: ""
+                matchRules: |-
+                  cast %{integer:tmp_md5.algorithm_id}
+            - type: attribute-remapper
+              name: Map `zscaler.filemd5` to `tmp_md5.value`
+              enabled: true
+              sources:
+                - zscaler.filemd5
+              sourceType: attribute
+              target: tmp_md5.value
+              targetType: attribute
+              preserveSource: true
+              overrideOnConflict: false
+            - type: array-processor
+              name: Append `tmp_md5` to `ocsf.file.hashes`
+              enabled: true
+              operation:
+                source: tmp_md5
+                target: ocsf.file.hashes
+                preserveSource: false
+                type: append
+        - type: pipeline
+          name: Build ocsf.file.hashes SHA-256 entry
+          enabled: true
+          filter:
+            query: "@zscaler.filesha:* -@zscaler.filesha:None"
+          processors:
+            - type: string-builder-processor
+              name: Add tmp_sha256.algorithm
+              enabled: true
+              template: "SHA-256"
+              target: tmp_sha256.algorithm
+              replaceMissing: false
+            - type: string-builder-processor
+              name: Add tmp_sha256.algorithm_id
+              enabled: true
+              template: "3"
+              target: tmp_sha256.algorithm_id
+              replaceMissing: false
+            - type: grok-parser
+              name: Cast tmp_sha256.algorithm_id to integer
+              enabled: true
+              source: tmp_sha256.algorithm_id
+              samples:
+                - "3"
+              grok:
+                supportRules: ""
+                matchRules: |-
+                  cast %{integer:tmp_sha256.algorithm_id}
+            - type: attribute-remapper
+              name: Map `zscaler.filesha` to `tmp_sha256.value`
+              enabled: true
+              sources:
+                - zscaler.filesha
+              sourceType: attribute
+              target: tmp_sha256.value
+              targetType: attribute
+              preserveSource: true
+              overrideOnConflict: false
+            - type: array-processor
+              name: Append `tmp_sha256` to `ocsf.file.hashes`
+              enabled: true
+              operation:
+                source: tmp_sha256
+                target: ocsf.file.hashes
+                preserveSource: false
+                type: append
+    - type: pipeline
+      name: OCSF sub pipeline for class Detection Finding [2004] (Alert)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:(zscalernss-web OR zscalernss-fw) AND @zscaler.threatseverity:* -@zscaler.threatseverity:(None OR none)"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.is_alert
+          enabled: true
+          template: "true"
+          target: ocsf.is_alert
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_alert` to boolean type
+          enabled: true
+          source: ocsf.is_alert
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
+        - type: schema-processor
+          name: Apply OCSF schema for 2004
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Create
+                  id: 1
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-remapper
+              name: Map `zscaler.recordid`, `zscaler.event_id`, `zscaler.dlpidentifier` to `ocsf.finding_info.uid`
+              sources:
+                - zscaler.recordid
+                - zscaler.event_id
+                - zscaler.dlpidentifier
+              target: ocsf.finding_info.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.rulename`, `zscaler.triggeredrulelabel`, `zscaler.ipsrulelabel`, `zscaler.threatname`, `zscaler.rulelabel` to `ocsf.finding_info.title`
+              sources:
+                - zscaler.rulename
+                - zscaler.triggeredrulelabel
+                - zscaler.ipsrulelabel
+                - zscaler.threatname
+                - zscaler.rulelabel
+              target: ocsf.finding_info.title
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.rulename`, `zscaler.triggeredrulelabel`, `zscaler.ipsrulelabel`, `zscaler.rulelabel` to `ocsf.metadata.event_code`
+              sources:
+                - zscaler.rulename
+                - zscaler.triggeredrulelabel
+                - zscaler.ipsrulelabel
+                - zscaler.rulelabel
+              target: ocsf.metadata.event_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.finding_info.analytic.type_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Rule
+                  id: 1
+              targets:
+                name: ocsf.finding_info.analytic.type
+                id: ocsf.finding_info.analytic.type_id
+            - type: schema-remapper
+              name: Map `zscaler.rulename`, `zscaler.triggeredrulelabel`, `zscaler.ipsrulelabel`, `zscaler.threatname`, `zscaler.rulelabel` to `ocsf.finding_info.analytic.name`
+              sources:
+                - zscaler.rulename
+                - zscaler.triggeredrulelabel
+                - zscaler.ipsrulelabel
+                - zscaler.threatname
+                - zscaler.rulelabel
+              target: ocsf.finding_info.analytic.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.is_alert` to `ocsf.is_alert`
+              sources:
+                - ocsf.is_alert
+              target: ocsf.is_alert
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: '@zscaler.threatseverity:informational OR @zscaler.severity:"Info Severity"'
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: '@zscaler.threatseverity:low OR @zscaler.severity:"Low Severity"'
+                  name: Low
+                  id: 2
+                - filter:
+                    query: '@zscaler.threatseverity:medium OR @zscaler.severity:"Medium Severity"'
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: '@zscaler.threatseverity:high OR @zscaler.severity:"High Severity"'
+                  name: High
+                  id: 4
+                - filter:
+                    query: '@zscaler.threatseverity:critical OR @zscaler.severity:"Critical Severity"'
+                  name: Critical
+                  id: 5
+                - filter:
+                    query: "@zscaler.threatseverity:* OR @zscaler.severity:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Detection Finding
+            classUid: 2004
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Detection Finding [2004] (Firewall Threat)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-fw AND (@zscaler.ipsrulelabel:* OR @zscaler.threatname:*) AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.finding_info.analytic.category
+          enabled: true
+          template: "IPS"
+          target: ocsf.finding_info.analytic.category
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.is_alert
+          enabled: true
+          template: "true"
+          target: ocsf.is_alert
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_alert` to boolean type
+          enabled: true
+          source: ocsf.is_alert
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
+        - type: schema-processor
+          name: Apply OCSF schema for 2004
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.ipsrulelabel:* OR @zscaler.threatname:*"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.finding_info.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.finding_info.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.rulelabel` to `ocsf.finding_info.title`
+              sources:
+                - zscaler.rulelabel
+              target: ocsf.finding_info.title
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.threatname`, `zscaler.rulelabel` to `ocsf.finding_info.desc`
+              sources:
+                - zscaler.threatname
+                - zscaler.rulelabel
+              target: ocsf.finding_info.desc
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.pcapid` to `ocsf.finding_info.uid_alt`
+              sources:
+                - zscaler.pcapid
+              target: ocsf.finding_info.uid_alt
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.numsessions` to `ocsf.finding_info.related_events_count`
+              sources:
+                - zscaler.numsessions
+              target: ocsf.finding_info.related_events_count
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.finding_info.analytic.type_id
+              categories:
+                - filter:
+                    query: "@zscaler.ipsrulelabel:* OR @zscaler.apprulelabel:* OR @zscaler.rulelabel:* OR @zscaler.threatname:*"
+                  name: Rule
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.finding_info.analytic.type
+                id: ocsf.finding_info.analytic.type_id
+            - type: schema-remapper
+              name: Map `zscaler.ipsrulelabel`, `zscaler.apprulelabel`, `zscaler.rulelabel`, `zscaler.threatname` to `ocsf.finding_info.analytic.name`
+              sources:
+                - zscaler.ipsrulelabel
+                - zscaler.apprulelabel
+                - zscaler.rulelabel
+                - zscaler.threatname
+              target: ocsf.finding_info.analytic.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.finding_info.analytic.category` to `ocsf.finding_info.analytic.category`
+              sources:
+                - ocsf.finding_info.analytic.category
+              target: ocsf.finding_info.analytic.category
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.threatname`, `zscaler.rulelabel` to `ocsf.message`
+              sources:
+                - zscaler.threatname
+                - zscaler.rulelabel
+              target: ocsf.message
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: "@zscaler.threatseverity:informational"
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: "@zscaler.threatseverity:low"
+                  name: Low
+                  id: 2
+                - filter:
+                    query: "@zscaler.threatseverity:medium"
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: "@zscaler.threatseverity:high"
+                  name: High
+                  id: 4
+                - filter:
+                    query: "@zscaler.threatseverity:critical"
+                  name: Critical
+                  id: 5
+                - filter:
+                    query: "@zscaler.threatseverity:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+            - type: schema-category-mapper
+              name: ocsf.confidence_id
+              categories:
+                - filter:
+                    query: "@zscaler.threat_score:[80 TO *]"
+                  name: High
+                  id: 3
+                - filter:
+                    query: "@zscaler.threat_score:[50 TO 79]"
+                  name: Medium
+                  id: 2
+                - filter:
+                    query: "@zscaler.threat_score:[1 TO 49]"
+                  name: Low
+                  id: 1
+                - filter:
+                    query: "@zscaler.threat_score:*"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.confidence
+                id: ocsf.confidence_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Detection Finding
+            classUid: 2004
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Data Security Finding [2006] (Email DLP)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-emaildlp"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.is_alert
+          enabled: true
+          template: "true"
+          target: ocsf.is_alert
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_alert` to boolean type
+          enabled: true
+          source: ocsf.is_alert
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
+        - type: schema-processor
+          name: Apply OCSF schema for 2006
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-emaildlp"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-remapper
+              name: Map `zscaler.tenant` to `ocsf.metadata.tenant_uid`
+              sources:
+                - zscaler.tenant
+              target: ocsf.metadata.tenant_uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.dlpidentifier` to `ocsf.finding_info.uid`
+              sources:
+                - zscaler.dlpidentifier
+              target: ocsf.finding_info.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.subject` to `ocsf.finding_info.title`
+              sources:
+                - zscaler.subject
+              target: ocsf.finding_info.title
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.subject` to `ocsf.message`
+              sources:
+                - zscaler.subject
+              target: ocsf.message
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.appname` to `ocsf.actor.app_name`
+              sources:
+                - zscaler.appname
+              target: ocsf.actor.app_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.sender` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.sender
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.sender` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.sender
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.rulelabels` to `ocsf.data_security.policy.name`
+              sources:
+                - zscaler.rulelabels
+              target: ocsf.data_security.policy.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.data_security.detection_system_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-emaildlp"
+                  name: Secure Email Gateway
+                  id: 6
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.detection_system
+                id: ocsf.data_security.detection_system_id
+            - type: schema-remapper
+              name: Map `zscaler.dlpidentifier` to `ocsf.data_security.policy.uid`
+              sources:
+                - zscaler.dlpidentifier
+              target: ocsf.data_security.policy.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-category-mapper
+              name: ocsf.data_security.data_lifecycle_state_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-emaildlp"
+                  name: Data in-Transit
+                  id: 2
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.data_lifecycle_state
+                id: ocsf.data_security.data_lifecycle_state_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: '@zscaler.severity:"Info Severity"'
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: '@zscaler.severity:"Low Severity"'
+                  name: Low
+                  id: 2
+                - filter:
+                    query: '@zscaler.severity:"Medium Severity"'
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: '@zscaler.severity:"High Severity"'
+                  name: High
+                  id: 4
+                - filter:
+                    query: '@zscaler.severity:"Critical Severity"'
+                  name: Critical
+                  id: 5
+                - filter:
+                    query: "@zscaler.severity:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+            - type: schema-remapper
+              name: Map `ocsf.file.hashes` to `ocsf.file.hashes`
+              sources:
+                - ocsf.file.hashes
+              target: ocsf.file.hashes
+              preserveSource: true
+              overrideOnConflict: true
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Data Security Finding
+            classUid: 2006
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Data Security Finding [2006] (Endpoint DLP)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-endpointdlp"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.is_alert
+          enabled: true
+          template: "true"
+          target: ocsf.is_alert
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_alert` to boolean type
+          enabled: true
+          source: ocsf.is_alert
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
+        - type: schema-processor
+          name: Apply OCSF schema for 2006
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-endpointdlp"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-remapper
+              name: Map `zscaler.dlpidentifier` to `ocsf.finding_info.uid`
+              sources:
+                - zscaler.dlpidentifier
+              target: ocsf.finding_info.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.triggeredrulelabel` to `ocsf.finding_info.title`
+              sources:
+                - zscaler.triggeredrulelabel
+              target: ocsf.finding_info.title
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.addinfo`, `zscaler.confirmjust` to `ocsf.message`
+              sources:
+                - zscaler.addinfo
+                - zscaler.confirmjust
+              target: ocsf.message
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.user` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.user
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.itemname` to `ocsf.file.name`
+              sources:
+                - zscaler.itemname
+              target: ocsf.file.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.filesrcpath` to `ocsf.file.path`
+              sources:
+                - zscaler.filesrcpath
+              target: ocsf.file.path
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.filetypecategory` to `ocsf.file.type`
+              sources:
+                - zscaler.filetypecategory
+              target: ocsf.file.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.scanned_bytes` to `ocsf.file.size`
+              sources:
+                - zscaler.scanned_bytes
+              target: ocsf.file.size
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.devicehostname` to `ocsf.device.hostname`
+              sources:
+                - zscaler.devicehostname
+              target: ocsf.device.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.devicename` to `ocsf.device.name`
+              sources:
+                - zscaler.devicename
+              target: ocsf.device.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.devicemodel` to `ocsf.device.model`
+              sources:
+                - zscaler.devicemodel
+              target: ocsf.device.model
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceostype` to `ocsf.device.os.type`
+              sources:
+                - zscaler.deviceostype
+              target: ocsf.device.os.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceostype` to `ocsf.device.os.name`
+              sources:
+                - zscaler.deviceostype
+              target: ocsf.device.os.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceosversion` to `ocsf.device.os.version`
+              sources:
+                - zscaler.deviceosversion
+              target: ocsf.device.os.version
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceowner` to `ocsf.device.owner.name`
+              sources:
+                - zscaler.deviceowner
+              target: ocsf.device.owner.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.data_security.detection_system_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-endpointdlp"
+                  name: DLP Gateway
+                  id: 2
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.detection_system
+                id: ocsf.data_security.detection_system_id
+            - type: schema-remapper
+              name: Map `zscaler.triggeredrulelabel` to `ocsf.data_security.policy.name`
+              sources:
+                - zscaler.triggeredrulelabel
+              target: ocsf.data_security.policy.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dlpidentifier` to `ocsf.data_security.policy.uid`
+              sources:
+                - zscaler.dlpidentifier
+              target: ocsf.data_security.policy.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.scanned_bytes` to `ocsf.data_security.size`
+              sources:
+                - zscaler.scanned_bytes
+              target: ocsf.data_security.size
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.data_security.data_lifecycle_state_id
+              categories:
+                # Per Zscaler Endpoint DLP docs (help.zscaler.com/zia/endpoint-dlp-data-types-and-filters),
+                # the documented activitytype enum is exactly: Download, Email Sent, File Copy, File Read,
+                # File Write, Print, Upload. NSS emits these as lowercase_with_underscore (test fixture
+                # uses `email_sent`).
+                # Data in-Use (3): file_read — content is being processed/viewed in place
+                - filter:
+                    query: "@zscaler.activitytype:file_read"
+                  name: Data in-Use
+                  id: 3
+                # Data in-Transit (2): email_sent, upload, print, file_copy — moving data outside / between locations
+                - filter:
+                    query: "@zscaler.activitytype:(email_sent OR upload OR print OR file_copy)"
+                  name: Data in-Transit
+                  id: 2
+                # Data at-Rest (1): file_write, download — landing/persisting data on local storage
+                - filter:
+                    query: "@zscaler.activitytype:(file_write OR download)"
+                  name: Data at-Rest
+                  id: 1
+                - filter:
+                    query: "@zscaler.activitytype:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.data_lifecycle_state
+                id: ocsf.data_security.data_lifecycle_state_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: '@zscaler.severity:"Info Severity"'
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: '@zscaler.severity:"Low Severity"'
+                  name: Low
+                  id: 2
+                - filter:
+                    query: '@zscaler.severity:"Medium Severity"'
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: '@zscaler.severity:"High Severity"'
+                  name: High
+                  id: 4
+                - filter:
+                    query: '@zscaler.severity:"Critical Severity"'
+                  name: Critical
+                  id: 5
+                - filter:
+                    query: "@zscaler.severity:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+            - type: schema-category-mapper
+              name: ocsf.device.os.type_id
+              categories:
+                - filter:
+                    query: "@zscaler.deviceostype:Windows"
+                  name: Windows
+                  id: 100
+                - filter:
+                    query: "@zscaler.deviceostype:Linux"
+                  name: Linux
+                  id: 200
+                - filter:
+                    query: "@zscaler.deviceostype:Android"
+                  name: Android
+                  id: 201
+                - filter:
+                    query: "@zscaler.deviceostype:macOS"
+                  name: macOS
+                  id: 300
+                - filter:
+                    query: "@zscaler.deviceostype:iOS"
+                  name: iOS
+                  id: 301
+                - filter:
+                    query: "@zscaler.deviceostype:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.device.os.type
+                id: ocsf.device.os.type_id
+            - type: schema-category-mapper
+              name: ocsf.device.type_id
+              categories:
+                - filter:
+                    query: "@zscaler.devicetype:SERVER"
+                  name: Server
+                  id: 1
+                - filter:
+                    query: "@zscaler.devicetype:DESKTOP"
+                  name: Desktop
+                  id: 2
+                - filter:
+                    query: "@zscaler.devicetype:LAPTOP"
+                  name: Laptop
+                  id: 3
+                - filter:
+                    query: "@zscaler.devicetype:TABLET"
+                  name: Tablet
+                  id: 4
+                - filter:
+                    query: "@zscaler.devicetype:MOBILE"
+                  name: Mobile
+                  id: 5
+                - filter:
+                    query: "@zscaler.devicetype:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.device.type
+                id: ocsf.device.type_id
+            - type: schema-category-mapper
+              name: ocsf.file.type_id
+              categories:
+                - filter:
+                    query: "@zscaler.itemtype:FILE OR @zscaler.filetypecategory:(DOCUMENT OR IMAGE OR ARCHIVE OR EXECUTABLE)"
+                  name: Regular File
+                  id: 1
+                - filter:
+                    query: "@zscaler.itemtype:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.file.type
+                id: ocsf.file.type_id
+            - type: schema-remapper
+              name: Map `ocsf.file.hashes` to `ocsf.file.hashes`
+              sources:
+                - ocsf.file.hashes
+              target: ocsf.file.hashes
+              preserveSource: true
+              overrideOnConflict: true
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Data Security Finding
+            classUid: 2006
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Data Security Finding [2006] (CASB DLP)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-casb AND @zscaler.severity:* -@zscaler.severity:(None OR none)"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.is_alert
+          enabled: true
+          template: "true"
+          target: ocsf.is_alert
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_alert` to boolean type
+          enabled: true
+          source: ocsf.is_alert
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_alert}
+        - type: string-builder-processor
+          name: Add ocsf.file.type default
+          enabled: true
+          template: "Regular File"
+          target: ocsf.file.type
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.file.type_id default
+          enabled: true
+          template: "1"
+          target: ocsf.file.type_id
+          replaceMissing: false
+        - type: schema-processor
+          name: Apply OCSF schema for 2006
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-casb"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-remapper
+              name: Map `zscaler.tenant` to `ocsf.metadata.tenant_uid`
+              sources:
+                - zscaler.tenant
+              target: ocsf.metadata.tenant_uid
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.finding_info.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.finding_info.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.rulelabel`, `zscaler.triggeredrulelabel` to `ocsf.finding_info.title`
+              sources:
+                - zscaler.rulelabel
+                - zscaler.triggeredrulelabel
+              target: ocsf.finding_info.title
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.rulelabel`, `zscaler.triggeredrulelabel` to `ocsf.metadata.event_code`
+              sources:
+                - zscaler.rulelabel
+                - zscaler.triggeredrulelabel
+              target: ocsf.metadata.event_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.finding_info.analytic.type_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Rule
+                  id: 1
+              targets:
+                name: ocsf.finding_info.analytic.type
+                id: ocsf.finding_info.analytic.type_id
+            - type: schema-remapper
+              name: Map `zscaler.rulelabel`, `zscaler.triggeredrulelabel` to `ocsf.finding_info.analytic.name`
+              sources:
+                - zscaler.rulelabel
+                - zscaler.triggeredrulelabel
+              target: ocsf.finding_info.analytic.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.is_alert` to `ocsf.is_alert`
+              sources:
+                - ocsf.is_alert
+              target: ocsf.is_alert
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.policy` to `ocsf.data_security.policy.name`
+              sources:
+                - zscaler.policy
+              target: ocsf.data_security.policy.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dlpdictnames`, `zscaler.dlpenginenames` to `ocsf.data_security.detection_pattern`
+              sources:
+                - zscaler.dlpdictnames
+                - zscaler.dlpenginenames
+              target: ocsf.data_security.detection_pattern
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.applicationname`, `zscaler.appname` to `ocsf.dst_endpoint.name`
+              sources:
+                - zscaler.applicationname
+                - zscaler.appname
+              target: ocsf.dst_endpoint.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.username`, `zscaler.login` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.username
+                - zscaler.login
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.username`, `zscaler.login` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.username
+                - zscaler.login
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.extownername`, `zscaler.external_owner_name` to `ocsf.file.owner.name`
+              sources:
+                - zscaler.extownername
+                - zscaler.external_owner_name
+              target: ocsf.file.owner.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.filename`, `zscaler.objnames1`, `zscaler.object_name_1` to `ocsf.file.name`
+              sources:
+                - zscaler.filename
+                - zscaler.objnames1
+                - zscaler.object_name_1
+              target: ocsf.file.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.filesize` to `ocsf.file.size`
+              sources:
+                - zscaler.filesize
+              target: ocsf.file.size
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.file.type` to `ocsf.file.type`
+              sources:
+                - ocsf.file.type
+              target: ocsf.file.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.file.type_id` to `ocsf.file.type_id`
+              sources:
+                - ocsf.file.type_id
+              target: ocsf.file.type_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.data_security.detection_system_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-casb"
+                  name: Cloud Access Security Broker
+                  id: 8
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.detection_system
+                id: ocsf.data_security.detection_system_id
+            - type: schema-remapper
+              name: Map `zscaler.dlpidentifier` to `ocsf.data_security.policy.uid`
+              sources:
+                - zscaler.dlpidentifier
+              target: ocsf.data_security.policy.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-category-mapper
+              name: ocsf.data_security.data_lifecycle_state_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-casb"
+                  name: Data at-Rest
+                  id: 1
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.data_security.data_lifecycle_state
+                id: ocsf.data_security.data_lifecycle_state_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: '@zscaler.severity:"Info Severity"'
+                  name: Informational
+                  id: 1
+                - filter:
+                    query: '@zscaler.severity:"Low Severity"'
+                  name: Low
+                  id: 2
+                - filter:
+                    query: '@zscaler.severity:"Medium Severity"'
+                  name: Medium
+                  id: 3
+                - filter:
+                    query: '@zscaler.severity:"High Severity"'
+                  name: High
+                  id: 4
+                - filter:
+                    query: '@zscaler.severity:"Critical Severity"'
+                  name: Critical
+                  id: 5
+                - filter:
+                    query: "@zscaler.severity:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+            - type: schema-remapper
+              name: Map `ocsf.file.hashes` to `ocsf.file.hashes`
+              sources:
+                - ocsf.file.hashes
+              target: ocsf.file.hashes
+              preserveSource: true
+              overrideOnConflict: true
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Data Security Finding
+            classUid: 2006
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Account Change [3001]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-audit AND @zscaler.category:(USER_MANAGEMENT OR ROLE_MANAGEMENT)"
+      processors:
+        - type: schema-processor
+          name: Apply OCSF schema for 3001
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.postaction.name`, `zscaler.postaction.roleName` to `ocsf.user.name`
+              sources:
+                - zscaler.postaction.name
+                - zscaler.postaction.roleName
+              target: ocsf.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.postaction.email` to `ocsf.user.email_addr`
+              sources:
+                - zscaler.postaction.email
+              target: ocsf.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.clientip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clientip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_code`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_detail`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_detail
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:CREATE"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:DELETE"
+                  name: Delete
+                  id: 6
+                - filter:
+                    query: "@zscaler.action:UPDATE"
+                  name: Update
+                  id: 99
+                - filter:
+                    query: "@zscaler.action:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.result:SUCCESS"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.result:FAILURE"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@zscaler.result:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Informational
+                  id: 1
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Account Change
+            classUid: 3001
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Authentication [3002]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-audit AND @zscaler.category:(AUTH OR LOGIN)"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.is_remote
+          enabled: true
+          template: "true"
+          target: ocsf.is_remote
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.is_remote` to boolean type
+          enabled: true
+          source: ocsf.is_remote
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.is_remote}
+        - type: schema-processor
+          name: Apply OCSF schema for 3002
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.is_remote` to `ocsf.is_remote`
+              sources:
+                - ocsf.is_remote
+              target: ocsf.is_remote
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.logon_type_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.logon_type
+                id: ocsf.logon_type_id
+            - type: schema-remapper
+              name: Map `zscaler.interface` to `ocsf.logon_type`
+              sources:
+                - zscaler.interface
+              target: ocsf.logon_type
+              preserveSource: true
+              overrideOnConflict: true
+            # adminid is the user for ADMIN_LOGIN subcategory; non-admin LOGIN subcategories may use a different field — investigate in NBT if other LOGIN subcategories are observed.
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.user.name`
+              sources:
+                - zscaler.adminid
+              target: ocsf.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.user.email_addr`
+              sources:
+                - zscaler.adminid
+              target: ocsf.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.clientip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clientip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.resource` to `ocsf.service.name`
+              sources:
+                - zscaler.resource
+              target: ocsf.service.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_code`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_detail`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_detail
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:SIGN_IN"
+                  name: Logon
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:SIGN_OUT"
+                  name: Logoff
+                  id: 2
+                - filter:
+                    query: "@zscaler.action:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.result:SUCCESS"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.result:FAILURE"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@zscaler.result:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Informational
+                  id: 1
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Authentication
+            classUid: 3002
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Network Activity [4001] (Firewall Policy)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-fw AND -@zscaler.ipsrulelabel:* AND -@zscaler.threatname:* AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.activity_id
+          enabled: true
+          template: "6"
+          target: ocsf.activity_id
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.activity_name
+          enabled: true
+          template: "Traffic"
+          target: ocsf.activity_name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.connection_info.direction
+          enabled: true
+          template: "Unknown"
+          target: ocsf.connection_info.direction
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.connection_info.direction_id
+          enabled: true
+          template: "0"
+          target: ocsf.connection_info.direction_id
+          replaceMissing: false
+        - type: schema-processor
+          name: Apply OCSF schema for 4001
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
+              sources:
+                - ocsf.activity_id
+              target: ocsf.activity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction` to `ocsf.connection_info.direction`
+              sources:
+                - ocsf.connection_info.direction
+              target: ocsf.connection_info.direction
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction_id` to `ocsf.connection_info.direction_id`
+              sources:
+                - ocsf.connection_info.direction_id
+              target: ocsf.connection_info.direction_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.metadata.logged_time`
+              sources:
+                - ocsf.time
+              target: ocsf.metadata.logged_time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.csip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.csip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.csport` to `ocsf.src_endpoint.port`
+              sources:
+                - zscaler.csport
+              target: ocsf.src_endpoint.port
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.cdip` to `ocsf.dst_endpoint.ip`
+              sources:
+                - zscaler.cdip
+              target: ocsf.dst_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.cdport` to `ocsf.dst_endpoint.port`
+              sources:
+                - zscaler.cdport
+              target: ocsf.dst_endpoint.port
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.cdfqdn` to `ocsf.dst_endpoint.hostname`
+              sources:
+                - zscaler.cdfqdn
+              target: ocsf.dst_endpoint.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.proto`, `zscaler.ipproto` to `ocsf.connection_info.protocol_name`
+              sources:
+                - zscaler.proto
+                - zscaler.ipproto
+              target: ocsf.connection_info.protocol_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.inbytes` to `ocsf.traffic.bytes_in`
+              sources:
+                - zscaler.inbytes
+              target: ocsf.traffic.bytes_in
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.outbytes` to `ocsf.traffic.bytes_out`
+              sources:
+                - zscaler.outbytes
+              target: ocsf.traffic.bytes_out
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.durationms` to `ocsf.duration`
+              sources:
+                - zscaler.durationms
+              target: ocsf.duration
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.numsessions` to `ocsf.count`
+              sources:
+                - zscaler.numsessions
+              target: ocsf.count
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.login` to `ocsf.src_endpoint.owner.name`
+              sources:
+                - zscaler.login
+              target: ocsf.src_endpoint.owner.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.login` to `ocsf.src_endpoint.owner.email_addr`
+              sources:
+                - zscaler.login
+              target: ocsf.src_endpoint.owner.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.devicehostname` to `ocsf.src_endpoint.hostname`
+              sources:
+                - zscaler.devicehostname
+              target: ocsf.src_endpoint.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.devicename` to `ocsf.src_endpoint.name`
+              sources:
+                - zscaler.devicename
+              target: ocsf.src_endpoint.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceostype` to `ocsf.src_endpoint.os.name`
+              sources:
+                - zscaler.deviceostype
+              target: ocsf.src_endpoint.os.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceostype` to `ocsf.src_endpoint.os.type`
+              sources:
+                - zscaler.deviceostype
+              target: ocsf.src_endpoint.os.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.deviceosversion` to `ocsf.src_endpoint.os.version`
+              sources:
+                - zscaler.deviceosversion
+              target: ocsf.src_endpoint.os.version
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:Allow*"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:(Block OR Drop OR \"IPS Block\" OR \"IPS Drop\")"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@sourcetype:zscalernss-fw"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-category-mapper
+              name: ocsf.src_endpoint.os.type_id
+              categories:
+                - filter:
+                    query: "@zscaler.deviceostype:Windows*"
+                  name: Windows
+                  id: 100
+                - filter:
+                    query: "@zscaler.deviceostype:Linux*"
+                  name: Linux
+                  id: 200
+                - filter:
+                    query: "@zscaler.deviceostype:Android*"
+                  name: Android
+                  id: 201
+                - filter:
+                    query: "@zscaler.deviceostype:macOS*"
+                  name: macOS
+                  id: 300
+                - filter:
+                    query: "@zscaler.deviceostype:iOS*"
+                  name: iOS
+                  id: 301
+                - filter:
+                    query: "@sourcetype:zscalernss-fw"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.src_endpoint.os.type
+                id: ocsf.src_endpoint.os.type_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Network Activity
+            classUid: 4001
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class HTTP Activity [4002]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-web AND (-@zscaler.threatseverity:* OR @zscaler.threatseverity:(None OR none))"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.connection_info.direction
+          enabled: true
+          template: "Unknown"
+          target: ocsf.connection_info.direction
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.connection_info.direction_id
+          enabled: true
+          template: "0"
+          target: ocsf.connection_info.direction_id
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.http_response.code
+          enabled: true
+          template: "0"
+          target: ocsf.http_response.code
+          replaceMissing: false
+        - type: grok-parser
+          name: Parse valid HTTP method from `zscaler.requestmethod` to `ocsf.http_request.http_method`
+          enabled: true
+          source: zscaler.requestmethod
+          samples:
+            - "GET"
+            - "POST"
+            - "NA"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              http_method %{regex("GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH|CONNECT|TRACE"):ocsf.http_request.http_method}
+        - type: schema-processor
+          name: Apply OCSF schema for 4002
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction` to `ocsf.connection_info.direction`
+              sources:
+                - ocsf.connection_info.direction
+              target: ocsf.connection_info.direction
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.connection_info.direction_id` to `ocsf.connection_info.direction_id`
+              sources:
+                - ocsf.connection_info.direction_id
+              target: ocsf.connection_info.direction_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.protocol` to `ocsf.connection_info.protocol_name`
+              sources:
+                - zscaler.protocol
+              target: ocsf.connection_info.protocol_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.clientpublicIP` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clientpublicIP
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.srcip_country` to `ocsf.src_endpoint.location.country`
+              sources:
+                - zscaler.srcip_country
+              target: ocsf.src_endpoint.location.country
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dstip_country` to `ocsf.dst_endpoint.location.country`
+              sources:
+                - zscaler.dstip_country
+              target: ocsf.dst_endpoint.location.country
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.hostname` to `ocsf.http_request.url.hostname`
+              sources:
+                - zscaler.hostname
+              target: ocsf.http_request.url.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.hostname` to `ocsf.dst_endpoint.hostname`
+              sources:
+                - zscaler.hostname
+              target: ocsf.dst_endpoint.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.serverip` to `ocsf.dst_endpoint.ip`
+              sources:
+                - zscaler.serverip
+              target: ocsf.dst_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.reason` to `ocsf.message`
+              sources:
+                - zscaler.reason
+              target: ocsf.message
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.status` to `ocsf.status_code`
+              sources:
+                - zscaler.status
+              target: ocsf.status_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.event_id` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.event_id
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.url` to `ocsf.http_request.url.url_string`
+              sources:
+                - zscaler.url
+              target: ocsf.http_request.url.url_string
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.http_request.http_method` to `ocsf.http_request.http_method`
+              sources:
+                - ocsf.http_request.http_method
+              target: ocsf.http_request.http_method
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.requestsize` to `ocsf.http_request.length`
+              sources:
+                - zscaler.requestsize
+              target: ocsf.http_request.length
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.refererURL` to `ocsf.http_request.referrer`
+              sources:
+                - zscaler.refererURL
+              target: ocsf.http_request.referrer
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.useragent` to `ocsf.http_request.user_agent`
+              sources:
+                - zscaler.useragent
+              target: ocsf.http_request.user_agent
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.http_response.code` to `ocsf.http_response.code`
+              sources:
+                - ocsf.http_response.code
+              target: ocsf.http_response.code
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.responsesize` to `ocsf.http_response.length`
+              sources:
+                - zscaler.responsesize
+              target: ocsf.http_response.length
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.contenttype` to `ocsf.http_response.content_type`
+              sources:
+                - zscaler.contenttype
+              target: ocsf.http_response.content_type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.status` to `ocsf.http_response.status`
+              sources:
+                - zscaler.status
+              target: ocsf.http_response.status
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.transactionsize` to `ocsf.traffic.bytes`
+              sources:
+                - zscaler.transactionsize
+              target: ocsf.traffic.bytes
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.requestmethod:CONNECT"
+                  name: Connect
+                  id: 1
+                - filter:
+                    query: "@zscaler.requestmethod:DELETE"
+                  name: Delete
+                  id: 2
+                - filter:
+                    query: "@zscaler.requestmethod:GET"
+                  name: Get
+                  id: 3
+                - filter:
+                    query: "@zscaler.requestmethod:HEAD"
+                  name: Head
+                  id: 4
+                - filter:
+                    query: "@zscaler.requestmethod:OPTIONS"
+                  name: Options
+                  id: 5
+                - filter:
+                    query: "@zscaler.requestmethod:POST"
+                  name: Post
+                  id: 6
+                - filter:
+                    query: "@zscaler.requestmethod:PUT"
+                  name: Put
+                  id: 7
+                - filter:
+                    query: "@zscaler.requestmethod:TRACE"
+                  name: Trace
+                  id: 8
+                - filter:
+                    query: "@zscaler.requestmethod:PATCH"
+                  name: Patch
+                  id: 9
+                - filter:
+                    query: "@zscaler.requestmethod:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:Allowed"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:Blocked"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@zscaler.action:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: HTTP Activity
+            classUid: 4002
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class DNS Activity [4003]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-dns"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.activity_name
+          enabled: true
+          template: "Response"
+          target: ocsf.activity_name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.activity_id
+          enabled: true
+          template: "2"
+          target: ocsf.activity_id
+          replaceMissing: false
+        - type: attribute-remapper
+          name: Map `zscaler.dns_resp` to `ocsf.answer.rdata`
+          enabled: true
+          sources:
+            - zscaler.dns_resp
+          sourceType: attribute
+          target: ocsf.answer.rdata
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: array-processor
+          name: Move `ocsf.answer` into `ocsf.answers` array
+          enabled: true
+          operation:
+            source: ocsf.answer
+            target: ocsf.answers
+            preserveSource: false
+            type: append
+        - type: grok-parser
+          name: Parse `zscaler.datetime` to `ocsf.query_time`
+          enabled: true
+          source: zscaler.datetime
+          samples:
+            - "Wed Mar 09 19:00:40 2022"
+            - "2022-03-09 19:04:36"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              dns_query_time_ctime %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.query_time}
+              dns_query_time_iso %{date("yyyy-MM-dd HH:mm:ss"):ocsf.query_time}
+        - type: schema-processor
+          name: Apply OCSF schema for 4003
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
+              sources:
+                - ocsf.activity_id
+              target: ocsf.activity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.answers` to `ocsf.answers`
+              sources:
+                - ocsf.answers
+              target: ocsf.answers
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.query_time` to `ocsf.query_time`
+              sources:
+                - ocsf.query_time
+              target: ocsf.query_time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.clt_sip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clt_sip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dns_req` to `ocsf.query.hostname`
+              sources:
+                - zscaler.dns_req
+              target: ocsf.query.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dns_reqtype` to `ocsf.query.type`
+              sources:
+                - zscaler.dns_reqtype
+              target: ocsf.query.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.reqaction:Allow AND @zscaler.resaction:Allow"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.reqaction:Block OR @zscaler.resaction:Block"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@zscaler.reqaction:* OR @zscaler.resaction:*"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: DNS Activity
+            classUid: 4003
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Tunnel Activity [4014]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-tunnel"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.session.is_remote
+          enabled: true
+          template: "true"
+          target: ocsf.session.is_remote
+          replaceMissing: false
+        - type: grok-parser
+          name: Convert `ocsf.session.is_remote` to boolean type
+          enabled: true
+          source: ocsf.session.is_remote
+          samples:
+            - "true"
+            - "false"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              convert_to_boolean %{boolean("true","false"):ocsf.session.is_remote}
+        - type: string-builder-processor
+          name: Add ocsf.device.type
+          enabled: true
+          template: "Unknown"
+          target: ocsf.device.type
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.device.type_id
+          enabled: true
+          template: "0"
+          target: ocsf.device.type_id
+          replaceMissing: false
+        - type: schema-processor
+          name: Apply OCSF schema for 4014
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.session.is_remote` to `ocsf.session.is_remote`
+              sources:
+                - ocsf.session.is_remote
+              target: ocsf.session.is_remote
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.device.type` to `ocsf.device.type`
+              sources:
+                - ocsf.device.type
+              target: ocsf.device.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.device.type_id` to `ocsf.device.type_id`
+              sources:
+                - ocsf.device.type_id
+              target: ocsf.device.type_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.sourceip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.sourceip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.srcport`, `zscaler.sourceport` to `ocsf.src_endpoint.port`
+              sources:
+                - zscaler.srcport
+                - zscaler.sourceport
+              target: ocsf.src_endpoint.port
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.destvip`, `zscaler.destinationip` to `ocsf.dst_endpoint.ip`
+              sources:
+                - zscaler.destvip
+                - zscaler.destinationip
+              target: ocsf.dst_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.dstport` to `ocsf.dst_endpoint.port`
+              sources:
+                - zscaler.dstport
+              target: ocsf.dst_endpoint.port
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.vpncredentialname` to `ocsf.session.credential_uid`
+              sources:
+                - zscaler.vpncredentialname
+              target: ocsf.session.credential_uid
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.session.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.session.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.user` to `ocsf.user.name`
+              sources:
+                - zscaler.user
+              target: ocsf.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.vendorname` to `ocsf.device.vendor_name`
+              sources:
+                - zscaler.vendorname
+              target: ocsf.device.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.vendorname`, `zscaler.sourceip` to `ocsf.device.name`
+              sources:
+                - zscaler.vendorname
+                - zscaler.sourceip
+              target: ocsf.device.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.sourceip` to `ocsf.device.ip`
+              sources:
+                - zscaler.sourceip
+              target: ocsf.device.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.eventreason` to `ocsf.status_detail`
+              sources:
+                - zscaler.eventreason
+              target: ocsf.status_detail
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.event:TUNNEL_UP OR @zscaler.tunnelactionname:TUNNEL_UP"
+                  name: Open
+                  id: 1
+                - filter:
+                    query: "@zscaler.event:TUNNEL_DOWN OR @zscaler.tunnelactionname:TUNNEL_DOWN"
+                  name: Close
+                  id: 2
+                - filter:
+                    query: "@sourcetype:zscalernss-tunnel"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.event:TUNNEL_UP OR @zscaler.tunnelactionname:TUNNEL_UP"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@sourcetype:zscalernss-tunnel"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-category-mapper
+              name: ocsf.severity_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-tunnel"
+                  name: Informational
+                  id: 1
+              targets:
+                name: ocsf.severity
+                id: ocsf.severity_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Tunnel Activity
+            classUid: 4014
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class API Activity [6003]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-audit AND -@zscaler.category:(AUTH OR LOGIN OR USER_MANAGEMENT OR ROLE_MANAGEMENT)"
+      processors:
+        - type: attribute-remapper
+          name: Map `zscaler.action` to `ocsf.api.operation`
+          enabled: true
+          sources:
+            - zscaler.action
+          sourceType: attribute
+          target: ocsf.api.operation
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `zscaler.resource` to `ocsf.resource.name`
+          enabled: true
+          sources:
+            - zscaler.resource
+          sourceType: attribute
+          target: ocsf.resource.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `zscaler.subcategory` to `ocsf.resource.type`
+          enabled: true
+          sources:
+            - zscaler.subcategory
+          sourceType: attribute
+          target: ocsf.resource.type
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: array-processor
+          name: Move attributes into resources array
+          enabled: true
+          operation:
+            source: ocsf.resource
+            target: ocsf.resources
+            preserveSource: false
+            type: append
+        - type: schema-processor
+          name: Apply OCSF schema for 6003
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.metadata.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.metadata.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.recordid` to `ocsf.api.request.uid`
+              sources:
+                - zscaler.recordid
+              target: ocsf.api.request.uid
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: string
+            - type: schema-remapper
+              name: Map `zscaler.clientip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.clientip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.adminid` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.adminid
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.interface` to `ocsf.api.service.name`
+              sources:
+                - zscaler.interface
+              target: ocsf.api.service.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_code`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_code
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.errorcode` to `ocsf.status_detail`
+              sources:
+                - zscaler.errorcode
+              target: ocsf.status_detail
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.action:CREATE"
+                  name: Create
+                  id: 1
+                - filter:
+                    query: "@zscaler.action:READ"
+                  name: Read
+                  id: 2
+                - filter:
+                    query: "@zscaler.action:UPDATE"
+                  name: Update
+                  id: 3
+                - filter:
+                    query: "@zscaler.action:DELETE"
+                  name: Delete
+                  id: 4
+                - filter:
+                    query: "@sourcetype:zscalernss-audit"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@zscaler.result:SUCCESS"
+                  name: Success
+                  id: 1
+                - filter:
+                    query: "@zscaler.result:FAILURE"
+                  name: Failure
+                  id: 2
+                - filter:
+                    query: "@sourcetype:zscalernss-audit"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: API Activity
+            classUid: 6003
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class File Hosting Activity [6006]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-casb AND (-@zscaler.severity:* OR @zscaler.severity:(None OR none))"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.file.name default
+          enabled: true
+          template: "unknown"
+          target: ocsf.file.name
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.file.type
+          enabled: true
+          template: "Regular File"
+          target: ocsf.file.type
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.file.type_id
+          enabled: true
+          template: "1"
+          target: ocsf.file.type_id
+          replaceMissing: false
+        - type: schema-processor
+          name: Apply OCSF schema for 6006
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `zscaler.tenant` to `ocsf.metadata.tenant_uid`
+              sources:
+                - zscaler.tenant
+              target: ocsf.metadata.tenant_uid
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.appname`, `zscaler.applicationname` to `ocsf.dst_endpoint.name`
+              sources:
+                - zscaler.appname
+                - zscaler.applicationname
+              target: ocsf.dst_endpoint.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.username`, `zscaler.login` to `ocsf.actor.user.name`
+              sources:
+                - zscaler.username
+                - zscaler.login
+              target: ocsf.actor.user.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.username`, `zscaler.login` to `ocsf.actor.user.email_addr`
+              sources:
+                - zscaler.username
+                - zscaler.login
+              target: ocsf.actor.user.email_addr
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.username`, `zscaler.login` to `ocsf.src_endpoint.owner.name`
+              sources:
+                - zscaler.username
+                - zscaler.login
+              target: ocsf.src_endpoint.owner.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.src_ip` to `ocsf.src_endpoint.ip`
+              sources:
+                - zscaler.src_ip
+              target: ocsf.src_endpoint.ip
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.hostname`, `zscaler.tenant` to `ocsf.src_endpoint.hostname`
+              sources:
+                - zscaler.hostname
+                - zscaler.tenant
+              target: ocsf.src_endpoint.hostname
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.extownername`, `zscaler.external_owner_name` to `ocsf.file.owner.name`
+              sources:
+                - zscaler.extownername
+                - zscaler.external_owner_name
+              target: ocsf.file.owner.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `zscaler.objnames1`, `zscaler.object_name_1`, `zscaler.filename` to `ocsf.file.name`
+              sources:
+                - zscaler.objnames1
+                - zscaler.object_name_1
+                - zscaler.filename
+              target: ocsf.file.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.file.type` to `ocsf.file.type`
+              sources:
+                - ocsf.file.type
+              target: ocsf.file.type
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.file.type_id` to `ocsf.file.type_id`
+              sources:
+                - ocsf.file.type_id
+              target: ocsf.file.type_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "@zscaler.activity_type_name:LOGIN_SUCCESS"
+                  name: Access
+                  id: 3
+                - filter:
+                    query: "@zscaler.activity_type_name:FILE_DELETED"
+                  name: Delete
+                  id: 4
+                - filter:
+                    query: "@zscaler.activity_type_name:FILE_UPLOADED"
+                  name: Upload
+                  id: 7
+                - filter:
+                    query: "@zscaler.activity_type_name:FILE_DOWNLOADED"
+                  name: Download
+                  id: 8
+                - filter:
+                    query: "@zscaler.activity_type_name:FILE_SHARED_EXTERNAL"
+                  name: Share
+                  id: 12
+                - filter:
+                    query: "@sourcetype:zscalernss-casb"
+                  name: Other
+                  id: 99
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+            - type: schema-category-mapper
+              name: ocsf.status_id
+              categories:
+                - filter:
+                    query: "@sourcetype:zscalernss-casb"
+                  name: Success
+                  id: 1
+              targets:
+                name: ocsf.status
+                id: ocsf.status_id
+            - type: schema-remapper
+              name: Map `ocsf.severity` to `ocsf.severity`
+              sources:
+                - ocsf.severity
+              target: ocsf.severity
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.file.hashes` to `ocsf.file.hashes`
+              sources:
+                - ocsf.file.hashes
+              target: ocsf.file.hashes
+              preserveSource: true
+              overrideOnConflict: true
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: File Hosting Activity
+            classUid: 6006
+            extensions: []
+            profiles: []
+    - type: pipeline
+      name: OCSF sub pipeline for class Base Event [0]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "-@ocsf.category_uid:*"
+      processors:
+        - type: string-builder-processor
+          name: Add ocsf.activity_id
+          enabled: true
+          template: "0"
+          target: ocsf.activity_id
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add ocsf.activity_name
+          enabled: true
+          template: "Unknown"
+          target: ocsf.activity_name
+          replaceMissing: false
+        - type: schema-processor
+          name: Apply OCSF schema for 0
+          enabled: true
+          mappers:
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
+              sources:
+                - ocsf.metadata.product.name
+              target: ocsf.metadata.product.name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.metadata.product.vendor_name` to `ocsf.metadata.product.vendor_name`
+              sources:
+                - ocsf.metadata.product.vendor_name
+              target: ocsf.metadata.product.vendor_name
+              preserveSource: true
+              overrideOnConflict: true
+            - type: schema-remapper
+              name: Map `ocsf.time` to `ocsf.time`
+              sources:
+                - ocsf.time
+              target: ocsf.time
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.activity_id` to `ocsf.activity_id`
+              sources:
+                - ocsf.activity_id
+              target: ocsf.activity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+            - type: schema-remapper
+              name: Map `ocsf.severity_id` to `ocsf.severity_id`
+              sources:
+                - ocsf.severity_id
+              target: ocsf.severity_id
+              preserveSource: true
+              overrideOnConflict: true
+              targetFormat: integer
+          schema:
+            schemaType: ocsf
+            version: 1.5.0
+            className: Base Event
+            classUid: 0
+            extensions: []
+            profiles: []
