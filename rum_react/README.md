@@ -157,8 +157,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider rout
 
 A new RUM view is created on every path change. The view name uses the route's `fullPath` template, so navigating to `/posts/42` is reported as `/posts/$postId`. Catch-all (splat) segments are replaced with the matched path, so `/files/$` with `_splat = "path/to/file"` becomes `/files/path/to/file`. Query string changes do not create a new view.
 
-This integration requires `@tanstack/react-router` v1.64.0 or later.
-
 ## Go further with Datadog React integration
 
 ### Traces
