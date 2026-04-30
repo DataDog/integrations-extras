@@ -190,12 +190,12 @@ tests:
           ip: "10.10.10.10"
           port: "0"
       ocsf:
-        activity_id: 1
-        activity_name: "Create"
-        category_name: "Findings"
-        category_uid: 2
-        class_name: "Detection Finding"
-        class_uid: 2004
+        activity_id: 99
+        activity_name: "Other"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "HTTP Activity"
+        class_uid: 4002
         metadata:
           log_name: "zscalernss-web"
           original_time: "2025-08-02 16:09:29"
@@ -205,18 +205,41 @@ tests:
             name: "ZIA"
             vendor_name: "Zscaler"
           version: "1.5.0"
-          event_code: URL_Filtering_1
-        severity: "Critical"
-        severity_id: 5
-        time: 1754150969000
-        is_alert: true
-        finding_info:
           uid: '7534023050404691969'
-          title: EICAR Test File
-          analytic:
-            type_id: 1
-            name: EICAR Test File
-            type: Rule
+        severity: "Informational"
+        severity_id: 1
+        time: 1754150969000
+        http_response:
+          code: 0
+          content_type: Other
+          length: 0
+          status: NA
+        status_code: NA
+        src_endpoint:
+          ip: 10.10.10.10
+          location:
+            country: Afghanistan
+        message: Dropped due to failed client SSL handshake
+        status_id: 2
+        connection_info:
+          direction_id: 0
+          direction: Unknown
+          protocol_name: SSL
+        http_request:
+          referrer: www.google.com
+          length: 0
+          url:
+            hostname: dns.google
+            url_string: dns.google
+          user_agent: Windows Microsoft Windows 11 Pro ZTunnel/1.0
+        dst_endpoint:
+          hostname: dns.google
+          ip: 10.10.10.10
+          location:
+            country: Portugal
+        traffic:
+          bytes: 0
+        status: Failure
       sourcetype: "zscalernss-web"
       status: "critical"
       usr:
@@ -623,20 +646,12 @@ tests:
           ip: "10.10.10.10"
           port: "443"
       ocsf:
-        activity_id: 1
-        activity_name: "Create"
-        category_name: "Findings"
-        category_uid: 2
-        class_name: "Detection Finding"
-        class_uid: 2004
-        finding_info:
-          analytic:
-            name: "Default IPS Rule"
-            type: "Rule"
-            type_id: 1
-          title: "Default IPS Rule"
-          uid: "7534021044391772162"
-        is_alert: true
+        activity_id: 6
+        activity_name: "Traffic"
+        category_name: "Network Activity"
+        category_uid: 4
+        class_name: "Network Activity"
+        class_uid: 4001
         metadata:
           log_name: "zscalernss-fw"
           original_time: "2025-08-02 16:09:29"
@@ -646,10 +661,36 @@ tests:
             name: "ZIA"
             vendor_name: "Zscaler"
           version: "1.5.0"
-          event_code: Default IPS Rule
-        severity: "Critical"
-        severity_id: 5
+          uid: '7534021044391772162'
+          logged_time: 1754150969000
+        severity: "Informational"
+        severity_id: 1
         time: 1754150969000
+        src_endpoint:
+          hostname: ' '
+          os:
+            type_id: 100
+            name: Windows OS
+            type: Windows
+            version: Microsoft Windows 11 Pro;64 bit;amd64
+          port: 56039
+          ip: 10.10.10.10
+          name: PG02734T:C3CAEBAA7BBD1CE15CE0BCD5ACE0D40777D6E782
+        count: 1
+        duration: 82
+        status_id: 1
+        connection_info:
+          direction_id: 0
+          direction: Unknown
+          protocol_name: TCP
+        dst_endpoint:
+          hostname: dns.google
+          port: 443
+          ip: 10.10.10.10
+        traffic:
+          bytes_out: 2738
+          bytes_in: 5476
+        status: Success
       sourcetype: "zscalernss-fw"
       status: "critical"
       usr:

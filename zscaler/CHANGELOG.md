@@ -6,13 +6,9 @@
 
 * Added OCSF normalization for all Zscaler NSS log types. Each log type is mapped
   to the appropriate OCSF 1.5.0 class:
-  * **`zscalernss-web` or `zscalernss-fw` with `zscaler.threatseverity`
-    set and not `None`/`none`** → Detection Finding [2004] (Alert) —
-    takes precedence over the per-log-type web/fw classes below
-  * `zscalernss-web` (no threatseverity) → HTTP Activity [4002]
+  * `zscalernss-web` → HTTP Activity [4002]
   * `zscalernss-dns` → DNS Activity [4003]
-  * `zscalernss-fw` (threat-detected, no threatseverity) → Detection Finding [2004]
-  * `zscalernss-fw` (policy, no threatseverity) → Network Activity [4001]
+  * `zscalernss-fw` → Network Activity [4001]
   * `zscalernss-tunnel` → Tunnel Activity [4014]
   * `zscalernss-casb` (with severity) → Data Security Finding [2006] (CASB DLP)
   * `zscalernss-casb` (no severity) → File Hosting Activity [6006]
@@ -22,12 +18,14 @@
   * `zscalernss-audit` (`USER_MANAGEMENT` or `ROLE_MANAGEMENT` category) → Account Change [3001]
   * `zscalernss-audit` (any other category) → API Activity [6003]
   * All other logs → Base Event [0]
-* Removed the previous synthetic `zscalernss-alert` handling: the
+* Removed the previous synthetic `zscalernss-alert` handling (the
   pre-pipeline that fabricated a `sourcetype` from `alertId`, the
   pre-OCSF `Alert` description-grok, and the OCSF "ZIA Alert"
-  sub-pipeline. Real Zscaler "alerts" are NSS web/fw/DLP/CASB logs
-  with an alert-worthy severity, not a separate webhook payload, so
-  the new severity-based Alert sub-pipeline replaces all of it.
+  sub-pipeline). Real Zscaler "alerts" are NSS web/fw/DLP/CASB logs;
+  detection-grade DLP/CASB events still route to Data Security Finding
+  [2006], while web/fw traffic stays in HTTP Activity [4002] / Network
+  Activity [4001] regardless of severity — no synthetic Detection
+  Finding [2004] sub-pipeline.
 * Set `ocsf.metadata.product.name` to `"ZIA"` (the product) and
   `ocsf.metadata.product.feature.name` to the sourcetype suffix
   (`fw`, `dns`, `web`, `tunnel`, `casb`, `emaildlp`, `endpointdlp`, `audit`,
