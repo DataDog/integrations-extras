@@ -1918,6 +1918,13 @@ pipeline:
               targets:
                 name: ocsf.device.type
                 id: ocsf.device.type_id
+              fallback:
+                values:
+                  ocsf.device.type: Other
+                  ocsf.device.type_id: "99"
+                sources:
+                  ocsf.device.type:
+                    - zscaler.devicetype
             - type: schema-category-mapper
               name: ocsf.file.type_id
               categories:
@@ -1932,6 +1939,14 @@ pipeline:
               targets:
                 name: ocsf.file.type
                 id: ocsf.file.type_id
+              fallback:
+                values:
+                  ocsf.file.type: Other
+                  ocsf.file.type_id: "99"
+                sources:
+                  ocsf.file.type:
+                    - zscaler.itemtype
+                    - zscaler.filetypecategory
             - type: schema-remapper
               name: Map `ocsf.file.hashes` to `ocsf.file.hashes`
               sources:
@@ -3143,6 +3158,13 @@ pipeline:
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
+              fallback:
+                values:
+                  ocsf.activity_name: Other
+                  ocsf.activity_id: "99"
+                sources:
+                  ocsf.activity_name:
+                    - zscaler.requestmethod
             - type: schema-category-mapper
               name: ocsf.status_id
               categories:
@@ -3903,6 +3925,13 @@ pipeline:
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
+              fallback:
+                values:
+                  ocsf.activity_name: Other
+                  ocsf.activity_id: "99"
+                sources:
+                  ocsf.activity_name:
+                    - zscaler.activity_type_name
             - type: schema-category-mapper
               name: ocsf.status_id
               categories:
