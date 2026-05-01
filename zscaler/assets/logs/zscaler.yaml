@@ -2936,12 +2936,6 @@ pipeline:
       filter:
         query: "@sourcetype:zscalernss-web"
       processors:
-        - type: string-builder-processor
-          name: Add ocsf.http_response.code
-          enabled: true
-          template: "0"
-          target: ocsf.http_response.code
-          replaceMissing: false
         - type: grok-parser
           name: Parse valid HTTP method from `zscaler.requestmethod` to `ocsf.http_request.http_method`
           enabled: true
@@ -3097,9 +3091,9 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `ocsf.http_response.code` to `ocsf.http_response.code`
+              name: Map `zscaler.status` to `ocsf.http_response.code`
               sources:
-                - ocsf.http_response.code
+                - zscaler.status
               target: ocsf.http_response.code
               preserveSource: true
               overrideOnConflict: true
@@ -3246,18 +3240,6 @@ pipeline:
       filter:
         query: "@sourcetype:zscalernss-dns"
       processors:
-        - type: string-builder-processor
-          name: Add ocsf.activity_name
-          enabled: true
-          template: "Response"
-          target: ocsf.activity_name
-          replaceMissing: false
-        - type: string-builder-processor
-          name: Add ocsf.activity_id
-          enabled: true
-          template: "2"
-          target: ocsf.activity_id
-          replaceMissing: false
         - type: attribute-remapper
           name: Map `zscaler.dns_resp` to `ocsf.answer.rdata`
           enabled: true
@@ -3292,6 +3274,16 @@ pipeline:
           name: Apply OCSF schema for 4003
           enabled: true
           mappers:
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Response
+                  id: 2
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
             - type: schema-remapper
               name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
               sources:
@@ -3964,22 +3956,27 @@ pipeline:
       filter:
         query: "-@ocsf.category_uid:*"
       processors:
-        - type: string-builder-processor
-          name: Add ocsf.activity_id
-          enabled: true
-          template: "0"
-          target: ocsf.activity_id
-          replaceMissing: false
-        - type: string-builder-processor
-          name: Add ocsf.activity_name
-          enabled: true
-          template: "Unknown"
-          target: ocsf.activity_name
-          replaceMissing: false
         - type: schema-processor
           name: Apply OCSF schema for 0
           enabled: true
           mappers:
+            - type: schema-category-mapper
+              name: ocsf.activity_id
+              categories:
+                - filter:
+                    query: "*"
+                  name: Unknown
+                  id: 0
+              targets:
+                name: ocsf.activity_name
+                id: ocsf.activity_id
+              fallback:
+                values:
+                  ocsf.activity_name: Unknown
+                  ocsf.activity_id: "0"
+                sources:
+                  ocsf.activity_name:
+                    - zscaler.action
             - type: schema-remapper
               name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
               sources:
@@ -3999,14 +3996,6 @@ pipeline:
               sources:
                 - ocsf.time
               target: ocsf.time
-              preserveSource: true
-              overrideOnConflict: true
-              targetFormat: integer
-            - type: schema-remapper
-              name: Map `ocsf.activity_id` to `ocsf.activity_id`
-              sources:
-                - ocsf.activity_id
-              target: ocsf.activity_id
               preserveSource: true
               overrideOnConflict: true
               targetFormat: integer
