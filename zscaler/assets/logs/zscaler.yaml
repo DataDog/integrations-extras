@@ -489,7 +489,7 @@ pipeline:
       sources:
         - sourcetype
     - type: grok-parser
-      name: Parse `zscaler.datetime` to epoch ms in `ocsf.time`
+      name: Convert `datetime` to epoch ms in `date`
       enabled: true
       source: zscaler.datetime
       samples:
@@ -498,13 +498,13 @@ pipeline:
       grok:
         supportRules: ""
         matchRules: |-
-          date_1 %{date("yyyy-MM-dd HH:mm:ss"):ocsf.time}
-          date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.time}
+          date_1 %{date("yyyy-MM-dd HH:mm:ss"):date}
+          date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):date}
     - type: date-remapper
-      name: Define `ocsf.time` as the official date of the log
+      name: Define `date` as the official date of the log
       enabled: true
       sources:
-        - ocsf.time
+        - date
     - type: attribute-remapper
       name: Map `user` and `login` to `usr.id`
       enabled: true
@@ -1239,6 +1239,18 @@ pipeline:
       filter:
         query: "*"
       processors:
+        - type: grok-parser
+          name: Parse `zscaler.datetime` to epoch ms in `ocsf.time`
+          enabled: true
+          source: zscaler.datetime
+          samples:
+            - "2021-09-22 17:53:52"
+            - "Wed Sep 22 17:54:17 2021"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              date_1 %{date("yyyy-MM-dd HH:mm:ss"):ocsf.time}
+              date_2 %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.time}
         - type: string-builder-processor
           name: Add product name
           enabled: true
@@ -1283,10 +1295,50 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: pipeline
+          name: CASB file name parsing
+          enabled: true
+          ocsf:
+            isOcsf: true
+          filter:
+            query: "@sourcetype:zscalernss-casb"
+          processors:
+            - type: pipeline
+              name: Map `zscaler.object_name_1` to `ocsf.file.name`
+              enabled: true
+              filter:
+                query: "@zscaler.object_type_name_1:File"
+              processors:
+                - type: attribute-remapper
+                  name: Map `zscaler.object_name_1` to `ocsf.file.name`
+                  enabled: true
+                  sources:
+                    - zscaler.object_name_1
+                  sourceType: attribute
+                  target: ocsf.file.name
+                  targetType: attribute
+                  preserveSource: true
+                  overrideOnConflict: false
+            - type: pipeline
+              name: Map `zscaler.object_name_2` to `ocsf.file.name`
+              enabled: true
+              filter:
+                query: "@zscaler.object_type_name_2:File"
+              processors:
+                - type: attribute-remapper
+                  name: Map `zscaler.object_name_2` to `ocsf.file.name`
+                  enabled: true
+                  sources:
+                    - zscaler.object_name_2
+                  sourceType: attribute
+                  target: ocsf.file.name
+                  targetType: attribute
+                  preserveSource: true
+                  overrideOnConflict: false
+        - type: pipeline
           name: Build ocsf.file.hashes MD5 entry
           enabled: true
           filter:
-            query: "@zscaler.filemd5:* -@zscaler.filemd5:None"
+            query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filemd5:* -@zscaler.filemd5:None"
           processors:
             - type: string-builder-processor
               name: Add tmp_md5.algorithm
@@ -1332,7 +1384,7 @@ pipeline:
           name: Build ocsf.file.hashes SHA-256 entry
           enabled: true
           filter:
-            query: "@zscaler.filesha:* -@zscaler.filesha:None"
+            query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filesha:* -@zscaler.filesha:None"
           processors:
             - type: string-builder-processor
               name: Add tmp_sha256.algorithm
@@ -1374,46 +1426,6 @@ pipeline:
                 target: ocsf.file.hashes
                 preserveSource: false
                 type: append
-        - type: pipeline
-          name: CASB file name parsing
-          enabled: true
-          ocsf:
-            isOcsf: true
-          filter:
-            query: "@sourcetype:zscalernss-casb"
-          processors:
-            - type: pipeline
-              name: Map `zscaler.object_name_1` to `ocsf.file.name`
-              enabled: true
-              filter:
-                query: "@zscaler.object_type_name_1:File"
-              processors:
-                - type: attribute-remapper
-                  name: Map `zscaler.object_name_1` to `ocsf.file.name`
-                  enabled: true
-                  sources:
-                    - zscaler.object_name_1
-                  sourceType: attribute
-                  target: ocsf.file.name
-                  targetType: attribute
-                  preserveSource: true
-                  overrideOnConflict: false
-            - type: pipeline
-              name: Map `zscaler.object_name_2` to `ocsf.file.name`
-              enabled: true
-              filter:
-                query: "@zscaler.object_type_name_2:File"
-              processors:
-                - type: attribute-remapper
-                  name: Map `zscaler.object_name_2` to `ocsf.file.name`
-                  enabled: true
-                  sources:
-                    - zscaler.object_name_2
-                  sourceType: attribute
-                  target: ocsf.file.name
-                  targetType: attribute
-                  preserveSource: true
-                  overrideOnConflict: false
     - type: pipeline
       name: OCSF sub pipeline for class Data Security Finding [2006] (Email DLP)
       enabled: true
@@ -1598,20 +1610,9 @@ pipeline:
                     query: '@zscaler.severity:"Critical Severity"'
                   name: Critical
                   id: 5
-                - filter:
-                    query: "@zscaler.severity:*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.severity
                 id: ocsf.severity_id
-              fallback:
-                values:
-                  ocsf.severity: Other
-                  ocsf.severity_id: "99"
-                sources:
-                  ocsf.severity:
-                    - zscaler.severity
           schema:
             schemaType: ocsf
             version: 1.5.0
@@ -1975,20 +1976,9 @@ pipeline:
                     query: '@zscaler.severity:"Critical Severity"'
                   name: Critical
                   id: 5
-                - filter:
-                    query: "@zscaler.severity:*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.severity
                 id: ocsf.severity_id
-              fallback:
-                values:
-                  ocsf.severity: Other
-                  ocsf.severity_id: "99"
-                sources:
-                  ocsf.severity:
-                    - zscaler.severity
           schema:
             schemaType: ocsf
             version: 1.5.0
@@ -2054,10 +2044,6 @@ pipeline:
                     query: "@sourcetype:zscalernss-casb"
                   name: Create
                   id: 1
-                - filter:
-                    query: "*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -2256,20 +2242,9 @@ pipeline:
                     query: '@zscaler.severity:"Critical Severity"'
                   name: Critical
                   id: 5
-                - filter:
-                    query: "@zscaler.severity:*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.severity
                 id: ocsf.severity_id
-              fallback:
-                values:
-                  ocsf.severity: Other
-                  ocsf.severity_id: "99"
-                sources:
-                  ocsf.severity:
-                    - zscaler.severity
           schema:
             schemaType: ocsf
             version: 1.5.0
@@ -2391,6 +2366,13 @@ pipeline:
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
+              fallback:
+                values:
+                  ocsf.activity_name: Other
+                  ocsf.activity_id: "99"
+                sources:
+                  ocsf.activity_name:
+                    - zscaler.action
             - type: schema-category-mapper
               name: ocsf.status_id
               categories:
@@ -2409,6 +2391,13 @@ pipeline:
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.result
             - type: schema-category-mapper
               name: ocsf.severity_id
               categories:
@@ -2484,24 +2473,6 @@ pipeline:
               target: ocsf.is_remote
               preserveSource: true
               overrideOnConflict: true
-            - type: schema-category-mapper
-              name: ocsf.logon_type_id
-              categories:
-                - filter:
-                    query: "*"
-                  name: Other
-                  id: 99
-              targets:
-                name: ocsf.logon_type
-                id: ocsf.logon_type_id
-            - type: schema-remapper
-              name: Map `zscaler.interface` to `ocsf.logon_type`
-              sources:
-                - zscaler.interface
-              target: ocsf.logon_type
-              preserveSource: true
-              overrideOnConflict: true
-            # adminid is the user for ADMIN_LOGIN subcategory; non-admin LOGIN subcategories may use a different field — investigate in NBT if other LOGIN subcategories are observed.
             - type: schema-remapper
               name: Map `zscaler.adminid` to `ocsf.user.name`
               sources:
@@ -2840,6 +2811,13 @@ pipeline:
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.action
             - type: schema-category-mapper
               name: ocsf.src_endpoint.os.type_id
               categories:
@@ -2867,6 +2845,13 @@ pipeline:
                     query: "@sourcetype:zscalernss-fw"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.src_endpoint.os.type: Other
+                  ocsf.src_endpoint.os.type_id: "99"
+                sources:
+                  ocsf.src_endpoint.os.type:
+                    - zscaler.deviceostype
               targets:
                 name: ocsf.src_endpoint.os.type
                 id: ocsf.src_endpoint.os.type_id
@@ -3365,6 +3350,14 @@ pipeline:
                     query: "@zscaler.reqaction:* OR @zscaler.resaction:*"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.reqaction
+                    - zscaler.resaction
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3572,16 +3565,6 @@ pipeline:
         query: "@sourcetype:zscalernss-audit AND -@zscaler.category:(AUTH OR LOGIN OR USER_MANAGEMENT OR ROLE_MANAGEMENT)"
       processors:
         - type: attribute-remapper
-          name: Map `zscaler.action` to `ocsf.api.operation`
-          enabled: true
-          sources:
-            - zscaler.action
-          sourceType: attribute
-          target: ocsf.api.operation
-          targetType: attribute
-          preserveSource: true
-          overrideOnConflict: false
-        - type: attribute-remapper
           name: Map `zscaler.resource` to `ocsf.resource.name`
           enabled: true
           sources:
@@ -3602,7 +3585,7 @@ pipeline:
           preserveSource: true
           overrideOnConflict: false
         - type: array-processor
-          name: Move attributes into resources array
+          name: Move `ocsf.resource` into `ocsf.resources` array
           enabled: true
           operation:
             source: ocsf.resource
@@ -3613,6 +3596,13 @@ pipeline:
           name: Apply OCSF schema for 6003
           enabled: true
           mappers:
+            - type: schema-remapper
+              name: Map `zscaler.action` to `ocsf.api.operation`
+              sources:
+                - zscaler.action
+              target: ocsf.api.operation
+              preserveSource: true
+              overrideOnConflict: true
             - type: schema-remapper
               name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
               sources:
@@ -3716,6 +3706,13 @@ pipeline:
                     query: "@sourcetype:zscalernss-audit"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.activity_name: Other
+                  ocsf.activity_id: "99"
+                sources:
+                  ocsf.activity_name:
+                    - zscaler.action
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -3734,6 +3731,13 @@ pipeline:
                     query: "@sourcetype:zscalernss-audit"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.result
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3970,13 +3974,6 @@ pipeline:
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
-              fallback:
-                values:
-                  ocsf.activity_name: Unknown
-                  ocsf.activity_id: "0"
-                sources:
-                  ocsf.activity_name:
-                    - zscaler.action
             - type: schema-remapper
               name: Map `ocsf.metadata.product.name` to `ocsf.metadata.product.name`
               sources:

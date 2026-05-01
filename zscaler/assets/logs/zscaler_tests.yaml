@@ -401,6 +401,7 @@ tests:
         vendor: "Zscaler"
         zpa_app_seg_name: "ZPA_test_app_segment"
         ztunnelversion: "ZTUNNEL_1_0"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-web",
@@ -757,6 +758,7 @@ tests:
         user: "johndoe@yahoo.com"
         zpa_app_seg_name: "ZPA_test_app_segment"
         ztunnelversion: "ZTUNNEL_2_0_DTLS1_2"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-fw",
@@ -976,6 +978,7 @@ tests:
         srv_dip: "10.10.10.10"
         srv_dport: "53"
         user: "johndoe@yahoo.com"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-dns",
@@ -1098,9 +1101,6 @@ tests:
             vendor_name: "Zscaler"
           uid: "988"
           version: "1.5.0"
-        resources:
-          - name: "SSL Rule Name"
-            type: "CASB_SCAN_CONFIGURATION"
         severity: "Informational"
         severity_id: 1
         src_endpoint:
@@ -1110,6 +1110,9 @@ tests:
         status_detail: "AUTHENTICATION_FAILED"
         status_id: 1
         time: 1754150969000
+        resources:
+          - name: SSL Rule Name
+            type: CASB_SCAN_CONFIGURATION
       sourcetype: "zscalernss-audit"
       zscaler:
         action: "CREATE"
@@ -1138,6 +1141,7 @@ tests:
         resource: "SSL Rule Name"
         result: "SUCCESS"
         subcategory: "CASB_SCAN_CONFIGURATION"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-audit",
@@ -1259,6 +1263,7 @@ tests:
         src_ip: "165.225.0.243"
         subtype: "activity"
         tenant: "googledrive"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-casb",
@@ -1374,6 +1379,7 @@ tests:
         txbytes: "0"
         user: "jdoe@example.com"
         vendorname: "QUICKSEC"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-tunnel",
@@ -1421,7 +1427,7 @@ tests:
         "triggeredrule" : "configured_rule",
         "deviceostype" : "Windows",
         "filesrcpath" : "source_path",
-        "itemname" : "endpoint_dlp",
+        "itemname" : "create_edit.md",
         "dlpengine" : "dlpengine|dlpengine1|dlpengine2",
         "dlpidentifier" : "12",
         "scannedbytes" : "290812",
@@ -1489,8 +1495,8 @@ tests:
         file:
           path: source_path
           type_id: 99
-          name: endpoint_dlp
           type: email_attachment
+          name: create_edit.md
           hashes:
             - algorithm_id: 1
               value: 938c2cc0dcc05f2b68c4287040cfcf71
@@ -1562,7 +1568,7 @@ tests:
         filetypecategory: "PLS File (pls)"
         filetypename: "exe64"
         itemdstname: "nanolog"
-        itemname: "endpoint_dlp"
+        itemname: "create_edit.md"
         itemsrcname: "endpoint"
         itemtype: "email_attachment"
         logtype: "dlp_incident"
@@ -1577,6 +1583,7 @@ tests:
         triggeredrule: "configured_rule"
         user: "TempUser"
         zdpmode: "block mode"
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-endpointdlp",
@@ -1596,7 +1603,7 @@ tests:
           "triggeredrule" : "configured_rule",
           "deviceostype" : "Windows",
           "filesrcpath" : "source_path",
-          "itemname" : "endpoint_dlp",
+          "itemname" : "create_edit.md",
           "dlpengine" : "dlpengine|dlpengine1|dlpengine2",
           "dlpidentifier" : "12",
           "scannedbytes" : "290812",
@@ -1788,6 +1795,7 @@ tests:
           data_lifecycle_state: Data in-Transit
           policy:
             uid: '7353686383933915137'
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-emaildlp",
@@ -1992,12 +2000,12 @@ tests:
             name: jane@yahoo.com
           size: 125754
           type: Regular File
+          name: Test 20-21-09.pdf
+          type_id: 1
           hashes:
             - algorithm_id: 1
               value: 3ce0e6d87e586b7e898b624e4a7cf4ef
               algorithm: MD5
-          name: Test 20-21-09.pdf
-          type_id: 1
         dst_endpoint:
           name: GOOGLEDRIVE
         data_security:
@@ -2009,6 +2017,7 @@ tests:
             uid: '0'
             name: Make internal sharing read only
           detection_pattern: Credit Cards|Gambling|MRN Numbers
+      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-casb",
@@ -2112,8 +2121,6 @@ tests:
         class_name: "Authentication"
         class_uid: 3002
         is_remote: true
-        logon_type: "UI"
-        logon_type_id: 99
         metadata:
           log_name: "zscalernss-audit"
           original_time: "Thu Feb 12 06:55:48 2026"
@@ -2156,6 +2163,7 @@ tests:
         resource: "None"
         result: "SUCCESS"
         subcategory: "ADMIN_LOGIN"
+      date: 1770879348000
     message: |-
       {
         "sourcetype" : "zscalernss-audit",
@@ -2182,9 +2190,8 @@ tests:
       }
     service: "zscalernss-audit"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1770879348000
-
  -
   sample: |-
     {
@@ -2271,19 +2278,20 @@ tests:
           department: "Marketing"
           email: "jdoe@example.com"
           groups:
-           - "Employees"
-           - "Marketing"
+            - "Employees"
+            - "Marketing"
           name: "John Doe"
         preaction:
           department: "Sales"
           email: "jdoe@example.com"
           groups:
-           - "Employees"
+            - "Employees"
           name: "John Doe"
         recordid: "7001234567890000002"
         resource: "jdoe@example.com"
         result: "SUCCESS"
         subcategory: "USERS"
+      date: 1770880222000
     message: |-
       {
         "sourcetype" : "zscalernss-audit",
@@ -2316,6 +2324,5 @@ tests:
       }
     service: "zscalernss-audit"
     tags:
-     - "source:LOGS_SOURCE"
+      - "source:LOGS_SOURCE"
     timestamp: 1770880222000
-
