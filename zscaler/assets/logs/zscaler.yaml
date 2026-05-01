@@ -2183,10 +2183,6 @@ pipeline:
                     query: "@sourcetype:zscalernss-casb"
                   name: Cloud Access Security Broker
                   id: 8
-                - filter:
-                    query: "*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.data_security.detection_system
                 id: ocsf.data_security.detection_system_id
@@ -2205,10 +2201,6 @@ pipeline:
                     query: "@sourcetype:zscalernss-casb"
                   name: Data at-Rest
                   id: 1
-                - filter:
-                    query: "*"
-                  name: Other
-                  id: 99
               targets:
                 name: ocsf.data_security.data_lifecycle_state
                 id: ocsf.data_security.data_lifecycle_state_id
@@ -2355,10 +2347,6 @@ pipeline:
                     query: "@zscaler.action:DELETE"
                   name: Delete
                   id: 6
-                - filter:
-                    query: "@zscaler.action:UPDATE"
-                  name: Update
-                  id: 99
                 - filter:
                     query: "@zscaler.action:*"
                   name: Other
@@ -2552,6 +2540,13 @@ pipeline:
                     query: "@zscaler.action:*"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.result
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
@@ -2570,6 +2565,13 @@ pipeline:
                     query: "@zscaler.result:*"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.result
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
@@ -3181,6 +3183,13 @@ pipeline:
                     query: "@zscaler.action:*"
                   name: Other
                   id: 99
+              fallback:
+                values:
+                  ocsf.status: Other
+                  ocsf.status_id: "99"
+                sources:
+                  ocsf.status:
+                    - zscaler.action
               targets:
                 name: ocsf.status
                 id: ocsf.status_id
