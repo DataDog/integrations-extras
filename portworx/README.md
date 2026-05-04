@@ -14,13 +14,13 @@ Get metrics from Portworx service in real time to:
 
 #### Step 1 - Create Datadog credentials Secret
 
-Autopilot uses Datadog's Metrics API and requires a Datadog API key and Application key to authenticate. Create a Kubernetes Secret:
+Create a Kubernetes Secret with Metrics API and a Datadog API key
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: datadog-autopilot-credentials
+  name: datadog-credentials
   namespace: datadog-ns
   labels:
     app: autopilot
@@ -45,7 +45,7 @@ data:
 datadog:
   site: "datadoghq.com"
   clusterName: "your-cluster-name"
-  apiKeyExistingSecret: "datadog-autopilot-credentials"
+  apiKeyExistingSecret: "datadog-credentials"
   kubelet:
     tlsVerify: false
   clusterChecks:
@@ -166,7 +166,7 @@ spec:
       type: datadog
       params:
         url: https://datadoghq.com
-        secretName: datadog-autopilot-credentials
+        secretName: datadog-credentials
         secretNamespace: datadog-ns
   monitoring:
     prometheus:
@@ -229,7 +229,7 @@ If metrics are not appearing in Datadog, check the following:
 
 ### Autopilot not using Datadog provider
 
-- Ensure the `datadog-autopilot-credentials` Secret exists in the correct namespace and contains valid base64-encoded keys.
+- Ensure the `datadog-credentials` Secret exists in the correct namespace and contains valid base64-encoded keys.
 - If the Secret was updated after Autopilot started, restart the Autopilot deployment:
   ```shell
   kubectl rollout restart deployment autopilot -n portworx
