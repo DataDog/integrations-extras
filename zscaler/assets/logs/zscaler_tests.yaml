@@ -1855,7 +1855,7 @@ tests:
         "dlpdictcount" : "4|5|1|2",
         "filesize" : "125754",
         "login" : "john.smith@example.com",
-        "filetypename" : "doc",
+        "filetypename" : "png",
         "external_collabnames" : "jane@yahoo.com|roe@gmail.com",
         "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
         "upload_doctypename" : "Corporate Finance",
@@ -1888,7 +1888,6 @@ tests:
         "recordid" : "7535026573787070471",
         "filedownloadtimems" : "634",
         "filename" : "Test 20-21-09.pdf",
-        "filetypename": "png",
         "suburl" : "Thu Jul 24 1",
         "sender" : "johndoe@yahoo.com",
         "datacentercountry" : "US"
@@ -1896,6 +1895,63 @@ tests:
     }
   result:
     custom:
+      date: 1754150969000
+      ocsf:
+        activity_id: 1
+        activity_name: "Create"
+        actor:
+          user:
+            email_addr: "john.smith@example.com"
+            name: "john.smith@example.com"
+        category_name: "Findings"
+        category_uid: 2
+        class_name: "Data Security Finding"
+        class_uid: 2006
+        data_security:
+          data_lifecycle_state: "Data at-Rest"
+          data_lifecycle_state_id: 1
+          detection_pattern: "Credit Cards|Gambling|MRN Numbers"
+          detection_system: "Cloud Access Security Broker"
+          detection_system_id: 8
+          policy:
+            name: "Make internal sharing read only"
+            uid: "0"
+        dst_endpoint:
+          name: "GOOGLEDRIVE"
+        file:
+          hashes:
+           -
+            algorithm_id: 1
+            value: "3ce0e6d87e586b7e898b624e4a7cf4ef"
+            algorithm: "MD5"
+          name: "Test 20-21-09.pdf"
+          owner:
+            name: "jane@yahoo.com"
+          size: 125754
+          type: "Regular File"
+          type_id: 1
+        finding_info:
+          analytic:
+            name: "DLP-Rule-1"
+            type: "Rule"
+            type_id: 1
+          title: "DLP-Rule-1"
+          uid: "7535026573787070471"
+        is_alert: true
+        metadata:
+          event_code: "DLP-Rule-1"
+          log_name: "zscalernss-casb"
+          original_time: "2025-08-02 16:09:29"
+          product:
+            feature:
+              name: "casb"
+            name: "ZIA"
+            vendor_name: "Zscaler"
+          tenant_uid: "data_googledrive"
+          version: "1.5.0"
+        severity: "High"
+        severity_id: 4
+        time: 1754150969000
       sourcetype: "zscalernss-casb"
       status: "critical"
       usr:
@@ -1916,14 +1972,14 @@ tests:
         dlpidentifier: "0"
         epochlastmodtime: "1638327552"
         extcollab_groups:
-          - "priyanshu external internal"
-          - "Priyanshu Nested Group Lev98"
+         - "priyanshu external internal"
+         - "Priyanshu Nested Group Lev98"
         external_collabnames:
-          - "jane@yahoo.com"
-          - "roe@gmail.com"
+         - "jane@yahoo.com"
+         - "roe@gmail.com"
         external_recptnames:
-          - "jane@yahoo.com"
-          - "roe@gmail.com"
+         - "jane@yahoo.com"
+         - "roe@gmail.com"
         extownername: "jane@yahoo.com"
         filedownloadtimems: "634"
         fileid: "1Ratg6eYQTIwi6ejuR-UFzW_eE0fxgJPC"
@@ -1936,17 +1992,17 @@ tests:
         fullurl: "Unknown URL"
         hostname: "Unknown Host"
         intcollab_groups:
-          - "priyanshu internal"
-          - "priyanshu external"
-          - "priyanshu different owner-member"
-          - "priyanshu internal duplicate"
-          - "priyanshu non user"
+         - "priyanshu internal"
+         - "priyanshu external"
+         - "priyanshu different owner-member"
+         - "priyanshu internal duplicate"
+         - "priyanshu non user"
         internal_collabnames:
-          - "john@gmail.com"
-          - "doe@gmail.com"
+         - "john@gmail.com"
+         - "doe@gmail.com"
         internal_recptnames:
-          - "john@gmail.com"
-          - "doe@yahoo.com"
+         - "john@gmail.com"
+         - "doe@yahoo.com"
         lastmodtime: "Wed Dec  1 02:59:12 2021"
         login: "john.smith@example.com"
         malware: "Worm"
@@ -1962,62 +2018,6 @@ tests:
         tenant: "data_googledrive"
         threatname: "EICAR Test File"
         upload_doctypename: "Corporate Finance"
-      ocsf:
-        metadata:
-          product:
-            name: "ZIA"
-            vendor_name: "Zscaler"
-            feature:
-              name: "casb"
-          log_name: "zscalernss-casb"
-          original_time: "2025-08-02 16:09:29"
-          version: "1.5.0"
-          event_code: DLP-Rule-1
-          tenant_uid: data_googledrive
-        category_uid: 2
-        category_name: "Findings"
-        class_uid: 2006
-        time: 1754150969000
-        class_name: "Data Security Finding"
-        severity: "High"
-        activity_name: "Create"
-        activity_id: 1
-        severity_id: 4
-        is_alert: true
-        finding_info:
-          uid: '7535026573787070471'
-          title: DLP-Rule-1
-          analytic:
-            type_id: 1
-            name: DLP-Rule-1
-            type: Rule
-        actor:
-          user:
-            email_addr: john.smith@example.com
-            name: john.smith@example.com
-        file:
-          owner:
-            name: jane@yahoo.com
-          size: 125754
-          type: Regular File
-          name: Test 20-21-09.pdf
-          type_id: 1
-          hashes:
-            - algorithm_id: 1
-              value: 3ce0e6d87e586b7e898b624e4a7cf4ef
-              algorithm: MD5
-        dst_endpoint:
-          name: GOOGLEDRIVE
-        data_security:
-          detection_system: Cloud Access Security Broker
-          detection_system_id: 8
-          data_lifecycle_state_id: 1
-          data_lifecycle_state: Data at-Rest
-          policy:
-            uid: '0'
-            name: Make internal sharing read only
-          detection_pattern: Credit Cards|Gambling|MRN Numbers
-      date: 1754150969000
     message: |-
       {
         "sourcetype" : "zscalernss-casb",
@@ -2032,7 +2032,7 @@ tests:
           "dlpdictcount" : "4|5|1|2",
           "filesize" : "125754",
           "login" : "john.smith@example.com",
-          "filetypename" : "doc",
+          "filetypename" : "png",
           "external_collabnames" : "jane@yahoo.com|roe@gmail.com",
           "dlpenginenames" : "HIPAA|PCI|Social Security Numbers",
           "upload_doctypename" : "Corporate Finance",
@@ -2065,7 +2065,6 @@ tests:
           "recordid" : "7535026573787070471",
           "filedownloadtimems" : "634",
           "filename" : "Test 20-21-09.pdf",
-          "filetypename": "png",
           "suburl" : "Thu Jul 24 1",
           "sender" : "johndoe@yahoo.com",
           "datacentercountry" : "US"
@@ -2074,7 +2073,7 @@ tests:
     service: "zscalernss-casb"
     status: "critical"
     tags:
-      - "source:LOGS_SOURCE"
+     - "source:LOGS_SOURCE"
     timestamp: 1754150969000
  -
   sample: |-
