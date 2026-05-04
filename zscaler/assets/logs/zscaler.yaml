@@ -1232,6 +1232,138 @@ pipeline:
       sources:
         - status
     - type: pipeline
+      name: CASB file name parsing
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-casb"
+      processors:
+        - type: pipeline
+          name: Map `zscaler.object_name_1` to `ocsf.file.name`
+          enabled: true
+          filter:
+            query: "@zscaler.object_type_name_1:File"
+          processors:
+            - type: attribute-remapper
+              name: Map `zscaler.object_name_1` to `ocsf.file.name`
+              enabled: true
+              sources:
+                - zscaler.object_name_1
+              sourceType: attribute
+              target: ocsf.file.name
+              targetType: attribute
+              preserveSource: true
+              overrideOnConflict: false
+        - type: pipeline
+          name: Map `zscaler.object_name_2` to `ocsf.file.name`
+          enabled: true
+          filter:
+            query: "@zscaler.object_type_name_2:File"
+          processors:
+            - type: attribute-remapper
+              name: Map `zscaler.object_name_2` to `ocsf.file.name`
+              enabled: true
+              sources:
+                - zscaler.object_name_2
+              sourceType: attribute
+              target: ocsf.file.name
+              targetType: attribute
+              preserveSource: true
+              overrideOnConflict: false
+    - type: pipeline
+      name: Build ocsf.file.hashes MD5 entry
+      enabled: true
+      filter:
+        query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filemd5:* -@zscaler.filemd5:None"
+      processors:
+        - type: string-builder-processor
+          name: Add tmp_md5.algorithm
+          enabled: true
+          template: "MD5"
+          target: tmp_md5.algorithm
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add tmp_md5.algorithm_id
+          enabled: true
+          template: "1"
+          target: tmp_md5.algorithm_id
+          replaceMissing: false
+        - type: grok-parser
+          name: Cast tmp_md5.algorithm_id to integer
+          enabled: true
+          source: tmp_md5.algorithm_id
+          samples:
+            - "1"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              cast %{integer:tmp_md5.algorithm_id}
+        - type: attribute-remapper
+          name: Map `zscaler.filemd5` to `tmp_md5.value`
+          enabled: true
+          sources:
+            - zscaler.filemd5
+          sourceType: attribute
+          target: tmp_md5.value
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: array-processor
+          name: Append `tmp_md5` to `ocsf.file.hashes`
+          enabled: true
+          operation:
+            source: tmp_md5
+            target: ocsf.file.hashes
+            preserveSource: false
+            type: append
+    - type: pipeline
+      name: Build ocsf.file.hashes SHA-256 entry
+      enabled: true
+      filter:
+        query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filesha:* -@zscaler.filesha:None"
+      processors:
+        - type: string-builder-processor
+          name: Add tmp_sha256.algorithm
+          enabled: true
+          template: "SHA-256"
+          target: tmp_sha256.algorithm
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Add tmp_sha256.algorithm_id
+          enabled: true
+          template: "3"
+          target: tmp_sha256.algorithm_id
+          replaceMissing: false
+        - type: grok-parser
+          name: Cast tmp_sha256.algorithm_id to integer
+          enabled: true
+          source: tmp_sha256.algorithm_id
+          samples:
+            - "3"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              cast %{integer:tmp_sha256.algorithm_id}
+        - type: attribute-remapper
+          name: Map `zscaler.filesha` to `tmp_sha256.value`
+          enabled: true
+          sources:
+            - zscaler.filesha
+          sourceType: attribute
+          target: tmp_sha256.value
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: array-processor
+          name: Append `tmp_sha256` to `ocsf.file.hashes`
+          enabled: true
+          operation:
+            source: tmp_sha256
+            target: ocsf.file.hashes
+            preserveSource: false
+            type: append
+    - type: pipeline
       name: OCSF pre transformations
       enabled: true
       ocsf:
@@ -1294,138 +1426,6 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: pipeline
-          name: CASB file name parsing
-          enabled: true
-          ocsf:
-            isOcsf: true
-          filter:
-            query: "@sourcetype:zscalernss-casb"
-          processors:
-            - type: pipeline
-              name: Map `zscaler.object_name_1` to `ocsf.file.name`
-              enabled: true
-              filter:
-                query: "@zscaler.object_type_name_1:File"
-              processors:
-                - type: attribute-remapper
-                  name: Map `zscaler.object_name_1` to `ocsf.file.name`
-                  enabled: true
-                  sources:
-                    - zscaler.object_name_1
-                  sourceType: attribute
-                  target: ocsf.file.name
-                  targetType: attribute
-                  preserveSource: true
-                  overrideOnConflict: false
-            - type: pipeline
-              name: Map `zscaler.object_name_2` to `ocsf.file.name`
-              enabled: true
-              filter:
-                query: "@zscaler.object_type_name_2:File"
-              processors:
-                - type: attribute-remapper
-                  name: Map `zscaler.object_name_2` to `ocsf.file.name`
-                  enabled: true
-                  sources:
-                    - zscaler.object_name_2
-                  sourceType: attribute
-                  target: ocsf.file.name
-                  targetType: attribute
-                  preserveSource: true
-                  overrideOnConflict: false
-        - type: pipeline
-          name: Build ocsf.file.hashes MD5 entry
-          enabled: true
-          filter:
-            query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filemd5:* -@zscaler.filemd5:None"
-          processors:
-            - type: string-builder-processor
-              name: Add tmp_md5.algorithm
-              enabled: true
-              template: "MD5"
-              target: tmp_md5.algorithm
-              replaceMissing: false
-            - type: string-builder-processor
-              name: Add tmp_md5.algorithm_id
-              enabled: true
-              template: "1"
-              target: tmp_md5.algorithm_id
-              replaceMissing: false
-            - type: grok-parser
-              name: Cast tmp_md5.algorithm_id to integer
-              enabled: true
-              source: tmp_md5.algorithm_id
-              samples:
-                - "1"
-              grok:
-                supportRules: ""
-                matchRules: |-
-                  cast %{integer:tmp_md5.algorithm_id}
-            - type: attribute-remapper
-              name: Map `zscaler.filemd5` to `tmp_md5.value`
-              enabled: true
-              sources:
-                - zscaler.filemd5
-              sourceType: attribute
-              target: tmp_md5.value
-              targetType: attribute
-              preserveSource: true
-              overrideOnConflict: false
-            - type: array-processor
-              name: Append `tmp_md5` to `ocsf.file.hashes`
-              enabled: true
-              operation:
-                source: tmp_md5
-                target: ocsf.file.hashes
-                preserveSource: false
-                type: append
-        - type: pipeline
-          name: Build ocsf.file.hashes SHA-256 entry
-          enabled: true
-          filter:
-            query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filesha:* -@zscaler.filesha:None"
-          processors:
-            - type: string-builder-processor
-              name: Add tmp_sha256.algorithm
-              enabled: true
-              template: "SHA-256"
-              target: tmp_sha256.algorithm
-              replaceMissing: false
-            - type: string-builder-processor
-              name: Add tmp_sha256.algorithm_id
-              enabled: true
-              template: "3"
-              target: tmp_sha256.algorithm_id
-              replaceMissing: false
-            - type: grok-parser
-              name: Cast tmp_sha256.algorithm_id to integer
-              enabled: true
-              source: tmp_sha256.algorithm_id
-              samples:
-                - "3"
-              grok:
-                supportRules: ""
-                matchRules: |-
-                  cast %{integer:tmp_sha256.algorithm_id}
-            - type: attribute-remapper
-              name: Map `zscaler.filesha` to `tmp_sha256.value`
-              enabled: true
-              sources:
-                - zscaler.filesha
-              sourceType: attribute
-              target: tmp_sha256.value
-              targetType: attribute
-              preserveSource: true
-              overrideOnConflict: false
-            - type: array-processor
-              name: Append `tmp_sha256` to `ocsf.file.hashes`
-              enabled: true
-              operation:
-                source: tmp_sha256
-                target: ocsf.file.hashes
-                preserveSource: false
-                type: append
     - type: pipeline
       name: OCSF sub pipeline for class Data Security Finding [2006] (Email DLP)
       enabled: true
@@ -2542,11 +2542,11 @@ pipeline:
                   id: 99
               fallback:
                 values:
-                  ocsf.status: Other
-                  ocsf.status_id: "99"
+                  ocsf.activity_name: Other
+                  ocsf.activity_id: "99"
                 sources:
-                  ocsf.status:
-                    - zscaler.result
+                  ocsf.activity_name:
+                    - zscaler.action
               targets:
                 name: ocsf.activity_name
                 id: ocsf.activity_id
