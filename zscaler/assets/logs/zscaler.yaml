@@ -1232,48 +1232,46 @@ pipeline:
       sources:
         - status
     - type: pipeline
-      name: CASB file name parsing
+      name: CASB file name parsing (object 1)
       enabled: true
       ocsf:
         isOcsf: true
       filter:
-        query: "@sourcetype:zscalernss-casb"
+        query: "@sourcetype:zscalernss-casb AND @zscaler.object_type_name_1:File"
       processors:
-        - type: pipeline
+        - type: attribute-remapper
           name: Map `zscaler.object_name_1` to `ocsf.file.name`
           enabled: true
-          filter:
-            query: "@zscaler.object_type_name_1:File"
-          processors:
-            - type: attribute-remapper
-              name: Map `zscaler.object_name_1` to `ocsf.file.name`
-              enabled: true
-              sources:
-                - zscaler.object_name_1
-              sourceType: attribute
-              target: ocsf.file.name
-              targetType: attribute
-              preserveSource: true
-              overrideOnConflict: false
-        - type: pipeline
+          sources:
+            - zscaler.object_name_1
+          sourceType: attribute
+          target: ocsf.file.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+    - type: pipeline
+      name: CASB file name parsing (object 2)
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@sourcetype:zscalernss-casb AND @zscaler.object_type_name_2:File"
+      processors:
+        - type: attribute-remapper
           name: Map `zscaler.object_name_2` to `ocsf.file.name`
           enabled: true
-          filter:
-            query: "@zscaler.object_type_name_2:File"
-          processors:
-            - type: attribute-remapper
-              name: Map `zscaler.object_name_2` to `ocsf.file.name`
-              enabled: true
-              sources:
-                - zscaler.object_name_2
-              sourceType: attribute
-              target: ocsf.file.name
-              targetType: attribute
-              preserveSource: true
-              overrideOnConflict: false
+          sources:
+            - zscaler.object_name_2
+          sourceType: attribute
+          target: ocsf.file.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
     - type: pipeline
       name: Build ocsf.file.hashes MD5 entry
       enabled: true
+      ocsf:
+        isOcsf: true
       filter:
         query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filemd5:* -@zscaler.filemd5:None"
       processors:
@@ -1320,6 +1318,8 @@ pipeline:
     - type: pipeline
       name: Build ocsf.file.hashes SHA-256 entry
       enabled: true
+      ocsf:
+        isOcsf: true
       filter:
         query: "@sourcetype:(zscalernss-emaildlp OR zscalernss-endpointdlp OR zscalernss-casb) AND @zscaler.filesha:* -@zscaler.filesha:None"
       processors:
