@@ -556,6 +556,99 @@ def test_timeout_zero():
         GrpcCheck("grpc_check", {}, [instance])
 
 
+def test_tags_do_not_leak_across_runs(dd_run_check, aggregator):
+    instance = {
+        "grpc_server_address": "localhost:50051",
+        "grpc_server_service": "grpc.test",
+        "tags": ["tag_key1:value1", "tag_key2:value2"],
+    }
+    grpc_server = create_insecure_grpc_server()
+    grpc_server.start()
+
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50051",
+        "status_code:OK",
+        "tag_key1:value1",
+        "tag_key2:value2",
+    ]
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        for _ in range(5):
+            dd_run_check(check)
+            aggregator.assert_metric(
+                "grpc_check.healthy",
+                value=1.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_metric(
+                "grpc_check.unhealthy",
+                value=0.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_service_check(
+                "grpc.healthy",
+                status=AgentCheck.OK,
+                tags=expected_tags,
+                count=1,
+                hostname="",
+                message="",
+            )
+            aggregator.reset()
+    finally:
+        grpc_server.stop(None)
+
+
+def test_instance_config_tags_not_mutated(dd_run_check, aggregator):
+    user_tags = ["a:1", "b:2"]
+    instance = {
+        "grpc_server_address": "localhost:50051",
+        "grpc_server_service": "grpc.test",
+        "tags": user_tags,
+    }
+    grpc_server = create_insecure_grpc_server()
+    grpc_server.start()
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        for _ in range(2):
+            dd_run_check(check)
+            aggregator.reset()
+        assert instance["tags"] == ["a:1", "b:2"]
+        assert instance["tags"] is user_tags
+    finally:
+        grpc_server.stop(None)
+
+
+def test_channel_reused_across_runs(dd_run_check, aggregator):
+    instance = {
+        "grpc_server_address": "localhost:50051",
+        "grpc_server_service": "grpc.test",
+        "tags": ["tag_key1:value1"],
+    }
+    grpc_server = create_insecure_grpc_server()
+    grpc_server.start()
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        with mock.patch(
+            "datadog_checks.grpc_check.check.grpc.insecure_channel", wraps=grpc.insecure_channel
+        ) as mock_insecure_channel:
+            for _ in range(3):
+                dd_run_check(check)
+                aggregator.reset()
+        assert mock_insecure_channel.call_count == 1
+    finally:
+        grpc_server.stop(None)
+
+
 @pytest.mark.integration
 @pytest.mark.usefixtures("dd_environment")
 def test_check_integration(dd_run_check, aggregator, instance):
