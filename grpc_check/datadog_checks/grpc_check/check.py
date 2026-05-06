@@ -91,9 +91,13 @@ class GrpcCheck(AgentCheck):
 
     def cancel(self):
         if self._channel is not None:
-            self._channel.close()
-            self._channel = None
-            self._intercept_channel = None
+            try:
+                self._channel.close()
+            except Exception as e:
+                self.log.warning("failed to close gRPC channel: %s", e)
+            finally:
+                self._channel = None
+                self._intercept_channel = None
 
     def _get_channel(self):
         if self._channel is None:
@@ -195,9 +199,9 @@ class GrpcCheck(AgentCheck):
                     details,
                 )
         except Exception as e:
-            self.log.error("failed to check: %s", str(e))
+            self.log.exception("failed to check: %s", e)
 
-        if not response:
+        if response is None:
             tags = list(self._base_tags)
             tags.append("status_code:{}".format(status_code.name))
             self._send_unhealthy(tags)

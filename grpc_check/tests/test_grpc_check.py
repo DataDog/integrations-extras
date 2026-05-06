@@ -3,11 +3,10 @@ from unittest import mock
 
 import grpc
 import pytest
-from grpc_health.v1 import health, health_pb2, health_pb2_grpc
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.grpc_check import GrpcCheck
+from grpc_health.v1 import health, health_pb2, health_pb2_grpc
 
 
 def create_insecure_grpc_server(expected_status=health_pb2.HealthCheckResponse.SERVING):
@@ -601,6 +600,58 @@ def test_tags_do_not_leak_across_runs(dd_run_check, aggregator):
                 hostname="",
                 message="",
             )
+            aggregator.assert_all_metrics_covered()
+            aggregator.reset()
+    finally:
+        grpc_server.stop(None)
+
+
+def test_tags_do_not_leak_across_runs_not_serving(dd_run_check, aggregator):
+    instance = {
+        "grpc_server_address": "localhost:50051",
+        "grpc_server_service": "grpc.test",
+        "tags": ["tag_key1:value1", "tag_key2:value2"],
+    }
+    grpc_server = create_insecure_grpc_server(health_pb2.HealthCheckResponse.NOT_SERVING)
+    grpc_server.start()
+
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50051",
+        "status_code:OK",
+        "tag_key1:value1",
+        "tag_key2:value2",
+    ]
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        for _ in range(5):
+            dd_run_check(check)
+            aggregator.assert_metric(
+                "grpc_check.healthy",
+                value=0.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_metric(
+                "grpc_check.unhealthy",
+                value=1.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_service_check(
+                "grpc.healthy",
+                status=AgentCheck.CRITICAL,
+                tags=expected_tags,
+                count=1,
+                hostname="",
+                message="",
+            )
+            aggregator.assert_all_metrics_covered()
             aggregator.reset()
     finally:
         grpc_server.stop(None)
@@ -616,10 +667,43 @@ def test_instance_config_tags_not_mutated(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50051",
+        "status_code:OK",
+        "a:1",
+        "b:2",
+    ]
+
     try:
         check = GrpcCheck("grpc_check", {}, [instance])
         for _ in range(2):
             dd_run_check(check)
+            aggregator.assert_metric(
+                "grpc_check.healthy",
+                value=1.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_metric(
+                "grpc_check.unhealthy",
+                value=0.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_service_check(
+                "grpc.healthy",
+                status=AgentCheck.OK,
+                tags=expected_tags,
+                count=1,
+                hostname="",
+                message="",
+            )
+            aggregator.assert_all_metrics_covered()
             aggregator.reset()
         assert instance["tags"] == ["a:1", "b:2"]
         assert instance["tags"] is user_tags
@@ -636,6 +720,13 @@ def test_channel_reused_across_runs(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50051",
+        "status_code:OK",
+        "tag_key1:value1",
+    ]
+
     try:
         check = GrpcCheck("grpc_check", {}, [instance])
         with mock.patch(
@@ -643,8 +734,173 @@ def test_channel_reused_across_runs(dd_run_check, aggregator):
         ) as mock_insecure_channel:
             for _ in range(3):
                 dd_run_check(check)
+                aggregator.assert_metric(
+                    "grpc_check.healthy",
+                    value=1.0,
+                    tags=expected_tags,
+                    hostname="",
+                    flush_first_value=False,
+                    metric_type=aggregator.GAUGE,
+                )
+                aggregator.assert_metric(
+                    "grpc_check.unhealthy",
+                    value=0.0,
+                    tags=expected_tags,
+                    hostname="",
+                    flush_first_value=False,
+                    metric_type=aggregator.GAUGE,
+                )
+                aggregator.assert_service_check(
+                    "grpc.healthy",
+                    status=AgentCheck.OK,
+                    tags=expected_tags,
+                    count=1,
+                    hostname="",
+                    message="",
+                )
+                aggregator.assert_all_metrics_covered()
                 aggregator.reset()
         assert mock_insecure_channel.call_count == 1
+    finally:
+        grpc_server.stop(None)
+
+
+def test_secure_channel_reused_across_runs(dd_run_check, aggregator):
+    instance = {
+        "grpc_server_address": "localhost:50052",
+        "grpc_server_service": "grpc.test",
+        "tags": ["tag_key1:value1"],
+        "ca_cert": "tests/fixtures/ca.pem",
+        "client_cert": "tests/fixtures/client.pem",
+        "client_key": "tests/fixtures/client-key.pem",
+    }
+    grpc_server = create_secure_grpc_server()
+    grpc_server.start()
+
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50052",
+        "status_code:OK",
+        "tag_key1:value1",
+    ]
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        with mock.patch(
+            "datadog_checks.grpc_check.check.grpc.secure_channel", wraps=grpc.secure_channel
+        ) as mock_secure_channel:
+            for _ in range(3):
+                dd_run_check(check)
+                aggregator.assert_metric(
+                    "grpc_check.healthy",
+                    value=1.0,
+                    tags=expected_tags,
+                    hostname="",
+                    flush_first_value=False,
+                    metric_type=aggregator.GAUGE,
+                )
+                aggregator.assert_metric(
+                    "grpc_check.unhealthy",
+                    value=0.0,
+                    tags=expected_tags,
+                    hostname="",
+                    flush_first_value=False,
+                    metric_type=aggregator.GAUGE,
+                )
+                aggregator.assert_service_check(
+                    "grpc.healthy",
+                    status=AgentCheck.OK,
+                    tags=expected_tags,
+                    count=1,
+                    hostname="",
+                    message="",
+                )
+                aggregator.assert_all_metrics_covered()
+                aggregator.reset()
+        assert mock_secure_channel.call_count == 1
+    finally:
+        grpc_server.stop(None)
+
+
+def test_cancel_creates_new_channel_on_next_run(dd_run_check, aggregator):
+    instance = {
+        "grpc_server_address": "localhost:50051",
+        "grpc_server_service": "grpc.test",
+        "tags": ["tag_key1:value1"],
+    }
+    grpc_server = create_insecure_grpc_server()
+    grpc_server.start()
+
+    expected_tags = [
+        "grpc_server_service:grpc.test",
+        "grpc_server_address:localhost:50051",
+        "status_code:OK",
+        "tag_key1:value1",
+    ]
+
+    try:
+        check = GrpcCheck("grpc_check", {}, [instance])
+        with mock.patch(
+            "datadog_checks.grpc_check.check.grpc.insecure_channel", wraps=grpc.insecure_channel
+        ) as mock_insecure_channel:
+            dd_run_check(check)
+            aggregator.assert_metric(
+                "grpc_check.healthy",
+                value=1.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_metric(
+                "grpc_check.unhealthy",
+                value=0.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_service_check(
+                "grpc.healthy",
+                status=AgentCheck.OK,
+                tags=expected_tags,
+                count=1,
+                hostname="",
+                message="",
+            )
+            aggregator.assert_all_metrics_covered()
+            aggregator.reset()
+
+            check.cancel()
+
+            dd_run_check(check)
+            aggregator.assert_metric(
+                "grpc_check.healthy",
+                value=1.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_metric(
+                "grpc_check.unhealthy",
+                value=0.0,
+                tags=expected_tags,
+                hostname="",
+                flush_first_value=False,
+                metric_type=aggregator.GAUGE,
+            )
+            aggregator.assert_service_check(
+                "grpc.healthy",
+                status=AgentCheck.OK,
+                tags=expected_tags,
+                count=1,
+                hostname="",
+                message="",
+            )
+            aggregator.assert_all_metrics_covered()
+
+        assert mock_insecure_channel.call_count == 2
     finally:
         grpc_server.stop(None)
 
