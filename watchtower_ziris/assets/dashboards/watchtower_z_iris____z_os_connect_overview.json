@@ -116,7 +116,7 @@
             "id": 2530142959611229,
             "definition": {
               "type": "note",
-              "content": "The percentage z/OS Connect REST API requests that failed. A request is considered  failed when the  ***http.response.status_code*** is within the range of ***400 to 599***, e.g.  404.\n",
+              "content": "The percentage z/OS Connect REST API requests that failed. A request is considered  failed when the  ***http.response.status_code*** is within the range of ***400 to 500***, e.g.  404.\n",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -137,7 +137,7 @@
             "id": 7870388388312153,
             "definition": {
               "type": "note",
-              "content": "Triggered monitors relevant to APIs hosted on mainframe. Monitors must  have the tag \"mainframe-apis\"configured be included. \n\n",
+              "content": "Triggered monitors relevant to APIs hosted on mainframe. Monitors must  have the tag \"mainframe-apis\" configured be included. \n\n",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -371,7 +371,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:zos.connect.http.response.codes{$host, $sysplex.name, $server.name, $service, http.response.status_code:2*} by {service.name}.rollup(sum, 60)",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host, $sysplex.name, $server.name, $service, http.response.status_code:2*} by {service.name}.rollup(sum, 60)",
                       "aggregator": "sum"
                     }
                   ],
@@ -427,7 +427,6 @@
               "title": "Top 5 Error Count by API",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_table",
               "requests": [
                 {
@@ -541,7 +540,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -683,7 +681,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:zcon_mainframe_duration{$host,$sysplex.name,$server.name,$service} by {service.name}.rollup(sum, 60).as_count()"
+                      "query": "sum:ziris.zos.connect.timed_out_requests{$host,$sysplex.name,$server.name,$service} by {service.name}.rollup(sum, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -780,7 +778,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:zos.connect.http.response.codes{$host AND $sysplex.name AND $server.name AND $service AND (NOT http.response.status_code:2*)} by {service.name}.rollup(count, 60)"
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host AND $sysplex.name AND $server.name AND $service AND (NOT http.response.status_code:2*)} by {service.name}.rollup(count, 60)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -828,7 +826,7 @@
             "id": 1250514767888197,
             "definition": {
               "type": "note",
-              "content": "Average time spent on z/OS per API request, meaning meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.. This does not included network time to send or receive the request from the client application.",
+              "content": "Average time spent on z/OS per API request, meaning meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.. This does not include network time to send or receive the request from the client application.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "left",
@@ -860,7 +858,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -925,7 +922,7 @@
             "id": 3616341517164885,
             "definition": {
               "type": "note",
-              "content": "Average time spent in the z/OS Connect server per API request.\nThis represents a subset of the tot time spent on z/OS per API request, meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.",
+              "content": "Average time spent in the z/OS Connect server per API request.\nThis represents a subset of the total time spent on z/OS per API request, meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "left",
@@ -957,7 +954,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1058,7 +1054,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
