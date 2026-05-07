@@ -3,10 +3,11 @@ from unittest import mock
 
 import grpc
 import pytest
+from grpc_health.v1 import health, health_pb2, health_pb2_grpc
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.grpc_check import GrpcCheck
-from grpc_health.v1 import health, health_pb2, health_pb2_grpc
 
 
 def create_insecure_grpc_server(expected_status=health_pb2.HealthCheckResponse.SERVING):
