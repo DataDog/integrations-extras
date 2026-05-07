@@ -203,7 +203,7 @@ class GrpcCheck(AgentCheck):
 
         if response is None:
             tags = list(self._base_tags)
-            tags.append("status_code:{}".format(status_code.name))
+            tags.append(f"status_code:{status_code.name}")
             self._send_unhealthy(tags)
             return
 
