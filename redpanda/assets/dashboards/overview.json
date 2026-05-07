@@ -392,30 +392,30 @@
                   "formulas": [
                     {
                       "alias": "P99",
-                      "formula": "query1"
+                      "formula": "percentile(query1, 'p99', { * })"
                     },
                     {
                       "alias": "P95",
-                      "formula": "query2"
+                      "formula": "percentile(query2, 'p95', { * })"
                     },
                     {
                       "alias": "Median",
-                      "formula": "query3"
+                      "formula": "percentile(query3, 'p50', { * })"
                     }
                   ],
                   "queries": [
                     {
-                      "query": "p99:redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
                       "data_source": "metrics",
                       "name": "query1"
                     },
                     {
-                      "query": "p95:redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
                       "data_source": "metrics",
                       "name": "query2"
                     },
                     {
-                      "query": "p50:redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:produce,$topic,$host}",
                       "data_source": "metrics",
                       "name": "query3"
                     }
@@ -448,7 +448,7 @@
           {
             "id": 4695664312322756,
             "definition": {
-              "title": "Produce Latency (ms)",
+              "title": "Consume Latency (ms)",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -466,30 +466,30 @@
                   "formulas": [
                     {
                       "alias": "P99",
-                      "formula": "query1"
+                      "formula": "percentile(query1, 'p99', { * })"
                     },
                     {
                       "alias": "P95",
-                      "formula": "query2"
+                      "formula": "percentile(query2, 'p95', { * })"
                     },
                     {
                       "alias": "Median",
-                      "formula": "query3"
+                      "formula": "percentile(query3, 'p50', { * })"
                     }
                   ],
                   "queries": [
                     {
-                      "query": "p99:redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
                       "data_source": "metrics",
                       "name": "query1"
                     },
                     {
-                      "query": "p95:redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
                       "data_source": "metrics",
                       "name": "query2"
                     },
                     {
-                      "query": "p50:redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
+                      "query": "redpanda.kafka.request_latency_seconds{$server,redpanda_request:consume,$topic}",
                       "data_source": "metrics",
                       "name": "query3"
                     }
