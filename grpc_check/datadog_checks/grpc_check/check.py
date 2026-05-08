@@ -82,8 +82,8 @@ class GrpcCheck(AgentCheck):
         self.secure_channel = self.instance.get("secure_channel", False)
         self._validate_configuration()
         self._base_tags = list(self.instance.get("tags", []))
-        self._base_tags.append("grpc_server_address:{}".format(self.grpc_server_address))
-        self._base_tags.append("grpc_server_service:{}".format(self.grpc_server_service))
+        self._base_tags.append(f"grpc_server_address:{self.grpc_server_address}")
+        self._base_tags.append(f"grpc_server_service:{self.grpc_server_service}")
 
         self._channel = None
         self._intercept_channel = None
@@ -208,7 +208,7 @@ class GrpcCheck(AgentCheck):
             return
 
         tags = list(self._base_tags)
-        tags.append("status_code:{}".format(grpc.StatusCode.OK.name))
+        tags.append(f"status_code:{grpc.StatusCode.OK.name}")
         if response.status == health_pb2.HealthCheckResponse.SERVING:
             self.log.debug(
                 "grpc_server_address=%s, grpc_server_service=%s: healthy",
