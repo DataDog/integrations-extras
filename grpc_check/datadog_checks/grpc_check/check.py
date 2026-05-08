@@ -81,9 +81,33 @@ class GrpcCheck(AgentCheck):
         self.ca_cert = self.instance.get("ca_cert", "")
         self.secure_channel = self.instance.get("secure_channel", False)
         self._validate_configuration()
-        self.tags = self.instance.get("tags", [])
-        self.tags.append("grpc_server_address:{}".format(self.grpc_server_address))
-        self.tags.append("grpc_server_service:{}".format(self.grpc_server_service))
+        self._base_tags = list(self.instance.get("tags", []))
+        self._base_tags.append(f"grpc_server_address:{self.grpc_server_address}")
+        self._base_tags.append(f"grpc_server_service:{self.grpc_server_service}")
+
+        self._channel = None
+        self._intercept_channel = None
+        self._header_adder_interceptors = self._parse_rcp_headers(self.rpc_header)
+
+    def cancel(self):
+        if self._channel is not None:
+            try:
+                self._channel.close()
+            except Exception as e:
+                self.log.warning("failed to close gRPC channel: %s", e)
+            finally:
+                self._channel = None
+                self._intercept_channel = None
+
+    def _get_channel(self):
+        if self._channel is None:
+            self._channel = self._create_channel(self.instance)
+        return self._channel
+
+    def _get_intercept_channel(self):
+        if self._intercept_channel is None:
+            self._intercept_channel = grpc.intercept_channel(self._get_channel(), *self._header_adder_interceptors)
+        return self._intercept_channel
 
     def _validate_configuration(self):
         if not self.grpc_server_address:
@@ -128,15 +152,15 @@ class GrpcCheck(AgentCheck):
         self.log.debug("creating an insecure channel")
         return grpc.insecure_channel(self.grpc_server_address)
 
-    def _send_healthy(self):
-        self.gauge("grpc_check.healthy", 1, tags=self.tags)
-        self.gauge("grpc_check.unhealthy", 0, tags=self.tags)
-        self.service_check("grpc.healthy", AgentCheck.OK, tags=self.tags)
+    def _send_healthy(self, tags):
+        self.gauge("grpc_check.healthy", 1, tags=tags)
+        self.gauge("grpc_check.unhealthy", 0, tags=tags)
+        self.service_check("grpc.healthy", AgentCheck.OK, tags=tags)
 
-    def _send_unhealthy(self):
-        self.gauge("grpc_check.healthy", 0, tags=self.tags)
-        self.gauge("grpc_check.unhealthy", 1, tags=self.tags)
-        self.service_check("grpc.healthy", AgentCheck.CRITICAL, tags=self.tags)
+    def _send_unhealthy(self, tags):
+        self.gauge("grpc_check.healthy", 0, tags=tags)
+        self.gauge("grpc_check.unhealthy", 1, tags=tags)
+        self.service_check("grpc.healthy", AgentCheck.CRITICAL, tags=tags)
 
     def check(self, instance):
         self.log.debug(
@@ -147,12 +171,10 @@ class GrpcCheck(AgentCheck):
         status_code = grpc.StatusCode.UNKNOWN
         response = None
         try:
-            with self._create_channel(instance) as channel:
-                header_adder_interceptors = self._parse_rcp_headers(self.rpc_header)
-                intercept_channel = grpc.intercept_channel(channel, *header_adder_interceptors)
-                health_stub = health_pb2_grpc.HealthStub(intercept_channel)
-                request = health_pb2.HealthCheckRequest(service=self.grpc_server_service)
-                response = health_stub.Check(request, timeout=self.timeout)
+            intercept_channel = self._get_intercept_channel()
+            health_stub = health_pb2_grpc.HealthStub(intercept_channel)
+            request = health_pb2.HealthCheckRequest(service=self.grpc_server_service)
+            response = health_stub.Check(request, timeout=self.timeout)
         except grpc.RpcError as e:
             status_code = e.code()
             details = e.details()
@@ -177,32 +199,34 @@ class GrpcCheck(AgentCheck):
                     details,
                 )
         except Exception as e:
-            self.log.error("failed to check: %s", str(e))
+            self.log.exception("failed to check: %s", e)
 
-        if not response:
-            self.tags.append("status_code:{}".format(status_code.name))
-            self._send_unhealthy()
+        if response is None:
+            tags = list(self._base_tags)
+            tags.append(f"status_code:{status_code.name}")
+            self._send_unhealthy(tags)
             return
 
-        self.tags.append("status_code:{}".format(grpc.StatusCode.OK.name))
+        tags = list(self._base_tags)
+        tags.append(f"status_code:{grpc.StatusCode.OK.name}")
         if response.status == health_pb2.HealthCheckResponse.SERVING:
             self.log.debug(
                 "grpc_server_address=%s, grpc_server_service=%s: healthy",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_healthy()
+            self._send_healthy(tags)
         elif response.status == health_pb2.HealthCheckResponse.NOT_SERVING:
             self.log.warning(
                 "grpc_server_address=%s, grpc_server_service=%s: unhealthy",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_unhealthy()
+            self._send_unhealthy(tags)
         else:
             self.log.warning(
                 "grpc_server_address=%s, grpc_server_service=%s: health check response was unknown",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_unhealthy()
+            self._send_unhealthy(tags)
