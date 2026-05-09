@@ -1,4 +1,4 @@
-# (C) Datadog, Inc. 2025-present
+# (C) Datadog, Inc. 2026-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 """MessagePack format handler.
@@ -14,7 +14,7 @@ import base64
 import datetime
 import json
 
-from datadog_checks.kafka_actions.formats.base import FormatHandler
+from ._compat import FormatHandler
 
 
 class _MsgpackJSONEncoder(json.JSONEncoder):

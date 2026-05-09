@@ -1,4 +1,4 @@
-# (C) Datadog, Inc. 2025-present
+# (C) Datadog, Inc. 2026-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 """App-level compression codecs registered for the kafka_actions plugin API.
@@ -15,7 +15,7 @@ import gzip
 import struct
 import zlib
 
-from datadog_checks.kafka_actions.compression.base import CompressionCodec
+from ._compat import CompressionCodec
 
 
 class GzipCodec(CompressionCodec):

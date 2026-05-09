@@ -31,7 +31,10 @@ classifiers = [
 ]
 dependencies = [
     "datadog-checks-base>=37.33.0",
-    "datadog-kafka-actions>=2.7.0",
+    # Plugin host: datadog-kafka-actions>=2.7.0 (the version that introduced
+    # the plugin API). Not declared as a hard dep because integrations-extras
+    # CI cannot resolve it from PyPI; both wheels are installed side-by-side
+    # in the agent's embedded Python where the host is always present.
 ]
 dynamic = [
     "version",
