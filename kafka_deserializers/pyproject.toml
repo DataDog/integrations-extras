@@ -1,0 +1,78 @@
+[build-system]
+requires = [
+    "hatchling>=0.13.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "datadog-kafka-deserializers"
+description = "Plugin pack for the kafka_actions check: msgpack format handler and app-level payload compression codecs (gzip, snappy, lz4, lz4_dd_hdr, zlib, zstd)."
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.12"
+keywords = [
+    "datadog",
+    "datadog agent",
+    "datadog check",
+    "kafka_actions",
+    "kafka_deserializers",
+]
+authors = [
+    { name = "Datadog", email = "packages@datadoghq.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: BSD License",
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "datadog-checks-base>=37.33.0",
+    "datadog-kafka-actions>=2.7.0",
+]
+dynamic = [
+    "version",
+]
+
+[project.optional-dependencies]
+deps = [
+    "msgpack==1.1.0",
+    "python-snappy==0.7.3",
+    "lz4==4.3.3",
+    "zstandard==0.23.0",
+]
+
+[project.entry-points."datadog_kafka_actions.formats"]
+msgpack = "datadog_checks.kafka_deserializers.handlers:MsgpackHandler"
+
+[project.entry-points."datadog_kafka_actions.compressions"]
+gzip = "datadog_checks.kafka_deserializers.codecs:GzipCodec"
+zlib = "datadog_checks.kafka_deserializers.codecs:ZlibCodec"
+snappy = "datadog_checks.kafka_deserializers.codecs:SnappyCodec"
+lz4 = "datadog_checks.kafka_deserializers.codecs:Lz4Codec"
+lz4_dd_hdr = "datadog_checks.kafka_deserializers.codecs:Lz4DdHdrCodec"
+zstd = "datadog_checks.kafka_deserializers.codecs:ZstdCodec"
+
+[project.urls]
+Source = "https://github.com/DataDog/integrations-extras"
+
+[tool.hatch.version]
+path = "datadog_checks/kafka_deserializers/__about__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/datadog_checks",
+    "/tests",
+    "/manifest.json",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/datadog_checks/kafka_deserializers",
+]
+dev-mode-dirs = [
+    ".",
+]
