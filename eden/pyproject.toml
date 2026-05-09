@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "datadog-eden"
+description = "Datadog Agent integration for Eden-MDBS telemetry."
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.9"
+dynamic = ["version"]
+authors = [
+  { name = "Eden", email = "support@eden.dev" },
+]
+dependencies = [
+  "datadog-checks-base>=32.0.0",
+]
+
+[project.optional-dependencies]
+deps = []
+test = [
+  "pytest",
+  "datadog-checks-dev",
+]
+
+[project.urls]
+Source = "https://github.com/DataDog/integrations-extras"
+
+[tool.hatch.version]
+path = "datadog_checks/eden/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["datadog_checks"]

@@ -1,0 +1,55 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "d6f5812b-f153-4451-9b2a-46db2130e7aa",
+  "app_id": "eden",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect Eden-MDBS metrics with the Datadog Agent.",
+    "title": "Eden",
+    "media": [],
+    "classifier_tags": [
+      "Category::Data Stores",
+      "Category::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 0,
+      "source_type_name": "Eden",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "eden.",
+        "check": [
+          "eden.eden.request_sent"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Eden Interlay": "assets/dashboards/eden_interlay.json",
+      "Eden Migration": "assets/dashboards/eden_migration.json"
+    }
+  },
+  "author": {
+    "support_email": "support@eden.dev",
+    "name": "Eden",
+    "homepage": "https://eden.dev"
+  }
+}

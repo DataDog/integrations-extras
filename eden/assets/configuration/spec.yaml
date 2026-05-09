@@ -1,0 +1,58 @@
+name: Eden
+files:
+  - name: eden.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/default
+      - template: instances
+        options:
+          - name: url
+            description: Base URL of the Eden API.
+            required: true
+            value:
+              type: string
+              example: https://api.eden.example.com
+          - name: org_id
+            description: Eden organization ID used for login. Required unless org_uuid is configured.
+            value:
+              type: string
+              example: TestOrg
+          - name: org_uuid
+            description: Eden organization UUID used for login. Required unless org_id is configured.
+            value:
+              type: string
+          - name: robot_username
+            description: Robot username used to exchange a robot API key for a short-lived JWT.
+            required: true
+            value:
+              type: string
+              example: datadog-agent
+          - name: robot_api_key
+            description: Robot API key shown once when the robot is created in the Eden Dashboard.
+            required: true
+            secret: true
+            value:
+              type: string
+          - name: token_refresh_window_seconds
+            description: Refresh cached Eden JWTs this many seconds before expiry.
+            value:
+              type: integer
+              example: 120
+          - name: metric_groups
+            description: Restrict export to specific metric groups. Use this to control custom metric volume on large deployments.
+            value:
+              type: array
+              items:
+                type: string
+          - name: range_seconds
+            description: Window of telemetry to fetch on each check run.
+            value:
+              type: integer
+              example: 300
+          - name: limit
+            description: Maximum rows per group per HTTP request. The check paginates automatically.
+            value:
+              type: integer
+              example: 5000
+          - template: instances/default

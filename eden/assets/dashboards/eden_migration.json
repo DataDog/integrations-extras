@@ -1,0 +1,2897 @@
+{
+  "title": "Eden Redis Migration (cloned)",
+  "description": "Real-time monitoring for Redis data migrations. Track progress, throughput, latency, and queue health during live migrations. (cloned)",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "About",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2,
+            "definition": {
+              "type": "note",
+              "content": "# Redis Migration Overview",
+              "background_color": "vivid_purple",
+              "font_size": "36",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
+          },
+          {
+            "id": 3,
+            "definition": {
+              "type": "note",
+              "content": "## Eden Redis Migration\n\nReal-time visibility into Redis data migrations. Monitor key transfer progress, data throughput, operation latencies, and queue health.\n\n**Key Metrics:** Progress % | Keys collected/processed/remaining | SCAN/DUMP/RESTORE latencies | Queue utilization",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 2, "width": 8, "height": 2 }
+          },
+          {
+            "id": 4,
+            "definition": {
+              "type": "note",
+              "content": "**Quick Links**\n\n[Migration Docs](https://www.eden.dev/docs) | [Demo](https://www.eden.dev/docs/examples/demo) | [API Reference](https://www.eden.dev/docs/guide/migrations)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "has_padding": true
+            },
+            "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 5 }
+    },
+    {
+      "id": 10,
+      "definition": {
+        "title": "Overview",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 11,
+            "definition": {
+              "title": "Progress",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "progress",
+                      "query": "avg:eden.migration.progress_percent{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "progress" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 100,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 1,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 1,
+                      "palette": "black_on_light_gray"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "%",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": { "include_zero": true }
+              }
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 12,
+            "definition": {
+              "title": "State",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "state",
+                      "query": "max:eden.migration.state{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "state" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 3,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 1,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 4,
+                      "palette": "white_on_red"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "black_on_light_gray"
+                    }
+                  ]
+                }
+              ],
+              "precision": 0
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 13,
+            "definition": {
+              "title": "Keys processed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "processed",
+                      "query": "sum:eden.migration.keys_processed_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "processed" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "yaxis": { "include_zero": true },
+                "type": "bars"
+              }
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 14,
+            "definition": {
+              "title": "Keys remaining",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "remaining",
+                      "query": "avg:eden.migration.keys_remaining{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "remaining" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 15,
+            "definition": {
+              "title": "Queue utilization",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "util",
+                      "query": "avg:eden.migration.queue_utilization_percent{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "util" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "<",
+                      "value": 80,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 95,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "white_on_red"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "%",
+              "precision": 0
+            },
+            "layout": { "x": 8, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 16,
+            "definition": {
+              "title": "Duration",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "duration",
+                      "query": "avg:eden.migration.duration_seconds{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "duration" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "<",
+                      "value": 60,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 300,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 300,
+                      "palette": "black_on_light_gray"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "s",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": { "include_zero": true }
+              }
+            },
+            "layout": { "x": 10, "y": 0, "width": 2, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 5, "width": 12, "height": 3 }
+    },
+    {
+      "id": 20,
+      "definition": {
+        "title": "Migration Progress",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 21,
+            "definition": {
+              "title": "Progress over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "alias": "Progress %", "formula": "progress" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "progress",
+                      "query": "avg:eden.migration.progress_percent{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "purple",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": { "min": "0", "max": "100" },
+              "markers": [
+                {
+                  "label": "Complete",
+                  "value": "y = 100",
+                  "display_type": "ok solid"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 22,
+            "definition": {
+              "title": "Keys: Source vs Migrated",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "Source total", "formula": "total" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "total",
+                      "query": "avg:eden.migration.source_total_keys{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "grey",
+                    "line_type": "dashed",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "Migrated", "formula": "migrated" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "migrated",
+                      "query": "sum:eden.migration.keys_processed_total{$migration_id}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 8, "width": 12, "height": 4 }
+    },
+    {
+      "id": 30,
+      "definition": {
+        "title": "Throughput",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 31,
+            "definition": {
+              "title": "Keys collected",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "collected",
+                      "query": "sum:eden.migration.keys_collected_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "collected" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 32,
+            "definition": {
+              "title": "Bytes collected",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "bytes",
+                      "query": "sum:eden.migration.bytes_collected_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "bytes / 1048576", "alias": "MB" }]
+                }
+              ],
+              "custom_unit": "MB",
+              "precision": 1,
+              "timeseries_background": { "type": "bars" }
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 33,
+            "definition": {
+              "title": "Keys throughput",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "alias": "Collected/s", "formula": "collected" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "collected",
+                      "query": "sum:eden.migration.keys_collected_total{$migration_id}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "formulas": [
+                    { "alias": "Processed/s", "formula": "processed" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "processed",
+                      "query": "sum:eden.migration.keys_processed_total{$migration_id}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 34,
+            "definition": {
+              "title": "Bytes throughput (MB/s)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "alias": "MB/s", "formula": "bytes / 1048576" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "bytes",
+                      "query": "sum:eden.migration.bytes_collected_total{$migration_id}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "markers": [
+                {
+                  "label": "Target: 100 MB/s",
+                  "value": "y = 100",
+                  "display_type": "ok dashed"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 12, "width": 12, "height": 3 }
+    },
+    {
+      "id": 60,
+      "definition": {
+        "title": "Source Database",
+        "background_color": "gray",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 61,
+            "definition": {
+              "title": "Total keys",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "total",
+                      "query": "avg:eden.migration.source_total_keys{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "total" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 62,
+            "definition": {
+              "title": "Memory used",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "memory",
+                      "query": "avg:eden.migration.source_memory_bytes{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "memory / 1073741824" }]
+                }
+              ],
+              "custom_unit": "GB",
+              "precision": 2
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 63,
+            "definition": {
+              "title": "Keys with TTL",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "ttl_keys",
+                      "query": "avg:eden.migration.source_keys_with_ttl{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "ttl_keys" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 64,
+            "definition": {
+              "title": "Avg TTL",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "avg_ttl",
+                      "query": "avg:eden.migration.source_avg_ttl_seconds{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": { "label": "hrs", "type": "custom_unit_label" }
+                      },
+                      "formula": "avg_ttl / 3600000"
+                    }
+                  ]
+                }
+              ],
+              "precision": 1
+            },
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 15, "width": 12, "height": 3 }
+    },
+    {
+      "id": 40,
+      "definition": {
+        "title": "Operation Latency",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 41,
+            "definition": {
+              "title": "Avg SCAN",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "scan",
+                      "query": "avg:eden.migration.scan_duration_milliseconds{$migration_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "scan" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "<=",
+                      "value": 10,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 50,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 50,
+                      "palette": "white_on_red"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "ms",
+              "precision": 1
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 42,
+            "definition": {
+              "title": "Avg DUMP",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "dump",
+                      "query": "avg:eden.migration.dump_duration_milliseconds{$migration_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "dump" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "<=",
+                      "value": 5,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 20,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 20,
+                      "palette": "white_on_red"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "ms",
+              "precision": 1
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 43,
+            "definition": {
+              "title": "Avg RESTORE",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "restore",
+                      "query": "avg:eden.migration.restore_duration_milliseconds{$migration_id}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "restore" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "<=",
+                      "value": 5,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 20,
+                      "palette": "white_on_yellow"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 20,
+                      "palette": "white_on_red"
+                    }
+                  ]
+                }
+              ],
+              "custom_unit": "ms",
+              "precision": 1
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 44,
+            "definition": {
+              "title": "Operation latencies over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "SCAN", "formula": "scan" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "scan",
+                      "query": "avg:eden.migration.scan_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "formulas": [{ "alias": "DUMP", "formula": "dump" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "dump",
+                      "query": "avg:eden.migration.dump_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "purple",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "formulas": [{ "alias": "RESTORE", "formula": "restore" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "restore",
+                      "query": "avg:eden.migration.restore_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 18, "width": 12, "height": 3 }
+    },
+    {
+      "id": 140,
+      "definition": {
+        "title": "Cluster Health (RM-08/09/10)",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 141,
+            "definition": {
+              "title": "Error keys high-water",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "hw",
+                      "query": "max:eden.migration.error_keys_high_water{$migration_id}",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [{ "formula": "hw" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 142,
+            "definition": {
+              "title": "Cluster worker setup failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "fails",
+                      "query": "sum:eden.migration.cluster_worker_setup_failure_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "fails" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 143,
+            "definition": {
+              "title": "Topology refreshes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "refresh",
+                      "query": "sum:eden.migration.topology_refresh_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "refresh" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 144,
+            "definition": {
+              "title": "Topology refresh failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "fail",
+                      "query": "sum:eden.migration.topology_refresh_total{$migration_id,success:false}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "fail" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 145,
+            "definition": {
+              "title": "Cluster setup failures by error_type",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "fails" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "fails",
+                      "query": "sum:eden.migration.cluster_worker_setup_failure_total{$migration_id} by {error_type}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 146,
+            "definition": {
+              "title": "Topology refreshes by outcome",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "refresh" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "refresh",
+                      "query": "sum:eden.migration.topology_refresh_total{$migration_id} by {success}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 21, "width": 12, "height": 6 }
+    },
+    {
+      "id": 120,
+      "definition": {
+        "title": "Queue Conflict (RM-03) & Dual-Write Correctness (RM-04)",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 121,
+            "definition": {
+              "title": "Queue conflict waits",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "waits",
+                      "query": "sum:eden.migration.queue_conflict_wait_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "waits" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 122,
+            "definition": {
+              "title": "Queue conflict timeouts",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "timeouts",
+                      "query": "sum:eden.migration.queue_conflict_wait_total{$migration_id,timed_out:true}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "timeouts" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 123,
+            "definition": {
+              "title": "Dual-write partial failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "partial",
+                      "query": "sum:eden.migration.dual_write_partial_failure_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "partial" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 124,
+            "definition": {
+              "title": "Read mismatches",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "mismatch",
+                      "query": "sum:eden.migration.read_mismatch_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "mismatch" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 9, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 125,
+            "definition": {
+              "title": "Queue conflict wait latency distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.queue_conflict_wait_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.queue_conflict_wait_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.queue_conflict_wait_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.queue_conflict_wait_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 2, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 27, "width": 12, "height": 6 }
+    },
+    {
+      "id": 45,
+      "definition": {
+        "title": "Latency Distribution",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 46,
+            "definition": {
+              "title": "SCAN Latency Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.scan_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.scan_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.scan_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.scan_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 47,
+            "definition": {
+              "title": "DUMP Latency Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.dump_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.dump_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.dump_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.dump_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 49,
+            "definition": {
+              "title": "Batch Processing Latency Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.batch_processing_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.batch_processing_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.batch_processing_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.batch_processing_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 3, "width": 6, "height": 3 }
+          },
+          {
+            "id": 48,
+            "definition": {
+              "title": "RESTORE Latency Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.restore_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.restore_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.restore_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.restore_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 6, "y": 3, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 33,
+        "width": 12,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 70,
+      "definition": {
+        "title": "Endpoint Workload (Source vs Target)",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 71,
+            "definition": {
+              "type": "note",
+              "content": "## Source",
+              "background_color": "orange",
+              "font_size": "18",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 1 }
+          },
+          {
+            "id": 72,
+            "definition": {
+              "type": "note",
+              "content": "## Target",
+              "background_color": "green",
+              "font_size": "18",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "has_padding": true
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 1 }
+          },
+          {
+            "id": 73,
+            "definition": {
+              "title": "Source: Memory (MB)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "memory",
+                      "query": "avg:eden.workload.used_memory_mb{$source_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "memory" }]
+                }
+              ],
+              "precision": 1,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 0, "y": 1, "width": 3, "height": 2 }
+          },
+          {
+            "id": 74,
+            "definition": {
+              "title": "Source: Total Keys",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "keys",
+                      "query": "avg:eden.workload.total_keys{$source_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "keys" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "bars" }
+            },
+            "layout": { "x": 3, "y": 1, "width": 3, "height": 2 }
+          },
+          {
+            "id": 75,
+            "definition": {
+              "title": "Target: Memory (MB)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "memory",
+                      "query": "avg:eden.workload.used_memory_mb{$target_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "memory" }]
+                }
+              ],
+              "precision": 1,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 6, "y": 1, "width": 3, "height": 2 }
+          },
+          {
+            "id": 76,
+            "definition": {
+              "title": "Target: Total Keys",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "keys",
+                      "query": "avg:eden.workload.total_keys{$target_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "keys" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "bars" }
+            },
+            "layout": { "x": 9, "y": 1, "width": 3, "height": 2 }
+          },
+          {
+            "id": 77,
+            "definition": {
+              "title": "Source: Ops/sec",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "ops",
+                      "query": "avg:clickhouse.eden.migration.ops_per_sec{$source_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "ops" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 0, "y": 3, "width": 3, "height": 2 }
+          },
+          {
+            "id": 78,
+            "definition": {
+              "title": "Source: Clients",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "clients",
+                      "query": "avg:eden.workload.connected_clients{$source_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "clients" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 3, "width": 3, "height": 2 }
+          },
+          {
+            "id": 79,
+            "definition": {
+              "title": "Target: Ops/sec",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "ops",
+                      "query": "avg:clickhouse.eden.migration.ops_per_sec{$target_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "ops" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 6, "y": 3, "width": 3, "height": 2 }
+          },
+          {
+            "id": 80,
+            "definition": {
+              "title": "Target: Clients",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "clients",
+                      "query": "avg:eden.workload.connected_clients{$target_endpoint}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "clients" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 9, "y": 3, "width": 3, "height": 2 }
+          },
+          {
+            "id": 81,
+            "definition": {
+              "title": "Keys Comparison Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "alias": "Source Keys", "formula": "source_keys" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "source_keys",
+                      "query": "avg:eden.workload.total_keys{$source_endpoint}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    { "alias": "Target Keys", "formula": "target_keys" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "target_keys",
+                      "query": "avg:eden.workload.total_keys{$target_endpoint}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 5, "width": 6, "height": 3 }
+          },
+          {
+            "id": 82,
+            "definition": {
+              "title": "Memory Comparison Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    { "alias": "Source Memory (MB)", "formula": "source_mem" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "source_mem",
+                      "query": "avg:eden.workload.used_memory_mb{$source_endpoint}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    { "alias": "Target Memory (MB)", "formula": "target_mem" }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "target_mem",
+                      "query": "avg:eden.workload.used_memory_mb{$target_endpoint}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 6, "y": 5, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 40, "width": 12, "height": 9 }
+    },
+    {
+      "id": 50,
+      "definition": {
+        "title": "Queue Health",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 51,
+            "definition": {
+              "title": "Batches queued",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "queued",
+                      "query": "avg:eden.migration.batches_queued{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "queued" }]
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 52,
+            "definition": {
+              "title": "Batches completed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "completed",
+                      "query": "sum:eden.migration.batches_completed_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "completed" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": { "type": "bars" }
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 53,
+            "definition": {
+              "title": "Worker iterations",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "iterations",
+                      "query": "sum:eden.migration.output_worker_iterations_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "iterations" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 54,
+            "definition": {
+              "title": "Queue utilization over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "Utilization %", "formula": "util" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "util",
+                      "query": "avg:eden.migration.queue_utilization_percent{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": { "min": "0", "max": "100" },
+              "markers": [
+                {
+                  "label": "Warning",
+                  "value": "y = 80",
+                  "display_type": "warning dashed"
+                },
+                {
+                  "label": "Critical",
+                  "value": "y = 95",
+                  "display_type": "error solid"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 49, "width": 12, "height": 3 }
+    },
+    {
+      "id": 100,
+      "definition": {
+        "title": "Cutover (RM-01)",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 101,
+            "definition": {
+              "title": "Cutover attempts",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "attempts",
+                      "query": "sum:eden.migration.interlay_cutover_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "attempts" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 102,
+            "definition": {
+              "title": "Cutover successes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "ok",
+                      "query": "sum:eden.migration.interlay_cutover_total{$migration_id,success:true}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "ok" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 103,
+            "definition": {
+              "title": "Cutover failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "fail",
+                      "query": "sum:eden.migration.interlay_cutover_total{$migration_id,success:false}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "fail" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 104,
+            "definition": {
+              "title": "Partial cutovers",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "partial",
+                      "query": "sum:eden.migration.partial_cutover_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "partial" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 105,
+            "definition": {
+              "title": "Cutover latency distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.interlay_cutover_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.interlay_cutover_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.interlay_cutover_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.interlay_cutover_duration_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 2, "width": 12, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 52, "width": 12, "height": 6 }
+    },
+    {
+      "id": 110,
+      "definition": {
+        "title": "Lifecycle Recovery (RM-02)",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 111,
+            "definition": {
+              "title": "Lifecycle lock contention",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "contention",
+                      "query": "sum:eden.migration.lifecycle_lock_contention_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "contention" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 112,
+            "definition": {
+              "title": "Orphaned runtime state",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "orphans",
+                      "query": "avg:eden.migration.orphaned_runtime_state_count{$migration_id}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [{ "formula": "orphans" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 113,
+            "definition": {
+              "title": "Dropped control commands",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "dropped",
+                      "query": "sum:eden.migration.dropped_control_commands_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "dropped" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    { "comparator": ">", "value": 0, "palette": "white_on_red" }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 114,
+            "definition": {
+              "title": "Lock contention by operation",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "contention" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "contention",
+                      "query": "sum:eden.migration.lifecycle_lock_contention_total{$migration_id} by {operation}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 115,
+            "definition": {
+              "title": "Dropped control commands by worker",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "dropped" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "dropped",
+                      "query": "sum:eden.migration.dropped_control_commands_total{$migration_id} by {worker_type}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 58, "width": 12, "height": 6 }
+    },
+    {
+      "id": 130,
+      "definition": {
+        "title": "TTL Integrity (RM-05) & SCAN Dedup (RM-06/RM-07)",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 131,
+            "definition": {
+              "title": "Natural-expiry skips",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "skips",
+                      "query": "sum:eden.migration.natural_expiry_skip_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "skips" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 132,
+            "definition": {
+              "title": "RESTORE TTL clamps",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "clamps",
+                      "query": "sum:eden.migration.restore_ttl_clamp_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "clamps" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 133,
+            "definition": {
+              "title": "Duplicate SCAN keys",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "dupes",
+                      "query": "sum:eden.migration.duplicate_scan_keys_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "dupes" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 134,
+            "definition": {
+              "title": "Cursor resets",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "resets",
+                      "query": "sum:eden.migration.cursor_reset_total{$migration_id}.as_count()",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [{ "formula": "resets" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 135,
+            "definition": {
+              "title": "TTL drift distribution (ms)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "alias": "p50", "formula": "p50" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p50",
+                      "query": "p50:eden.migration.ttl_drift_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p95", "formula": "p95" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p95",
+                      "query": "p95:eden.migration.ttl_drift_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "p99", "formula": "p99" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "p99",
+                      "query": "p99:eden.migration.ttl_drift_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [{ "alias": "max", "formula": "maxval" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "maxval",
+                      "query": "max:eden.migration.ttl_drift_milliseconds{$migration_id}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "thin"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": { "include_zero": true }
+            },
+            "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+          },
+          {
+            "id": 136,
+            "definition": {
+              "title": "Cursor resets by reason",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["value"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "resets" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "resets",
+                      "query": "sum:eden.migration.cursor_reset_total{$migration_id} by {reason}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 64, "width": 12, "height": 6 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "migration_id",
+      "prefix": "migration_id",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "source_endpoint",
+      "prefix": "endpoint_id",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "target_endpoint",
+      "prefix": "endpoint_id",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}
