@@ -224,6 +224,40 @@ def test_emit_rows_skips_zero_count_buckets(aggregator, instance):
 
 
 @pytest.mark.unit
+def test_emit_rows_handles_exponential_histogram(aggregator, instance):
+    """Eden's fast-telemetry exponential histograms ship empty bounds and rely on
+    `scale` + `positive_offset` labels to derive bucket bounds."""
+    check = EdenCheck("eden", {}, [instance])
+    check.submit_histogram_bucket = MagicMock()
+
+    rows = [
+        {
+            "group": "proxy",
+            "scope": "proxy",
+            "metric_name": "proxy_request_duration_microseconds",
+            "metric_kind": "exponential_histogram",
+            "count": 1023,
+            "sum": 21896.0,
+            "bucket_bounds": [],
+            "bucket_counts": [17, 963, 21, 11, 9, 1, 1],
+            # scale=0 -> base=2; offset=3 -> first bucket upper = 2^4 = 16
+            "labels": {"scale": "0", "positive_offset": "3", "zero_count": "0"},
+        }
+    ]
+    check._emit_rows(rows, [])
+
+    aggregator.assert_metric("eden.proxy.request_duration_microseconds.count", value=1023)
+    aggregator.assert_metric("eden.proxy.request_duration_microseconds.sum", value=21896.0)
+    aggregator.assert_metric("eden.proxy.request_duration_microseconds.avg", count=0)
+
+    calls = check.submit_histogram_bucket.call_args_list
+    assert len(calls) == 7
+    assert [c.args[1] for c in calls] == [17, 963, 21, 11, 9, 1, 1]
+    assert [c.args[2] for c in calls] == [float("-inf"), 16.0, 32.0, 64.0, 128.0, 256.0, 512.0]
+    assert [c.args[3] for c in calls] == [16.0, 32.0, 64.0, 128.0, 256.0, 512.0, 1024.0]
+
+
+@pytest.mark.unit
 def test_emit_rows_handles_equal_length_buckets(aggregator, instance):
     """Some exporters (and our older test fixtures) ship equal-length bound/count arrays."""
     check = EdenCheck("eden", {}, [instance])

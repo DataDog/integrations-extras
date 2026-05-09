@@ -147,6 +147,7 @@ class EdenCheck(AgentCheck):
                 self.gauge(metric_name, value, tags=tags)
 
     def _emit_histogram(self, metric_name, row, count, total, tags):
+        kind = (row.get("metric_kind") or "").lower()
         bounds = row.get("bucket_bounds") or []
         counts = row.get("bucket_counts") or []
 
@@ -156,42 +157,46 @@ class EdenCheck(AgentCheck):
         if total is not None:
             self.monotonic_count(f"{metric_name}.sum", total, tags=tags)
 
+        # Exponential histograms ship empty `bucket_bounds` and rely on `scale`
+        # + `positive_offset` labels to derive bounds (base = 2^(2^-scale),
+        # bound[i] = base^(i + offset)). Synthesize the bounds so we can submit
+        # them as Datadog histogram buckets.
+        if kind == "exponential_histogram" and counts and not bounds:
+            try:
+                scale = int(row.get("labels", {}).get("scale", 0))
+                offset = int(row.get("labels", {}).get("positive_offset", 0))
+                base = 2.0 ** (2.0 ** -scale)
+                bounds = [base ** (offset + i + 1) for i in range(len(counts))]
+            except (ValueError, TypeError):
+                bounds = []
+
         # OpenTelemetry-style histograms send N bounds and N+1 counts: each
         # bound represents an upper edge, with one extra "overflow" bucket at
         # +inf for samples that exceeded the highest bound. Convert to N+1
         # bucket ranges (..b0, b0..b1, ..., bN..+inf) and submit each.
         if bounds and counts and len(counts) == len(bounds) + 1:
             edges = [float(b) for b in bounds] + [float("inf")]
-            lower = float("-inf")
-            for upper, bucket_count in zip(edges, counts):
-                if bucket_count > 0:
-                    self.submit_histogram_bucket(
-                        metric_name,
-                        int(bucket_count),
-                        lower,
-                        upper,
-                        monotonic=True,
-                        hostname=None,
-                        tags=tags,
-                    )
-                lower = upper
+            self._submit_buckets(metric_name, edges, counts, tags)
         elif bounds and counts and len(bounds) == len(counts):
             # Fallback for exporters that emit equal-length arrays (no overflow bucket).
-            lower = float("-inf")
-            for upper, bucket_count in zip(bounds, counts):
-                if bucket_count > 0:
-                    self.submit_histogram_bucket(
-                        metric_name,
-                        int(bucket_count),
-                        lower,
-                        float(upper),
-                        monotonic=True,
-                        hostname=None,
-                        tags=tags,
-                    )
-                lower = float(upper)
+            self._submit_buckets(metric_name, [float(b) for b in bounds], counts, tags)
         elif count and total is not None:
             self.gauge(f"{metric_name}.avg", total / count, tags=tags)
+
+    def _submit_buckets(self, metric_name, edges, counts, tags):
+        lower = float("-inf")
+        for upper, bucket_count in zip(edges, counts):
+            if bucket_count > 0:
+                self.submit_histogram_bucket(
+                    metric_name,
+                    int(bucket_count),
+                    lower,
+                    upper,
+                    monotonic=True,
+                    hostname=None,
+                    tags=tags,
+                )
+            lower = upper
 
     def _metric_name(self, row):
         # Mirror DogStatsD naming: prefix is `scope`, body is `metric_name` with
