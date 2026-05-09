@@ -141,26 +141,57 @@ class EdenCheck(AgentCheck):
                 delta = count if count is not None else value
                 if delta is not None:
                     self.monotonic_count(metric_name, delta, tags=tags)
-            elif kind == "histogram":
-                if count is not None:
-                    self.monotonic_count(
-                        f"{metric_name}.count", count, tags=tags)
-                if total is not None:
-                    self.monotonic_count(
-                        f"{metric_name}.sum", total, tags=tags)
-                if count and total is not None:
-                    self.gauge(f"{metric_name}.avg", total / count, tags=tags)
-            elif kind == "exponential_histogram":
-                if count is not None:
-                    self.monotonic_count(
-                        f"{metric_name}.count", count, tags=tags)
-                if total is not None:
-                    self.monotonic_count(
-                        f"{metric_name}.sum", total, tags=tags)
-                if count and total is not None:
-                    self.gauge(f"{metric_name}.avg", total / count, tags=tags)
+            elif kind in ("histogram", "exponential_histogram"):
+                self._emit_histogram(metric_name, row, count, total, tags)
             elif value is not None:
                 self.gauge(metric_name, value, tags=tags)
+
+    def _emit_histogram(self, metric_name, row, count, total, tags):
+        bounds = row.get("bucket_bounds") or []
+        counts = row.get("bucket_counts") or []
+
+        # Always submit count/sum so dashboards built on those keep working.
+        if count is not None:
+            self.monotonic_count(f"{metric_name}.count", count, tags=tags)
+        if total is not None:
+            self.monotonic_count(f"{metric_name}.sum", total, tags=tags)
+
+        # OpenTelemetry-style histograms send N bounds and N+1 counts: each
+        # bound represents an upper edge, with one extra "overflow" bucket at
+        # +inf for samples that exceeded the highest bound. Convert to N+1
+        # bucket ranges (..b0, b0..b1, ..., bN..+inf) and submit each.
+        if bounds and counts and len(counts) == len(bounds) + 1:
+            edges = [float(b) for b in bounds] + [float("inf")]
+            lower = float("-inf")
+            for upper, bucket_count in zip(edges, counts):
+                if bucket_count > 0:
+                    self.submit_histogram_bucket(
+                        metric_name,
+                        int(bucket_count),
+                        lower,
+                        upper,
+                        monotonic=True,
+                        hostname=None,
+                        tags=tags,
+                    )
+                lower = upper
+        elif bounds and counts and len(bounds) == len(counts):
+            # Fallback for exporters that emit equal-length arrays (no overflow bucket).
+            lower = float("-inf")
+            for upper, bucket_count in zip(bounds, counts):
+                if bucket_count > 0:
+                    self.submit_histogram_bucket(
+                        metric_name,
+                        int(bucket_count),
+                        lower,
+                        float(upper),
+                        monotonic=True,
+                        hostname=None,
+                        tags=tags,
+                    )
+                lower = float(upper)
+        elif count and total is not None:
+            self.gauge(f"{metric_name}.avg", total / count, tags=tags)
 
     def _metric_name(self, row):
         # Mirror DogStatsD naming: prefix is `scope`, body is `metric_name` with
