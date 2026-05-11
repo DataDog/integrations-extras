@@ -48,11 +48,18 @@ jobs:
             echo "is-stable-release=false" >> "$GITHUB_OUTPUT"
           fi
 
+  approve:
+    name: Await release approval
+    needs: context
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - run: echo "Release approved"
+
   dispatch:
     name: Release
-    needs: context
+    needs: [context, approve]
     uses: DataDog/integrations-core/.github/workflows/release-dispatch.yml@master
-    environment: release
     with:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
