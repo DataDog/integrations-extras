@@ -52,6 +52,7 @@ jobs:
     name: Release
     needs: context
     uses: DataDog/integrations-core/.github/workflows/release-dispatch.yml@master
+    environment: release
     with:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
