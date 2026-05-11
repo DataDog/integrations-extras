@@ -5,19 +5,21 @@
 The Datadog RUM Nuxt integration provides framework-specific instrumentation to help you monitor and debug Nuxt applications. This integration adds:
 
 - **Automatic route change detection** for Nuxt file-based routing
-- **View name normalization** that converts dynamic route segments into parameterized names (for example `/user/123` becomes `/user/[id]`)
+- **View name normalization** that converts dynamic route segments into parameterized names (for example, `/user/123` becomes `/user/[id]`)
 - **Error reporting** through both Vue's global error handler and Nuxt's `app:error` hook
 - **Full-stack visibility** by correlating frontend performance with backend traces and logs
 
 Combined with Datadog RUM's core capabilities, you can debug performance bottlenecks, track user journeys, monitor Core Web Vitals, and analyze every user session with context.
 
+## Prerequisites
+
+This integration requires Nuxt v3 or v4, Vue v3.5+, and Vue Router v4+.
+
 ## Setup
 
 Start by setting up [Datadog RUM][1] in your Nuxt application.
 
-After configuration, add the [RUM-Nuxt plugin][2] to the Browser SDK.
-
-This integration requires **Nuxt v3 or v4**, **Vue v3.5+**, and **Vue Router v4+**.
+After setting up RUM, add the [RUM-Nuxt plugin][2] to the Browser SDK.
 
 ## Basic usage
 
@@ -56,7 +58,7 @@ Passing `nuxtApp` is optional, but recommended. When provided, the integration a
 
 ## Manual error reporting
 
-If you catch a Nuxt or Vue error yourself and want to report it to Datadog RUM, use `addNuxtError`:
+If you catch a Nuxt or Vue error and want to report it to Datadog RUM, use `addNuxtError`:
 
 ```vue
 <script setup lang="ts">
@@ -100,9 +102,9 @@ To generate custom metrics from your RUM application, see [Generate Metrics][5].
 
 Need help? Contact [Datadog Support][6].
 
-[1]: https://docs.datadoghq.com/real_user_monitoring/browser/setup/client
+[1]: https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/client/
 [2]: https://www.npmjs.com/package/@datadog/browser-rum-nuxt
-[3]: https://docs.datadoghq.com/real_user_monitoring/platform/connect_rum_and_traces/?tab=browserrum
+[3]: https://docs.datadoghq.com/tracing/other_telemetry/rum/
 [4]: https://docs.datadoghq.com/logs/log_collection/javascript/
-[5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
+[5]: https://docs.datadoghq.com/real_user_monitoring/platform/generate_metrics/
 [6]: https://docs.datadoghq.com/help/
