@@ -8,7 +8,7 @@ WarpStream is a data streaming platform compatible with Apache Kafka®, designed
 
 ### Installation
 
-1.  [Download and launch the Datadog Agent][1].
+1.  [Install the Datadog Agent][1].
 2.  Manually install the WarpStream integration. See [Use Community Integrations][2] for more details based on the environment.
 
 ### Configuration
@@ -53,7 +53,7 @@ Need help? Contact us through the following channels:
 
 
 
-[1]: https://docs.datadoghq.com/containers/kubernetes/log/
+[1]: https://docs.datadoghq.com/getting_started/agent/
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [3]: https://github.com/warpstreamlabs/integrations-extras/tree/epot/tier/warpstream#metrics
 [4]: https://github.com/DataDog/integrations-extras/blob/master/warpstream/datadog_checks/warpstream/data/conf.yaml.example
