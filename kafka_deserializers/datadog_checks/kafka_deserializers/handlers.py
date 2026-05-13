@@ -14,7 +14,12 @@ import base64
 import datetime
 import json
 
-from ._compat import FormatHandler
+from ._compat import (
+    FormatHandler,
+    HostProtobufHandler,
+    host_get_protobuf_message_class,
+    host_read_protobuf_message_indices,
+)
 
 
 class _MsgpackJSONEncoder(json.JSONEncoder):
@@ -66,24 +71,22 @@ class ProtobufMsgpackHandler(FormatHandler):
     name = 'protobuf_msgpack'
 
     def build_schema(self, schema_str):
-        from datadog_checks.kafka_actions.formats.builtins import ProtobufHandler  # type: ignore[import-not-found]
-
+        if HostProtobufHandler is None:
+            raise RuntimeError("datadog-kafka-actions host package is required for protobuf_msgpack")
         wrapper = json.loads(schema_str)
-        proto_schema = ProtobufHandler().build_schema(wrapper['schema'])
+        proto_schema = HostProtobufHandler().build_schema(wrapper['schema'])
         return (proto_schema, set(wrapper.get('msgpack_fields') or []))
 
     def build_schema_from_registry(self, schema_str, dep_schemas):
-        from datadog_checks.kafka_actions.formats.builtins import ProtobufHandler  # type: ignore[import-not-found]
-
+        if HostProtobufHandler is None:
+            raise RuntimeError("datadog-kafka-actions host package is required for protobuf_msgpack")
         wrapper = json.loads(schema_str)
-        proto_schema = ProtobufHandler().build_schema_from_registry(wrapper['schema'], dep_schemas)
+        proto_schema = HostProtobufHandler().build_schema_from_registry(wrapper['schema'], dep_schemas)
         return (proto_schema, set(wrapper.get('msgpack_fields') or []))
 
     def deserialize(self, message, schema, *, log, uses_schema_registry):
-        from datadog_checks.kafka_actions.formats.builtins import (  # type: ignore[import-not-found]
-            get_protobuf_message_class,
-            read_protobuf_message_indices,
-        )
+        if host_get_protobuf_message_class is None or host_read_protobuf_message_indices is None:
+            raise RuntimeError("datadog-kafka-actions host package is required for protobuf_msgpack")
         from google.protobuf.json_format import MessageToDict
 
         if not message:
@@ -91,14 +94,14 @@ class ProtobufMsgpackHandler(FormatHandler):
         proto_schema, msgpack_paths = schema
 
         if uses_schema_registry:
-            message_indices, message = read_protobuf_message_indices(message)
+            message_indices, message = host_read_protobuf_message_indices(message)
             if not message_indices:
                 message_indices = [0]
         else:
             message_indices = [0]
 
         try:
-            message_class = get_protobuf_message_class(proto_schema, message_indices)
+            message_class = host_get_protobuf_message_class(proto_schema, message_indices)
             instance = message_class()
             consumed = instance.ParseFromString(message)
             if consumed != len(message):
@@ -119,9 +122,8 @@ class ProtobufMsgpackHandler(FormatHandler):
         """Walk ``instance`` + ``result_dict`` in lockstep; replace any field whose
         full path is in ``msgpack_paths`` with its msgpack-decoded value.
         """
-        from google.protobuf.descriptor import FieldDescriptor
-
         import msgpack
+        from google.protobuf.descriptor import FieldDescriptor
 
         def walk(msg, out):
             msg_full = msg.DESCRIPTOR.full_name

@@ -41,6 +41,9 @@ def _try_load(module_path: str, attr: str):
 _HOST_PKG = 'datadog_' + 'checks.kafka_actions'
 _HostFormatHandler = _try_load(f'{_HOST_PKG}.formats.base', 'FormatHandler')
 _HostCompressionCodec = _try_load(f'{_HOST_PKG}.compression.base', 'CompressionCodec')
+HostProtobufHandler = _try_load(f'{_HOST_PKG}.formats.builtins', 'ProtobufHandler')
+host_get_protobuf_message_class = _try_load(f'{_HOST_PKG}.formats.builtins', 'get_protobuf_message_class')
+host_read_protobuf_message_indices = _try_load(f'{_HOST_PKG}.formats.builtins', 'read_protobuf_message_indices')
 
 
 if _HostFormatHandler is not None:
@@ -73,4 +76,10 @@ else:
             raise NotImplementedError
 
 
-__all__ = ['CompressionCodec', 'FormatHandler']
+__all__ = [
+    'CompressionCodec',
+    'FormatHandler',
+    'HostProtobufHandler',
+    'host_get_protobuf_message_class',
+    'host_read_protobuf_message_indices',
+]

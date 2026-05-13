@@ -6,7 +6,6 @@ import logging
 
 import msgpack
 import pytest
-
 from datadog_checks.kafka_deserializers.handlers import MsgpackHandler
 
 
