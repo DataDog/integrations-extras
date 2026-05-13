@@ -2,12 +2,6 @@
 
 ## Overview
 
-<!-- partial
-{{% site-region region="gov,gov2" %}}
-**The LaunchDarkly integration is not supported for the Datadog {{< region-param key="dd_site_name" >}} site**.
-{{% /site-region %}}
-partial -->
-
 LaunchDarkly provides the following integrations with Datadog:
 
 ### Events integration
