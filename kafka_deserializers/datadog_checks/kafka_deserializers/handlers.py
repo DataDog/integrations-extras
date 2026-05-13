@@ -131,9 +131,7 @@ class ProtobufMsgpackHandler(FormatHandler):
                 is_repeated = field_desc.is_repeated
                 if full_path in msgpack_paths:
                     if field_desc.type != FieldDescriptor.TYPE_BYTES:
-                        raise ValueError(
-                            f"msgpack_fields path '{full_path}' refers to a non-bytes field"
-                        )
+                        raise ValueError(f"msgpack_fields path '{full_path}' refers to a non-bytes field")
                     if is_repeated:
                         out[key] = [msgpack.unpackb(bytes(b), raw=False, timestamp=3) for b in value]
                     else:
