@@ -10,6 +10,7 @@ import lz4.frame
 import pytest
 import snappy
 import zstandard
+
 from datadog_checks.kafka_deserializers.codecs import (
     GzipCodec,
     Lz4Codec,
