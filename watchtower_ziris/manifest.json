@@ -1,0 +1,89 @@
+{
+  "app_id": "ziris",
+  "app_uuid": "0192b8a9-8703-7f1b-989b-929307d658f7",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Broadcom WatchTower z/IRIS",
+    "description": "Monitor your mainframe with logs, metrics, and traces from WatchTower z/IRIS in Datadog",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Watch z/IRIS streams mainframe OpenTelemetry signals to Datadog.",
+        "image_url": "images/Datadog-WatchToewr-zIRIS-Errors-and-Exceptions.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "OOTB WatchTower Dashboards to visualize the health of z/OS systems.",
+        "image_url": "images/WatchTower Datadog Integration Dashboards.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "OOTB WatchTower CPU Monitor to increase mainframe  system reliability.",
+        "image_url": "images/WatchTower Datadog Integration Mainframe CPU Monitor.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "Embedded error and exception documentation for faster MTTR.",
+        "image_url": "images/Datadog-zIRIS-CICS-Exceptions-and-Errors.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Mainframes",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Submitted Data Type::Traces",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "angelika.heinrich@broadcom.com",
+    "name": "Broadcom",
+    "homepage": "https://www.broadcom.com/",
+    "sales_email": "angelika.heinrich@broadcom.com",
+    "vendor_id": "broadcom"
+  },
+  "assets": {
+    "dashboards": {
+      "WatchTower z/IRIS -  z/OS Connect Overview": "assets/dashboards/watchtower_z_iris____z_os_connect_overview.json",
+      "WatchTower z/IRIS - CPU Overview": "assets/dashboards/watchtower_z_iris___cpu_overview.json",
+      "WatchTower z/IRIS - JVM Garbage Collection Overview": "assets/dashboards/watchtower_z_iris___jvm_garbage_collection_overview.json"
+    },
+    "monitors": {
+      "Mainframe CPU Contention Monitor": "assets/monitors/mainframe_cpu_contention_monitor.json"
+    },
+    "logs": {
+      "source": "ziris"
+    },
+    "integration": {
+      "source_type_name": "ziris",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "ziris",
+        "check": [
+          "ziris.irontap.kafka.bytes.received"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 61837669,
+      "supports_ddr_coordinated_failover": false
+    }
+  },
+  "owner": "integrations-developer-platform"
+}

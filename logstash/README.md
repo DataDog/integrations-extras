@@ -98,7 +98,9 @@ Datadog has [an output plugin][13] for Logstash that takes care of sending your 
 
 To install this plugin run the following command:
 
-- `logstash-plugin install logstash-output-datadog_logs`
+```shell
+logstash-plugin install logstash-output-datadog_logs
+```
 
 Then configure the `datadog_logs` plugin with your [Datadog API key][14]:
 
@@ -117,15 +119,26 @@ You can change this behavior by using the following parameters:
 - `use_compression`: Compression is only available for HTTP. Disable it by setting this to `false` (default is `true`).
 - `compression_level`: Set the compression level from HTTP. The range is from 1 to 9, 9 being the best ratio (default is `6`).
 
-Additional parameters can be used to change the endpoint used in order to go through a [proxy][15]:
+##### Proxy configuration
 
-- `host`: The proxy endpoint for logs not directly forwarded to Datadog (default value: `http-intake.logs.datadoghq.com`).
-- `port`: The proxy port for logs not directly forwarded to Datadog (default value: `80`).
-- `ssl_port`: The port used for logs forwarded with a secure TCP/SSL connection to Datadog (default value: `443`).
-- `use_ssl`: Instructs the Agent to initialize a secure TCP/SSL connection to Datadog (default value: `true`).
-- `no_ssl_validation`: Disables SSL hostname validation (default value: `false`).
+To send logs through a proxy server, use the `http_proxy` parameter:
 
-**Note**: Set `host` and `port` to your region {{< region-param key="http_endpoint" code="true" >}} {{< region-param key="http_port" code="true" >}}.
+```conf
+output {
+   datadog_logs {
+       api_key => "<DATADOG_API_KEY>"
+       http_proxy => "http://<PROXY_SERVER>:3128"
+   }
+}
+```
+
+See the Datadog [Proxy documentation][15] for additional configuration options.
+
+##### Regional endpoint configuration
+
+By default, the plugin sends logs to the Datadog US region. To send logs to a different Datadog region, configure the `host` parameter:
+
+**EU region example:**
 
 ```conf
 output {
@@ -135,6 +148,18 @@ output {
    }
 }
 ```
+
+**Note**: Set `host` to your region: {{< region-param key="http_endpoint" code="true" >}}.
+
+##### Advanced endpoint configuration
+
+You can use additional parameters to customize the Datadog endpoint connection:
+
+- `host`: The Datadog intake endpoint (default value: `http-intake.logs.datadoghq.com`).
+- `port`: The port for HTTP connections (default value: `80`).
+- `ssl_port`: The port used for secure TCP/SSL connections (default value: `443`).
+- `use_ssl`: Initialize a secure TCP/SSL connection to Datadog (default value: `true`).
+- `no_ssl_validation`: Disables SSL hostname validation (default value: `false`).
 
 ##### Add metadata to your logs
 

@@ -1,0 +1,14 @@
+name: aerospike_enterprise
+files:
+- name: aerospike_enterprise.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.enabled: true
+        openmetrics_endpoint.required: true
+        openmetrics_endpoint.value.example: http://127.0.0.1:9145/metrics

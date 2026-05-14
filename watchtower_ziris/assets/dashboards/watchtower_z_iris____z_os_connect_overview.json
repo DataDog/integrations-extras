@@ -1,0 +1,1163 @@
+{
+  "title": "WatchTower z/IRIS -  z/OS Connect Overview",
+  "description": "This dashboard summarizes the performance of z/OS Connect services, i.e. REST APIs. An overview of the key performance metrics highlights activity and errors.\n\nFurther reading:\n- Broadcom's [WatchTower OpenTelemetry z/OS Connect Metrics](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-3/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-z-os-connect-metrics.html) to learn more about the monitoring mainframe CPU utilization and contention.",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2831545235878754,
+            "definition": {
+              "type": "image",
+              "url": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7Bb8ad2e50-7273-4017-8121-aa06e7eb21dc%7D_Broadcom_Logo_Red-Black_no-tag.png",
+              "url_dark_theme": "https://images.sw.broadcom.com/EloquaImages/clients/CAInc2/%7B479f5716-e767-4119-87b7-7e0181490aea%7D_Broadcom_Logo_White_no-tag.png",
+              "sizing": "scale-down",
+              "margin": "md",
+              "has_background": true,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard summarizes key performance indicators of REST APIs hosted on z/OS Connect servers like calls, errors and timeouts. ",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "Further reading:\n\n- Please see WatchTower's [z/IRIS OpenTelemetry z/OS Connect Metrics](https://techdocs.broadcom.com/us/en/ca-mainframe-software/intelligent-operations/watchtower-platform-suite/1-3/reference/z-iris-telemetry/opentelemetry-metrics/opentelemetry-z-os-connect-metrics.html) to learn more about monitoring REST API performance on mainframe.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "z/OS Connect Key Performance Metrics",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4698654642100834,
+            "definition": {
+              "type": "note",
+              "content": "Total number of REST API requests processed z/OS Connect servers.\n\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 2530142959611229,
+            "definition": {
+              "type": "note",
+              "content": "The percentage z/OS Connect REST API requests that failed. A request is considered  failed when the  ***http.response.status_code*** is within the range of ***400 to 599***, e.g.  404.\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 7870388388312153,
+            "definition": {
+              "type": "note",
+              "content": "Triggered monitors relevant to APIs hosted on mainframe. Monitors must  have the tag \"mainframe-apis\"configured be included. \n\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 1
+            }
+          },
+          {
+            "id": 1412979145035409,
+            "definition": {
+              "title": "Request Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1) + default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "count:ziris.http.server.request.duration{$host, $sysplex.name, $server.name, $service}.as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:ziris.zos.connect.http.request.methods{$host, $sysplex.name, $server.name, $service}.rollup(count)",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1710411261509064,
+            "definition": {
+              "title": "Error Percentage",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      },
+                      "formula": "(default_zero(query1) + default_zero(query4) + default_zero(query5)) / (default_zero(query1) + default_zero(query2) + default_zero(query3) + default_zero(query4) + default_zero(query5)) * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "count:ziris.http.server.request.duration{$host, $sysplex.name, $server.name, $service, error.type:*}.rollup(sum, 60).as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host , $sysplex.name , $server.name , $service ,http.response.status_code:4*}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host , $sysplex.name , $server.name , $service ,http.response.status_code:5*}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "count:ziris.http.server.request.duration{$host AND $sysplex.name AND $server.name AND $service AND (NOT error.type:*)}.rollup(sum, 60).as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host , $sysplex.name , $server.name , $service ,http.response.status_code:200}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    },
+                    {
+                      "comparator": "=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3419234784546059,
+            "definition": {
+              "title": "Current API Monitors Status",
+              "type": "manage_status",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": true,
+              "show_status": true,
+              "last_triggered_format": "relative",
+              "query": "tag:mainframe-apis",
+              "sort": "status,asc",
+              "count": 50,
+              "start": 0,
+              "summary_type": "monitors",
+              "show_priority": false,
+              "show_last_triggered": false
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Top 5 request count grouped by API name.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 1350192747891144,
+            "definition": {
+              "type": "note",
+              "content": "Top 5 erroneous request count grouped by API name.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 7183467356638811,
+            "definition": {
+              "title": "Top 5 Request Count by API",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:ziris.http.server.request.duration{$host, $sysplex.name, $server.name, $service , error.type:timeout} by {service.name}.rollup(sum, 60).as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host, $sysplex.name, $server.name, $service, http.response.status_code:408} by {service.name}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:ziris.http.server.request.duration{$host AND $sysplex.name AND $server.name AND $service AND (NOT error.type:*)} by {service.name}.rollup(sum, 60).as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:zos.connect.http.response.codes{$host, $sysplex.name, $server.name, $service, http.response.status_code:2*} by {service.name}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 5,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Timed Out",
+                      "formula": "0 + default_zero(query2) + default_zero(query4)"
+                    },
+                    {
+                      "alias": "Processed",
+                      "formula": "0 + default_zero(query1) + default_zero(query3)"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 7307844277697661,
+            "definition": {
+              "title": "Top 5 Error Count by API",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:ziris.http.server.request.duration{$host AND $sysplex.name AND $server.name AND $service AND (error.type:5* OR error.type:4* )} by {service.name}.rollup(sum, 60).as_count()",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host AND $sysplex.name AND $server.name AND $service AND (NOT http.response.status_code:200 )} by {service.name}.rollup(sum, 60)",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ],
+                    "count": 5
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Errors",
+                      "formula": "default_zero(query2) + default_zero(query1)"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Request Activity",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1690596337036442,
+            "definition": {
+              "type": "note",
+              "content": "The number of requests processed by z/OS Connect servers. Includes requests that timed out or failed on while processing on mainframe. Processed requests complete did not time out but may complete with any status code. Timed out requests are reported by the z/OS connect and can end with a status code 200. ",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 5140523192417013,
+            "definition": {
+              "title": "Request Count Processed by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "processed",
+                      "formula": "default_zero(query1) + default_zero(query3)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "failed",
+                      "formula": "default_zero(query2) + default_zero(query4)",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:ziris.http.server.request.duration{$host AND $sysplex.name AND $server.name AND $service AND (NOT error.type:*)} by {service.name}.rollup(sum, 60).as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host , $sysplex.name , $server.name , $service , $host , http.response.status_code:2*} by {service.name}.rollup(sum, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:ziris.http.server.request.duration{$host AND $sysplex.name AND $server.name AND $service AND (error.type:*)} by {service.name}.rollup(sum, 60).as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "sum:ziris.zos.connect.http.response.codes{$host AND $sysplex.name AND $server.name AND $service AND (NOT http.response.status_code:2*)} by {service.name}.rollup(sum, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 3922920038159311,
+            "definition": {
+              "type": "note",
+              "content": "The number of API requests that did not send a response within the configured timeout value. Timed out requests may complete with a status code of 200. The timeout is reported by the z/OS Connect server.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7453761415107913,
+            "definition": {
+              "title": "Timed Out Count API Requests by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "timed out",
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "request"
+                        }
+                      },
+                      "alias": "timed out",
+                      "formula": "default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:ziris.http.server.request.duration{$host,$sysplex.name,$server.name,$service, error.type:timeout} by {service.name}.rollup(sum, 60).as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:zcon_mainframe_duration{$host,$sysplex.name,$server.name,$service} by {service.name}.rollup(sum, 60).as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5965820412722770,
+            "definition": {
+              "type": "note",
+              "content": "The number of API requests that failed while processing on mainframe. A request is considered failed when the http.server.response_code value is greater with the range 400-500. ",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 5894749274739278,
+            "definition": {
+              "title": "Error Count by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "error"
+                        }
+                      },
+                      "alias": "count",
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "error"
+                        }
+                      },
+                      "alias": "count",
+                      "formula": "default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:ziris.http.server.request.duration{$host , $sysplex.name , $server.name , $service , error.type:*} by {service.name}.rollup(count, 60).as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:zos.connect.http.response.codes{$host AND $sysplex.name AND $server.name AND $service AND (NOT http.response.status_code:2*)} by {service.name}.rollup(count, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "id": 1814988987550839,
+      "definition": {
+        "title": "Response Time",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1250514767888197,
+            "definition": {
+              "type": "note",
+              "content": "Average time spent on z/OS per API request, meaning meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.. This does not included network time to send or receive the request from the client application.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 405841854301089,
+            "definition": {
+              "title": "Avg. Duration on z/OS by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "total",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "alias": "total",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:ziris.zos.connect.elapsed_time{$host, $sysplex.name, $server.name, $service} by {service}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:ziris.http.server.request.duration{$host, $sysplex.name, $server.name, $service} by {service}.rollup(avg, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 3616341517164885,
+            "definition": {
+              "type": "note",
+              "content": "Average time spent in the z/OS Connect server per API request.\nThis represents a subset of the tot time spent on z/OS per API request, meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2061196901805164,
+            "definition": {
+              "title": "Avg. Duration in z/OS Connect Server by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "zcon_server_duration",
+                      "formula": "default_zero(query2)"
+                    },
+                    {
+                      "alias": "zcon_server_duration",
+                      "formula": "default_zero(query1) - default_zero(query3)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:ziris.zos.connect.zcon_elapsed_time{$host, $sysplex.name, $server.name, $service} by {service.name}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:ziris.http.server.request.duration{$host, $sysplex.name, $server.name, $service} by {service.name}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:ziris.zos.connect.sor.request.duration{$host, $sysplex.name, $server.name, $service} by {service.name}.rollup(avg, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 1777729939793909,
+            "definition": {
+              "type": "note",
+              "content": "Average time spent in the system of record (i.e. SOR or service provider) per API request. This represents a subset of the total time spent on z/OS per API request, meaning _time-spent-on-zos = time-spent-in-zosconnect-server + time-spent-in-system-of-record_.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "bottom",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 1744439277684665,
+            "definition": {
+              "title": "Avg. Duration in System-Of-Record by API",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "system_of_record_duration",
+                      "formula": "query1 + query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:ziris.zos.connect.sor.elapsed_time{$host, $sysplex.name, $server.name, $service} by {service.name}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:ziris.zos.connect.sor.request.duration{$host, $sysplex.name, $server.name, $service} by {service.name}.rollup(avg, 60)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "color_order": "shuffled",
+                    "order_reverse": false,
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 46,
+        "width": 12,
+        "height": 13,
+        "is_column_break": true
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "sysplex.name",
+      "prefix": "sysplex.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "server.name",
+      "prefix": "subsystem_name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "service",
+      "prefix": "service",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

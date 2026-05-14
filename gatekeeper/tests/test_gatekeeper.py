@@ -24,7 +24,7 @@ def get_response(filename):
 def mock_audit_metrics():
     text_data = get_response('gatekeeper_audit.txt')
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200, iter_lines=lambda **kwargs: text_data.split("\n"), headers={'Content-Type': "text/plain"}
         ),
@@ -36,7 +36,7 @@ def mock_audit_metrics():
 def mock_controller_metrics():
     text_data = get_response('gatekeeper_controller.txt')
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200, iter_lines=lambda **kwargs: text_data.split("\n"), headers={'Content-Type': "text/plain"}
         ),
@@ -47,7 +47,7 @@ def mock_controller_metrics():
 @pytest.fixture()
 def error_instance():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(status_code=502, headers={'Content-Type': "text/plain"}),
     ):
         yield

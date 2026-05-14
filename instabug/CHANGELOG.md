@@ -1,4 +1,16 @@
-# CHANGELOG - Instabug
+# CHANGELOG - Luciq
+
+## 3.1.0 / 2025-10-10
+
+***Changed***:
+
+* Rebranded integration from Instabug to Luciq, updating company info, contact details, emails, homepage, and documentation accordingly
+
+## 3.0.0 / 2025-09-29
+
+***Changed***:
+
+* Updated App Builder integration blueprint to show new Luciq branding
 
 ## 2.0.0 / 2025-06-20
 

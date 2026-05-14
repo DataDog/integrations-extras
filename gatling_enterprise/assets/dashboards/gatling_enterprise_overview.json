@@ -1,13 +1,14 @@
 {
   "title": "Gatling Enterprise Overview",
-  "description": "This dashboard shows what you can achieve with the Gatling Enterprise Integration. There are 3 groups of metrics:\n\n-   Requests and responses\n-   Response Times with the 95th, 99th, and 99.9th percentiles\n-   Users",
+  "description": "This dashboard shows what you can achieve with the Gatling Enterprise Integration:\n\n-   Events: Injection start and end\n-   Requests and responses: total count and by status\n-   Response Times: 95th, 99th, and 99.9th percentiles\n-   Users: start, end, and concurrent\n-   Bandwidth usage sent and received\n-   TCP: count and time min, max, 95th, 99th, and 99.9th percentiles\n-   TLS: count and time min, max, 95th, 99th, and 99.9th percentiles",
   "widgets": [
     {
       "id": 6992023539648720,
       "definition": {
         "type": "image",
-        "url": "https://auth.gatling.io/auth/resources/z3vg3/login/gatling-enterprise/img/logo.svg",
+        "url": "https://auth.gatling.io/auth/resources/z3vg3/login/gatling-enterprise/img/logo.svg?2025",
         "sizing": "contain",
+        "margin": "md",
         "has_background": true,
         "has_border": true,
         "vertical_align": "center",
@@ -18,6 +19,177 @@
         "y": 0,
         "width": 3,
         "height": 1
+      }
+    },
+    {
+      "id": 7844515273755956,
+      "definition": {
+        "title": "Events - Injection Start & End",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5956783161349360,
+            "definition": {
+              "title": "Events - Injection Start & End",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "events",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "test",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "team",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "run_id",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:gatling-enterprise phase:start"
+                      }
+                    },
+                    {
+                      "data_source": "events",
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "test",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "team",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "run_id",
+                          "limit": 5,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:gatling-enterprise phase:end"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Inject Start",
+                      "style": {
+                        "palette": "green"
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Inject End",
+                      "style": {
+                        "palette": "red"
+                      },
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 9,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 9,
+        "height": 3
+      }
+    },
+    {
+      "id": 7574051825949752,
+      "definition": {
+        "type": "note",
+        "content": "Gatling Enterprise is a load testing platform designed to help teams validate application scalability and performance under real-world traffic conditions.\n\nWith the Datadog integration, teams can investigate performance issues by correlating load test metrics (e.g., response times, throughput, errors) with infrastructure data tracked in Datadog.\n\nThis dashboard shows what you can achieve with the Gatling Enterprise Integration:\n\n- Events: Injection start and end\n- Requests and responses: total count and by status\n- Response Times: 95th, 99th, and 99.9th percentiles\n- Users: start, end, and concurrent\n- Bandwidth usage sent and received\n- TCP: count and time min, max, 95th, 99th, and 99.9th percentiles\n- TLS: count and time min, max, 95th, 99th, and 99.9th percentiles",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "width": 3,
+        "height": 6
       }
     },
     {
@@ -42,31 +214,31 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$load_generator,$status, $run_id} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$test,$load_generator,$status, $run_id} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$start_date,$load_generator,$status} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$load_generator,$status, $run_id} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$start_date,$load_generator,status:ok} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$load_generator,status:ok, $run_id} by {scenario}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$load_generator,$start_date,status:ko} by {scenario}.as_count()",
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,$test,$load_generator,status:ko, $run_id} by {scenario}.as_count()",
                       "aggregator": "sum"
                     }
                   ],
@@ -153,7 +325,7 @@
               "x": 0,
               "y": 0,
               "width": 9,
-              "height": 3
+              "height": 2
             }
           },
           {
@@ -179,12 +351,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ko,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ko,$test,$load_generator, $run_id}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ok,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.response.count{$team,$scenario,status:ok,$test,$load_generator, $run_id}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -219,7 +391,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.request.count{$team,$scenario,$status,$test,$load_generator, $run_id}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -251,7 +423,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 2,
               "width": 9,
               "height": 2
             }
@@ -260,30 +432,9 @@
       },
       "layout": {
         "x": 3,
-        "y": 0,
+        "y": 3,
         "width": 9,
-        "height": 6
-      }
-    },
-    {
-      "id": 7574051825949752,
-      "definition": {
-        "type": "note",
-        "content": "Gatling Enterprise is a load testing platform designed to help teams validate application scalability and performance under real-world traffic conditions.\n\nWith the Datadog integration, teams can investigate performance issues by correlating load test metrics (e.g., response times, throughput, errors) with infrastructure data tracked in Datadog.\n\nThis dashboard shows what you can achieve with the Gatling Enterprise Integration. There are 3 groups of metrics:\n\n- Requests and responses\n- Response Times with the 95th, 99th, and 99.9th percentiles\n- Users ",
-        "background_color": "white",
-        "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "top",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left",
-        "has_padding": true
-      },
-      "layout": {
-        "x": 0,
-        "y": 1,
-        "width": 3,
-        "height": 4
+        "height": 5
       }
     },
     {
@@ -302,7 +453,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 5,
+        "y": 7,
         "width": 3,
         "height": 1
       }
@@ -329,43 +480,43 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query6",
-                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query7",
-                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$start_date,$load_generator} by {scenario}",
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$load_generator, $run_id} by {scenario}",
                       "aggregator": "sum"
                     }
                   ],
@@ -504,12 +655,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$status,$scenario,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.max{$team,$status,$scenario,$test,$load_generator, $run_id}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$status,$scenario,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.min{$team,$status,$scenario,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
@@ -582,20 +733,16 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ok,$test,$load_generator, $run_id}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,status:ko,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
                     {
-                      "style": {
-                        "palette": "green",
-                        "palette_index": 4
-                      },
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -603,6 +750,10 @@
                         }
                       },
                       "alias": "Response time 95% OK",
+                      "style": {
+                        "palette": "green",
+                        "palette_index": 4
+                      },
                       "formula": "query1"
                     },
                     {
@@ -634,7 +785,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p95{$team,$scenario,$status,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
@@ -692,12 +843,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ok,$test,$load_generator, $run_id}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,status:ko,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
@@ -744,7 +895,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p99{$team,$scenario,$status,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
@@ -802,12 +953,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ok,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ok,$test,$load_generator, $run_id}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ko,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,status:ko,$test, $load_generator,$run_id}"
                     }
                   ],
                   "formulas": [
@@ -854,7 +1005,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query0",
-                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$start_date,$load_generator}"
+                      "query": "sum:gatling_enterprise.response.response_time.p999{$team,$scenario,$status,$test,$load_generator, $run_id}"
                     }
                   ],
                   "formulas": [
@@ -893,7 +1044,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 12,
+        "y": 16,
         "width": 12,
         "height": 7
       }
@@ -930,12 +1081,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.user.start_count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.user.start_count{$team,$scenario,$status,$test,$load_generator, $run_id}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:gatling_enterprise.user.end_count{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.user.end_count{$team,$scenario,$status,$test,$load_generator, $run_id}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -945,6 +1096,12 @@
                         "palette_index": 6
                       },
                       "alias": "Users Start",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "user"
+                        }
+                      },
                       "formula": "query1"
                     },
                     {
@@ -953,6 +1110,12 @@
                         "palette_index": 0
                       },
                       "alias": "Users End",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "user"
+                        }
+                      },
                       "formula": "query2"
                     }
                   ],
@@ -997,7 +1160,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:gatling_enterprise.user.concurrent{$team,$scenario,$status,$test,$start_date,$load_generator}.as_count()"
+                      "query": "sum:gatling_enterprise.user.concurrent{$team,$scenario,$status,$test,$load_generator, $run_id}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -1031,7 +1194,765 @@
       },
       "layout": {
         "x": 0,
-        "y": 19,
+        "y": 23,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 8347821457644360,
+      "definition": {
+        "title": "Bandwidth Usage",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 733676650667272,
+            "definition": {
+              "title": "Bandwith Usage Sent",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.bandwidth_usage.sent{$team,$test,$load_generator,$scenario,$status,$run_id}.as_rate()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Bandwidth usage sent",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 5251962229895611,
+            "definition": {
+              "title": "Bandwith Usage Received",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.bandwidth_usage.received{$team,$test,$load_generator,$scenario,$status,$run_id}.as_rate()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Bandwidth usage received",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 28,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 5562462441631967,
+      "definition": {
+        "title": "TCP",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2310197841432413,
+            "definition": {
+              "title": "TCP Connection",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tcp.connection_count{$team,$test,$load_generator,$scenario,$scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP connection count",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 8438041140262721,
+            "definition": {
+              "title": "TCP Open",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling_enterprise.tcp.open_count{$team, $test, $load_generator,$scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP open count",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 7686001084921386,
+            "definition": {
+              "title": "TCP Close",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling_enterprise.tcp.close_count{$team,$test,$load_generator,$scenario,$status,$run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP close count",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 8637363229578208,
+            "definition": {
+              "title": "TCP Connect Time Min & Max",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gatling_enterprise.tcp.connect_time.min{$team,$test,$load_generator,$scenario,$status,$run_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:gatling_enterprise.tcp.connect_time.max{$team,$test,$load_generator,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP connect time min",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "TCP connect time max",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 9,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 7605808499220951,
+            "definition": {
+              "title": "TCP Connect Time P95",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gatling_enterprise.tcp.connect_time.p95{$team,$test,$load_generator,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP connect time 95%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2549274116316753,
+            "definition": {
+              "title": "TCP Connect Time P99",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gatling_enterprise.tcp.connect_time.p99{$team,$test,$load_generator,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP connect time 99%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3476707902769447,
+            "definition": {
+              "title": "TCP Connect Time P99,9",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:gatling_enterprise.tcp.connect_time.p999{$team,$test,$load_generator,$scenario,$status,$run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TCP connect time 99,9%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 31,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 2945935564089150,
+      "definition": {
+        "title": "TLS",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3863596295022350,
+            "definition": {
+              "title": "TLS Handshake",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tls.handshake_count{$team, $load_generator, $test, $scenario, $run_id}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TLS Handshake",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 1198541927538538,
+            "definition": {
+              "title": "TLS Handshake Time Min & Max",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tls.handshake_time.min{$team, $load_generator, $test, $scenario, $run_id}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:gatling_enterprise.tls.handshake_time.max{$team, $load_generator, $test, $scenario, $run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TLS Handshake time Min",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "TLS Handshake time Max",
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 7914978522244174,
+            "definition": {
+              "title": "TLS Handshake Time P95",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tls.handshake_time.p95{$team, $load_generator, $test, $scenario, $run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TLS Handshake time 95%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6084606712524106,
+            "definition": {
+              "title": "TLS Handshake Time P99",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tls.handshake_time.p99{$team, $load_generator, $test, $scenario, $run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TLS Handshake time 99%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4628033526628726,
+            "definition": {
+              "title": "TLS Handshake Time P99,9",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:gatling_enterprise.tls.handshake_time.p999{$team, $load_generator, $test, $scenario, $run_id}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "TLS Handshake time 99,9%",
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 36,
         "width": 12,
         "height": 5
       }
@@ -1049,11 +1970,6 @@
       "default": "*"
     },
     {
-      "name": "start_date",
-      "prefix": "start_date",
-      "default": "*"
-    },
-    {
       "name": "load_generator",
       "prefix": "load_generator",
       "default": "*"
@@ -1066,6 +1982,11 @@
     {
       "name": "status",
       "prefix": "status",
+      "default": "*"
+    },
+    {
+      "name": "run_id",
+      "prefix": "run_id",
       "default": "*"
     }
   ],
@@ -1095,6 +2016,5 @@
       ]
     }
   ],
-  "reflow_type": "fixed",
-  "tags": []
+  "reflow_type": "fixed"
 }

@@ -37,6 +37,77 @@ def instance_org_none():
 
 
 @pytest.fixture()
+def instance_with_profiles():
+    return {
+        'url': 'https://api.cloudsmith.io/v1',
+        'cloudsmith_api_key': 'aaa',
+        'organization': 'cloudsmith',
+        'enable_realtime_bandwidth': False,
+        'bandwidth_interval': 'five_minutes',
+        'bandwidth_profiles': [
+            {
+                'name': 'prod-python',
+                'aggregate': 'bytes_downloaded_sum',
+                'repository': ['production'],
+                'package_format': ['python'],
+            },
+        ],
+    }
+
+
+@pytest.fixture()
+def instance_multi_profiles():
+    return {
+        'url': 'https://api.cloudsmith.io/v1',
+        'cloudsmith_api_key': 'aaa',
+        'organization': 'cloudsmith',
+        'enable_realtime_bandwidth': False,
+        'bandwidth_interval': 'five_minutes',
+        'bandwidth_profiles': [
+            {
+                'name': 'prod-bytes',
+                'aggregate': 'bytes_downloaded_sum',
+            },
+            {
+                'name': 'prod-requests',
+                'aggregate': 'request_count',
+            },
+        ],
+    }
+
+
+@pytest.fixture()
+def analytics_response_bytes():
+    return {
+        'results': [
+            {
+                'dimensions': {'aggregate': 'BYTES_DOWNLOADED_SUM', 'unit': 'bytes'},
+                'timestamps': ['2026-01-01T00:00:00Z', '2026-01-01T00:05:00Z'],
+                'values': [12345, 67890],
+            }
+        ]
+    }
+
+
+@pytest.fixture()
+def analytics_response_requests():
+    return {
+        'results': [
+            {
+                'dimensions': {'aggregate': 'REQUEST_COUNT', 'unit': 'requests'},
+                'timestamps': ['2026-01-01T00:00:00Z', '2026-01-01T00:05:00Z'],
+                'values': [42, 99],
+            }
+        ]
+    }
+
+
+@pytest.fixture()
+def analytics_response_empty():
+    return {'results': []}
+
+
+@pytest.fixture()
 def entitlements_test_json():
     entitlements_json = {
         'tokens': {
@@ -399,3 +470,15 @@ def vuln_policy_violation_resp_good(license_policy_violation_resp):
 @pytest.fixture()
 def members_resp_good(members_resp):
     return members_resp
+
+
+@pytest.fixture()
+def instance_with_realtime():
+    """Instance with org-wide realtime bandwidth enabled, no profiles."""
+    return {
+        'url': 'https://api.cloudsmith.io/v1',
+        'cloudsmith_api_key': 'aaa',
+        'organization': 'cloudsmith',
+        'enable_realtime_bandwidth': True,
+        'bandwidth_interval': 'five_minutes',
+    }

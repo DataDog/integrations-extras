@@ -1,6 +1,5 @@
 from collections import ChainMap
-
-from six.moves.urllib.parse import urlparse
+from urllib.parse import urlparse
 
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
@@ -52,6 +51,7 @@ class RedpandaCheck(OpenMetricsBaseCheckV2):
             'namespace': self.__NAMESPACE__,
             'metrics': metrics,
             'tags': tags,
+            'histogram_buckets_as_distributions': 'true',
             'metadata_label_map': {'version': 'version'},
         }
         config.update(self.instance)

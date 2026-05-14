@@ -22,11 +22,19 @@ INSTANCE = {
 def dd_environment():
     compose_file = os.path.join(get_here(), "docker", "docker-compose.yml")
 
+    E2E_METADATA = {
+        'env_vars': {
+            "DD_APM_PROFILING_DD_URL": "http://localhost:9999/profiles",
+            "DD_APM_ENABLED": "true",
+            "DD_APM_RECEIVER_SOCKET": "/var/run/datadog-apm.socket",
+        },
+        'docker_volumes': ['/var/run/docker.sock:/var/run/docker.sock:ro'],
+    }
+
     # We need to enable the trace-agent for testing since it won't be enabled by
     # default
-    agent_env_vars = {"DD_APM_PROFILING_DD_URL": "http://localhost:9999/profiles", "DD_APM_ENABLED": "true"}
     if os.getenv("GO_PPROF_TEST_UDS"):
-        agent_env_vars["DD_APM_RECEIVER_SOCKET"] = "/var/run/datadog-apm.socket"
+        E2E_METADATA["env_vars"]["DD_APM_RECEIVER_SOCKET"] = "/var/run/datadog-apm.socket"
     with docker_run(
         compose_file,
         endpoints=[URL],
@@ -37,7 +45,7 @@ def dd_environment():
         # we can yield two dictionaries here, where the second one will be
         # configuration for the agent. We need this so we can start the trace
         # agent since it's off by default
-        yield INSTANCE, {"env_vars": agent_env_vars}
+        yield INSTANCE, E2E_METADATA
 
 
 @pytest.fixture

@@ -31,7 +31,7 @@ def mock_micrometer_metrics():
         content = f.read()
 
     with mock.patch(
-        "requests.get",
+        "requests.Session.get",
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: content.split("\n"),
@@ -49,7 +49,7 @@ def mock_prometheus_metrics():
         content = f.read()
 
     with mock.patch(
-        "requests.get",
+        "requests.Session.get",
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: content.split("\n"),

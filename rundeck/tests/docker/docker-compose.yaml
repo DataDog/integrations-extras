@@ -1,0 +1,21 @@
+services:
+  rundeck:
+    image: rundeck/rundeck:${RUNDECK_VERSION}
+    container_name: rundeck_${RUNDECK_VERSION}
+    ports:
+      - "4440:4440"
+    environment:
+      RUNDECK_GRAILS_URL: http://localhost:4440
+      RUNDECK_TOKENS_FILE: /etc/rundeck/tokens.properties
+      RUNDECK_METRICS_ENABLED: "true"
+    volumes:
+      - ./tokens.properties:/etc/rundeck/tokens.properties:ro
+  rundeck-setup:
+    image: curlimages/curl:8.18.0
+    container_name: rundeck_init_${RUNDECK_VERSION}
+    depends_on:
+      - rundeck
+    volumes:
+      - ./jobs.yaml:/tmp/jobs.yaml:ro
+      - ./init-rundeck.sh:/tmp/init-rundeck.sh
+    entrypoint: ["/bin/sh", "/tmp/init-rundeck.sh"]

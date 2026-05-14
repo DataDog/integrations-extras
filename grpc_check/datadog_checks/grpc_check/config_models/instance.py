@@ -35,11 +35,13 @@ class InstanceConfig(BaseModel):
     client_key: Optional[str] = None
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
+    enable_legacy_tags_normalization: Optional[bool] = None
     grpc_server_address: str
     grpc_server_service: Optional[str] = None
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
     rpc_header: Optional[tuple[str, ...]] = None
+    secure_channel: Optional[bool] = None
     service: Optional[str] = None
     tags: Optional[tuple[str, ...]] = None
     timeout: Optional[int] = None

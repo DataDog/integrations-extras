@@ -24,7 +24,7 @@ def get_response(filename):
 def mock_metrics():
     text_data = get_response('open_policy_agent.txt')
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200, iter_lines=lambda **kwargs: text_data.split("\n"), headers={'Content-Type': "text/plain"}
         ),
@@ -35,7 +35,7 @@ def mock_metrics():
 @pytest.fixture()
 def error_metrics():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(status_code=502, headers={'Content-Type': "text/plain"}),
     ):
         yield

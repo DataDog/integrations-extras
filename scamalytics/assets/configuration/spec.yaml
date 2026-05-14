@@ -1,0 +1,49 @@
+name: Scamalytics
+files:
+- name: scamalytics.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: scamalytics_api_url
+      required: true
+      description: The URL to Scamalytics API
+      value:
+        type: string
+        example: http://localhost:8384/api/ 
+    - name: scamalytics_api_key
+      required: true
+      description: The API key for Scamalytics
+      secret: true
+      value:
+        type: string
+        example: PUT-API-KEY-HERE
+    - name: customer_id
+      required: true
+      description: Your Datadog Application Key
+      secret: true
+      value:
+        type: string
+        example: PUT-ID-HERE
+    - name: dd_app_key
+      required: true
+      description: Your Datadog Application Key
+      secret: true
+      value:
+        type: string
+        example: PUT-API-KEY-HERE
+    - name: dd_api_key
+      required: true
+      description: The Datadog Application Key
+      secret: true
+      value:
+        type: string
+        example: PUT-APP-KEY-HERE
+    - template: instances/default
+  - template: logs
+    required: true
+    example:
+      - type: integration
+        source: scamalytics

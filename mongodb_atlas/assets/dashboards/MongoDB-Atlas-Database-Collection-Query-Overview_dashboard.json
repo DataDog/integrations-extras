@@ -14,9 +14,10 @@
           {
             "id": 1906095404858910,
             "definition": {
-              "title": "# of collections",
+              "title": "# of Collections",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -30,7 +31,7 @@
                       "aggregator": "avg",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:mongodb.atlas.dbstats.collections{*}"
+                      "query": "sum:mongodb.atlas.dbstats.collections{$organizationname,$projectname,$clustername,$databasename,$hostnameport,$host,$processstate}"
                     }
                   ],
                   "response_format": "scalar"
@@ -49,21 +50,22 @@
           {
             "id": 3604488985938846,
             "definition": {
-              "title": "avg object size",
+              "title": "Avg Object Size",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte"
                         }
-                      }
+                      },
+                      "formula": "query1"
                     }
                   ],
                   "queries": [
@@ -71,7 +73,7 @@
                       "aggregator": "avg",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:mongodb.atlas.dbstats.avg.object.size{*}"
+                      "query": "avg:mongodb.atlas.dbstats.avg.object.size{$organizationname,$projectname,$clustername,$databasename,$hostnameport,$host,$processstate}"
                     }
                   ],
                   "response_format": "scalar"
@@ -90,21 +92,22 @@
           {
             "id": 8687938053301306,
             "definition": {
-              "title": "index size",
+              "title": "Avg Index Size",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte"
                         }
-                      }
+                      },
+                      "formula": "query1"
                     }
                   ],
                   "queries": [
@@ -112,7 +115,7 @@
                       "aggregator": "avg",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:mongodb.atlas.dbstats.index.size{*}"
+                      "query": "avg:mongodb.atlas.dbstats.index.size{$organizationname,$projectname,$clustername,$databasename,$hostnameport,$host,$processstate}"
                     }
                   ],
                   "response_format": "scalar"
@@ -149,7 +152,7 @@
           {
             "id": 5846352545448276,
             "definition": {
-              "title": "number of read operations at p50, p95 and p99",
+              "title": "Number of Read Operations at p50, p95 and p99",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -161,6 +164,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -182,17 +186,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:mongodb.atlas.latencyStats.reads.p50{*}.as_count()"
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p50{$organizationname,$projectname,$collstats.shardedclustername,$collstats.replicasetname,$databasename,$collectionname,$hostnameport,$processstate,$collstats.namespacehoststate}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:mongodb.atlas.latencyStats.reads.p95{*}.as_count()"
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p95{$organizationname,$projectname,$collstats.shardedclustername,$collstats.replicasetname,$databasename,$collectionname,$hostnameport,$processstate,$collstats.namespacehoststate}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "avg:mongodb.atlas.latencyStats.reads.p99{*}.as_count()"
+                      "query": "avg:mongodb.atlas.latencyStats.reads.p99{$organizationname,$projectname,$collstats.shardedclustername,$collstats.replicasetname,$databasename,$collectionname,$hostnameport,$processstate,$collstats.namespacehoststate}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -254,12 +258,12 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.docs_examined_ratio{*}"
+                      "query": "avg:mongodb.atlas.querystats.docs_examined_ratio{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.keys_examined_ratio{*}"
+                      "query": "avg:mongodb.atlas.querystats.keys_examined_ratio{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}"
                     }
                   ],
                   "formulas": [
@@ -312,17 +316,17 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.docs_examined_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.docs_examined_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.keys_examined_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.keys_examined_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.docs_returned_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.docs_returned_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -379,7 +383,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.last_exec_micros{*}"
+                      "query": "avg:mongodb.atlas.querystats.last_exec_micros{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}"
                     }
                   ],
                   "formulas": [
@@ -428,7 +432,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.working_millis_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.working_millis_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -477,7 +481,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.time_to_response_micros_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.time_to_response_micros_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -526,7 +530,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.exec_count_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.exec_count_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -575,7 +579,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:mongodb.atlas.querystats.bytes_read_sum_total{*}.as_count()"
+                      "query": "avg:mongodb.atlas.querystats.bytes_read_sum_total{$organizationname,$orgid,$projectname,$projectid,$clustername,$databasename,$collectionname,$host,$port,$querystats.processtype,$querystats.queryshapehash,$querystats.keyhash,$querystats.command}.as_count()"
                     }
                   ],
                   "formulas": [
@@ -605,7 +609,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 10,
+        "y": 0,
         "width": 12,
         "height": 11,
         "is_column_break": true
@@ -632,8 +636,8 @@
       "default": "*"
     },
     {
-      "name": "groupid",
-      "prefix": "groupid",
+      "name": "projectid",
+      "prefix": "projectid",
       "available_values": [],
       "default": "*"
     },
@@ -656,6 +660,12 @@
       "default": "*"
     },
     {
+      "name": "hostnameport",
+      "prefix": "hostnameport",
+      "available_values": [],
+      "default": "*"
+    },
+    {
       "name": "host",
       "prefix": "host",
       "available_values": [],
@@ -668,37 +678,49 @@
       "default": "*"
     },
     {
-      "name": "processtype",
-      "prefix": "processtype",
-      "available_values": [],
-      "default": "*"
-    },
-    {
       "name": "processstate",
       "prefix": "processstate",
       "available_values": [],
       "default": "*"
     },
     {
-      "name": "namespacehoststate",
+      "name": "collstats.shardedclustername",
+      "prefix": "shardedclustername",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "collstats.replicasetname",
+      "prefix": "replicasetname",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "collstats.namespacehoststate",
       "prefix": "namespacehoststate",
       "available_values": [],
       "default": "*"
     },
     {
-      "name": "queryshapehash",
+      "name": "querystats.processtype",
+      "prefix": "processtype",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "querystats.queryshapehash",
       "prefix": "queryshapehash",
       "available_values": [],
       "default": "*"
     },
     {
-      "name": "keyhash",
+      "name": "querystats.keyhash",
       "prefix": "keyhash",
       "available_values": [],
       "default": "*"
     },
     {
-      "name": "command",
+      "name": "querystats.command",
       "prefix": "command",
       "available_values": [],
       "default": "*"

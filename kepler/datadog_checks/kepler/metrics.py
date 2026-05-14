@@ -12,7 +12,7 @@ METRIC_MAP = {
     'kepler_container_other_joules': {'name': 'container.usage.other_joules', 'type': 'counter'},
     'kepler_container_gpu_joules': {'name': 'container.usage.gpu_joules', 'type': 'counter'},
     'kepler_container_energy_stat': {'name': 'container.usage.energy_stat', 'type': 'counter'},
-    'kepler_container_bpf_cpu_time_us': {'name': 'ontainer.bpf_cpu_time_us', 'type': 'counter'},
+    'kepler_container_bpf_cpu_time_us': {'name': 'container.bpf_cpu_time_us', 'type': 'counter'},
     'kepler_container_cpu_cycles': {'name': 'container.usage.cpu_cycles', 'type': 'counter'},
     'kepler_container_cpu_instructions': {'name': 'container.usage.cpu_instructions', 'type': 'counter'},
     'kepler_container_cache_miss': {'name': 'container.usage.cache_miss', 'type': 'counter'},

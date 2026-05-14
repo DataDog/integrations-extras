@@ -41,7 +41,7 @@ To connect Datadog with Vercel, enable the integration and select an API Key.
 
 6. Scroll to the bottom of the form and select **Add Integration** to save your changes.
 
-- {{< region-param key="vercel_setup" link="true" text="Configure the Vercel integration" >}}
+[Configure the Vercel integration][7]
 
 ## Data Collected
 

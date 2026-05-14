@@ -1,5 +1,11 @@
 # CHANGELOG - puma
 
+## 2.0.0 / 2026-04-06
+
+***Changed***:
+
+* Bump minimum `datadog-checks-base` version for integrations missed during Python 3.13 compatibility bump ([#2957](https://github.com/DataDog/integrations-extras/pull/2957))
+
 ## 1.3.0 / 2025-07-19
 
 * Add busy_threads metric to Puma integration ([#2697](https://github.com/DataDog/integrations-extras/pull/2697)).

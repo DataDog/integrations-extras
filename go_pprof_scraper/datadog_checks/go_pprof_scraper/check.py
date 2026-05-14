@@ -2,6 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import datetime
+import os
 import socket
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -74,6 +75,10 @@ class GoPprofScraperCheck(AgentCheck):
         self.tags = self.instance.get("tags", [])
         self.tags.extend(self.init_config.get("tags", []))
 
+        # Track which upload method is working to avoid unnecessary retries
+        # None = not determined yet, "unix" = use Unix socket, "tcp" = use TCP
+        self._preferred_upload_method = None
+
     def _get_apm_config(self):
         self.apm_enabled = bool(datadog_agent.get_config("apm_config.enabled"))
         if not self.apm_enabled:
@@ -88,12 +93,28 @@ class GoPprofScraperCheck(AgentCheck):
         # GO_PPROF_TEST_UDS environment variable defined so that the agent will
         # listen over UDS rather than TCP, e.g.
         #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
-        self.trace_agent_socket = datadog_agent.get_config("apm_config.receiver_socket")
-        if self.trace_agent_socket:
-            # requets_unixsocket expects the path to be URL-encoded. We pass
-            # safe="" to quote so that the "/" are escaped.
-            path = quote(self.trace_agent_socket, safe="")
-            self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(path)
+        socket_path = datadog_agent.get_config("apm_config.receiver_socket")
+        self.trace_agent_socket = None
+
+        if socket_path:
+            # Check if the socket file exists
+            # If it exists, we'll try to use it. If the connection fails, we'll fall back to TCP.
+            if os.path.exists(socket_path):
+                # requets_unixsocket expects the path to be URL-encoded. We pass
+                # safe="" to quote so that the "/" are escaped.
+                path = quote(socket_path, safe="")
+                self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(path)
+                self.log.debug("Unix socket exists at %s, will attempt to use it", socket_path)
+            else:
+                # Socket path is configured but file doesn't exist
+                # This is likely the case where the agent has a default socket path
+                # but is actually running in TCP mode
+                self.log.debug(
+                    "Trace agent socket path '%s' is configured but file does not exist. "
+                    "Will try TCP connection on port %s",
+                    socket_path,
+                    self.trace_agent_port,
+                )
 
     def _get_profile(self, profile):
         query_params = {}
@@ -168,16 +189,70 @@ class GoPprofScraperCheck(AgentCheck):
             # TODO: container ID? If we can get it, it should be added as a
             # "Datadog-Container-ID" header to the request.
 
-            if self.trace_agent_socket:
-                # If modifying UDS-related code, run the end-to-end tests with
-                # the GO_PPROF_TEST_UDS environment variable defined so that
-                # the agent will listen over UDS rather than TCP, e.g.
-                #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
-                session = requests_unixsocket.Session()
-                r = session.post(self.trace_agent_socket, files=files)
-            else:
+            # Try Unix socket first if:
+            # 1. It's configured (socket exists)
+            # 2. We haven't determined a preference yet OR we know Unix socket works
+            last_error = None
+            should_try_unix = self.trace_agent_socket and (
+                self._preferred_upload_method is None or self._preferred_upload_method == "unix"
+            )
+
+            if should_try_unix:
+                try:
+                    # If modifying UDS-related code, run the end-to-end tests with
+                    # the GO_PPROF_TEST_UDS environment variable defined so that
+                    # the agent will listen over UDS rather than TCP, e.g.
+                    #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
+                    session = requests_unixsocket.Session()
+                    r = session.post(self.trace_agent_socket, files=files)
+                    r.raise_for_status()
+                    self._preferred_upload_method = "unix"
+                    self.log.debug("Successfully uploaded profiles via Unix socket")
+                    # Success - no need to try TCP
+                    self.service_check("can_connect", AgentCheck.OK, tags=[])
+                    return
+                except (ConnectionError, FileNotFoundError) as e:
+                    # Remember that Unix socket doesn't work, use TCP from now on
+                    self._preferred_upload_method = "tcp"
+                    self.log.info(
+                        "Unix socket connection failed (%s), will use TCP on port %s for future uploads: %s",
+                        self.trace_agent_socket,
+                        self.trace_agent_port,
+                        e,
+                    )
+                    last_error = e
+                    # Continue to TCP fallback
+                except Exception as e:
+                    # For unexpected errors, don't cache the preference - might be transient
+                    self.log.warning(
+                        "Unexpected error with Unix socket (%s), falling back to TCP on port %s: %s",
+                        self.trace_agent_socket,
+                        self.trace_agent_port,
+                        e,
+                    )
+                    last_error = e
+                    # Continue to TCP fallback
+
+            # Try TCP (either Unix socket failed or wasn't attempted)
+            try:
                 r = self.http.post(self.trace_agent_url, files=files)
-            r.raise_for_status()
+                r.raise_for_status()
+                # Cache TCP as the working method
+                self._preferred_upload_method = "tcp"
+                self.log.debug("Successfully uploaded profiles via TCP")
+                self.service_check("can_connect", AgentCheck.OK, tags=[])
+                return
+            except Exception as e:
+                # If both Unix socket and TCP failed, raise the most recent error
+                if last_error:
+                    self.log.error(
+                        "Failed to upload profiles via both Unix socket and TCP. "
+                        "Unix socket error: %s, TCP error: %s. "
+                        "Please check that the Datadog Agent's APM receiver is running and accessible.",
+                        last_error,
+                        e,
+                    )
+                raise
         except Timeout as e:
             self.service_check(
                 "can_connect",
@@ -199,8 +274,3 @@ class GoPprofScraperCheck(AgentCheck):
                 message="Request failed: {}, {}".format(self.url, e),
             )
             raise
-
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        self.service_check("can_connect", AgentCheck.OK, tags=[])

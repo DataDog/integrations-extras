@@ -1,0 +1,17 @@
+name: Grafana
+files:
+- name: grafana.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.enabled: true
+        openmetrics_endpoint.required: true
+        openmetrics_endpoint.value.example: http://127.0.0.1:3000/metrics
+        extra_metrics.value.example:
+          - grafana_alerting_alertmanager_alerts: alerting.alertmanager_alerts
+          - grafana_database_conn_idle: database.conn_idle

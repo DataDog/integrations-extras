@@ -1,0 +1,41 @@
+id: ziris
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
+metric_id: ziris
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
+backend_only: false
+facets: null
+pipeline:
+  type: pipeline
+  name: Broadcom WatchTower z/IRIS
+  enabled: true
+  filter:
+    query: source:ziris
+  processors:
+    - type: status-remapper
+      name: Map `severityText` to status
+      enabled: true
+      sources:
+        - otel.severity_text
+    - type: attribute-remapper
+      name: Map `otel.timestamp` to `timestamp_nano`
+      enabled: true
+      sources:
+        - otel.timestamp
+      sourceType: attribute
+      target: timestamp_nano
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: arithmetic-processor
+      name: Convert `timestamp.nano` to `timestamp_ms`
+      enabled: true
+      expression: (timestamp_nano / 1000000)
+      target: timestamp_ms
+      replaceMissing: false
+    - type: date-remapper
+      name: Define `timestamp_ms` as the official date of the log
+      enabled: true
+      sources:
+        - timestamp_ms

@@ -24,7 +24,7 @@ PUMP_PORT = 8250
 @pytest.fixture()
 def mock_tidb_metrics():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: _get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
@@ -37,7 +37,7 @@ def mock_tidb_metrics():
 @pytest.fixture()
 def mock_tiflash_metrics():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: _get_mock_metrics("mock_tiflash_metrics.txt").split("\n"),
@@ -50,7 +50,7 @@ def mock_tiflash_metrics():
 @pytest.fixture()
 def mock_tiflash_proxy_metrics():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: _get_mock_metrics("mock_tiflash_proxy_metrics.txt").split("\n"),
@@ -63,7 +63,7 @@ def mock_tiflash_proxy_metrics():
 @pytest.fixture()
 def mock_tikv_metrics():
     with mock.patch(
-        'requests.get',
+        'requests.Session.get',
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: _get_mock_metrics("mock_tikv_metrics.txt").split("\n"),

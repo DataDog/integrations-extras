@@ -1,0 +1,527 @@
+{
+  "title": "Redis Enterprise Prometheus - Active-Active",
+  "description": "The Redis Enterprise Active Active Dashboard displays metrics reported by cloud clusters with Active-Active replication. These metrics include CRDT status, CRDT syncer Ingress and Egress, the syncer's lag, as well as the number of merge requests.",
+  "widgets": [
+    {
+      "id": 5338077515289658,
+      "definition": {
+        "title": "CRDT Status",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 12,
+            "definition": {
+              "title": "CRDT Status",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_current_status{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": "=",
+                      "palette": "white_on_green",
+                      "value": 0
+                    },
+                    {
+                      "comparator": "=",
+                      "palette": "white_on_yellow",
+                      "value": 1
+                    },
+                    { "comparator": "=", "palette": "white_on_red", "value": 2 }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 5786053420244466,
+            "definition": {
+              "title": "CRDT Lag",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse2.database_syncer_dst_lag{*}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 27,
+            "definition": {
+              "title": "CRDT Backlog",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_rdb_size{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 22,
+            "definition": {
+              "title": "Raw DB Size",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_src_repl_offset{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 6, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 632197500900202,
+            "definition": {
+              "title": "Last Source Offset",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse2.database_syncer_src_repl_offset{*}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 8, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 576761704505236,
+            "definition": {
+              "title": "Panding Garbage Collection",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse2.database_syncer_syncer_repl_offset{*}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": { "type": "area" }
+            },
+            "layout": { "x": 10, "y": 0, "width": 2, "height": 3 }
+          },
+          {
+            "id": 6950044907570933,
+            "definition": {
+              "type": "note",
+              "title": "About This Active Active Dashboard",
+              "content": "The Redis Enterprise Shard Dashboard is used to visualize metrics at the shard level. In Redis Enterprise Software, the shard is the lowest single level of abstraction tracked by metrics. Key metrics such as memory usage, connection count, cpu utilization are all tracked by this dashboard.\n \nPlease note, in order to view the metrics in this dashboard you must enable `REDIS2.REPLICATION` in the `extra_metrics` section of the integration configuration.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 3, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 6 }
+    },
+    {
+      "id": 6467914020292219,
+      "definition": {
+        "title": "CRDT Network",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 21,
+            "definition": {
+              "title": "CRDT Ingress",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_ingress_bytes{*} by {cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 3 }
+          },
+          {
+            "id": 5,
+            "definition": {
+              "title": "CRDT Ingress (De-compressed)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_ingress_bytes_decompressed{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 3 }
+          },
+          {
+            "id": 20,
+            "definition": {
+              "title": "CRDT Egress (De-compressed)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_ingress_bytes_decompressed{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 3, "width": 4, "height": 3 }
+          },
+          {
+            "id": 24,
+            "definition": {
+              "title": "RDB Transferred",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte_in_binary_bytes_family"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_rdb_transferred{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 3, "width": 4, "height": 3 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 3974187369176274,
+      "definition": {
+        "title": "CRDT Lag and Ops",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5737812407193496,
+            "definition": {
+              "title": "CRDT Ingress Sync Lag",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse2.database_syncer_dst_lag{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 3 }
+          },
+          {
+            "id": 29,
+            "definition": {
+              "title": "CRDT Merge Requests",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse2.database_syncer_internal_state{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 3, "width": 4, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 0, "width": 4, "height": 7 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "cluster",
+      "prefix": "cluster",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

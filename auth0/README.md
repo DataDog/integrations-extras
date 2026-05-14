@@ -5,7 +5,7 @@
 Auth0 is an identity platform for development teams which provides developers and enterprises with the building blocks they need to secure their applications.
 
 
-This integration leverages Auth0's Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
+This integration leverages Auth0's Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions. The integration also collects metrics to provide insight into API usage.
 
 ### Key use cases
 
@@ -22,6 +22,10 @@ By tracking identity trends over time, teams can make informed decisions about p
 Identity information can be used to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
 
 By configuring thresholds, security teams can set up alerts to notify them when suspicious events take place, allowing them to more quickly respond to security incidents.
+
+#### Understand API usage trends
+
+Use the `auth0.api_request.count` metric to monitor Auth0 API usage patterns and trends.
 
 ## Setup
 
@@ -50,6 +54,8 @@ View logs in Datadog:
 
 1. Navigate to **Logs** > **Livetail**.
 2. See Auth0 logs by setting `source:auth0`.
+3. Navigate to **Metrics** > **Explorer**.
+4. Verify the `auth0.api_request.count` metric is being collected.
 
 ## Data Collected
 
@@ -59,7 +65,7 @@ Auth0 logs are collected and sent to Datadog. The types of logs that could be re
 
 ### Metrics
 
-auth0 does not include any metrics.
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -80,3 +86,4 @@ Read more about this integration in our [blog post][6].
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
 [6]: https://www.datadoghq.com/blog/monitor-auth0-with-datadog/
 [7]: https://docs.datadoghq.com/getting_started/site/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/auth0/metadata.csv
