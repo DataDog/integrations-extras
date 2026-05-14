@@ -145,7 +145,6 @@ spec:
 ```
 
 At this point, the Datadog Agent is configured to scrape Portworx metrics and the Portworx, Stork, and Autopilot pods are annotated for Autodiscovery.
-You can verify the Agent is scraping metrics by running `kubectl exec <datadog-agent-pod> -n datadog-ns -- agent status` and looking for `portworx` in the `Checks` section.
 
 To configure rules, see the [Autopilot documentation][12].
 
