@@ -4,6 +4,7 @@ import time
 from unittest.mock import MagicMock, patch
 
 import pytest
+
 from datadog_checks.base import ConfigurationError
 from datadog_checks.eden import EdenCheck
 
