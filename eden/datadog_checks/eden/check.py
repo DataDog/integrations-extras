@@ -24,15 +24,17 @@ ALL_GROUPS = (
     "workload",
 )
 
-INTERNAL_LABELS = frozenset({
-    "positive_offset",
-    "negative_offset",
-    "scale",
-    "zero_count",
-    "bucket_bounds",
-    "bucket_counts",
-    "eden_node_uuid",
-})
+INTERNAL_LABELS = frozenset(
+    {
+        "positive_offset",
+        "negative_offset",
+        "scale",
+        "zero_count",
+        "bucket_bounds",
+        "bucket_counts",
+        "eden_node_uuid",
+    }
+)
 
 
 class EdenCheck(AgentCheck):
@@ -46,8 +48,7 @@ class EdenCheck(AgentCheck):
             raise ConfigurationError("`url` is required in eden.yaml")
 
         groups = instance.get("metric_groups") or list(ALL_GROUPS)
-        range_seconds = int(instance.get("range_seconds")
-                            or DEFAULT_RANGE_SECONDS)
+        range_seconds = int(instance.get("range_seconds") or DEFAULT_RANGE_SECONDS)
         limit = int(instance.get("limit") or DEFAULT_LIMIT)
         base_tags = list(instance.get("tags") or [])
         self._validate_robot_config(instance)
@@ -59,8 +60,7 @@ class EdenCheck(AgentCheck):
 
         try:
             token = self._get_token(instance)
-            headers = {"Authorization": f"Bearer {token}",
-                       "Accept": "application/json"}
+            headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
             for group in groups:
                 self._fetch_group(
                     endpoint,
@@ -74,8 +74,7 @@ class EdenCheck(AgentCheck):
                     base_tags,
                 )
         except Exception as exc:
-            self.service_check(
-                SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=str(exc), tags=base_tags)
+            self.service_check(SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=str(exc), tags=base_tags)
             return
 
         self.service_check(SERVICE_CHECK_NAME, AgentCheck.OK, tags=base_tags)
@@ -97,13 +96,11 @@ class EdenCheck(AgentCheck):
                 params["from"] = last_seen
                 params["to"] = now_iso
 
-            response = self.http.get(
-                endpoint, params=params, extra_headers=headers.copy())
+            response = self.http.get(endpoint, params=params, extra_headers=headers.copy())
             if getattr(response, "status_code", None) == 401:
                 token = self._login(instance, force=True)
                 headers["Authorization"] = f"Bearer {token}"
-                response = self.http.get(
-                    endpoint, params=params, extra_headers=headers.copy())
+                response = self.http.get(endpoint, params=params, extra_headers=headers.copy())
             response.raise_for_status()
 
             rows = response.json().get("rows", [])
@@ -165,7 +162,7 @@ class EdenCheck(AgentCheck):
             try:
                 scale = int(row.get("labels", {}).get("scale", 0))
                 offset = int(row.get("labels", {}).get("positive_offset", 0))
-                base = 2.0 ** (2.0 ** -scale)
+                base = 2.0 ** (2.0**-scale)
                 bounds = [base ** (offset + i + 1) for i in range(len(counts))]
             except (ValueError, TypeError):
                 bounds = []
@@ -208,10 +205,10 @@ class EdenCheck(AgentCheck):
         body = name
         for token in (scope, scope.replace(".", "_"), group, "eden." + group):
             if token and body.startswith(token + "_"):
-                body = body[len(token) + 1:]
+                body = body[len(token) + 1 :]
                 break
             if token and body.startswith(token + "."):
-                body = body[len(token) + 1:]
+                body = body[len(token) + 1 :]
                 break
 
         if scope and body:
@@ -236,8 +233,7 @@ class EdenCheck(AgentCheck):
         cache_key = self._auth_cache_key(instance)
         cached = self._auth_cache.get(cache_key) or {}
         now = time.time()
-        refresh_window = int(instance.get(
-            "token_refresh_window_seconds") or DEFAULT_TOKEN_REFRESH_WINDOW_SECONDS)
+        refresh_window = int(instance.get("token_refresh_window_seconds") or DEFAULT_TOKEN_REFRESH_WINDOW_SECONDS)
         expires_at = cached.get("expires_at")
 
         if cached.get("token") and (expires_at is None or expires_at - refresh_window > now):
@@ -273,11 +269,9 @@ class EdenCheck(AgentCheck):
 
     def _validate_robot_config(self, instance):
         if not (instance.get("org_id") or instance.get("org_uuid")):
-            raise ConfigurationError(
-                "`org_id` or `org_uuid` is required in eden.yaml")
+            raise ConfigurationError("`org_id` or `org_uuid` is required in eden.yaml")
         if not (instance.get("robot_username") and instance.get("robot_api_key")):
-            raise ConfigurationError(
-                "`robot_username` and `robot_api_key` are required in eden.yaml")
+            raise ConfigurationError("`robot_username` and `robot_api_key` are required in eden.yaml")
 
     def _auth_cache_key(self, instance):
         return (
@@ -296,16 +290,14 @@ class EdenCheck(AgentCheck):
     def _extract_token(self, payload):
         token = payload.get("token")
         if not token:
-            raise ConfigurationError(
-                "Eden login response did not include a JWT token")
+            raise ConfigurationError("Eden login response did not include a JWT token")
         return token
 
     def _token_expiry(self, token):
         try:
             payload = token.split(".")[1]
             payload += "=" * (-len(payload) % 4)
-            claims = json.loads(base64.urlsafe_b64decode(
-                payload.encode("ascii")).decode("utf-8"))
+            claims = json.loads(base64.urlsafe_b64decode(payload.encode("ascii")).decode("utf-8"))
             return int(claims["exp"])
         except Exception:
             return None

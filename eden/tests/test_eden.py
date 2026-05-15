@@ -4,7 +4,6 @@ import time
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from datadog_checks.base import ConfigurationError
 from datadog_checks.eden import EdenCheck
 
@@ -177,7 +176,7 @@ def test_emit_rows_submits_histogram_buckets_otel_shape(aggregator, instance):
             "count": 7,
             "sum": 1234.0,
             "bucket_bounds": [10.0, 100.0, 1000.0],  # 3 bounds
-            "bucket_counts": [3, 2, 1, 1],            # 4 counts (overflow at end)
+            "bucket_counts": [3, 2, 1, 1],  # 4 counts (overflow at end)
             "labels": {},
         }
     ]
@@ -314,7 +313,10 @@ def test_metric_name_matches_dogstatsd(instance):
         check._metric_name({"group": "analytics", "scope": "analytics", "metric_name": "analytics_active_endpoints"})
         == "eden.analytics.active_endpoints"
     )
-    assert check._metric_name({"group": "eden", "scope": "eden", "metric_name": "eden_request_count"}) == "eden.request_count"
+    assert (
+        check._metric_name({"group": "eden", "scope": "eden", "metric_name": "eden_request_count"})
+        == "eden.request_count"
+    )
     assert (
         check._metric_name({"group": "proxy", "scope": "proxy", "metric_name": "proxy_lane_pool_waiters"})
         == "eden.proxy.lane_pool_waiters"
@@ -322,11 +324,15 @@ def test_metric_name_matches_dogstatsd(instance):
 
     # Endpoint subgroup: scope == "eden.endpoint", metric_name = "eden.endpoint_<rest>" -> "eden.endpoint.<rest>"
     assert (
-        check._metric_name({"group": "endpoint", "scope": "eden.endpoint", "metric_name": "eden.endpoint_total_requests"})
+        check._metric_name(
+            {"group": "endpoint", "scope": "eden.endpoint", "metric_name": "eden.endpoint_total_requests"}
+        )
         == "eden.endpoint.total_requests"
     )
     assert (
-        check._metric_name({"group": "endpoint", "scope": "eden.endpoint", "metric_name": "eden.endpoint_active_requests"})
+        check._metric_name(
+            {"group": "endpoint", "scope": "eden.endpoint", "metric_name": "eden.endpoint_active_requests"}
+        )
         == "eden.endpoint.active_requests"
     )
 
@@ -391,8 +397,22 @@ def test_check_paginates_until_short_page(aggregator, instance):
     full_page.raise_for_status.return_value = None
     full_page.json.return_value = {
         "rows": [
-            {"group": "proxy", "scope": "proxy", "metric_name": "proxy_a", "metric_kind": "gauge", "value": 1, "labels": {}},
-            {"group": "proxy", "scope": "proxy", "metric_name": "proxy_b", "metric_kind": "gauge", "value": 2, "labels": {}},
+            {
+                "group": "proxy",
+                "scope": "proxy",
+                "metric_name": "proxy_a",
+                "metric_kind": "gauge",
+                "value": 1,
+                "labels": {},
+            },
+            {
+                "group": "proxy",
+                "scope": "proxy",
+                "metric_name": "proxy_b",
+                "metric_kind": "gauge",
+                "value": 2,
+                "labels": {},
+            },
         ]
     }
     short_page = MagicMock()
@@ -400,7 +420,14 @@ def test_check_paginates_until_short_page(aggregator, instance):
     short_page.raise_for_status.return_value = None
     short_page.json.return_value = {
         "rows": [
-            {"group": "proxy", "scope": "proxy", "metric_name": "proxy_c", "metric_kind": "gauge", "value": 3, "labels": {}},
+            {
+                "group": "proxy",
+                "scope": "proxy",
+                "metric_name": "proxy_c",
+                "metric_kind": "gauge",
+                "value": 3,
+                "labels": {},
+            },
         ]
     }
     pages = iter([full_page, short_page])
