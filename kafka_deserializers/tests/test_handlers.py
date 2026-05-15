@@ -1,6 +1,8 @@
 # (C) Datadog, Inc. 2026-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
+import base64
+import datetime
 import json
 import logging
 
@@ -237,3 +239,102 @@ def test_protobuf_msgpack_nested_fields_decoded(proto_msgpack_handler, log):
     parsed = json.loads(out)
     assert parsed['payload'] == payload_inner
     assert parsed['inner']['details'] == details_inner
+
+
+# --- Coverage top-ups for ProtobufMsgpackHandler ---------------------------
+
+
+def test_msgpack_json_encoder_datetime_and_bytes(handler, log):
+    """_MsgpackJSONEncoder branches: bytes -> base64, timestamp ext -> isoformat."""
+    import msgpack
+
+    payload = msgpack.packb(
+        {'when': datetime.datetime(2025, 1, 2, 3, 4, 5, tzinfo=datetime.timezone.utc), 'blob': b'\xff\x00'},
+        datetime=True,
+        use_bin_type=True,
+    )
+    out = handler.deserialize(payload, None, log=log, uses_schema_registry=False)
+    parsed = json.loads(out)
+    assert parsed['blob'] == base64.b64encode(b'\xff\x00').decode('ascii')
+    assert '2025-01-02T03:04:05' in parsed['when']
+
+
+def test_protobuf_msgpack_build_schema_from_registry(proto_msgpack_handler, log):
+    """build_schema_from_registry wraps the host call with msgpack_fields."""
+    import base64 as _b64
+
+    from google.protobuf import descriptor_pb2
+
+    fd = descriptor_pb2.FileDescriptorProto()
+    fd.name = 'envelope.proto'
+    fd.syntax = 'proto3'
+    fd.package = 'test'
+    msg = fd.message_type.add()
+    msg.name = 'Envelope'
+    f = msg.field.add()
+    f.name = 'message'
+    f.number = 1
+    f.type = descriptor_pb2.FieldDescriptorProto.TYPE_BYTES
+    f.label = descriptor_pb2.FieldDescriptorProto.LABEL_OPTIONAL
+    f = msg.field.add()
+    f.name = 'org_id'
+    f.number = 2
+    f.type = descriptor_pb2.FieldDescriptorProto.TYPE_INT32
+    f.label = descriptor_pb2.FieldDescriptorProto.LABEL_OPTIONAL
+
+    single_b64 = _b64.b64encode(fd.SerializeToString()).decode('ascii')
+    wrapper = json.dumps({'schema': single_b64, 'msgpack_fields': ['test.Envelope.message']})
+    schema = proto_msgpack_handler.build_schema_from_registry(wrapper, [])
+    assert isinstance(schema, tuple)
+    assert 'test.Envelope.message' in schema[1]
+
+
+def test_protobuf_msgpack_uses_schema_registry_path(proto_msgpack_handler, log):
+    """uses_schema_registry=True reads varint message-indices prefix."""
+    import msgpack
+
+    schema_b64 = _build_envelope_descriptor_b64()
+    inner = {'k': 'v'}
+    body = _encode_envelope(msgpack.packb(inner, use_bin_type=True), org_id=7)
+    framed = b'\x00' + body  # array_len=0 varint, then the body
+
+    schema_str = json.dumps({'schema': schema_b64, 'msgpack_fields': ['test.Envelope.message']})
+    schema = proto_msgpack_handler.build_schema(schema_str)
+    out = proto_msgpack_handler.deserialize(framed, schema, log=log, uses_schema_registry=True)
+    parsed = json.loads(out)
+    assert parsed['org_id'] == 7
+    assert parsed['message'] == inner
+
+
+def test_protobuf_msgpack_non_bytes_field_raises(proto_msgpack_handler, log):
+    """msgpack_fields pointing at a non-bytes field surfaces a clear error."""
+    import msgpack
+
+    schema_b64 = _build_envelope_descriptor_b64()
+    payload = _encode_envelope(msgpack.packb({'a': 1}, use_bin_type=True), org_id=99)
+    schema_str = json.dumps({'schema': schema_b64, 'msgpack_fields': ['test.Envelope.org_id']})
+    schema = proto_msgpack_handler.build_schema(schema_str)
+    with pytest.raises(ValueError, match='non-bytes'):
+        proto_msgpack_handler.deserialize(payload, schema, log=log, uses_schema_registry=False)
+
+
+def test_protobuf_msgpack_empty_returns_none(proto_msgpack_handler, log):
+    schema_b64 = _build_envelope_descriptor_b64()
+    schema_str = json.dumps({'schema': schema_b64, 'msgpack_fields': []})
+    schema = proto_msgpack_handler.build_schema(schema_str)
+    assert proto_msgpack_handler.deserialize(b'', schema, log=log, uses_schema_registry=False) is None
+
+
+def test_protobuf_msgpack_no_msgpack_fields_skips_walk(proto_msgpack_handler, log):
+    """Empty msgpack_fields means MessageToDict output is returned as-is."""
+    import msgpack
+
+    schema_b64 = _build_envelope_descriptor_b64()
+    payload = _encode_envelope(msgpack.packb({'a': 1}, use_bin_type=True), org_id=1)
+    schema_str = json.dumps({'schema': schema_b64, 'msgpack_fields': []})
+    schema = proto_msgpack_handler.build_schema(schema_str)
+    out = proto_msgpack_handler.deserialize(payload, schema, log=log, uses_schema_registry=False)
+    parsed = json.loads(out)
+    # The bytes field stays base64-encoded since we didn't decode it
+    assert parsed['org_id'] == 1
+    assert isinstance(parsed['message'], str)
