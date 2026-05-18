@@ -134,6 +134,29 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />)
 ```
 
+## TanStack Router integration
+
+[TanStack Router][14] is a typesafe router for React. To track route changes with the Datadog RUM Browser SDK, first initialize the `reactPlugin` with the `router: true` option, then replace `createRouter` from `@tanstack/react-router` with its equivalent from `@datadog/browser-rum-react/tanstack-router`. Example:
+
+```javascript
+import { RouterProvider } from '@tanstack/react-router'
+import { datadogRum } from '@datadog/browser-rum'
+import { reactPlugin } from '@datadog/browser-rum-react'
+// Use "createRouter" from @datadog/browser-rum-react/tanstack-router instead of @tanstack/react-router:
+import { createRouter } from '@datadog/browser-rum-react/tanstack-router'
+
+datadogRum.init({
+  ...
+  plugins: [reactPlugin({ router: true })],
+})
+
+const router = createRouter({ routeTree })
+
+ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />)
+```
+
+RUM creates a new view on every path change. The view name uses the route's `fullPath` template, so navigating to `/posts/42` is reported as `/posts/$postId`. Catch-all (splat) segments are replaced with the matched path, so `/files/$` with `_splat = "path/to/file"` becomes `/files/path/to/file`. Query string changes do not create a new view.
+
 ## Go further with Datadog React integration
 
 ### Traces
@@ -171,3 +194,4 @@ Additional helpful documentation, links, and articles:
 [11]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [12]: https://docs.datadoghq.com/help/
 [13]: https://www.datadoghq.com/blog/datadog-rum-react-components/
+[14]: https://tanstack.com/router/latest
