@@ -12,9 +12,7 @@ The check executes `chronyc tracking` command and parses the output to extract k
 
 To install the chrony check for development testing:
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
+1. Install the [developer toolkit][5] on any machine.
 2. Run `ddev release build chrony` to build the package.
 3. [Download the Datadog Agent][2].
 4. Upload the build artifact to a host with an Agent and run:
@@ -49,15 +47,7 @@ You should see the service check `chrony.can_connect` report `OK` when the `chro
 
 ### Metrics
 
-- **`chrony.stratum`**: NTP stratum level (unitless)
-- **`chrony.systime`**: System time offset from NTP time (seconds)
-- **`chrony.frequency`**: Frequency offset (unitless, ppm)
-- **`chrony.residualfreq`**: Residual frequency (unitless, ppm)
-- **`chrony.skew`**: Skew (unitless, ppm)
-- **`chrony.rootdelay`**: Root delay (seconds)
-- **`chrony.rootdispersion`**: Root dispersion (seconds)
-
-## Service Checks
+### Service Checks
 
 - **`chrony.can_connect`**: Returns `OK` if chronyc command executes successfully, `CRITICAL` otherwise
 
@@ -73,4 +63,4 @@ Need help? Contact [Datadog support][3].
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/chrony/datadog_checks/chrony/data/conf.yaml.example
-
+[5]: https://docs.datadoghq.com/developers/integrations/python/
