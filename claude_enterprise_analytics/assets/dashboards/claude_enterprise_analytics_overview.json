@@ -1,0 +1,2315 @@
+{
+  "title": "Claude Enterprise Analytics \u2014 Usage and Costs Overview",
+  "description": "Monitor Claude usage, token consumption, cache effectiveness, and associated costs.\n\n**Each metric represents one day's totals** from Anthropic's Claude Enterprise Analytics API (3-day data lag). Use the `$report_date` template variable to pin to a specific day; leaving it as `*` shows the sum across **every polled day**, which is typically not what you want.\n\n**Costs are at list price.** `amount` equals `list_amount` in every API response, so the actual enterprise invoice may differ substantially from what's shown here. Cost values were originally returned in cents and converted to USD on the way into Datadog.\n\nMirror of Anthropic's reference 'Usage and Costs' dashboard, wired to the metrics published by typeform/tools/datadog-anthropic-analytics. Unofficial \u2014 not affiliated with Anthropic, PBC.",
+  "widgets": [
+    {
+      "id": 1001,
+      "definition": {
+        "title": "Daily Spend (USD, list price)",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "q",
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit",
+                    "unit_name": "dollar"
+                  }
+                }
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "q",
+                "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$model,$product,$user_email}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 1002,
+      "definition": {
+        "title": "Daily Spend at List Price",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "q",
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit",
+                    "unit_name": "dollar"
+                  }
+                }
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "q",
+                "query": "sum:claude_enterprise_analytics.cost.list_amount_usd{$report_date,$org_id,$model,$product,$user_email}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 1003,
+      "definition": {
+        "title": "Daily Requests",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "q"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "q",
+                "query": "sum:claude_enterprise_analytics.requests{$report_date,$org_id,$model,$product}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 1004,
+      "definition": {
+        "title": "Discount % (API-reported)",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "(list - amount) / list * 100",
+                "number_format": {
+                  "unit": {
+                    "type": "canonical_unit",
+                    "unit_name": "percent"
+                  }
+                }
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "list",
+                "query": "sum:claude_enterprise_analytics.cost.list_amount_usd{$report_date,$org_id,$model,$product,$user_email}",
+                "aggregator": "last"
+              },
+              {
+                "data_source": "metrics",
+                "name": "amount",
+                "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$model,$product,$user_email}",
+                "aggregator": "last"
+              }
+            ],
+            "response_format": "scalar",
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "value": 0,
+                "palette": "white_on_green"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      },
+      "layout": {
+        "x": 9,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Cost Overview",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 407,
+            "definition": {
+              "type": "note",
+              "content": "**Model Cost Efficiency**: Each Claude model has different pricing tiers. Opus models are premium but offer highest quality, Sonnet provides balanced cost-performance, and Haiku is most economical. Analyze cost per task completion to determine optimal model selection for different use cases.\n\nIn Datadog, set up cost alerts on `claude_enterprise_analytics.cost.amount_usd` (e.g. spike or budget threshold per `product`) to catch unexpected expenses. Regular reviews using the `report_date` breakdown help identify trends and anomalies before they impact budgets significantly.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 401,
+            "definition": {
+              "title": "Daily Cost by Model (by day, USD list price)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "amount",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "list",
+                      "query": "sum:claude_enterprise_analytics.cost.list_amount_usd{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "req",
+                      "query": "sum:claude_enterprise_analytics.requests{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Cost ($)",
+                      "formula": "amount",
+                      "cell_display_mode": "bar",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "List ($)",
+                      "formula": "list",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Requests",
+                      "formula": "req"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 403,
+            "definition": {
+              "title": "Cost Distribution by Product and Model",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$user_email} by {product,model}"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 404,
+            "definition": {
+              "title": "Cost Breakdown by Token Type (by model & product)",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "amount",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$user_email} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "list",
+                      "query": "sum:claude_enterprise_analytics.cost.list_amount_usd{$report_date,$org_id,$user_email} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id} by {model,product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Cost ($)",
+                      "formula": "amount",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "List ($)",
+                      "formula": "list",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Uncached In",
+                      "formula": "in"
+                    },
+                    {
+                      "alias": "Output",
+                      "formula": "out"
+                    },
+                    {
+                      "alias": "Cache Read",
+                      "formula": "cr"
+                    },
+                    {
+                      "alias": "Cache Write (1h)",
+                      "formula": "cw1h"
+                    },
+                    {
+                      "alias": "Cache Write (5m)",
+                      "formula": "cw5m"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 405,
+            "definition": {
+              "title": "Cost Visualization by Model and Product",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$user_email} by {model,product}"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "classic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 10,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 409,
+            "definition": {
+              "type": "note",
+              "content": "**Cost Optimizations**: \nUnderstanding your primary cost drivers helps optimize spending. Input tokens typically cost less than output tokens, while cache reads offer significant savings. Monitor the distribution of costs across different token types to identify optimization opportunities.\n\nImplement prompt optimization to reduce token usage, use appropriate models for each task, use caching for repeated contexts, and [batch high volume requests](https://docs.anthropic.com/en/docs/build-with-claude/batch-processing). Consider a routing layer that selects the most cost-effective model based on task requirements.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 14,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 17
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Token Usage",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 209,
+            "definition": {
+              "type": "note",
+              "content": "**Token Usage Analysis**: Monitor token usage across products (claude_code, chat, claude_in_chrome) to understand surface-specific consumption. This helps budget allocation and identifies high-usage areas that might benefit from optimization. Consider implementing usage quotas or alerts for unusual spikes.\n\nIdentify peak usage periods to optimize resource allocation. Understanding usage patterns helps in capacity planning and can reveal opportunities for load balancing across different products.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 202,
+            "definition": {
+              "title": "Daily Total Tokens",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "in + out + cr + cw1h + cw5m"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 0
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 201,
+            "definition": {
+              "title": "Token Usage by Day",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$org_id,$model,$product} by {report_date}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "in",
+                      "alias": "uncached input"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$org_id,$model,$product} by {report_date}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "out",
+                      "alias": "output"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$org_id,$model,$product} by {report_date}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "cr",
+                      "alias": "cache read"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 203,
+            "definition": {
+              "title": "Top Token Consumers by Model",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$product} by {model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 204,
+            "definition": {
+              "title": "Token Usage Breakdown",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id} by {product,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id} by {product,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ],
+                    "count": 500
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Input Tokens",
+                      "formula": "in"
+                    },
+                    {
+                      "alias": "Output Tokens",
+                      "formula": "out"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 205,
+            "definition": {
+              "type": "note",
+              "content": "**Input vs Output Tokens**: Input tokens are prompts and context sent to Claude; output tokens are the generated responses. Monitor the ratio to optimize prompt engineering and reduce unnecessary context. A high input-to-output ratio might indicate verbose prompts that could be streamlined.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 7106833146706646,
+            "definition": {
+              "title": "Daily Input Tokens (uncached)",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 0
+            },
+            "layout": {
+              "x": 3,
+              "y": 6,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8885191409050300,
+            "definition": {
+              "title": "Daily Output Tokens",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 0
+            },
+            "layout": {
+              "x": 7,
+              "y": 6,
+              "width": 5,
+              "height": 2
+            }
+          },
+          {
+            "id": 207,
+            "definition": {
+              "type": "note",
+              "content": "**Token Usage Optimizations**: Reduce token usage by implementing prompt caching for repeated contexts, using system prompts efficiently, and implementing response streaming. Regular monitoring helps identify optimization opportunities.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 19,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Cache Performance",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 304,
+            "definition": {
+              "type": "note",
+              "content": "**Cache Strategy**: Prompt caching lets you store and reuse context within your prompt. This makes it practical to include additional information \u2014 detailed instructions, example responses \u2014 that improves every response Claude generates.\n\nAnthropic's caching system offers 5-minute and 1-hour ephemeral caches to reduce token costs for repeated context. Improve cache performance by structuring prompts with stable prefixes and grouping similar requests.\n\nFor the best caching strategy, see [Anthropic's caching recommendations](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#when-to-use-the-1-hour-cache).",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 301,
+            "definition": {
+              "title": "Cache Token Usage (by day)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Cache Read",
+                      "formula": "cr",
+                      "cell_display_mode": "bar"
+                    },
+                    {
+                      "alias": "Cache Write (1h)",
+                      "formula": "cw1h",
+                      "cell_display_mode": "bar"
+                    },
+                    {
+                      "alias": "Cache Write (5m)",
+                      "formula": "cw5m",
+                      "cell_display_mode": "bar"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 5,
+              "height": 3
+            }
+          },
+          {
+            "id": 3321592471666638,
+            "definition": {
+              "title": "Token Consumption Saved by Cache (by day & model)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Savings (tokens)",
+                      "formula": "((1.25 * cw5m) + (2 * cw1h) + (0.1 * cr)) - cr",
+                      "cell_display_mode": "bar"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 305,
+            "definition": {
+              "type": "note",
+              "content": "**Cache Hit Rate**: A high cache hit rate significantly reduces costs as cached tokens are charged at reduced rates compared to new input tokens.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 302,
+            "definition": {
+              "title": "Cache Hit Rate (daily)",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "(cr / (cr + in + cw1h + cw5m)) * 100",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "text_align": "center",
+              "precision": 2
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 5373233506863203,
+            "definition": {
+              "title": "Cache Hit Rate (by day & model)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Hit %",
+                      "formula": "(cr / (cr + in + cw1h + cw5m)) * 100",
+                      "cell_display_mode": "bar",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "percent"
+                        }
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 303,
+            "definition": {
+              "title": "Cache Read Volume (by day & model)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_read{$report_date,$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Cache Read Tokens",
+                      "formula": "cr",
+                      "cell_display_mode": "bar"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4026529261321278,
+            "definition": {
+              "title": "Cache Write Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_5m{$report_date,$org_id,$product} by {model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.tokens.cache_write_1h{$report_date,$org_id,$product} by {model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "5m Cache Write",
+                      "formula": "cw5m"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "1h Cache Write",
+                      "formula": "cw1h"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 6,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 306,
+            "definition": {
+              "type": "note",
+              "content": "**Caching Cost Impact**: Cache reads cost significantly less than cache writes or regular input tokens. Monitor the ratio of cache reads to writes to assess efficiency. Consider implementing prompt templates that maximize cache reuse, especially for system prompts and common contexts.\n\nThe [Message Batches API](https://docs.anthropic.com/en/docs/build-with-claude/batch-processing#using-prompt-caching-with-message-batches) also supports prompt caching, allowing you to potentially reduce costs and processing time for batch requests. Discounts from prompt caching and Message Batches can stack.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 29,
+        "width": 12,
+        "height": 11
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Model Performance",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 505,
+            "definition": {
+              "type": "note",
+              "content": "**Model Performance**: Monitor token throughput and request distribution across models. Higher-tier models generally provide better quality but at increased cost. Balance these factors based on your specific use case requirements.\n\nAnalyze how workloads are distributed across models to ensure optimal resource utilization. Consider implementing intelligent routing that automatically selects models based on task complexity, urgency, and budget constraints.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 501,
+            "definition": {
+              "title": "Token Usage by Day & Model",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "in"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 502,
+            "definition": {
+              "title": "Most Used Models",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$product,$user_email} by {model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id,$product,$user_email} by {model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "in + out"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 7,
+              "y": 0,
+              "width": 5,
+              "height": 3
+            }
+          },
+          {
+            "id": 508,
+            "definition": {
+              "type": "note",
+              "content": "**Model Optimizations**: Each model has unique strengths. Opus excels at complex reasoning, Sonnet balances capability with efficiency, and Haiku provides rapid responses for straightforward tasks. Tailor prompts and workflows to leverage each model's strengths.\n\nWhen new models are released, test them with representative workloads before full migration. Compare quality, cost, and performance. Implement gradual rollouts and A/B testing to ensure smooth transitions.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 503,
+            "definition": {
+              "title": "Cost vs Usage Correlation",
+              "type": "scatterplot",
+              "requests": {
+                "table": {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cost",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$user_email} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$user_email} by {model,product}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id,$user_email} by {model,product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "dimension": "x",
+                      "formula": "cost"
+                    },
+                    {
+                      "dimension": "y",
+                      "number_format": {
+                        "unit": {
+                          "type": "custom_unit_label",
+                          "label": "tokens"
+                        }
+                      },
+                      "formula": "in + out"
+                    }
+                  ]
+                }
+              },
+              "xaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto",
+                "max": "auto"
+              },
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto",
+                "max": "auto"
+              },
+              "color_by_groups": []
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3009394555165132,
+            "definition": {
+              "title": "Cost and Token Usage (by day & model)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cost",
+                      "query": "sum:claude_enterprise_analytics.cost.amount_usd{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.tokens.uncached_input{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.tokens.output{$report_date,$org_id,$product,$user_email} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Cost ($)",
+                      "formula": "cost",
+                      "cell_display_mode": "bar",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Input Tokens",
+                      "formula": "in"
+                    },
+                    {
+                      "alias": "Output Tokens",
+                      "formula": "out"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 7,
+              "y": 3,
+              "width": 5,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 40,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 7,
+      "definition": {
+        "title": "User Analytics",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 710,
+            "definition": {
+              "type": "note",
+              "content": "**Usage Anomaly Detection**: Monitor for unusual user activity patterns that might indicate inefficient usage, runaway processes, or potential security concerns. Set up alerts on `claude_enterprise_analytics.user.cost.amount_usd` for users exceeding normal consumption thresholds.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 701,
+            "definition": {
+              "title": "Token Usage by Day & User",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "tot",
+                      "query": "sum:claude_enterprise_analytics.user.tokens_total{$org_id} by {report_date,user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "tot",
+                      "alias": "tokens"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 708,
+            "definition": {
+              "type": "note",
+              "content": "**User Analytics**: Monitor individual user adoption and usage patterns to identify power users, training needs, and potential optimization opportunities. High-volume users may benefit from training on efficient prompt engineering to reduce token consumption.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 705,
+            "definition": {
+              "title": "User Activity by Day",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "tot",
+                      "query": "sum:claude_enterprise_analytics.user.tokens_total{$org_id} by {report_date,user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "tot",
+                      "alias": "tokens by user"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 9,
+              "height": 3
+            }
+          },
+          {
+            "id": 709,
+            "definition": {
+              "type": "note",
+              "content": "**User Token Attribution**: Track costs by individual users to enable chargeback models and budget allocation. This data helps surface high-usage individuals and encourages responsible usage. Consider implementing user-level alerts for unusual consumption patterns.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 702,
+            "definition": {
+              "title": "Top Users by Token Consumption",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.user.tokens_total{$report_date,$org_id,user_email:*,!user_email:unknown} by {user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ],
+                  "sort": {
+                    "count": 100,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 6,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 704,
+            "definition": {
+              "title": "User Usage Breakdown",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.user.uncached_input_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.user.output_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.user.cache_read_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cost",
+                      "query": "sum:claude_enterprise_analytics.user.cost.amount_usd{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 3,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Input Tokens",
+                      "formula": "in"
+                    },
+                    {
+                      "alias": "Output Tokens",
+                      "formula": "out"
+                    },
+                    {
+                      "alias": "Cached Input Tokens",
+                      "formula": "cr"
+                    },
+                    {
+                      "alias": "Cost ($)",
+                      "formula": "cost",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "dollar"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 706,
+            "definition": {
+              "title": "User Cost Distribution by Product",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "q",
+                      "data_source": "metrics",
+                      "query": "sum:claude_enterprise_analytics.user.cost.amount_usd{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "dog_classic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ],
+                    "count": 500
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 5,
+              "height": 4
+            }
+          },
+          {
+            "id": 707,
+            "definition": {
+              "title": "User Usage Visualization",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "name": "q",
+                      "data_source": "metrics",
+                      "query": "sum:claude_enterprise_analytics.user.tokens_total{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "dog_classic"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 5,
+              "y": 9,
+              "width": 7,
+              "height": 4
+            }
+          },
+          {
+            "id": 7960539772614678,
+            "definition": {
+              "title": "Cache Usage by User",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "cr",
+                      "query": "sum:claude_enterprise_analytics.user.cache_read_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw5m",
+                      "query": "sum:claude_enterprise_analytics.user.cache_write_5m_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "cw1h",
+                      "query": "sum:claude_enterprise_analytics.user.cache_write_1h_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "in",
+                      "query": "sum:claude_enterprise_analytics.user.uncached_input_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "out",
+                      "query": "sum:claude_enterprise_analytics.user.output_tokens{$report_date,$org_id} by {user_email}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Cache Read",
+                      "cell_display_mode": "bar",
+                      "formula": "cr"
+                    },
+                    {
+                      "alias": "Cache Write (5m)",
+                      "cell_display_mode": "bar",
+                      "formula": "cw5m"
+                    },
+                    {
+                      "alias": "Cache Write (1h)",
+                      "cell_display_mode": "bar",
+                      "formula": "cw1h"
+                    },
+                    {
+                      "alias": "Input Tokens",
+                      "formula": "in"
+                    },
+                    {
+                      "alias": "Output Tokens",
+                      "formula": "out"
+                    },
+                    {
+                      "cell_display_mode": "bar",
+                      "alias": "Cache Hit %",
+                      "formula": "(cr / (cr + cw5m + cw1h + in)) * 100"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 13,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 712,
+            "definition": {
+              "type": "note",
+              "content": "**Usage Optimizations**: Track individual user patterns to identify friction points and optimization opportunities. Users with excessive token usage may benefit from additional training or access to different models better suited to their tasks.\n\nAnalyze usage patterns to segment users by consumption levels, model preferences, and use cases. This segmentation helps tailor training programs, optimize model allocation, and identify opportunities for cost containment.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 47,
+        "width": 12,
+        "height": 20
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "Web Usage",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 604,
+            "definition": {
+              "type": "note",
+              "content": "**Web Usage**: The [Anthropic web search tool](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/web-search-tool) gives Claude direct access to real-time web content beyond its knowledge cutoff. Monitor usage to understand how often real-time information is requested. High usage might indicate opportunities for leveraging [Anthropic's prompt caching feature](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/web-search-tool#prompt-caching).",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 607,
+            "definition": {
+              "type": "note",
+              "content": "**Search Pattern Analysis**: Analyze common search patterns to identify frequently needed information that could be pre-loaded or cached. Understanding search patterns helps optimize knowledge management strategies and can reduce reliance on real-time searches for static information.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 8,
+              "height": 2
+            }
+          },
+          {
+            "id": 602,
+            "definition": {
+              "title": "Daily Web Searches",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.web_search_requests{$report_date,$org_id,$model,$product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "q"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 601,
+            "definition": {
+              "title": "Web Search by Day & Model",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "ws",
+                      "query": "sum:claude_enterprise_analytics.web_search_requests{$org_id,$product} by {report_date,model}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "ws"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "order_by": "values",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 603,
+            "definition": {
+              "title": "Web Search Usage by Product",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q",
+                      "query": "sum:claude_enterprise_analytics.web_search_requests{$report_date,$org_id,$model} by {product}",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "formula": "q",
+                      "cell_display_mode": "bar"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 606,
+            "definition": {
+              "type": "note",
+              "content": "**Web Usage Cost Impact**: Web searches can be token-intensive. Monitor the cost-benefit ratio of search-enabled responses versus standard completions. Consider implementing search result summaries or excerpts to reduce the token cost of incorporating search results.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 67,
+        "width": 12,
+        "height": 10
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "report_date",
+      "prefix": "report_date",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "model",
+      "prefix": "model",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "user_email",
+      "prefix": "user_email",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "product",
+      "prefix": "product",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "org_id",
+      "prefix": "org_id",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

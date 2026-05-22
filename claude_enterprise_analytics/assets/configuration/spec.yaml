@@ -1,0 +1,38 @@
+name: Claude Enterprise Analytics
+files:
+- name: claude_enterprise_analytics.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: anthropic_api_key
+      required: true
+      secret: true
+      description: |-
+        API key for the Anthropic Claude Enterprise Analytics API. Generate one at
+        https://claude.ai/analytics/api-keys (requires Primary Owner role). Must
+        carry the `read:analytics` scope.
+      value:
+        type: string
+        example: <ANTHROPIC_ANALYTICS_API_KEY>
+    - name: org_id
+      required: false
+      description: |-
+        Free-form organization identifier emitted as the `org_id` tag on every
+        metric. Useful when more than one Anthropic org reports into the same
+        Datadog account.
+      value:
+        type: string
+        example: my-org
+    - name: lag_days
+      required: false
+      description: |-
+        How many days behind today to poll. Anthropic publishes daily aggregates
+        with a roughly 3-day lag; the default reflects that. Increase if you see
+        empty responses for the default date.
+      value:
+        type: integer
+        example: 3
+    - template: instances/default
