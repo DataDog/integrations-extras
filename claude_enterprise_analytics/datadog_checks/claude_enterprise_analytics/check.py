@@ -18,19 +18,16 @@ from datetime import date, timedelta
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError
-
+from datadog_checks.claude_enterprise_analytics import _mappers as mappers
 from datadog_checks.claude_enterprise_analytics._anthropic_client import (
     AnthropicAnalyticsClient,
 )
-from datadog_checks.claude_enterprise_analytics import _mappers as mappers
-
 
 _SERVICE_CHECK_API = "can_connect"
 _DEFAULT_LAG_DAYS = 3
 
 
 class ClaudeEnterpriseAnalyticsCheck(AgentCheck):
-
     __NAMESPACE__ = "claude_enterprise_analytics"
 
     def __init__(self, name, init_config, instances):

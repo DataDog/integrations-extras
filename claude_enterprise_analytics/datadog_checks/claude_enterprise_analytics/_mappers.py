@@ -16,6 +16,7 @@ Key API quirk: cost amounts come back as STRINGS in USD cents
 
 # --- helpers ---------------------------------------------------------------
 
+
 def _num(value):
     if value is None or value == "":
         return 0.0
@@ -56,6 +57,7 @@ def _rd_tag(report_date):
 
 # --- /summaries -----------------------------------------------------------
 
+
 def from_summaries(row, report_date):
     if not row:
         return
@@ -74,6 +76,7 @@ def from_summaries(row, report_date):
 
 
 # --- /users ---------------------------------------------------------------
+
 
 def from_users(rows, report_date):
     rd = _rd_tag(report_date)
@@ -101,7 +104,7 @@ def from_users(rows, report_date):
         for tool_name, tool_data in tool_actions.items():
             if not isinstance(tool_data, dict):
                 continue
-            tname = tool_name[:-len("_tool")] if tool_name.endswith("_tool") else tool_name
+            tname = tool_name[: -len("_tool")] if tool_name.endswith("_tool") else tool_name
             for outcome in ("accepted", "rejected"):
                 yield (
                     "user.claude_code.tool_actions",
@@ -113,6 +116,7 @@ def from_users(rows, report_date):
 
 
 # --- /usage_report (grouped by model, product) ----------------------------
+
 
 def from_usage_report(rows, report_date):
     rd = _rd_tag(report_date)
@@ -134,6 +138,7 @@ def from_usage_report(rows, report_date):
 
 # --- /cost_report (grouped by model, product) -----------------------------
 
+
 def from_cost_report(rows, report_date):
     rd = _rd_tag(report_date)
     for row in rows:
@@ -148,6 +153,7 @@ def from_cost_report(rows, report_date):
 
 
 # --- /user_usage_report ---------------------------------------------------
+
 
 def from_user_usage_report(rows, report_date):
     rd = _rd_tag(report_date)
@@ -172,6 +178,7 @@ def from_user_usage_report(rows, report_date):
 
 
 # --- /user_cost_report ----------------------------------------------------
+
 
 def from_user_cost_report(rows, report_date):
     rd = _rd_tag(report_date)

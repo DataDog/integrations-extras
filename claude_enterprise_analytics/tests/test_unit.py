@@ -10,12 +10,11 @@ import pytest
 
 from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
 from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
-
 from datadog_checks.claude_enterprise_analytics import ClaudeEnterpriseAnalyticsCheck
 from datadog_checks.claude_enterprise_analytics import _mappers as mappers
 
-
 # ---------- mapper unit tests (pure functions, no I/O) ---------------------
+
 
 def test_cents_to_usd_divides_by_100():
     assert mappers._cents_to_usd("131309.570280") == pytest.approx(1313.0957028)
@@ -62,6 +61,7 @@ def test_cost_report_divides_amount_by_100():
 
 # ---------- check-level integration test (mocked HTTP) ---------------------
 
+
 def _empty_payload(rows_key="data"):
     return {rows_key: [], "next_page": None, "has_more": False}
 
@@ -97,9 +97,7 @@ def test_check_emits_metrics_and_service_check(dd_run_check, aggregator, instanc
 
     aggregator.assert_metric("claude_enterprise_analytics.org.dau", value=95)
     aggregator.assert_metric("claude_enterprise_analytics.org.seats_assigned", value=150)
-    aggregator.assert_service_check(
-        "claude_enterprise_analytics.can_connect", status=AgentCheck.OK
-    )
+    aggregator.assert_service_check("claude_enterprise_analytics.can_connect", status=AgentCheck.OK)
 
 
 def test_check_requires_api_key():

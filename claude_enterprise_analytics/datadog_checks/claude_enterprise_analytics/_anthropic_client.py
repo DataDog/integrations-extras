@@ -21,8 +21,8 @@ Uses the AgentCheck's `self.http` (a `requests`-compatible session) for transpor
 so it inherits proxy/TLS/auth configuration from the Datadog Agent.
 """
 
-from datetime import date, datetime, time as dtime, timedelta, timezone
-
+from datetime import datetime, timedelta, timezone
+from datetime import time as dtime
 
 ANTHROPIC_API_BASE = "https://api.anthropic.com/v1/organizations/analytics"
 
@@ -68,7 +68,11 @@ class AnthropicAnalyticsClient(object):
                 )
                 self._log.warning(
                     "Anthropic %s -> %d (attempt %d/%d), sleeping %.1fs",
-                    path, resp.status_code, attempt, _MAX_RETRIES, wait,
+                    path,
+                    resp.status_code,
+                    attempt,
+                    _MAX_RETRIES,
+                    wait,
                 )
                 _time.sleep(wait)
                 continue
