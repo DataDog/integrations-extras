@@ -27,6 +27,17 @@ def test_check_mock_resilience4j_metrics(dd_run_check, aggregator, check, mock_p
     aggregator.assert_service_check('resilience4j.openmetrics.health', ServiceCheck.OK)
 
 
+def test_name_label_renamed_to_cb_name(dd_run_check, aggregator, check, mock_prometheus_metrics):
+    dd_run_check(check)
+    aggregator.assert_metric(
+        'resilience4j.circuitbreaker.state',
+        tags=['cb_name:backendA', 'endpoint:http://localhost:9080/actuator/prometheus', 'state:closed'],
+        value=1.0,
+    )
+    for metric in aggregator.metrics('resilience4j.circuitbreaker.state'):
+        assert 'name:backendA' not in metric.tags, f"Found unexpected name tag in {metric.tags}"
+
+
 def test_empty_instance(dd_run_check):
     with pytest.raises(
         Exception,

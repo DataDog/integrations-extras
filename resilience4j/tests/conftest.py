@@ -66,9 +66,9 @@ def mock_prometheus_metrics():
         pytest.fail(f"Metrics fixture file not found: {fixture_file}")
     except Exception as e:
         pytest.fail(f"Error reading metrics fixture file: {fixture_file}. Error: {e}")
-    # Mock requests.get method to simulate Prometheus response
+    # Mock requests.Session.request to intercept HTTP calls from the OpenMetrics scraper
     with mock.patch(
-        "requests.get",
+        "requests.Session.request",
         return_value=mock.MagicMock(
             status_code=200,
             iter_lines=lambda **kwargs: content.split("\n"),

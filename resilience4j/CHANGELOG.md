@@ -1,5 +1,11 @@
 # CHANGELOG - Resilience4j
 
+## 1.2.0 / 2026-05-27
+
+***Changed***:
+
+* Rename `name` metric label to `cb_name` to avoid collision with EC2 hostname tags
+
 ## 1.1.1 / 2025-09-25
 
 ***Fixed***:

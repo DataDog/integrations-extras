@@ -13,6 +13,7 @@ class Resilience4jCheck(OpenMetricsBaseCheckV2):
     def get_default_config(self):
         return {
             "metrics": [METRIC_MAP],
+            "rename_labels": {"name": "cb_name"},
             "send_distribution_sums_as_monotonic": "true",
             "send_distribution_counts_as_monotonic": "true",
         }
