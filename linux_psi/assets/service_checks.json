@@ -1,0 +1,17 @@
+[
+    {
+        "agent_version": "7.53.0",
+        "integration": "Linux PSI",
+        "check": "linux_psi.can_read",
+        "statuses": [
+            "ok",
+            "warning",
+            "critical"
+        ],
+        "groups": [
+            "host"
+        ],
+        "name": "PSI readability",
+        "description": "Returns `OK` if /proc/pressure/{cpu,memory,io} are readable, `WARNING` if PSI is not enabled in the kernel (kernel < 4.20 or the psi=1 boot parameter is not set), and `CRITICAL` if the agent does not have permission to read the files."
+    }
+]

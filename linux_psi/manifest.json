@@ -1,0 +1,55 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "755fcf17-baa2-41ff-988c-f70e5dbbca98",
+  "app_id": "linux_psi",
+  "owner": "voseghale",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Linux kernel Pressure Stall Information (PSI) - per-resource CPU, memory, and I/O contention pressure.",
+    "title": "Linux PSI",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::OS & System",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_name": "Linux PSI",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "system.pressure.",
+        "check": "system.pressure.cpu.some.avg10",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Linux PSI Overview": "assets/dashboards/linux_psi_overview.json"
+    },
+    "monitors": {
+      "High CPU pressure (some)": "assets/monitors/cpu_pressure_some_high.json",
+      "Memory pressure full (severe)": "assets/monitors/memory_pressure_full_critical.json",
+      "High I/O pressure (some)": "assets/monitors/io_pressure_some_high.json"
+    }
+  },
+  "author": {
+    "support_email": "umaralfred32@gmail.com",
+    "name": "voseghale",
+    "homepage": "https://github.com/voseghale"
+  }
+}

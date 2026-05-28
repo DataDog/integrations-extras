@@ -1,0 +1,198 @@
+{
+  "title": "Linux PSI Overview",
+  "description": "**Linux PSI (Pressure Stall Information) Overview**\n\nPSI measures how much real work is being delayed by contention on CPU, memory, and I/O. Unlike utilization metrics that can be 100% while still doing useful work, PSI tells you when threads are *stalled* and the system is hurting.\n\nThe `some` metrics measure time when at least one task was stalled. The `full` metrics measure time when ALL tasks were stalled (severe contention).\n\n**Further reading:**\n- [Linux kernel PSI docs](https://docs.kernel.org/accounting/psi.html)\n- [Brendan Gregg on PSI](https://www.brendangregg.com/blog/2017-08-08/linux-load-averages.html)",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "CPU pressure (some, 60s window) by host",
+        "type": "timeseries",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.cpu.some.avg60{*} by {host}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ]
+      },
+      "layout": {"x": 0, "y": 0, "width": 6, "height": 3}
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Memory pressure (some, 60s window) by host",
+        "type": "timeseries",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.memory.some.avg60{*} by {host}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ]
+      },
+      "layout": {"x": 6, "y": 0, "width": 6, "height": 3}
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "I/O pressure (some, 60s window) by host",
+        "type": "timeseries",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.io.some.avg60{*} by {host}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ]
+      },
+      "layout": {"x": 0, "y": 3, "width": 6, "height": 3}
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Memory pressure (full, 10s) - severe stalls",
+        "type": "timeseries",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.memory.full.avg10{*} by {host}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ]
+      },
+      "layout": {"x": 6, "y": 3, "width": 6, "height": 3}
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Top hosts by memory pressure (some, 300s avg)",
+        "type": "toplist",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.memory.some.avg300{*} by {host}",
+                "aggregator": "avg"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {"x": 0, "y": 6, "width": 6, "height": 4}
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "Top hosts by I/O pressure (some, 300s avg)",
+        "type": "toplist",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:system.pressure.io.some.avg300{*} by {host}",
+                "aggregator": "avg"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {"x": 6, "y": 6, "width": 6, "height": 4}
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

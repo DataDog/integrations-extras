@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "created_at": "2026-05-28",
+  "last_updated_at": "2026-05-28",
+  "title": "Severe memory pressure on {{host.name}}",
+  "tags": [
+    "integration:linux_psi"
+  ],
+  "description": "Linux PSI reports that ALL tasks were stalled on memory at some point in the last minute - the system is thrashing and likely close to OOM.",
+  "definition": {
+    "message": "Memory pressure (`full` avg10) is above 10% on {{host.name}}. The system is spending significant time with EVERY task stalled on memory, which usually means swap thrashing or imminent OOM kills.\n\nInvestigate immediately: check `free -m`, `vmstat`, and the OOM killer log (`dmesg | grep -i killed`). Consider adding memory, reducing the working set, or enabling memory cgroup limits to localize the problem.\n\n@pagerduty\n@all",
+    "name": "Severe memory pressure on {{host.name}}",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "new_host_delay": 300,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 5,
+      "thresholds": {
+        "critical": 10,
+        "warning": 1
+      },
+      "timeout_h": 0
+    },
+    "priority": 1,
+    "query": "avg(last_1m):avg:system.pressure.memory.full.avg10{*} by {host} > 10",
+    "restricted_roles": null,
+    "tags": [
+      "integration:linux_psi"
+    ],
+    "type": "metric alert"
+  }
+}
