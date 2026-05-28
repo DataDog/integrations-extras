@@ -1,56 +1,101 @@
-init_config: {}
+## All options defined here are available to all instances.
+#
+init_config:
 
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
 instances:
-  ## --- Account 1 ---
-  - ## Required: Huntress API credentials (Basic Auth).
-    ## Each instance has its own key pair, allowing multiple Huntress accounts
-    ## to feed into the same Datadog org simultaneously.
-    huntress_api_key: "<account1_public_api_key>"
-    huntress_secret_key: "<account1_private_api_key>"
 
-    ## Required: ES|QL query to execute. Must begin with "FROM logs" (case-insensitive).
-    ## The query determines which log fields are returned. Use KEEP to select specific
-    ## columns, or omit for all ECS fields. Do NOT add time range filters — range_start
-    ## and range_end are managed automatically by the check.
-    esql_query: "FROM logs"
+  -
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
 
-    ## Optional: Whether to enrich logs with Huntress organization metadata
-    ## (org name, org key, account ID). Fetches /v1/account and
-    ## /v1/accounts/{id}/organizations on first run and caches for org_cache_ttl_seconds.
-    ## Default: true
-    enrich_with_org_tags: true
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
+    #
+    # service: <SERVICE>
 
-    ## Optional: How long (seconds) to cache the org metadata before re-fetching.
-    ## Default: 3600 (1 hour). Set to 0 to refresh on every run.
-    org_cache_ttl_seconds: 3600
+    ## @param min_collection_interval - number - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 15
 
-    ## Optional: Collection interval in seconds. Must be >= 60 to stay within Huntress
-    ## rate limits (60 req/min). Default: 900 (15 minutes).
-    min_collection_interval: 900
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
 
-    ## Optional: Maximum number of pages to fetch per run (200 logs/page).
-    ## Protects against runaway pagination on large backlogs.
-    ## Default: 100 (up to 20,000 logs per run).
-    max_pages_per_run: 100
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
 
-    ## Optional: Huntress API base URL. Override for testing or sandbox environments.
-    huntress_base_url: "https://api.huntress.io"
+    ## @param huntress_api_key - string - required
+    ## Huntress public API key. Obtain from the Huntress Partner Portal under
+    ## Settings > API Credentials. Each instance uses its own key pair, enabling
+    ## multiple Huntress accounts to feed into the same Datadog organization.
+    #
+    huntress_api_key: <HUNTRESS_API_KEY>
 
-    ## Optional: Additional tags attached to every log event forwarded to Datadog.
-    ## huntress_account_id, huntress_org_name, and huntress_org_key are added
-    ## automatically when enrich_with_org_tags is true.
-    tags:
-      - "source:huntress"
-      - "service:huntress-siem"
-      - "env:production"
+    ## @param huntress_secret_key - string - required
+    ## Huntress private (secret) API key paired with huntress_api_key.
+    #
+    huntress_secret_key: <HUNTRESS_SECRET_KEY>
 
-  ## --- Account 2 (optional second Huntress account) ---
-  ## Each instance runs independently with its own checkpoint, org cache, and metrics.
-  ## Use multiple instances to fan in logs from multiple Huntress accounts.
-  - huntress_api_key: "<account2_public_api_key>"
-    huntress_secret_key: "<account2_private_api_key>"
-    esql_query: "FROM logs"
-    tags:
-      - "source:huntress"
-      - "service:huntress-siem"
-      - "env:staging"
+    ## @param esql_query - string - required
+    ## ES|QL query to execute against the Huntress SIEM API. Must begin with
+    ## "FROM logs" (case-insensitive). Use KEEP to select specific ECS columns
+    ## or omit for all fields. Do not add time range filters — range_start and
+    ## range_end are managed automatically by the check.
+    #
+    esql_query: FROM logs
+
+    ## @param enrich_with_org_tags - boolean - optional - default: true
+    ## When true, the check fetches Huntress organization metadata (org name,
+    ## org key, account ID) and attaches it as log tags. The org cache is
+    ## refreshed according to org_cache_ttl_seconds.
+    #
+    # enrich_with_org_tags: true
+
+    ## @param org_cache_ttl_seconds - integer - optional - default: 3600
+    ## How long (in seconds) to cache organization metadata before re-fetching
+    ## from the Huntress API. Set to 0 to refresh on every run.
+    #
+    # org_cache_ttl_seconds: 3600
+
+    ## @param max_pages_per_run - integer - optional - default: 100
+    ## Maximum number of result pages to fetch per run. Each page contains up
+    ## to 200 log events. Protects against runaway pagination on large backlogs.
+    ## If this cap is hit, the checkpoint does not advance and remaining pages
+    ## are fetched on the next run.
+    #
+    # max_pages_per_run: 100
+
+    ## @param huntress_base_url - string - optional - default: https://api.huntress.io
+    ## Huntress API base URL. Override for sandbox or testing environments.
+    #
+    # huntress_base_url: https://api.huntress.io

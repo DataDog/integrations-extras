@@ -6,7 +6,7 @@
 
 This integration polls the Huntress Managed SIEM API using ES|QL queries and forwards all security events to Datadog as logs. Each collection run:
 
-1. Loads a checkpoint — the timestamp of the last successful collection
+1. Loads a checkpoint - the timestamp of the last successful collection
 2. Executes a configurable ES|QL query for the elapsed time window
 3. Paginates through all result pages
 4. Optionally enriches each log with Huntress organization metadata (org name, key, account ID)
@@ -70,7 +70,7 @@ datadog-agent integration install -t datadog-huntress==1.0.0
 
 ### Multiple Huntress accounts
 
-Add additional blocks under `instances:` — each runs independently with its own checkpoint, org metadata cache, and metrics:
+Add additional blocks under `instances:` - each runs independently with its own checkpoint, org metadata cache, and metrics:
 
 ```yaml
 instances:
@@ -87,17 +87,16 @@ instances:
 
 ### Configuration reference
 
-| Field                     | Required | Default                   | Description                               |
-| ------------------------- | -------- | ------------------------- | ----------------------------------------- |
-| `huntress_api_key`        | Yes      | —                         | Huntress public API key                   |
-| `huntress_secret_key`     | Yes      | —                         | Huntress secret API key                   |
-| `esql_query`              | Yes      | —                         | ES\|QL query; must begin with `FROM logs` |
-| `enrich_with_org_tags`    | No       | `true`                    | Fetch and attach org metadata as log tags |
-| `org_cache_ttl_seconds`   | No       | `3600`                    | How long to cache org metadata (seconds)  |
-| `min_collection_interval` | No       | `900`                     | Seconds between runs (minimum 60)         |
-| `max_pages_per_run`       | No       | `100`                     | Page cap per run (~20,000 logs maximum)   |
-| `huntress_base_url`       | No       | `https://api.huntress.io` | Override for sandbox environments         |
-| `tags`                    | No       | `[]`                      | Extra tags on every forwarded log         |
+| Field                   | Required | Default                   | Description                               |
+| ----------------------- | -------- | ------------------------- | ----------------------------------------- |
+| `huntress_api_key`      | Yes      | -                         | Huntress public API key                   |
+| `huntress_secret_key`   | Yes      | -                         | Huntress secret API key                   |
+| `esql_query`            | Yes      | -                         | ES\|QL query; must begin with `FROM logs` |
+| `enrich_with_org_tags`  | No       | `true`                    | Fetch and attach org metadata as log tags |
+| `org_cache_ttl_seconds` | No       | `3600`                    | How long to cache org metadata (seconds)  |
+| `max_pages_per_run`     | No       | `100`                     | Page cap per run (~20,000 logs maximum)   |
+| `huntress_base_url`     | No       | `https://api.huntress.io` | Override for sandbox environments         |
+| `tags`                  | No       | `[]`                      | Extra tags on every forwarded log         |
 
 ## Data Collected
 
@@ -105,20 +104,20 @@ instances:
 
 All logs collected from the Huntress Managed SIEM API are forwarded to Datadog with:
 
-- `ddsource: huntress` — enables automatic log pipeline processing
+- `ddsource: huntress` - enables automatic log pipeline processing
 - ECS field names preserved as top-level log attributes (for example, `event.category`, `host.hostname`, `user.name`)
 - Organization metadata tags when `enrich_with_org_tags: true` (for example, `huntress_org_name`, `huntress_org_key`, `huntress_account_id`)
 
 ### Metrics
 
-| Metric                               | Type  | Description                                             |
-| ------------------------------------ | ----- | ------------------------------------------------------- |
-| `huntress.siem.logs_collected`       | Gauge | Log events collected per run                            |
-| `huntress.siem.pages_fetched`        | Gauge | API pages fetched per run                               |
-| `huntress.siem.run_duration_seconds` | Gauge | Wall time of the collection run                         |
-| `huntress.siem.errors`               | Count | Errors by type (`error_type` tag)                       |
-| `huntress.siem.api_call_limit`       | Gauge | Total API requests allowed per minute (from Huntress)   |
-| `huntress.siem.api_call_remaining`   | Gauge | API requests remaining in the current minute            |
+| Metric                               | Type  | Description                                           |
+| ------------------------------------ | ----- | ----------------------------------------------------- |
+| `huntress.siem.logs_collected`       | Gauge | Log events collected per run                          |
+| `huntress.siem.pages_fetched`        | Gauge | API pages fetched per run                             |
+| `huntress.siem.run_duration_seconds` | Gauge | Wall time of the collection run                       |
+| `huntress.siem.errors`               | Count | Errors by type (`error_type` tag)                     |
+| `huntress.siem.api_call_limit`       | Gauge | Total API requests allowed per minute (from Huntress) |
+| `huntress.siem.api_call_remaining`   | Gauge | API requests remaining in the current minute          |
 
 See [metadata.csv][1] for a full list of metrics.
 
@@ -159,7 +158,7 @@ The Huntress API allows 60 requests per minute. The integration logs a warning w
 
 **Duplicate logs after Agent restart**
 
-This is expected on the first restart after a failed run — the checkpoint is only advanced when all pages are successfully sent. Subsequent runs resume from the last successful checkpoint.
+This is expected on the first restart after a failed run - the checkpoint is only advanced when all pages are successfully sent. Subsequent runs resume from the last successful checkpoint.
 
 Need help? Contact [Datadog support][2].
 
