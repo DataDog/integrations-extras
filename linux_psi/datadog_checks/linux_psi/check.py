@@ -33,21 +33,31 @@ PRESSURE_FILES = ('cpu', 'memory', 'io')
 VALID_KINDS = ('some', 'full')
 AVG_KEYS = ('avg10', 'avg60', 'avg300')
 
+HOST_NAMESPACE = 'system.pressure'
+CGROUP_NAMESPACE = 'system.pressure.cgroup'
+
+DEFAULT_CGROUPFS_PATH = '/sys/fs/cgroup'
+DEFAULT_CGROUP_MAX_DEPTH = 2
+DEFAULT_CGROUP_MAX_COUNT = 200
+
 # Matches major.minor.patch at the start of /proc/sys/kernel/osrelease.
 # The string typically looks like '5.15.0-91-generic' or '6.5.0' or '4.4.302+'.
 KERNEL_VERSION_RE = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
 
 class LinuxPSICheck(AgentCheck):
-    """Read /proc/pressure/* and emit PSI metrics."""
+    """Read /proc/pressure/* (host) and optionally /sys/fs/cgroup/.../*.pressure
+    (per-cgroup) and emit PSI metrics."""
 
     SERVICE_CHECK_NAME = 'linux_psi.can_read'
+    CGROUP_SERVICE_CHECK_NAME = 'linux_psi.cgroup.can_read'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tags = list(self.instance.get('tags', []))
         self._resources = self._resolve_resources()
         self._set_paths()
+        self._setup_cgroup_config()
 
     def _resolve_resources(self):
         """Return the tuple of PSI resources to collect for this instance.
@@ -82,6 +92,21 @@ class LinuxPSICheck(AgentCheck):
         self._proc_root = proc_location.rstrip('/')
         self.pressure_dir = os.path.join(self._proc_root, 'pressure')
 
+    def _setup_cgroup_config(self):
+        """Per-cgroup PSI is opt-in. If `cgroup_roots` is empty/missing, no
+        cgroup walking happens. When set, walk each named root under
+        `cgroupfs_path` up to `cgroup_max_depth` levels deep, emitting metrics
+        for at most `cgroup_max_count` cgroups per run."""
+        roots = self.instance.get('cgroup_roots') or []
+        if not isinstance(roots, (list, tuple)):
+            raise ConfigurationError(
+                '`cgroup_roots` must be a list of strings, got {!r}'.format(type(roots).__name__)
+            )
+        self._cgroup_roots = tuple(str(r) for r in roots)
+        self._cgroupfs_path = self.instance.get('cgroupfs_path', DEFAULT_CGROUPFS_PATH)
+        self._cgroup_max_depth = int(self.instance.get('cgroup_max_depth', DEFAULT_CGROUP_MAX_DEPTH))
+        self._cgroup_max_count = int(self.instance.get('cgroup_max_count', DEFAULT_CGROUP_MAX_COUNT))
+
     @AgentCheck.metadata_entrypoint
     def _submit_kernel_version(self):
         """Surface the running kernel version as integration metadata so it
@@ -111,6 +136,12 @@ class LinuxPSICheck(AgentCheck):
 
     def check(self, _):
         self._submit_kernel_version()
+        self._check_system_pressure()
+        if self._cgroup_roots:
+            self._check_cgroup_pressure()
+
+    def _check_system_pressure(self):
+        """Read /proc/pressure/* and emit host-level metrics + service check."""
         if not os.path.isdir(self.pressure_dir):
             self.service_check(
                 self.SERVICE_CHECK_NAME,
@@ -158,18 +189,23 @@ class LinuxPSICheck(AgentCheck):
                 message='No PSI files could be read; nothing emitted.',
             )
 
-    def _read_one(self, resource, path):
-        """Open one /proc/pressure/<resource> file and emit each line's metrics."""
+    def _read_one(self, resource, path, namespace=HOST_NAMESPACE, tags=None):
+        """Open one PSI file and emit each line's metrics under `namespace`,
+        tagged with `tags`. Used by both host-level and per-cgroup paths."""
+        if tags is None:
+            tags = self.tags
         with open(path, 'r') as f:
             for line in f:
-                self._emit_line(resource, line.strip())
+                self._emit_line(resource, line.strip(), namespace=namespace, tags=tags)
 
-    def _emit_line(self, resource, line):
+    def _emit_line(self, resource, line, namespace=HOST_NAMESPACE, tags=None):
         """Parse a line like:
             'some avg10=0.18 avg60=0.09 avg300=0.04 total=294183'
-        and emit one metric per field, tagged with the resource (cpu/memory/io)
-        and kind (some/full).
+        and emit one metric per field under `<namespace>.<resource>.<kind>.<key>`,
+        tagged with `tags`.
         """
+        if tags is None:
+            tags = self.tags
         if not line:
             return
         parts = line.split()
@@ -179,7 +215,7 @@ class LinuxPSICheck(AgentCheck):
         if kind not in VALID_KINDS:
             self.log.debug('Skipping unknown PSI line for %s: %s', resource, line)
             return
-        metric_prefix = f'system.pressure.{resource}.{kind}'
+        metric_prefix = f'{namespace}.{resource}.{kind}'
         for field in parts[1:]:
             if '=' not in field:
                 continue
@@ -190,11 +226,126 @@ class LinuxPSICheck(AgentCheck):
                 self.log.debug('Non-numeric PSI value %s=%s', key, value)
                 continue
             if key in AVG_KEYS:
-                self.gauge(f'{metric_prefix}.{key}', fval, tags=self.tags)
+                self.gauge(f'{metric_prefix}.{key}', fval, tags=tags)
             elif key == 'total':
                 # `total` is microseconds since boot; emit as monotonic_count
                 # so Datadog computes the per-interval rate automatically.
-                self.monotonic_count(f'{metric_prefix}.total', fval,
-                                     tags=self.tags)
+                self.monotonic_count(f'{metric_prefix}.total', fval, tags=tags)
             else:
                 self.log.debug('Skipping unknown PSI field %s=%s', key, value)
+
+    def _check_cgroup_pressure(self):
+        """Walk the configured cgroup_roots under cgroupfs_path and emit PSI
+        for each cgroup that has *.pressure files. Idempotent; cardinality
+        bounded by cgroup_max_count."""
+        if not os.path.isdir(self._cgroupfs_path):
+            self.service_check(
+                self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.WARNING,
+                tags=self.tags,
+                message=(
+                    f'cgroup filesystem not found at {self._cgroupfs_path}. '
+                    f'cgroup PSI requires cgroup v2; this host appears to be on '
+                    f'cgroup v1 or has the filesystem mounted elsewhere. Set '
+                    f'`cgroupfs_path` if the mount point is non-standard.'
+                ),
+            )
+            return
+
+        # Quick cgroup v2 sanity check: v2 root has a `cgroup.controllers` file.
+        if not os.path.exists(os.path.join(self._cgroupfs_path, 'cgroup.controllers')):
+            self.service_check(
+                self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.WARNING,
+                tags=self.tags,
+                message=(
+                    'cgroup v2 not detected (cgroup.controllers missing). '
+                    'cgroup PSI is only available on the unified cgroup v2 hierarchy.'
+                ),
+            )
+            return
+
+        emitted_count = 0
+        for root_name in self._cgroup_roots:
+            root_path = os.path.join(self._cgroupfs_path, root_name)
+            if not os.path.isdir(root_path):
+                self.log.debug('cgroup root not found: %s', root_path)
+                continue
+            for cgroup_dir, rel_path in self._walk_cgroups(root_path, root_name):
+                if emitted_count >= self._cgroup_max_count:
+                    self.log.warning(
+                        'cgroup_max_count (%d) reached, stopping enumeration. '
+                        'Some cgroups will not be reported.',
+                        self._cgroup_max_count,
+                    )
+                    break
+                if self._emit_cgroup(cgroup_dir, rel_path, root_name):
+                    emitted_count += 1
+
+        self.service_check(self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.OK,
+                           tags=self.tags)
+
+    def _walk_cgroups(self, root_path, root_name, current_depth=0):
+        """Yield (absolute_path, relative_path) for the root and each subdirectory
+        up to self._cgroup_max_depth levels below the root. The relative path
+        is for tagging (e.g., 'system.slice/sshd.service')."""
+        # Root cgroup itself
+        rel = root_name if current_depth == 0 else None
+        if rel is not None:
+            yield (root_path, rel)
+        if current_depth >= self._cgroup_max_depth:
+            return
+        try:
+            entries = os.scandir(root_path)
+        except OSError as e:
+            self.log.debug('error scanning %s: %s', root_path, e)
+            return
+        with entries:
+            for entry in entries:
+                if not entry.is_dir(follow_symlinks=False):
+                    continue
+                sub_rel = f'{root_name}/{entry.name}'
+                yield (entry.path, sub_rel)
+                if current_depth + 1 < self._cgroup_max_depth:
+                    yield from self._walk_cgroups_inner(
+                        entry.path, sub_rel, current_depth + 1
+                    )
+
+    def _walk_cgroups_inner(self, parent_path, parent_rel, current_depth):
+        """Inner recursion helper that yields deeper subdirectories already
+        beyond the top-level root and its immediate children."""
+        try:
+            entries = os.scandir(parent_path)
+        except OSError as e:
+            self.log.debug('error scanning %s: %s', parent_path, e)
+            return
+        with entries:
+            for entry in entries:
+                if not entry.is_dir(follow_symlinks=False):
+                    continue
+                sub_rel = f'{parent_rel}/{entry.name}'
+                yield (entry.path, sub_rel)
+                if current_depth + 1 < self._cgroup_max_depth:
+                    yield from self._walk_cgroups_inner(
+                        entry.path, sub_rel, current_depth + 1
+                    )
+
+    def _emit_cgroup(self, cgroup_dir, rel_path, root_name):
+        """Read this cgroup's PSI files and emit metrics tagged with the
+        cgroup path. Returns True if at least one file was read successfully."""
+        cgroup_tags = list(self.tags) + [
+            f'cgroup_path:{rel_path}',
+            f'cgroup_root:{root_name}',
+        ]
+        any_read = False
+        for resource in self._resources:
+            path = os.path.join(cgroup_dir, f'{resource}.pressure')
+            try:
+                self._read_one(resource, path,
+                               namespace=CGROUP_NAMESPACE, tags=cgroup_tags)
+                any_read = True
+            except FileNotFoundError:
+                # Many cgroups lack one or more pressure files (e.g., a cgroup
+                # without an I/O controller). Skip silently.
+                continue
+            except OSError as e:
+                self.log.debug('error reading cgroup PSI %s: %s', path, e)
+        return any_read
