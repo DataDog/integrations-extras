@@ -122,9 +122,20 @@ For containerized Agents, ensure the host's `/proc` is mounted into the containe
 
 This version of the check reads system-wide PSI only. Per-cgroup PSI (`/sys/fs/cgroup/.../cpu.pressure`, etc.) is planned for a future release - track [issue link to be filed] for progress.
 
+## Compatibility
+
+| Requirement | Minimum |
+|---|---|
+| Linux kernel | 4.20 (Dec 2018) |
+| Linux kernel for `cpu.full.*` metrics | 5.13 (May 2021) |
+| Datadog Agent | 7.53 |
+| Boot parameter `psi=1` | Required on distros that disable PSI by default |
+
+The `system.pressure.cpu.full.*` metrics are not emitted on kernels older than 5.13; the rest of the metrics are emitted as long as `/proc/pressure/` exists. The check degrades gracefully without raising errors when individual files are missing or unreadable.
+
 ## Support
 
-This integration is community-maintained. For bugs and feature requests, open an issue at the [integrations-extras repo][5]. For general Datadog support, contact [Datadog support][6].
+This integration is community-maintained by [@voseghale][7] and licensed under BSD-3-Clause matching the parent repo's `LICENSE` file. For bugs and feature requests, open an issue at the [integrations-extras repo][5] referencing the `linux_psi` integration. Pull requests are welcome - please open an issue first to discuss non-trivial changes. For general Datadog Agent support, contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings/agent/latest
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -132,3 +143,4 @@ This integration is community-maintained. For bugs and feature requests, open an
 [4]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
 [5]: https://github.com/DataDog/integrations-extras
 [6]: https://docs.datadoghq.com/help/
+[7]: https://github.com/voseghale
