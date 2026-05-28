@@ -21,10 +21,11 @@ def _load_fixture(name):
 
 
 def _make_instance(**kwargs):
+    esql = kwargs.pop("esql_query", "FROM logs")
     base = {
         "huntress_api_key": "pub_key",
         "huntress_secret_key": "secret_key",
-        "esql_query": "FROM logs",
+        "log_queries": [{"esql_query": esql}],
         "enrich_with_org_tags": False,
         "tags": ["source:huntress", "env:test"],
     }
@@ -213,8 +214,10 @@ def test_checkpoint_persistence():
     check, instance = _make_check()
     saved_ts = "2026-05-27T13:00:00.000Z"
     instance_hash = check._instance_hash(instance)
+    query_hash = check._query_hash("FROM logs")
+    checkpoint_key = instance_hash + "_" + query_hash
     check.write_persistent_cache(
-        check.CHECKPOINT_CACHE_KEY_PREFIX + instance_hash,
+        check.CHECKPOINT_CACHE_KEY_PREFIX + checkpoint_key,
         json.dumps({"last_collected_at": saved_ts, "schema_version": 1}),
     )
 
@@ -556,12 +559,10 @@ def test_multi_instance_isolation():
     instance_a = _make_instance(
         huntress_api_key="key_a",
         huntress_secret_key="secret_a",
-        esql_query="FROM logs",
     )
     instance_b = _make_instance(
         huntress_api_key="key_b",
         huntress_secret_key="secret_b",
-        esql_query="FROM logs",
     )
 
     check_a = HuntressCheck("huntress", {}, [instance_a])
@@ -578,17 +579,21 @@ def test_multi_instance_isolation():
 
     hash_a = check_a._instance_hash(instance_a)
     hash_b = check_b._instance_hash(instance_b)
+    query_hash = check_a._query_hash("FROM logs")
 
     assert hash_a != hash_b
 
-    # Checkpoints stored under different keys must return different values
-    check_a._save_checkpoint(hash_a, "2026-05-27T14:00:00.000Z")
-    check_b._save_checkpoint(hash_b, "2026-05-27T15:00:00.000Z")
+    # Each query gets its own checkpoint key: instance_hash + "_" + query_hash
+    ck_a = hash_a + "_" + query_hash
+    ck_b = hash_b + "_" + query_hash
 
-    assert check_a._load_checkpoint(hash_a) == "2026-05-27T14:00:00.000Z"
-    assert check_b._load_checkpoint(hash_b) == "2026-05-27T15:00:00.000Z"
+    check_a._save_checkpoint(ck_a, "2026-05-27T14:00:00.000Z")
+    check_b._save_checkpoint(ck_b, "2026-05-27T15:00:00.000Z")
+
+    assert check_a._load_checkpoint(ck_a) == "2026-05-27T14:00:00.000Z"
+    assert check_b._load_checkpoint(ck_b) == "2026-05-27T15:00:00.000Z"
     # Each check's cache is isolated — A cannot see B's checkpoint
-    assert check_a._load_checkpoint(hash_b) is None
+    assert check_a._load_checkpoint(ck_b) is None
 
 
 # ===========================================================================

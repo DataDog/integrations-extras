@@ -13,7 +13,7 @@ def huntress_instance():
     return {
         "huntress_api_key": "test_key",
         "huntress_secret_key": "test_secret",
-        "esql_query": "FROM logs",
+        "log_queries": [{"esql_query": "FROM logs"}],
         "enrich_with_org_tags": False,
     }
 

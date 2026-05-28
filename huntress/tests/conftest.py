@@ -27,7 +27,7 @@ def dd_environment():
         yield {
             "huntress_api_key": "hk_testpublickey",
             "huntress_secret_key": "hs_testsecretkey",
-            "esql_query": "FROM logs",
+            "log_queries": [{"esql_query": "FROM logs"}],
             "huntress_base_url": f"http://{HOST}:{MOCKOON_PORT}",
             "enrich_with_org_tags": True,
             "org_cache_ttl_seconds": 3600,
@@ -42,7 +42,7 @@ def instance():
     return {
         "huntress_api_key": "test_api_key",
         "huntress_secret_key": "test_secret_key",
-        "esql_query": "FROM logs",
+        "log_queries": [{"esql_query": "FROM logs"}],
         "enrich_with_org_tags": False,
         "min_collection_interval": 900,
         "max_pages_per_run": 100,

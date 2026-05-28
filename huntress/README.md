@@ -43,7 +43,8 @@ datadog-agent integration install -t datadog-huntress==1.0.0
    instances:
      - huntress_api_key: "<your_public_api_key>"
        huntress_secret_key: "<your_secret_api_key>"
-       esql_query: "FROM logs"
+       log_queries:
+         - esql_query: "FROM logs"
        tags:
          - "source:huntress"
          - "service:huntress-siem"
@@ -76,27 +77,37 @@ Add additional blocks under `instances:` - each runs independently with its own 
 instances:
   - huntress_api_key: "<account1_key>"
     huntress_secret_key: "<account1_secret>"
-    esql_query: "FROM logs"
+    log_queries:
+      - esql_query: "FROM logs"
     tags: ["source:huntress", "env:production"]
 
   - huntress_api_key: "<account2_key>"
     huntress_secret_key: "<account2_secret>"
-    esql_query: "FROM logs"
+    log_queries:
+      - esql_query: "FROM logs"
     tags: ["source:huntress", "env:staging"]
 ```
 
 ### Configuration reference
 
-| Field                   | Required | Default                   | Description                               |
-| ----------------------- | -------- | ------------------------- | ----------------------------------------- |
-| `huntress_api_key`      | Yes      | -                         | Huntress public API key                   |
-| `huntress_secret_key`   | Yes      | -                         | Huntress secret API key                   |
-| `esql_query`            | Yes      | -                         | ES\|QL query; must begin with `FROM logs` |
-| `enrich_with_org_tags`  | No       | `true`                    | Fetch and attach org metadata as log tags |
-| `org_cache_ttl_seconds` | No       | `3600`                    | How long to cache org metadata (seconds)  |
-| `max_pages_per_run`     | No       | `100`                     | Page cap per run (~20,000 logs maximum)   |
-| `huntress_base_url`     | No       | `https://api.huntress.io` | Override for sandbox environments         |
-| `tags`                  | No       | `[]`                      | Extra tags on every forwarded log         |
+**`init_config` options** (apply to all instances):
+
+| Field             | Required | Default | Description                                     |
+| ----------------- | -------- | ------- | ----------------------------------------------- |
+| `request_timeout` | No       | `30`    | HTTP request timeout in seconds for all API calls |
+
+**`instances` options** (per Huntress account):
+
+| Field                   | Required | Default                   | Description                                                                    |
+| ----------------------- | -------- | ------------------------- | ------------------------------------------------------------------------------ |
+| `huntress_api_key`      | Yes      | -                         | Huntress public API key                                                        |
+| `huntress_secret_key`   | Yes      | -                         | Huntress secret API key                                                        |
+| `log_queries`           | Yes      | -                         | List of query objects; each has `esql_query` (required) and `tags` (optional). `esql_query` must begin with `FROM logs` |
+| `enrich_with_org_tags`  | No       | `true`                    | Fetch and attach org metadata as log tags                                      |
+| `org_cache_ttl_seconds` | No       | `3600`                    | How long to cache org metadata (seconds)                                       |
+| `max_pages_per_run`     | No       | `100`                     | Page cap per query per run (~20,000 logs maximum)                              |
+| `huntress_base_url`     | No       | `https://api.huntress.io` | Override for sandbox environments                                              |
+| `tags`                  | No       | `[]`                      | Extra tags on every forwarded log                                              |
 
 ## Data Collected
 
@@ -137,7 +148,7 @@ Returns `CRITICAL` if the collection run fails for any reason; `OK` otherwise.
 - Run `sudo datadog-agent check huntress` and inspect the output
 - Verify the API key pair is valid by checking the Huntress Partner Portal
 - Confirm the Managed SIEM feature is enabled on the account
-- Check that `esql_query` begins with `FROM logs`
+- Check that each `log_queries[].esql_query` begins with `FROM logs`
 
 **`huntress.siem.errors` count is increasing**
 
@@ -147,7 +158,7 @@ Inspect the `error_type` tag to identify the root cause:
 | ------------------ | ---------------------------------- | ------------------------------------------------------------ |
 | `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` / `huntress_secret_key`            |
 | `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                  |
-| `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value                                   |
+| `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value in the failing `log_queries` entry |
 | `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)    |
 | `connection_error` | Network issue                      | Verify connectivity from the Agent host to `api.huntress.io` |
 | `run_failure`      | Unexpected error during collection | Check Agent logs for the full stack trace                    |

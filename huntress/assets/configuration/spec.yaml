@@ -5,6 +5,14 @@ files:
       - template: init_config
         options:
           - template: init_config/default
+          - name: request_timeout
+            description: |
+              HTTP request timeout in seconds applied to all Huntress API calls.
+              Increase this if the Huntress SIEM API is slow to respond on large queries.
+            value:
+              type: number
+              example: 30
+              default: 30
       - template: instances
         options:
           - template: instances/default
@@ -28,16 +36,29 @@ files:
             value:
               type: string
               example: <HUNTRESS_SECRET_KEY>
-          - name: esql_query
+          - name: log_queries
             required: true
             description: |
-              ES|QL query to execute against the Huntress SIEM API. Must begin with
-              "FROM logs" (case-insensitive). Use KEEP to select specific ECS columns
-              or omit for all fields. Do not add time range filters — range_start and
-              range_end are managed automatically by the check.
+              List of ES|QL queries to execute against the Huntress SIEM API. Each entry
+              requires an esql_query string (must begin with "FROM logs", case-insensitive)
+              and an optional tags list attached only to logs produced by that query.
+              Multiple queries run independently with separate checkpoints, enabling
+              targeted collection for different log types within the same account.
+              Do not add time range filters — range_start and range_end are managed
+              automatically by the check.
             value:
-              type: string
-              example: "FROM logs"
+              type: array
+              items:
+                type: object
+                properties:
+                  - name: esql_query
+                    type: string
+                  - name: tags
+                    type: array
+                    items:
+                      type: string
+              example:
+                - esql_query: "FROM logs"
           - name: enrich_with_org_tags
             description: |
               When true, the check fetches Huntress organization metadata (org name,
@@ -57,10 +78,10 @@ files:
               default: 3600
           - name: max_pages_per_run
             description: |
-              Maximum number of result pages to fetch per run. Each page contains up
-              to 200 log events. Protects against runaway pagination on large backlogs.
-              If this cap is hit, the checkpoint does not advance and remaining pages
-              are fetched on the next run.
+              Maximum number of result pages to fetch per query per run. Each page
+              contains up to 200 log events. Protects against runaway pagination on
+              large backlogs. If this cap is hit, the checkpoint does not advance and
+              remaining pages are fetched on the next run.
             value:
               type: integer
               example: 100
