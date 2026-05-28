@@ -218,6 +218,68 @@ def test_all_files_missing_yields_warning(aggregator, instance, tmp_path):
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
 
 
+@pytest.mark.parametrize('osrelease,expected', [
+    ('5.15.0-91-generic\n', ('5.15.0', '5', '15', '0')),
+    ('6.5.0\n',             ('6.5.0', '6', '5', '0')),
+    ('4.4.302+\n',          ('4.4.302', '4', '4', '302')),
+    ('4.19.0-amd64\n',      ('4.19.0', '4', '19', '0')),
+])
+def test_kernel_version_metadata_parses(instance, tmp_path, monkeypatch,
+                                          osrelease, expected):
+    """The kernel version metadata should extract major.minor.patch from a
+    variety of distro-specific osrelease strings."""
+    osrel_dir = tmp_path / 'sys' / 'kernel'
+    osrel_dir.mkdir(parents=True)
+    (osrel_dir / 'osrelease').write_text(osrelease)
+
+    check = LinuxPSICheck('linux_psi', {}, [instance])
+    check._proc_root = str(tmp_path)
+
+    captured = {}
+    monkeypatch.setattr(check, 'set_metadata',
+                        lambda name, value, **kw: captured.setdefault(name, (value, kw)))
+
+    check._submit_kernel_version()
+
+    version, major, minor, patch = expected
+    assert captured['version'][0] == version
+    assert captured['version'][1]['scheme'] == 'semver'
+    assert captured['version'][1]['part_map'] == {
+        'major': major, 'minor': minor, 'patch': patch,
+    }
+
+
+def test_kernel_version_metadata_missing_file_is_silent(instance, tmp_path, monkeypatch):
+    """If /proc/sys/kernel/osrelease is missing or unreadable, the metadata
+    submission should silently no-op (not raise) and not call set_metadata."""
+    check = LinuxPSICheck('linux_psi', {}, [instance])
+    check._proc_root = str(tmp_path / 'nonexistent')
+
+    called = []
+    monkeypatch.setattr(check, 'set_metadata',
+                        lambda *a, **kw: called.append((a, kw)))
+
+    check._submit_kernel_version()
+    assert called == []
+
+
+def test_kernel_version_metadata_garbled_is_silent(instance, tmp_path, monkeypatch):
+    """A malformed osrelease (no major.minor.patch prefix) should be skipped."""
+    osrel_dir = tmp_path / 'sys' / 'kernel'
+    osrel_dir.mkdir(parents=True)
+    (osrel_dir / 'osrelease').write_text('totally not a version\n')
+
+    check = LinuxPSICheck('linux_psi', {}, [instance])
+    check._proc_root = str(tmp_path)
+
+    called = []
+    monkeypatch.setattr(check, 'set_metadata',
+                        lambda *a, **kw: called.append((a, kw)))
+
+    check._submit_kernel_version()
+    assert called == []
+
+
 def test_resources_config_filters_collection(aggregator, proc_dir):
     """When the user sets `resources: [cpu]`, only cpu metrics emit and the
     other resource files are not even opened."""

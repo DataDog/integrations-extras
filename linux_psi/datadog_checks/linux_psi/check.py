@@ -18,6 +18,7 @@ See https://docs.kernel.org/accounting/psi.html for the kernel feature.
 from __future__ import annotations
 
 import os
+import re
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
@@ -31,6 +32,10 @@ except ImportError:  # pragma: no cover - exercised only by Agent runtime
 PRESSURE_FILES = ('cpu', 'memory', 'io')
 VALID_KINDS = ('some', 'full')
 AVG_KEYS = ('avg10', 'avg60', 'avg300')
+
+# Matches major.minor.patch at the start of /proc/sys/kernel/osrelease.
+# The string typically looks like '5.15.0-91-generic' or '6.5.0' or '4.4.302+'.
+KERNEL_VERSION_RE = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
 
 class LinuxPSICheck(AgentCheck):
@@ -66,17 +71,46 @@ class LinuxPSICheck(AgentCheck):
         return tuple(result)
 
     def _set_paths(self):
-        """Resolve the pressure directory, honoring the Agent's procfs_path
-        config so container deployments that mount /proc at /host/proc work
-        out of the box."""
+        """Resolve the procfs root and the pressure directory, honoring the
+        Agent's procfs_path config so container deployments that mount /proc
+        at /host/proc work out of the box."""
         proc_location = '/proc'
         if datadog_agent is not None:
             configured = datadog_agent.get_config('procfs_path')
             if configured:
                 proc_location = configured
-        self.pressure_dir = os.path.join(proc_location.rstrip('/'), 'pressure')
+        self._proc_root = proc_location.rstrip('/')
+        self.pressure_dir = os.path.join(self._proc_root, 'pressure')
+
+    @AgentCheck.metadata_entrypoint
+    def _submit_kernel_version(self):
+        """Surface the running kernel version as integration metadata so it
+        appears in the tile's Integration metadata. Useful for fleet-wide
+        audits like 'how many hosts are on a kernel that supports cpu.full
+        PSI?' (added in 5.13)."""
+        osrelease_path = os.path.join(self._proc_root, 'sys/kernel/osrelease')
+        try:
+            with open(osrelease_path, 'r') as f:
+                raw = f.read().strip()
+        except OSError as e:
+            self.log.debug('Could not read kernel version from %s: %s',
+                           osrelease_path, e)
+            return
+
+        m = KERNEL_VERSION_RE.match(raw)
+        if not m:
+            self.log.debug('Unexpected kernel version format: %r', raw)
+            return
+        major, minor, patch = m.groups()
+        version = f'{major}.{minor}.{patch}'
+        self.set_metadata(
+            'version', version,
+            scheme='semver',
+            part_map={'major': major, 'minor': minor, 'patch': patch},
+        )
 
     def check(self, _):
+        self._submit_kernel_version()
         if not os.path.isdir(self.pressure_dir):
             self.service_check(
                 self.SERVICE_CHECK_NAME,
