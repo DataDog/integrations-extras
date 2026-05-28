@@ -512,6 +512,130 @@ def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
     assert len(cgroup_paths) <= 2, f'Expected <=2, got {cgroup_paths}'
 
 
+def test_cgroupfs_path_missing_entirely_warns(aggregator, instance, proc_dir, tmp_path):
+    """If the configured cgroupfs_path does not exist at all (distinct from
+    'exists but no v2 marker'), the cgroup service check must WARN with a
+    clear message and no metrics emit."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    instance_bogus = {
+        **instance,
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(tmp_path / 'does_not_exist'),
+    }
+    check = make_check(instance_bogus, str(proc_dir))
+    check.check(None)
+
+    aggregator.assert_service_check('linux_psi.cgroup.can_read',
+                                    status=AgentCheck.WARNING)
+    cgroup_metrics = [m for m in aggregator.metric_names
+                      if m.startswith('system.pressure.cgroup.')]
+    assert cgroup_metrics == []
+
+
+def test_cgroup_root_in_config_does_not_exist_on_disk(aggregator, proc_dir, tmp_path):
+    """A user-supplied cgroup_roots entry that simply does not exist on the
+    host (e.g., 'kubepods.slice' on a host without k8s) is logged at debug
+    and skipped silently. The service check stays OK because the rest of the
+    feature is working - the host just doesn't have that slice."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    # Build only system.slice; kubepods.slice will be configured but missing
+
+    instance = {
+        'cgroup_roots': ['system.slice', 'kubepods.slice'],
+        'cgroupfs_path': str(cgroup_root),
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    aggregator.assert_service_check('linux_psi.cgroup.can_read',
+                                    status=AgentCheck.OK)
+
+
+def test_walker_skips_scandir_permission_error(aggregator, proc_dir, tmp_path, monkeypatch):
+    """When os.scandir raises PermissionError on a cgroup subdirectory, the
+    walker must skip cleanly without aborting the whole check run. The root
+    cgroup itself should still emit; other roots / siblings should still emit."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    _make_slice(cgroup_root, 'system.slice', ['ok.service'])
+    blocked = cgroup_root / 'system.slice' / 'blocked.service'
+    blocked.mkdir()
+    (blocked / 'cpu.pressure').write_text(
+        'some avg10=2.0 avg60=2.0 avg300=2.0 total=2\n'
+    )
+
+    real_scandir = os.scandir
+
+    def fake_scandir(path, *args, **kwargs):
+        if str(path).endswith('blocked.service'):
+            raise PermissionError(13, 'Permission denied', path)
+        return real_scandir(path, *args, **kwargs)
+
+    monkeypatch.setattr('os.scandir', fake_scandir)
+
+    instance = {
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(cgroup_root),
+        'cgroup_max_depth': 3,
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # The ok.service emit should still appear
+    ok_paths = set()
+    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+        for tag in call.tags or ():
+            if tag.startswith('cgroup_path:'):
+                ok_paths.add(tag)
+    assert any('ok.service' in p for p in ok_paths), (
+        f'sibling cgroup must still emit despite the PermissionError, got {ok_paths}'
+    )
+    aggregator.assert_service_check('linux_psi.cgroup.can_read',
+                                    status=AgentCheck.OK)
+
+
+def test_emit_cgroup_handles_pressure_file_oserror(aggregator, proc_dir, tmp_path, monkeypatch):
+    """If reading one cgroup's pressure file raises a generic OSError
+    (e.g., EIO), the check logs and continues to the next resource and
+    next cgroup; no exception escapes."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    _make_slice(cgroup_root, 'system.slice', ['svc.service'])
+
+    real_open = open
+
+    def fake_open(path, *args, **kwargs):
+        # Make only the cgroup-level cpu.pressure raise EIO; other reads work
+        if 'svc.service' in str(path) and str(path).endswith('cpu.pressure'):
+            raise OSError(5, 'I/O error', str(path))
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr('builtins.open', fake_open)
+
+    instance = {
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(cgroup_root),
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)  # Should not raise
+
+    aggregator.assert_service_check('linux_psi.cgroup.can_read',
+                                    status=AgentCheck.OK)
+
+
 def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_path):
     """A pathologically-long cgroup name (or a deeply-nested kubepods path)
     must not produce a tag value longer than the Datadog 200-character limit.
