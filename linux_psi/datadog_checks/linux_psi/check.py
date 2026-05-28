@@ -96,16 +96,51 @@ class LinuxPSICheck(AgentCheck):
         """Per-cgroup PSI is opt-in. If `cgroup_roots` is empty/missing, no
         cgroup walking happens. When set, walk each named root under
         `cgroupfs_path` up to `cgroup_max_depth` levels deep, emitting metrics
-        for at most `cgroup_max_count` cgroups per run."""
+        for at most `cgroup_max_count` cgroups per run.
+
+        Validates each cgroup_roots entry against path-traversal patterns
+        (parent-directory references, absolute paths) so a misconfigured
+        conf.yaml cannot make the check read directories outside the
+        cgroupfs root. A second check at walk time (`_is_within_cgroupfs`)
+        defends against symlinks under the cgroupfs root that point outside.
+        """
         roots = self.instance.get('cgroup_roots') or []
         if not isinstance(roots, (list, tuple)):
             raise ConfigurationError(
                 '`cgroup_roots` must be a list of strings, got {!r}'.format(type(roots).__name__)
             )
-        self._cgroup_roots = tuple(str(r) for r in roots)
+        validated = []
+        for r in roots:
+            s = str(r).strip()
+            if os.path.isabs(s):
+                raise ConfigurationError(
+                    f'cgroup_roots entries must be relative paths under cgroupfs_path, '
+                    f'got absolute path: {s!r}'
+                )
+            # Normalize separators and check each segment for parent-directory references.
+            segments = [seg for seg in s.replace('\\', '/').split('/') if seg]
+            if '..' in segments:
+                raise ConfigurationError(
+                    f'cgroup_roots entries cannot contain parent-directory references (..), '
+                    f'got: {s!r}'
+                )
+            validated.append(s)
+        self._cgroup_roots = tuple(validated)
         self._cgroupfs_path = self.instance.get('cgroupfs_path', DEFAULT_CGROUPFS_PATH)
         self._cgroup_max_depth = int(self.instance.get('cgroup_max_depth', DEFAULT_CGROUP_MAX_DEPTH))
         self._cgroup_max_count = int(self.instance.get('cgroup_max_count', DEFAULT_CGROUP_MAX_COUNT))
+
+    def _is_within_cgroupfs(self, path):
+        """Resolve symlinks and confirm `path` is at or below cgroupfs_path.
+        Returns True if safe, False if the resolved path escapes."""
+        try:
+            real_path = os.path.realpath(path)
+            real_base = os.path.realpath(self._cgroupfs_path)
+        except OSError:
+            return False
+        if real_path == real_base:
+            return True
+        return real_path.startswith(real_base + os.sep)
 
     @AgentCheck.metadata_entrypoint
     def _submit_kernel_version(self):
@@ -268,6 +303,13 @@ class LinuxPSICheck(AgentCheck):
             root_path = os.path.join(self._cgroupfs_path, root_name)
             if not os.path.isdir(root_path):
                 self.log.debug('cgroup root not found: %s', root_path)
+                continue
+            if not self._is_within_cgroupfs(root_path):
+                self.log.warning(
+                    'cgroup root %s resolves outside cgroupfs_path %s '
+                    '(possible symlink escape); skipping',
+                    root_path, self._cgroupfs_path,
+                )
                 continue
             for cgroup_dir, rel_path in self._walk_cgroups(root_path, root_name):
                 if emitted_count >= self._cgroup_max_count:

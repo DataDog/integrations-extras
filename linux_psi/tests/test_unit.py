@@ -476,6 +476,69 @@ def test_cgroup_roots_rejects_non_list(proc_dir):
         LinuxPSICheck('linux_psi', {}, [instance])
 
 
+@pytest.mark.parametrize('bad_root', [
+    '../etc',
+    '..',
+    'system.slice/../etc',
+    'a/b/../../etc',
+])
+def test_cgroup_roots_rejects_parent_traversal(bad_root):
+    """Entries containing `..` segments must be rejected at config time
+    so a misconfigured conf.yaml cannot escape the cgroupfs root."""
+    from datadog_checks.base import ConfigurationError
+    instance = {'cgroup_roots': [bad_root]}
+    with pytest.raises(ConfigurationError, match='parent-directory'):
+        LinuxPSICheck('linux_psi', {}, [instance])
+
+
+@pytest.mark.parametrize('bad_root', [
+    '/etc',
+    '/sys/fs/cgroup/system.slice',
+    '/',
+])
+def test_cgroup_roots_rejects_absolute_paths(bad_root):
+    """Absolute paths in cgroup_roots must be rejected; the entries are
+    interpreted relative to cgroupfs_path and an absolute value implies
+    the user is trying to escape that boundary."""
+    from datadog_checks.base import ConfigurationError
+    instance = {'cgroup_roots': [bad_root]}
+    with pytest.raises(ConfigurationError, match='relative'):
+        LinuxPSICheck('linux_psi', {}, [instance])
+
+
+def test_cgroup_root_outside_cgroupfs_is_skipped(aggregator, proc_dir, tmp_path):
+    """Even with a clean relative name, if the resolved path escapes
+    cgroupfs_path via a symlink the check must skip that root, not
+    silently emit metrics for outside content."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    # Create a hostile target outside the cgroupfs root
+    hostile_target = tmp_path / 'outside_cgroupfs'
+    hostile_target.mkdir()
+    (hostile_target / 'cpu.pressure').write_text(
+        'some avg10=99.9 avg60=99.9 avg300=99.9 total=99999\n'
+    )
+    # Symlink a "cgroup root" name to point at it
+    (cgroup_root / 'sneaky.slice').symlink_to(hostile_target)
+
+    instance = {
+        'cgroup_roots': ['sneaky.slice'],
+        'cgroupfs_path': str(cgroup_root),
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # No metrics should have been emitted from outside the cgroupfs root
+    cgroup_metrics = [m for m in aggregator.metric_names
+                      if m.startswith('system.pressure.cgroup.')]
+    assert cgroup_metrics == [], (
+        f'Symlink escaping cgroupfs root must not emit metrics; got {cgroup_metrics}'
+    )
+
+
 def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir, monkeypatch):
     """When some files read OK but others raise PermissionError, the service
     check should still be CRITICAL (worst observed status wins) and the
