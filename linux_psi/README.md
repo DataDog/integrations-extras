@@ -62,6 +62,10 @@ For containerized Agents (Docker, Kubernetes), mount the host's `/proc` into the
 | `service` | string | (none) | Sets the `service:<value>` tag |
 | `min_collection_interval` | number | 15 | Seconds between collection runs |
 | `resources` | list of strings | `[cpu, memory, io]` | Subset of PSI resources to collect. Use to silence resources whose pressure is permanently elevated for legitimate reasons (e.g., a database host with sustained high I/O) or to skip a file masked by container/security policy. Unknown names fail check startup with a clear error. |
+| `cgroup_roots` | list of strings | (none, feature off) | Opt-in per-cgroup PSI. List cgroup v2 slices to walk - typically `system.slice` for systemd services and/or `kubepods.slice` for Kubernetes pods. When set, the check emits `system.pressure.cgroup.<resource>.<kind>.<key>` metrics tagged with `cgroup_path` and `cgroup_root`. Requires cgroup v2 (kernel 5.2+ unified hierarchy). |
+| `cgroupfs_path` | string | `/sys/fs/cgroup` | Filesystem root for cgroup v2. Override only if the host mounts the cgroupfs in a non-standard location. |
+| `cgroup_max_depth` | integer | 2 | Maximum subdirectory depth to descend when walking each cgroup root. Increase to 3 or 4 to see per-container metrics inside k8s pods (at the cost of higher cardinality). |
+| `cgroup_max_count` | integer | 200 | Maximum total cgroups to emit metrics for per check run. Caps cardinality on hosts running many cgroups. The check logs a warning when the cap is hit. |
 
 ## Data Collected
 
@@ -79,13 +83,16 @@ See [`metadata.csv`](metadata.csv) for the complete list.
 | I/O | `system.pressure.io.some.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (some) |
 | I/O | `system.pressure.io.full.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (full) |
 
-24 metrics total, gracefully degrading on older kernels that lack `/proc/pressure/cpu`'s `full` line.
+24 host-level metrics, gracefully degrading on older kernels that lack `/proc/pressure/cpu`'s `full` line.
+
+When `cgroup_roots` is configured, an additional 24 metrics are emitted under the `system.pressure.cgroup.*` namespace with the same shape as the host metrics. Each cgroup metric carries `cgroup_path` (the cgroup's relative path under its root, e.g., `system.slice/postgresql.service`) and `cgroup_root` (the top-level slice, e.g., `system.slice`) tags. Per-cgroup metrics are emitted **in addition to**, not instead of, the host-level metrics.
 
 ### Service Checks
 
 | Name | Description |
 |---|---|
 | `linux_psi.can_read` | `OK` when at least one PSI file was read successfully; `WARNING` when PSI is not enabled on the kernel; `CRITICAL` on permission errors |
+| `linux_psi.cgroup.can_read` | Emitted only when `cgroup_roots` is configured. `OK` when the cgroup v2 hierarchy is readable; `WARNING` when the cgroupfs path is missing or the host is on cgroup v1 (which does not expose PSI) |
 
 ### Events
 
@@ -119,9 +126,21 @@ sudo -u dd-agent cat /proc/pressure/cpu
 
 For containerized Agents, ensure the host's `/proc` is mounted into the container (`-v /proc:/host/proc:ro`) and `procfs_path: /host/proc` is set in the Agent config.
 
-### cgroup-scoped PSI
+### `linux_psi.cgroup.can_read` is WARNING with "cgroup v2 not detected"
 
-This version of the check reads system-wide PSI only. Per-cgroup PSI (`/sys/fs/cgroup/.../cpu.pressure`, etc.) is planned for a future release - track [issue link to be filed] for progress.
+Per-cgroup PSI requires the unified cgroup v2 hierarchy. Hosts on cgroup v1 (the split hierarchy used by older distros and some legacy container runtimes) do not expose PSI per cgroup. To confirm which version is active:
+
+```
+stat -fc %T /sys/fs/cgroup
+```
+
+If the output is `cgroup2fs`, you are on v2 and the check should work. If `tmpfs`, the host is on v1; either migrate to v2 or leave `cgroup_roots` unset.
+
+For systemd-based hosts, you can opt into cgroup v2 by setting `systemd.unified_cgroup_hierarchy=1` on the kernel command line.
+
+### `cgroup_max_count` warning in logs
+
+If the Agent logs `cgroup_max_count (200) reached, stopping enumeration` then the host has more cgroups than the cap. Either raise the cap (the cost is mostly cardinality in Datadog) or narrow `cgroup_roots` to scan fewer top-level slices. Hosts running many short-lived containers can legitimately generate thousands of cgroups; the default cap exists to prevent surprise billing.
 
 ### Agent fails to load with `yaml: cannot unmarshal !!map into string`
 
@@ -174,6 +193,7 @@ The command runs one check iteration in the foreground and prints every metric i
 |---|---|
 | Linux kernel | 4.20 (Dec 2018) |
 | Linux kernel for `cpu.full.*` metrics | 5.13 (May 2021) |
+| Linux kernel + cgroup v2 unified hierarchy for cgroup PSI | 5.2 (Jul 2019), with systemd-cgroup-v2 enabled (default in modern distros) |
 | Datadog Agent | 7.53 |
 | Boot parameter `psi=1` | Required on distros that disable PSI by default |
 

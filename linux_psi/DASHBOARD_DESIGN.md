@@ -132,7 +132,7 @@ A few candidates I considered and ruled out:
 | Per-process PSI panels | PSI is system-wide; we do not have per-process data. The "noisy neighbor" question is better answered by overlaying k8s/container metrics on the system-wide PSI panels. |
 | ML-based anomaly detection on the `total` counter | The `derivative()` of a monotonic counter is conceptually identical to the `avg10`/`avg60` gauges PSI already exposes. ML adds complexity without insight here. |
 | A "pressure forecast" panel | `forecast()` exists in Datadog and works on PSI metrics, but pressure forecasts have low predictive value on horizons longer than a few days because most pressure events are workload-driven, not workload-independent trends. Better to alert on the *current* week-over-week delta and let the operator interpret. |
-| Per-cgroup PSI panels | The cgroup PSI data is not yet collected by the check (deferred to v1.1 of the integration itself). Once the check ships it, the dashboard will get a per-namespace breakdown of the panels above. |
+| Per-cgroup PSI panels | The cgroup PSI data IS collected by the check as of v1.1 (opt-in via `cgroup_roots`). A v1.2 dashboard pass should add per-cgroup breakdowns of the panels above, grouped by `cgroup_path` or by the Agent tagger's enriched dimensions (`kube_namespace`, `kube_deployment`, `container_name`). Highest-value panels for the per-cgroup view: a heatmap of `system.pressure.cgroup.memory.some.avg60` by `cgroup_path`, and a top-list of cgroups by `cgroup.cpu.some.avg300` over the last hour - this is the canonical "which workload is stressing this host?" question. |
 
 ## 6. Implementation order for whoever picks this up
 
