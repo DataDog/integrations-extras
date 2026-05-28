@@ -122,6 +122,51 @@ For containerized Agents, ensure the host's `/proc` is mounted into the containe
 
 This version of the check reads system-wide PSI only. Per-cgroup PSI (`/sys/fs/cgroup/.../cpu.pressure`, etc.) is planned for a future release - track [issue link to be filed] for progress.
 
+### Agent fails to load with `yaml: cannot unmarshal !!map into string`
+
+The Agent log shows something like:
+
+```
+Error: could not load linux_psi:
+* Python Check Loader: could not configure check instance for python check linux_psi: yaml: unmarshal errors:
+  line 6: cannot unmarshal !!map into string
+  line 7: cannot unmarshal !!map into string
+```
+
+This means a field in `conf.yaml` is a YAML map (nested dict) but the Agent expects a plain string. By far the most common cause is writing the `tags` block with the colon as a YAML separator instead of as part of the tag string:
+
+```yaml
+# WRONG - each entry becomes a {key: value} map
+tags:
+  - env: prod
+  - region: eu-east-1
+
+# CORRECT - each entry is a single string in `key:value` form
+tags:
+  - env:prod
+  - region:eu-east-1
+```
+
+The same shape applies to any other string-typed field (`service`, `min_collection_interval`, etc.). If a field's documentation comment says `string`, it must be a single-line scalar, never a nested map.
+
+To catch this before the Agent does, lint the file standalone with Python:
+
+```
+python3 -c "import yaml, pprint; pprint.pprint(yaml.safe_load(open('/etc/datadog-agent/conf.d/linux_psi.d/conf.yaml')))"
+```
+
+The `tags:` value should print as a list of strings (`['env:prod', ...]`), not a list of dicts (`[{'env': 'prod'}, ...]`).
+
+### Check loads but no PSI metrics appear in Datadog
+
+Confirm the Agent is running the check and seeing metrics locally:
+
+```
+sudo -u dd-agent datadog-agent check linux_psi
+```
+
+The command runs one check iteration in the foreground and prints every metric it would have submitted. You should see 24 `system.pressure.*` entries plus an OK `linux_psi.can_read` service check. If you see them locally but not in your Datadog account, the issue is upstream (Agent API key, network egress, account routing) and outside this integration's scope.
+
 ## Compatibility
 
 | Requirement | Minimum |
