@@ -218,6 +218,42 @@ def test_all_files_missing_yields_warning(aggregator, instance, tmp_path):
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
 
 
+def test_resources_config_filters_collection(aggregator, proc_dir):
+    """When the user sets `resources: [cpu]`, only cpu metrics emit and the
+    other resource files are not even opened."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    instance = {'tags': ['integration:linux_psi_test'], 'resources': ['cpu']}
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0)
+    for excluded in ('memory', 'io'):
+        leaked = [m for m in aggregator.metric_names
+                  if m.startswith(f'system.pressure.{excluded}.')]
+        assert leaked == [], f'{excluded} should not have emitted, got {leaked}'
+    aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
+
+
+def test_resources_config_rejects_unknown(proc_dir):
+    """An unknown resource name should fail check construction with a clear
+    ConfigurationError, not silently degrade."""
+    from datadog_checks.base import ConfigurationError
+
+    instance = {'resources': ['cpu', 'gpu', 'network']}
+    with pytest.raises(ConfigurationError, match=r'gpu.*network'):
+        LinuxPSICheck('linux_psi', {}, [instance])
+
+
+def test_resources_config_preserves_order_and_dedups(proc_dir):
+    """User ordering is preserved and duplicates are silently removed."""
+    instance = {'resources': ['memory', 'io', 'cpu', 'memory']}
+    check = LinuxPSICheck('linux_psi', {}, [instance])
+    assert check._resources == ('memory', 'io', 'cpu')
+
+
 def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir, monkeypatch):
     """When some files read OK but others raise PermissionError, the service
     check should still be CRITICAL (worst observed status wins) and the

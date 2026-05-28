@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import os
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 try:
     # Available inside the Agent runtime; not in unit tests on a bare interpreter.
@@ -41,7 +41,29 @@ class LinuxPSICheck(AgentCheck):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tags = list(self.instance.get('tags', []))
+        self._resources = self._resolve_resources()
         self._set_paths()
+
+    def _resolve_resources(self):
+        """Return the tuple of PSI resources to collect for this instance.
+        Defaults to all three; user can restrict via the `resources` config."""
+        configured = self.instance.get('resources')
+        if not configured:
+            return PRESSURE_FILES
+        invalid = [r for r in configured if r not in PRESSURE_FILES]
+        if invalid:
+            raise ConfigurationError(
+                f'Unknown PSI resource(s) {invalid!r} in `resources` config. '
+                f'Allowed values: {list(PRESSURE_FILES)}'
+            )
+        # Preserve user ordering, deduplicate.
+        seen = set()
+        result = []
+        for r in configured:
+            if r not in seen:
+                seen.add(r)
+                result.append(r)
+        return tuple(result)
 
     def _set_paths(self):
         """Resolve the pressure directory, honoring the Agent's procfs_path
@@ -72,7 +94,7 @@ class LinuxPSICheck(AgentCheck):
         emitted = False
         worst_status = AgentCheck.OK
         worst_message = ''
-        for resource in PRESSURE_FILES:
+        for resource in self._resources:
             path = os.path.join(self.pressure_dir, resource)
             try:
                 self._read_one(resource, path)

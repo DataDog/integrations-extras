@@ -14,6 +14,19 @@ init_config:
 instances:
 
   -
+    ## @param resources - list of strings - optional
+    ## Optional list of PSI resources to collect. If omitted, all three (cpu, memory, io)
+    ## are collected. Restrict the list to silence resources whose pressure is
+    ## permanently elevated for legitimate reasons (e.g., a batch-compute host where
+    ## memory pressure during job ramp-up is normal, or a database host with sustained
+    ## high I/O), or to skip a file that is masked by container/security policy.
+    ## Allowed values: cpu, memory, io.
+    #
+    # resources:
+    #   - cpu
+    #   - memory
+    #   - io
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##

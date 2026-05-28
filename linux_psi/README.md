@@ -61,6 +61,7 @@ For containerized Agents (Docker, Kubernetes), mount the host's `/proc` into the
 | `tags` | list of strings | (none) | Tags attached to every metric and service check from this instance |
 | `service` | string | (none) | Sets the `service:<value>` tag |
 | `min_collection_interval` | number | 15 | Seconds between collection runs |
+| `resources` | list of strings | `[cpu, memory, io]` | Subset of PSI resources to collect. Use to silence resources whose pressure is permanently elevated for legitimate reasons (e.g., a database host with sustained high I/O) or to skip a file masked by container/security policy. Unknown names fail check startup with a clear error. |
 
 ## Data Collected
 
