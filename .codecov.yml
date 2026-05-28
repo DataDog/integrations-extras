@@ -83,6 +83,10 @@ coverage:
         target: 75
         flags:
         - lighthouse
+      Linux_PSI:
+        target: 75
+        flags:
+        - linux_psi
       Logstash:
         target: 75
         flags:
@@ -489,6 +493,11 @@ flags:
     paths:
     - lighthouse/datadog_checks/lighthouse
     - lighthouse/tests
+  linux_psi:
+    carryforward: true
+    paths:
+    - linux_psi/datadog_checks/linux_psi
+    - linux_psi/tests
   logstash:
     carryforward: true
     paths:
