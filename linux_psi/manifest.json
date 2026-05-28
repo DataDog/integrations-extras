@@ -11,7 +11,38 @@
     "changelog": "CHANGELOG.md",
     "description": "Monitor Linux kernel Pressure Stall Information (PSI) - per-resource CPU, memory, and I/O contention pressure.",
     "title": "Linux PSI",
-    "media": [],
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Status overview at a glance - four KPI tiles with red/yellow/green conditional formatting answer 'is anything wedging my hosts right now?' in under five seconds",
+        "image_url": "images/dashboard_overview.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Fleet view - top hosts by CPU / memory / I/O pressure plus the cumulative stall-time leaderboard showing which hosts ate the most real stall over the window",
+        "image_url": "images/dashboard_fleet_view.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Per-host investigation - some-vs-full overlays per resource plus stall-rate-per-second derived from the total counter; uses the host template variable to drill into one machine",
+        "image_url": "images/dashboard_per_host_investigation.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Per-cgroup view - the noisy-neighbor finder. Top cgroups by CPU and memory pressure across systemd services and k8s pods (requires cgroup_roots config)",
+        "image_url": "images/dashboard_per_cgroup.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Capacity and trends - this week vs same time last week for CPU and memory, plus the pressure budget leaderboard ranking hosts by their composite-score pressure consumption",
+        "image_url": "images/dashboard_capacity_trends.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Reference inventory - all three averaging windows (avg10/avg60/avg300) per resource for custom-query authoring, with Datadog's anomaly detection overlay",
+        "image_url": "images/dashboard_reference.png"
+      }
+    ],
     "classifier_tags": [
       "Supported OS::Linux",
       "Category::OS & System",
