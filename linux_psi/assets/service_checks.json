@@ -13,5 +13,19 @@
         ],
         "name": "PSI readability",
         "description": "Returns `OK` if /proc/pressure/{cpu,memory,io} are readable, `WARNING` if PSI is not enabled in the kernel (kernel < 4.20 or the psi=1 boot parameter is not set), and `CRITICAL` if the agent does not have permission to read the files."
+    },
+    {
+        "agent_version": "7.53.0",
+        "integration": "Linux PSI",
+        "check": "linux_psi.cgroup.can_read",
+        "statuses": [
+            "ok",
+            "warning"
+        ],
+        "groups": [
+            "host"
+        ],
+        "name": "Cgroup PSI readability",
+        "description": "Emitted only when `cgroup_roots` is configured. Returns `OK` if the configured cgroupfs path exists and is a cgroup v2 hierarchy, `WARNING` if the cgroupfs path is missing or the host is on cgroup v1 (which does not expose PSI)."
     }
 ]
