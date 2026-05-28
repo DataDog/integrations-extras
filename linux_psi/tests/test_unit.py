@@ -440,6 +440,50 @@ def test_cgroup_v1_host_warns(aggregator, instance, proc_dir, tmp_path):
     assert 'v2' in warnings[0].message.lower()
 
 
+def test_cgroup_max_count_breaks_across_multiple_roots(aggregator, proc_dir, tmp_path, caplog):
+    """When the cgroup_max_count cap is hit while walking the first root,
+    subsequent roots must not be walked at all - and the cap-hit warning
+    must be logged exactly once, not per root."""
+    import logging
+    caplog.set_level(logging.WARNING)
+
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    _make_slice(cgroup_root, 'system.slice',
+                ['a.service', 'b.service', 'c.service'])
+    _make_slice(cgroup_root, 'user.slice',
+                ['session-1.scope', 'session-2.scope'])
+
+    instance = {
+        'cgroup_roots': ['system.slice', 'user.slice'],
+        'cgroupfs_path': str(cgroup_root),
+        'cgroup_max_count': 1,
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # At most one cgroup_path tag value should be present across all emitted
+    # cgroup metrics (cap is 1)
+    cgroup_paths = set()
+    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+        for tag in call.tags or ():
+            if tag.startswith('cgroup_path:'):
+                cgroup_paths.add(tag)
+    assert len(cgroup_paths) <= 1, (
+        f'cap=1 should yield at most 1 cgroup_path tag value, got {cgroup_paths}'
+    )
+
+    # And the cap-hit warning must be logged exactly once
+    cap_warnings = [r for r in caplog.records
+                    if 'cgroup_max_count' in r.getMessage()]
+    assert len(cap_warnings) == 1, (
+        f'expected exactly one cap-hit warning across both roots, got {len(cap_warnings)}'
+    )
+
+
 def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
     """When more cgroups exist than cgroup_max_count, the walker stops cleanly."""
     _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')

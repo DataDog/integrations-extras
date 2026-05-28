@@ -299,7 +299,10 @@ class LinuxPSICheck(AgentCheck):
             return
 
         emitted_count = 0
+        cap_hit = False
         for root_name in self._cgroup_roots:
+            if cap_hit:
+                break
             root_path = os.path.join(self._cgroupfs_path, root_name)
             if not os.path.isdir(root_path):
                 self.log.debug('cgroup root not found: %s', root_path)
@@ -318,6 +321,7 @@ class LinuxPSICheck(AgentCheck):
                         'Some cgroups will not be reported.',
                         self._cgroup_max_count,
                     )
+                    cap_hit = True
                     break
                 if self._emit_cgroup(cgroup_dir, rel_path, root_name):
                     emitted_count += 1
