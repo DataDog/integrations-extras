@@ -8,7 +8,7 @@
   ],
   "description": "Linux PSI reports `some` tasks have been stalled on CPU for a significant fraction of the last 5 minutes. This indicates CPU contention even if utilization looks healthy.",
   "definition": {
-    "message": "CPU pressure (`some` avg300) is above 50% on {{host.name}}, meaning at least one task was waiting on CPU for more than half of the last 5 minutes.\n\nInvestigate: check `top`, `pidstat -u`, or perf for the runaway processes. CPU pressure can be high even when `system.cpu.system + .user` looks fine because PSI measures *stalls*, not utilization.\n\n@all",
+    "message": "CPU pressure (`some` avg300) is above 50% on {{host.name}}, meaning at least one task was waiting on CPU for more than half of the last 5 minutes.\n\nInvestigate: check `top`, `pidstat -u`, or perf for the runaway processes. CPU pressure can be high even when `system.cpu.system + .user` looks fine because PSI measures *stalls*, not utilization.\n\nNotification handles are deliberately omitted from this template - configure them at install time to match your on-call setup.",
     "name": "High CPU pressure on {{host.name}}",
     "options": {
       "escalation_message": "",

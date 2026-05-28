@@ -8,7 +8,7 @@
   ],
   "description": "Linux PSI reports tasks are spending significant time blocked on I/O.",
   "definition": {
-    "message": "I/O pressure (`some` avg300) is above 70% on {{host.name}}. At least one task has been waiting on I/O for over 70% of the last 5 minutes.\n\nInvestigate: `iostat -x 1`, `iotop`, slow-disk indicators. Common causes are saturated disk bandwidth, an underprovisioned EBS volume, or unexpectedly heavy fsync traffic from a database.\n\n@all",
+    "message": "I/O pressure (`some` avg300) is above 70% on {{host.name}}. At least one task has been waiting on I/O for over 70% of the last 5 minutes.\n\nInvestigate: `iostat -x 1`, `iotop`, slow-disk indicators. Common causes are saturated disk bandwidth, an underprovisioned EBS volume, or unexpectedly heavy fsync traffic from a database.\n\nNotification handles are deliberately omitted from this template - configure them at install time to match your on-call setup.",
     "name": "High I/O pressure on {{host.name}}",
     "options": {
       "escalation_message": "",

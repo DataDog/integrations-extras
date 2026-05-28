@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "created_at": "2026-05-28",
+  "last_updated_at": "2026-05-28",
+  "title": "Severe CPU pressure on {{host.name}}",
+  "tags": [
+    "integration:linux_psi"
+  ],
+  "description": "Linux PSI reports that ALL tasks were stalled on CPU at some point in the recent window. This is the strongest indicator of CPU contention - the system is essentially making no progress.",
+  "definition": {
+    "message": "CPU pressure (`full` avg60) is above 10% on {{host.name}}. EVERY task on the host has been waiting for CPU at the same time, repeatedly, over the last minute. This is much worse than ordinary high utilization - the system is not making progress.\n\nThis metric only exists on Linux kernel 5.13+ and is system-wide. Investigate: which workload is dominating? Are there too many runnable threads for the available cores? Consider isolating noisy neighbors with cgroups, adding cores, or reducing concurrency.\n\nNotification handles are deliberately omitted from this template - configure them at install time to match your on-call setup.",
+    "name": "Severe CPU pressure on {{host.name}}",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "new_host_delay": 300,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 30,
+      "thresholds": {
+        "critical": 10,
+        "warning": 5
+      },
+      "timeout_h": 0
+    },
+    "priority": 1,
+    "query": "avg(last_5m):avg:system.pressure.cpu.full.avg60{*} by {host} > 10",
+    "restricted_roles": null,
+    "tags": [
+      "integration:linux_psi"
+    ],
+    "type": "metric alert"
+  }
+}

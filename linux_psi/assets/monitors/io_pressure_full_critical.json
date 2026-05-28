@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "created_at": "2026-05-28",
+  "last_updated_at": "2026-05-28",
+  "title": "Severe I/O pressure on {{host.name}}",
+  "tags": [
+    "integration:linux_psi"
+  ],
+  "description": "Linux PSI reports that ALL tasks were blocked on I/O at some point in the recent window. The disk or block layer is the bottleneck and the entire system is waiting on it.",
+  "definition": {
+    "message": "I/O pressure (`full` avg60) is above 15% on {{host.name}}. EVERY task on the host has been blocked on I/O at the same time, repeatedly, over the last minute. The disk or block layer is fully saturated.\n\nInvestigate: `iostat -x 1` for high `%util` and large `await`, `iotop` for the dominant writer, `dmesg` for hardware errors. Common causes: a runaway fsync loop (database checkpoint, log flush), an underprovisioned cloud volume, or a failing disk.\n\nNotification handles are deliberately omitted from this template - configure them at install time to match your on-call setup.",
+    "name": "Severe I/O pressure on {{host.name}}",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "new_host_delay": 300,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 30,
+      "thresholds": {
+        "critical": 15,
+        "warning": 5
+      },
+      "timeout_h": 0
+    },
+    "priority": 1,
+    "query": "avg(last_5m):avg:system.pressure.io.full.avg60{*} by {host} > 15",
+    "restricted_roles": null,
+    "tags": [
+      "integration:linux_psi"
+    ],
+    "type": "metric alert"
+  }
+}
