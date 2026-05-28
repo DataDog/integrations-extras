@@ -37,7 +37,6 @@ files:
               type: string
               example: <HUNTRESS_SECRET_KEY>
           - name: log_queries
-            required: true
             description: |
               List of ES|QL queries to execute against the Huntress SIEM API. Each entry
               requires an esql_query string (must begin with "FROM logs", case-insensitive)
@@ -96,3 +95,24 @@ files:
               type: string
               example: "https://api.huntress.io"
               default: "https://api.huntress.io"
+          - name: metrics
+            description: |
+              Controls which Huntress data is collected as Datadog metrics beyond the
+              standard SIEM run metrics. Omit this section to disable additional metric
+              collection (logs-only instance). Configure a separate instance with only
+              this section and different API credentials to isolate the agent metrics
+              API call budget from SIEM log collection.
+            value:
+              type: object
+              properties:
+                - name: agents
+                  type: object
+                  properties:
+                    - name: enabled
+                      type: boolean
+                    - name: max_pages
+                      type: integer
+              example:
+                agents:
+                  enabled: true
+                  max_pages: 20

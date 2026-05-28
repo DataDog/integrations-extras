@@ -72,7 +72,7 @@ instances:
     #
     huntress_secret_key: <HUNTRESS_SECRET_KEY>
 
-    ## @param log_queries - list of mappings - required
+    ## @param log_queries - list of mappings - optional
     ## List of ES|QL queries to execute against the Huntress SIEM API. Each entry
     ## requires an esql_query string (must begin with "FROM logs", case-insensitive)
     ## and an optional tags list attached only to logs produced by that query.
@@ -81,9 +81,9 @@ instances:
     ## Do not add time range filters — range_start and range_end are managed
     ## automatically by the check.
     #
-    log_queries:
-      - name: all-logs
-        esql_query: FROM logs
+    # log_queries:
+    #   - name: all-logs
+    #     esql_query: FROM logs
 
     ## @param enrich_with_org_tags - boolean - optional - default: true
     ## When true, the check fetches Huntress organization metadata (org name,
@@ -110,3 +110,15 @@ instances:
     ## Huntress API base URL. Override for sandbox or testing environments.
     #
     # huntress_base_url: https://api.huntress.io
+
+    ## @param metrics - mapping - optional
+    ## Controls which Huntress data is collected as Datadog metrics beyond the
+    ## standard SIEM run metrics. Omit this section to disable additional metric
+    ## collection (logs-only instance). Configure a separate instance with only
+    ## this section and different API credentials to isolate the agent metrics
+    ## API call budget from SIEM log collection.
+    #
+    # metrics:
+    #   agents:
+    #     enabled: true
+    #     max_pages: 20

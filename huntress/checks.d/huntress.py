@@ -17,6 +17,7 @@ class HuntressCheck(AgentCheck):
     HUNTRESS_SIEM_ENDPOINT = "/v1/siem/query"
     HUNTRESS_ACCOUNT_ENDPOINT = "/v1/account"
     HUNTRESS_ORGS_ENDPOINT = "/v1/accounts/{account_id}/organizations"
+    HUNTRESS_AGENTS_ENDPOINT = "/v1/agents"
 
     CHECKPOINT_CACHE_KEY_PREFIX = "huntress_last_collected_at_"
     ORG_CACHE_KEY_PREFIX = "huntress_org_cache_"
@@ -29,6 +30,7 @@ class HuntressCheck(AgentCheck):
     DEFAULT_MIN_COLLECTION_INTERVAL = 900
     DEFAULT_MAX_PAGES_PER_RUN = 100
     DEFAULT_ORG_CACHE_TTL = 3600
+    DEFAULT_AGENT_MAX_PAGES = 20  # 20 × 500/page = up to 10k agents
 
     SERVICE_CHECK_NAME = "huntress.siem.check_status"
 
@@ -49,23 +51,29 @@ class HuntressCheck(AgentCheck):
         extra_tags = list(instance.get("tags", []))
         log_queries = instance.get("log_queries") or []
 
+        metrics_config = instance.get("metrics") or {}
+        agents_config = metrics_config.get("agents") or {}
+        collect_agents = bool(agents_config.get("enabled", False))
+        agents_max_pages = int(agents_config.get("max_pages", self.DEFAULT_AGENT_MAX_PAGES))
+
         if not api_key:
             raise ConfigurationError("huntress_api_key is required")
         if not secret_key:
             raise ConfigurationError("huntress_secret_key is required")
-        if not log_queries:
-            raise ConfigurationError("log_queries must contain at least one query")
+        if not log_queries and not collect_agents:
+            raise ConfigurationError(
+                "Configure at least one of: log_queries (for SIEM log collection) "
+                "or metrics.agents.enabled: true (for agent metrics)"
+            )
 
         instance_hash = self._instance_hash(instance)
         headers = self._get_auth_header(api_key, secret_key)
 
         # Org enrichment cache is shared across all queries for this instance
         org_cache = None
-        if enrich_orgs:
+        if enrich_orgs and log_queries:
             org_cache = self._get_or_refresh_org_cache(base_url, headers, instance_hash, org_ttl)
 
-        total_logs = 0
-        total_pages = 0
         success = False
 
         try:
@@ -89,16 +97,17 @@ class HuntressCheck(AgentCheck):
                 logs, pages = self._run_query(
                     base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags
                 )
-                total_logs += logs
-                total_pages += pages
 
                 self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
                 self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
 
+            if collect_agents:
+                self._collect_agent_metrics(base_url, headers, extra_tags, agents_max_pages)
+
             success = True
 
         except Exception as exc:
-            self.log.error("Huntress SIEM run failed: %s", exc)
+            self.log.error("Huntress check run failed: %s", exc)
             self.count("huntress.siem.errors", 1, tags=extra_tags + ["error_type:run_failure"])
             self.service_check(self.SERVICE_CHECK_NAME, self.CRITICAL, tags=extra_tags)
             raise
@@ -115,7 +124,7 @@ class HuntressCheck(AgentCheck):
             self.service_check(self.SERVICE_CHECK_NAME, self.OK, tags=extra_tags)
 
     # ------------------------------------------------------------------ #
-    # Per-query execution                                                   #
+    # Per-query SIEM execution                                              #
     # ------------------------------------------------------------------ #
 
     def _run_query(self, base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags):
@@ -183,6 +192,66 @@ class HuntressCheck(AgentCheck):
             self._save_checkpoint(checkpoint_key, range_end)
 
         return total_logs, pages_fetched
+
+    # ------------------------------------------------------------------ #
+    # Agent metrics                                                         #
+    # ------------------------------------------------------------------ #
+
+    def _collect_agent_metrics(self, base_url, headers, extra_tags, max_pages):
+        """Fetch all agents and emit platform/status counts as Datadog metrics."""
+        agents = []
+        page_token = None
+        pages_fetched = 0
+
+        while True:
+            params = {"limit": 500}
+            if page_token:
+                params["page_token"] = page_token
+
+            url = base_url + self.HUNTRESS_AGENTS_ENDPOINT
+            resp = self._request_with_retry("GET", url, headers, params=params)
+            data = resp.json()
+            batch = data.get("agents", [])
+            agents.extend(batch)
+            pages_fetched += 1
+
+            pagination = data.get("pagination", {})
+            next_token = pagination.get("next_page_token")
+            if next_token and pages_fetched < max_pages:
+                page_token = next_token
+            else:
+                if next_token and pages_fetched >= max_pages:
+                    self.log.warning(
+                        "Huntress agents: hit max_pages=%d; some agents may be excluded from this run's metrics",
+                        max_pages,
+                    )
+                break
+
+        by_platform = {}
+        by_defender_status = {}
+        by_firewall_status = {}
+
+        for agent in agents:
+            platform = (agent.get("platform") or "unknown").lower()
+            by_platform[platform] = by_platform.get(platform, 0) + 1
+
+            def_status = (agent.get("defender_status") or "unknown").lower().replace(" ", "_")
+            by_defender_status[def_status] = by_defender_status.get(def_status, 0) + 1
+
+            fw_status = (agent.get("firewall_status") or "unknown").lower().replace(" ", "_")
+            by_firewall_status[fw_status] = by_firewall_status.get(fw_status, 0) + 1
+
+        self.gauge("huntress.agents.total", len(agents), tags=extra_tags)
+        self.gauge("huntress.agents.pages_fetched", pages_fetched, tags=extra_tags)
+
+        for platform, count in by_platform.items():
+            self.gauge("huntress.agents.count", count, tags=extra_tags + [f"platform:{platform}"])
+
+        for status, count in by_defender_status.items():
+            self.gauge("huntress.agents.defender_status", count, tags=extra_tags + [f"defender_status:{status}"])
+
+        for status, count in by_firewall_status.items():
+            self.gauge("huntress.agents.firewall_status", count, tags=extra_tags + [f"firewall_status:{status}"])
 
     # ------------------------------------------------------------------ #
     # Auth                                                                  #

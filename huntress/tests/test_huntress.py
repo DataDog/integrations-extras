@@ -729,3 +729,162 @@ def test_rate_limit_metrics_emitted_in_check():
 
     assert emitted_gauges.get("huntress.siem.api_call_limit") == 60
     assert emitted_gauges.get("huntress.siem.api_call_remaining") == 48
+
+
+# ===========================================================================
+# Configuration validation — neither log_queries nor metrics.agents
+# ===========================================================================
+
+
+def test_validation_neither_configured_raises():
+    instance = {
+        "huntress_api_key": "pub_key",
+        "huntress_secret_key": "secret_key",
+    }
+    check = HuntressCheck("huntress", {}, [instance])
+    check.log = MagicMock()
+    _cache = {}
+    check.read_persistent_cache = lambda key: _cache.get(key)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
+    with pytest.raises(Exception, match="at least one"):
+        check.check(instance)
+
+
+def test_validation_metrics_only_instance():
+    """An instance with no log_queries but metrics.agents.enabled=True is valid."""
+    instance = {
+        "huntress_api_key": "pub_key",
+        "huntress_secret_key": "secret_key",
+        "metrics": {"agents": {"enabled": True}},
+    }
+    check = HuntressCheck("huntress", {}, [instance])
+    check.log = MagicMock()
+    _cache = {}
+    check.read_persistent_cache = lambda key: _cache.get(key)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
+
+    agents_resp = _mock_response(200, {"agents": [], "pagination": {}})
+    with (
+        patch.object(check, "_request_with_retry", return_value=agents_resp),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
+        check.check(instance)  # must not raise
+
+
+# ===========================================================================
+# Agent metrics
+# ===========================================================================
+
+
+def _make_agents_instance(**kwargs):
+    base = {
+        "huntress_api_key": "pub_key",
+        "huntress_secret_key": "secret_key",
+        "metrics": {"agents": {"enabled": True}},
+        "tags": ["source:huntress"],
+    }
+    base.update(kwargs)
+    return base
+
+
+def test_agent_metrics_emitted():
+    """_collect_agent_metrics emits total, per-platform, per-status gauges."""
+    instance = _make_agents_instance()
+    check = HuntressCheck("huntress", {}, [instance])
+    check.log = MagicMock()
+    _cache = {}
+    check.read_persistent_cache = lambda key: _cache.get(key)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
+
+    agents = [
+        {"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"},
+        {"platform": "windows", "defender_status": "Healthy", "firewall_status": "Disabled"},
+        {"platform": "darwin", "defender_status": None, "firewall_status": "Enabled"},
+    ]
+    agents_resp = _mock_response(200, {"agents": agents, "pagination": {}})
+
+    emitted = {}
+
+    def capture_gauge(name, value, tags=None):
+        emitted[(name, tuple(sorted(tags or [])))] = value
+
+    with (
+        patch.object(check, "_request_with_retry", return_value=agents_resp),
+        patch.object(check, "gauge", side_effect=capture_gauge),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
+        check.check(instance)
+
+    assert emitted[("huntress.agents.total", ("source:huntress",))] == 3
+    assert emitted[("huntress.agents.count", ("platform:windows", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.count", ("platform:darwin", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.defender_status", ("defender_status:healthy", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.defender_status", ("defender_status:unknown", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.firewall_status", ("firewall_status:enabled", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.firewall_status", ("firewall_status:disabled", "source:huntress"))] == 1
+
+
+def test_agent_metrics_pagination():
+    """Agent collection paginates until no next_page_token."""
+    instance = _make_agents_instance(metrics={"agents": {"enabled": True, "max_pages": 5}})
+    check = HuntressCheck("huntress", {}, [instance])
+    check.log = MagicMock()
+    _cache = {}
+    check.read_persistent_cache = lambda key: _cache.get(key)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
+
+    page1 = {
+        "agents": [{"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"}],
+        "pagination": {"next_page_token": "tok2"},
+    }
+    page2 = {
+        "agents": [{"platform": "linux", "defender_status": "Healthy", "firewall_status": "Enabled"}],
+        "pagination": {},
+    }
+
+    responses = [_mock_response(200, page1), _mock_response(200, page2)]
+    call_urls = []
+
+    def side_effect(method, url, headers, json_body=None, params=None):
+        call_urls.append(url)
+        return responses.pop(0)
+
+    emitted = {}
+
+    def capture_gauge(name, value, tags=None):
+        emitted[(name, tuple(sorted(tags or [])))] = value
+
+    with (
+        patch.object(check, "_request_with_retry", side_effect=side_effect),
+        patch.object(check, "gauge", side_effect=capture_gauge),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
+        check.check(instance)
+
+    assert emitted[("huntress.agents.total", ("source:huntress",))] == 2
+    assert emitted[("huntress.agents.count", ("platform:windows", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.count", ("platform:linux", "source:huntress"))] == 1
+    assert len(call_urls) == 2
+
+
+def test_agent_metrics_max_pages_cap():
+    """Agent collection stops at max_pages even when more pages exist."""
+    instance = _make_agents_instance(metrics={"agents": {"enabled": True, "max_pages": 1}})
+    check = HuntressCheck("huntress", {}, [instance])
+    check.log = MagicMock()
+    _cache = {}
+    check.read_persistent_cache = lambda key: _cache.get(key)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
+
+    page_with_more = {
+        "agents": [{"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"}],
+        "pagination": {"next_page_token": "there_is_more"},
+    }
+
+    with (
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, page_with_more)),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
+        check.check(instance)
+
+    check.log.warning.assert_called()
