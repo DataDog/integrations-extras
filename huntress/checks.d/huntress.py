@@ -1,11 +1,11 @@
 import base64
-import gzip
 import hashlib
 import json
 import time
 from datetime import datetime, timedelta, timezone
 
 import requests
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 CHECK_NAME = "huntress"
@@ -63,9 +63,7 @@ class HuntressCheck(AgentCheck):
         # Org enrichment
         org_cache = None
         if enrich_orgs:
-            org_cache = self._get_or_refresh_org_cache(
-                base_url, headers, instance_hash, org_ttl
-            )
+            org_cache = self._get_or_refresh_org_cache(base_url, headers, instance_hash, org_ttl)
 
         # Checkpoint
         range_start = self._load_checkpoint(instance_hash)
@@ -84,9 +82,7 @@ class HuntressCheck(AgentCheck):
             except Exception:
                 pass
 
-        self.log.debug(
-            "Huntress SIEM collection: range_start=%s range_end=%s", range_start, range_end
-        )
+        self.log.debug("Huntress SIEM collection: range_start=%s range_end=%s", range_start, range_end)
 
         page_token = None
         total_logs = 0
@@ -96,9 +92,7 @@ class HuntressCheck(AgentCheck):
 
         try:
             while True:
-                logs, next_token = self._query_page(
-                    base_url, headers, esql_query, range_start, range_end, page_token
-                )
+                logs, next_token = self._query_page(base_url, headers, esql_query, range_start, range_end, page_token)
 
                 if logs:
                     service_tag = self._extract_service(extra_tags)
@@ -123,8 +117,7 @@ class HuntressCheck(AgentCheck):
                     if next_token and pages_fetched >= max_pages:
                         hit_page_cap = True
                         self.log.warning(
-                            "Huntress SIEM: hit max_pages_per_run=%d cap; "
-                            "remaining pages will be collected next run",
+                            "Huntress SIEM: hit max_pages_per_run=%d cap; remaining pages will be collected next run",
                             max_pages,
                         )
                     break
@@ -226,7 +219,6 @@ class HuntressCheck(AgentCheck):
         backoff_408 = [2, 4]
 
         attempt = 0
-        last_exc = None
 
         while True:
             try:
@@ -244,62 +236,40 @@ class HuntressCheck(AgentCheck):
                     return resp
 
                 if resp.status_code == 400:
-                    self.count(
-                        "huntress.siem.errors", 1,
-                        tags=["error_type:bad_request"]
-                    )
-                    raise Exception(
-                        f"Huntress API 400 Bad Request: {resp.text}"
-                    )
+                    self.count("huntress.siem.errors", 1, tags=["error_type:bad_request"])
+                    raise Exception(f"Huntress API 400 Bad Request: {resp.text}")
 
                 if resp.status_code == 401:
-                    self.count(
-                        "huntress.siem.errors", 1,
-                        tags=["error_type:auth_failure"]
-                    )
-                    raise Exception(
-                        "Huntress API 401 Unauthorized — check huntress_api_key and huntress_secret_key"
-                    )
+                    self.count("huntress.siem.errors", 1, tags=["error_type:auth_failure"])
+                    raise Exception("Huntress API 401 Unauthorized — check huntress_api_key and huntress_secret_key")
 
                 if resp.status_code == 404:
-                    raise Exception(
-                        "Huntress API 404 — SIEM feature may not be enabled on this account"
-                    )
+                    raise Exception("Huntress API 404 — SIEM feature may not be enabled on this account")
 
                 if resp.status_code == 408:
                     if attempt < max_retries_408:
                         wait = backoff_408[attempt]
                         self.log.warning(
                             "Huntress API 408 Query Timeout; retrying in %ds (attempt %d/%d)",
-                            wait, attempt + 1, max_retries_408,
+                            wait,
+                            attempt + 1,
+                            max_retries_408,
                         )
                         time.sleep(wait)
                         attempt += 1
                         continue
-                    self.count(
-                        "huntress.siem.errors", 1,
-                        tags=["error_type:timeout"]
-                    )
+                    self.count("huntress.siem.errors", 1, tags=["error_type:timeout"])
                     raise Exception("Huntress API 408 Query Timeout — query may be too broad")
 
                 if resp.status_code == 413:
-                    raise Exception(
-                        "Huntress API 413 Memory Limit — narrow the query with KEEP or WHERE clauses"
-                    )
+                    raise Exception("Huntress API 413 Memory Limit — narrow the query with KEEP or WHERE clauses")
 
                 if resp.status_code == 422:
-                    self.count(
-                        "huntress.siem.errors", 1,
-                        tags=["error_type:invalid_query"]
-                    )
-                    raise Exception(
-                        f"Huntress API 422 Invalid ES|QL query: {resp.text}"
-                    )
+                    self.count("huntress.siem.errors", 1, tags=["error_type:invalid_query"])
+                    raise Exception(f"Huntress API 422 Invalid ES|QL query: {resp.text}")
 
                 if resp.status_code == 429:
-                    self.log.warning(
-                        "Huntress API 429 Rate Limited — sleeping 60s then retrying"
-                    )
+                    self.log.warning("Huntress API 429 Rate Limited — sleeping 60s then retrying")
                     time.sleep(60)
                     continue
 
@@ -308,41 +278,34 @@ class HuntressCheck(AgentCheck):
                         wait = backoff_5xx[attempt]
                         self.log.warning(
                             "Huntress API %d Server Error; retrying in %ds (attempt %d/%d)",
-                            resp.status_code, wait, attempt + 1, max_retries_5xx,
+                            resp.status_code,
+                            wait,
+                            attempt + 1,
+                            max_retries_5xx,
                         )
                         time.sleep(wait)
                         attempt += 1
                         continue
-                    self.count(
-                        "huntress.siem.errors", 1,
-                        tags=["error_type:server_error"]
-                    )
-                    raise Exception(
-                        f"Huntress API {resp.status_code} Server Error after {max_retries_5xx} retries"
-                    )
+                    self.count("huntress.siem.errors", 1, tags=["error_type:server_error"])
+                    raise Exception(f"Huntress API {resp.status_code} Server Error after {max_retries_5xx} retries")
 
-                raise Exception(
-                    f"Huntress API unexpected status {resp.status_code}: {resp.text}"
-                )
+                raise Exception(f"Huntress API unexpected status {resp.status_code}: {resp.text}")
 
             except requests.exceptions.RequestException as exc:
-                last_exc = exc
                 if attempt < max_retries_5xx:
                     wait = backoff_5xx[attempt]
                     self.log.warning(
                         "Huntress API network error (%s); retrying in %ds (attempt %d/%d)",
-                        exc, wait, attempt + 1, max_retries_5xx,
+                        exc,
+                        wait,
+                        attempt + 1,
+                        max_retries_5xx,
                     )
                     time.sleep(wait)
                     attempt += 1
                     continue
-                self.count(
-                    "huntress.siem.errors", 1,
-                    tags=["error_type:connection_error"]
-                )
-                raise Exception(
-                    f"Huntress API connection error after {max_retries_5xx} retries: {exc}"
-                ) from exc
+                self.count("huntress.siem.errors", 1, tags=["error_type:connection_error"])
+                raise Exception(f"Huntress API connection error after {max_retries_5xx} retries: {exc}") from exc
 
     # ------------------------------------------------------------------ #
     # Log transformation                                                    #
@@ -355,11 +318,7 @@ class HuntressCheck(AgentCheck):
         return "huntress-siem"
 
     def _transform_log(self, raw_log, tags, service):
-        message = (
-            raw_log.get("log.original")
-            or raw_log.get("message")
-            or json.dumps(raw_log)
-        )
+        message = raw_log.get("log.original") or raw_log.get("message") or json.dumps(raw_log)
 
         timestamp = raw_log.get("@timestamp")
         date_ms = None
@@ -465,9 +424,7 @@ class HuntressCheck(AgentCheck):
         page = 1
         while True:
             url = base_url + self.HUNTRESS_ORGS_ENDPOINT.format(account_id=account_id)
-            resp = self._request_with_retry(
-                "GET", url, headers, params={"limit": 500, "page": page}
-            )
+            resp = self._request_with_retry("GET", url, headers, params={"limit": 500, "page": page})
             data = resp.json()
             org_list = data.get("organizations", [])
             for org in org_list:

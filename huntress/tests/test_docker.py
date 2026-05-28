@@ -4,6 +4,7 @@ Integration tests for the Huntress SIEM check against a live Mockoon mock server
 Run with Docker available:
   ddev test huntress -m integration
 """
+
 import pytest
 
 from datadog_checks.base import AgentCheck

@@ -2,6 +2,7 @@
 Unit tests for the Huntress SIEM → Datadog Logs integration.
 Covers all 17 scenarios from PRD §12.
 """
+
 import json
 import os
 from datetime import datetime, timezone
@@ -10,7 +11,6 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from datadog_checks.huntress import HuntressCheck
-
 
 FIXTURES = os.path.join(os.path.dirname(__file__), "fixtures")
 
@@ -49,10 +49,14 @@ def _mock_response(status_code, body, headers=None):
     resp.json.return_value = body
     resp.text = json.dumps(body)
     # Use a real dict so header parsing in _parse_rate_limit_headers works correctly.
-    resp.headers = headers if headers is not None else {
-        "x-huntress-api-call-limit": "60",
-        "x-huntress-api-call-remaining": "55",
-    }
+    resp.headers = (
+        headers
+        if headers is not None
+        else {
+            "x-huntress-api-call-limit": "60",
+            "x-huntress-api-call-remaining": "55",
+        }
+    )
     return resp
 
 
@@ -60,16 +64,18 @@ def _mock_response(status_code, body, headers=None):
 # 1. Happy path — single page
 # ===========================================================================
 
+
 def test_happy_path_single_page():
     check, instance = _make_check()
     fixture = _load_fixture("siem_query_empty.json")
     fixture["logs"] = _load_fixture("siem_query_page1.json")["logs"][:1]
 
-    with patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)) as mock_req, \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch.object(check, "_save_checkpoint") as mock_save, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
-
+    with (
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch.object(check, "_save_checkpoint") as mock_save,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     mock_send.assert_called_once()
@@ -84,6 +90,7 @@ def test_happy_path_single_page():
 # 2. Happy path — multi-page
 # ===========================================================================
 
+
 def test_happy_path_multi_page():
     check, instance = _make_check()
     page1 = _load_fixture("siem_query_page1.json")
@@ -94,11 +101,12 @@ def test_happy_path_multi_page():
         _mock_response(200, page2),
     ]
 
-    with patch.object(check, "_request_with_retry", side_effect=responses), \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch.object(check, "_save_checkpoint") as mock_save, \
-         patch("time.time", side_effect=[1000.0, 1002.0]):
-
+    with (
+        patch.object(check, "_request_with_retry", side_effect=responses),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch.object(check, "_save_checkpoint") as mock_save,
+        patch("time.time", side_effect=[1000.0, 1002.0]),
+    ):
         check.check(instance)
 
     assert mock_send.call_count == 2
@@ -111,14 +119,16 @@ def test_happy_path_multi_page():
 # 3. Auth failure (401)
 # ===========================================================================
 
+
 def test_auth_failure_401():
     check, instance = _make_check()
 
-    with patch.object(check, "_request_with_retry",
-                      side_effect=Exception("Huntress API 401 Unauthorized")), \
-         patch.object(check, "_save_checkpoint") as mock_save, \
-         patch.object(check, "count") as mock_count, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=Exception("Huntress API 401 Unauthorized")),
+        patch.object(check, "_save_checkpoint") as mock_save,
+        patch.object(check, "count"),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         with pytest.raises(Exception, match="401"):
             check.check(instance)
 
@@ -130,11 +140,9 @@ def test_auth_failure_401_raises_via_retry():
     check, instance = _make_check()
     resp = _mock_response(401, {"error": "unauthorized"})
 
-    with patch("requests.request", return_value=resp), \
-         patch.object(check, "count") as mock_count:
+    with patch("requests.request", return_value=resp), patch.object(check, "count") as mock_count:
         with pytest.raises(Exception, match="401"):
-            check._request_with_retry("POST", "https://api.huntress.io/v1/siem/query",
-                                      {}, json_body={})
+            check._request_with_retry("POST", "https://api.huntress.io/v1/siem/query", {}, json_body={})
 
     mock_count.assert_called_with("huntress.siem.errors", 1, tags=["error_type:auth_failure"])
 
@@ -143,13 +151,16 @@ def test_auth_failure_401_raises_via_retry():
 # 4. Query timeout (408) — retried twice then aborts
 # ===========================================================================
 
+
 def test_query_timeout_408():
     check, instance = _make_check()
     resp_408 = _mock_response(408, {"error": "timeout"})
 
-    with patch("requests.request", return_value=resp_408), \
-         patch("time.sleep") as mock_sleep, \
-         patch.object(check, "count") as mock_count:
+    with (
+        patch("requests.request", return_value=resp_408),
+        patch("time.sleep") as mock_sleep,
+        patch.object(check, "count") as mock_count,
+    ):
         with pytest.raises(Exception, match="408"):
             check._request_with_retry("POST", "https://x/q", {}, json_body={})
 
@@ -164,13 +175,13 @@ def test_query_timeout_408():
 # 5. Rate limit (429) — sleeps 60s and retries
 # ===========================================================================
 
+
 def test_rate_limit_429_then_success():
     check, instance = _make_check()
     resp_429 = _mock_response(429, {"error": "rate_limited"})
     resp_200 = _mock_response(200, _load_fixture("siem_query_empty.json"))
 
-    with patch("requests.request", side_effect=[resp_429, resp_200]), \
-         patch("time.sleep") as mock_sleep:
+    with patch("requests.request", side_effect=[resp_429, resp_200]), patch("time.sleep") as mock_sleep:
         result = check._request_with_retry("POST", "https://x/q", {}, json_body={})
 
     mock_sleep.assert_called_once_with(60)
@@ -181,12 +192,12 @@ def test_rate_limit_429_then_success():
 # 6. Invalid ES|QL (422)
 # ===========================================================================
 
+
 def test_invalid_esql_422():
     check, instance = _make_check()
     resp_422 = _mock_response(422, {"error": "invalid query"})
 
-    with patch("requests.request", return_value=resp_422), \
-         patch.object(check, "count") as mock_count:
+    with patch("requests.request", return_value=resp_422), patch.object(check, "count") as mock_count:
         with pytest.raises(Exception, match="422"):
             check._request_with_retry("POST", "https://x/q", {}, json_body={})
 
@@ -196,6 +207,7 @@ def test_invalid_esql_422():
 # ===========================================================================
 # 7. Checkpoint persistence — second run uses previous range_end as range_start
 # ===========================================================================
+
 
 def test_checkpoint_persistence():
     check, instance = _make_check()
@@ -213,8 +225,10 @@ def test_checkpoint_persistence():
             captured_bodies.append(json_body)
         return _mock_response(200, _load_fixture("siem_query_empty.json"))
 
-    with patch.object(check, "_request_with_retry", side_effect=capture_request), \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=capture_request),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     assert captured_bodies, "No SIEM query was made"
@@ -226,6 +240,7 @@ def test_checkpoint_persistence():
 # 8. No checkpoint (first run) — range_start defaults to now - interval
 # ===========================================================================
 
+
 def test_no_checkpoint_first_run():
     check, instance = _make_check(min_collection_interval=900)
     captured_bodies = []
@@ -236,9 +251,11 @@ def test_no_checkpoint_first_run():
         return _mock_response(200, _load_fixture("siem_query_empty.json"))
 
     fixed_now = datetime(2026, 5, 27, 14, 0, 0, tzinfo=timezone.utc)
-    with patch.object(check, "_request_with_retry", side_effect=capture_request), \
-         patch("datadog_checks.huntress.huntress.datetime") as mock_dt, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=capture_request),
+        patch("datadog_checks.huntress.huntress.datetime") as mock_dt,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         mock_dt.now.return_value = fixed_now
         mock_dt.fromisoformat = datetime.fromisoformat
         check.check(instance)
@@ -255,6 +272,7 @@ def test_no_checkpoint_first_run():
 # 9. ES|QL validation — query not starting with FROM logs raises ConfigurationError
 # ===========================================================================
 
+
 def test_esql_validation_rejects_bad_query():
     check, instance = _make_check(esql_query="SELECT * FROM logs")
     with pytest.raises(Exception, match="FROM logs"):
@@ -263,23 +281,30 @@ def test_esql_validation_rejects_bad_query():
 
 def test_esql_validation_accepts_from_logs():
     check, instance = _make_check(esql_query="FROM logs | KEEP @timestamp, message")
-    with patch.object(check, "_request_with_retry",
-                      return_value=_mock_response(200, _load_fixture("siem_query_empty.json"))), \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(
+            check, "_request_with_retry", return_value=_mock_response(200, _load_fixture("siem_query_empty.json"))
+        ),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)  # should not raise
 
 
 def test_esql_validation_case_insensitive():
     check, instance = _make_check(esql_query="from logs | limit 100")
-    with patch.object(check, "_request_with_retry",
-                      return_value=_mock_response(200, _load_fixture("siem_query_empty.json"))), \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(
+            check, "_request_with_retry", return_value=_mock_response(200, _load_fixture("siem_query_empty.json"))
+        ),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)  # should not raise
 
 
 # ===========================================================================
 # 10. Log transformation — ECS fields correctly mapped to Datadog payload
 # ===========================================================================
+
 
 def test_log_transformation():
     check, instance = _make_check()
@@ -323,6 +348,7 @@ def test_log_transformation_json_fallback():
 # 11. Batching — >1,000 logs split into multiple batches
 # ===========================================================================
 
+
 def test_batching_over_1000_logs():
     check, instance = _make_check()
 
@@ -335,9 +361,11 @@ def test_batching_over_1000_logs():
     ]
     fixture = {"logs": large_log_list, "pagination": {}}
 
-    with patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)), \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     assert mock_send.call_count == 2
@@ -351,13 +379,16 @@ def test_batching_over_1000_logs():
 # 12. max_pages_per_run cap — stops after N pages; checkpoint does NOT advance
 # ===========================================================================
 
+
 def test_max_pages_per_run_cap():
     check, instance = _make_check(max_pages_per_run=1)
     page1 = _load_fixture("siem_query_page1.json")
 
-    with patch.object(check, "_request_with_retry", return_value=_mock_response(200, page1)), \
-         patch.object(check, "_save_checkpoint") as mock_save, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, page1)),
+        patch.object(check, "_save_checkpoint") as mock_save,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     mock_save.assert_not_called()
@@ -367,12 +398,14 @@ def test_max_pages_per_run_cap():
 # 13. Org enrichment — cache hit (no extra API calls)
 # ===========================================================================
 
+
 def test_org_enrichment_cache_hit():
     check, instance = _make_check(enrich_with_org_tags=True)
     instance_hash = check._instance_hash(instance)
 
     # Pre-populate cache (fresh)
     from datetime import datetime, timezone
+
     cache = {
         "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z",
         "account_id": 42,
@@ -391,9 +424,11 @@ def test_org_enrichment_cache_hit():
         api_calls.append(url)
         return _mock_response(200, page1)
 
-    with patch.object(check, "_request_with_retry", side_effect=side_effect), \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=side_effect),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     # Only the SIEM query should have been called — no org API calls
@@ -411,20 +446,27 @@ def test_org_enrichment_cache_hit():
 # 14. Org enrichment — cache miss (fetches account + orgs)
 # ===========================================================================
 
+
 def test_org_enrichment_cache_miss():
     check, instance = _make_check(enrich_with_org_tags=True)
 
     account_resp = _mock_response(200, {"account": {"id": 42}})
-    orgs_resp = _mock_response(200, {
-        "organizations": [
-            {"id": 101, "name": "Acme Inc.", "key": "acme"},
-        ],
-        "pagination": {},
-    })
-    siem_resp = _mock_response(200, {
-        "logs": _load_fixture("siem_query_page1.json")["logs"][:1],
-        "pagination": {},
-    })
+    orgs_resp = _mock_response(
+        200,
+        {
+            "organizations": [
+                {"id": 101, "name": "Acme Inc.", "key": "acme"},
+            ],
+            "pagination": {},
+        },
+    )
+    siem_resp = _mock_response(
+        200,
+        {
+            "logs": _load_fixture("siem_query_page1.json")["logs"][:1],
+            "pagination": {},
+        },
+    )
 
     call_urls = []
 
@@ -437,9 +479,11 @@ def test_org_enrichment_cache_miss():
         else:
             return siem_resp
 
-    with patch.object(check, "_request_with_retry", side_effect=side_effect), \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=side_effect),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     assert any("/account" in u for u in call_urls)
@@ -453,21 +497,27 @@ def test_org_enrichment_cache_miss():
 # 15. Org enrichment — fetch failure → warning, logs collected without org tags
 # ===========================================================================
 
+
 def test_org_enrichment_fetch_failure():
     check, instance = _make_check(enrich_with_org_tags=True)
-    siem_resp = _mock_response(200, {
-        "logs": _load_fixture("siem_query_page1.json")["logs"][:1],
-        "pagination": {},
-    })
+    siem_resp = _mock_response(
+        200,
+        {
+            "logs": _load_fixture("siem_query_page1.json")["logs"][:1],
+            "pagination": {},
+        },
+    )
 
     def side_effect(method, url, headers, json_body=None, params=None):
         if "/account" in url and "organization" not in url:
             raise Exception("Network error fetching account")
         return siem_resp
 
-    with patch.object(check, "_request_with_retry", side_effect=side_effect), \
-         patch.object(check, "_send_logs_batch") as mock_send, \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=side_effect),
+        patch.object(check, "_send_logs_batch") as mock_send,
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)  # must not raise
 
     check.log.warning.assert_called()
@@ -481,6 +531,7 @@ def test_org_enrichment_fetch_failure():
 # ===========================================================================
 # 16. Org enrichment — no org match → only huntress_account_id tag
 # ===========================================================================
+
 
 def test_org_enrichment_no_org_match():
     check, instance = _make_check()
@@ -499,6 +550,7 @@ def test_org_enrichment_no_org_match():
 # ===========================================================================
 # 17. Multi-instance isolation — independent checkpoints and org caches
 # ===========================================================================
+
 
 def test_multi_instance_isolation():
     instance_a = _make_instance(
@@ -543,6 +595,7 @@ def test_multi_instance_isolation():
 # Bonus: _get_org_tags strategies
 # ===========================================================================
 
+
 def test_org_tags_by_id():
     check, _ = _make_check()
     org_cache = {
@@ -585,16 +638,21 @@ def test_org_tags_nested_org_field():
 # Rate limit header parsing
 # ===========================================================================
 
+
 def test_rate_limit_headers_parsed_and_stored():
     """_parse_rate_limit_headers populates _last_api_call_* attributes."""
     check, _ = _make_check()
     check._last_api_call_limit = None
     check._last_api_call_remaining = None
 
-    resp = _mock_response(200, {}, headers={
-        "x-huntress-api-call-limit": "60",
-        "x-huntress-api-call-remaining": "42",
-    })
+    resp = _mock_response(
+        200,
+        {},
+        headers={
+            "x-huntress-api-call-limit": "60",
+            "x-huntress-api-call-remaining": "42",
+        },
+    )
     check._parse_rate_limit_headers(resp)
 
     assert check._last_api_call_limit == 60
@@ -607,10 +665,14 @@ def test_rate_limit_warning_when_low():
     check._last_api_call_limit = None
     check._last_api_call_remaining = None
 
-    resp = _mock_response(200, {}, headers={
-        "x-huntress-api-call-limit": "60",
-        "x-huntress-api-call-remaining": "3",
-    })
+    resp = _mock_response(
+        200,
+        {},
+        headers={
+            "x-huntress-api-call-limit": "60",
+            "x-huntress-api-call-remaining": "3",
+        },
+    )
     check._parse_rate_limit_headers(resp)
 
     check.log.warning.assert_called()
@@ -641,19 +703,23 @@ def test_rate_limit_metrics_emitted_in_check():
     def capture_gauge(name, value, tags=None):
         emitted_gauges[name] = value
 
-    real_request_with_retry = check._request_with_retry
-
     def fake_retry(method, url, headers, json_body=None, params=None):
-        resp = _mock_response(200, fixture, headers={
-            "x-huntress-api-call-limit": "60",
-            "x-huntress-api-call-remaining": "48",
-        })
+        resp = _mock_response(
+            200,
+            fixture,
+            headers={
+                "x-huntress-api-call-limit": "60",
+                "x-huntress-api-call-remaining": "48",
+            },
+        )
         check._parse_rate_limit_headers(resp)
         return resp
 
-    with patch.object(check, "_request_with_retry", side_effect=fake_retry), \
-         patch.object(check, "gauge", side_effect=capture_gauge), \
-         patch("time.time", side_effect=[1000.0, 1001.0]):
+    with (
+        patch.object(check, "_request_with_retry", side_effect=fake_retry),
+        patch.object(check, "gauge", side_effect=capture_gauge),
+        patch("time.time", side_effect=[1000.0, 1001.0]),
+    ):
         check.check(instance)
 
     assert emitted_gauges.get("huntress.siem.api_call_limit") == 60
