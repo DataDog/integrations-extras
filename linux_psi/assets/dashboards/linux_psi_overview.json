@@ -410,8 +410,8 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "sum:system.pressure.cpu.some.total{$host,$env,$service} by {host}.as_rate()", "aggregator": "sum"}],
-                  "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "microsecond"}}}]
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.total{$host,$env,$service} by {host}.as_rate()", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}}]
                 }
               ]
             },
@@ -429,8 +429,9 @@
               "yaxis": {"scale": "linear", "min": "auto", "max": "auto", "include_zero": true},
               "requests": [
                 {
+                  "response_format": "scalar",
                   "style": {"palette": "warm"},
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1"}]
                 }
               ]
