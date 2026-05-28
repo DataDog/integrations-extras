@@ -1,5 +1,11 @@
 # CHANGELOG - celerdata
 
+## 1.3.0 / 2026-05-28
+
+***Added***:
+
+* Add the `celerdata.fe.slow_lock_held_time_ms` and `celerdata.fe.slow_lock_wait_time_ms` summary metrics, surfacing FE slow-lock held time and wait time (introduced by StarRocks/starrocks#66027)
+
 ## 1.2.1 / 2025-10-01
 
 ***Fixed***:
