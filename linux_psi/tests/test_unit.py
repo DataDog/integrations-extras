@@ -512,6 +512,54 @@ def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
     assert len(cgroup_paths) <= 2, f'Expected <=2, got {cgroup_paths}'
 
 
+def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_path):
+    """A pathologically-long cgroup name (or a deeply-nested kubepods path)
+    must not produce a tag value longer than the Datadog 200-character limit.
+    Truncated tags must end with a sentinel so the truncation is visible."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    slice_dir = cgroup_root / 'system.slice'
+    slice_dir.mkdir()
+    (slice_dir / 'cpu.pressure').write_text(
+        'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+        'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+    )
+    # Filename limit on most Linux filesystems is 255 chars. We need the
+    # *full* tag (`cgroup_path:system.slice/<name>`) to exceed 200 chars
+    # so we nest to produce a long path with short-enough segments.
+    deep_a = slice_dir / ('a' * 200 + '.scope')
+    deep_a.mkdir()
+    (deep_a / 'cpu.pressure').write_text(
+        'some avg10=1.0 avg60=1.0 avg300=1.0 total=1\n'
+    )
+    huge_marker = 'a' * 200
+
+    instance = {
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(cgroup_root),
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # Find the metric emitted for the huge-name cgroup and verify the
+    # cgroup_path tag is bounded.
+    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+        for tag in call.tags or ():
+            if tag.startswith('cgroup_path:') and huge_marker[:100] in tag:
+                # tag includes the 'cgroup_path:' prefix in length
+                assert len(tag) <= 200, (
+                    f'cgroup_path tag exceeds 200 chars: {len(tag)} chars'
+                )
+                assert tag.endswith('...truncated'), (
+                    f'truncated tag must end with sentinel: {tag!r}'
+                )
+                return
+    pytest.fail('did not find the huge-name cgroup_path tag among emitted metrics')
+
+
 def test_cgroup_roots_rejects_non_list(proc_dir):
     """A scalar (non-list) cgroup_roots should fail with ConfigurationError."""
     from datadog_checks.base import ConfigurationError

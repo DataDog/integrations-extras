@@ -40,6 +40,12 @@ DEFAULT_CGROUPFS_PATH = '/sys/fs/cgroup'
 DEFAULT_CGROUP_MAX_DEPTH = 2
 DEFAULT_CGROUP_MAX_COUNT = 200
 
+# Datadog tag values longer than this get truncated by the backend anyway;
+# truncating in-band with a visible sentinel keeps the truncation auditable
+# and avoids the silent backend cut.
+TAG_VALUE_MAX_LENGTH = 200
+TAG_TRUNCATION_SENTINEL = '...truncated'
+
 # Matches major.minor.patch at the start of /proc/sys/kernel/osrelease.
 # The string typically looks like '5.15.0-91-generic' or '6.5.0' or '4.4.302+'.
 KERNEL_VERSION_RE = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
@@ -129,6 +135,16 @@ class LinuxPSICheck(AgentCheck):
         self._cgroupfs_path = self.instance.get('cgroupfs_path', DEFAULT_CGROUPFS_PATH)
         self._cgroup_max_depth = int(self.instance.get('cgroup_max_depth', DEFAULT_CGROUP_MAX_DEPTH))
         self._cgroup_max_count = int(self.instance.get('cgroup_max_count', DEFAULT_CGROUP_MAX_COUNT))
+
+    def _truncate_tag(self, key, value):
+        """Build a `key:value` tag, truncating the value with a visible
+        sentinel if the full tag would exceed TAG_VALUE_MAX_LENGTH."""
+        tag = f'{key}:{value}'
+        if len(tag) <= TAG_VALUE_MAX_LENGTH:
+            return tag
+        # Reserve room for the sentinel and rebuild
+        keep = TAG_VALUE_MAX_LENGTH - len(TAG_TRUNCATION_SENTINEL)
+        return tag[:keep] + TAG_TRUNCATION_SENTINEL
 
     def _is_within_cgroupfs(self, path):
         """Resolve symlinks and confirm `path` is at or below cgroupfs_path.
@@ -378,7 +394,7 @@ class LinuxPSICheck(AgentCheck):
         """Read this cgroup's PSI files and emit metrics tagged with the
         cgroup path. Returns True if at least one file was read successfully."""
         cgroup_tags = list(self.tags) + [
-            f'cgroup_path:{rel_path}',
+            self._truncate_tag('cgroup_path', rel_path),
             f'cgroup_root:{root_name}',
         ]
         any_read = False
