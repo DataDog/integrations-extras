@@ -1,0 +1,78 @@
+name: Huntress
+files:
+- name: huntress.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: huntress_api_key
+      required: true
+      description: |
+        Huntress public API key. Obtain from the Huntress Partner Portal under
+        Settings > API Credentials. Each instance uses its own key pair, enabling
+        multiple Huntress accounts to feed into the same Datadog organization.
+      value:
+        type: string
+        example: <HUNTRESS_API_KEY>
+    - name: huntress_secret_key
+      required: true
+      description: |
+        Huntress private (secret) API key paired with huntress_api_key.
+      value:
+        type: string
+        example: <HUNTRESS_SECRET_KEY>
+    - name: esql_query
+      required: true
+      description: |
+        ES|QL query to execute against the Huntress SIEM API. Must begin with
+        "FROM logs" (case-insensitive). Use KEEP to select specific ECS columns
+        or omit for all fields. Do not add time range filters — range_start and
+        range_end are managed automatically by the check.
+      value:
+        type: string
+        example: "FROM logs"
+    - name: enrich_with_org_tags
+      description: |
+        When true, the check fetches Huntress organization metadata (org name,
+        org key, account ID) and attaches it as log tags. The org cache is
+        refreshed according to org_cache_ttl_seconds.
+      value:
+        type: boolean
+        example: true
+        default: true
+    - name: org_cache_ttl_seconds
+      description: |
+        How long (in seconds) to cache organization metadata before re-fetching
+        from the Huntress API. Set to 0 to refresh on every run.
+      value:
+        type: integer
+        example: 3600
+        default: 3600
+    - name: min_collection_interval
+      description: |
+        Seconds between check runs. Must be >= 60 to stay within Huntress API
+        rate limits (60 requests per minute). Defaults to 900 (15 minutes).
+      value:
+        type: integer
+        example: 900
+        default: 900
+    - name: max_pages_per_run
+      description: |
+        Maximum number of result pages to fetch per run. Each page contains up
+        to 200 log events. Protects against runaway pagination on large backlogs.
+        If this cap is hit, the checkpoint does not advance and remaining pages
+        are fetched on the next run.
+      value:
+        type: integer
+        example: 100
+        default: 100
+    - name: huntress_base_url
+      description: |
+        Huntress API base URL. Override for sandbox or testing environments.
+      value:
+        type: string
+        example: "https://api.huntress.io"
+        default: "https://api.huntress.io"
+    - template: instances/default

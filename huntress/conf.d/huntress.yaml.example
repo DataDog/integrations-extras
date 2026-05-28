@@ -1,0 +1,56 @@
+init_config: {}
+
+instances:
+  ## --- Account 1 ---
+  - ## Required: Huntress API credentials (Basic Auth).
+    ## Each instance has its own key pair, allowing multiple Huntress accounts
+    ## to feed into the same Datadog org simultaneously.
+    huntress_api_key: "<account1_public_api_key>"
+    huntress_secret_key: "<account1_private_api_key>"
+
+    ## Required: ES|QL query to execute. Must begin with "FROM logs" (case-insensitive).
+    ## The query determines which log fields are returned. Use KEEP to select specific
+    ## columns, or omit for all ECS fields. Do NOT add time range filters — range_start
+    ## and range_end are managed automatically by the check.
+    esql_query: "FROM logs"
+
+    ## Optional: Whether to enrich logs with Huntress organization metadata
+    ## (org name, org key, account ID). Fetches /v1/account and
+    ## /v1/accounts/{id}/organizations on first run and caches for org_cache_ttl_seconds.
+    ## Default: true
+    enrich_with_org_tags: true
+
+    ## Optional: How long (seconds) to cache the org metadata before re-fetching.
+    ## Default: 3600 (1 hour). Set to 0 to refresh on every run.
+    org_cache_ttl_seconds: 3600
+
+    ## Optional: Collection interval in seconds. Must be >= 60 to stay within Huntress
+    ## rate limits (60 req/min). Default: 900 (15 minutes).
+    min_collection_interval: 900
+
+    ## Optional: Maximum number of pages to fetch per run (200 logs/page).
+    ## Protects against runaway pagination on large backlogs.
+    ## Default: 100 (up to 20,000 logs per run).
+    max_pages_per_run: 100
+
+    ## Optional: Huntress API base URL. Override for testing or sandbox environments.
+    huntress_base_url: "https://api.huntress.io"
+
+    ## Optional: Additional tags attached to every log event forwarded to Datadog.
+    ## huntress_account_id, huntress_org_name, and huntress_org_key are added
+    ## automatically when enrich_with_org_tags is true.
+    tags:
+      - "source:huntress"
+      - "service:huntress-siem"
+      - "env:production"
+
+  ## --- Account 2 (optional second Huntress account) ---
+  ## Each instance runs independently with its own checkpoint, org cache, and metrics.
+  ## Use multiple instances to fan in logs from multiple Huntress accounts.
+  - huntress_api_key: "<account2_public_api_key>"
+    huntress_secret_key: "<account2_private_api_key>"
+    esql_query: "FROM logs"
+    tags:
+      - "source:huntress"
+      - "service:huntress-siem"
+      - "env:staging"

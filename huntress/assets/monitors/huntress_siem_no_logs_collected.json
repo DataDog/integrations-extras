@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "created_at": "2026-05-27",
+  "last_updated_at": "2026-05-27",
+  "title": "Huntress SIEM no logs collected",
+  "tags": [
+    "integration:huntress"
+  ],
+  "description": "When the Huntress SIEM integration is healthy, it collects at least some logs each run — even in quiet environments, the Huntress API typically returns a small number of heartbeat or audit events. Zero logs collected over an extended period may indicate that the SIEM query window is returning no results, the Huntress account has no active log sources, or the check is silently failing without triggering the service check.",
+  "definition": {
+    "message": "The Huntress SIEM integration collected 0 logs in the last 2 hours.\n\nThis may be expected in a brand-new deployment or a quiet environment, but if you expect ongoing log flow, investigate:\n\n1. Verify the Agent check is running: `sudo datadog-agent check huntress`\n2. Confirm `esql_query` returns results in the Huntress Partner Portal\n3. Check that the Huntress account has active endpoints and SIEM log sources\n4. Review `huntress.siem.check_status` — if CRITICAL, the check itself is failing\n\n@slack-security-alerts",
+    "name": "Huntress SIEM no logs collected in 2 hours",
+    "options": {
+      "include_tags": true,
+      "new_group_delay": 300,
+      "notify_audit": false,
+      "on_missing_data": "show_no_data",
+      "renotify_interval": 120,
+      "renotify_statuses": [
+        "alert"
+      ],
+      "require_full_window": true,
+      "thresholds": {
+        "critical": 1
+      }
+    },
+    "priority": 3,
+    "query": "sum(last_2h):sum:huntress.siem.logs_collected{*}.as_count() < 1",
+    "restricted_roles": null,
+    "tags": [
+      "integration:huntress"
+    ],
+    "type": "query alert"
+  }
+}
