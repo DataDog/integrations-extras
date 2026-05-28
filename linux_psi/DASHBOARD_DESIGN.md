@@ -12,21 +12,28 @@ The dashboard that answers questions, the v1.1 design described below, is **orga
 
 This matters because PSI's value is comparative and compositional. A single PSI number in isolation is rarely actionable; a PSI number in the context of fleet behavior, workload deploys, or capacity envelopes is.
 
-## 2. v1 dashboard recap
+## 2. Shipped dashboard layout
 
-The shipped dashboard has seven widgets:
+The shipped dashboard has **30 widgets across 7 collapsible groups**, plus 5 template variables (`host`, `env`, `service`, `cgroup_path`, `cgroup_root`). Designed to read top-to-bottom and answer increasingly-detailed questions:
 
-1. "About PSI" intro note (markdown) - explains some/full and the avg windows
-2. CPU `some` 60s timeseries by host
-3. Memory `some` 60s timeseries by host
-4. I/O `some` 60s timeseries by host
-5. Memory `full` 10s timeseries by host (highlighted in warm palette for severity)
-6. Top hosts by memory `some` 300s avg
-7. Top hosts by I/O `some` 300s avg
+| Group | Color | Purpose | Default state |
+|---|---|---|---|
+| About header | blue | One-paragraph orientation + legend | Always visible |
+| Status: is anything on fire? | pink | 4 KPI tiles (worst memory full / CPU some / IO some / composite) with red/yellow/green conditional formatting | Always visible |
+| Live trends: where is the wedge? | blue | Stacked 3-resource chart + per-resource panels + composite-by-host | Always visible |
+| Fleet view | purple | Top-N hosts by each pressure + cumulative-stall ranking + distribution histogram | Always visible |
+| Per-host investigation | green | Some-vs-full overlays + stall rate per second; uses `$host` template variable | Collapsible |
+| Per-cgroup view | yellow | Top cgroups by CPU/memory + per-cgroup timeseries; populated only when `cgroup_roots` is configured | Collapsible |
+| Capacity & trends | orange | Week-over-week comparison + pressure-budget leaderboard | Collapsible |
+| Reference - raw timeseries | gray | All-windows (avg10/60/300) per-resource for custom-query authoring | Collapsible |
 
-This is the floor. It is correct and complete, but every widget shows one metric and asks the reader to do the synthesis in their head.
+The first three groups answer the on-call SRE's question ("what's wrong now?") in under 5 seconds. The investigation and cgroup groups answer the performance engineer's question ("which workload caused this?"). The capacity group answers the planner's question ("are we sized right?").
 
-## 3. v1.1 design - six question-driven panels
+Each widget's purpose is stated in its title - the dashboard is self-documenting at the widget level, not just at the design-doc level.
+
+## 3. Original v1.1 design - six question-driven panels (now shipped)
+
+The panels listed in this section were the original v1.1 design. They have all shipped in the dashboard described in section 2 above. Kept here as the rationale-record so a future maintainer understands why each panel exists.
 
 The v1.1 dashboard adds the following widgets, grouped into a `Diagnostic` tab (panels A and B) and a `Capacity` tab (panels C through F), with the existing v1 widgets retained in a third `Reference` tab. The tabbed layout means on-call uses tab one, capacity planning uses tab two, and the raw metric inspector lives in tab three.
 
@@ -134,19 +141,17 @@ A few candidates I considered and ruled out:
 | A "pressure forecast" panel | `forecast()` exists in Datadog and works on PSI metrics, but pressure forecasts have low predictive value on horizons longer than a few days because most pressure events are workload-driven, not workload-independent trends. Better to alert on the *current* week-over-week delta and let the operator interpret. |
 | Per-cgroup PSI panels | The cgroup PSI data IS collected by the check as of v1.1 (opt-in via `cgroup_roots`). A v1.2 dashboard pass should add per-cgroup breakdowns of the panels above, grouped by `cgroup_path` or by the Agent tagger's enriched dimensions (`kube_namespace`, `kube_deployment`, `container_name`). Highest-value panels for the per-cgroup view: a heatmap of `system.pressure.cgroup.memory.some.avg60` by `cgroup_path`, and a top-list of cgroups by `cgroup.cpu.some.avg300` over the last hour - this is the canonical "which workload is stressing this host?" question. |
 
-## 6. Implementation order for whoever picks this up
+## 6. v1.2 roadmap - panels worth adding next
 
-If you ship one v1.1 panel at a time, the order that yields the most value per hour of work:
+Now that the v1.1 panels are shipped, the next round of improvements should target the things real on-call use will reveal as missing. Likely candidates in priority order:
 
-1. **Panel A** (stacked three-resource view) - replaces three v1 panels, immediate operational win
-2. **Composite-score heatmap** (section 4) - single highest-impact visualization
-3. **Panel B** (severe contention indicator) - simple, cheap, complements panel A during incidents
-4. **Panel C** (pressure-budget heatmap) - capacity team will use this monthly
-5. **Panel D** (quadrant) - capacity team will use this quarterly
-6. **Panel F** (SLO board) - requires SLO definition, not just dashboard JSON
-7. **Panel E** (week-over-week delta) - useful but lower-frequency consultation
+1. **Pressure-vs-utilization scatter (Panel D from the original design)** - still not shipped because the scatter widget needs `system.cpu.usage` from the host integration to cross-reference. Worth adding once we confirm typical Datadog accounts running this integration also run the host check.
+2. **Anomaly bands on the live charts** - `anomalies(query, 'agile', 3)` overlays on the per-resource panels in the Live Trends group. Lets the on-call see whether the current value is "high but normal for this host" vs "actually anomalous." Implementation note: needs at least 24 hours of historical data to be meaningful.
+3. **SLO widget** - requires defining the SLO in Datadog first (a `system.pressure.memory.full.avg300 < 5%` over 30d objective at 99.5%). Once defined, embed the SLO widget on the Capacity tab.
+4. **Per-deploy correlation overlay** - event markers from a CI integration overlaid on the week-over-week panels. Requires the user to have a deploy-events source. Document as "drop your deploy events here" rather than hardcoding.
+5. **Forecast** - `forecast()` on the cumulative stall rate, projecting 14 days. Useful for capacity reviews; not useful for on-call.
 
-Each panel is independently shippable. Do not gate any of them on the others.
+Each is independently shippable. Open a PR to integrations-extras for each one separately - small, reviewable, easy to roll back.
 
 ## 7. Validating the additions
 

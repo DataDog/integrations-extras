@@ -1,13 +1,49 @@
 {
-  "title": "Linux PSI Overview",
-  "description": "**Linux PSI (Pressure Stall Information) Overview**\n\nPSI measures how much real work is being delayed by contention on CPU, memory, and I/O. Unlike utilization metrics that can be 100% while still doing useful work, PSI tells you when threads are *stalled* and the system is hurting.\n\nThe `some` metrics measure time when at least one task was stalled. The `full` metrics measure time when ALL tasks were stalled (severe contention).\n\n**Further reading:**\n- [Linux kernel PSI docs](https://docs.kernel.org/accounting/psi.html)\n- [Brendan Gregg on PSI](https://www.brendangregg.com/blog/2017-08-08/linux-load-averages.html)",
+  "title": "Linux PSI - Pressure Stall Information",
+  "description": "Operational dashboard for Linux PSI metrics. Organized by question: on-call sees status + live trends at the top; capacity and per-cgroup analysis collapse below. See DASHBOARD_DESIGN.md in the integration repo for the design rationale.",
+  "layout_type": "ordered",
+  "reflow_type": "fixed",
+  "is_read_only": false,
+  "notify_list": [],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "env",
+      "prefix": "env",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "service",
+      "prefix": "service",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "cgroup_path",
+      "prefix": "cgroup_path",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "cgroup_root",
+      "prefix": "cgroup_root",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
   "widgets": [
     {
-      "id": 100,
+      "id": 1,
       "definition": {
         "type": "note",
-        "content": "**About PSI**\n\n- `some` = at least one task was stalled on this resource during the window\n- `full` = EVERY task was stalled at the same time (severe contention)\n- `avg10` / `avg60` / `avg300` = % of wall time stalled in the last 10/60/300 seconds\n\nPSI complements `system.cpu.*` and `system.mem.*` by measuring *contention*, not utilization. A CPU at 100% utilization doing useful work has low CPU pressure; the same CPU thrashing between too many runnable tasks shows high pressure even when utilization looks healthy.\n\nRequires Linux kernel **4.20+**. The `cpu.full.*` metrics require **5.13+**.",
-        "background_color": "blue",
+        "content": "## Linux PSI Overview\n\n**This dashboard answers**: is anything wedging my hosts right now? where is the trend going? which workload is responsible?\n\n**Quick legend**\n- `some` = at least one task was stalled on this resource\n- `full` = EVERY task was stalled (severe contention; the OOM warning sign for memory)\n- `avg10` / `avg60` / `avg300` = % of wall time stalled in the last 10/60/300 seconds\n\n**Read top to bottom**: status -> live trends -> fleet view -> drill in.\n\nRequires Linux kernel **4.20+**. `cpu.full.*` metrics require **5.13+**. Per-cgroup metrics require **cgroup v2** (kernel 5.2+) and the integration's `cgroup_roots` config.",
+        "background_color": "vivid_blue",
         "font_size": "14",
         "text_align": "left",
         "vertical_align": "top",
@@ -19,156 +55,799 @@
       "layout": {"x": 0, "y": 0, "width": 12, "height": 3}
     },
     {
-      "id": 1,
+      "id": 10,
       "definition": {
-        "title": "CPU pressure (some, 60s window) by host",
-        "type": "timeseries",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "requests": [
+        "type": "group",
+        "title": "Status: is anything on fire right now?",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.cpu.some.avg60{$host} by {host}"
-              }
-            ],
-            "formulas": [{"formula": "query1"}],
-            "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"}
+            "id": 11,
+            "definition": {
+              "title": "Worst memory `full` pressure (10s)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "q1",
+                      "data_source": "metrics",
+                      "query": "max:system.pressure.memory.full.avg10{$host,$env,$service}",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [{"formula": "q1", "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 10, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 1, "palette": "white_on_yellow"},
+                    {"comparator": ">=", "value": 0, "palette": "white_on_green"}
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {"type": "area"}
+            },
+            "layout": {"x": 0, "y": 0, "width": 3, "height": 2}
+          },
+          {
+            "id": 12,
+            "definition": {
+              "title": "Worst CPU `some` pressure (60s)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "q1",
+                      "data_source": "metrics",
+                      "query": "max:system.pressure.cpu.some.avg60{$host,$env,$service}",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [{"formula": "q1", "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 50, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 30, "palette": "white_on_yellow"},
+                    {"comparator": ">=", "value": 0, "palette": "white_on_green"}
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {"type": "area"}
+            },
+            "layout": {"x": 3, "y": 0, "width": 3, "height": 2}
+          },
+          {
+            "id": 13,
+            "definition": {
+              "title": "Worst I/O `some` pressure (60s)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "q1",
+                      "data_source": "metrics",
+                      "query": "max:system.pressure.io.some.avg60{$host,$env,$service}",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [{"formula": "q1", "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 70, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 40, "palette": "white_on_yellow"},
+                    {"comparator": ">=", "value": 0, "palette": "white_on_green"}
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {"type": "area"}
+            },
+            "layout": {"x": 6, "y": 0, "width": 3, "height": 2}
+          },
+          {
+            "id": 14,
+            "definition": {
+              "title": "Composite pressure score (weighted)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "max:system.pressure.cpu.some.avg60{$host,$env,$service}", "aggregator": "max"},
+                    {"name": "mem", "data_source": "metrics", "query": "max:system.pressure.memory.some.avg60{$host,$env,$service}", "aggregator": "max"},
+                    {"name": "io",  "data_source": "metrics", "query": "max:system.pressure.io.some.avg60{$host,$env,$service}", "aggregator": "max"}
+                  ],
+                  "formulas": [
+                    {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}
+                  ],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 50, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 25, "palette": "white_on_yellow"},
+                    {"comparator": ">=", "value": 0, "palette": "white_on_green"}
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {"x": 9, "y": 0, "width": 3, "height": 2}
           }
         ]
       },
-      "layout": {"x": 0, "y": 3, "width": 6, "height": 3}
+      "layout": {"x": 0, "y": 3, "width": 12, "height": 3, "is_column_break": true}
     },
     {
-      "id": 2,
+      "id": 20,
       "definition": {
-        "title": "Memory pressure (some, 60s window) by host",
-        "type": "timeseries",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "requests": [
+        "type": "group",
+        "title": "Live trends: where is the wedge right now?",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.memory.some.avg60{$host} by {host}"
-              }
-            ],
-            "formulas": [{"formula": "query1"}],
-            "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"}
+            "id": 21,
+            "definition": {
+              "title": "All three resources stacked (some, 60s) - which dimension is wedging the fleet?",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "max", "value", "sum"],
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "cpu", "alias": "CPU"},
+                    {"formula": "mem", "alias": "Memory"},
+                    {"formula": "io",  "alias": "I/O"}
+                  ],
+                  "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"},
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {"label": "% stalled", "scale": "linear", "min": "auto", "max": "auto", "include_zero": true},
+              "markers": [
+                {"value": "y = 30", "display_type": "warning dashed", "label": "warning band"},
+                {"value": "y = 50", "display_type": "error dashed", "label": "critical band"}
+              ]
+            },
+            "layout": {"x": 0, "y": 0, "width": 12, "height": 4}
+          },
+          {
+            "id": 22,
+            "definition": {
+              "title": "CPU pressure (some, 60s) per host",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"}],
+                  "formulas": [{"formula": "q1"}],
+                  "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "thin"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 4, "width": 4, "height": 4}
+          },
+          {
+            "id": 23,
+            "definition": {
+              "title": "Memory pressure (full, 10s) per host - OOM warning",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.full.avg10{$host,$env,$service} by {host}"}],
+                  "formulas": [{"formula": "q1"}],
+                  "style": {"palette": "warm", "line_type": "solid", "line_width": "thin"}
+                }
+              ],
+              "markers": [{"value": "y = 10", "display_type": "error dashed"}]
+            },
+            "layout": {"x": 4, "y": 4, "width": 4, "height": 4}
+          },
+          {
+            "id": 24,
+            "definition": {
+              "title": "I/O pressure (some, 60s) per host",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}"}],
+                  "formulas": [{"formula": "q1"}],
+                  "style": {"palette": "cool", "line_type": "solid", "line_width": "thin"}
+                }
+              ]
+            },
+            "layout": {"x": 8, "y": 4, "width": 4, "height": 4}
+          },
+          {
+            "id": 25,
+            "definition": {
+              "title": "Composite pressure score by host (0.4*cpu + 0.4*mem + 0.2*io)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service} by {host}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}"}
+                  ],
+                  "formulas": [
+                    {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "alias": "composite"}
+                  ],
+                  "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 8, "width": 12, "height": 3}
           }
         ]
       },
-      "layout": {"x": 6, "y": 3, "width": 6, "height": 3}
+      "layout": {"x": 0, "y": 6, "width": 12, "height": 12, "is_column_break": true}
     },
     {
-      "id": 3,
+      "id": 30,
       "definition": {
-        "title": "I/O pressure (some, 60s window) by host",
-        "type": "timeseries",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "requests": [
+        "type": "group",
+        "title": "Fleet view: who's worst, who's drifting?",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.io.some.avg60{$host} by {host}"
-              }
-            ],
-            "formulas": [{"formula": "query1"}],
-            "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"}
+            "id": 31,
+            "definition": {
+              "title": "Top hosts - CPU pressure (some, 5m avg)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 50, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 30, "palette": "white_on_yellow"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 0, "width": 4, "height": 4}
+          },
+          {
+            "id": 32,
+            "definition": {
+              "title": "Top hosts - memory pressure (some, 5m avg)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 20, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 5,  "palette": "white_on_yellow"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 4, "y": 0, "width": 4, "height": 4}
+          },
+          {
+            "id": 33,
+            "definition": {
+              "title": "Top hosts - I/O pressure (some, 5m avg)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
+                  "conditional_formats": [
+                    {"comparator": ">=", "value": 70, "palette": "white_on_red"},
+                    {"comparator": ">=", "value": 40, "palette": "white_on_yellow"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 8, "y": 0, "width": 4, "height": 4}
+          },
+          {
+            "id": 34,
+            "definition": {
+              "title": "Cumulative stall time (CPU some, last 24h) - which hosts ate the most stall?",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "sum:system.pressure.cpu.some.total{$host,$env,$service} by {host}.as_rate()", "aggregator": "sum"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "microsecond"}}}]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 4, "width": 6, "height": 4}
+          },
+          {
+            "id": 35,
+            "definition": {
+              "title": "Distribution of memory pressure across the fleet (now)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "distribution",
+              "show_legend": false,
+              "xaxis": {"scale": "linear", "min": "auto", "max": "auto", "include_zero": true},
+              "yaxis": {"scale": "linear", "min": "auto", "max": "auto", "include_zero": true},
+              "requests": [
+                {
+                  "style": {"palette": "warm"},
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}"}],
+                  "formulas": [{"formula": "q1"}]
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 4, "width": 6, "height": 4}
           }
         ]
       },
-      "layout": {"x": 0, "y": 6, "width": 6, "height": 3}
+      "layout": {"x": 0, "y": 18, "width": 12, "height": 9, "is_column_break": true}
     },
     {
-      "id": 4,
+      "id": 40,
       "definition": {
-        "title": "Memory pressure (full, 10s) - severe stalls",
-        "type": "timeseries",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "requests": [
+        "type": "group",
+        "title": "Per-host investigation (use $host template variable)",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.memory.full.avg10{$host} by {host}"
-              }
-            ],
-            "formulas": [{"formula": "query1"}],
-            "style": {"palette": "warm", "line_type": "solid", "line_width": "normal"}
+            "id": 41,
+            "definition": {
+              "title": "CPU pressure (some vs full overlay)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.cpu.full.avg60{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "some", "alias": "some (any task stalled)"},
+                    {"formula": "full", "alias": "full (all tasks stalled, 5.13+)"}
+                  ],
+                  "style": {"palette": "dog_classic"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 0, "width": 6, "height": 4}
+          },
+          {
+            "id": 42,
+            "definition": {
+              "title": "Memory pressure (some vs full overlay)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.memory.full.avg60{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "some", "alias": "some"},
+                    {"formula": "full", "alias": "full (OOM warning)"}
+                  ],
+                  "style": {"palette": "warm"}
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 0, "width": 6, "height": 4}
+          },
+          {
+            "id": 43,
+            "definition": {
+              "title": "I/O pressure (some vs full overlay)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.io.full.avg60{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "some", "alias": "some"},
+                    {"formula": "full", "alias": "full"}
+                  ],
+                  "style": {"palette": "cool"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 4, "width": 6, "height": 4}
+          },
+          {
+            "id": 44,
+            "definition": {
+              "title": "Stall rate per second (derived from total counter)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.total{$host,$env,$service}.as_rate()"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.total{$host,$env,$service}.as_rate()"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.total{$host,$env,$service}.as_rate()"}
+                  ],
+                  "formulas": [
+                    {"formula": "cpu", "alias": "CPU microseconds/s"},
+                    {"formula": "mem", "alias": "Memory microseconds/s"},
+                    {"formula": "io",  "alias": "I/O microseconds/s"}
+                  ],
+                  "style": {"palette": "dog_classic"}
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 4, "width": 6, "height": 4}
           }
         ]
       },
-      "layout": {"x": 6, "y": 6, "width": 6, "height": 3}
+      "layout": {"x": 0, "y": 27, "width": 12, "height": 9, "is_column_break": true}
     },
     {
-      "id": 5,
+      "id": 50,
       "definition": {
-        "title": "Top hosts by memory pressure (some, 300s avg)",
-        "type": "toplist",
-        "requests": [
+        "type": "group",
+        "title": "Per-cgroup view (requires cgroup_roots in conf.yaml; otherwise empty)",
+        "background_color": "vivid_yellow",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "scalar",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.memory.some.avg300{$host} by {host}",
-                "aggregator": "avg"
-              }
-            ],
-            "formulas": [{"formula": "query1"}]
+            "id": 51,
+            "definition": {
+              "type": "note",
+              "content": "These widgets are populated when the `linux_psi` integration is configured with `cgroup_roots` (e.g., `system.slice`, `kubepods.slice`). Without that config the widgets show `No data`.\n\nUse the `$cgroup_path` and `$cgroup_root` template variables at the top of the dashboard to drill into one cgroup or one slice.",
+              "background_color": "yellow",
+              "font_size": "13",
+              "text_align": "left",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true,
+              "vertical_align": "top"
+            },
+            "layout": {"x": 0, "y": 0, "width": 12, "height": 2}
+          },
+          {
+            "id": 52,
+            "definition": {
+              "title": "Top cgroups by CPU pressure (some, 5m avg) - find the noisy neighbor",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cgroup.cpu.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 2, "width": 6, "height": 4}
+          },
+          {
+            "id": 53,
+            "definition": {
+              "title": "Top cgroups by memory pressure (some, 5m avg)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cgroup.memory.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
+                  "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}]
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 2, "width": 6, "height": 4}
+          },
+          {
+            "id": 54,
+            "definition": {
+              "title": "Per-cgroup pressure timeseries (selected cgroup_path)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cgroup.cpu.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.cgroup.memory.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.cgroup.io.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"}
+                  ],
+                  "formulas": [
+                    {"formula": "cpu", "alias": "CPU"},
+                    {"formula": "mem", "alias": "Memory"},
+                    {"formula": "io",  "alias": "I/O"}
+                  ],
+                  "style": {"palette": "dog_classic"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 6, "width": 12, "height": 4}
           }
         ]
       },
-      "layout": {"x": 0, "y": 9, "width": 6, "height": 4}
+      "layout": {"x": 0, "y": 36, "width": 12, "height": 11, "is_column_break": true}
     },
     {
-      "id": 6,
+      "id": 60,
       "definition": {
-        "title": "Top hosts by I/O pressure (some, 300s avg)",
-        "type": "toplist",
-        "requests": [
+        "type": "group",
+        "title": "Capacity & trends",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
           {
-            "response_format": "scalar",
-            "queries": [
-              {
-                "name": "query1",
-                "data_source": "metrics",
-                "query": "avg:system.pressure.io.some.avg300{$host} by {host}",
-                "aggregator": "avg"
-              }
-            ],
-            "formulas": [{"formula": "query1"}]
+            "id": 61,
+            "definition": {
+              "title": "CPU pressure - this week vs same time last week",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "now",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service}"},
+                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:system.pressure.cpu.some.avg300{$host,$env,$service})"}
+                  ],
+                  "formulas": [
+                    {"formula": "now",  "alias": "now"},
+                    {"formula": "prev", "alias": "1 week ago"}
+                  ],
+                  "style": {"palette": "dog_classic"}
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 0, "width": 6, "height": 4}
+          },
+          {
+            "id": 62,
+            "definition": {
+              "title": "Memory pressure - this week vs same time last week",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "now",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service}"},
+                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:system.pressure.memory.some.avg300{$host,$env,$service})"}
+                  ],
+                  "formulas": [
+                    {"formula": "now",  "alias": "now"},
+                    {"formula": "prev", "alias": "1 week ago"}
+                  ],
+                  "style": {"palette": "warm"}
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 0, "width": 6, "height": 4}
+          },
+          {
+            "id": 63,
+            "definition": {
+              "title": "Pressure budget - % of last hour spent above warning thresholds",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"}
+                  ],
+                  "formulas": [
+                    {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "alias": "composite", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 4, "width": 12, "height": 4}
           }
         ]
       },
-      "layout": {"x": 6, "y": 9, "width": 6, "height": 4}
+      "layout": {"x": 0, "y": 47, "width": 12, "height": 9, "is_column_break": true}
+    },
+    {
+      "id": 70,
+      "definition": {
+        "type": "group",
+        "title": "Reference - raw timeseries and rate metrics",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 71,
+            "definition": {
+              "type": "note",
+              "content": "Raw metric inventory. Use when building custom queries or verifying that data is flowing. Not designed for at-a-glance operational use - the groups above are.",
+              "background_color": "gray",
+              "font_size": "13",
+              "text_align": "left",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true,
+              "vertical_align": "top"
+            },
+            "layout": {"x": 0, "y": 0, "width": 12, "height": 2}
+          },
+          {
+            "id": 72,
+            "definition": {
+              "title": "CPU pressure - all three windows (10s / 60s / 300s)",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "a10", "alias": "avg10"},
+                    {"formula": "a60", "alias": "avg60"},
+                    {"formula": "a300", "alias": "avg300"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 2, "width": 6, "height": 3}
+          },
+          {
+            "id": 73,
+            "definition": {
+              "title": "Memory pressure - all three windows",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "a10", "alias": "avg10"},
+                    {"formula": "a60", "alias": "avg60"},
+                    {"formula": "a300", "alias": "avg300"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 6, "y": 2, "width": 6, "height": 3}
+          },
+          {
+            "id": 74,
+            "definition": {
+              "title": "I/O pressure - all three windows",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg300{$host,$env,$service}"}
+                  ],
+                  "formulas": [
+                    {"formula": "a10", "alias": "avg10"},
+                    {"formula": "a60", "alias": "avg60"},
+                    {"formula": "a300", "alias": "avg300"}
+                  ]
+                }
+              ]
+            },
+            "layout": {"x": 0, "y": 5, "width": 12, "height": 3}
+          }
+        ]
+      },
+      "layout": {"x": 0, "y": 56, "width": 12, "height": 8, "is_column_break": true}
     }
-  ],
-  "template_variables": [
-    {
-      "name": "host",
-      "prefix": "host",
-      "available_values": [],
-      "default": "*"
-    }
-  ],
-  "layout_type": "ordered",
-  "is_read_only": false,
-  "notify_list": [],
-  "reflow_type": "fixed"
+  ]
 }
