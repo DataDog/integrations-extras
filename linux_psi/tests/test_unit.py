@@ -160,3 +160,89 @@ def test_total_emits_as_monotonic_count(aggregator, instance, proc_dir):
         'system.pressure.cpu.some.total',
         metric_type=aggregator.MONOTONIC_COUNT,
     )
+
+
+def test_procfs_path_override(instance, monkeypatch):
+    """Containerized agents pass procfs_path: /host/proc; the check should
+    resolve its pressure_dir to /host/proc/pressure."""
+    from datadog_checks.linux_psi import check as check_mod
+
+    fake_agent = type('FakeAgent', (), {
+        'get_config': staticmethod(lambda key: '/host/proc' if key == 'procfs_path' else None),
+    })()
+    monkeypatch.setattr(check_mod, 'datadog_agent', fake_agent)
+
+    c = LinuxPSICheck('linux_psi', {}, [instance])
+    assert c.pressure_dir == '/host/proc/pressure'
+
+
+def test_os_error_is_soft_failed(aggregator, instance, proc_dir, monkeypatch):
+    """A generic OSError (e.g. EIO mid-read) on one file is logged but does
+    not crash the check; other resources keep emitting and the service check
+    stays OK if at least one file succeeded."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    real_open = open
+
+    def fake_open(path, *args, **kwargs):
+        if str(path).endswith('/memory'):
+            raise OSError(5, 'I/O error', path)
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr('builtins.open', fake_open)
+
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # cpu and io should still have emitted; memory should have nothing.
+    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0)
+    aggregator.assert_metric('system.pressure.io.some.avg10', value=0.18)
+    memory_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.memory.')]
+    assert memory_metrics == [], f'memory should not have emitted, got {memory_metrics}'
+    aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
+
+
+def test_all_files_missing_yields_warning(aggregator, instance, tmp_path):
+    """Directory exists but no resource files in it. Should fire WARNING,
+    not OK, since nothing useful was collected."""
+    pressure = tmp_path / 'empty_pressure'
+    pressure.mkdir()
+
+    check = make_check(instance, str(pressure))
+    check.check(None)
+
+    psi_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.')]
+    assert psi_metrics == [], 'No metrics expected when all resource files are missing'
+    aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
+
+
+def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir, monkeypatch):
+    """When some files read OK but others raise PermissionError, the service
+    check should still be CRITICAL (worst observed status wins) and the
+    message should point at the offending file."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    real_open = open
+
+    def fake_open(path, *args, **kwargs):
+        if str(path).endswith('/io'):
+            raise PermissionError(13, 'Permission denied', path)
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr('builtins.open', fake_open)
+
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # cpu and memory emitted; the service check is CRITICAL because io was denied
+    aggregator.assert_metric('system.pressure.cpu.some.avg10')
+    aggregator.assert_metric('system.pressure.memory.some.avg10')
+    # Find the CRITICAL service check and confirm the offending path is in the message
+    critical = [sc for sc in aggregator.service_checks('linux_psi.can_read')
+                if sc.status == AgentCheck.CRITICAL]
+    assert critical, 'Expected at least one CRITICAL service check'
+    assert '/io' in critical[0].message
