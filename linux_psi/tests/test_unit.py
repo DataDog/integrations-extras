@@ -316,6 +316,166 @@ def test_resources_config_preserves_order_and_dedups(proc_dir):
     assert check._resources == ('memory', 'io', 'cpu')
 
 
+def _make_cgroup_tree(tmp_path):
+    """Build a fake /sys/fs/cgroup v2 layout for tests."""
+    root = tmp_path / 'sys' / 'fs' / 'cgroup'
+    root.mkdir(parents=True)
+    # v2 marker file
+    (root / 'cgroup.controllers').write_text('cpu io memory\n')
+    # Root-level pressure files (the root cgroup itself)
+    (root / 'cpu.pressure').write_text(
+        'some avg10=0.10 avg60=0.05 avg300=0.02 total=12345\n'
+        'full avg10=0.00 avg60=0.00 avg300=0.00 total=0\n'
+    )
+    return root
+
+
+def _make_slice(root, slice_name, services):
+    """Create a fake systemd-style slice with N services, each with PSI files."""
+    slice_dir = root / slice_name
+    slice_dir.mkdir()
+    (slice_dir / 'cpu.pressure').write_text(
+        'some avg10=1.0 avg60=0.5 avg300=0.1 total=99999\n'
+        'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+    )
+    for service in services:
+        svc = slice_dir / service
+        svc.mkdir()
+        (svc / 'cpu.pressure').write_text(
+            'some avg10=5.0 avg60=3.0 avg300=1.0 total=555555\n'
+            'full avg10=2.0 avg60=1.0 avg300=0.5 total=222222\n'
+        )
+        (svc / 'memory.pressure').write_text(
+            'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+            'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+        )
+    return slice_dir
+
+
+def test_cgroup_disabled_by_default(aggregator, instance, proc_dir, tmp_path):
+    """When cgroup_roots is empty, no cgroup walking happens and no
+    linux_psi.cgroup.can_read service check is emitted."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    cgroup_metrics = [m for m in aggregator.metric_names
+                      if m.startswith('system.pressure.cgroup.')]
+    assert cgroup_metrics == []
+    # Only host-level service check exists; cgroup one should not be called
+    sc_names = {sc.name for sc in aggregator._service_checks_buffer
+                if hasattr(aggregator, '_service_checks_buffer')} \
+               if hasattr(aggregator, '_service_checks_buffer') else set()
+    # Use the public aggregator API instead
+    cgroup_scs = aggregator.service_checks('linux_psi.cgroup.can_read')
+    assert list(cgroup_scs) == []
+
+
+def test_cgroup_collects_metrics(aggregator, proc_dir, tmp_path):
+    """With cgroup_roots set, the check walks the slice and emits per-cgroup
+    metrics with cgroup_path tags."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    _make_slice(cgroup_root, 'system.slice',
+                ['sshd.service', 'postgresql.service'])
+
+    instance = {
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(cgroup_root),
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # The slice itself should have emitted (it has cpu.pressure)
+    aggregator.assert_metric(
+        'system.pressure.cgroup.cpu.some.avg10',
+        value=1.0,
+        tags=['cgroup_path:system.slice', 'cgroup_root:system.slice'],
+    )
+    # And each child service
+    aggregator.assert_metric(
+        'system.pressure.cgroup.cpu.some.avg10',
+        value=5.0,
+        tags=['cgroup_path:system.slice/sshd.service', 'cgroup_root:system.slice'],
+    )
+    aggregator.assert_metric(
+        'system.pressure.cgroup.cpu.some.avg10',
+        value=5.0,
+        tags=['cgroup_path:system.slice/postgresql.service', 'cgroup_root:system.slice'],
+    )
+    aggregator.assert_service_check('linux_psi.cgroup.can_read', status=AgentCheck.OK)
+
+
+def test_cgroup_v1_host_warns(aggregator, instance, proc_dir, tmp_path):
+    """Configured cgroup_roots but no cgroup.controllers file (i.e., a host
+    on cgroup v1) should warn cleanly."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    fake_v1_root = tmp_path / 'cgroup_v1_root'
+    fake_v1_root.mkdir()  # exists but no cgroup.controllers marker
+    (fake_v1_root / 'system.slice').mkdir()
+
+    instance_v1 = {
+        **instance,
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(fake_v1_root),
+    }
+    check = make_check(instance_v1, str(proc_dir))
+    check.check(None)
+
+    # Host-level should still be OK
+    aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
+    # Cgroup service check should be WARNING with a v2-related message
+    warnings = [sc for sc in aggregator.service_checks('linux_psi.cgroup.can_read')
+                if sc.status == AgentCheck.WARNING]
+    assert warnings, 'Expected at least one WARNING service check for cgroup PSI'
+    assert 'v2' in warnings[0].message.lower()
+
+
+def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
+    """When more cgroups exist than cgroup_max_count, the walker stops cleanly."""
+    _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
+    _copy_fixture('pressure_memory_normal', proc_dir / 'memory')
+    _copy_fixture('pressure_io_normal', proc_dir / 'io')
+
+    cgroup_root = _make_cgroup_tree(tmp_path)
+    # 5 services but cap at 2
+    _make_slice(cgroup_root, 'system.slice',
+                ['a.service', 'b.service', 'c.service', 'd.service', 'e.service'])
+
+    instance = {
+        'cgroup_roots': ['system.slice'],
+        'cgroupfs_path': str(cgroup_root),
+        'cgroup_max_count': 2,
+    }
+    check = make_check(instance, str(proc_dir))
+    check.check(None)
+
+    # Count distinct cgroup_path tags emitted for the cgroup-namespaced metric
+    cgroup_paths = set()
+    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+        for tag in call.tags or ():
+            if tag.startswith('cgroup_path:'):
+                cgroup_paths.add(tag)
+    assert len(cgroup_paths) <= 2, f'Expected <=2, got {cgroup_paths}'
+
+
+def test_cgroup_roots_rejects_non_list(proc_dir):
+    """A scalar (non-list) cgroup_roots should fail with ConfigurationError."""
+    from datadog_checks.base import ConfigurationError
+    instance = {'cgroup_roots': 'system.slice'}  # string, not list
+    with pytest.raises(ConfigurationError, match='list of strings'):
+        LinuxPSICheck('linux_psi', {}, [instance])
+
+
 def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir, monkeypatch):
     """When some files read OK but others raise PermissionError, the service
     check should still be CRITICAL (worst observed status wins) and the

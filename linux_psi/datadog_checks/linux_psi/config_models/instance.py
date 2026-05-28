@@ -30,6 +30,10 @@ class InstanceConfig(BaseModel):
         arbitrary_types_allowed=True,
         frozen=True,
     )
+    cgroup_max_count: Optional[int] = None
+    cgroup_max_depth: Optional[int] = None
+    cgroup_roots: Optional[tuple[str, ...]] = None
+    cgroupfs_path: Optional[str] = None
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
     enable_legacy_tags_normalization: Optional[bool] = None

@@ -24,4 +24,49 @@ files:
           - cpu
           - memory
           - io
+    - name: cgroup_roots
+      description: |
+        Optional list of cgroup v2 slices to walk for per-cgroup PSI metrics.
+        When empty (default) only host-wide PSI is collected. When set, the check
+        walks each listed slice under cgroupfs_path and emits metrics under the
+        system.pressure.cgroup.* namespace tagged with cgroup_path and cgroup_root.
+        Per-cgroup PSI requires the unified cgroup v2 hierarchy (most modern
+        systemd-based distros on kernel 5.2+). Common values:
+          - system.slice   - systemd services
+          - user.slice     - user-session cgroups
+          - kubepods.slice - Kubernetes pods (path varies by k8s setup)
+        Cardinality scales linearly with the number of cgroups; see
+        cgroup_max_count to cap.
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - system.slice
+    - name: cgroupfs_path
+      description: |
+        Path to the cgroup v2 filesystem root. Defaults to /sys/fs/cgroup, which is
+        correct on standard hosts. Override for unusual mount points or for
+        containerized agents that bind-mount the host cgroupfs elsewhere.
+      value:
+        type: string
+        example: /sys/fs/cgroup
+    - name: cgroup_max_depth
+      description: |
+        Maximum subdirectory depth to descend when walking each cgroup root.
+        Default 2 (the root itself and one level of children, which is enough
+        for systemd's slice/service layout and most k8s pod-level analysis).
+        Increase to see per-container metrics inside k8s pods (depth 3 or 4)
+        at the cost of higher cardinality.
+      value:
+        type: integer
+        example: 2
+    - name: cgroup_max_count
+      description: |
+        Maximum total number of cgroups to emit metrics for per check run.
+        Defaults to 200. Prevents cardinality blow-up on hosts running
+        thousands of cgroups; the check logs a warning when this cap is hit.
+      value:
+        type: integer
+        example: 200
     - template: instances/default

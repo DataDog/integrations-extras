@@ -4,6 +4,18 @@
 #     ddev -x validate models -s <INTEGRATION_NAME>
 
 
+def instance_cgroup_max_count():
+    return 200
+
+
+def instance_cgroup_max_depth():
+    return 2
+
+
+def instance_cgroupfs_path():
+    return '/sys/fs/cgroup'
+
+
 def instance_disable_generic_tags():
     return False
 
