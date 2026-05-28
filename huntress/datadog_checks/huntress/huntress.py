@@ -70,9 +70,12 @@ class HuntressCheck(AgentCheck):
 
         try:
             for query_def in log_queries:
+                query_name = query_def.get("name", "").strip()
                 esql = query_def.get("esql_query", "").strip()
                 query_tags = list(query_def.get("tags", []))
 
+                if not query_name:
+                    raise ConfigurationError("Each entry in log_queries must have a non-empty 'name'")
                 if not esql:
                     raise ConfigurationError("Each entry in log_queries must have a non-empty esql_query")
                 if not esql.lower().lstrip().startswith("from logs"):
@@ -81,12 +84,16 @@ class HuntressCheck(AgentCheck):
                 # Each query tracks its own checkpoint so queries are independently resumable
                 checkpoint_key = instance_hash + "_" + self._query_hash(esql)
                 all_tags = extra_tags + query_tags
+                query_metric_tags = extra_tags + [f"query_name:{query_name}"]
 
                 logs, pages = self._run_query(
                     base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags
                 )
                 total_logs += logs
                 total_pages += pages
+
+                self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
+                self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
 
             success = True
 
@@ -99,8 +106,6 @@ class HuntressCheck(AgentCheck):
         finally:
             duration = time.time() - start_time
             self.gauge("huntress.siem.run_duration_seconds", duration, tags=extra_tags)
-            self.gauge("huntress.siem.logs_collected", total_logs, tags=extra_tags)
-            self.gauge("huntress.siem.pages_fetched", total_pages, tags=extra_tags)
             if self._last_api_call_limit is not None:
                 self.gauge("huntress.siem.api_call_limit", self._last_api_call_limit, tags=extra_tags)
             if self._last_api_call_remaining is not None:
@@ -532,8 +537,8 @@ class HuntressCheck(AgentCheck):
                 instance.get("huntress_base_url", self.DEFAULT_BASE_URL),
             ]
         )
-        return hashlib.md5(key.encode()).hexdigest()[:12]
+        return hashlib.sha256(key.encode()).hexdigest()[:12]
 
     def _query_hash(self, esql_query):
         """Short hash to build a per-query checkpoint key."""
-        return hashlib.md5(esql_query.encode()).hexdigest()[:8]
+        return hashlib.sha256(esql_query.encode()).hexdigest()[:8]

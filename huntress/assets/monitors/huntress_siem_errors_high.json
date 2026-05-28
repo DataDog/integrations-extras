@@ -1,36 +1,25 @@
 {
-  "version": 2,
-  "created_at": "2026-05-27",
-  "last_updated_at": "2026-05-27",
-  "title": "Huntress SIEM collection errors detected",
+  "name": "Huntress SIEM collection errors detected",
+  "type": "query alert",
+  "query": "sum(last_30m):sum:huntress.siem.errors{*} by {error_type}.as_count() > 5",
+  "message": "The Huntress SIEM integration has recorded {{value}} errors in the last 30 minutes (threshold: {{threshold}}).\n\nInspect the error type using the `error_type` tag in Datadog Metrics Explorer:\n- `error_type:auth_failure` — check API credentials\n- `error_type:timeout` — query may be too broad; add a KEEP or WHERE clause\n- `error_type:invalid_query` — `esql_query` is malformed\n- `error_type:server_error` — transient Huntress API issue\n- `error_type:connection_error` — network connectivity problem\n\nAgent check logs:\n```\nsudo datadog-agent check huntress\n```",
   "tags": [
     "integration:huntress"
   ],
-  "description": "The Huntress SIEM check emits `huntress.siem.errors` with an `error_type` tag whenever an API call fails. A small number of transient errors (rate limits, brief timeouts) is normal and automatically retried. A sustained elevated error count indicates a persistent problem such as repeated auth failures, server errors, or a consistently invalid query that is preventing log collection.",
-  "definition": {
-    "message": "The Huntress SIEM integration has recorded {{value}} errors in the last 30 minutes (threshold: {{threshold}}).\n\nInspect the error type using the `error_type` tag in Datadog Metrics Explorer:\n- `error_type:auth_failure` — check API credentials\n- `error_type:timeout` — query may be too broad; add a KEEP or WHERE clause\n- `error_type:invalid_query` — `esql_query` is malformed\n- `error_type:server_error` — transient Huntress API issue\n- `error_type:connection_error` — network connectivity problem\n\nAgent check logs:\n```\nsudo datadog-agent check huntress\n```\n\n@pagerduty @slack-security-alerts",
-    "name": "Huntress SIEM collection errors detected",
-    "options": {
-      "include_tags": true,
-      "new_group_delay": 60,
-      "notify_audit": false,
-      "on_missing_data": "show_no_data",
-      "renotify_interval": 60,
-      "renotify_statuses": [
-        "alert"
-      ],
-      "require_full_window": false,
-      "thresholds": {
-        "critical": 5,
-        "warning": 2
-      }
+  "options": {
+    "thresholds": {
+      "critical": 5,
+      "warning": 2
     },
-    "priority": 3,
-    "query": "sum(last_30m):sum:huntress.siem.errors{*}.as_count() > 5",
-    "restricted_roles": null,
-    "tags": [
-      "integration:huntress"
-    ],
-    "type": "query alert"
-  }
+    "notify_audit": false,
+    "include_tags": true,
+    "on_missing_data": "show_no_data",
+    "renotify_interval": 0,
+    "require_full_window": false,
+    "escalation_message": "",
+    "new_group_delay": 0
+  },
+  "priority": 3,
+  "draft_status": "published",
+  "assets": []
 }

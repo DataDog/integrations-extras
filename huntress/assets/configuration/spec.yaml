@@ -51,6 +51,8 @@ files:
               items:
                 type: object
                 properties:
+                  - name: name
+                    type: string
                   - name: esql_query
                     type: string
                   - name: tags
@@ -58,7 +60,8 @@ files:
                     items:
                       type: string
               example:
-                - esql_query: "FROM logs"
+                - name: "all-logs"
+                  esql_query: "FROM logs"
           - name: enrich_with_org_tags
             description: |
               When true, the check fetches Huntress organization metadata (org name,

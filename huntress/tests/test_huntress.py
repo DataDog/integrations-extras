@@ -25,7 +25,7 @@ def _make_instance(**kwargs):
     base = {
         "huntress_api_key": "pub_key",
         "huntress_secret_key": "secret_key",
-        "log_queries": [{"esql_query": esql}],
+        "log_queries": [{"name": "test-query", "esql_query": esql}],
         "enrich_with_org_tags": False,
         "tags": ["source:huntress", "env:test"],
     }

@@ -44,7 +44,8 @@ datadog-agent integration install -t datadog-huntress==1.0.0
      - huntress_api_key: "<your_public_api_key>"
        huntress_secret_key: "<your_secret_api_key>"
        log_queries:
-         - esql_query: "FROM logs"
+         - name: "all-logs"
+           esql_query: "FROM logs"
        tags:
          - "source:huntress"
          - "service:huntress-siem"
@@ -78,13 +79,15 @@ instances:
   - huntress_api_key: "<account1_key>"
     huntress_secret_key: "<account1_secret>"
     log_queries:
-      - esql_query: "FROM logs"
+      - name: "all-logs"
+        esql_query: "FROM logs"
     tags: ["source:huntress", "env:production"]
 
   - huntress_api_key: "<account2_key>"
     huntress_secret_key: "<account2_secret>"
     log_queries:
-      - esql_query: "FROM logs"
+      - name: "all-logs"
+        esql_query: "FROM logs"
     tags: ["source:huntress", "env:staging"]
 ```
 
@@ -102,7 +105,7 @@ instances:
 | ----------------------- | -------- | ------------------------- | ------------------------------------------------------------------------------ |
 | `huntress_api_key`      | Yes      | -                         | Huntress public API key                                                        |
 | `huntress_secret_key`   | Yes      | -                         | Huntress secret API key                                                        |
-| `log_queries`           | Yes      | -                         | List of query objects; each has `esql_query` (required) and `tags` (optional). `esql_query` must begin with `FROM logs` |
+| `log_queries`           | Yes      | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
 | `enrich_with_org_tags`  | No       | `true`                    | Fetch and attach org metadata as log tags                                      |
 | `org_cache_ttl_seconds` | No       | `3600`                    | How long to cache org metadata (seconds)                                       |
 | `max_pages_per_run`     | No       | `100`                     | Page cap per query per run (~20,000 logs maximum)                              |

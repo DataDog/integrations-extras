@@ -1,39 +1,28 @@
 {
-  "version": 2,
-  "created_at": "2026-05-27",
-  "last_updated_at": "2026-05-27",
-  "title": "Huntress SIEM collection run failed",
+  "id": 19780007,
+  "name": "Huntress SIEM collection run failed on {{host.name}}",
+  "type": "service check",
+  "query": "\"huntress.siem.check_status\".over(\"*\").by(\"error_type\").last(2).count_by_status()",
+  "message": "The Huntress SIEM Agent check on {{host.name}} has entered a CRITICAL state, meaning the last collection run failed. Logs may no longer be flowing from Huntress to Datadog.\n\nCommon causes:\n- Invalid or rotated API credentials (`huntress_api_key` / `huntress_secret_key`)\n- Network connectivity issue between the Agent host and `api.huntress.io`\n- Invalid `esql_query` in the instance configuration\n- Huntress SIEM feature not enabled on this account\n\nCheck the Agent logs for details:\n```\nsudo datadog-agent check huntress\n```",
   "tags": [
     "integration:huntress"
   ],
-  "description": "The Huntress SIEM check emits a CRITICAL service check whenever a collection run fails — for example due to an authentication error, network timeout, or invalid ES|QL query. This monitor alerts on any such failure so operators can investigate and restore log collection before data gaps accumulate.",
-  "definition": {
-    "message": "The Huntress SIEM Agent check on {{host.name}} has entered a CRITICAL state, meaning the last collection run failed. Logs may no longer be flowing from Huntress to Datadog.\n\nCommon causes:\n- Invalid or rotated API credentials (`huntress_api_key` / `huntress_secret_key`)\n- Network connectivity issue between the Agent host and `api.huntress.io`\n- Invalid `esql_query` in the instance configuration\n- Huntress SIEM feature not enabled on this account\n\nCheck the Agent logs for details:\n```\nsudo datadog-agent check huntress\n```\n\n@pagerduty @slack-security-alerts",
-    "name": "Huntress SIEM collection run failed on {{host.name}}",
-    "options": {
-      "include_tags": true,
-      "new_host_delay": 300,
-      "no_data_timeframe": 60,
-      "notify_audit": false,
-      "notify_no_data": false,
-      "renotify_interval": 60,
-      "renotify_statuses": [
-        "alert"
-      ],
-      "require_full_window": false,
-      "silenced": {},
-      "thresholds": {
-        "critical": 1,
-        "ok": 1
-      },
-      "timeout_h": 0
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "ok": 1
     },
-    "priority": 2,
-    "query": "\"huntress.siem.check_status\".over(\"*\").last(2).count_by_status()",
-    "restricted_roles": null,
-    "tags": [
-      "integration:huntress"
+    "notify_audit": false,
+    "renotify_interval": 60,
+    "timeout_h": 0,
+    "include_tags": true,
+    "renotify_statuses": [
+      "alert"
     ],
-    "type": "service check"
-  }
+    "require_full_window": false,
+    "escalation_message": ""
+  },
+  "priority": 2,
+  "draft_status": "published",
+  "assets": []
 }

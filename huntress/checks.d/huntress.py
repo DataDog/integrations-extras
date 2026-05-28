@@ -25,6 +25,7 @@ class HuntressCheck(AgentCheck):
     MAX_BATCH_SIZE_BYTES = 4 * 1024 * 1024  # 4 MB headroom under 5 MB limit
 
     DEFAULT_BASE_URL = "https://api.huntress.io"
+    DEFAULT_REQUEST_TIMEOUT = 30
     DEFAULT_MIN_COLLECTION_INTERVAL = 900
     DEFAULT_MAX_PAGES_PER_RUN = 100
     DEFAULT_ORG_CACHE_TTL = 3600
@@ -40,108 +41,71 @@ class HuntressCheck(AgentCheck):
 
         api_key = instance.get("huntress_api_key", "").strip()
         secret_key = instance.get("huntress_secret_key", "").strip()
-        esql_query = instance.get("esql_query", "").strip()
         base_url = instance.get("huntress_base_url", self.DEFAULT_BASE_URL).rstrip("/")
         max_pages = int(instance.get("max_pages_per_run", self.DEFAULT_MAX_PAGES_PER_RUN))
         min_interval = int(instance.get("min_collection_interval", self.DEFAULT_MIN_COLLECTION_INTERVAL))
         enrich_orgs = instance.get("enrich_with_org_tags", True)
         org_ttl = int(instance.get("org_cache_ttl_seconds", self.DEFAULT_ORG_CACHE_TTL))
         extra_tags = list(instance.get("tags", []))
+        log_queries = instance.get("log_queries") or []
 
         if not api_key:
             raise ConfigurationError("huntress_api_key is required")
         if not secret_key:
             raise ConfigurationError("huntress_secret_key is required")
-        if not esql_query:
-            raise ConfigurationError("esql_query is required")
-        if not esql_query.lower().lstrip().startswith("from logs"):
-            raise ConfigurationError("esql_query must begin with 'FROM logs' (case-insensitive)")
+        if not log_queries:
+            raise ConfigurationError("log_queries must contain at least one query")
 
         instance_hash = self._instance_hash(instance)
         headers = self._get_auth_header(api_key, secret_key)
 
-        # Org enrichment
+        # Org enrichment cache is shared across all queries for this instance
         org_cache = None
         if enrich_orgs:
             org_cache = self._get_or_refresh_org_cache(base_url, headers, instance_hash, org_ttl)
 
-        # Checkpoint
-        range_start = self._load_checkpoint(instance_hash)
-        now = datetime.now(timezone.utc)
-        range_end = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-
-        if range_start is None:
-            default_start = now - timedelta(seconds=min_interval)
-            range_start = default_start.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-        else:
-            # Add 1ms offset to avoid re-fetching the last millisecond from previous run
-            try:
-                dt = datetime.fromisoformat(range_start.replace("Z", "+00:00"))
-                dt = dt + timedelta(milliseconds=1)
-                range_start = dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-            except Exception:
-                pass
-
-        self.log.debug("Huntress SIEM collection: range_start=%s range_end=%s", range_start, range_end)
-
-        page_token = None
         total_logs = 0
-        pages_fetched = 0
-        hit_page_cap = False
+        total_pages = 0
         success = False
 
         try:
-            while True:
-                logs, next_token = self._query_page(base_url, headers, esql_query, range_start, range_end, page_token)
+            for query_def in log_queries:
+                query_name = query_def.get("name", "").strip()
+                esql = query_def.get("esql_query", "").strip()
+                query_tags = list(query_def.get("tags", []))
 
-                if logs:
-                    service_tag = self._extract_service(extra_tags)
-                    batch = []
-                    for raw in logs:
-                        org_tags = self._get_org_tags(raw, org_cache) if org_cache else []
-                        all_tags = extra_tags + org_tags
-                        payload = self._transform_log(raw, all_tags, service_tag)
-                        batch.append(payload)
-                        if len(batch) >= self.MAX_LOGS_PER_BATCH:
-                            self._send_logs_batch(batch)
-                            batch = []
-                    if batch:
-                        self._send_logs_batch(batch)
+                if not query_name:
+                    raise ConfigurationError("Each entry in log_queries must have a non-empty 'name'")
+                if not esql:
+                    raise ConfigurationError("Each entry in log_queries must have a non-empty esql_query")
+                if not esql.lower().lstrip().startswith("from logs"):
+                    raise ConfigurationError(f"esql_query must begin with 'FROM logs' (case-insensitive): {esql!r}")
 
-                total_logs += len(logs)
-                pages_fetched += 1
+                # Each query tracks its own checkpoint so queries are independently resumable
+                checkpoint_key = instance_hash + "_" + self._query_hash(esql)
+                all_tags = extra_tags + query_tags
+                query_metric_tags = extra_tags + [f"query_name:{query_name}"]
 
-                if next_token and pages_fetched < max_pages:
-                    page_token = next_token
-                else:
-                    if next_token and pages_fetched >= max_pages:
-                        hit_page_cap = True
-                        self.log.warning(
-                            "Huntress SIEM: hit max_pages_per_run=%d cap; remaining pages will be collected next run",
-                            max_pages,
-                        )
-                    break
+                logs, pages = self._run_query(
+                    base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags
+                )
+                total_logs += logs
+                total_pages += pages
 
-            if not hit_page_cap:
-                self._save_checkpoint(instance_hash, range_end)
+                self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
+                self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
 
             success = True
 
         except Exception as exc:
             self.log.error("Huntress SIEM run failed: %s", exc)
-            self.count(
-                "huntress.siem.errors",
-                1,
-                tags=extra_tags + ["error_type:run_failure"],
-            )
+            self.count("huntress.siem.errors", 1, tags=extra_tags + ["error_type:run_failure"])
             self.service_check(self.SERVICE_CHECK_NAME, self.CRITICAL, tags=extra_tags)
             raise
 
         finally:
             duration = time.time() - start_time
             self.gauge("huntress.siem.run_duration_seconds", duration, tags=extra_tags)
-            self.gauge("huntress.siem.logs_collected", total_logs, tags=extra_tags)
-            self.gauge("huntress.siem.pages_fetched", pages_fetched, tags=extra_tags)
             if self._last_api_call_limit is not None:
                 self.gauge("huntress.siem.api_call_limit", self._last_api_call_limit, tags=extra_tags)
             if self._last_api_call_remaining is not None:
@@ -149,6 +113,76 @@ class HuntressCheck(AgentCheck):
 
         if success:
             self.service_check(self.SERVICE_CHECK_NAME, self.OK, tags=extra_tags)
+
+    # ------------------------------------------------------------------ #
+    # Per-query execution                                                   #
+    # ------------------------------------------------------------------ #
+
+    def _run_query(self, base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags):
+        """Paginate a single ES|QL query. Returns (logs_collected, pages_fetched)."""
+        range_start = self._load_checkpoint(checkpoint_key)
+        now = datetime.now(timezone.utc)
+        range_end = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+        if range_start is None:
+            default_start = now - timedelta(seconds=min_interval)
+            range_start = default_start.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+        else:
+            # Add 1ms to avoid re-fetching the boundary event from the previous run
+            try:
+                dt = datetime.fromisoformat(range_start.replace("Z", "+00:00"))
+                dt = dt + timedelta(milliseconds=1)
+                range_start = dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+            except Exception:
+                pass
+
+        self.log.debug(
+            "Huntress SIEM query: esql=%r range_start=%s range_end=%s",
+            esql[:80],
+            range_start,
+            range_end,
+        )
+
+        service_tag = self._extract_service(all_tags)
+        page_token = None
+        total_logs = 0
+        pages_fetched = 0
+        hit_page_cap = False
+
+        while True:
+            logs, next_token = self._query_page(base_url, headers, esql, range_start, range_end, page_token)
+
+            if logs:
+                batch = []
+                for raw in logs:
+                    org_tags = self._get_org_tags(raw, org_cache) if org_cache else []
+                    payload = self._transform_log(raw, all_tags + org_tags, service_tag)
+                    batch.append(payload)
+                    if len(batch) >= self.MAX_LOGS_PER_BATCH:
+                        self._send_logs_batch(batch)
+                        batch = []
+                if batch:
+                    self._send_logs_batch(batch)
+
+            total_logs += len(logs)
+            pages_fetched += 1
+
+            if next_token and pages_fetched < max_pages:
+                page_token = next_token
+            else:
+                if next_token and pages_fetched >= max_pages:
+                    hit_page_cap = True
+                    self.log.warning(
+                        "Huntress SIEM: hit max_pages_per_run=%d for query %r; remaining pages collected next run",
+                        max_pages,
+                        esql[:60],
+                    )
+                break
+
+        if not hit_page_cap:
+            self._save_checkpoint(checkpoint_key, range_end)
+
+        return total_logs, pages_fetched
 
     # ------------------------------------------------------------------ #
     # Auth                                                                  #
@@ -163,7 +197,6 @@ class HuntressCheck(AgentCheck):
         }
 
     def _parse_rate_limit_headers(self, resp):
-        """Parse x-huntress-api-call-limit / x-huntress-api-call-remaining headers."""
         try:
             limit = resp.headers.get("x-huntress-api-call-limit")
             if limit is not None:
@@ -194,13 +227,7 @@ class HuntressCheck(AgentCheck):
         if page_token:
             body["page_token"] = page_token
 
-        response = self._request_with_retry(
-            method="POST",
-            url=url,
-            headers=headers,
-            json_body=body,
-        )
-
+        response = self._request_with_retry(method="POST", url=url, headers=headers, json_body=body)
         data = response.json()
         logs = data.get("logs", [])
         pagination = data.get("pagination", {})
@@ -213,6 +240,7 @@ class HuntressCheck(AgentCheck):
 
     def _request_with_retry(self, method, url, headers, json_body=None, params=None):
         """Execute an HTTP request with retry logic per PRD §7."""
+        timeout = self.init_config.get("request_timeout", self.DEFAULT_REQUEST_TIMEOUT)
         max_retries_5xx = 3
         max_retries_408 = 2
         backoff_5xx = [5, 10, 20]
@@ -228,7 +256,7 @@ class HuntressCheck(AgentCheck):
                     headers=headers,
                     json=json_body,
                     params=params,
-                    timeout=30,
+                    timeout=timeout,
                 )
 
                 if resp.status_code == 200:
@@ -353,7 +381,6 @@ class HuntressCheck(AgentCheck):
     # ------------------------------------------------------------------ #
 
     def _send_logs_batch(self, logs_batch):
-        """Send a batch of up to MAX_LOGS_PER_BATCH log payloads via self.send_log()."""
         for log_payload in logs_batch:
             self.send_log(log_payload)
 
@@ -361,8 +388,8 @@ class HuntressCheck(AgentCheck):
     # Checkpoint                                                            #
     # ------------------------------------------------------------------ #
 
-    def _load_checkpoint(self, instance_hash):
-        key = self.CHECKPOINT_CACHE_KEY_PREFIX + instance_hash
+    def _load_checkpoint(self, checkpoint_key):
+        key = self.CHECKPOINT_CACHE_KEY_PREFIX + checkpoint_key
         raw = self.read_persistent_cache(key)
         if not raw:
             return None
@@ -372,8 +399,8 @@ class HuntressCheck(AgentCheck):
         except Exception:
             return None
 
-    def _save_checkpoint(self, instance_hash, timestamp_iso):
-        key = self.CHECKPOINT_CACHE_KEY_PREFIX + instance_hash
+    def _save_checkpoint(self, checkpoint_key, timestamp_iso):
+        key = self.CHECKPOINT_CACHE_KEY_PREFIX + checkpoint_key
         payload = json.dumps({"last_collected_at": timestamp_iso, "schema_version": 1})
         self.write_persistent_cache(key, payload)
 
@@ -498,9 +525,20 @@ class HuntressCheck(AgentCheck):
         return base_tags
 
     # ------------------------------------------------------------------ #
-    # Instance hash                                                         #
+    # Hashing                                                              #
     # ------------------------------------------------------------------ #
 
     def _instance_hash(self, instance):
-        key = f"{instance.get('huntress_api_key', '')}:{instance.get('esql_query', '')}"
-        return hashlib.md5(key.encode()).hexdigest()[:12]
+        """Stable hash for a Huntress account (api key + secret + base url)."""
+        key = "|".join(
+            [
+                instance.get("huntress_api_key", ""),
+                instance.get("huntress_secret_key", ""),
+                instance.get("huntress_base_url", self.DEFAULT_BASE_URL),
+            ]
+        )
+        return hashlib.sha256(key.encode()).hexdigest()[:12]
+
+    def _query_hash(self, esql_query):
+        """Short hash to build a per-query checkpoint key."""
+        return hashlib.sha256(esql_query.encode()).hexdigest()[:8]
