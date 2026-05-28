@@ -76,9 +76,7 @@ class HuntressCheck(AgentCheck):
                 if not esql:
                     raise ConfigurationError("Each entry in log_queries must have a non-empty esql_query")
                 if not esql.lower().lstrip().startswith("from logs"):
-                    raise ConfigurationError(
-                        f"esql_query must begin with 'FROM logs' (case-insensitive): {esql!r}"
-                    )
+                    raise ConfigurationError(f"esql_query must begin with 'FROM logs' (case-insensitive): {esql!r}")
 
                 # Each query tracks its own checkpoint so queries are independently resumable
                 checkpoint_key = instance_hash + "_" + self._query_hash(esql)
@@ -135,7 +133,9 @@ class HuntressCheck(AgentCheck):
 
         self.log.debug(
             "Huntress SIEM query: esql=%r range_start=%s range_end=%s",
-            esql[:80], range_start, range_end,
+            esql[:80],
+            range_start,
+            range_end,
         )
 
         service_tag = self._extract_service(all_tags)
@@ -169,7 +169,8 @@ class HuntressCheck(AgentCheck):
                     hit_page_cap = True
                     self.log.warning(
                         "Huntress SIEM: hit max_pages_per_run=%d for query %r; remaining pages collected next run",
-                        max_pages, esql[:60],
+                        max_pages,
+                        esql[:60],
                     )
                 break
 
@@ -273,7 +274,9 @@ class HuntressCheck(AgentCheck):
                         wait = backoff_408[attempt]
                         self.log.warning(
                             "Huntress API 408 Query Timeout; retrying in %ds (attempt %d/%d)",
-                            wait, attempt + 1, max_retries_408,
+                            wait,
+                            attempt + 1,
+                            max_retries_408,
                         )
                         time.sleep(wait)
                         attempt += 1
@@ -298,7 +301,10 @@ class HuntressCheck(AgentCheck):
                         wait = backoff_5xx[attempt]
                         self.log.warning(
                             "Huntress API %d Server Error; retrying in %ds (attempt %d/%d)",
-                            resp.status_code, wait, attempt + 1, max_retries_5xx,
+                            resp.status_code,
+                            wait,
+                            attempt + 1,
+                            max_retries_5xx,
                         )
                         time.sleep(wait)
                         attempt += 1
@@ -313,7 +319,10 @@ class HuntressCheck(AgentCheck):
                     wait = backoff_5xx[attempt]
                     self.log.warning(
                         "Huntress API network error (%s); retrying in %ds (attempt %d/%d)",
-                        exc, wait, attempt + 1, max_retries_5xx,
+                        exc,
+                        wait,
+                        attempt + 1,
+                        max_retries_5xx,
                     )
                     time.sleep(wait)
                     attempt += 1
@@ -516,11 +525,13 @@ class HuntressCheck(AgentCheck):
 
     def _instance_hash(self, instance):
         """Stable hash for a Huntress account (api key + secret + base url)."""
-        key = "|".join([
-            instance.get("huntress_api_key", ""),
-            instance.get("huntress_secret_key", ""),
-            instance.get("huntress_base_url", self.DEFAULT_BASE_URL),
-        ])
+        key = "|".join(
+            [
+                instance.get("huntress_api_key", ""),
+                instance.get("huntress_secret_key", ""),
+                instance.get("huntress_base_url", self.DEFAULT_BASE_URL),
+            ]
+        )
         return hashlib.md5(key.encode()).hexdigest()[:12]
 
     def _query_hash(self, esql_query):
