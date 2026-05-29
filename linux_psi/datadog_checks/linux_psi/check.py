@@ -33,7 +33,7 @@ PRESSURE_FILES = ('cpu', 'memory', 'io')
 VALID_KINDS = ('some', 'full')
 AVG_KEYS = ('avg10', 'avg60', 'avg300')
 
-HOST_NAMESPACE = 'system.pressure'
+HOST_NAMESPACE = 'psi.system.pressure'
 CGROUP_NAMESPACE = 'psi.system.pressure.cgroup'
 
 DEFAULT_CGROUPFS_PATH = '/sys/fs/cgroup'
