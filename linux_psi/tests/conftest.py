@@ -10,6 +10,12 @@ def dd_environment(instance):
     yield instance
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def instance():
+    """Shared base instance config for test, Session-scoped so it can be
+    consumed by 'dd_environment` (also session-scoped) without triggering
+    pytest's ScopeMisMatch error. Test that need to customize the instance
+    should dict-spread it (e.f. `{**instance , 'cgroup_roots': [...[]]}`)
+    rather than mutate it in place.
+    """
     return {'tags': ['integration:linux_psi_test']}

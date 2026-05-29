@@ -112,7 +112,7 @@ class LinuxPSICheck(AgentCheck):
         """
         roots = self.instance.get('cgroup_roots') or []
         if not isinstance(roots, (list, tuple)):
-            raise ConfigurationError('`cgroup_roots` must be a list of strings, got {!r}'.format(type(roots).__name__))
+            raise ConfigurationError(f'`cgroup_roots` must be a list of strings, got {type(roots).__name__!r}')
         validated = []
         for r in roots:
             s = str(r).strip()
