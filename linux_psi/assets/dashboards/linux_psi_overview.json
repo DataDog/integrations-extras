@@ -77,7 +77,7 @@
                     {
                       "name": "q1",
                       "data_source": "metrics",
-                      "query": "max:system.pressure.memory.full.avg10{$host,$env,$service}",
+                      "query": "max:psi.system.pressure.memory.full.avg10{$host,$env,$service}",
                       "aggregator": "max"
                     }
                   ],
@@ -109,7 +109,7 @@
                     {
                       "name": "q1",
                       "data_source": "metrics",
-                      "query": "max:system.pressure.cpu.some.avg60{$host,$env,$service}",
+                      "query": "max:psi.system.pressure.cpu.some.avg60{$host,$env,$service}",
                       "aggregator": "max"
                     }
                   ],
@@ -141,7 +141,7 @@
                     {
                       "name": "q1",
                       "data_source": "metrics",
-                      "query": "max:system.pressure.io.some.avg60{$host,$env,$service}",
+                      "query": "max:psi.system.pressure.io.some.avg60{$host,$env,$service}",
                       "aggregator": "max"
                     }
                   ],
@@ -170,9 +170,9 @@
                 {
                   "response_format": "scalar",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "max:system.pressure.cpu.some.avg60{$host,$env,$service}", "aggregator": "max"},
-                    {"name": "mem", "data_source": "metrics", "query": "max:system.pressure.memory.some.avg60{$host,$env,$service}", "aggregator": "max"},
-                    {"name": "io",  "data_source": "metrics", "query": "max:system.pressure.io.some.avg60{$host,$env,$service}", "aggregator": "max"}
+                    {"name": "cpu", "data_source": "metrics", "query": "max:psi.system.pressure.cpu.some.avg60{$host,$env,$service}", "aggregator": "max"},
+                    {"name": "mem", "data_source": "metrics", "query": "max:psi.system.pressure.memory.some.avg60{$host,$env,$service}", "aggregator": "max"},
+                    {"name": "io",  "data_source": "metrics", "query": "max:psi.system.pressure.io.some.avg60{$host,$env,$service}", "aggregator": "max"}
                   ],
                   "formulas": [
                     {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}
@@ -216,9 +216,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
-                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
-                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"}
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "cpu", "alias": "CPU"},
@@ -249,7 +249,7 @@
               "requests": [
                 {
                   "response_format": "timeseries",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"}],
                   "formulas": [{"formula": "q1"}],
                   "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "thin"}
                 }
@@ -269,7 +269,7 @@
               "requests": [
                 {
                   "response_format": "timeseries",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.full.avg10{$host,$env,$service} by {host}"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.full.avg10{$host,$env,$service} by {host}"}],
                   "formulas": [{"formula": "q1"}],
                   "style": {"palette": "warm", "line_type": "solid", "line_width": "thin"}
                 }
@@ -290,7 +290,7 @@
               "requests": [
                 {
                   "response_format": "timeseries",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service} by {host}"}],
                   "formulas": [{"formula": "q1"}],
                   "style": {"palette": "cool", "line_type": "solid", "line_width": "thin"}
                 }
@@ -311,9 +311,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"},
-                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service} by {host}"},
-                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}"}
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service} by {host}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg60{$host,$env,$service} by {host}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service} by {host}"}
                   ],
                   "formulas": [
                     {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "alias": "composite"}
@@ -347,7 +347,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
                   "conditional_formats": [
                     {"comparator": ">=", "value": 50, "palette": "white_on_red"},
@@ -368,7 +368,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
                   "conditional_formats": [
                     {"comparator": ">=", "value": 20, "palette": "white_on_red"},
@@ -389,7 +389,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 10, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}],
                   "conditional_formats": [
                     {"comparator": ">=", "value": 70, "palette": "white_on_red"},
@@ -410,7 +410,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.total{$host,$env,$service} by {host}.as_rate()", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.total{$host,$env,$service} by {host}.as_rate()", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}}]
                 }
               ]
@@ -431,7 +431,7 @@
                 {
                   "response_format": "scalar",
                   "style": {"palette": "warm"},
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg300{$host,$env,$service} by {host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1"}]
                 }
               ]
@@ -464,8 +464,8 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
-                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.cpu.full.avg60{$host,$env,$service}"}
+                    {"name": "some", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.full.avg60{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "some", "alias": "some (any task stalled)"},
@@ -490,8 +490,8 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
-                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.memory.full.avg60{$host,$env,$service}"}
+                    {"name": "some", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.full.avg60{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "some", "alias": "some"},
@@ -516,8 +516,8 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "some", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"},
-                    {"name": "full", "data_source": "metrics", "query": "avg:system.pressure.io.full.avg60{$host,$env,$service}"}
+                    {"name": "some", "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service}"},
+                    {"name": "full", "data_source": "metrics", "query": "avg:psi.system.pressure.io.full.avg60{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "some", "alias": "some"},
@@ -542,9 +542,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.total{$host,$env,$service}.as_rate()"},
-                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.total{$host,$env,$service}.as_rate()"},
-                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.total{$host,$env,$service}.as_rate()"}
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.total{$host,$env,$service}.as_rate()"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.total{$host,$env,$service}.as_rate()"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.total{$host,$env,$service}.as_rate()"}
                   ],
                   "formulas": [
                     {"formula": "cpu", "alias": "CPU microseconds/s"},
@@ -596,7 +596,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cgroup.cpu.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.cgroup.cpu.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}]
                 }
               ]
@@ -613,7 +613,7 @@
               "requests": [
                 {
                   "response_format": "scalar",
-                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:system.pressure.cgroup.memory.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
+                  "queries": [{"name": "q1", "data_source": "metrics", "query": "avg:psi.system.pressure.cgroup.memory.some.avg300{$host,$env,$service,$cgroup_root,$cgroup_path} by {cgroup_path,host}", "aggregator": "avg"}],
                   "formulas": [{"formula": "q1", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}]
                 }
               ]
@@ -633,9 +633,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cgroup.cpu.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
-                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.cgroup.memory.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
-                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.cgroup.io.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"}
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:psi.system.pressure.cgroup.cpu.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:psi.system.pressure.cgroup.memory.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:psi.system.pressure.cgroup.io.some.avg60{$host,$env,$service,$cgroup_root,$cgroup_path}"}
                   ],
                   "formulas": [
                     {"formula": "cpu", "alias": "CPU"},
@@ -674,8 +674,8 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "now",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service}"},
-                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:system.pressure.cpu.some.avg300{$host,$env,$service})"}
+                    {"name": "now",  "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg300{$host,$env,$service}"},
+                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:psi.system.pressure.cpu.some.avg300{$host,$env,$service})"}
                   ],
                   "formulas": [
                     {"formula": "now",  "alias": "now"},
@@ -700,8 +700,8 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "now",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service}"},
-                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:system.pressure.memory.some.avg300{$host,$env,$service})"}
+                    {"name": "now",  "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg300{$host,$env,$service}"},
+                    {"name": "prev", "data_source": "metrics", "query": "week_before(avg:psi.system.pressure.memory.some.avg300{$host,$env,$service})"}
                   ],
                   "formulas": [
                     {"formula": "now",  "alias": "now"},
@@ -724,9 +724,9 @@
                 {
                   "response_format": "scalar",
                   "queries": [
-                    {"name": "cpu", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
-                    {"name": "mem", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
-                    {"name": "io",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"}
+                    {"name": "cpu", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
+                    {"name": "mem", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"},
+                    {"name": "io",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service} by {host}", "aggregator": "avg"}
                   ],
                   "formulas": [
                     {"formula": "0.4 * cpu + 0.4 * mem + 0.2 * io", "alias": "composite", "limit": {"count": 15, "order": "desc"}, "number_format": {"unit": {"type": "canonical_unit", "unit_name": "percent"}}}
@@ -778,9 +778,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg10{$host,$env,$service}"},
-                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg60{$host,$env,$service}"},
-                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.cpu.some.avg300{$host,$env,$service}"}
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:psi.system.pressure.cpu.some.avg300{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "a10", "alias": "avg10"},
@@ -805,9 +805,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg10{$host,$env,$service}"},
-                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg60{$host,$env,$service}"},
-                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.memory.some.avg300{$host,$env,$service}"}
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:psi.system.pressure.memory.some.avg300{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "a10", "alias": "avg10"},
@@ -832,9 +832,9 @@
                 {
                   "response_format": "timeseries",
                   "queries": [
-                    {"name": "a10",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg10{$host,$env,$service}"},
-                    {"name": "a60",  "data_source": "metrics", "query": "avg:system.pressure.io.some.avg60{$host,$env,$service}"},
-                    {"name": "a300", "data_source": "metrics", "query": "avg:system.pressure.io.some.avg300{$host,$env,$service}"}
+                    {"name": "a10",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg10{$host,$env,$service}"},
+                    {"name": "a60",  "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg60{$host,$env,$service}"},
+                    {"name": "a300", "data_source": "metrics", "query": "avg:psi.system.pressure.io.some.avg300{$host,$env,$service}"}
                   ],
                   "formulas": [
                     {"formula": "a10", "alias": "avg10"},

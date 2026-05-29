@@ -62,7 +62,7 @@ For containerized Agents (Docker, Kubernetes), mount the host's `/proc` into the
 | `service` | string | (none) | Sets the `service:<value>` tag |
 | `min_collection_interval` | number | 15 | Seconds between collection runs |
 | `resources` | list of strings | `[cpu, memory, io]` | Subset of PSI resources to collect. Use to silence resources whose pressure is permanently elevated for legitimate reasons (e.g., a database host with sustained high I/O) or to skip a file masked by container/security policy. Unknown names fail check startup with a clear error. |
-| `cgroup_roots` | list of strings | (none, feature off) | Opt-in per-cgroup PSI. List cgroup v2 slices to walk - typically `system.slice` for systemd services and/or `kubepods.slice` for Kubernetes pods. When set, the check emits `system.pressure.cgroup.<resource>.<kind>.<key>` metrics tagged with `cgroup_path` and `cgroup_root`. Requires cgroup v2 (kernel 5.2+ unified hierarchy). |
+| `cgroup_roots` | list of strings | (none, feature off) | Opt-in per-cgroup PSI. List cgroup v2 slices to walk - typically `system.slice` for systemd services and/or `kubepods.slice` for Kubernetes pods. When set, the check emits `psi.system.pressure.cgroup.<resource>.<kind>.<key>` metrics tagged with `cgroup_path` and `cgroup_root`. Requires cgroup v2 (kernel 5.2+ unified hierarchy). |
 | `cgroupfs_path` | string | `/sys/fs/cgroup` | Filesystem root for cgroup v2. Override only if the host mounts the cgroupfs in a non-standard location. |
 | `cgroup_max_depth` | integer | 2 | Maximum subdirectory depth to descend when walking each cgroup root. Increase to 3 or 4 to see per-container metrics inside k8s pods (at the cost of higher cardinality). |
 | `cgroup_max_count` | integer | 200 | Maximum total cgroups to emit metrics for per check run. Caps cardinality on hosts running many cgroups. The check logs a warning when the cap is hit. |
@@ -75,17 +75,17 @@ See [`metadata.csv`](metadata.csv) for the complete list.
 
 | Family | Metric | Type | Description |
 |---|---|---|---|
-| CPU | `system.pressure.cpu.some.{avg10,avg60,avg300}` | gauge (%) | % of wall time at least one task stalled on CPU over the 10/60/300s window |
-| CPU | `system.pressure.cpu.some.total` | count (microseconds) | Cumulative stall time since boot |
-| CPU | `system.pressure.cpu.full.*` | gauge / count | All-tasks-stalled CPU (kernel 5.13+ only) |
-| Memory | `system.pressure.memory.some.{avg10,avg60,avg300,total}` | gauge / count | Memory pressure (some) |
-| Memory | `system.pressure.memory.full.{avg10,avg60,avg300,total}` | gauge / count | Memory pressure (full) |
-| I/O | `system.pressure.io.some.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (some) |
-| I/O | `system.pressure.io.full.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (full) |
+| CPU | `psi.system.pressure.cpu.some.{avg10,avg60,avg300}` | gauge (%) | % of wall time at least one task stalled on CPU over the 10/60/300s window |
+| CPU | `psi.system.pressure.cpu.some.total` | count (microseconds) | Cumulative stall time since boot |
+| CPU | `psi.system.pressure.cpu.full.*` | gauge / count | All-tasks-stalled CPU (kernel 5.13+ only) |
+| Memory | `psi.system.pressure.memory.some.{avg10,avg60,avg300,total}` | gauge / count | Memory pressure (some) |
+| Memory | `psi.system.pressure.memory.full.{avg10,avg60,avg300,total}` | gauge / count | Memory pressure (full) |
+| I/O | `psi.system.pressure.io.some.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (some) |
+| I/O | `psi.system.pressure.io.full.{avg10,avg60,avg300,total}` | gauge / count | I/O pressure (full) |
 
 24 host-level metrics, gracefully degrading on older kernels that lack `/proc/pressure/cpu`'s `full` line.
 
-When `cgroup_roots` is configured, an additional 24 metrics are emitted under the `system.pressure.cgroup.*` namespace with the same shape as the host metrics. Each cgroup metric carries `cgroup_path` (the cgroup's relative path under its root, e.g., `system.slice/postgresql.service`) and `cgroup_root` (the top-level slice, e.g., `system.slice`) tags. Per-cgroup metrics are emitted **in addition to**, not instead of, the host-level metrics.
+When `cgroup_roots` is configured, an additional 24 metrics are emitted under the `psi.system.pressure.cgroup.*` namespace with the same shape as the host metrics. Each cgroup metric carries `cgroup_path` (the cgroup's relative path under its root, e.g., `system.slice/postgresql.service`) and `cgroup_root` (the top-level slice, e.g., `system.slice`) tags. Per-cgroup metrics are emitted **in addition to**, not instead of, the host-level metrics.
 
 ### Service Checks
 
@@ -185,7 +185,7 @@ Confirm the Agent is running the check and seeing metrics locally:
 sudo -u dd-agent datadog-agent check linux_psi
 ```
 
-The command runs one check iteration in the foreground and prints every metric it would have submitted. You should see 24 `system.pressure.*` entries plus an OK `linux_psi.can_read` service check. If you see them locally but not in your Datadog account, the issue is upstream (Agent API key, network egress, account routing) and outside this integration's scope.
+The command runs one check iteration in the foreground and prints every metric it would have submitted. You should see 24 `psi.system.pressure.*` entries plus an OK `linux_psi.can_read` service check. If you see them locally but not in your Datadog account, the issue is upstream (Agent API key, network egress, account routing) and outside this integration's scope.
 
 ## Compatibility
 
@@ -197,7 +197,7 @@ The command runs one check iteration in the foreground and prints every metric i
 | Datadog Agent | 7.53 |
 | Boot parameter `psi=1` | Required on distros that disable PSI by default |
 
-The `system.pressure.cpu.full.*` metrics are not emitted on kernels older than 5.13; the rest of the metrics are emitted as long as `/proc/pressure/` exists. The check degrades gracefully without raising errors when individual files are missing or unreadable.
+The `psi.system.pressure.cpu.full.*` metrics are not emitted on kernels older than 5.13; the rest of the metrics are emitted as long as `/proc/pressure/` exists. The check degrades gracefully without raising errors when individual files are missing or unreadable.
 
 ## Support
 

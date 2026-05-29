@@ -11,14 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Per-cgroup PSI collection (opt-in). Configure `cgroup_roots` with a list of
   cgroup v2 slices to walk (e.g., `system.slice`, `kubepods.slice`) and the
-  check emits `system.pressure.cgroup.<resource>.<kind>.<key>` metrics tagged
+  check emits `psi.system.pressure.cgroup.<resource>.<kind>.<key>` metrics tagged
   with `cgroup_path` and `cgroup_root`. Lets users drill into "which workload
   is generating pressure?" without per-PID tracking.
 - New service check `linux_psi.cgroup.can_read` that warns cleanly on cgroup
   v1 hosts or missing cgroupfs mounts when the cgroup feature is enabled.
 - Cardinality controls: `cgroup_max_depth` (default 2) limits recursion;
   `cgroup_max_count` (default 200) caps per-run emissions.
-- Twenty-four new metrics under the `system.pressure.cgroup.*` namespace.
+- Twenty-four new metrics under the `psi.system.pressure.cgroup.*` namespace.
 
 ### Changed
 

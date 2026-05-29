@@ -49,19 +49,19 @@ def test_full_happy_path(aggregator, instance, proc_dir):
     expected_tags = ['integration:linux_psi_test']
 
     # CPU some
-    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.cpu.some.avg60', value=0.05, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.cpu.some.avg300', value=0.12, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.cpu.some.total', tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10', value=0.0, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg60', value=0.05, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg300', value=0.12, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.some.total', tags=expected_tags)
 
     # CPU full (present in this fixture, kernel 5.13+)
-    aggregator.assert_metric('system.pressure.cpu.full.avg10', value=0.0, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.cpu.full.total', tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.full.avg10', value=0.0, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.cpu.full.total', tags=expected_tags)
 
     # Memory and IO sanity
-    aggregator.assert_metric('system.pressure.memory.some.avg300', value=0.0, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.io.some.avg10', value=0.18, tags=expected_tags)
-    aggregator.assert_metric('system.pressure.io.full.avg60', value=0.09, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.memory.some.avg300', value=0.0, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.io.some.avg10', value=0.18, tags=expected_tags)
+    aggregator.assert_metric('psi.system.pressure.io.full.avg60', value=0.09, tags=expected_tags)
 
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK, tags=expected_tags)
 
@@ -76,9 +76,9 @@ def test_cpu_without_full_line(aggregator, instance, proc_dir):
     check.check(None)
 
     # `some` for cpu should still appear
-    aggregator.assert_metric('system.pressure.cpu.some.avg10')
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10')
     # but `full` should NOT have been emitted
-    full_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.cpu.full.')]
+    full_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.cpu.full.')]
     assert full_metrics == [], f'cpu.full.* should not be emitted but got {full_metrics}'
 
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
@@ -91,7 +91,7 @@ def test_pressure_dir_missing(aggregator, instance, tmp_path):
     check.check(None)
 
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
-    metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.')]
+    metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.')]
     assert metrics == [], 'No pressure metrics should be emitted when PSI is unavailable'
 
 
@@ -104,9 +104,9 @@ def test_one_file_missing(aggregator, instance, proc_dir):
     check = make_check(instance, str(proc_dir))
     check.check(None)
 
-    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0)
-    aggregator.assert_metric('system.pressure.memory.some.avg10', value=0.0)
-    io_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.io.')]
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10', value=0.0)
+    aggregator.assert_metric('psi.system.pressure.memory.some.avg10', value=0.0)
+    io_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.io.')]
     assert io_metrics == [], 'No io metrics expected when /proc/pressure/io is missing'
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
 
@@ -138,10 +138,10 @@ def test_malformed_line_is_ignored(aggregator, instance, proc_dir):
     check.check(None)
 
     # The malformed `some avg10=garbage` should NOT have emitted that metric.
-    aggregator.assert_metric('system.pressure.io.some.avg60', value=0.09)
-    aggregator.assert_metric('system.pressure.io.some.total')
+    aggregator.assert_metric('psi.system.pressure.io.some.avg60', value=0.09)
+    aggregator.assert_metric('psi.system.pressure.io.some.total')
     # The "unrecognized_kind" line should be skipped entirely.
-    aggregator.assert_metric('system.pressure.io.full.avg10', value=0.18)
+    aggregator.assert_metric('psi.system.pressure.io.full.avg10', value=0.18)
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
 
 
@@ -157,7 +157,7 @@ def test_total_emits_as_monotonic_count(aggregator, instance, proc_dir):
     # If a metric is asserted, the aggregator knows its type. The total metrics
     # must show up as MONOTONIC_COUNT, not GAUGE.
     aggregator.assert_metric(
-        'system.pressure.cpu.some.total',
+        'psi.system.pressure.cpu.some.total',
         metric_type=aggregator.MONOTONIC_COUNT,
     )
 
@@ -197,9 +197,9 @@ def test_os_error_is_soft_failed(aggregator, instance, proc_dir, monkeypatch):
     check.check(None)
 
     # cpu and io should still have emitted; memory should have nothing.
-    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0)
-    aggregator.assert_metric('system.pressure.io.some.avg10', value=0.18)
-    memory_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.memory.')]
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10', value=0.0)
+    aggregator.assert_metric('psi.system.pressure.io.some.avg10', value=0.18)
+    memory_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.memory.')]
     assert memory_metrics == [], f'memory should not have emitted, got {memory_metrics}'
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
 
@@ -213,7 +213,7 @@ def test_all_files_missing_yields_warning(aggregator, instance, tmp_path):
     check = make_check(instance, str(pressure))
     check.check(None)
 
-    psi_metrics = [m for m in aggregator.metric_names if m.startswith('system.pressure.')]
+    psi_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.')]
     assert psi_metrics == [], 'No metrics expected when all resource files are missing'
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
 
@@ -291,10 +291,10 @@ def test_resources_config_filters_collection(aggregator, proc_dir):
     check = make_check(instance, str(proc_dir))
     check.check(None)
 
-    aggregator.assert_metric('system.pressure.cpu.some.avg10', value=0.0)
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10', value=0.0)
     for excluded in ('memory', 'io'):
         leaked = [m for m in aggregator.metric_names
-                  if m.startswith(f'system.pressure.{excluded}.')]
+                  if m.startswith(f'psi.system.pressure.{excluded}.')]
         assert leaked == [], f'{excluded} should not have emitted, got {leaked}'
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
 
@@ -363,7 +363,7 @@ def test_cgroup_disabled_by_default(aggregator, instance, proc_dir, tmp_path):
     check.check(None)
 
     cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('system.pressure.cgroup.')]
+                      if m.startswith('psi.system.pressure.cgroup.')]
     assert cgroup_metrics == []
     # Only host-level service check exists; cgroup one should not be called
     sc_names = {sc.name for sc in aggregator._service_checks_buffer
@@ -394,18 +394,18 @@ def test_cgroup_collects_metrics(aggregator, proc_dir, tmp_path):
 
     # The slice itself should have emitted (it has cpu.pressure)
     aggregator.assert_metric(
-        'system.pressure.cgroup.cpu.some.avg10',
+        'psi.system.pressure.cgroup.cpu.some.avg10',
         value=1.0,
         tags=['cgroup_path:system.slice', 'cgroup_root:system.slice'],
     )
     # And each child service
     aggregator.assert_metric(
-        'system.pressure.cgroup.cpu.some.avg10',
+        'psi.system.pressure.cgroup.cpu.some.avg10',
         value=5.0,
         tags=['cgroup_path:system.slice/sshd.service', 'cgroup_root:system.slice'],
     )
     aggregator.assert_metric(
-        'system.pressure.cgroup.cpu.some.avg10',
+        'psi.system.pressure.cgroup.cpu.some.avg10',
         value=5.0,
         tags=['cgroup_path:system.slice/postgresql.service', 'cgroup_root:system.slice'],
     )
@@ -468,7 +468,7 @@ def test_cgroup_max_count_breaks_across_multiple_roots(aggregator, proc_dir, tmp
     # At most one cgroup_path tag value should be present across all emitted
     # cgroup metrics (cap is 1)
     cgroup_paths = set()
-    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+    for call in aggregator.metrics('psi.system.pressure.cgroup.cpu.some.avg10'):
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:'):
                 cgroup_paths.add(tag)
@@ -505,7 +505,7 @@ def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
 
     # Count distinct cgroup_path tags emitted for the cgroup-namespaced metric
     cgroup_paths = set()
-    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+    for call in aggregator.metrics('psi.system.pressure.cgroup.cpu.some.avg10'):
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:'):
                 cgroup_paths.add(tag)
@@ -531,7 +531,7 @@ def test_cgroupfs_path_missing_entirely_warns(aggregator, instance, proc_dir, tm
     aggregator.assert_service_check('linux_psi.cgroup.can_read',
                                     status=AgentCheck.WARNING)
     cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('system.pressure.cgroup.')]
+                      if m.startswith('psi.system.pressure.cgroup.')]
     assert cgroup_metrics == []
 
 
@@ -593,7 +593,7 @@ def test_walker_skips_scandir_permission_error(aggregator, proc_dir, tmp_path, m
 
     # The ok.service emit should still appear
     ok_paths = set()
-    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+    for call in aggregator.metrics('psi.system.pressure.cgroup.cpu.some.avg10'):
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:'):
                 ok_paths.add(tag)
@@ -670,7 +670,7 @@ def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_pa
 
     # Find the metric emitted for the huge-name cgroup and verify the
     # cgroup_path tag is bounded.
-    for call in aggregator.metrics('system.pressure.cgroup.cpu.some.avg10'):
+    for call in aggregator.metrics('psi.system.pressure.cgroup.cpu.some.avg10'):
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:') and huge_marker[:100] in tag:
                 # tag includes the 'cgroup_path:' prefix in length
@@ -749,7 +749,7 @@ def test_cgroup_root_outside_cgroupfs_is_skipped(aggregator, proc_dir, tmp_path)
 
     # No metrics should have been emitted from outside the cgroupfs root
     cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('system.pressure.cgroup.')]
+                      if m.startswith('psi.system.pressure.cgroup.')]
     assert cgroup_metrics == [], (
         f'Symlink escaping cgroupfs root must not emit metrics; got {cgroup_metrics}'
     )
@@ -776,8 +776,8 @@ def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir
     check.check(None)
 
     # cpu and memory emitted; the service check is CRITICAL because io was denied
-    aggregator.assert_metric('system.pressure.cpu.some.avg10')
-    aggregator.assert_metric('system.pressure.memory.some.avg10')
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10')
+    aggregator.assert_metric('psi.system.pressure.memory.some.avg10')
     # Find the CRITICAL service check and confirm the offending path is in the message
     critical = [sc for sc in aggregator.service_checks('linux_psi.can_read')
                 if sc.status == AgentCheck.CRITICAL]

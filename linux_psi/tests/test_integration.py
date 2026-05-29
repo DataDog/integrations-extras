@@ -30,7 +30,7 @@ def test_real_psi(aggregator, instance):
     check.check(None)
 
     # On any PSI-enabled system, cpu.some.avg10 will be emitted, even if 0.
-    aggregator.assert_metric('system.pressure.cpu.some.avg10')
-    aggregator.assert_metric('system.pressure.cpu.some.total',
+    aggregator.assert_metric('psi.system.pressure.cpu.some.avg10')
+    aggregator.assert_metric('psi.system.pressure.cpu.some.total',
                              metric_type=aggregator.MONOTONIC_COUNT)
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)

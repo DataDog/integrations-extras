@@ -41,7 +41,7 @@ The v1.1 dashboard adds the following widgets, grouped into a `Diagnostic` tab (
 
 > **Question:** Right now, what dimension is wedging this host?
 
-A single timeseries panel with three lines: `system.pressure.cpu.some.avg60`, `system.pressure.memory.some.avg60`, `system.pressure.io.some.avg60`. Scoped to a single host via the existing `$host` template variable.
+A single timeseries panel with three lines: `psi.system.pressure.cpu.some.avg60`, `psi.system.pressure.memory.some.avg60`, `psi.system.pressure.io.some.avg60`. Scoped to a single host via the existing `$host` template variable.
 
 The line that spikes during an incident identifies the contended resource in one glance. Replaces three separate v1 panels for the most common diagnostic use case.
 
@@ -70,7 +70,7 @@ A query-value widget with conditional formatting. The query takes the top host a
 A heatmap or top-list where each row is a host and the value is "% of the last 7 days during which `memory.some.avg300` exceeded 5%". Hosts with high pressure-budget consumed are the candidates for the next scale-up round, regardless of what their utilization numbers look like.
 
 **Datadog functions used:**
-- `count_nonzero(system.pressure.memory.some.avg300 > 5, 'last_7d')` or equivalent via Datadog's threshold-aggregation widgets
+- `count_nonzero(psi.system.pressure.memory.some.avg300 > 5, 'last_7d')` or equivalent via Datadog's threshold-aggregation widgets
 - Rolled up to per-host with `by {host}`
 
 The same pattern can be repeated for CPU and I/O as separate widgets, or three resources can be combined via a composite score (see section 4).
@@ -79,7 +79,7 @@ The same pattern can be repeated for CPU and I/O as separate widgets, or three r
 
 > **Question:** Is this host right-sized?
 
-A scatter widget with utilization on the x-axis (`system.cpu.usage` averaged over the last hour) and pressure on the y-axis (`system.pressure.cpu.some.avg300`). Each dot is one host. The four quadrants tell different stories:
+A scatter widget with utilization on the x-axis (`system.cpu.usage` averaged over the last hour) and pressure on the y-axis (`psi.system.pressure.cpu.some.avg300`). Each dot is one host. The four quadrants tell different stories:
 
 - Low utilization + low pressure: oversized, money on the table
 - High utilization + low pressure: right-sized, productive
@@ -92,7 +92,7 @@ This single chart drives a quarterly capacity-review conversation more efficient
 
 > **Question:** Is pressure trending up?
 
-A timeseries showing `system.pressure.memory.some.avg60 - week_before(system.pressure.memory.some.avg60)`. Positive bars mean pressure is worse than last week at the same time of day; negative bars mean it has improved.
+A timeseries showing `psi.system.pressure.memory.some.avg60 - week_before(psi.system.pressure.memory.some.avg60)`. Positive bars mean pressure is worse than last week at the same time of day; negative bars mean it has improved.
 
 Overlay deployment events (from a CI integration that emits to Datadog Events) on the x-axis. When a positive delta starts shortly after a deploy marker, you have a direct visual link from a release to a regression.
 
@@ -139,7 +139,7 @@ A few candidates I considered and ruled out:
 | Per-process PSI panels | PSI is system-wide; we do not have per-process data. The "noisy neighbor" question is better answered by overlaying k8s/container metrics on the system-wide PSI panels. |
 | ML-based anomaly detection on the `total` counter | The `derivative()` of a monotonic counter is conceptually identical to the `avg10`/`avg60` gauges PSI already exposes. ML adds complexity without insight here. |
 | A "pressure forecast" panel | `forecast()` exists in Datadog and works on PSI metrics, but pressure forecasts have low predictive value on horizons longer than a few days because most pressure events are workload-driven, not workload-independent trends. Better to alert on the *current* week-over-week delta and let the operator interpret. |
-| Per-cgroup PSI panels | The cgroup PSI data IS collected by the check as of v1.1 (opt-in via `cgroup_roots`). A v1.2 dashboard pass should add per-cgroup breakdowns of the panels above, grouped by `cgroup_path` or by the Agent tagger's enriched dimensions (`kube_namespace`, `kube_deployment`, `container_name`). Highest-value panels for the per-cgroup view: a heatmap of `system.pressure.cgroup.memory.some.avg60` by `cgroup_path`, and a top-list of cgroups by `cgroup.cpu.some.avg300` over the last hour - this is the canonical "which workload is stressing this host?" question. |
+| Per-cgroup PSI panels | The cgroup PSI data IS collected by the check as of v1.1 (opt-in via `cgroup_roots`). A v1.2 dashboard pass should add per-cgroup breakdowns of the panels above, grouped by `cgroup_path` or by the Agent tagger's enriched dimensions (`kube_namespace`, `kube_deployment`, `container_name`). Highest-value panels for the per-cgroup view: a heatmap of `psi.system.pressure.cgroup.memory.some.avg60` by `cgroup_path`, and a top-list of cgroups by `cgroup.cpu.some.avg300` over the last hour - this is the canonical "which workload is stressing this host?" question. |
 
 ## 6. v1.2 roadmap - panels worth adding next
 
@@ -147,7 +147,7 @@ Now that the v1.1 panels are shipped, the next round of improvements should targ
 
 1. **Pressure-vs-utilization scatter (Panel D from the original design)** - still not shipped because the scatter widget needs `system.cpu.usage` from the host integration to cross-reference. Worth adding once we confirm typical Datadog accounts running this integration also run the host check.
 2. **Anomaly bands on the live charts** - `anomalies(query, 'agile', 3)` overlays on the per-resource panels in the Live Trends group. Lets the on-call see whether the current value is "high but normal for this host" vs "actually anomalous." Implementation note: needs at least 24 hours of historical data to be meaningful.
-3. **SLO widget** - requires defining the SLO in Datadog first (a `system.pressure.memory.full.avg300 < 5%` over 30d objective at 99.5%). Once defined, embed the SLO widget on the Capacity tab.
+3. **SLO widget** - requires defining the SLO in Datadog first (a `psi.system.pressure.memory.full.avg300 < 5%` over 30d objective at 99.5%). Once defined, embed the SLO widget on the Capacity tab.
 4. **Per-deploy correlation overlay** - event markers from a CI integration overlaid on the week-over-week panels. Requires the user to have a deploy-events source. Document as "drop your deploy events here" rather than hardcoding.
 5. **Forecast** - `forecast()` on the cumulative stall rate, projecting 14 days. Useful for capacity reviews; not useful for on-call.
 

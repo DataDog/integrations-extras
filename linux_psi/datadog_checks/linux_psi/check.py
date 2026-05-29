@@ -10,7 +10,7 @@ microseconds) metrics. Gracefully handles older kernels where /proc/pressure/cpu
 does not have a `full` line (added in kernel 5.13) or where PSI is not enabled
 at all (boot parameter `psi=1` not set).
 
-The check namespace is `system.pressure.` to slot alongside Datadog's existing
+The check namespace is `psi.system.pressure.` to slot alongside Datadog's existing
 `system.*` Linux metrics (cpu, memory, io, processes).
 
 See https://docs.kernel.org/accounting/psi.html for the kernel feature.
@@ -34,7 +34,7 @@ VALID_KINDS = ('some', 'full')
 AVG_KEYS = ('avg10', 'avg60', 'avg300')
 
 HOST_NAMESPACE = 'system.pressure'
-CGROUP_NAMESPACE = 'system.pressure.cgroup'
+CGROUP_NAMESPACE = 'psi.system.pressure.cgroup'
 
 DEFAULT_CGROUPFS_PATH = '/sys/fs/cgroup'
 DEFAULT_CGROUP_MAX_DEPTH = 2
