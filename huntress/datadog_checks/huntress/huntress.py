@@ -1,5 +1,5 @@
 import base64
-import hashlib
+import zlib
 import json
 import time
 from datetime import datetime, timedelta, timezone
@@ -655,15 +655,11 @@ class HuntressCheck(AgentCheck):
     # ------------------------------------------------------------------ #
 
     def _instance_hash(self, instance):
-        """Stable hash for a Huntress account (api key + base url)."""
-        key = "|".join(
-            [
-                instance.get("huntress_api_key", ""),
-                instance.get("huntress_base_url", self.DEFAULT_BASE_URL),
-            ]
-        )
-        return hashlib.sha256(key.encode()).hexdigest()[:12]
+        """Stable non-secret identifier for this Huntress instance."""
+        key = instance.get("instance_id") or instance.get(
+            "huntress_base_url", self.DEFAULT_BASE_URL)
+        return format(zlib.crc32(key.encode("utf-8")) & 0xFFFFFFFF, "08x")
 
     def _query_hash(self, esql_query):
-        """Short hash to build a per-query checkpoint key."""
-        return hashlib.sha256(esql_query.encode()).hexdigest()[:8]
+        """Short non-cryptographic checksum for a per-query checkpoint key."""
+        return format(zlib.crc32(esql_query.encode("utf-8")) & 0xFFFFFFFF, "08x")
