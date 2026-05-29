@@ -4,7 +4,7 @@
 
 ***Changed***:
 
-* adds OAuth scopes for logs, monitors, APM, dashboards, and MCP read access.
+* adds OAuth scopes for logs, monitors, APM, dashboards, MCP, incidents, events, and LLM observability read access.
 
 ## 1.0.1 / 2025-05-30
 
