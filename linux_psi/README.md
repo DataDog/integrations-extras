@@ -201,7 +201,7 @@ The `psi.system.pressure.cpu.full.*` metrics are not emitted on kernels older th
 
 ## Support
 
-This integration is community-maintained by [@voseghale][7] and licensed under BSD-3-Clause matching the parent repo's `LICENSE` file. For bugs and feature requests, open an issue at the [integrations-extras repo][5] referencing the `linux_psi` integration. Pull requests are welcome - please open an issue first to discuss non-trivial changes. For general Datadog Agent support, contact [Datadog support][6].
+This integration is community-maintained by [@victoroseghale][7] and licensed under BSD-3-Clause matching the parent repo's `LICENSE` file. For bugs and feature requests, open an issue at the [integrations-extras repo][5] referencing the `linux_psi` integration. Pull requests are welcome - please open an issue first to discuss non-trivial changes. For general Datadog Agent support, contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings/agent/latest
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -209,4 +209,4 @@ This integration is community-maintained by [@voseghale][7] and licensed under B
 [4]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
 [5]: https://github.com/DataDog/integrations-extras
 [6]: https://docs.datadoghq.com/help/
-[7]: https://github.com/voseghale
+[7]: https://github.com/victoroseghale

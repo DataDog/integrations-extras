@@ -1,4 +1,4 @@
-# (C) voseghale 2026-present
+# (C) victoroseghale 2026-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import os
