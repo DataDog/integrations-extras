@@ -15,6 +15,7 @@ The check namespace is `psi.system.pressure.` to slot alongside Datadog's existi
 
 See https://docs.kernel.org/accounting/psi.html for the kernel feature.
 """
+
 from __future__ import annotations
 
 import os
@@ -74,8 +75,7 @@ class LinuxPSICheck(AgentCheck):
         invalid = [r for r in configured if r not in PRESSURE_FILES]
         if invalid:
             raise ConfigurationError(
-                f'Unknown PSI resource(s) {invalid!r} in `resources` config. '
-                f'Allowed values: {list(PRESSURE_FILES)}'
+                f'Unknown PSI resource(s) {invalid!r} in `resources` config. Allowed values: {list(PRESSURE_FILES)}'
             )
         # Preserve user ordering, deduplicate.
         seen = set()
@@ -112,23 +112,19 @@ class LinuxPSICheck(AgentCheck):
         """
         roots = self.instance.get('cgroup_roots') or []
         if not isinstance(roots, (list, tuple)):
-            raise ConfigurationError(
-                '`cgroup_roots` must be a list of strings, got {!r}'.format(type(roots).__name__)
-            )
+            raise ConfigurationError('`cgroup_roots` must be a list of strings, got {!r}'.format(type(roots).__name__))
         validated = []
         for r in roots:
             s = str(r).strip()
             if os.path.isabs(s):
                 raise ConfigurationError(
-                    f'cgroup_roots entries must be relative paths under cgroupfs_path, '
-                    f'got absolute path: {s!r}'
+                    f'cgroup_roots entries must be relative paths under cgroupfs_path, got absolute path: {s!r}'
                 )
             # Normalize separators and check each segment for parent-directory references.
             segments = [seg for seg in s.replace('\\', '/').split('/') if seg]
             if '..' in segments:
                 raise ConfigurationError(
-                    f'cgroup_roots entries cannot contain parent-directory references (..), '
-                    f'got: {s!r}'
+                    f'cgroup_roots entries cannot contain parent-directory references (..), got: {s!r}'
                 )
             validated.append(s)
         self._cgroup_roots = tuple(validated)
@@ -169,8 +165,7 @@ class LinuxPSICheck(AgentCheck):
             with open(osrelease_path, 'r') as f:
                 raw = f.read().strip()
         except OSError as e:
-            self.log.debug('Could not read kernel version from %s: %s',
-                           osrelease_path, e)
+            self.log.debug('Could not read kernel version from %s: %s', osrelease_path, e)
             return
 
         m = KERNEL_VERSION_RE.match(raw)
@@ -180,7 +175,8 @@ class LinuxPSICheck(AgentCheck):
         major, minor, patch = m.groups()
         version = f'{major}.{minor}.{patch}'
         self.set_metadata(
-            'version', version,
+            'version',
+            version,
             scheme='semver',
             part_map={'major': major, 'minor': minor, 'patch': patch},
         )
@@ -227,11 +223,9 @@ class LinuxPSICheck(AgentCheck):
                 self.log.warning('Error reading %s: %s', path, e)
 
         if worst_status == AgentCheck.CRITICAL:
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL,
-                               tags=self.tags, message=worst_message)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=self.tags, message=worst_message)
         elif emitted:
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK,
-                               tags=self.tags)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.tags)
         else:
             self.service_check(
                 self.SERVICE_CHECK_NAME,
@@ -291,7 +285,8 @@ class LinuxPSICheck(AgentCheck):
         bounded by cgroup_max_count."""
         if not os.path.isdir(self._cgroupfs_path):
             self.service_check(
-                self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.WARNING,
+                self.CGROUP_SERVICE_CHECK_NAME,
+                AgentCheck.WARNING,
                 tags=self.tags,
                 message=(
                     f'cgroup filesystem not found at {self._cgroupfs_path}. '
@@ -305,7 +300,8 @@ class LinuxPSICheck(AgentCheck):
         # Quick cgroup v2 sanity check: v2 root has a `cgroup.controllers` file.
         if not os.path.exists(os.path.join(self._cgroupfs_path, 'cgroup.controllers')):
             self.service_check(
-                self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.WARNING,
+                self.CGROUP_SERVICE_CHECK_NAME,
+                AgentCheck.WARNING,
                 tags=self.tags,
                 message=(
                     'cgroup v2 not detected (cgroup.controllers missing). '
@@ -325,16 +321,15 @@ class LinuxPSICheck(AgentCheck):
                 continue
             if not self._is_within_cgroupfs(root_path):
                 self.log.warning(
-                    'cgroup root %s resolves outside cgroupfs_path %s '
-                    '(possible symlink escape); skipping',
-                    root_path, self._cgroupfs_path,
+                    'cgroup root %s resolves outside cgroupfs_path %s (possible symlink escape); skipping',
+                    root_path,
+                    self._cgroupfs_path,
                 )
                 continue
             for cgroup_dir, rel_path in self._walk_cgroups(root_path, root_name):
                 if emitted_count >= self._cgroup_max_count:
                     self.log.warning(
-                        'cgroup_max_count (%d) reached, stopping enumeration. '
-                        'Some cgroups will not be reported.',
+                        'cgroup_max_count (%d) reached, stopping enumeration. Some cgroups will not be reported.',
                         self._cgroup_max_count,
                     )
                     cap_hit = True
@@ -342,8 +337,7 @@ class LinuxPSICheck(AgentCheck):
                 if self._emit_cgroup(cgroup_dir, rel_path, root_name):
                     emitted_count += 1
 
-        self.service_check(self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.OK,
-                           tags=self.tags)
+        self.service_check(self.CGROUP_SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.tags)
 
     def _walk_cgroups(self, root_path, root_name, current_depth=0):
         """Yield (absolute_path, relative_path) for the root and each subdirectory
@@ -367,9 +361,7 @@ class LinuxPSICheck(AgentCheck):
                 sub_rel = f'{root_name}/{entry.name}'
                 yield (entry.path, sub_rel)
                 if current_depth + 1 < self._cgroup_max_depth:
-                    yield from self._walk_cgroups_inner(
-                        entry.path, sub_rel, current_depth + 1
-                    )
+                    yield from self._walk_cgroups_inner(entry.path, sub_rel, current_depth + 1)
 
     def _walk_cgroups_inner(self, parent_path, parent_rel, current_depth):
         """Inner recursion helper that yields deeper subdirectories already
@@ -386,9 +378,7 @@ class LinuxPSICheck(AgentCheck):
                 sub_rel = f'{parent_rel}/{entry.name}'
                 yield (entry.path, sub_rel)
                 if current_depth + 1 < self._cgroup_max_depth:
-                    yield from self._walk_cgroups_inner(
-                        entry.path, sub_rel, current_depth + 1
-                    )
+                    yield from self._walk_cgroups_inner(entry.path, sub_rel, current_depth + 1)
 
     def _emit_cgroup(self, cgroup_dir, rel_path, root_name):
         """Read this cgroup's PSI files and emit metrics tagged with the
@@ -401,8 +391,7 @@ class LinuxPSICheck(AgentCheck):
         for resource in self._resources:
             path = os.path.join(cgroup_dir, f'{resource}.pressure')
             try:
-                self._read_one(resource, path,
-                               namespace=CGROUP_NAMESPACE, tags=cgroup_tags)
+                self._read_one(resource, path, namespace=CGROUP_NAMESPACE, tags=cgroup_tags)
                 any_read = True
             except FileNotFoundError:
                 # Many cgroups lack one or more pressure files (e.g., a cgroup

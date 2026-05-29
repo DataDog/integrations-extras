@@ -8,6 +8,7 @@ These tests do not require Linux because each test points the check at a
 test-controlled directory full of fixture files. The check reads them with
 plain `open()` and behaves identically to reading /proc/pressure on a real host.
 """
+
 import os
 import shutil
 
@@ -167,9 +168,13 @@ def test_procfs_path_override(instance, monkeypatch):
     resolve its pressure_dir to /host/proc/pressure."""
     from datadog_checks.linux_psi import check as check_mod
 
-    fake_agent = type('FakeAgent', (), {
-        'get_config': staticmethod(lambda key: '/host/proc' if key == 'procfs_path' else None),
-    })()
+    fake_agent = type(
+        'FakeAgent',
+        (),
+        {
+            'get_config': staticmethod(lambda key: '/host/proc' if key == 'procfs_path' else None),
+        },
+    )()
     monkeypatch.setattr(check_mod, 'datadog_agent', fake_agent)
 
     c = LinuxPSICheck('linux_psi', {}, [instance])
@@ -218,14 +223,16 @@ def test_all_files_missing_yields_warning(aggregator, instance, tmp_path):
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.WARNING)
 
 
-@pytest.mark.parametrize('osrelease,expected', [
-    ('5.15.0-91-generic\n', ('5.15.0', '5', '15', '0')),
-    ('6.5.0\n',             ('6.5.0', '6', '5', '0')),
-    ('4.4.302+\n',          ('4.4.302', '4', '4', '302')),
-    ('4.19.0-amd64\n',      ('4.19.0', '4', '19', '0')),
-])
-def test_kernel_version_metadata_parses(instance, tmp_path, monkeypatch,
-                                          osrelease, expected):
+@pytest.mark.parametrize(
+    'osrelease,expected',
+    [
+        ('5.15.0-91-generic\n', ('5.15.0', '5', '15', '0')),
+        ('6.5.0\n', ('6.5.0', '6', '5', '0')),
+        ('4.4.302+\n', ('4.4.302', '4', '4', '302')),
+        ('4.19.0-amd64\n', ('4.19.0', '4', '19', '0')),
+    ],
+)
+def test_kernel_version_metadata_parses(instance, tmp_path, monkeypatch, osrelease, expected):
     """The kernel version metadata should extract major.minor.patch from a
     variety of distro-specific osrelease strings."""
     osrel_dir = tmp_path / 'sys' / 'kernel'
@@ -236,8 +243,7 @@ def test_kernel_version_metadata_parses(instance, tmp_path, monkeypatch,
     check._proc_root = str(tmp_path)
 
     captured = {}
-    monkeypatch.setattr(check, 'set_metadata',
-                        lambda name, value, **kw: captured.setdefault(name, (value, kw)))
+    monkeypatch.setattr(check, 'set_metadata', lambda name, value, **kw: captured.setdefault(name, (value, kw)))
 
     check._submit_kernel_version()
 
@@ -245,7 +251,9 @@ def test_kernel_version_metadata_parses(instance, tmp_path, monkeypatch,
     assert captured['version'][0] == version
     assert captured['version'][1]['scheme'] == 'semver'
     assert captured['version'][1]['part_map'] == {
-        'major': major, 'minor': minor, 'patch': patch,
+        'major': major,
+        'minor': minor,
+        'patch': patch,
     }
 
 
@@ -256,8 +264,7 @@ def test_kernel_version_metadata_missing_file_is_silent(instance, tmp_path, monk
     check._proc_root = str(tmp_path / 'nonexistent')
 
     called = []
-    monkeypatch.setattr(check, 'set_metadata',
-                        lambda *a, **kw: called.append((a, kw)))
+    monkeypatch.setattr(check, 'set_metadata', lambda *a, **kw: called.append((a, kw)))
 
     check._submit_kernel_version()
     assert called == []
@@ -273,8 +280,7 @@ def test_kernel_version_metadata_garbled_is_silent(instance, tmp_path, monkeypat
     check._proc_root = str(tmp_path)
 
     called = []
-    monkeypatch.setattr(check, 'set_metadata',
-                        lambda *a, **kw: called.append((a, kw)))
+    monkeypatch.setattr(check, 'set_metadata', lambda *a, **kw: called.append((a, kw)))
 
     check._submit_kernel_version()
     assert called == []
@@ -293,8 +299,7 @@ def test_resources_config_filters_collection(aggregator, proc_dir):
 
     aggregator.assert_metric('psi.system.pressure.cpu.some.avg10', value=0.0)
     for excluded in ('memory', 'io'):
-        leaked = [m for m in aggregator.metric_names
-                  if m.startswith(f'psi.system.pressure.{excluded}.')]
+        leaked = [m for m in aggregator.metric_names if m.startswith(f'psi.system.pressure.{excluded}.')]
         assert leaked == [], f'{excluded} should not have emitted, got {leaked}'
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
 
@@ -324,8 +329,7 @@ def _make_cgroup_tree(tmp_path):
     (root / 'cgroup.controllers').write_text('cpu io memory\n')
     # Root-level pressure files (the root cgroup itself)
     (root / 'cpu.pressure').write_text(
-        'some avg10=0.10 avg60=0.05 avg300=0.02 total=12345\n'
-        'full avg10=0.00 avg60=0.00 avg300=0.00 total=0\n'
+        'some avg10=0.10 avg60=0.05 avg300=0.02 total=12345\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n'
     )
     return root
 
@@ -335,19 +339,16 @@ def _make_slice(root, slice_name, services):
     slice_dir = root / slice_name
     slice_dir.mkdir()
     (slice_dir / 'cpu.pressure').write_text(
-        'some avg10=1.0 avg60=0.5 avg300=0.1 total=99999\n'
-        'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+        'some avg10=1.0 avg60=0.5 avg300=0.1 total=99999\nfull avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
     )
     for service in services:
         svc = slice_dir / service
         svc.mkdir()
         (svc / 'cpu.pressure').write_text(
-            'some avg10=5.0 avg60=3.0 avg300=1.0 total=555555\n'
-            'full avg10=2.0 avg60=1.0 avg300=0.5 total=222222\n'
+            'some avg10=5.0 avg60=3.0 avg300=1.0 total=555555\nfull avg10=2.0 avg60=1.0 avg300=0.5 total=222222\n'
         )
         (svc / 'memory.pressure').write_text(
-            'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
-            'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+            'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\nfull avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
         )
     return slice_dir
 
@@ -362,14 +363,9 @@ def test_cgroup_disabled_by_default(aggregator, instance, proc_dir, tmp_path):
     check = make_check(instance, str(proc_dir))
     check.check(None)
 
-    cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('psi.system.pressure.cgroup.')]
+    cgroup_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.cgroup.')]
     assert cgroup_metrics == []
-    # Only host-level service check exists; cgroup one should not be called
-    sc_names = {sc.name for sc in aggregator._service_checks_buffer
-                if hasattr(aggregator, '_service_checks_buffer')} \
-               if hasattr(aggregator, '_service_checks_buffer') else set()
-    # Use the public aggregator API instead
+    # The cgroup service check must not be emitted when the feature is off
     cgroup_scs = aggregator.service_checks('linux_psi.cgroup.can_read')
     assert list(cgroup_scs) == []
 
@@ -382,8 +378,7 @@ def test_cgroup_collects_metrics(aggregator, proc_dir, tmp_path):
     _copy_fixture('pressure_io_normal', proc_dir / 'io')
 
     cgroup_root = _make_cgroup_tree(tmp_path)
-    _make_slice(cgroup_root, 'system.slice',
-                ['sshd.service', 'postgresql.service'])
+    _make_slice(cgroup_root, 'system.slice', ['sshd.service', 'postgresql.service'])
 
     instance = {
         'cgroup_roots': ['system.slice'],
@@ -434,8 +429,7 @@ def test_cgroup_v1_host_warns(aggregator, instance, proc_dir, tmp_path):
     # Host-level should still be OK
     aggregator.assert_service_check('linux_psi.can_read', status=AgentCheck.OK)
     # Cgroup service check should be WARNING with a v2-related message
-    warnings = [sc for sc in aggregator.service_checks('linux_psi.cgroup.can_read')
-                if sc.status == AgentCheck.WARNING]
+    warnings = [sc for sc in aggregator.service_checks('linux_psi.cgroup.can_read') if sc.status == AgentCheck.WARNING]
     assert warnings, 'Expected at least one WARNING service check for cgroup PSI'
     assert 'v2' in warnings[0].message.lower()
 
@@ -445,6 +439,7 @@ def test_cgroup_max_count_breaks_across_multiple_roots(aggregator, proc_dir, tmp
     subsequent roots must not be walked at all - and the cap-hit warning
     must be logged exactly once, not per root."""
     import logging
+
     caplog.set_level(logging.WARNING)
 
     _copy_fixture('pressure_cpu_normal', proc_dir / 'cpu')
@@ -452,10 +447,8 @@ def test_cgroup_max_count_breaks_across_multiple_roots(aggregator, proc_dir, tmp
     _copy_fixture('pressure_io_normal', proc_dir / 'io')
 
     cgroup_root = _make_cgroup_tree(tmp_path)
-    _make_slice(cgroup_root, 'system.slice',
-                ['a.service', 'b.service', 'c.service'])
-    _make_slice(cgroup_root, 'user.slice',
-                ['session-1.scope', 'session-2.scope'])
+    _make_slice(cgroup_root, 'system.slice', ['a.service', 'b.service', 'c.service'])
+    _make_slice(cgroup_root, 'user.slice', ['session-1.scope', 'session-2.scope'])
 
     instance = {
         'cgroup_roots': ['system.slice', 'user.slice'],
@@ -472,16 +465,11 @@ def test_cgroup_max_count_breaks_across_multiple_roots(aggregator, proc_dir, tmp
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:'):
                 cgroup_paths.add(tag)
-    assert len(cgroup_paths) <= 1, (
-        f'cap=1 should yield at most 1 cgroup_path tag value, got {cgroup_paths}'
-    )
+    assert len(cgroup_paths) <= 1, f'cap=1 should yield at most 1 cgroup_path tag value, got {cgroup_paths}'
 
     # And the cap-hit warning must be logged exactly once
-    cap_warnings = [r for r in caplog.records
-                    if 'cgroup_max_count' in r.getMessage()]
-    assert len(cap_warnings) == 1, (
-        f'expected exactly one cap-hit warning across both roots, got {len(cap_warnings)}'
-    )
+    cap_warnings = [r for r in caplog.records if 'cgroup_max_count' in r.getMessage()]
+    assert len(cap_warnings) == 1, f'expected exactly one cap-hit warning across both roots, got {len(cap_warnings)}'
 
 
 def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
@@ -492,8 +480,7 @@ def test_cgroup_max_count_caps_cardinality(aggregator, proc_dir, tmp_path):
 
     cgroup_root = _make_cgroup_tree(tmp_path)
     # 5 services but cap at 2
-    _make_slice(cgroup_root, 'system.slice',
-                ['a.service', 'b.service', 'c.service', 'd.service', 'e.service'])
+    _make_slice(cgroup_root, 'system.slice', ['a.service', 'b.service', 'c.service', 'd.service', 'e.service'])
 
     instance = {
         'cgroup_roots': ['system.slice'],
@@ -528,10 +515,8 @@ def test_cgroupfs_path_missing_entirely_warns(aggregator, instance, proc_dir, tm
     check = make_check(instance_bogus, str(proc_dir))
     check.check(None)
 
-    aggregator.assert_service_check('linux_psi.cgroup.can_read',
-                                    status=AgentCheck.WARNING)
-    cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('psi.system.pressure.cgroup.')]
+    aggregator.assert_service_check('linux_psi.cgroup.can_read', status=AgentCheck.WARNING)
+    cgroup_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.cgroup.')]
     assert cgroup_metrics == []
 
 
@@ -554,8 +539,7 @@ def test_cgroup_root_in_config_does_not_exist_on_disk(aggregator, proc_dir, tmp_
     check = make_check(instance, str(proc_dir))
     check.check(None)
 
-    aggregator.assert_service_check('linux_psi.cgroup.can_read',
-                                    status=AgentCheck.OK)
+    aggregator.assert_service_check('linux_psi.cgroup.can_read', status=AgentCheck.OK)
 
 
 def test_walker_skips_scandir_permission_error(aggregator, proc_dir, tmp_path, monkeypatch):
@@ -570,9 +554,7 @@ def test_walker_skips_scandir_permission_error(aggregator, proc_dir, tmp_path, m
     _make_slice(cgroup_root, 'system.slice', ['ok.service'])
     blocked = cgroup_root / 'system.slice' / 'blocked.service'
     blocked.mkdir()
-    (blocked / 'cpu.pressure').write_text(
-        'some avg10=2.0 avg60=2.0 avg300=2.0 total=2\n'
-    )
+    (blocked / 'cpu.pressure').write_text('some avg10=2.0 avg60=2.0 avg300=2.0 total=2\n')
 
     real_scandir = os.scandir
 
@@ -600,8 +582,7 @@ def test_walker_skips_scandir_permission_error(aggregator, proc_dir, tmp_path, m
     assert any('ok.service' in p for p in ok_paths), (
         f'sibling cgroup must still emit despite the PermissionError, got {ok_paths}'
     )
-    aggregator.assert_service_check('linux_psi.cgroup.can_read',
-                                    status=AgentCheck.OK)
+    aggregator.assert_service_check('linux_psi.cgroup.can_read', status=AgentCheck.OK)
 
 
 def test_emit_cgroup_handles_pressure_file_oserror(aggregator, proc_dir, tmp_path, monkeypatch):
@@ -632,8 +613,7 @@ def test_emit_cgroup_handles_pressure_file_oserror(aggregator, proc_dir, tmp_pat
     check = make_check(instance, str(proc_dir))
     check.check(None)  # Should not raise
 
-    aggregator.assert_service_check('linux_psi.cgroup.can_read',
-                                    status=AgentCheck.OK)
+    aggregator.assert_service_check('linux_psi.cgroup.can_read', status=AgentCheck.OK)
 
 
 def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_path):
@@ -648,17 +628,14 @@ def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_pa
     slice_dir = cgroup_root / 'system.slice'
     slice_dir.mkdir()
     (slice_dir / 'cpu.pressure').write_text(
-        'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
-        'full avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
+        'some avg10=0.0 avg60=0.0 avg300=0.0 total=0\nfull avg10=0.0 avg60=0.0 avg300=0.0 total=0\n'
     )
     # Filename limit on most Linux filesystems is 255 chars. We need the
     # *full* tag (`cgroup_path:system.slice/<name>`) to exceed 200 chars
     # so we nest to produce a long path with short-enough segments.
     deep_a = slice_dir / ('a' * 200 + '.scope')
     deep_a.mkdir()
-    (deep_a / 'cpu.pressure').write_text(
-        'some avg10=1.0 avg60=1.0 avg300=1.0 total=1\n'
-    )
+    (deep_a / 'cpu.pressure').write_text('some avg10=1.0 avg60=1.0 avg300=1.0 total=1\n')
     huge_marker = 'a' * 200
 
     instance = {
@@ -674,12 +651,8 @@ def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_pa
         for tag in call.tags or ():
             if tag.startswith('cgroup_path:') and huge_marker[:100] in tag:
                 # tag includes the 'cgroup_path:' prefix in length
-                assert len(tag) <= 200, (
-                    f'cgroup_path tag exceeds 200 chars: {len(tag)} chars'
-                )
-                assert tag.endswith('...truncated'), (
-                    f'truncated tag must end with sentinel: {tag!r}'
-                )
+                assert len(tag) <= 200, f'cgroup_path tag exceeds 200 chars: {len(tag)} chars'
+                assert tag.endswith('...truncated'), f'truncated tag must end with sentinel: {tag!r}'
                 return
     pytest.fail('did not find the huge-name cgroup_path tag among emitted metrics')
 
@@ -687,36 +660,45 @@ def test_cgroup_path_tag_is_truncated_at_max_length(aggregator, proc_dir, tmp_pa
 def test_cgroup_roots_rejects_non_list(proc_dir):
     """A scalar (non-list) cgroup_roots should fail with ConfigurationError."""
     from datadog_checks.base import ConfigurationError
+
     instance = {'cgroup_roots': 'system.slice'}  # string, not list
     with pytest.raises(ConfigurationError, match='list of strings'):
         LinuxPSICheck('linux_psi', {}, [instance])
 
 
-@pytest.mark.parametrize('bad_root', [
-    '../etc',
-    '..',
-    'system.slice/../etc',
-    'a/b/../../etc',
-])
+@pytest.mark.parametrize(
+    'bad_root',
+    [
+        '../etc',
+        '..',
+        'system.slice/../etc',
+        'a/b/../../etc',
+    ],
+)
 def test_cgroup_roots_rejects_parent_traversal(bad_root):
     """Entries containing `..` segments must be rejected at config time
     so a misconfigured conf.yaml cannot escape the cgroupfs root."""
     from datadog_checks.base import ConfigurationError
+
     instance = {'cgroup_roots': [bad_root]}
     with pytest.raises(ConfigurationError, match='parent-directory'):
         LinuxPSICheck('linux_psi', {}, [instance])
 
 
-@pytest.mark.parametrize('bad_root', [
-    '/etc',
-    '/sys/fs/cgroup/system.slice',
-    '/',
-])
+@pytest.mark.parametrize(
+    'bad_root',
+    [
+        '/etc',
+        '/sys/fs/cgroup/system.slice',
+        '/',
+    ],
+)
 def test_cgroup_roots_rejects_absolute_paths(bad_root):
     """Absolute paths in cgroup_roots must be rejected; the entries are
     interpreted relative to cgroupfs_path and an absolute value implies
     the user is trying to escape that boundary."""
     from datadog_checks.base import ConfigurationError
+
     instance = {'cgroup_roots': [bad_root]}
     with pytest.raises(ConfigurationError, match='relative'):
         LinuxPSICheck('linux_psi', {}, [instance])
@@ -734,9 +716,7 @@ def test_cgroup_root_outside_cgroupfs_is_skipped(aggregator, proc_dir, tmp_path)
     # Create a hostile target outside the cgroupfs root
     hostile_target = tmp_path / 'outside_cgroupfs'
     hostile_target.mkdir()
-    (hostile_target / 'cpu.pressure').write_text(
-        'some avg10=99.9 avg60=99.9 avg300=99.9 total=99999\n'
-    )
+    (hostile_target / 'cpu.pressure').write_text('some avg10=99.9 avg60=99.9 avg300=99.9 total=99999\n')
     # Symlink a "cgroup root" name to point at it
     (cgroup_root / 'sneaky.slice').symlink_to(hostile_target)
 
@@ -748,11 +728,8 @@ def test_cgroup_root_outside_cgroupfs_is_skipped(aggregator, proc_dir, tmp_path)
     check.check(None)
 
     # No metrics should have been emitted from outside the cgroupfs root
-    cgroup_metrics = [m for m in aggregator.metric_names
-                      if m.startswith('psi.system.pressure.cgroup.')]
-    assert cgroup_metrics == [], (
-        f'Symlink escaping cgroupfs root must not emit metrics; got {cgroup_metrics}'
-    )
+    cgroup_metrics = [m for m in aggregator.metric_names if m.startswith('psi.system.pressure.cgroup.')]
+    assert cgroup_metrics == [], f'Symlink escaping cgroupfs root must not emit metrics; got {cgroup_metrics}'
 
 
 def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir, monkeypatch):
@@ -779,7 +756,6 @@ def test_multi_file_permission_denied_is_critical(aggregator, instance, proc_dir
     aggregator.assert_metric('psi.system.pressure.cpu.some.avg10')
     aggregator.assert_metric('psi.system.pressure.memory.some.avg10')
     # Find the CRITICAL service check and confirm the offending path is in the message
-    critical = [sc for sc in aggregator.service_checks('linux_psi.can_read')
-                if sc.status == AgentCheck.CRITICAL]
+    critical = [sc for sc in aggregator.service_checks('linux_psi.can_read') if sc.status == AgentCheck.CRITICAL]
     assert critical, 'Expected at least one CRITICAL service check'
     assert '/io' in critical[0].message
