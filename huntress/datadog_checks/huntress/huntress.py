@@ -1,7 +1,7 @@
 import base64
-import zlib
 import json
 import time
+import zlib
 from datetime import datetime, timedelta, timezone
 
 import requests
@@ -43,23 +43,18 @@ class HuntressCheck(AgentCheck):
 
         api_key = instance.get("huntress_api_key", "").strip()
         secret_key = instance.get("huntress_secret_key", "").strip()
-        base_url = instance.get("huntress_base_url",
-                                self.DEFAULT_BASE_URL).rstrip("/")
-        max_pages = int(instance.get("max_pages_per_run",
-                        self.DEFAULT_MAX_PAGES_PER_RUN))
-        min_interval = int(instance.get(
-            "min_collection_interval", self.DEFAULT_MIN_COLLECTION_INTERVAL))
+        base_url = instance.get("huntress_base_url", self.DEFAULT_BASE_URL).rstrip("/")
+        max_pages = int(instance.get("max_pages_per_run", self.DEFAULT_MAX_PAGES_PER_RUN))
+        min_interval = int(instance.get("min_collection_interval", self.DEFAULT_MIN_COLLECTION_INTERVAL))
         enrich_orgs = instance.get("enrich_with_org_tags", True)
-        org_ttl = int(instance.get("org_cache_ttl_seconds",
-                      self.DEFAULT_ORG_CACHE_TTL))
+        org_ttl = int(instance.get("org_cache_ttl_seconds", self.DEFAULT_ORG_CACHE_TTL))
         extra_tags = list(instance.get("tags", []))
         log_queries = instance.get("log_queries") or []
 
         metrics_config = instance.get("metrics") or {}
         agents_config = metrics_config.get("agents") or {}
         collect_agents = bool(agents_config.get("enabled", False))
-        agents_max_pages = int(agents_config.get(
-            "max_pages", self.DEFAULT_AGENT_MAX_PAGES))
+        agents_max_pages = int(agents_config.get("max_pages", self.DEFAULT_AGENT_MAX_PAGES))
 
         if not api_key:
             raise ConfigurationError("huntress_api_key is required")
@@ -77,8 +72,7 @@ class HuntressCheck(AgentCheck):
         # Org enrichment cache is shared across all queries for this instance
         org_cache = None
         if enrich_orgs and log_queries:
-            org_cache = self._get_or_refresh_org_cache(
-                base_url, headers, instance_hash, org_ttl)
+            org_cache = self._get_or_refresh_org_cache(base_url, headers, instance_hash, org_ttl)
 
         success = False
 
@@ -89,14 +83,11 @@ class HuntressCheck(AgentCheck):
                 query_tags = list(query_def.get("tags", []))
 
                 if not query_name:
-                    raise ConfigurationError(
-                        "Each entry in log_queries must have a non-empty 'name'")
+                    raise ConfigurationError("Each entry in log_queries must have a non-empty 'name'")
                 if not esql:
-                    raise ConfigurationError(
-                        "Each entry in log_queries must have a non-empty esql_query")
+                    raise ConfigurationError("Each entry in log_queries must have a non-empty esql_query")
                 if not esql.lower().lstrip().startswith("from logs"):
-                    raise ConfigurationError(
-                        f"esql_query must begin with 'FROM logs' (case-insensitive): {esql!r}")
+                    raise ConfigurationError(f"esql_query must begin with 'FROM logs' (case-insensitive): {esql!r}")
 
                 # Each query tracks its own checkpoint so queries are independently resumable
                 checkpoint_key = instance_hash + "_" + self._query_hash(esql)
@@ -107,39 +98,30 @@ class HuntressCheck(AgentCheck):
                     base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags
                 )
 
-                self.gauge("huntress.siem.logs_collected",
-                           logs, tags=query_metric_tags)
-                self.gauge("huntress.siem.pages_fetched",
-                           pages, tags=query_metric_tags)
+                self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
+                self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
 
             if collect_agents:
-                self._collect_agent_metrics(
-                    base_url, headers, extra_tags, agents_max_pages)
+                self._collect_agent_metrics(base_url, headers, extra_tags, agents_max_pages)
 
             success = True
 
         except Exception as exc:
             self.log.error("Huntress check run failed: %s", exc)
-            self.count("huntress.siem.errors", 1,
-                       tags=extra_tags + ["error_type:run_failure"])
-            self.service_check(self.SERVICE_CHECK_NAME,
-                               self.CRITICAL, tags=extra_tags)
+            self.count("huntress.siem.errors", 1, tags=extra_tags + ["error_type:run_failure"])
+            self.service_check(self.SERVICE_CHECK_NAME, self.CRITICAL, tags=extra_tags)
             raise
 
         finally:
             duration = time.time() - start_time
-            self.gauge("huntress.siem.run_duration_seconds",
-                       duration, tags=extra_tags)
+            self.gauge("huntress.siem.run_duration_seconds", duration, tags=extra_tags)
             if self._last_api_call_limit is not None:
-                self.gauge("huntress.siem.api_call_limit",
-                           self._last_api_call_limit, tags=extra_tags)
+                self.gauge("huntress.siem.api_call_limit", self._last_api_call_limit, tags=extra_tags)
             if self._last_api_call_remaining is not None:
-                self.gauge("huntress.siem.api_call_remaining",
-                           self._last_api_call_remaining, tags=extra_tags)
+                self.gauge("huntress.siem.api_call_remaining", self._last_api_call_remaining, tags=extra_tags)
 
         if success:
-            self.service_check(self.SERVICE_CHECK_NAME,
-                               self.OK, tags=extra_tags)
+            self.service_check(self.SERVICE_CHECK_NAME, self.OK, tags=extra_tags)
 
     # ------------------------------------------------------------------ #
     # Per-query SIEM execution                                              #
@@ -153,8 +135,7 @@ class HuntressCheck(AgentCheck):
 
         if range_start is None:
             default_start = now - timedelta(seconds=min_interval)
-            range_start = default_start.strftime(
-                "%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+            range_start = default_start.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
         else:
             # Add 1ms to avoid re-fetching the boundary event from the previous run
             try:
@@ -178,16 +159,13 @@ class HuntressCheck(AgentCheck):
         hit_page_cap = False
 
         while True:
-            logs, next_token = self._query_page(
-                base_url, headers, esql, range_start, range_end, page_token)
+            logs, next_token = self._query_page(base_url, headers, esql, range_start, range_end, page_token)
 
             if logs:
                 batch = []
                 for raw in logs:
-                    org_tags = self._get_org_tags(
-                        raw, org_cache) if org_cache else []
-                    payload = self._transform_log(
-                        raw, all_tags + org_tags, service_tag)
+                    org_tags = self._get_org_tags(raw, org_cache) if org_cache else []
+                    payload = self._transform_log(raw, all_tags + org_tags, service_tag)
                     batch.append(payload)
                     if len(batch) >= self.MAX_LOGS_PER_BATCH:
                         self._send_logs_batch(batch)
@@ -257,31 +235,23 @@ class HuntressCheck(AgentCheck):
             platform = (agent.get("platform") or "unknown").lower()
             by_platform[platform] = by_platform.get(platform, 0) + 1
 
-            def_status = (agent.get("defender_status")
-                          or "unknown").lower().replace(" ", "_")
-            by_defender_status[def_status] = by_defender_status.get(
-                def_status, 0) + 1
+            def_status = (agent.get("defender_status") or "unknown").lower().replace(" ", "_")
+            by_defender_status[def_status] = by_defender_status.get(def_status, 0) + 1
 
-            fw_status = (agent.get("firewall_status")
-                         or "unknown").lower().replace(" ", "_")
-            by_firewall_status[fw_status] = by_firewall_status.get(
-                fw_status, 0) + 1
+            fw_status = (agent.get("firewall_status") or "unknown").lower().replace(" ", "_")
+            by_firewall_status[fw_status] = by_firewall_status.get(fw_status, 0) + 1
 
         self.gauge("huntress.agents.total", len(agents), tags=extra_tags)
-        self.gauge("huntress.agents.pages_fetched",
-                   pages_fetched, tags=extra_tags)
+        self.gauge("huntress.agents.pages_fetched", pages_fetched, tags=extra_tags)
 
         for platform, count in by_platform.items():
-            self.gauge("huntress.agents.count", count,
-                       tags=extra_tags + [f"platform:{platform}"])
+            self.gauge("huntress.agents.count", count, tags=extra_tags + [f"platform:{platform}"])
 
         for status, count in by_defender_status.items():
-            self.gauge("huntress.agents.defender_status", count,
-                       tags=extra_tags + [f"defender_status:{status}"])
+            self.gauge("huntress.agents.defender_status", count, tags=extra_tags + [f"defender_status:{status}"])
 
         for status, count in by_firewall_status.items():
-            self.gauge("huntress.agents.firewall_status", count,
-                       tags=extra_tags + [f"firewall_status:{status}"])
+            self.gauge("huntress.agents.firewall_status", count, tags=extra_tags + [f"firewall_status:{status}"])
 
     # ------------------------------------------------------------------ #
     # Auth                                                                  #
@@ -326,8 +296,7 @@ class HuntressCheck(AgentCheck):
         if page_token:
             body["page_token"] = page_token
 
-        response = self._request_with_retry(
-            method="POST", url=url, headers=headers, json_body=body)
+        response = self._request_with_retry(method="POST", url=url, headers=headers, json_body=body)
         data = response.json()
         logs = data.get("logs", [])
         pagination = data.get("pagination", {})
@@ -340,8 +309,7 @@ class HuntressCheck(AgentCheck):
 
     def _request_with_retry(self, method, url, headers, json_body=None, params=None):
         """Execute an HTTP request with retry logic per PRD §7."""
-        timeout = self.init_config.get(
-            "request_timeout", self.DEFAULT_REQUEST_TIMEOUT)
+        timeout = self.init_config.get("request_timeout", self.DEFAULT_REQUEST_TIMEOUT)
         max_retries_5xx = 3
         max_retries_408 = 2
         backoff_5xx = [5, 10, 20]
@@ -365,20 +333,15 @@ class HuntressCheck(AgentCheck):
                     return resp
 
                 if resp.status_code == 400:
-                    self.count("huntress.siem.errors", 1,
-                               tags=["error_type:bad_request"])
-                    raise Exception(
-                        f"Huntress API 400 Bad Request: {resp.text}")
+                    self.count("huntress.siem.errors", 1, tags=["error_type:bad_request"])
+                    raise Exception(f"Huntress API 400 Bad Request: {resp.text}")
 
                 if resp.status_code == 401:
-                    self.count("huntress.siem.errors", 1, tags=[
-                               "error_type:auth_failure"])
-                    raise Exception(
-                        "Huntress API 401 Unauthorized — check huntress_api_key and huntress_secret_key")
+                    self.count("huntress.siem.errors", 1, tags=["error_type:auth_failure"])
+                    raise Exception("Huntress API 401 Unauthorized — check huntress_api_key and huntress_secret_key")
 
                 if resp.status_code == 404:
-                    raise Exception(
-                        "Huntress API 404 — SIEM feature may not be enabled on this account")
+                    raise Exception("Huntress API 404 — SIEM feature may not be enabled on this account")
 
                 if resp.status_code == 408:
                     if attempt < max_retries_408:
@@ -392,24 +355,18 @@ class HuntressCheck(AgentCheck):
                         time.sleep(wait)
                         attempt += 1
                         continue
-                    self.count("huntress.siem.errors", 1,
-                               tags=["error_type:timeout"])
-                    raise Exception(
-                        "Huntress API 408 Query Timeout — query may be too broad")
+                    self.count("huntress.siem.errors", 1, tags=["error_type:timeout"])
+                    raise Exception("Huntress API 408 Query Timeout — query may be too broad")
 
                 if resp.status_code == 413:
-                    raise Exception(
-                        "Huntress API 413 Memory Limit — narrow the query with KEEP or WHERE clauses")
+                    raise Exception("Huntress API 413 Memory Limit — narrow the query with KEEP or WHERE clauses")
 
                 if resp.status_code == 422:
-                    self.count("huntress.siem.errors", 1, tags=[
-                               "error_type:invalid_query"])
-                    raise Exception(
-                        f"Huntress API 422 Invalid ES|QL query: {resp.text}")
+                    self.count("huntress.siem.errors", 1, tags=["error_type:invalid_query"])
+                    raise Exception(f"Huntress API 422 Invalid ES|QL query: {resp.text}")
 
                 if resp.status_code == 429:
-                    self.log.warning(
-                        "Huntress API 429 Rate Limited — sleeping 60s then retrying")
+                    self.log.warning("Huntress API 429 Rate Limited — sleeping 60s then retrying")
                     time.sleep(60)
                     continue
 
@@ -426,13 +383,10 @@ class HuntressCheck(AgentCheck):
                         time.sleep(wait)
                         attempt += 1
                         continue
-                    self.count("huntress.siem.errors", 1, tags=[
-                               "error_type:server_error"])
-                    raise Exception(
-                        f"Huntress API {resp.status_code} Server Error after {max_retries_5xx} retries")
+                    self.count("huntress.siem.errors", 1, tags=["error_type:server_error"])
+                    raise Exception(f"Huntress API {resp.status_code} Server Error after {max_retries_5xx} retries")
 
-                raise Exception(
-                    f"Huntress API unexpected status {resp.status_code}: {resp.text}")
+                raise Exception(f"Huntress API unexpected status {resp.status_code}: {resp.text}")
 
             except requests.exceptions.RequestException as exc:
                 if attempt < max_retries_5xx:
@@ -447,10 +401,8 @@ class HuntressCheck(AgentCheck):
                     time.sleep(wait)
                     attempt += 1
                     continue
-                self.count("huntress.siem.errors", 1, tags=[
-                           "error_type:connection_error"])
-                raise Exception(
-                    f"Huntress API connection error after {max_retries_5xx} retries: {exc}") from exc
+                self.count("huntress.siem.errors", 1, tags=["error_type:connection_error"])
+                raise Exception(f"Huntress API connection error after {max_retries_5xx} retries: {exc}") from exc
 
     # ------------------------------------------------------------------ #
     # Log transformation                                                    #
@@ -463,8 +415,7 @@ class HuntressCheck(AgentCheck):
         return "huntress-siem"
 
     def _transform_log(self, raw_log, tags, service):
-        message = raw_log.get("log.original") or raw_log.get(
-            "message") or json.dumps(raw_log)
+        message = raw_log.get("log.original") or raw_log.get("message") or json.dumps(raw_log)
 
         timestamp = raw_log.get("@timestamp")
         date_ms = None
@@ -473,8 +424,7 @@ class HuntressCheck(AgentCheck):
                 if isinstance(timestamp, (int, float)):
                     date_ms = int(timestamp)
                 else:
-                    dt = datetime.fromisoformat(
-                        str(timestamp).replace("Z", "+00:00"))
+                    dt = datetime.fromisoformat(str(timestamp).replace("Z", "+00:00"))
                     date_ms = int(dt.timestamp() * 1000)
             except Exception:
                 pass
@@ -520,8 +470,7 @@ class HuntressCheck(AgentCheck):
 
     def _save_checkpoint(self, checkpoint_key, timestamp_iso):
         key = self.CHECKPOINT_CACHE_KEY_PREFIX + checkpoint_key
-        payload = json.dumps(
-            {"last_collected_at": timestamp_iso, "schema_version": 1})
+        payload = json.dumps({"last_collected_at": timestamp_iso, "schema_version": 1})
         self.write_persistent_cache(key, payload)
 
     # ------------------------------------------------------------------ #
@@ -534,8 +483,7 @@ class HuntressCheck(AgentCheck):
         if cached:
             try:
                 fetched_at_str = cached.get("fetched_at", "")
-                fetched_at = datetime.fromisoformat(
-                    fetched_at_str.replace("Z", "+00:00"))
+                fetched_at = datetime.fromisoformat(fetched_at_str.replace("Z", "+00:00"))
                 age = (datetime.now(timezone.utc) - fetched_at).total_seconds()
                 if ttl_seconds == 0 or age < ttl_seconds:
                     return cached
@@ -571,10 +519,8 @@ class HuntressCheck(AgentCheck):
         orgs = {}
         page = 1
         while True:
-            url = base_url + \
-                self.HUNTRESS_ORGS_ENDPOINT.format(account_id=account_id)
-            resp = self._request_with_retry("GET", url, headers, params={
-                                            "limit": 500, "page": page})
+            url = base_url + self.HUNTRESS_ORGS_ENDPOINT.format(account_id=account_id)
+            resp = self._request_with_retry("GET", url, headers, params={"limit": 500, "page": page})
             data = resp.json()
             org_list = data.get("organizations", [])
             for org in org_list:
@@ -585,8 +531,7 @@ class HuntressCheck(AgentCheck):
                 }
             pagination = data.get("pagination", {})
             if pagination.get("next_page_token") or (
-                pagination.get("current_page", 1) < pagination.get(
-                    "total_pages", 1)
+                pagination.get("current_page", 1) < pagination.get("total_pages", 1)
             ):
                 page += 1
             else:
@@ -621,8 +566,7 @@ class HuntressCheck(AgentCheck):
 
         # Strategy 1: match by organization.id
         org_id = raw_log.get("organization.id") or (
-            raw_log.get("organization", {}).get("id") if isinstance(
-                raw_log.get("organization"), dict) else None
+            raw_log.get("organization", {}).get("id") if isinstance(raw_log.get("organization"), dict) else None
         )
         if org_id is not None:
             org = orgs.get(str(org_id))
@@ -635,8 +579,7 @@ class HuntressCheck(AgentCheck):
 
         # Strategy 2: match by organization.name (reverse lookup)
         org_name = raw_log.get("organization.name") or (
-            raw_log.get("organization", {}).get("name") if isinstance(
-                raw_log.get("organization"), dict) else None
+            raw_log.get("organization", {}).get("name") if isinstance(raw_log.get("organization"), dict) else None
         )
         if org_name:
             for oid, org in orgs.items():
@@ -656,8 +599,7 @@ class HuntressCheck(AgentCheck):
 
     def _instance_hash(self, instance):
         """Stable non-secret identifier for this Huntress instance."""
-        key = instance.get("instance_id") or instance.get(
-            "huntress_base_url", self.DEFAULT_BASE_URL)
+        key = instance.get("instance_id") or instance.get("huntress_base_url", self.DEFAULT_BASE_URL)
         return format(zlib.crc32(key.encode("utf-8")) & 0xFFFFFFFF, "08x")
 
     def _query_hash(self, esql_query):

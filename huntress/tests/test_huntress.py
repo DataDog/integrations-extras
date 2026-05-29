@@ -40,8 +40,7 @@ def _make_check(**kwargs):
     # Use an in-memory dict to prevent persistent cache from bleeding between tests
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
     return check, inst
 
 
@@ -73,8 +72,7 @@ def test_happy_path_single_page():
     fixture["logs"] = _load_fixture("siem_query_page1.json")["logs"][:1]
 
     with (
-        patch.object(check, "_request_with_retry",
-                     return_value=_mock_response(200, fixture)),
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)),
         patch.object(check, "_send_logs_batch") as mock_send,
         patch.object(check, "_save_checkpoint") as mock_save,
         patch("time.time", side_effect=[1000.0, 1001.0]),
@@ -113,8 +111,7 @@ def test_happy_path_multi_page():
         check.check(instance)
 
     assert mock_send.call_count == 2
-    all_logs = mock_send.call_args_list[0][0][0] + \
-        mock_send.call_args_list[1][0][0]
+    all_logs = mock_send.call_args_list[0][0][0] + mock_send.call_args_list[1][0][0]
     assert len(all_logs) == 3
     mock_save.assert_called_once()
 
@@ -128,8 +125,7 @@ def test_auth_failure_401():
     check, instance = _make_check()
 
     with (
-        patch.object(check, "_request_with_retry",
-                     side_effect=Exception("Huntress API 401 Unauthorized")),
+        patch.object(check, "_request_with_retry", side_effect=Exception("Huntress API 401 Unauthorized")),
         patch.object(check, "_save_checkpoint") as mock_save,
         patch.object(check, "count"),
         patch("time.time", side_effect=[1000.0, 1001.0]),
@@ -147,11 +143,9 @@ def test_auth_failure_401_raises_via_retry():
 
     with patch("requests.request", return_value=resp), patch.object(check, "count") as mock_count:
         with pytest.raises(Exception, match="401"):
-            check._request_with_retry(
-                "POST", "https://api.huntress.io/v1/siem/query", {}, json_body={})
+            check._request_with_retry("POST", "https://api.huntress.io/v1/siem/query", {}, json_body={})
 
-    mock_count.assert_called_with("huntress.siem.errors", 1, tags=[
-                                  "error_type:auth_failure"])
+    mock_count.assert_called_with("huntress.siem.errors", 1, tags=["error_type:auth_failure"])
 
 
 # ===========================================================================
@@ -175,8 +169,7 @@ def test_query_timeout_408():
     assert mock_sleep.call_count == 2
     sleep_args = [c[0][0] for c in mock_sleep.call_args_list]
     assert sleep_args == [2, 4]
-    mock_count.assert_called_with(
-        "huntress.siem.errors", 1, tags=["error_type:timeout"])
+    mock_count.assert_called_with("huntress.siem.errors", 1, tags=["error_type:timeout"])
 
 
 # ===========================================================================
@@ -190,8 +183,7 @@ def test_rate_limit_429_then_success():
     resp_200 = _mock_response(200, _load_fixture("siem_query_empty.json"))
 
     with patch("requests.request", side_effect=[resp_429, resp_200]), patch("time.sleep") as mock_sleep:
-        result = check._request_with_retry(
-            "POST", "https://x/q", {}, json_body={})
+        result = check._request_with_retry("POST", "https://x/q", {}, json_body={})
 
     mock_sleep.assert_called_once_with(60)
     assert result.status_code == 200
@@ -210,8 +202,7 @@ def test_invalid_esql_422():
         with pytest.raises(Exception, match="422"):
             check._request_with_retry("POST", "https://x/q", {}, json_body={})
 
-    mock_count.assert_called_with("huntress.siem.errors", 1, tags=[
-                                  "error_type:invalid_query"])
+    mock_count.assert_called_with("huntress.siem.errors", 1, tags=["error_type:invalid_query"])
 
 
 # ===========================================================================
@@ -238,8 +229,7 @@ def test_checkpoint_persistence():
         return _mock_response(200, _load_fixture("siem_query_empty.json"))
 
     with (
-        patch.object(check, "_request_with_retry",
-                     side_effect=capture_request),
+        patch.object(check, "_request_with_retry", side_effect=capture_request),
         patch("time.time", side_effect=[1000.0, 1001.0]),
     ):
         check.check(instance)
@@ -265,8 +255,7 @@ def test_no_checkpoint_first_run():
 
     fixed_now = datetime(2026, 5, 27, 14, 0, 0, tzinfo=timezone.utc)
     with (
-        patch.object(check, "_request_with_retry",
-                     side_effect=capture_request),
+        patch.object(check, "_request_with_retry", side_effect=capture_request),
         patch("datadog_checks.huntress.huntress.datetime") as mock_dt,
         patch("time.time", side_effect=[1000.0, 1001.0]),
     ):
@@ -276,10 +265,8 @@ def test_no_checkpoint_first_run():
 
     assert captured_bodies
     body = captured_bodies[0]
-    range_start = datetime.fromisoformat(
-        body["range_start"].replace("Z", "+00:00"))
-    range_end = datetime.fromisoformat(
-        body["range_end"].replace("Z", "+00:00"))
+    range_start = datetime.fromisoformat(body["range_start"].replace("Z", "+00:00"))
+    range_end = datetime.fromisoformat(body["range_end"].replace("Z", "+00:00"))
     diff_seconds = (range_end - range_start).total_seconds()
     assert abs(diff_seconds - 900) < 2
 
@@ -296,8 +283,7 @@ def test_esql_validation_rejects_bad_query():
 
 
 def test_esql_validation_accepts_from_logs():
-    check, instance = _make_check(
-        esql_query="FROM logs | KEEP @timestamp, message")
+    check, instance = _make_check(esql_query="FROM logs | KEEP @timestamp, message")
     with (
         patch.object(
             check, "_request_with_retry", return_value=_mock_response(200, _load_fixture("siem_query_empty.json"))
@@ -349,16 +335,14 @@ def test_log_transformation():
 
 def test_log_transformation_fallback_message():
     check, instance = _make_check()
-    raw = {"message": "fallback used",
-           "@timestamp": "2026-05-27T14:00:00.000Z"}
+    raw = {"message": "fallback used", "@timestamp": "2026-05-27T14:00:00.000Z"}
     payload = check._transform_log(raw, [], "huntress-siem")
     assert payload["message"] == "fallback used"
 
 
 def test_log_transformation_json_fallback():
     check, instance = _make_check()
-    raw = {"event.category": "network",
-           "@timestamp": "2026-05-27T14:00:00.000Z"}
+    raw = {"event.category": "network", "@timestamp": "2026-05-27T14:00:00.000Z"}
     payload = check._transform_log(raw, [], "huntress-siem")
     assert "event.category" in payload["message"]
 
@@ -381,8 +365,7 @@ def test_batching_over_1000_logs():
     fixture = {"logs": large_log_list, "pagination": {}}
 
     with (
-        patch.object(check, "_request_with_retry",
-                     return_value=_mock_response(200, fixture)),
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, fixture)),
         patch.object(check, "_send_logs_batch") as mock_send,
         patch("time.time", side_effect=[1000.0, 1001.0]),
     ):
@@ -405,8 +388,7 @@ def test_max_pages_per_run_cap():
     page1 = _load_fixture("siem_query_page1.json")
 
     with (
-        patch.object(check, "_request_with_retry",
-                     return_value=_mock_response(200, page1)),
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, page1)),
         patch.object(check, "_save_checkpoint") as mock_save,
         patch("time.time", side_effect=[1000.0, 1001.0]),
     ):
@@ -434,8 +416,7 @@ def test_org_enrichment_cache_hit():
             "101": {"name": "Acme Inc.", "key": "acme", "account_id": 42},
         },
     }
-    check.write_persistent_cache(
-        check.ORG_CACHE_KEY_PREFIX + instance_hash, json.dumps(cache))
+    check.write_persistent_cache(check.ORG_CACHE_KEY_PREFIX + instance_hash, json.dumps(cache))
 
     page1 = _load_fixture("siem_query_page1.json")
     page1["pagination"] = {}
@@ -562,8 +543,7 @@ def test_org_enrichment_no_org_match():
         "account_id": 42,
         "orgs": {"101": {"name": "Acme Inc.", "key": "acme", "account_id": 42}},
     }
-    raw_log = {"@timestamp": "2026-05-27T14:00:00.000Z",
-               "message": "no org field"}
+    raw_log = {"@timestamp": "2026-05-27T14:00:00.000Z", "message": "no org field"}
     tags = check._get_org_tags(raw_log, org_cache)
 
     assert "huntress_account_id:42" in tags
@@ -591,15 +571,13 @@ def test_multi_instance_isolation():
     check_a.log = MagicMock()
     _cache_a = {}
     check_a.read_persistent_cache = lambda key: _cache_a.get(key)
-    check_a.write_persistent_cache = lambda key, value: _cache_a.__setitem__(
-        key, value)
+    check_a.write_persistent_cache = lambda key, value: _cache_a.__setitem__(key, value)
 
     check_b = HuntressCheck("huntress", {}, [instance_b])
     check_b.log = MagicMock()
     _cache_b = {}
     check_b.read_persistent_cache = lambda key: _cache_b.get(key)
-    check_b.write_persistent_cache = lambda key, value: _cache_b.__setitem__(
-        key, value)
+    check_b.write_persistent_cache = lambda key, value: _cache_b.__setitem__(key, value)
 
     hash_a = check_a._instance_hash(instance_a)
     hash_b = check_b._instance_hash(instance_b)
@@ -714,8 +692,7 @@ def test_rate_limit_headers_missing_gracefully():
     check._last_api_call_limit = None
     check._last_api_call_remaining = None
 
-    resp = _mock_response(
-        200, {}, headers={"Content-Type": "application/json"})
+    resp = _mock_response(200, {}, headers={"Content-Type": "application/json"})
     check._parse_rate_limit_headers(resp)
 
     assert check._last_api_call_limit is None
@@ -770,8 +747,7 @@ def test_validation_neither_configured_raises():
     check.log = MagicMock()
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
     with pytest.raises(Exception, match="at least one"):
         check.check(instance)
 
@@ -787,8 +763,7 @@ def test_validation_metrics_only_instance():
     check.log = MagicMock()
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
 
     agents_resp = _mock_response(200, {"agents": [], "pagination": {}})
     with (
@@ -821,14 +796,11 @@ def test_agent_metrics_emitted():
     check.log = MagicMock()
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
 
     agents = [
-        {"platform": "windows", "defender_status": "Healthy",
-            "firewall_status": "Enabled"},
-        {"platform": "windows", "defender_status": "Healthy",
-            "firewall_status": "Disabled"},
+        {"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"},
+        {"platform": "windows", "defender_status": "Healthy", "firewall_status": "Disabled"},
         {"platform": "darwin", "defender_status": None, "firewall_status": "Enabled"},
     ]
     agents_resp = _mock_response(200, {"agents": agents, "pagination": {}})
@@ -846,30 +818,22 @@ def test_agent_metrics_emitted():
         check.check(instance)
 
     assert emitted[("huntress.agents.total", ("source:huntress",))] == 3
-    assert emitted[("huntress.agents.count",
-                    ("platform:windows", "source:huntress"))] == 2
-    assert emitted[("huntress.agents.count",
-                    ("platform:darwin", "source:huntress"))] == 1
-    assert emitted[("huntress.agents.defender_status",
-                    ("defender_status:healthy", "source:huntress"))] == 2
-    assert emitted[("huntress.agents.defender_status",
-                    ("defender_status:unknown", "source:huntress"))] == 1
-    assert emitted[("huntress.agents.firewall_status",
-                    ("firewall_status:enabled", "source:huntress"))] == 2
-    assert emitted[("huntress.agents.firewall_status",
-                    ("firewall_status:disabled", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.count", ("platform:windows", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.count", ("platform:darwin", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.defender_status", ("defender_status:healthy", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.defender_status", ("defender_status:unknown", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.firewall_status", ("firewall_status:enabled", "source:huntress"))] == 2
+    assert emitted[("huntress.agents.firewall_status", ("firewall_status:disabled", "source:huntress"))] == 1
 
 
 def test_agent_metrics_pagination():
     """Agent collection paginates until no next_page_token."""
-    instance = _make_agents_instance(
-        metrics={"agents": {"enabled": True, "max_pages": 5}})
+    instance = _make_agents_instance(metrics={"agents": {"enabled": True, "max_pages": 5}})
     check = HuntressCheck("huntress", {}, [instance])
     check.log = MagicMock()
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
 
     page1 = {
         "agents": [{"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"}],
@@ -900,23 +864,19 @@ def test_agent_metrics_pagination():
         check.check(instance)
 
     assert emitted[("huntress.agents.total", ("source:huntress",))] == 2
-    assert emitted[("huntress.agents.count",
-                    ("platform:windows", "source:huntress"))] == 1
-    assert emitted[("huntress.agents.count",
-                    ("platform:linux", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.count", ("platform:windows", "source:huntress"))] == 1
+    assert emitted[("huntress.agents.count", ("platform:linux", "source:huntress"))] == 1
     assert len(call_urls) == 2
 
 
 def test_agent_metrics_max_pages_cap():
     """Agent collection stops at max_pages even when more pages exist."""
-    instance = _make_agents_instance(
-        metrics={"agents": {"enabled": True, "max_pages": 1}})
+    instance = _make_agents_instance(metrics={"agents": {"enabled": True, "max_pages": 1}})
     check = HuntressCheck("huntress", {}, [instance])
     check.log = MagicMock()
     _cache = {}
     check.read_persistent_cache = lambda key: _cache.get(key)
-    check.write_persistent_cache = lambda key, value: _cache.__setitem__(
-        key, value)
+    check.write_persistent_cache = lambda key, value: _cache.__setitem__(key, value)
 
     page_with_more = {
         "agents": [{"platform": "windows", "defender_status": "Healthy", "firewall_status": "Enabled"}],
@@ -924,8 +884,7 @@ def test_agent_metrics_max_pages_cap():
     }
 
     with (
-        patch.object(check, "_request_with_retry",
-                     return_value=_mock_response(200, page_with_more)),
+        patch.object(check, "_request_with_retry", return_value=_mock_response(200, page_with_more)),
         patch("time.time", side_effect=[1000.0, 1001.0]),
     ):
         check.check(instance)
