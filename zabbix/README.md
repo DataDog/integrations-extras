@@ -121,8 +121,8 @@ Configure a Zabbix Webhook media type to forward triggers to the Datadog events 
 | `1` (PROBLEM)          | `4` High                          | `alert`          | `error`        | Pages the configured On-Call team                 |
 | `1` (PROBLEM)          | `3` Average                       | `alert`          | `warn`         | Pages the configured On-Call team                 |
 | `1` (PROBLEM)          | `2` Warning                       | `alert`          | `warn`         | Pages the configured On-Call team                 |
-| `1` (PROBLEM)          | `0`–`1` Not classified, Information | `alert`        | `warn`         | Pages the configured On-Call team                 |
-| `0` (OK)               | —                                 | `alert`          | `ok`           | Resolves the page with the same `aggregation_key` |
+| `1` (PROBLEM)          | `0`-`1` Not classified, Information | `alert`        | `warn`         | Pages the configured On-Call team                 |
+| `0` (OK)               | n/a                               | `alert`          | `ok`           | Resolves the page with the same `aggregation_key` |
 
 ### Setup
 
