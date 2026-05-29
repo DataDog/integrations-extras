@@ -66,25 +66,29 @@ class LinuxPSICheck(AgentCheck):
         self._set_paths()
         self._setup_cgroup_config()
 
-    def _resolve_resources(self):
-        """Return the tuple of PSI resources to collect for this instance.
-        Defaults to all three; user can restrict via the `resources` config."""
-        configured = self.instance.get('resources')
-        if not configured:
-            return PRESSURE_FILES
-        invalid = [r for r in configured if r not in PRESSURE_FILES]
-        if invalid:
-            raise ConfigurationError(
-                f'Unknown PSI resource(s) {invalid!r} in `resources` config. Allowed values: {list(PRESSURE_FILES)}'
-            )
-        # Preserve user ordering, deduplicate.
-        seen = set()
-        result = []
-        for r in configured:
-            if r not in seen:
-                seen.add(r)
-                result.append(r)
-        return tuple(result)
+def _resolve_resources(self):
+    """Return the tuple of PSI resources to collect for this instance.
+    Defaults to all three; user can restrict via the `resources` config."""
+    configured = self.instance.get('resources')
+    if configured is None or configured == []:
+        return PRESSURE_FILES
+    if not isinstance(configured, (list, tuple)):
+        raise ConfigurationError(
+            f'`resources` must be a list of strings (e.g. ["cpu", "memory", "io"]), got {type(configured).__name__!r}'
+        )
+    invalid = [r for r in configured if r not in PRESSURE_FILES]
+    if invalid:
+        raise ConfigurationError(
+            f'Unknown PSI resource(s) {invalid!r} in `resources` config. Allowed values: {list(PRESSURE_FILES)}'
+        )
+    # Preserve user ordering, deduplicate.
+    seen = set()
+    result = []
+    for r in configured:
+        if r not in seen:
+            seen.add(r)
+            result.append(r)
+    return tuple(result)
 
     def _set_paths(self):
         """Resolve the procfs root and the pressure directory, honoring the
