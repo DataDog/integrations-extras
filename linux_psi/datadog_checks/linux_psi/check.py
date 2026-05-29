@@ -66,6 +66,7 @@ class LinuxPSICheck(AgentCheck):
         self._set_paths()
         self._setup_cgroup_config()
 
+
 def _resolve_resources(self):
     """Return the tuple of PSI resources to collect for this instance.
     Defaults to all three; user can restrict via the `resources` config."""
