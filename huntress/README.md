@@ -95,30 +95,30 @@ instances:
 
 **`init_config` options** (apply to all instances):
 
-| Field             | Required | Default | Description                                     |
-| ----------------- | -------- | ------- | ----------------------------------------------- |
+| Field             | Required | Default | Description                                       |
+| ----------------- | -------- | ------- | ------------------------------------------------- |
 | `request_timeout` | No       | `30`    | HTTP request timeout in seconds for all API calls |
 
 **`instances` options** (per Huntress account):
 
-| Field                   | Required | Default                   | Description                                                                    |
-| ----------------------- | -------- | ------------------------- | ------------------------------------------------------------------------------ |
-| `huntress_api_key`      | Yes      | -                         | Huntress public API key                                                        |
-| `huntress_secret_key`   | Yes      | -                         | Huntress secret API key                                                        |
-| `log_queries`                  | No\*     | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
-| `metrics.agents.enabled`       | No\*     | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)  |
-| `metrics.agents.max_pages`     | No       | `20`                      | Max pages of agents to fetch per run (500 agents/page)                         |
-| `enrich_with_org_tags`         | No       | `true`                    | Fetch and attach org metadata as log tags                                      |
-| `org_cache_ttl_seconds`        | No       | `3600`                    | How long to cache org metadata (seconds)                                       |
-| `max_pages_per_run`            | No       | `100`                     | Page cap per query per run (~20,000 logs maximum)                              |
-| `huntress_base_url`            | No       | `https://api.huntress.io` | Override for sandbox environments                                              |
-| `tags`                         | No       | `[]`                      | Extra tags on every forwarded metric and log                                   |
+| Field                      | Required | Default                   | Description                                                                                                                                                                       |
+| -------------------------- | -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `huntress_api_key`         | Yes      | -                         | Huntress public API key                                                                                                                                                           |
+| `huntress_secret_key`      | Yes      | -                         | Huntress secret API key                                                                                                                                                           |
+| `log_queries`              | No\*     | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
+| `metrics.agents.enabled`   | No\*     | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                     |
+| `metrics.agents.max_pages` | No       | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                            |
+| `enrich_with_org_tags`     | No       | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                         |
+| `org_cache_ttl_seconds`    | No       | `3600`                    | How long to cache org metadata (seconds)                                                                                                                                          |
+| `max_pages_per_run`        | No       | `100`                     | Page cap per query per run (~20,000 logs maximum)                                                                                                                                 |
+| `huntress_base_url`        | No       | `https://api.huntress.io` | Override for sandbox environments                                                                                                                                                 |
+| `tags`                     | No       | `[]`                      | Extra tags on every forwarded metric and log                                                                                                                                      |
 
 \* At least one of `log_queries` or `metrics.agents.enabled: true` must be configured per instance.
 
 ### Rate limit considerations
 
-The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5–25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
+The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5 - 25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
 
 ```yaml
 instances:
@@ -151,24 +151,24 @@ All logs collected from the Huntress Managed SIEM API are forwarded to Datadog w
 
 **SIEM metrics** (always emitted per collection run):
 
-| Metric                               | Type  | Tags                       | Description                                           |
-| ------------------------------------ | ----- | -------------------------- | ----------------------------------------------------- |
-| `huntress.siem.logs_collected`       | Gauge | `query_name:`              | Log events collected per query per run                |
-| `huntress.siem.pages_fetched`        | Gauge | `query_name:`              | API pages fetched per query per run                   |
-| `huntress.siem.run_duration_seconds` | Gauge |                            | Wall time of the full collection run                  |
-| `huntress.siem.errors`               | Count | `error_type:`              | Errors by type                                        |
-| `huntress.siem.api_call_limit`       | Gauge |                            | Total API requests allowed per minute (from Huntress) |
-| `huntress.siem.api_call_remaining`   | Gauge |                            | API requests remaining in the current minute          |
+| Metric                               | Type  | Tags          | Description                                           |
+| ------------------------------------ | ----- | ------------- | ----------------------------------------------------- |
+| `huntress.siem.logs_collected`       | Gauge | `query_name:` | Log events collected per query per run                |
+| `huntress.siem.pages_fetched`        | Gauge | `query_name:` | API pages fetched per query per run                   |
+| `huntress.siem.run_duration_seconds` | Gauge |               | Wall time of the full collection run                  |
+| `huntress.siem.errors`               | Count | `error_type:` | Errors by type                                        |
+| `huntress.siem.api_call_limit`       | Gauge |               | Total API requests allowed per minute (from Huntress) |
+| `huntress.siem.api_call_remaining`   | Gauge |               | API requests remaining in the current minute          |
 
 **Agent metrics** (emitted when `metrics.agents.enabled: true`):
 
-| Metric                            | Type  | Tags                | Description                                    |
-| --------------------------------- | ----- | ------------------- | ---------------------------------------------- |
-| `huntress.agents.total`           | Gauge |                     | Total agent count                              |
-| `huntress.agents.count`           | Gauge | `platform:`         | Agent count by platform (windows/darwin/linux) |
-| `huntress.agents.defender_status` | Gauge | `defender_status:`  | Agent count by Defender AV status              |
-| `huntress.agents.firewall_status` | Gauge | `firewall_status:`  | Agent count by firewall status                 |
-| `huntress.agents.pages_fetched`   | Gauge |                     | API pages used to fetch the agent list         |
+| Metric                            | Type  | Tags               | Description                                    |
+| --------------------------------- | ----- | ------------------ | ---------------------------------------------- |
+| `huntress.agents.total`           | Gauge |                    | Total agent count                              |
+| `huntress.agents.count`           | Gauge | `platform:`        | Agent count by platform (windows/darwin/linux) |
+| `huntress.agents.defender_status` | Gauge | `defender_status:` | Agent count by Defender AV status              |
+| `huntress.agents.firewall_status` | Gauge | `firewall_status:` | Agent count by firewall status                 |
+| `huntress.agents.pages_fetched`   | Gauge |                    | API pages used to fetch the agent list         |
 
 See [metadata.csv][1] for a full list of metrics.
 
@@ -194,14 +194,14 @@ Returns `CRITICAL` if the collection run fails for any reason; `OK` otherwise.
 
 Inspect the `error_type` tag to identify the root cause:
 
-| `error_type`       | Cause                              | Resolution                                                   |
-| ------------------ | ---------------------------------- | ------------------------------------------------------------ |
-| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` / `huntress_secret_key`            |
-| `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                  |
+| `error_type`       | Cause                              | Resolution                                                    |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------- |
+| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` / `huntress_secret_key`             |
+| `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                   |
 | `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value in the failing `log_queries` entry |
-| `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)    |
-| `connection_error` | Network issue                      | Verify connectivity from the Agent host to `api.huntress.io` |
-| `run_failure`      | Unexpected error during collection | Check Agent logs for the full stack trace                    |
+| `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)     |
+| `connection_error` | Network issue                      | Verify connectivity from the Agent host to `api.huntress.io`  |
+| `run_failure`      | Unexpected error during collection | Check Agent logs for the full stack trace                     |
 
 **`huntress.siem.api_call_remaining` is very low or zero**
 
