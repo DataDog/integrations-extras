@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.6.0 / 2026-05-14
+
+***Added***:
+
+* GPU power, power utilization, and temperature metrics
+
 ## 1.5.0 / 2025-11-06
 
 ***Added***:
