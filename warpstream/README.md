@@ -9,7 +9,7 @@ WarpStream is a data streaming platform compatible with Apache Kafka®, designed
 ### Installation
 
 1.  [Install the Datadog Agent][1].
-2.  Manually install the WarpStream integration. See [Use Community Integrations][2] for more details based on the environment.
+2.  Manually install the WarpStream integration. For environment-specific instructions, see [Use Community Integrations][2].
 
 ### Configuration
 
@@ -23,9 +23,9 @@ The WarpStream integration has two components:
 
 The WarpStream integration's [metrics][3] come from both the Agent and StatsD portions.
 
-#### Configure the Datadog Agent WarpStream integration
+#### Configure the WarpStream integration for the Datadog Agent
 
-Edit the `url` in `warpstream.d/conf.yaml`, in the `conf.d/` folder at the root of your Agent's configuration directory. See the [sample `warpstream.d/conf.yaml`][4] for all available configuration options.
+Edit the `url` in `warpstream.d/conf.yaml`,  located in the `conf.d/` folder at the root of your Agent's configuration directory. See the [sample `warpstream.d/conf.yaml`][4] for all available configuration options.
 
 The `url` value must match your WarpStream Agent HTTP server (port 8080 by default).
 
