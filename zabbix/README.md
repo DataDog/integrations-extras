@@ -60,7 +60,7 @@ try {
 	var params = JSON.parse(value);
 	var req = new HttpRequest();
 	req.addHeader('Content-Type: application/json');
-	var webhook_url = 'https://app.datadoghq.com/intake/webhook/zabbix?api_key=' + params.api_key;
+	var webhook_url = 'https://{{< region-param key="dd_full_site" >}}/intake/webhook/zabbix?api_key=' + params.api_key;
 	var webhook_data = value;
 	var resp = req.post(webhook_url, webhook_data);
 	if (req.getStatus() != 202) {
