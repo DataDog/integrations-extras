@@ -1,5 +1,11 @@
 # CHANGELOG - Cloudsmith
 
+### 1.4.0 / 2026-06-01
+
+### Added
+
+* Added `billable` configuration option (default: `true`) to filter analytics metrics to billable download requests only. This prevents inflated metrics when Cloudsmith native (non-billable) traffic is introduced.
+
 ### 1.3.0 / 2026-03-03
 
 ### Added
