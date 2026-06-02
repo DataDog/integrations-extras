@@ -62,13 +62,15 @@ datadog-agent integration install -t datadog-huntress==1.0.0
    sudo launchctl stop com.datadoghq.agent && sudo launchctl start com.datadoghq.agent
    ```
 
-4. Verify the check:
+### Validation
 
-   ```bash
-   sudo datadog-agent check huntress
-   ```
+Run the Agent status command and look for `huntress` under the **Checks** section:
 
-   Logs appear in Datadog Log Explorer filtered by `source:huntress` within one collection interval (default: 15 minutes).
+```bash
+sudo datadog-agent check huntress
+```
+
+Logs appear in Datadog Log Explorer filtered by `source:huntress` within one collection interval (default: 15 minutes).
 
 ### Multiple Huntress accounts
 
