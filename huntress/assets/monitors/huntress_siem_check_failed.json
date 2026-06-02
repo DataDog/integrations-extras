@@ -8,7 +8,7 @@
   ],
   "description": "The Huntress SIEM Agent check has entered a CRITICAL state, meaning the last collection run failed. Logs may no longer be flowing from Huntress to Datadog.",
   "definition": {
-    "name": "Huntress SIEM collection run failed on {{host.name}}",
+    "name": "Huntress SIEM collection run failed",
     "type": "service check",
     "query": "\"huntress.siem.check_status\".over(\"*\").by(\"error_type\").last(2).count_by_status()",
     "message": "The Huntress SIEM Agent check on {{host.name}} has entered a CRITICAL state, meaning the last collection run failed. Logs may no longer be flowing from Huntress to Datadog.\n\nCommon causes:\n- Invalid or rotated API credentials (`huntress_api_key` / `huntress_secret_key`)\n- Network connectivity issue between the Agent host and `api.huntress.io`\n- Invalid `esql_query` in the instance configuration\n- Huntress SIEM feature not enabled on this account\n\nCheck the Agent logs for details:\n```\nsudo datadog-agent check huntress\n```",

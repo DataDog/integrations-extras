@@ -6,7 +6,7 @@
 
 This integration polls the Huntress Managed SIEM API using ES|QL queries and forwards all security events to Datadog as logs. Each collection run:
 
-1. Loads a checkpoint - the timestamp of the last successful collection
+1. Loads a checkpoint (the timestamp of the last successful collection)
 2. Executes a configurable ES|QL query for the elapsed time window
 3. Paginates through all result pages
 4. Optionally enriches each log with Huntress organization metadata (org name, key, account ID)
@@ -72,7 +72,7 @@ datadog-agent integration install -t datadog-huntress==1.0.0
 
 ### Multiple Huntress accounts
 
-Add additional blocks under `instances:` - each runs independently with its own checkpoint, org metadata cache, and metrics:
+Add additional blocks under `instances:`. Each block runs independently with its own checkpoint, org metadata cache, and metrics:
 
 ```yaml
 instances:
@@ -118,7 +118,7 @@ instances:
 
 ### Rate limit considerations
 
-The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5 - 25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
+The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5–25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
 
 ```yaml
 instances:
@@ -143,7 +143,7 @@ instances:
 
 All logs collected from the Huntress Managed SIEM API are forwarded to Datadog with:
 
-- `ddsource: huntress` - enables automatic log pipeline processing
+- `ddsource: huntress`: enables automatic log pipeline processing
 - ECS field names preserved as top-level log attributes (for example, `event.category`, `host.hostname`, `user.name`)
 - Organization metadata tags when `enrich_with_org_tags: true` (for example, `huntress_org_name`, `huntress_org_key`, `huntress_account_id`)
 
@@ -209,9 +209,8 @@ The Huntress API allows 60 requests per minute. The integration logs a warning w
 
 **Duplicate logs after Agent restart**
 
-This is expected on the first restart after a failed run - the checkpoint is only advanced when all pages are successfully sent. Subsequent runs resume from the last successful checkpoint.
+This is expected on the first restart after a failed run. The checkpoint is only advanced after all pages are successfully sent.
 
-Need help? Contact [Datadog support][2].
 
 ## Support
 
