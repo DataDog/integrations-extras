@@ -4,7 +4,7 @@
 
 ### Added
 
-* Added `billable_only` configuration option (default: `true`) to filter analytics metrics to billable download requests only (download domain, no error responses). When `false`, all results are returned with no filtering applied. This prevents inflated metrics when Cloudsmith native (non-billable) traffic is introduced.
+* Added `billable_only` configuration option (default: `True`) to filter analytics metrics to billable download requests only (download domain, no error responses). When `False`, all results are returned with no filtering applied.
 
 ### 1.3.0 / 2026-03-03
 
@@ -50,3 +50,4 @@
 ### 0.0.2 / 2021-09-08
 
 ***Added***:
+
