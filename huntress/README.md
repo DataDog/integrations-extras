@@ -151,37 +151,15 @@ All logs collected from the Huntress Managed SIEM API are forwarded to Datadog w
 
 ### Metrics
 
-**SIEM metrics** (always emitted per collection run):
-
-| Metric                               | Type  | Tags          | Description                                           |
-| ------------------------------------ | ----- | ------------- | ----------------------------------------------------- |
-| `huntress.siem.logs_collected`       | Gauge | `query_name:` | Log events collected per query per run                |
-| `huntress.siem.pages_fetched`        | Gauge | `query_name:` | API pages fetched per query per run                   |
-| `huntress.siem.run_duration_seconds` | Gauge |               | Wall time of the full collection run                  |
-| `huntress.siem.errors`               | Count | `error_type:` | Errors by type                                        |
-| `huntress.siem.api_call_limit`       | Gauge |               | Total API requests allowed per minute (from Huntress) |
-| `huntress.siem.api_call_remaining`   | Gauge |               | API requests remaining in the current minute          |
-
-**Agent metrics** (emitted when `metrics.agents.enabled: true`):
-
-| Metric                            | Type  | Tags               | Description                                    |
-| --------------------------------- | ----- | ------------------ | ---------------------------------------------- |
-| `huntress.agents.total`           | Gauge |                    | Total agent count                              |
-| `huntress.agents.count`           | Gauge | `platform:`        | Agent count by platform (windows/darwin/linux) |
-| `huntress.agents.defender_status` | Gauge | `defender_status:` | Agent count by Defender AV status              |
-| `huntress.agents.firewall_status` | Gauge | `firewall_status:` | Agent count by firewall status                 |
-| `huntress.agents.pages_fetched`   | Gauge |                    | API pages used to fetch the agent list         |
-
-See [metadata.csv][1] for a full list of metrics.
+See [metadata.csv][1] for a list of metrics provided by this integration.
 
 ### Events
 
-The Huntress integration does not emit Datadog events.
+The Huntress integration does not include any events.
 
 ### Service Checks
 
-**`huntress.siem.check_status`**  
-Returns `CRITICAL` if the collection run fails for any reason; `OK` otherwise.
+See [service_checks.json][2] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
@@ -212,7 +190,6 @@ The Huntress API allows 60 requests per minute. The integration logs a warning w
 **Duplicate logs after Agent restart**
 
 This is expected on the first restart after a failed run. The checkpoint is only advanced after all pages are successfully sent.
-
 
 ## Support
 
