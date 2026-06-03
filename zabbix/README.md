@@ -128,7 +128,7 @@ Configure a Zabbix Webhook media type to forward triggers to the Datadog events 
 
 #### Create the on-call media type
 
-1. Navigate to *Administration > Media Types > Create Media Type*.
+1. Navigate to **Administration > Media Types > Create Media Type**.
 2. Set **Name** to `Datadog On-Call` and **Type** to `Webhook`.
 3. Add the following parameters:
 
