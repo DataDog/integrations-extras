@@ -4,7 +4,7 @@
 
 [Huntress](https://www.huntress.com/) is a managed security platform providing endpoint detection and response (EDR), antivirus, security awareness training, and a Managed SIEM product that continuously collects and analyzes endpoint telemetry.
 
-This integration polls the Huntress Managed SIEM API using ES|QL queries and forwards all security events to Datadog as logs. Each collection run:
+This integration polls the Huntress Managed SIEM API using ES|QL queries and forwards all security events to Datadog as logs. During each collection run, the integration:
 
 1. Loads a checkpoint (the timestamp of the last successful collection)
 2. Executes a configurable ES|QL query for the elapsed time window
@@ -21,7 +21,7 @@ This integration is designed for managed security providers (MSPs) and enterpris
 
 - Datadog Agent 7.x or later
 - A Huntress account with the Managed SIEM feature enabled
-- Huntress API credentials (public API key + secret key) from the Huntress Partner Portal under **Settings > API Credentials**
+- Huntress API credentials (public API key and secret key) from the Huntress Partner Portal under **Settings > API Credentials**
 
 ### Installation
 
@@ -64,13 +64,13 @@ datadog-agent integration install -t datadog-huntress==1.0.0
 
 ### Validation
 
-Run the Agent status command and look for `huntress` under the **Checks** section:
+Run the following command to validate the integration is collecting data:
 
 ```bash
 sudo datadog-agent check huntress
 ```
 
-Logs appear in Datadog Log Explorer filtered by `source:huntress` within one collection interval (default: 15 minutes).
+Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 15 minutes for the first logs to appear.
 
 ### Multiple Huntress accounts
 
@@ -145,7 +145,7 @@ instances:
 
 All logs collected from the Huntress Managed SIEM API are forwarded to Datadog with:
 
-- `ddsource: huntress`: enables automatic log pipeline processing
+- `ddsource: huntress`: a reserved log attribute that identifies the log source and triggers automatic pipeline processing
 - ECS field names preserved as top-level log attributes (for example, `event.category`, `host.hostname`, `user.name`)
 - Organization metadata tags when `enrich_with_org_tags: true` (for example, `huntress_org_name`, `huntress_org_key`, `huntress_account_id`)
 
@@ -159,7 +159,7 @@ The Huntress integration does not include any events.
 
 ### Service Checks
 
-See [service_checks.json][2] for a list of service checks provided by this integration.
+See [service_checks.json][3] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
@@ -176,20 +176,20 @@ Inspect the `error_type` tag to identify the root cause:
 
 | `error_type`       | Cause                              | Resolution                                                    |
 | ------------------ | ---------------------------------- | ------------------------------------------------------------- |
-| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` / `huntress_secret_key`             |
+| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` or `huntress_secret_key`             |
 | `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                   |
 | `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value in the failing `log_queries` entry |
 | `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)     |
 | `connection_error` | Network issue                      | Verify connectivity from the Agent host to `api.huntress.io`  |
 | `run_failure`      | Unexpected error during collection | Check Agent logs for the full stack trace                     |
 
-**`huntress.siem.api_call_remaining` is very low or zero**
+**`huntress.siem.api_call_remaining` is low or zero**
 
 The Huntress API allows 60 requests per minute. The integration logs a warning when fewer than 10 requests remain in a given minute. If this happens regularly, reduce `max_pages_per_run` or increase `min_collection_interval` to spread out collection runs.
 
 **Duplicate logs after Agent restart**
 
-This is expected on the first restart after a failed run. The checkpoint is only advanced after all pages are successfully sent.
+This is expected on the first restart after a failed run. The checkpoint advances only after all pages are successfully sent.
 
 ## Support
 
