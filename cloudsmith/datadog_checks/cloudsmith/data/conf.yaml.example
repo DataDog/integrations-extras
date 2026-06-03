@@ -58,8 +58,10 @@ instances:
     #     package_format:
     #     - python
 
-    ## @param billable_only - boolean - optional - default: true
-    ## Limit analytics to billable downloads only, excluding error responses. Defaults to true.
+    ## @param billable_only - boolean - optional - default: True
+    ## Limit analytics to billable download requests only (download-domain requests
+    ## with HTTP status < 400). When False, all traffic including native CDN logs
+    ## and errored requests is returned. Defaults to True.
     #
     # billable_only: true
 

@@ -73,7 +73,9 @@ files:
               - python
     - name: billable_only
       required: false
-      description: Limit analytics to billable downloads only, excluding error responses. Defaults to true.
+      description: Limit analytics to billable download requests only (download-domain
+        requests with HTTP status < 400). When False, all traffic including native
+        CDN logs and errored requests is returned. Defaults to True.
       value:
         type: boolean
         example: true
