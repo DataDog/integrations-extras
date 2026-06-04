@@ -33,9 +33,7 @@ datadog-agent integration install -t datadog-huntress==1.0.0
 
 ### Configuration
 
-1. Create the configuration file at `/etc/datadog-agent/conf.d/huntress.yaml` (Linux/macOS) or `C:\ProgramData\Datadog\conf.d\huntress.yaml` (Windows). A fully-annotated example is at `datadog_checks/huntress/data/conf.yaml.example`.
-
-2. Edit `huntress.yaml` with your credentials:
+1. Copy the [example configuration file][4] to `/etc/datadog-agent/conf.d/huntress/conf.yaml` (Linux/macOS) or `C:\ProgramData\Datadog\conf.d\huntress\conf.yaml` (Windows) and edit it with your credentials:
 
    ```yaml
    init_config: {}
@@ -52,7 +50,7 @@ datadog-agent integration install -t datadog-huntress==1.0.0
          - "env:production"
    ```
 
-3. Restart the Agent:
+2. Restart the Agent:
 
    ```bash
    # Linux (systemd)
@@ -62,19 +60,9 @@ datadog-agent integration install -t datadog-huntress==1.0.0
    sudo launchctl stop com.datadoghq.agent && sudo launchctl start com.datadoghq.agent
    ```
 
-### Validation
+#### Multiple Huntress accounts
 
-Run the following command to validate the integration is collecting data:
-
-```bash
-sudo datadog-agent check huntress
-```
-
-Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 15 minutes for the first logs to appear.
-
-### Multiple Huntress accounts
-
-Add additional blocks under `instances:`. Each block runs independently with its own checkpoint, org metadata cache, and metrics:
+If you manage multiple Huntress accounts, add an additional block under `instances:` for each one. Each block runs independently with its own checkpoint, org metadata cache, and metrics:
 
 ```yaml
 instances:
@@ -93,6 +81,16 @@ instances:
     tags: ["source:huntress", "env:staging"]
 ```
 
+### Validation
+
+Run the following command to validate the integration is collecting data:
+
+```bash
+sudo datadog-agent check huntress
+```
+
+Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 15 minutes for the first logs to appear.
+
 ### Configuration reference
 
 **`init_config` options** (apply to all instances):
@@ -103,22 +101,22 @@ instances:
 
 **`instances` options** (per Huntress account):
 
-| Field                      | Required | Default                   | Description                                                                                                                                                                       |
-| -------------------------- | -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `huntress_api_key`         | Yes      | -                         | Huntress public API key                                                                                                                                                           |
-| `huntress_secret_key`      | Yes      | -                         | Huntress secret API key                                                                                                                                                           |
-| `log_queries`              | No\*     | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
-| `metrics.agents.enabled`   | No\*     | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                     |
-| `metrics.agents.max_pages` | No       | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                            |
-| `enrich_with_org_tags`     | No       | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                         |
-| `org_cache_ttl_seconds`    | No       | `3600`                    | How long to cache org metadata (seconds)                                                                                                                                          |
-| `max_pages_per_run`        | No       | `100`                     | Page cap per query per run (~20,000 logs maximum)                                                                                                                                 |
-| `huntress_base_url`        | No       | `https://api.huntress.io` | Override for sandbox environments                                                                                                                                                 |
-| `tags`                     | No       | `[]`                      | Extra tags on every forwarded metric and log                                                                                                                                      |
+| Field                      | Required    | Default                   | Description                                                                                                                                                                       |
+| -------------------------- | ----------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `huntress_api_key`         | Yes         | -                         | Huntress public API key                                                                                                                                                           |
+| `huntress_secret_key`      | Yes         | -                         | Huntress secret API key                                                                                                                                                           |
+| `log_queries`              | Conditional | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
+| `metrics.agents.enabled`   | Conditional | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                     |
+| `metrics.agents.max_pages` | No          | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                            |
+| `enrich_with_org_tags`     | No          | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                         |
+| `org_cache_ttl_seconds`    | No          | `3600`                    | How long to cache org metadata (seconds)                                                                                                                                          |
+| `max_pages_per_run`        | No          | `100`                     | Page cap per query per run (~20,000 logs maximum)                                                                                                                                 |
+| `huntress_base_url`        | No          | `https://api.huntress.io` | Override for sandbox environments                                                                                                                                                 |
+| `tags`                     | No          | `[]`                      | Extra tags on every forwarded metric and log                                                                                                                                      |
 
-\* At least one of `log_queries` or `metrics.agents.enabled: true` must be configured per instance.
+**Note:** At least one of `log_queries` or `metrics.agents.enabled: true` must be configured per instance.
 
-### Rate limit considerations
+### Rate limits
 
 The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5 to 25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
 
@@ -176,7 +174,7 @@ Inspect the `error_type` tag to identify the root cause:
 
 | `error_type`       | Cause                              | Resolution                                                    |
 | ------------------ | ---------------------------------- | ------------------------------------------------------------- |
-| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` or `huntress_secret_key`             |
+| `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` or `huntress_secret_key`            |
 | `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                   |
 | `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value in the failing `log_queries` entry |
 | `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)     |
@@ -197,3 +195,5 @@ For questions and support, [contact Datadog support][2].
 
 [1]: https://github.com/DataDog/integrations-extras/blob/master/huntress/metadata.csv
 [2]: https://docs.datadoghq.com/help/
+[3]: https://github.com/DataDog/integrations-extras/blob/master/huntress/service_checks.json
+[4]: https://github.com/DataDog/integrations-extras/blob/master/huntress/datadog_checks/huntress/data/conf.yaml.example
