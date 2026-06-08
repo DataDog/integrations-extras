@@ -109,6 +109,104 @@ Zabbix alerts are collected as events in the Datadog event stream.
 
 See [service_checks.json][12] for a list of service checks provided by this integration.
 
+## Trigger on-call pages
+
+Configure a Zabbix Webhook media type to forward triggers to the Datadog events intake, which routes them to [Datadog On-Call][13] using an `oncall_team` query parameter. Datadog deduplicates and auto-resolves events that share an `aggregation_key`, so a Zabbix `OK` resolves the page created by the corresponding `PROBLEM` automatically.
+
+### Map Zabbix triggers to on-call pages
+
+| Zabbix `{EVENT.VALUE}` | `{EVENT.NSEVERITY}`               | Event `category` | Alert `status` | On-Call effect                                    |
+| ---------------------- | --------------------------------- | ---------------- | -------------- | ------------------------------------------------- |
+| `1` (PROBLEM)          | `5` Disaster                      | `alert`          | `error`        | Pages the configured On-Call team                 |
+| `1` (PROBLEM)          | `4` High                          | `alert`          | `error`        | Pages the configured On-Call team                 |
+| `1` (PROBLEM)          | `3` Average                       | `alert`          | `warn`         | Pages the configured On-Call team                 |
+| `1` (PROBLEM)          | `2` Warning                       | `alert`          | `warn`         | Pages the configured On-Call team                 |
+| `1` (PROBLEM)          | `0`-`1` Not classified, Information | `alert`        | `warn`         | Pages the configured On-Call team                 |
+| `0` (OK)               | n/a                               | `alert`          | `ok`           | Resolves the page with the same `aggregation_key` |
+
+### Setup
+
+#### Create the on-call media type
+
+1. Navigate to **Administration > Media Types > Create Media Type**.
+2. Set **Name** to `Datadog On-Call` and **Type** to `Webhook`.
+3. Add the following parameters:
+
+| Parameter         | Value                       |
+| ----------------- | --------------------------- |
+| `dd_api_key`      | `<YOUR_DATADOG_API_KEY>`    |
+| `dd_site`         | `datadoghq.com`             |
+| `oncall_team`     | `<YOUR_ONCALL_TEAM_HANDLE>` |
+| `event_value`     | `{EVENT.VALUE}`             |
+| `event_nseverity` | `{EVENT.NSEVERITY}`         |
+| `event_name`      | `{EVENT.NAME}`              |
+| `host_name`       | `{HOST.NAME}`               |
+| `trigger_id`      | `{TRIGGER.ID}`              |
+| `alert_message`   | `{ALERT.MESSAGE}`           |
+
+Set `dd_site` to your Datadog site, for example, `datadoghq.eu` or `us3.datadoghq.com`. Set `oncall_team` to the team handle configured in [Datadog On-Call][13], without the `@oncall-` prefix.
+
+4. Input the following code as the **Script**:
+
+```javascript
+try {
+    var params = JSON.parse(value);
+    var problem = params.event_value === '1';
+    var nseverity = parseInt(params.event_nseverity, 10);
+
+    var status = 'warn';
+    if (!problem) {
+        status = 'ok';
+    } else if (nseverity >= 4) {
+        status = 'error';
+    }
+
+    var payload = {
+        data: {
+            type: 'event',
+            attributes: {
+                category: 'alert',
+                title: 'Zabbix: ' + params.host_name + ' - ' + params.event_name,
+                message: params.alert_message,
+                integration_id: 'zabbix',
+                aggregation_key: 'zabbix:' + params.host_name + ':' + params.trigger_id,
+                tags: ['integration:zabbix', 'host:' + params.host_name],
+                attributes: { status: status },
+                zabbix: { source: 'zabbix-server' }
+            }
+        }
+    };
+
+    var url = 'https://event-management-intake.' + params.dd_site +
+              '/api/v2/events/webhook?dd-api-key=' + encodeURIComponent(params.dd_api_key) +
+              '&integration_id=zabbix&oncall_team=' + encodeURIComponent(params.oncall_team);
+
+    var req = new HttpRequest();
+    req.addHeader('Content-Type: application/json');
+    var resp = req.post(url, JSON.stringify(payload));
+
+    if (req.getStatus() < 200 || req.getStatus() >= 300) {
+        throw 'Datadog On-Call notification failed: HTTP ' + req.getStatus() + ' ' + resp;
+    }
+} catch (error) {
+    Zabbix.Log(4, '[datadog oncall] ' + error);
+    throw error;
+}
+return JSON.stringify({});
+```
+
+5. Validate the webhook is set up correctly by using the **Test** button.
+
+#### Assign the media to a user
+
+Follow the same steps as in *Assign Webhook media to an existing user* above. The dedicated `Datadog` user can host both media types.
+
+#### Configure an alert action
+
+Create a Zabbix action targeting the `Datadog On-Call` media type. Make sure the action is enabled both on the **PROBLEM** (firing) and on the **Recovery** event so that resolutions reach Datadog and the corresponding On-Call page auto-resolves.
+
+Verify pages appear under **On-Call > Pages** in Datadog.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
@@ -125,3 +223,4 @@ Need help? Contact [Datadog support][11].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/metadata.csv
 [11]: https://docs.datadoghq.com/help/
 [12]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/assets/service_checks.json
+[13]: https://docs.datadoghq.com/service_management/on-call/
