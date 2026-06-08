@@ -617,14 +617,14 @@ tests:
       severity: "info"
       signatures:
        -
-        attack_type: "ATTACK_TYPE_PATH_TRAVERSAL"
-        matching_info: "Matched 8 characters on offset 0 against value: 'GET /../../../../etc/shadow HTTP/1.1rnhost: demo.xc.f5demo.netr'. "
-        context: "url"
-        name: "Directory Traversal attempt \"../\" (URI)"
         accuracy: "medium_accuracy"
+        attack_type: "ATTACK_TYPE_PATH_TRAVERSAL"
+        context: "url"
         id: "200007029"
-        state: "Enabled"
         id_name: "200007029, Directory Traversal attempt \"../\" (URI)"
+        matching_info: "Matched 8 characters on offset 0 against value: 'GET /../../../../etc/shadow HTTP/1.1rnhost: demo.xc.f5demo.netr'. "
+        name: "Directory Traversal attempt \"../\" (URI)"
+        state: "Enabled"
       site: "fr4-fra"
       sni: "demo.xc.f5demo.net"
       source: "N:public"
@@ -660,8 +660,8 @@ tests:
       violations:
        -
         attack_type: "ATTACK_TYPE_DETECTION_EVASION"
-        matching_info: "Matched 13 characters on offset 0 against value: '/../../../../etc/shadow'. "
         context: "url"
+        matching_info: "Matched 13 characters on offset 0 against value: '/../../../../etc/shadow'. "
         name: "VIOL_EVASION_DIRECTORY_TRAVERSALS"
         state: "Enabled"
       waf_mode: "block"
