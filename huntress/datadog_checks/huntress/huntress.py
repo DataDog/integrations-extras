@@ -454,16 +454,16 @@ class HuntressCheck(AgentCheck):
         message = raw_log.get("log.original") or raw_log.get("message") or json.dumps(raw_log)
 
         timestamp = raw_log.get("@timestamp")
-        date_ms = None
+        ts_seconds = None
         if timestamp:
             try:
                 if isinstance(timestamp, (int, float)):
-                    date_ms = int(timestamp)
+                    ts_seconds = float(timestamp)
                 else:
                     # Truncate sub-microsecond precision (e.g. nanoseconds) that fromisoformat rejects
                     ts_str = re.sub(r'(\.\d{6})\d+', r'\1', str(timestamp)).replace("Z", "+00:00")
                     dt = datetime.fromisoformat(ts_str)
-                    date_ms = int(dt.timestamp() * 1000)
+                    ts_seconds = dt.timestamp()
             except Exception:
                 pass
 
@@ -473,8 +473,8 @@ class HuntressCheck(AgentCheck):
             "ddtags": ",".join(tags),
             "service": service,
         }
-        if date_ms is not None:
-            payload["date"] = date_ms
+        if ts_seconds is not None:
+            payload["timestamp"] = ts_seconds
 
         # Preserve all ECS fields as top-level log attributes
         for key, value in raw_log.items():

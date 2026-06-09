@@ -326,7 +326,7 @@ def test_log_transformation():
     assert payload["ddsource"] == "huntress"
     assert payload["service"] == "huntress-siem"
     assert payload["ddtags"] == "source:huntress,env:test,huntress_account_id:42"
-    assert payload["date"] == 1779890400000
+    assert payload["timestamp"] == 1779890400.0
     assert payload["event.provider"] == "Microsoft-Windows-Security-Auditing"
     assert payload["host.hostname"] == "DESKTOP-ABC123"
     assert "@timestamp" not in payload
