@@ -100,13 +100,15 @@ class HuntressCheck(AgentCheck):
                 all_tags = extra_tags + query_tags
                 query_metric_tags = extra_tags + [f"query_name:{query_name}"]
 
-                logs, pages = self._run_query(
+                logs, pages, q_start, q_end = self._run_query(
                     base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags
                 )
 
                 self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
                 self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
-                run_summary.append(f"query '{query_name}': {logs} log(s) collected, {pages} page(s) fetched")
+                run_summary.append(
+                    f"query '{query_name}': {logs} log(s) collected, {pages} page(s) fetched [{q_start} → {q_end}]"
+                )
 
             if collect_agents:
                 agents_total, agents_pages = self._collect_agent_metrics(
@@ -141,7 +143,7 @@ class HuntressCheck(AgentCheck):
     # ------------------------------------------------------------------ #
 
     def _run_query(self, base_url, headers, esql, checkpoint_key, max_pages, min_interval, org_cache, all_tags):
-        """Paginate a single ES|QL query. Returns (logs_collected, pages_fetched)."""
+        """Paginate a single ES|QL query. Returns (logs_collected, pages_fetched, range_start, range_end)."""
         range_start = self._load_checkpoint(checkpoint_key)
         now = datetime.now(timezone.utc)
         range_end = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
@@ -213,7 +215,7 @@ class HuntressCheck(AgentCheck):
         if not hit_page_cap:
             self._save_checkpoint(checkpoint_key, range_end)
 
-        return total_logs, pages_fetched
+        return total_logs, pages_fetched, range_start, range_end
 
     # ------------------------------------------------------------------ #
     # Agent metrics                                                         #
