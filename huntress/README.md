@@ -163,11 +163,16 @@ See [service_checks.json][3] for a list of service checks provided by this integ
 
 **No logs in Datadog after first run**
 
-- Run `sudo datadog-agent check huntress` and inspect the output
+- Run `sudo datadog-agent check huntress` and inspect the output - the summary line reports how many logs were collected and the exact time range queried
 - Verify the API key pair is valid by checking the Huntress Partner Portal
 - Confirm the Managed SIEM feature is enabled on the account
+- Confirm `min_collection_interval: 900` is set in your instance config - without it, the Agent uses its default 15-second interval, and each run queries only a 15-second window with no new events
 - Check that each `log_queries[].esql_query` begins with `FROM logs`
 - The Huntress SIEM API requires an explicit `KEEP` clause to return log fields - without one, responses contain only `uuid` and `organization_id`. Add `| KEEP @timestamp, message, host.hostname, event.category, event.code, ...` to your query. The Agent logs will show a warning if this is detected.
+
+**`LogsSent: 0` in `datadog-agent status` even though logs are being collected**
+
+This is expected. The integration sends logs directly to the Datadog Logs Intake API rather than through the Agent's internal log pipeline, so the Logs Agent counters (`LogsProcessed`, `LogsSent`) will always read 0. Use the Agent check output or Datadog Log Explorer filtered by `source:huntress` to confirm logs are arriving.
 
 **`huntress.siem.errors` count is increasing**
 

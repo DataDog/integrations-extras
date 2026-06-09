@@ -235,8 +235,8 @@ def test_checkpoint_persistence():
         check.check(instance)
 
     assert captured_bodies, "No SIEM query was made"
-    # range_start should be 1ms after saved_ts
-    assert captured_bodies[0]["range_start"] == "2026-05-27T13:00:00.001Z"
+    # range_start should be 1 second after saved_ts (API only accepts second-precision timestamps)
+    assert captured_bodies[0]["range_start"] == "2026-05-27T13:00:01"
 
 
 # ===========================================================================

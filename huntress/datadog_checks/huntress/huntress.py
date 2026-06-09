@@ -1,4 +1,5 @@
 import base64
+import gzip
 import json
 import re
 import time
@@ -146,17 +147,17 @@ class HuntressCheck(AgentCheck):
         """Paginate a single ES|QL query. Returns (logs_collected, pages_fetched, range_start, range_end)."""
         range_start = self._load_checkpoint(checkpoint_key)
         now = datetime.now(timezone.utc)
-        range_end = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+        range_end = now.strftime("%Y-%m-%dT%H:%M:%S")
 
         if range_start is None:
             default_start = now - timedelta(seconds=min_interval)
-            range_start = default_start.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+            range_start = default_start.strftime("%Y-%m-%dT%H:%M:%S")
         else:
-            # Add 1ms to avoid re-fetching the boundary event from the previous run
+            # Advance by 1 second so the boundary event isn't re-fetched next run
             try:
                 dt = datetime.fromisoformat(range_start.replace("Z", "+00:00"))
-                dt = dt + timedelta(milliseconds=1)
-                range_start = dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+                dt = dt + timedelta(seconds=1)
+                range_start = dt.strftime("%Y-%m-%dT%H:%M:%S")
             except Exception:
                 pass
 
@@ -490,8 +491,56 @@ class HuntressCheck(AgentCheck):
     # ------------------------------------------------------------------ #
 
     def _send_logs_batch(self, logs_batch):
-        for log_payload in logs_batch:
-            self.send_log(log_payload)
+        api_key = self.agentConfig.get('api_key') or self.agentConfig.get('dd_api_key')
+        if not api_key:
+            for log_payload in logs_batch:
+                self.send_log(log_payload)
+            return
+
+        # Split into sub-batches that respect the 5MB uncompressed limit and 1000-entry cap
+        sub_batch = []
+        sub_batch_bytes = 0
+        for log in logs_batch:
+            log_bytes = len(json.dumps(log).encode('utf-8'))
+            if sub_batch and sub_batch_bytes + log_bytes > self.MAX_BATCH_SIZE_BYTES:
+                self._post_logs_to_intake(sub_batch, api_key)
+                sub_batch = []
+                sub_batch_bytes = 0
+            sub_batch.append(log)
+            sub_batch_bytes += log_bytes
+        if sub_batch:
+            self._post_logs_to_intake(sub_batch, api_key)
+
+    def _post_logs_to_intake(self, logs_batch, api_key):
+        site = self.agentConfig.get('site') or 'datadoghq.com'
+        url = f'https://http-intake.logs.{site}/api/v2/logs'
+        timeout = self.init_config.get('request_timeout', self.DEFAULT_REQUEST_TIMEOUT)
+        body = gzip.compress(json.dumps(logs_batch).encode('utf-8'))
+
+        for attempt in range(3):
+            resp = requests.post(
+                url,
+                headers={
+                    'DD-API-KEY': api_key,
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'gzip',
+                },
+                data=body,
+                timeout=timeout,
+            )
+            if resp.status_code in (200, 202):
+                return
+            if resp.status_code in (408, 429, 500, 503) and attempt < 2:
+                wait = (attempt + 1) * 5
+                self.log.warning(
+                    "Datadog Logs intake HTTP %d — retrying in %ds (attempt %d/2)",
+                    resp.status_code,
+                    wait,
+                    attempt + 1,
+                )
+                time.sleep(wait)
+                continue
+            raise Exception(f"Datadog Logs intake returned HTTP {resp.status_code}: {resp.text[:200]}")
 
     # ------------------------------------------------------------------ #
     # Checkpoint                                                            #
