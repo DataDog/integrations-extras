@@ -1,5 +1,6 @@
 import base64
 import json
+import re
 import time
 import zlib
 from datetime import datetime, timedelta, timezone
@@ -33,6 +34,10 @@ class HuntressCheck(AgentCheck):
     DEFAULT_AGENT_MAX_PAGES = 20  # 20 × 500/page = up to 10k agents
 
     SERVICE_CHECK_NAME = "huntress.siem.check_status"
+
+    # Fields present in every response regardless of KEEP clause; logs containing
+    # only these keys have no content because the query is missing a KEEP verb.
+    _BARE_LOG_KEYS = frozenset({"uuid", "organization_id"})
 
     def check(self, instance):
         start_time = time.time()
@@ -75,6 +80,7 @@ class HuntressCheck(AgentCheck):
             org_cache = self._get_or_refresh_org_cache(base_url, headers, instance_hash, org_ttl)
 
         success = False
+        run_summary = []
 
         try:
             for query_def in log_queries:
@@ -100,11 +106,18 @@ class HuntressCheck(AgentCheck):
 
                 self.gauge("huntress.siem.logs_collected", logs, tags=query_metric_tags)
                 self.gauge("huntress.siem.pages_fetched", pages, tags=query_metric_tags)
+                run_summary.append(f"query '{query_name}': {logs} log(s) collected, {pages} page(s) fetched")
 
             if collect_agents:
-                self._collect_agent_metrics(base_url, headers, extra_tags, agents_max_pages)
+                agents_total, agents_pages = self._collect_agent_metrics(
+                    base_url, headers, extra_tags, agents_max_pages
+                )
+                run_summary.append(f"agent metrics: {agents_total} agent(s), {agents_pages} page(s) fetched")
 
             success = True
+            self.log.info(
+                "Huntress check complete — %s", "; ".join(run_summary) if run_summary else "no data collected"
+            )
 
         except Exception as exc:
             self.log.error("Huntress check run failed: %s", exc)
@@ -162,6 +175,15 @@ class HuntressCheck(AgentCheck):
             logs, next_token = self._query_page(base_url, headers, esql, range_start, range_end, page_token)
 
             if logs:
+                if pages_fetched == 0 and all(set(raw.keys()) <= self._BARE_LOG_KEYS for raw in logs[:3]):
+                    self.log.warning(
+                        "Huntress SIEM query %r returned logs with no content fields "
+                        "(only uuid and organization_id). The Huntress API requires an explicit "
+                        "KEEP clause to return log fields. Add one to your esql_query, e.g.: "
+                        "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, ...",
+                        esql[:80],
+                    )
+
                 batch = []
                 for raw in logs:
                     org_tags = self._get_org_tags(raw, org_cache) if org_cache else []
@@ -253,6 +275,8 @@ class HuntressCheck(AgentCheck):
         for status, count in by_firewall_status.items():
             self.gauge("huntress.agents.firewall_status", count, tags=extra_tags + [f"firewall_status:{status}"])
 
+        return len(agents), pages_fetched
+
     # ------------------------------------------------------------------ #
     # Auth                                                                  #
     # ------------------------------------------------------------------ #
@@ -312,10 +336,12 @@ class HuntressCheck(AgentCheck):
         timeout = self.init_config.get("request_timeout", self.DEFAULT_REQUEST_TIMEOUT)
         max_retries_5xx = 3
         max_retries_408 = 2
+        max_retries_429 = 1
         backoff_5xx = [5, 10, 20]
         backoff_408 = [2, 4]
 
         attempt = 0
+        attempt_429 = 0
 
         while True:
             try:
@@ -366,9 +392,19 @@ class HuntressCheck(AgentCheck):
                     raise Exception(f"Huntress API 422 Invalid ES|QL query: {resp.text}")
 
                 if resp.status_code == 429:
-                    self.log.warning("Huntress API 429 Rate Limited — sleeping 60s then retrying")
-                    time.sleep(60)
-                    continue
+                    if attempt_429 < max_retries_429:
+                        self.log.warning(
+                            "Huntress API 429 Rate Limited — sleeping 60s then retrying (attempt %d/%d)",
+                            attempt_429 + 1,
+                            max_retries_429,
+                        )
+                        time.sleep(60)
+                        attempt_429 += 1
+                        continue
+                    self.count("huntress.siem.errors", 1, tags=["error_type:rate_limited"])
+                    raise Exception(
+                        "Huntress API 429 Rate Limited after retry — reduce max_pages_per_run or increase min_collection_interval"
+                    )
 
                 if 500 <= resp.status_code < 600:
                     if attempt < max_retries_5xx:
@@ -424,7 +460,9 @@ class HuntressCheck(AgentCheck):
                 if isinstance(timestamp, (int, float)):
                     date_ms = int(timestamp)
                 else:
-                    dt = datetime.fromisoformat(str(timestamp).replace("Z", "+00:00"))
+                    # Truncate sub-microsecond precision (e.g. nanoseconds) that fromisoformat rejects
+                    ts_str = re.sub(r'(\.\d{6})\d+', r'\1', str(timestamp)).replace("Z", "+00:00")
+                    dt = datetime.fromisoformat(ts_str)
                     date_ms = int(dt.timestamp() * 1000)
             except Exception:
                 pass
@@ -564,9 +602,11 @@ class HuntressCheck(AgentCheck):
         if account_id is not None:
             base_tags.append(f"huntress_account_id:{account_id}")
 
-        # Strategy 1: match by organization.id
-        org_id = raw_log.get("organization.id") or (
-            raw_log.get("organization", {}).get("id") if isinstance(raw_log.get("organization"), dict) else None
+        # Strategy 1: match by organization id (flat field from API, dot-notation, or nested)
+        org_id = (
+            raw_log.get("organization_id")
+            or raw_log.get("organization.id")
+            or (raw_log.get("organization", {}).get("id") if isinstance(raw_log.get("organization"), dict) else None)
         )
         if org_id is not None:
             org = orgs.get(str(org_id))

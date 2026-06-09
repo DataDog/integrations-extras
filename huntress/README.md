@@ -43,7 +43,7 @@ datadog-agent integration install -t datadog-huntress==1.0.0
        huntress_secret_key: "<your_secret_api_key>"
        log_queries:
          - name: "all-logs"
-           esql_query: "FROM logs"
+           esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
        tags:
          - "source:huntress"
          - "service:huntress-siem"
@@ -70,14 +70,14 @@ instances:
     huntress_secret_key: "<account1_secret>"
     log_queries:
       - name: "all-logs"
-        esql_query: "FROM logs"
+        esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
     tags: ["source:huntress", "env:production"]
 
   - huntress_api_key: "<account2_key>"
     huntress_secret_key: "<account2_secret>"
     log_queries:
       - name: "all-logs"
-        esql_query: "FROM logs"
+        esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
     tags: ["source:huntress", "env:staging"]
 ```
 
@@ -101,18 +101,18 @@ Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 1
 
 **`instances` options** (per Huntress account):
 
-| Field                      | Required    | Default                   | Description                                                                                                                                                                       |
-| -------------------------- | ----------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `huntress_api_key`         | Yes         | -                         | Huntress public API key                                                                                                                                                           |
-| `huntress_secret_key`      | Yes         | -                         | Huntress secret API key                                                                                                                                                           |
-| `log_queries`              | Conditional | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics |
-| `metrics.agents.enabled`   | Conditional | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                     |
-| `metrics.agents.max_pages` | No          | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                            |
-| `enrich_with_org_tags`     | No          | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                         |
-| `org_cache_ttl_seconds`    | No          | `3600`                    | How long to cache org metadata (seconds)                                                                                                                                          |
-| `max_pages_per_run`        | No          | `100`                     | Page cap per query per run (~20,000 logs maximum)                                                                                                                                 |
-| `huntress_base_url`        | No          | `https://api.huntress.io` | Override for sandbox environments                                                                                                                                                 |
-| `tags`                     | No          | `[]`                      | Extra tags on every forwarded metric and log                                                                                                                                      |
+| Field                      | Required    | Default                   | Description                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------- | ----------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `huntress_api_key`         | Yes         | -                         | Huntress public API key                                                                                                                                                                                                                                                                                                                            |
+| `huntress_secret_key`      | Yes         | -                         | Huntress secret API key                                                                                                                                                                                                                                                                                                                            |
+| `log_queries`              | Conditional | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics. **Always include a `KEEP` clause** - despite what the Huntress API docs state, queries without `KEEP` return only `uuid` and `organization_id`, not all fields. |
+| `metrics.agents.enabled`   | Conditional | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                                                                                                                                                                                      |
+| `metrics.agents.max_pages` | No          | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                                                                                                                                                                                             |
+| `enrich_with_org_tags`     | No          | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                                                                                                                                                                                          |
+| `org_cache_ttl_seconds`    | No          | `3600`                    | How long to cache org metadata (seconds)                                                                                                                                                                                                                                                                                                           |
+| `max_pages_per_run`        | No          | `100`                     | Page cap per query per run (~20,000 logs maximum)                                                                                                                                                                                                                                                                                                  |
+| `huntress_base_url`        | No          | `https://api.huntress.io` | Override for sandbox environments                                                                                                                                                                                                                                                                                                                  |
+| `tags`                     | No          | `[]`                      | Extra tags on every forwarded metric and log                                                                                                                                                                                                                                                                                                       |
 
 **Note:** At least one of `log_queries` or `metrics.agents.enabled: true` must be configured per instance.
 
@@ -127,7 +127,7 @@ instances:
     huntress_secret_key: "<logs-secret>"
     log_queries:
       - name: "all-logs"
-        esql_query: "FROM logs"
+        esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
 
   # Instance 2: agent metrics only (isolated rate limit budget)
   - huntress_api_key: "<metrics-key>"
@@ -167,6 +167,7 @@ See [service_checks.json][3] for a list of service checks provided by this integ
 - Verify the API key pair is valid by checking the Huntress Partner Portal
 - Confirm the Managed SIEM feature is enabled on the account
 - Check that each `log_queries[].esql_query` begins with `FROM logs`
+- The Huntress SIEM API requires an explicit `KEEP` clause to return log fields - without one, responses contain only `uuid` and `organization_id`. Add `| KEEP @timestamp, message, host.hostname, event.category, event.code, ...` to your query. The Agent logs will show a warning if this is detected.
 
 **`huntress.siem.errors` count is increasing**
 

@@ -80,12 +80,20 @@ instances:
     ## targeted collection for different log types within the same account.
     ## Do not add time range filters — range_start and range_end are managed
     ## automatically by the check.
+    ##
+    ## IMPORTANT: Always include a KEEP clause to select the fields you want.
+    ## Despite what the Huntress API documentation states, queries without an
+    ## explicit KEEP clause return only uuid and organization_id — not all fields.
+    ## Example: FROM logs | KEEP @timestamp, message, host.hostname, event.category,
+    ## event.code, event.provider, event.id, user.target.name, user.target.domain,
+    ## winlog.system.EventID
     #
     # log_queries:
-    #   - name: all-logs
-    #     esql_query: FROM logs
+    #   - name: windows-security-events
+    #     esql_query: FROM logs | KEEP @timestamp, message, host.hostname, event.category,
+    #       event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID
     #     tags:
-    #     - log_type:all
+    #     - log_type:windows
 
     ## @param enrich_with_org_tags - boolean - optional - default: true
     ## When true, the check fetches Huntress organization metadata (org name,
