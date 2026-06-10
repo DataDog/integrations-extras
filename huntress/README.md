@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Huntress](https://www.huntress.com/) is a managed security platform providing endpoint detection and response (EDR), antivirus, security awareness training, and a Managed SIEM product that continuously collects and analyzes endpoint telemetry.
+[Huntress][5] is a managed security platform providing endpoint detection and response (EDR), antivirus, security awareness training, and a Managed SIEM product that continuously collects and analyzes endpoint telemetry.
 
 This integration polls the Huntress Managed SIEM API using ES|QL queries and forwards all security events to Datadog as logs. During each collection run, the integration:
 
@@ -105,7 +105,7 @@ Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 1
 | -------------------------- | ----------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `huntress_api_key`         | Yes         | -                         | Huntress public API key                                                                                                                                                                                                                                                                                                                            |
 | `huntress_secret_key`      | Yes         | -                         | Huntress secret API key                                                                                                                                                                                                                                                                                                                            |
-| `log_queries`              | Conditional | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics. **Always include a `KEEP` clause** - despite what the Huntress API docs state, queries without `KEEP` return only `uuid` and `organization_id`, not all fields. |
+| `log_queries`              | Conditional | -                         | List of query objects; each has `name` (required), `esql_query` (required, must begin with `FROM logs`), and `tags` (optional). `name` is used as the `query_name` tag on metrics. **Always include a `KEEP` clause.** Despite what the Huntress API docs state, queries without `KEEP` return only `uuid` and `organization_id`, not all fields. |
 | `metrics.agents.enabled`   | Conditional | `false`                   | Collect agent fleet metrics (total, by platform, by Defender/firewall status)                                                                                                                                                                                                                                                                      |
 | `metrics.agents.max_pages` | No          | `20`                      | Max pages of agents to fetch per run (500 agents/page)                                                                                                                                                                                                                                                                                             |
 | `enrich_with_org_tags`     | No          | `true`                    | Fetch and attach org metadata as log tags                                                                                                                                                                                                                                                                                                          |
@@ -168,7 +168,7 @@ See [service_checks.json][3] for a list of service checks provided by this integ
 - Confirm the Managed SIEM feature is enabled on the account
 - Confirm `min_collection_interval: 900` is set in your instance config - without it, the Agent uses its default 15-second interval, and each run queries only a 15-second window with no new events
 - Check that each `log_queries[].esql_query` begins with `FROM logs`
-- The Huntress SIEM API requires an explicit `KEEP` clause to return log fields - without one, responses contain only `uuid` and `organization_id`. Add `| KEEP @timestamp, message, host.hostname, event.category, event.code, ...` to your query. The Agent logs will show a warning if this is detected.
+- The Huntress SIEM API requires an explicit `KEEP` clause to return log fields. Without one, responses contain only `uuid` and `organization_id`. Add `| KEEP @timestamp, message, host.hostname, event.category, event.code, ...` to your query. The Agent logs will show a warning if this is detected.
 
 **`LogsSent: 0` in `datadog-agent status` even though logs are being collected**
 
@@ -183,7 +183,7 @@ Inspect the `error_type` tag to identify the root cause:
 | `auth_failure`     | Invalid or rotated API credentials | Update `huntress_api_key` or `huntress_secret_key`            |
 | `timeout`          | ES\|QL query too broad             | Add a `KEEP` or `WHERE` clause to the query                   |
 | `invalid_query`    | Malformed ES\|QL                   | Fix the `esql_query` value in the failing `log_queries` entry |
-| `server_error`     | Transient Huntress API error       | Check [Huntress status page](https://status.huntress.com)     |
+| `server_error`     | Transient Huntress API error       | Check [Huntress status page][6]     |
 | `connection_error` | Network issue                      | Verify connectivity from the Agent host to `api.huntress.io`  |
 | `run_failure`      | Unexpected error during collection | Check Agent logs for the full stack trace                     |
 
