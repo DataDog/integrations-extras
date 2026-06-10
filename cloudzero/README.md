@@ -37,7 +37,7 @@ Need help? Contact [CloudZero support][6].
 
 [1]: https://app.cloudzero.com
 [2]: /integrations/cloudzero
-[3]: https://app.cloudzero.com/organization/connections
+[3]: https://app.cloudzero.com/settings/connections
 [4]: https://app.cloudzero.com/explorer
 [5]: /organization-settings/api-keys
 [6]: mailto:support@cloudzero.com

@@ -1,5 +1,12 @@
 # CHANGELOG - CloudZero
 
+## 1.4.0 / 2026-06-01
+
+**_Changed_**:
+
+* Updated OAuth redirect URIs and onboarding URL to the new `/settings/connections` path
+* Refreshed product screenshots
+
 ## 1.3.0 / 2025-03-05
 
 **_Added_**:
