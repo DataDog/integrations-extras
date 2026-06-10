@@ -98,7 +98,7 @@ class HuntressCheck(AgentCheck):
 
                 # Each query tracks its own checkpoint so queries are independently resumable
                 checkpoint_key = instance_hash + "_" + self._query_hash(esql)
-                all_tags = extra_tags + query_tags
+                all_tags = extra_tags + query_tags + [f"huntress_log_name:{query_name}"]
                 query_metric_tags = extra_tags + [f"query_name:{query_name}"]
 
                 logs, pages, q_start, q_end = self._run_query(
