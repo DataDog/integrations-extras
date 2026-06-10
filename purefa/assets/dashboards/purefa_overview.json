@@ -555,28 +555,6 @@
               "line_width": "normal"
             },
             "display_type": "line"
-          },
-          {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "query": "avg:purefa.array.performance_bandwidth_bytes{$Env,dimension:write_bytes_per_sec,$version,$ArrayName} by {fa_array_name}",
-                "data_source": "metrics",
-                "name": "query1"
-              }
-            ],
-            "formulas": [
-              {
-                "formula": "calendar_shift(query1, '-1d', 'UTC')",
-                "alias": "day_before(Write Bandwidth)"
-              }
-            ],
-            "style": {
-              "palette": "gray",
-              "line_type": "dotted",
-              "line_width": "normal"
-            },
-            "display_type": "line"
           }
         ],
         "yaxis": {
