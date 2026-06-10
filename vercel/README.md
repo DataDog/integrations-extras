@@ -21,15 +21,15 @@ The Datadog integration for Vercel is installed from the Vercel Marketplace.
 
 1. Sign in to Vercel, then open the [Datadog listing in the Vercel Marketplace][7] and select **Connect Account**.
 
-2. Select the Vercel team to install the integration into.
+2. Select the Vercel team in which you want to install the integration.
 
-3. Select which projects to monitor - either all projects or a specific subset.
+3. Select which projects to monitor: either all projects or a specific subset.
 
 4. Select **Connect Account**. After Vercel provisions the integration, you are redirected to the **Configure Vercel for Serverless** page in Datadog.
 
 ### Configure the integration
 
-On the **Configure Vercel for Serverless** page, complete the following steps and select **Add Integration**:
+On the **Configure Vercel for Serverless** page, complete the following steps:
 
 1. **Confirm your organization** - If you belong to multiple Datadog organizations, select which one to connect to your Vercel account.
 
@@ -51,7 +51,7 @@ On the **Configure Vercel for Serverless** page, complete the following steps an
 
 6. **Enable Vercel Trace Drain for APM** - Toggle **Trace Drain** on to forward traces from your Vercel apps to Datadog. Set the sampling percentage (1-100%).
 
-After you select **Add Integration**, the **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
+7. Select **Add Integration**. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
 
 **Note:** Vercel Log Drains and Trace Drains are billed by Vercel. See the Vercel documentation for [Log Drains][10] and [Trace Drains][13].
 
