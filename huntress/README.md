@@ -81,17 +81,28 @@ instances:
     tags: ["source:huntress", "env:staging"]
 ```
 
-### Validation
+#### Rate limits
 
-Run the following command to validate the integration is collecting data:
+The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5 to 25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
 
-```bash
-sudo datadog-agent check huntress
+```yaml
+instances:
+  # Instance 1: SIEM log collection only
+  - huntress_api_key: "<logs-key>"
+    huntress_secret_key: "<logs-secret>"
+    log_queries:
+      - name: "all-logs"
+        esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
+
+  # Instance 2: agent metrics only (isolated rate limit budget)
+  - huntress_api_key: "<metrics-key>"
+    huntress_secret_key: "<metrics-secret>"
+    metrics:
+      agents:
+        enabled: true
 ```
 
-Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 15 minutes for the first logs to appear.
-
-### Configuration reference
+#### Configuration reference
 
 **`init_config` options** (apply to all instances):
 
@@ -116,26 +127,15 @@ Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 1
 
 **Note:** At least one of `log_queries` or `metrics.agents.enabled: true` must be configured per instance.
 
-### Rate limits
+### Validation
 
-The Huntress API allows 60 requests per minute per API key pair. A typical run with 3 SIEM queries and agent metrics uses roughly 5 to 25 requests, well within this budget. For large accounts with high log volume or thousands of agents, consider splitting concerns across two instances using separate API key pairs:
+Run the following command to validate the integration is collecting data:
 
-```yaml
-instances:
-  # Instance 1: SIEM log collection only
-  - huntress_api_key: "<logs-key>"
-    huntress_secret_key: "<logs-secret>"
-    log_queries:
-      - name: "all-logs"
-        esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
-
-  # Instance 2: agent metrics only (isolated rate limit budget)
-  - huntress_api_key: "<metrics-key>"
-    huntress_secret_key: "<metrics-secret>"
-    metrics:
-      agents:
-        enabled: true
+```bash
+sudo datadog-agent check huntress
 ```
+
+Logs appear in Datadog Log Explorer filtered by `source:huntress`. Allow up to 15 minutes for the first logs to appear.
 
 ## Data Collected
 
