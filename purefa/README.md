@@ -31,7 +31,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To configure this check for an Agent running on a host, run `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
 Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
-  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.3.0`
+  * e.g. `sudo -u dd-agent -- datadog-agent integration install -t datadog-purefa==1.3.1`
 
 ### Configuration
 

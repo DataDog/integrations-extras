@@ -1,5 +1,11 @@
 # CHANGELOG - PureFA
 
+## 1.3.1/ 2026-07-11
+
+***Added***:
+* Changed branding from Pure Storage to Everpure.
+
+
 ## 1.3.0/ 2025-07-10
 
 ***Added***:
