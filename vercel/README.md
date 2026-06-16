@@ -11,37 +11,49 @@ Integrate Vercel with Datadog to:
 - View and parse your application logs using [Datadog's Log Management][5]
 - See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
 - Monitor frontend and [Vercel Functions][9] performance with [Datadog Synthetics][6]
+- Trace requests across your Vercel Functions with [Datadog APM][14]
 
 ## Setup
 
-### Datadog
+The Datadog integration for Vercel is installed from the Vercel Marketplace.
 
-To connect Datadog with Vercel, enable the integration and select an API Key.
+### Install Datadog from the Vercel Marketplace
 
-1. Open the Vercel integration tile.
+1. Sign in to Vercel, then open the [Datadog listing in the Vercel Marketplace][7] and select **Connect Account**.
 
-2. Select the **Configure** tab and select **Configure the Vercel integration**.
+2. Select the Vercel team in which you want to install the integration.
 
-3. On the **Your Datadog account info** form, select **Select an API Key** and either choose an existing API key or select **+ Create New** to use a new API key for the Vercel integration.
+3. Select which projects to monitor: either all projects or a specific subset.
 
-4. After your selection is made, select **Use API Key**. This copies the selected API key to your device's clipboard.
+4. Select **Connect Account**. After Vercel provisions the integration, you are redirected to the **Configure Vercel for Serverless** page in Datadog.
 
-5. After the API key is selected, you are redirected back to the **Your Datadog account info** form. Select **Vercel > Add Integration** to complete the integration setup for Vercel.
-### Vercel
+### Configure the integration
 
-1. Click the **Vercel > Add Integration** link to be redirected to Vercel's Datadog integration page.
+On the **Configure Vercel for Serverless** page, complete the following steps:
 
-2. Select **Connect Account** to open the **Connect Datadog Account** form.
+1. **Confirm your organization** - If you belong to multiple Datadog organizations, select which one to connect to your Vercel account.
 
-3. Select which Vercel Team to connect the integration to. (Teams that already have the integration installed have an icon next to them labeled **Installed**)
+2. **Select API Key** - Select **Create New** to create a dedicated key for this integration, or choose an existing API key.
 
-4. Select the radio button associated with either enabling the integration for all projects or a specific project that the team owns. Select **Connect Account** to save your changes.
+3. **Enable Vercel Log Drain for Log Management** - Toggle **Log Drain** on to forward logs from your Vercel apps to Datadog. Set the sampling percentage (1-100%) for the share of logs to forward.
 
-5. Paste the API key that was copied to your clipboard in Step 4 of the Datadog setup above into the box labeled **Your Datadog API Key**.
+4. **Set Log Sources** - Select which Vercel log sources to forward. At least one is required:
+   - **Static**: CDN and static asset request logs
+   - **Lambda**: Serverless Function execution logs
+   - **Build**: Build output logs
+   - **Edge**: Edge Function and Edge Middleware logs
+   - **External**: Logs from external services routed through Vercel
+   - **Firewall**: Vercel Firewall event logs
 
-6. Scroll to the bottom of the form and select **Add Integration** to save your changes.
+   **Note:** To ensure metrics are collected, Datadog recommends enabling **Lambda** logs and **Static** logs. Enabling **Build** logs is recommended if you want to collect build metrics.
 
-[Configure the Vercel integration][7]
+5. **Set Log Environment** - Select **Production**, **Preview**, or both. At least one is required.
+
+6. **Enable Vercel Trace Drain for APM** - Toggle **Trace Drain** on to forward traces from your Vercel apps to Datadog. Set the sampling percentage (1-100%).
+
+7. Select **Add Integration**. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
+
+**Note:** Vercel Log Drains and Trace Drains are billed by Vercel. See the Vercel documentation for [Log Drains][10] and [Trace Drains][13].
 
 ## Data Collected
 
@@ -61,10 +73,13 @@ The Vercel integration does not include any events.
 
 The Vercel integration collects logs from your Vercel Project using Vercel's [Log Drains][10] feature.
 
+### Traces
+
+The Vercel integration collects traces from your Vercel Project using Vercel's [Trace Drains][13] feature.
+
 ## Troubleshooting
 
-If you are using the Vercel OpenTelemetry Collector, the `serviceName` specified in `registerOTel` block of your [initializer][12] must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
-
+If you are using the [Vercel OpenTelemetry SDK][12], the `serviceName` specified in `registerOTel` block of your initializer must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
 
 Need help? Contact [Datadog support][8].
 
@@ -78,9 +93,11 @@ Need help? Contact [Datadog support][8].
 [4]: https://vercel.com/docs/serverless-functions/introduction
 [5]: https://docs.datadoghq.com/logs/
 [6]: https://docs.datadoghq.com/synthetics/
-[7]: /setup/vercel
+[7]: https://vercel.com/marketplace/datadog
 [8]: https://docs.datadoghq.com/help/
 [9]: https://vercel.com/docs/functions
-[10]: https://vercel.com/docs/observability/log-drains
+[10]: https://vercel.com/docs/drains/reference/logs
 [11]: https://github.com/DataDog/integrations-extras/blob/master/vercel/metadata.csv
-[12]: https://vercel.com/docs/observability/otel-overview#initialize-otel
+[12]: https://vercel.com/docs/tracing/instrumentation
+[13]: https://vercel.com/docs/drains/reference/traces
+[14]: https://docs.datadoghq.com/tracing/

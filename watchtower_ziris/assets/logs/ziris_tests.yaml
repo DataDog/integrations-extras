@@ -119,92 +119,92 @@ tests:
         resource:
           attributes:
            -
+            key: "host.arch"
             value:
               stringValue: "s390x"
-            key: "host.arch"
            -
+            key: "host.name"
             value:
               stringValue: "LPAR"
-            key: "host.name"
            -
+            key: "os.type"
             value:
               stringValue: "z_os"
-            key: "os.type"
            -
-            value:
-              stringValue: "CICSREG"
             key: "service.name"
-           -
             value:
               stringValue: "CICSREG"
-            key: "zos.cics.region_name"
            -
+            key: "zos.cics.region_name"
+            value:
+              stringValue: "CICSREG"
+           -
+            key: "zos.subsystem_name"
             value:
               stringValue: "CICS"
-            key: "zos.subsystem_name"
            -
+            key: "zos.vtam.application.id"
             value:
               stringValue: "CICSAPPL"
-            key: "zos.vtam.application.id"
         scopeLogs:
          -
-          scope:
-            name: "com.broadcom.ziris.irontap"
-            version: "unit-test-version"
           logRecords:
            -
-            severityText: "ERROR"
-            observedTimeUnixNano: "1693915217590000000"
-            timeUnixNano: "1776162451356400146"
-            flags: 1
             attributes:
              -
+              key: "zos.cics.exception.number"
               value:
                 intValue: "1"
-              key: "zos.cics.exception.number"
              -
+              key: "zos.cics.exception.resource_id"
               value:
                 stringValue: "DF007505"
-              key: "zos.cics.exception.resource_id"
              -
+              key: "zos.cics.exception.resource_type"
               value:
                 stringValue: "TEMPSTOR"
-              key: "zos.cics.exception.resource_type"
              -
+              key: "zos.cics.exception.type"
               value:
                 stringValue: "BUFFER_WAIT"
-              key: "zos.cics.exception.type"
              -
+              key: "zos.cics.transaction.id"
               value:
                 stringValue: "TRAN"
-              key: "zos.cics.transaction.id"
              -
+              key: "zos.cics.transaction.number"
               value:
                 intValue: "41436"
-              key: "zos.cics.transaction.number"
              -
+              key: "zos.cics.transaction.priority"
               value:
                 stringValue: "000000FA"
-              key: "zos.cics.transaction.priority"
              -
+              key: "zos.cics.transaction.program.name"
               value:
                 stringValue: "PGMNAME"
-              key: "zos.cics.transaction.program.name"
              -
+              key: "zos.cics.transaction.start_type"
               value:
                 stringValue: "SD"
-              key: "zos.cics.transaction.start_type"
              -
+              key: "zos.cics.transaction.user_id"
               value:
                 stringValue: "USER01"
-              key: "zos.cics.transaction.user_id"
-            severityNumber: "SEVERITY_NUMBER_ERROR"
             body:
               stringValue: |
                 Exception Type: BUFFER_WAIT
                 Exception Resource Type: TEMPSTOR
                 Exception Resource Id: DF007505
                 Meaning: Wait for buffer associated with DFHTEMP
+            flags: 1
+            observedTimeUnixNano: "1693915217590000000"
+            severityNumber: "SEVERITY_NUMBER_ERROR"
+            severityText: "ERROR"
+            timeUnixNano: "1776162451356400146"
+          scope:
+            name: "com.broadcom.ziris.irontap"
+            version: "unit-test-version"
     message: |-
       {
         "resourceLogs" : [ {
