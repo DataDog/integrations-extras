@@ -1,4 +1,3 @@
-
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck  # noqa: F401
@@ -9,7 +8,6 @@ from datadog_checks.base import AgentCheck  # noqa: F401
 
 
 class AbuseIPDBCheck(AgentCheck):
-
     # This will be the prefix of every metric the integration sends
     __NAMESPACE__ = 'abuseipdb'
 
