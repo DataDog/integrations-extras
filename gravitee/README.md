@@ -12,15 +12,15 @@ This integration includes a pre-built Datadog dashboard to support comprehensive
 
 ### Download and install
 
-1. Download the Datadog Reporter plugin [here][1].
-2. Add the downloaded ZIP file to your [Gateway(s)][2] `{GRAVITEE_HOME}/plugins` folder.
+1. Download the Gravitee [Datadog Reporter plugin][1].
+2. Add the downloaded ZIP file to your [`{GRAVITEE_HOME}/plugins` folder on each Gateway][2].
 3. Or, if you are installing the Gravitee Gateway via Helm, add the following entry in the `additionalPlugins` section (changing the version as needed):
   ```yaml
 gateway:
-  additionalPlugins:
-    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-5.0.0.zip
+    additionalPlugins:
+    - https://download.gravitee.io/graviteeio-ee/apim/plugins/reporters/gravitee-reporter-datadog/gravitee-reporter-datadog-7.2.1.zip
 ```
-4. Create a [Datadog API Key][3].  You will need this when _configuring_ the Reporter in Gravitee.
+4. Create a [Datadog API key][3].  You need this when _configuring_ the Reporter in Gravitee.
 
 > **Note**: As with other reporter plugins, the Datadog Reporter plugin only needs to be installed on the Gateway container, not the Management API container.
 
@@ -44,9 +44,12 @@ reporters:
       #username: "YOUR_USERNAME"
       #password: "YOUR_PASSWORD"
 ```
-> **Note**: You can obscure the value of this API key by using [configuration-level secrets][5] in your Gravitee `values.yaml` file.
+> **Note**:
+> - You can obscure the value of this API key by using [configuration-level secrets][5] in your Gravitee `values.yaml` file.
+> - As with other reporter plugins, the Datadog Reporter plugin only needs to be installed on the Gateway container, not the Management API container. 
+> - To collect system metrics and logs from the Management API service, use the [Datadog Agent][4] to tail the Management API logs, or collect them from stdout.
 
-### Data Type Mapping
+### Data type mapping
 
 Gravitee has different types of reporting data, and each type maps to a different resource type in Datadog. The mapping is as follows:
 
@@ -55,14 +58,14 @@ Gravitee has different types of reporting data, and each type maps to a differen
 | Metadata                                 | API name, user agent          | Tags               |
 | Monitoring                               | CPU, memory usage             | Metrics            |
 | EndpointStatus                           | Health check status           | Events             |
-| [Metrics][6] | Response time, content length | Metrics            |
-| [Logs][7]   | Request body, response body   | Log                |
+| [Metrics][7] | Response time, content length | Metrics            |
+| [Logs][8]   | Request body, response body   | Log                |
 
 ## Uninstallation
 
 ### In Gravitee
 
-1. To delete the Reporter, delete the `gravitee-reporter-datadog-5.0.0.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
+1. To delete the Reporter, delete the `gravitee-reporter-datadog-x.x.x.zip` from your Gateway `{GRAVITEE_HOME}/plugins` folder.
 2. To disable the Reporter, change the `reporters.datadog.enabled` attribute to `false` (in your Gravitee `values.yaml` file).
 
 ### In Datadog
@@ -70,7 +73,7 @@ Gravitee has different types of reporting data, and each type maps to a differen
 
 ## Support
 
-Need help? Contact [Gravitee support][8].
+Need help? Contact [Gravitee support][9].
 
 Have feedback about the integration? Email Gravitee at <contact@graviteesource.com>.
 
@@ -80,6 +83,6 @@ Have feedback about the integration? Email Gravitee at <contact@graviteesource.c
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [4]: https://docs.datadoghq.com/agent/?tab=Linux
 [5]: https://documentation.gravitee.io/apim/configure-apim/sensitive-data-management/configuration-level-secrets
-[6]: https://documentation.gravitee.io/apim/gravitee-gateway/reporters#metrics-sent-via-reporters
-[7]: https://documentation.gravitee.io/apim/gravitee-gateway/reporters#log-data-sent-via-reporters
-[8]: https://www.gravitee.io/contact-us
+[7]: https://documentation.gravitee.io/apim/gravitee-gateway/reporters#metrics-sent-via-reporters
+[8]: https://documentation.gravitee.io/apim/gravitee-gateway/reporters#log-data-sent-via-reporters
+[9]: https://www.gravitee.io/contact-us
