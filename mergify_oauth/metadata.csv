@@ -1,6 +1,24 @@
-metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
-mergify.merge_queue_length,gauge,,,,Merge queue length,0,mergify_oauth,,
-mergify.time_to_merge.median,gauge,,second,,Median time to merge,0,mergify_oauth,,
-mergify.time_to_merge.mean,gauge,,second,,Mean time to merge,0,mergify_oauth,,
-mergify.queue_checks_outcome,gauge,,,,Number of outcomes for the queue operation. Each outcome type can be found in the tag 'outcome_type',0,mergify_oauth,,
-mergify.queue_freeze.duration,gauge,,second,,Merge queue freeze duration,0,mergify_oauth,,
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric,sample_tags
+mergify.merge_queue_length,gauge,,,,[Deprecated] Merge queue length. Use mergify.queue.size.max instead,0,mergify_oauth,,,
+mergify.time_to_merge.median,gauge,,second,,[Deprecated] Median time to merge. Use mergify.queue.total_queue_time instead,0,mergify_oauth,,,
+mergify.time_to_merge.mean,gauge,,second,,[Deprecated] Mean time to merge. Use mergify.queue.total_queue_time instead,0,mergify_oauth,,,
+mergify.queue_checks_outcome,gauge,,,,[Deprecated] Number of queue operation outcomes by outcome_type tag. Use mergify.queue.check_outcome instead,0,mergify_oauth,,,
+mergify.queue.entered,count,,,,Number of pull requests that entered the merge queue,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.merged,count,,,,Number of pull requests merged from the queue,1,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.size.max,gauge,,,,Maximum number of pull requests waiting in the queue during the period,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.batch_size.sum,count,,,,Sum of batch sizes in pull requests per batch. Divide by mergify.queue.batch_size.count for the average batch size,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.batch_size.count,count,,,,Number of batches observed. Denominator for the average batch size,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.running_checks.max,gauge,,,,Maximum number of concurrent CI checks running for the queue during the period,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.exit_reason,count,,,,Number of pull requests that left the queue split by reason in the exit_reason tag,0,mergify_oauth,,,"repository,branch,queue,priority_rule,exit_reason"
+mergify.queue.check_outcome,count,,,,Number of batch check outcomes split by result in the outcome tag,0,mergify_oauth,,,"repository,branch,queue,priority_rule,outcome"
+mergify.queue.checks_retries.recovered,count,,,,Number of CI check sessions that recovered after a retry,1,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.checks_retries.not_recovered,count,,,,Number of CI check sessions that did not recover after a retry,-1,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.bisection.started,count,,,,Number of batch bisections started to isolate a failing pull request,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.total_queue_time.sum,count,,second,,Sum of total time pull requests spent in the queue. Divide by mergify.queue.total_queue_time.count for the average queue time,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.total_queue_time.count,count,,,,Number of pull requests that left the queue. Denominator for the average total queue time,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.ci_runtime.sum,count,,second,,Sum of CI runtime across queued pull requests. Divide by mergify.queue.ci_runtime.count for the average CI runtime,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.ci_runtime.count,count,,,,Number of CI runtime samples. Denominator for the average CI runtime,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.idle.capacity.sum,count,,second,,Sum of time pull requests spent waiting for queue capacity (CI slots). Divide by mergify.queue.idle.count for the average,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.idle.schedule.sum,count,,second,,Sum of time pull requests spent waiting on a merge schedule. Divide by mergify.queue.idle.count for the average,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.idle.freeze.sum,count,,second,,Sum of time pull requests spent waiting on a queue freeze. Divide by mergify.queue.idle.count for the average,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
+mergify.queue.idle.count,count,,,,Number of queue-leave events. Shared denominator for the mergify.queue.idle.*.sum metrics,0,mergify_oauth,,,"repository,branch,queue,priority_rule"
