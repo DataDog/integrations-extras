@@ -96,3 +96,4 @@ Need help? Contact [Datadog support][11].
 [11]: https://docs.datadoghq.com/help/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/ping/assets/service_checks.json
 [14]: https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md
+
