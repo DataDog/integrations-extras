@@ -12,8 +12,6 @@ jobs:
       repo: extras
     secrets: inherit
     permissions:
-       # needed for codecov in test-target.yml, allows the action to get a JWT signed by Github
-       id-token: write
        # needed for compute-matrix in test-target.yml
        contents: read
 
@@ -37,13 +35,6 @@ jobs:
         pattern: coverage-*
         path: coverage-reports
         merge-multiple: false
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de
-      with:
-        use_oidc: true
-        directory: coverage-reports
-        fail_ci_if_error: false
 
     - name: Get Datadog credentials
       id: dd-sts
