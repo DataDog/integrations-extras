@@ -1,3 +1,4 @@
+# (C) Datadog, Inc. 2026-present
 import mock
 import pytest
 
