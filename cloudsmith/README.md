@@ -29,7 +29,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmi
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-cloudsmith==1.3.0
+   datadog-agent integration install -t datadog-cloudsmith==1.4.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
