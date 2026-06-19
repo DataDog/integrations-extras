@@ -87,4 +87,3 @@ def test_integration_response_time(aggregator, instance_response_time):
     aggregator.assert_metric("network.ping.can_connect", value=1, tags=all_tags)
     aggregator.assert_metric("network.ping.response_time", tags=all_tags)
     aggregator.assert_all_metrics_covered()
-
