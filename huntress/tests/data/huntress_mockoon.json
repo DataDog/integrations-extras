@@ -1,0 +1,549 @@
+{
+  "uuid": "d79d60a4-f853-41f1-b1bc-394540ba0418",
+  "lastMigration": 20,
+  "name": "Huntress API MOCK",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3002,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "6cc05227-ed63-494f-a215-c06fa89640f0",
+      "documentation": "Account Endpoint",
+      "method": "get",
+      "endpoint": "v1/account",
+      "responses": [
+        {
+          "uuid": "16142531-e3c2-4e50-9cf8-2f2bed17c0bc",
+          "body": "{\n  \"account\": {\n    \"id\": 1,\n    \"name\": \"Test Account\",\n    \"status\": \"active\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Account Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fe19593d-a249-4077-ab07-b5d2239606d2",
+      "documentation": "Organizations for a specific account (paginated)",
+      "method": "get",
+      "endpoint": "v1/accounts/:id/organizations",
+      "responses": [
+        {
+          "uuid": "bbd0b95c-7e9a-4446-bb7d-34b2827a05f9",
+          "body": "{\n  \"organizations\": [\n    {\n      \"id\": 1,\n      \"name\": \"Acme Inc.\",\n      \"key\": \"acme\",\n      \"account_id\": 1\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Globex Corp\",\n      \"key\": \"globex\",\n      \"account_id\": 1\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Initech LLC\",\n      \"key\": \"initech\",\n      \"account_id\": 1\n    }\n  ],\n  \"pagination\": {\n    \"next_page_token\": null\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Account Organizations",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "95ad0b89-aabe-4e44-95e6-9ad78ca56f1d",
+      "documentation": "SIEM ES|QL Query Endpoint",
+      "method": "post",
+      "endpoint": "v1/siem/query",
+      "responses": [
+        {
+          "uuid": "d3c533fb-4595-4a19-bebf-1ff2a2daf6ce",
+          "body": "{\n  \"logs\": [\n    {\n      \"@timestamp\": \"2026-05-27T14:00:00.000Z\",\n      \"message\": \"An account was successfully logged on.\",\n      \"log.original\": \"An account was successfully logged on.\",\n      \"event.provider\": \"Microsoft-Windows-Security-Auditing\",\n      \"event.category\": \"authentication\",\n      \"event.outcome\": \"success\",\n      \"event.action\": \"logged-on\",\n      \"host.hostname\": \"DESKTOP-ABC123\",\n      \"host.os.platform\": \"windows\",\n      \"user.name\": \"alice\",\n      \"organization.id\": 1,\n      \"organization.name\": \"Acme Inc.\"\n    },\n    {\n      \"@timestamp\": \"2026-05-27T14:01:30.000Z\",\n      \"message\": \"A logon was attempted using explicit credentials.\",\n      \"log.original\": \"A logon was attempted using explicit credentials.\",\n      \"event.provider\": \"Microsoft-Windows-Security-Auditing\",\n      \"event.category\": \"authentication\",\n      \"event.outcome\": \"unknown\",\n      \"event.action\": \"logged-on\",\n      \"host.hostname\": \"SERVER-XYZ789\",\n      \"host.os.platform\": \"windows\",\n      \"user.name\": \"bob\",\n      \"organization.id\": 2,\n      \"organization.name\": \"Globex Corp\"\n    },\n    {\n      \"@timestamp\": \"2026-05-27T14:02:00.000Z\",\n      \"message\": \"An attempt was made to reset an account's password.\",\n      \"log.original\": \"An attempt was made to reset an account's password.\",\n      \"event.provider\": \"Microsoft-Windows-Security-Auditing\",\n      \"event.category\": \"iam\",\n      \"event.outcome\": \"success\",\n      \"event.action\": \"user-password-reset\",\n      \"host.hostname\": \"DC-PRIMARY\",\n      \"host.os.platform\": \"windows\",\n      \"user.name\": \"charlie\",\n      \"organization.id\": 3,\n      \"organization.name\": \"Initech LLC\"\n    }\n  ],\n  \"pagination\": {\n    \"next_page_token\": null\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "SIEM Query Response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b3bea0dc-39a2-442d-81de-a11f918c6cd2",
+      "documentation": "Organizations Endpoint",
+      "method": "get",
+      "endpoint": "v1/organizations",
+      "responses": [
+        {
+          "uuid": "ad456172-d25c-4799-b1d7-245c88fa1879",
+          "body": "{\n    \"organizations\": [\n      {{#repeat 9}}\n      {\n        \"id\": {{int 1 9}},\n        \"name\": \"{{company}}\",\n        \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"account_id\": 1,\n        \"key\": \"{{faker 'internet.domainWord'}}\",\n        \"notify_emails\": [{{email}}, {{email}}],\n        \"incident_reports_count\": {{int 0 8}}\n      },\n      {{/repeat}}\n      {\n        \"id\": 10,\n        \"name\": \"{{company}}\",\n        \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"account_id\": 1,\n        \"key\": \"{{faker 'word.adjective'}}\",\n        \"notify_emails\": [{{email}}, {{email}}],\n        \"incident_reports_count\": {{int 0 8}}\n      }\n    ],\n    \"pagination\": {\n      \"current_page\": 1,\n      \"current_page_count\": 1,\n      \"limit\": 10,\n      \"total_count\": 20,\n      \"next_page\": 2,\n      \"next_page_url\": \"https://api.huntress.io/v1/organizations?page=2&limit=10\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Organizations Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a221cee0-b6ab-4b43-afa8-313188214d38",
+      "documentation": "Returns data for a specific organization.",
+      "method": "get",
+      "endpoint": "v1/organizations/:id",
+      "responses": [
+        {
+          "uuid": "51e9cab3-7780-4ce2-bfb7-245bf8d8daa7",
+          "body": "{\n  \"organization\": {\n    \"id\": {{int 1 10}},\n    \"name\": \"{{company}}\",\n    \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n    \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n    \"account_id\": 1,\n    \"key\": \"{{faker 'internet.domainWord'}}\",\n    \"notify_emails\": [{{email}}, {{email}}],\n    \"incident_reports_count\": {{int 0 8}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns data for a specific organization.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "05f22b2a-81f5-46d1-ac8a-7a171472c216",
+      "documentation": "Agents Endpoint",
+      "method": "get",
+      "endpoint": "v1/agents",
+      "responses": [
+        {
+          "uuid": "37418ddf-bd35-404d-beea-8add484c2098",
+          "body": "{\n    \"agents\": [\n      {{#repeat 9}}\n      {\n        \"id\": {{int 1 9}},\n        \"version\": \"{{oneOf (array '0.13.12' '0.13.10' '0.13.8')}}\",\n        \"arch\": \"x86_64\",\n        \"win_build_number\": {{oneOf (array '19043' '19044' '22000' '17763' '20348')}},\n        \"domain_name\": \"{{faker 'internet.domainName'}}\",\n        \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"hostname\": \"{{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n        \"ipv4_address\": \"{{ipv4}}\",\n        \"external_ip\": \"{{ipv4}}\",\n        \"mac_addresses\": [\"{{faker 'internet.mac'}}\", \"{{faker 'internet.mac'}}\"],\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"last_survey_at\": \"{{faker 'date.recent'}}\",\n        \"last_callback_at\": \"{{faker 'date.recent'}}\",\n        \"account_id\": 1,\n        \"organization_id\": {{int 1 10}},\n        \"os\": \"{{oneOf (array 'Windows 10 Pro' 'Windows 11 Pro' 'Windows Server 2019' 'Windows Server 2022')}}\",\n        \"service_pack_major\": 0,\n        \"service_pack_minor\": 0,\n        \"tags\": {{{someOf (array 'SQL' 'VIP' 'Critical' 'Excluded' 'temp') 1 2 true}}},\n        \"os_major\": 10,\n        \"os_minor\": 0,\n        \"version_number\": null\n      },\n      {{/repeat}}\n      {\n        \"id\": 10,\n        \"version\": \"{{oneOf (array '0.13.12' '0.13.10' '0.13.8')}}\",\n        \"arch\": \"x86_64\",\n        \"win_build_number\": {{oneOf (array '19043' '19044' '22000' '17763' '20348')}},\n        \"domain_name\": \"{{faker 'internet.domainName'}}\",\n        \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"hostname\": \"{{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n        \"ipv4_address\": \"{{ipv4}}\",\n        \"external_ip\": \"{{ipv4}}\",\n        \"mac_addresses\": [\"{{faker 'internet.mac'}}\", \"{{faker 'internet.mac'}}\"],\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"last_survey_at\": \"{{faker 'date.recent'}}\",\n        \"last_callback_at\": \"{{faker 'date.recent'}}\",\n        \"account_id\": {{int 1 4}},\n        \"organization_id\": {{int 1 20}},\n        \"os\": \"{{oneOf (array 'Windows 10 Pro' 'Windows 11 Pro' 'Windows Server 2019' 'Windows Server 2022')}}\",\n        \"service_pack_major\": 0,\n        \"service_pack_minor\": 0,\n        \"tags\": {{{someOf (array 'SQL' 'VIP' 'Critical' 'Excluded' 'temp') 1 2 true}}},\n        \"os_major\": 10,\n        \"os_minor\": 0,\n        \"version_number\": null\n      }\n    ],\n    \"pagination\": {\n      \"pagination\": {\n      \"current_page\": 1,\n      \"current_page_count\": 1,\n      \"limit\": 10,\n      \"total_count\": 20,\n      \"next_page\": 2,\n      \"next_page_url\": \"https://api.huntress.io/v1/agents?page=2&limit=10\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Agents Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "296e1e0f-19c0-4b99-9538-587670fdad66",
+      "documentation": "Returns data for a specific agent.",
+      "method": "get",
+      "endpoint": "v1/agents/:id",
+      "responses": [
+        {
+          "uuid": "1e05ac6c-75f1-4bd8-861e-aa44910cf780",
+          "body": "{\n    \"agent\": {\n      \"id\": {{int 1 20}},\n      \"version\": \"{{oneOf (array '0.13.12' '0.13.10' '0.13.8')}}\",\n      \"arch\": \"x86_64\",\n      \"win_build_number\": {{oneOf (array '19043' '19044' '22000' '17763' '20348')}},\n      \"domain_name\": \"{{faker 'internet.domainName'}}\",\n      \"created_at\": \"{{date '2022-05-01' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n      \"hostname\": \"{{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n      \"ipv4_address\": \"{{ipv4}}\",\n      \"external_ip\": \"{{ipv4}}\",\n      \"mac_addresses\": [\"{{faker 'internet.mac'}}\", \"{{faker 'internet.mac'}}\"],\n      \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n      \"last_survey_at\": \"{{faker 'date.recent'}}\",\n      \"last_callback_at\": \"{{faker 'date.recent'}}\",\n      \"account_id\": 1,\n      \"organization_id\": {{int 1 9}},\n      \"os\": \"{{oneOf (array 'Windows 10 Pro' 'Windows 11 Pro' 'Windows Server 2019' 'Windows Server 2022')}}\",\n      \"service_pack_major\": 0,\n      \"service_pack_minor\": 0,\n      \"tags\": {{{someOf (array 'SQL' 'VIP' 'Critical' 'Excluded' 'temp') 1 2 true}}},\n      \"os_major\": 10,\n      \"os_minor\": 0,\n      \"version_number\": null\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns data for a specific agent.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e117dbc-fed1-457d-8eae-22b8885b407e",
+      "documentation": "Incident Reports Endpoint",
+      "method": "get",
+      "endpoint": "v1/incident_reports",
+      "responses": [
+        {
+          "uuid": "aa51588a-abbc-477b-8c16-f453c12d7f12",
+          "body": "{\n    \"incident_reports\": [\n      {{#repeat 9}}\n      {\n        \"id\": {{int 1 100}},\n        \"status\": \"{{oneOf (array 'sent' 'closed' 'dismissed')}}\",\n        \"summary\": null,\n        \"body\": \"<Content>\",\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"agent_id\": {{int 1 20}},\n        \"status_updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"organization_id\": {{int 1 10}},\n        \"sent_at\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"account_id\": 1,\n        \"subject\": \"{{oneOf (array 'LOW' 'HIGH' 'CRITICAL')}} - Incident on {{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n        \"created_by_id\": null,\n        \"remediation_instructions\": null,\n        \"footholds\": \"<Content>\",\n        \"notes\": \"<Content>\",\n        \"severity\": \"{{oneOf (array 'low' 'high' 'critical')}}\",\n        \"assigned_to_id\": null,\n        \"closed_at\": null,\n        \"indicator_types\": {{{someOf (array 'footholds' 'monitored_files' 'process_detections' 'ransomware_canaries' 'antivirus_detections') 1 4 true}}},\n        \"indicator_counts\": {\n            \"footholds\": {{int 0 2}},\n            \"monitored_files\": {{int 0 2}},\n            \"process_detections\": {{int 0 2}},\n            \"ransomware_canaries\": {{int 0 2}},\n            \"antivirus_detections\": {{int 0 2}}\n        },\n        \"details\": {}\n      },\n      {{/repeat}}\n      {\n        \"id\": 10,\n        \"status\": \"{{oneOf (array 'sent' 'closed' 'dismissed')}}\",\n        \"summary\": null,\n        \"body\": \"<Content>\",\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"agent_id\": {{int 1 20}},\n        \"status_updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"organization_id\": {{int 1 10}},\n        \"sent_at\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"account_id\": 1,\n        \"subject\": \"{{oneOf (array 'LOW' 'HIGH' 'CRITICAL')}} - Incident on {{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n        \"created_by_id\": null,\n        \"remediation_instructions\": null,\n        \"footholds\": \"<Content>\",\n        \"notes\": \"<Content>\",\n        \"severity\": \"{{oneOf (array 'low' 'high' 'critical')}}\",\n        \"assigned_to_id\": null,\n        \"closed_at\": null,\n        \"indicator_types\": {{{someOf (array 'footholds' 'monitored_files' 'process_detections' 'ransomware_canaries' 'antivirus_detections') 1 4 true}}},\n        \"indicator_counts\": {\n            \"footholds\": {{int 0 2}},\n            \"monitored_files\": {{int 0 2}},\n            \"process_detections\": {{int 0 2}},\n            \"ransomware_canaries\": {{int 0 2}},\n            \"antivirus_detections\": {{int 0 2}}\n        },\n        \"details\": {}\n      }\n    ],\n    \"pagination\": {\n      \"pagination\": {\n      \"current_page\": 1,\n      \"current_page_count\": 1,\n      \"limit\": 10,\n      \"total_count\": 20,\n      \"next_page\": 2,\n      \"next_page_url\": \"https://api.huntress.io/v1/incident_reports?page=2&limit=10\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Incident Reports Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7898545a-cd88-4311-9caf-e06d286b0550",
+      "documentation": "Returns data for a specific incident report.",
+      "method": "get",
+      "endpoint": "v1/incident_reports/:id",
+      "responses": [
+        {
+          "uuid": "253432c2-3a0e-4907-b23c-116a59c79295",
+          "body": "{\n    \"incident_report\": {\n        \"id\": {{int 1 100}},\n        \"status\": \"{{oneOf (array 'sent' 'closed' 'dismissed')}}\",\n        \"summary\": null,\n        \"body\": \"<Content>\",\n        \"updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"agent_id\": {{int 1 20}},\n        \"status_updated_at\": \"{{date '2022-06-01' '2022-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"organization_id\": {{int 1 10}},\n        \"sent_at\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"account_id\": 1,\n        \"subject\": \"{{oneOf (array 'LOW' 'HIGH' 'CRITICAL')}} - Incident on {{oneOf (array 'Laptop' 'Workstation' 'Desktop' 'Server')}}-{{faker 'word.adjective'}}\",\n        \"created_by_id\": null,\n        \"remediation_instructions\": null,\n        \"footholds\": \"<Content>\",\n        \"notes\": \"<Content>\",\n        \"severity\": \"{{oneOf (array 'low' 'high' 'critical')}}\",\n        \"assigned_to_id\": null,\n        \"closed_at\": null,\n        \"{{oneOf (array null 'low' 'high' 'critical')}}\",\n        \"indicator_types\": {{{someOf (array 'footholds' 'monitored_files' 'process_detections' 'ransomware_canaries' 'antivirus_detections') 1 4 true}}},\n        \"indicator_counts\": {\n            \"footholds\": {{int 0 2}},\n            \"monitored_files\": {{int 0 2}},\n            \"process_detections\": {{int 0 2}},\n            \"ransomware_canaries\": {{int 0 2}},\n            \"antivirus_detections\": {{int 0 2}}\n        },\n        \"details\": {}\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns data for a specific incident report.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "100d3f08-49ea-42b9-87ca-580ae07a2177",
+      "documentation": "Reports Endpoint",
+      "method": "get",
+      "endpoint": "v1/reports",
+      "responses": [
+        {
+          "uuid": "64b3e476-7302-45ff-8098-360548da5394",
+          "body": "{\n    \"reports\": [\n      {{#repeat 9}}\n      {\n        \"id\": {{int 1 100}},\n        \"type\": \"{{oneOf (array 'monthly_summary' 'quarterly_summary' 'yearly_summary')}}\",\n        \"period\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd\"}}...{{date '2022-06-28' '2022-06-30' \"yyyy-MM-dd\"}}\",\n        \"organization_id\": {{int 1 10}},\n        \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-07-01' '2022-07-03' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"url\": \"https://huntress.io/rails/active_storage/blobs/redirect/{{guid}}.pdf?disposition=download\"\n      },\n      {{/repeat}}\n      {\n        \"id\": 10,\n        \"type\": \"{{oneOf (array 'monthly_summary' 'quarterly_summary' 'yearly_summary')}}\",\n        \"period\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd\"}}...{{date '2022-06-28' '2022-06-30' \"yyyy-MM-dd\"}}\",\n        \"organization_id\": {{int 1 10}},\n        \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-07-01' '2022-07-03' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"url\": \"https://huntress.io/rails/active_storage/blobs/redirect/{{guid}}.pdf?disposition=download\"\n      }\n    ],\n    \"pagination\": {\n      \"pagination\": {\n      \"current_page\": 1,\n      \"current_page_count\": 1,\n      \"limit\": 10,\n      \"total_count\": 20,\n      \"next_page\": 2,\n      \"next_page_url\": \"https://api.huntress.io/v1/reports?page=2&limit=10\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Reports Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5e000c10-c3c3-4d34-ace9-4bfea1a3fa5c",
+      "documentation": "Returns data for a specific report.",
+      "method": "get",
+      "endpoint": "v1/reports/:id",
+      "responses": [
+        {
+          "uuid": "5f7f7dca-ae67-4c06-812e-4db991c26d23",
+          "body": "{\n    \"report\": {\n      \"id\": {{int 1 100}},\n      \"type\": \"{{oneOf (array 'monthly_summary' 'quarterly_summary' 'yearly_summary')}}\",\n      \"period\": \"{{date '2022-05-28' '2022-05-30' \"yyyy-MM-dd\"}}...{{date '2022-06-28' '2022-06-30' \"yyyy-MM-dd\"}}\",\n      \"organization_id\": {{int 1 10}},\n      \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n      \"updated_at\": \"{{date '2022-07-01' '2022-07-03' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n      \"url\": \"https://huntress.io/rails/active_storage/blobs/redirect/{{guid}}.pdf?disposition=download\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns data for a specific report.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "05614def-07e9-49b3-aaa9-5f7eff45274e",
+      "documentation": "Billing Reports Endpoint",
+      "method": "get",
+      "endpoint": "v1/billing_reports",
+      "responses": [
+        {
+          "uuid": "4cf2997a-64eb-4ac2-a2a0-a38149a1dc5a",
+          "body": "{\n    \"billing_reports\": [\n      {{#repeat 9}}\n      {\n        \"id\": {{int 1 9}},\n        \"plan\": \"{{oneOf (array 'Huntress Partner Pay As You Go' 'Huntress Partner 100 Agents' 'Huntress Partner 200 Agents' 'Huntress Partner 300 Agents')}}\",\n        \"quantity\": {{int 50 400}},\n        \"amount\": {{int 150 900}},\n        \"currency_type\": \"{{oneOf (array 'USD' 'AUD' 'CAD')}}\",\n        \"receipt\": \"https://pay.stripe/com/invoice/invst_{{guid}}\",\n        \"status\": \"{{oneOf (array 'open' 'paid' 'failed' 'partial_refund' 'full_refund')}}\",\n        \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-05-29' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n      },\n      {{/repeat}}\n      {\n        \"id\": 10,\n        \"plan\": \"{{oneOf (array 'Huntress Partner Pay As You Go' 'Huntress Partner 100 Agents' 'Huntress Partner 200 Agents' 'Huntress Partner 300 Agents')}}\",\n        \"quantity\": {{int 50 400}},\n        \"amount\": {{int 150 900}},\n        \"currency_type\": \"{{oneOf (array 'USD' 'AUD' 'CAD')}}\",\n        \"receipt\": \"https://pay.stripe/com/invoice/invst_{{guid}}\",\n        \"status\": \"{{oneOf (array 'open' 'paid' 'failed' 'partial_refund' 'full_refund')}}\",\n        \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n        \"updated_at\": \"{{date '2022-05-29' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n      }\n    ],\n    \"pagination\": {\n      \"pagination\": {\n      \"current_page\": 1,\n      \"current_page_count\": 1,\n      \"limit\": 10,\n      \"total_count\": 20,\n      \"next_page\": 2,\n      \"next_page_url\": \"https://api.huntress.io/v1/billing_reports?page=2&limit=10\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Billing Reports Endpoint",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "72142a57-71d5-4a8a-bb17-179c00da4248",
+      "documentation": "Returns data for a specific billing report.",
+      "method": "get",
+      "endpoint": "v1/billing_reports/:id",
+      "responses": [
+        {
+          "uuid": "2d1c37f2-f441-44a4-a560-f51e1b25baff",
+          "body": "{\n    \"billing_report\": {\n      \"id\": {{int 1 9}},\n      \"plan\": \"{{oneOf (array 'Huntress Partner Pay As You Go' 'Huntress Partner 100 Agents' 'Huntress Partner 200 Agents' 'Huntress Partner 300 Agents')}}\",\n      \"quantity\": {{int 50 400}},\n      \"amount\": {{int 150 900}},\n      \"currency_type\": \"{{oneOf (array 'USD' 'AUD' 'CAD')}}\",\n      \"receipt\": \"https://pay.stripe/com/invoice/invst_{{guid}}\",\n      \"status\": \"{{oneOf (array 'open' 'paid' 'failed' 'partial_refund' 'full_refund')}}\",\n      \"created_at\": \"{{date '2022-05-27' '2022-05-28' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\",\n      \"updated_at\": \"{{date '2022-05-29' '2022-05-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n    }\n}\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns data for a specific billing report.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-huntress-api-call-limit",
+              "value": "60"
+            },
+            {
+              "key": "x-huntress-api-call-remaining",
+              "value": "55"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Authorization",
+      "value": "Basic {{base64 'hk_1kjlkn112lknlk2222lk:hs_4343fffdjvnekjve44444fdvdfvdf222frrf4'}}"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

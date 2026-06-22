@@ -1,0 +1,10 @@
+services:
+  mockoon:
+    build:
+      context: ../..
+      dockerfile: tests/docker/Dockerfile
+    container_name: dd-test-huntress-mockoon
+    volumes:
+      - ../data/huntress_mockoon.json:/data/huntress_mockoon.json:ro
+    ports:
+      - "3002:3002"

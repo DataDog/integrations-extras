@@ -1,0 +1,133 @@
+name: Huntress
+files:
+  - name: huntress.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/default
+          - name: request_timeout
+            description: |
+              HTTP request timeout in seconds applied to all Huntress API calls.
+              Increase this if the Huntress SIEM API is slow to respond on large queries.
+            value:
+              type: number
+              example: 30
+              default: 30
+      - template: instances
+        options:
+          - template: instances/default
+            overrides:
+              min_collection_interval.value.default: 900
+              min_collection_interval.value.example: 900
+          - name: huntress_api_key
+            required: true
+            secret: true
+            description: |
+              Huntress public API key. Obtain from the Huntress Partner Portal under
+              Settings > API Credentials. Each instance uses its own key pair, enabling
+              multiple Huntress accounts to feed into the same Datadog organization.
+            value:
+              type: string
+              example: <HUNTRESS_API_KEY>
+          - name: huntress_secret_key
+            required: true
+            secret: true
+            description: |
+              Huntress private (secret) API key paired with huntress_api_key.
+            value:
+              type: string
+              example: <HUNTRESS_SECRET_KEY>
+          - name: log_queries
+            description: |
+              List of ES|QL queries to execute against the Huntress SIEM API. Each entry
+              requires an esql_query string (must begin with "FROM logs", case-insensitive)
+              and an optional tags list attached only to logs produced by that query.
+              Multiple queries run independently with separate checkpoints, enabling
+              targeted collection for different log types within the same account.
+              Do not add time range filters — range_start and range_end are managed
+              automatically by the check.
+
+              IMPORTANT: Always include a KEEP clause to select the fields you want.
+              Despite what the Huntress API documentation states, queries without an
+              explicit KEEP clause return only uuid and organization_id — not all fields.
+              Example: FROM logs | KEEP @timestamp, message, host.hostname, event.category,
+              event.code, event.provider, event.id, user.target.name, user.target.domain,
+              winlog.system.EventID
+            value:
+              type: array
+              items:
+                type: object
+                properties:
+                  - name: name
+                    type: string
+                  - name: esql_query
+                    type: string
+                  - name: tags
+                    type: array
+                    items:
+                      type: string
+              example:
+                - name: "windows-security-events"
+                  esql_query: "FROM logs | KEEP @timestamp, message, host.hostname, event.category, event.code, event.provider, event.id, user.target.name, user.target.domain, winlog.system.EventID"
+                  tags:
+                    - "log_type:windows"
+          - name: enrich_with_org_tags
+            description: |
+              When true, the check fetches Huntress organization metadata (org name,
+              org key, account ID) and attaches it as log tags. The org cache is
+              refreshed according to org_cache_ttl_seconds.
+            value:
+              type: boolean
+              example: true
+              default: true
+          - name: org_cache_ttl_seconds
+            description: |
+              How long (in seconds) to cache organization metadata before re-fetching
+              from the Huntress API. Set to 0 to refresh on every run.
+            value:
+              type: integer
+              example: 3600
+              default: 3600
+          - name: max_pages_per_run
+            description: |
+              Maximum number of result pages to fetch per query per run. Each page
+              contains up to 200 log events. Protects against runaway pagination on
+              large backlogs. If this cap is hit, the checkpoint does not advance and
+              remaining pages are fetched on the next run.
+            value:
+              type: integer
+              example: 100
+              default: 100
+          - name: huntress_base_url
+            description: |
+              Huntress API base URL. Override for sandbox or testing environments.
+            value:
+              type: string
+              example: "https://api.huntress.io"
+              default: "https://api.huntress.io"
+          - name: metrics
+            description: |
+              Controls which Huntress data is collected as Datadog metrics beyond the
+              standard SIEM run metrics. Omit this section to disable additional metric
+              collection (logs-only instance). Configure a separate instance with only
+              this section and different API credentials to isolate the agent metrics
+              API call budget from SIEM log collection.
+            value:
+              type: object
+              properties:
+                - name: agents
+                  type: object
+                  properties:
+                    - name: enabled
+                      type: boolean
+                    - name: max_pages
+                      type: integer
+              example:
+                agents:
+                  enabled: true
+                  max_pages: 20
+      - template: logs
+        example:
+          - type: integration
+            source: huntress
+            service: huntress
