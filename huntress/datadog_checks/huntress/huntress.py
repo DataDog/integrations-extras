@@ -405,9 +405,11 @@ class HuntressCheck(AgentCheck):
                         attempt_429 += 1
                         continue
                     self.count("huntress.siem.errors", 1, tags=["error_type:rate_limited"])
-                    raise Exception(
-                        "Huntress API 429 Rate Limited after retry — reduce max_pages_per_run or increase min_collection_interval"
+                    exceptionText = (
+                        "Huntress API 429 Rate Limited after retry — "
+                        "reduce max_pages_per_run or increase min_collection_interval"
                     )
+                    raise Exception(exceptionText)
 
                 if 500 <= resp.status_code < 600:
                     if attempt < max_retries_5xx:
