@@ -287,15 +287,15 @@ tests:
             uuid: "5351804D-6C9C-4AFC-91C2-D20DFB71520F"
           facts:
            -
-            severity: 0
-            name: "LoginWindow Activity"
             actions:
              -
               name: "Report"
             human: "LoginWindow Activity"
-            uuid: "1302521B-F290-4226-994B-1E7B703818B2"
+            name: "LoginWindow Activity"
+            severity: 0
             tags:
              - "LoginWindow"
+            uuid: "1302521B-F290-4226-994B-1E7B703818B2"
           severity: 0
           tags:
            - "LoginWindow"
@@ -675,11 +675,10 @@ tests:
             name: "CacheFile"
           context:
            -
-            valueType: "String"
             name: "Signer"
             value: "1"
-           -
             valueType: "String"
+           -
             name: "BundleURLTypes"
             value: |-
               {
@@ -713,6 +712,7 @@ tests:
                       "msal535d1baf-a26f-4c40-82af-ddf3e1aaebe2"
                   );
               }
+            valueType: "String"
           custom: false
           event:
             dev: 16777220
@@ -728,10 +728,13 @@ tests:
             uuid: "5E8CD58C-3E93-493C-8AE5-7F0825320D3C"
           facts:
            -
-            severity: 0
+            actions:
+             -
+              name: "Report"
+             -
+              name: "CacheFile"
             context:
              -
-              valueType: "String"
               name: "BundleURLTypes"
               value: |-
                 {
@@ -765,21 +768,18 @@ tests:
                         "msal535d1baf-a26f-4c40-82af-ddf3e1aaebe2"
                     );
                 }
-             -
               valueType: "String"
+             -
               name: "Signer"
               value: "1"
-            name: "CustomURLHandlerCreation"
-            actions:
-             -
-              name: "Report"
-             -
-              name: "CacheFile"
+              valueType: "String"
             human: "Application that uses custom url handler created"
-            uuid: "25A295CA-F4B3-4F78-8FAA-80E9182645F1"
-            version: 1
+            name: "CustomURLHandlerCreation"
+            severity: 0
             tags:
              - "Visibility"
+            uuid: "25A295CA-F4B3-4F78-8FAA-80E9182645F1"
+            version: 1
           severity: 0
           tags:
            - "Visibility"
@@ -787,132 +787,132 @@ tests:
         related:
           binaries:
            -
-            isDownload: false
+            accessed: 1694870910
+            changed: 1694870910
+            created: 1694870910
+            fsid: 16777220
             gid: 0
+            inode: 1152921500312338600
+            isAppBundle: false
+            isDirectory: false
+            isDownload: false
+            isScreenShot: false
+            mode: 33261
+            modified: 1694870910
+            objectType: "GPSystemObject"
+            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/shove"
+            sha1hex: "926f85c4638a65e96660306a5c2969bee093b0d7"
+            sha256hex: "cef7dbe4c7016a90b0234310751e5bf90362fdb490b3072bf31c319a21362091"
             signingInfo:
-              informationStage: "extended"
               appid: "com.apple.shove"
-              teamid: ""
-              signerType: 0
               authorities:
                - "Software Signing"
                - "Apple Code Signing Certification Authority"
                - "Apple Root CA"
               cdhash: "qFnUqCDcaIaYPLT6sq5arHVRTGU="
-              statusMessage: "No error."
-              status: 0
-            sha1hex: "926f85c4638a65e96660306a5c2969bee093b0d7"
-            created: 1694870910
-            accessed: 1694870910
-            objectType: "GPSystemObject"
-            inode: 1152921500312338600
-            mode: 33261
-            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/shove"
-            uid: 0
-            size: 169872
-            isAppBundle: false
-            fsid: 16777220
-            isScreenShot: false
-            modified: 1694870910
-            isDirectory: false
-            changed: 1694870910
-            sha256hex: "cef7dbe4c7016a90b0234310751e5bf90362fdb490b3072bf31c319a21362091"
-           -
-            isDownload: false
-            gid: 0
-            signingInfo:
               informationStage: "extended"
-              appid: "com.apple.installd"
-              teamid: ""
               signerType: 0
+              status: 0
+              statusMessage: "No error."
+              teamid: ""
+            size: 169872
+            uid: 0
+           -
+            accessed: 1694870910
+            changed: 1694870910
+            created: 1694870910
+            fsid: 16777220
+            gid: 0
+            inode: 1152921500312338600
+            isAppBundle: false
+            isDirectory: false
+            isDownload: false
+            isScreenShot: false
+            mode: 33261
+            modified: 1694870910
+            objectType: "GPSystemObject"
+            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/installd"
+            sha1hex: "77ed2e5cd9ddbf875b34f66b1f557c87c4cba019"
+            sha256hex: "6fd7889dd1f7b8d23575d38e42f1471885c0eaabd3b861ba9cd39cc915bc7fab"
+            signingInfo:
+              appid: "com.apple.installd"
               authorities:
                - "Software Signing"
                - "Apple Code Signing Certification Authority"
                - "Apple Root CA"
               cdhash: "IxnuXBpC3LbYIa7aEyeVEbwA4EA="
-              statusMessage: "No error."
-              status: 0
-            sha1hex: "77ed2e5cd9ddbf875b34f66b1f557c87c4cba019"
-            created: 1694870910
-            accessed: 1694870910
-            objectType: "GPSystemObject"
-            inode: 1152921500312338600
-            mode: 33261
-            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/installd"
-            uid: 0
-            size: 170768
-            isAppBundle: false
-            fsid: 16777220
-            isScreenShot: false
-            modified: 1694870910
-            isDirectory: false
-            changed: 1694870910
-            sha256hex: "6fd7889dd1f7b8d23575d38e42f1471885c0eaabd3b861ba9cd39cc915bc7fab"
-           -
-            isDownload: false
-            gid: 0
-            signingInfo:
               informationStage: "extended"
-              appid: "com.apple.appstoreagent"
-              teamid: ""
               signerType: 0
+              status: 0
+              statusMessage: "No error."
+              teamid: ""
+            size: 170768
+            uid: 0
+           -
+            accessed: 1694870910
+            changed: 1694870910
+            created: 1694870910
+            fsid: 16777220
+            gid: 0
+            inode: 1152921500312272500
+            isAppBundle: false
+            isDirectory: false
+            isDownload: false
+            isScreenShot: false
+            mode: 33261
+            modified: 1694870910
+            objectType: "GPSystemObject"
+            path: "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
+            sha1hex: "8bbb0d63013ef49a91ba21f4b444500b50eacbb4"
+            sha256hex: "b889e42e0ce42e95f562734747c29daa025cc68aa90b437c3776911a035c5cda"
+            signingInfo:
+              appid: "com.apple.appstoreagent"
               authorities:
                - "Software Signing"
                - "Apple Code Signing Certification Authority"
                - "Apple Root CA"
               cdhash: "TTJop1RfQMDz/9Qea+ZkMnglX2k="
-              statusMessage: "No error."
+              informationStage: "extended"
+              signerType: 0
               status: 0
-            sha1hex: "8bbb0d63013ef49a91ba21f4b444500b50eacbb4"
-            created: 1694870910
-            accessed: 1694870910
-            objectType: "GPSystemObject"
-            inode: 1152921500312272500
-            mode: 33261
-            path: "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
-            uid: 0
+              statusMessage: "No error."
+              teamid: ""
             size: 10927456
-            isAppBundle: false
-            fsid: 16777220
-            isScreenShot: false
-            modified: 1694870910
-            isDirectory: false
-            changed: 1694870910
-            sha256hex: "b889e42e0ce42e95f562734747c29daa025cc68aa90b437c3776911a035c5cda"
+            uid: 0
           files:
            -
-            isDownload: false
+            accessed: 1698111995
+            changed: 1698777693
+            created: 1698111995
+            fsid: 16777220
             gid: 0
+            inode: 1042830981
+            isAppBundle: true
+            isDirectory: true
+            isDownload: false
+            isScreenShot: false
+            mode: 16877
+            modified: 1698111995
+            objectType: "GPSystemObject"
+            path: "/Applications/Notability.app"
+            sha1hex: ""
+            sha256hex: ""
             signingInfo:
-              informationStage: "extended"
               appid: "com.gingerlabs.Notability"
-              teamid: "ZP9ZJ4EF3S"
-              signerType: 1
               authorities:
                - "Apple Mac OS Application Signing"
                - "Apple Worldwide Developer Relations Certification Authority"
                - "Apple Root CA"
               cdhash: "Wav623Wy9m3YgLPqnNSDUvdbl4E="
-              statusMessage: "No error."
+              informationStage: "extended"
+              signerType: 1
               status: 0
-            sha1hex: ""
-            created: 1698111995
-            accessed: 1698111995
-            objectType: "GPSystemObject"
-            inode: 1042830981
-            mode: 16877
-            path: "/Applications/Notability.app"
-            uid: 0
+              statusMessage: "No error."
+              teamid: "ZP9ZJ4EF3S"
             size: 96
-            isAppBundle: true
-            fsid: 16777220
+            uid: 0
             xattrs:
              - "com.apple.appstore.metadata"
-            isScreenShot: false
-            modified: 1698111995
-            isDirectory: true
-            changed: 1698777693
-            sha256hex: ""
           groups:
            -
             gid: 0
@@ -924,25 +924,6 @@ tests:
             uuid: "C02FL155MD6M14"
           processes:
            -
-            gid: 0
-            signingInfo:
-              informationStage: "extended"
-              appid: "com.apple.shove"
-              teamid: ""
-              signerType: 0
-              authorities:
-               - "Software Signing"
-               - "Apple Code Signing Certification Authority"
-               - "Apple Root CA"
-              cdhash: "qFnUqCDcaIaYPLT6sq5arHVRTGU="
-              statusMessage: "No error."
-              status: 0
-            rgid: 0
-            pgid: 29993
-            pid: 29993
-            ruid: 0
-            uuid: "BE40DCBE-069A-4F69-93B1-0AB046717713"
-            ppid: 831
             args:
              - "/System/Library/PrivateFrameworks/PackageKit.framework/Resources/shove"
              - "-f"
@@ -951,81 +932,100 @@ tests:
              - "Applications/Notability.app"
              - "/Library/InstallerSandboxes/.PKInstallSandboxManager/B94EACDA-EF4E-4D0D-89F4-1D69A7E47CCF.activeSandbox/Root"
              - "/"
-            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/shove"
-            uid: 0
-            originalParentPID: 831
-            responsiblePID: 835
-            name: "shove"
             exitCode: 0
+            gid: 0
+            name: "shove"
+            originalParentPID: 831
+            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/shove"
+            pgid: 29993
+            pid: 29993
+            ppid: 831
             processIdentifier: 13372855
             processType: "GPSystemObject"
-            startTimestamp: 1698777694
-           -
-            gid: 0
+            responsiblePID: 835
+            rgid: 0
+            ruid: 0
             signingInfo:
+              appid: "com.apple.shove"
+              authorities:
+               - "Software Signing"
+               - "Apple Code Signing Certification Authority"
+               - "Apple Root CA"
+              cdhash: "qFnUqCDcaIaYPLT6sq5arHVRTGU="
               informationStage: "extended"
-              appid: "com.apple.installd"
-              teamid: ""
               signerType: 0
+              status: 0
+              statusMessage: "No error."
+              teamid: ""
+            startTimestamp: 1698777694
+            uid: 0
+            uuid: "BE40DCBE-069A-4F69-93B1-0AB046717713"
+           -
+            args:
+             - "/System/Library/PrivateFrameworks/PackageKit.framework/Resources/installd"
+            gid: 0
+            name: "installd"
+            originalParentPID: 1
+            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/installd"
+            pgid: 831
+            pid: 831
+            ppid: 1
+            processIdentifier: 1982
+            processType: "GPSystemObject"
+            responsiblePID: 835
+            rgid: 0
+            ruid: 0
+            signingInfo:
+              appid: "com.apple.installd"
               authorities:
                - "Software Signing"
                - "Apple Code Signing Certification Authority"
                - "Apple Root CA"
               cdhash: "IxnuXBpC3LbYIa7aEyeVEbwA4EA="
-              statusMessage: "No error."
-              status: 0
-            rgid: 0
-            pgid: 831
-            pid: 831
-            ruid: 0
-            uuid: "6B7192A1-976A-4BF1-AC03-046908543C67"
-            ppid: 1
-            args:
-             - "/System/Library/PrivateFrameworks/PackageKit.framework/Resources/installd"
-            path: "/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/installd"
-            uid: 0
-            originalParentPID: 1
-            responsiblePID: 835
-            name: "installd"
-            processIdentifier: 1982
-            processType: "GPSystemObject"
-            startTimestamp: 1697719388
-           -
-            gid: 20
-            signingInfo:
               informationStage: "extended"
-              appid: "com.apple.appstoreagent"
-              teamid: ""
               signerType: 0
+              status: 0
+              statusMessage: "No error."
+              teamid: ""
+            startTimestamp: 1697719388
+            uid: 0
+            uuid: "6B7192A1-976A-4BF1-AC03-046908543C67"
+           -
+            args:
+             - "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
+            gid: 20
+            name: "appstoreagent"
+            path: "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
+            pgid: 835
+            pid: 835
+            processIdentifier: 2001
+            processType: "GPSystemObject"
+            responsiblePID: 835
+            rgid: 20
+            ruid: 502
+            signingInfo:
+              appid: "com.apple.appstoreagent"
               authorities:
                - "Software Signing"
                - "Apple Code Signing Certification Authority"
                - "Apple Root CA"
               cdhash: "TTJop1RfQMDz/9Qea+ZkMnglX2k="
-              statusMessage: "No error."
+              informationStage: "extended"
+              signerType: 0
               status: 0
-            rgid: 20
-            pgid: 835
-            pid: 835
-            ruid: 502
-            uuid: "80837E49-FF73-4DF2-BF45-BC792A0089F8"
-            args:
-             - "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
-            path: "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent"
-            uid: 502
-            responsiblePID: 835
-            name: "appstoreagent"
-            processIdentifier: 2001
-            processType: "GPSystemObject"
+              statusMessage: "No error."
+              teamid: ""
             startTimestamp: 1697719388
+            uid: 502
+            uuid: "80837E49-FF73-4DF2-BF45-BC792A0089F8"
           users:
            -
-            uid: 0
             name: "root"
+            uid: 0
             uuid: "C02FL155MD6M0"
            -
-            uid: 502
             name: "matthew.ward"
+            uid: 502
             uuid: "C02FL155MD6M1f6"
       network:
         client:

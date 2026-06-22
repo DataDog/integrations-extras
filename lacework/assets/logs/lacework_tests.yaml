@@ -105,71 +105,71 @@ tests:
         EVENT_DETAILS:
           data:
            -
-            START_TIME: "2019-11-06T18:00:00Z"
             END_TIME: "2019-11-06T19:00:00Z"
-            EVENT_MODEL: "CloudTrailCep"
-            EVENT_TYPE: "IAMPolicyChanged"
             ENTITY_MAP:
-              Resource:
+              API:
                -
-                VALUE: "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+                API: "AttachUserPolicy"
+                SERVICE: "iam.amazonaws.com"
                 mapConfig:
-                  VALUE: "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-                  NAME: "policyArn"
-                NAME: "policyArn"
+                  API: "AttachUserPolicy"
+                  SERVICE: "iam.amazonaws.com"
                -
-                VALUE: "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+                API: "DetachUserPolicy"
+                SERVICE: "iam.amazonaws.com"
                 mapConfig:
-                  VALUE: "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-                  NAME: "policyArn"
-                NAME: "policyArn"
-               -
-                VALUE: "demowed06nov19180003"
-                mapConfig:
-                  VALUE: "demowed06nov19180003"
-                  NAME: "userName"
-                NAME: "userName"
-               -
-                VALUE: "demowed06nov19183002"
-                mapConfig:
-                  VALUE: "demowed06nov19183002"
-                  NAME: "userName"
-                NAME: "userName"
+                  API: "DetachUserPolicy"
+                  SERVICE: "iam.amazonaws.com"
               Region:
                -
                 ACCOUNT_LIST:
                  - "631664038012"
+                REGION: "us-east-1"
                 mapConfig:
                   ACCOUNT_LIST:
                    - "631664038012"
                   REGION: "us-east-1"
-                REGION: "us-east-1"
-              API:
+              Resource:
                -
-                SERVICE: "iam.amazonaws.com"
-                API: "AttachUserPolicy"
+                NAME: "policyArn"
+                VALUE: "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
                 mapConfig:
-                  SERVICE: "iam.amazonaws.com"
-                  API: "AttachUserPolicy"
+                  NAME: "policyArn"
+                  VALUE: "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
                -
-                SERVICE: "iam.amazonaws.com"
-                API: "DetachUserPolicy"
+                NAME: "policyArn"
+                VALUE: "arn:aws:iam::aws:policy/AmazonS3FullAccess"
                 mapConfig:
-                  SERVICE: "iam.amazonaws.com"
-                  API: "DetachUserPolicy"
+                  NAME: "policyArn"
+                  VALUE: "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+               -
+                NAME: "userName"
+                VALUE: "demowed06nov19180003"
+                mapConfig:
+                  NAME: "userName"
+                  VALUE: "demowed06nov19180003"
+               -
+                NAME: "userName"
+                VALUE: "demowed06nov19183002"
+                mapConfig:
+                  NAME: "userName"
+                  VALUE: "demowed06nov19183002"
               SourceIpAddress:
                -
-                COUNTRY: "United States"
                 CITY: "Portland"
+                COUNTRY: "United States"
                 IP_ADDRESS: "34.220.57.225"
+                REGION: "Oregon"
                 mapConfig:
-                  COUNTRY: "United States"
                   CITY: "Portland"
+                  COUNTRY: "United States"
                   IP_ADDRESS: "34.220.57.225"
                   REGION: "Oregon"
-                REGION: "Oregon"
             EVENT_ACTOR: "Aws"
             EVENT_ID: "24421"
+            EVENT_MODEL: "CloudTrailCep"
+            EVENT_TYPE: "IAMPolicyChanged"
+            START_TIME: "2019-11-06T18:00:00Z"
         EVENT_ID: 24421
         EVENT_NAME: "IAM Policy Changed"
         EVENT_TYPE: "IAMPolicyChanged"

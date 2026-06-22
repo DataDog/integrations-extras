@@ -149,6 +149,9 @@ class CloudsmithCheck(AgentCheck):
         # Org-wide realtime bandwidth toggle
         self.enable_realtime_bandwidth = self.instance.get("enable_realtime_bandwidth", False)
 
+        # Limit analytics to billable requests only (default: True)
+        self.analytics_billable_only = bool(self.instance.get("billable_only", True))
+
         # Parse and validate bandwidth profiles
         self.bandwidth_profiles = self.instance.get("bandwidth_profiles", [])
         self._validate_bandwidth_profiles()
@@ -251,6 +254,7 @@ class CloudsmithCheck(AgentCheck):
             ("interval", self.bandwidth_interval),
             ("aggregate", aggregate),
             ("start_time", start_str),
+            ("billable_only", str(self.analytics_billable_only)),
         ]
 
         if filters:
