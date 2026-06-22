@@ -203,3 +203,4 @@ For questions and support, [contact Datadog support][2].
 [2]: https://docs.datadoghq.com/help/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/huntress/service_checks.json
 [4]: https://github.com/DataDog/integrations-extras/blob/master/huntress/datadog_checks/huntress/data/conf.yaml.example
+[5]: https://www.huntress.com/
