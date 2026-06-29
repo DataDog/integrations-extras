@@ -26,8 +26,7 @@ on:
         description: "Print what would be released without pushing tags or starting builds"
         required: false
         type: boolean
-        # TODO: flip back to false once agent-integration-wheels-release is updated to handle the new payload
-        default: true
+        default: false
       ddev-version:
         description: "ddev version, pinned by default."
         required: false
@@ -64,7 +63,7 @@ jobs:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
       source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
-      dry-run: ${{ inputs.dry-run || true }}  # TODO: flip back to false
+      dry-run: ${{ inputs.dry-run }}
       ddev-version: ${{ inputs.ddev-version || '' }}
       is-stable-release: ${{ needs.context.outputs.is-stable-release }}
     permissions:
