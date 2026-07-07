@@ -1265,3 +1265,31 @@ def test_org_bandwidth_poll_throttled_by_interval(
     check.check(None)
     assert "cloudsmith.bandwidth.bytes_downloaded" not in aggregator._metrics
     assert "cloudsmith.bandwidth.request_count" not in aggregator._metrics
+
+
+def test_analytics_url_includes_billable_only_true_by_default(instance_with_profiles, analytics_response_bytes):
+    """Analytics URL should include billable_only=True when no billable_only key is configured."""
+    check = CloudsmithCheck('cloudsmith', {}, [instance_with_profiles])
+    _mock_non_analytics(check)
+    check.get_api_json = MagicMock(return_value=analytics_response_bytes)
+
+    check.check(None)
+
+    assert check.get_api_json.call_count >= 1
+    called_url = check.get_api_json.call_args[0][0]
+    assert "billable_only=True" in called_url
+
+
+def test_analytics_url_billable_only_false_when_configured(instance_with_profiles, analytics_response_bytes):
+    """Analytics URL should include billable_only=False when billable_only is explicitly set to False."""
+    instance = dict(instance_with_profiles)
+    instance['billable_only'] = False
+    check = CloudsmithCheck('cloudsmith', {}, [instance])
+    _mock_non_analytics(check)
+    check.get_api_json = MagicMock(return_value=analytics_response_bytes)
+
+    check.check(None)
+
+    assert check.get_api_json.call_count >= 1
+    called_url = check.get_api_json.call_args[0][0]
+    assert "billable_only=False" in called_url
