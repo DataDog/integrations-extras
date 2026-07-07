@@ -31,13 +31,11 @@ The Datadog integration for Vercel is installed from the Vercel Marketplace.
 
 On the **Configure Vercel for Serverless** page, complete the following steps:
 
-1. **Confirm your organization** - If you belong to multiple Datadog organizations, select which one to connect to your Vercel account.
+1. **Select API Key** - Select **Create New** to create a dedicated key for this integration, or choose an existing API key.
 
-2. **Select API Key** - Select **Create New** to create a dedicated key for this integration, or choose an existing API key.
+2. **Enable Vercel Log Drain for Log Management** - Toggle **Log Drain** on to forward logs from your Vercel apps to Datadog. Set the sampling percentage (1-100%) for the share of logs to forward.
 
-3. **Enable Vercel Log Drain for Log Management** - Toggle **Log Drain** on to forward logs from your Vercel apps to Datadog. Set the sampling percentage (1-100%) for the share of logs to forward.
-
-4. **Set Log Sources** - Select which Vercel log sources to forward. At least one is required:
+3. **Set Log Sources** - Select which Vercel log sources to forward. At least one is required:
    - **Static**: CDN and static asset request logs
    - **Lambda**: Serverless Function execution logs
    - **Build**: Build output logs
@@ -47,11 +45,11 @@ On the **Configure Vercel for Serverless** page, complete the following steps:
 
    **Note:** To ensure metrics are collected, Datadog recommends enabling **Lambda** logs and **Static** logs. Enabling **Build** logs is recommended if you want to collect build metrics.
 
-5. **Set Log Environment** - Select **Production**, **Preview**, or both. At least one is required.
+4. **Set Log Environment** - Select **Production**, **Preview**, or both. At least one is required.
 
-6. **Enable Vercel Trace Drain for APM** - Toggle **Trace Drain** on to forward traces from your Vercel apps to Datadog. Set the sampling percentage (1-100%).
+5. **Enable Vercel Trace Drain for APM** - Toggle **Trace Drain** on to forward traces from your Vercel apps to Datadog. Set the sampling percentage (1-100%).
 
-7. Select **Add Integration**. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
+6. Select **Add Integration**. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
 
 **Note:** Vercel Log Drains and Trace Drains are billed by Vercel. See the Vercel documentation for [Log Drains][10] and [Trace Drains][13].
 
