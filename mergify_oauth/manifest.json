@@ -15,7 +15,7 @@
     "media": [
       {
         "media_type": "image",
-        "caption": "Mergify - Dashboard",
+        "caption": "Mergify - Merge Queue Stats",
         "image_url": "images/dashboard.png"
       }
     ],
@@ -30,7 +30,7 @@
   },
   "assets": {
     "dashboards": {
-      "Mergify Merge Queue Overview": "assets/dashboards/mergify_overview.json"
+      "Mergify - Merge Queue Stats": "assets/dashboards/mergify_merge_queue_stats.json"
     },
     "integration": {
       "source_type_name": "Mergify OAuth",
@@ -45,7 +45,25 @@
           "mergify.time_to_merge.median",
           "mergify.time_to_merge.mean",
           "mergify.queue_checks_outcome",
-          "mergify.queue_freeze.duration"
+          "mergify.queue.entered",
+          "mergify.queue.merged",
+          "mergify.queue.size.max",
+          "mergify.queue.batch_size.sum",
+          "mergify.queue.batch_size.count",
+          "mergify.queue.running_checks.max",
+          "mergify.queue.exit_reason",
+          "mergify.queue.check_outcome",
+          "mergify.queue.checks_retries.recovered",
+          "mergify.queue.checks_retries.not_recovered",
+          "mergify.queue.bisection.started",
+          "mergify.queue.total_queue_time.sum",
+          "mergify.queue.total_queue_time.count",
+          "mergify.queue.ci_runtime.sum",
+          "mergify.queue.ci_runtime.count",
+          "mergify.queue.idle.capacity.sum",
+          "mergify.queue.idle.schedule.sum",
+          "mergify.queue.idle.freeze.sum",
+          "mergify.queue.idle.count"
         ],
         "prefix": "mergify."
       },

@@ -1,0 +1,1260 @@
+{
+  "title": "Mergify - Merge Queue Stats",
+  "description": "Monitor your Mergify merge queue: how many pull requests flow through, how healthy the queue is, and how long pull requests wait. Filter by repository, branch, queue, and priority_rule to focus on a specific queue.",
+  "author_name": "Mergify",
+  "widgets": [
+    {
+      "id": 1730000000000000,
+      "definition": {
+        "title": "About Mergify",
+        "type": "group",
+        "layout_type": "ordered",
+        "show_title": true,
+        "widgets": [
+          {
+            "id": 1730000000000001,
+            "definition": {
+              "type": "image",
+              "url": "https://raw.githubusercontent.com/Mergifyio/logo/c2acfa2389524d13f677b15eb75b62393b47ac1a/mergify-brandmark-multi-bg.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 1730000000000002,
+            "definition": {
+              "type": "note",
+              "content": "Monitor your merge queue throughput, health, and performance. Filter by repository, branch, queue, and priority_rule using the variables above. Learn more at [Mergify](https://mergify.com).",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 10,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 2
+      }
+    },
+    {
+      "id": 1730000000000010,
+      "definition": {
+        "title": "Summary",
+        "type": "group",
+        "layout_type": "ordered",
+        "show_title": true,
+        "widgets": [
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.entered{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Entered",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 2832880792242728,
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.merged{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Merged",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 4282664986366556,
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q_m / q_e * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_m",
+                      "query": "sum:mergify.queue.merged{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_e",
+                      "query": "sum:mergify.queue.entered{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Merged Rate",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 5848736476869364,
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q_c / q_t * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_c",
+                      "query": "sum:mergify.queue.idle.capacity.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_t",
+                      "query": "sum:mergify.queue.total_queue_time.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Wait for CI",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 3746921278521028,
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "max",
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "max",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "max:mergify.queue.size.max{$repository, $branch, $queue, $priority_rule}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Max Queue Size",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 3754587502504523,
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "PR/day",
+              "precision": 1,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.merged{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "time": {
+                "live_span": "1d"
+              },
+              "title": "Throughput",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 4133104491409523,
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "min",
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q_sum / q_cnt / 60"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_sum",
+                      "query": "sum:mergify.queue.total_queue_time.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_cnt",
+                      "query": "sum:mergify.queue.total_queue_time.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Queue Time",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 780338222205876,
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "min",
+              "precision": 0,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "q_sum / q_cnt / 60"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_sum",
+                      "query": "sum:mergify.queue.ci_runtime.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_cnt",
+                      "query": "sum:mergify.queue.ci_runtime.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "CI Runtime",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 1025659776792451,
+            "layout": {
+              "x": 2,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 1,
+              "requests": [
+                {
+                  "aggregator": "sum",
+                  "formulas": [
+                    {
+                      "formula": "(q_failed + q_timeout) / q_total * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_failed",
+                      "query": "sum:mergify.queue.exit_reason{exit_reason:checks_failed, $repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_timeout",
+                      "query": "sum:mergify.queue.exit_reason{exit_reason:checks_timeout, $repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q_total",
+                      "query": "sum:mergify.queue.exit_reason{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "CI Failure Rate",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 7478170030211025,
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "definition": {
+        "layout_type": "ordered",
+        "show_title": true,
+        "title": "Queue Health",
+        "type": "group",
+        "widgets": [
+          {
+            "definition": {
+              "hide_total": false,
+              "legend": {
+                "type": "table"
+              },
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.exit_reason{$repository, $branch, $queue, $priority_rule} by {exit_reason}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "PR Exit Reasons",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "sunburst"
+            },
+            "id": 8378812252968383,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "hide_total": false,
+              "legend": {
+                "type": "table"
+              },
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "sum",
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.check_outcome{$repository, $branch, $queue, $priority_rule} by {outcome}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Batch Outcomes",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "sunburst"
+            },
+            "id": 599978772625536,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 6,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "horizontal",
+              "legend_size": "auto",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Recovered",
+                      "formula": "q_r"
+                    },
+                    {
+                      "alias": "Not Recovered",
+                      "formula": "q_n"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_r",
+                      "query": "sum:mergify.queue.checks_retries.recovered{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_n",
+                      "query": "sum:mergify.queue.checks_retries.not_recovered{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Checks Retries",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "sessions"
+              }
+            },
+            "id": 3937478659136088,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 0,
+              "y": 4
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "line",
+                  "formulas": [
+                    {
+                      "alias": "Failure Rate",
+                      "formula": "100 * (q_failed + q_timeout) / q_total"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_failed",
+                      "query": "sum:mergify.queue.exit_reason{exit_reason:checks_failed, $repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_timeout",
+                      "query": "sum:mergify.queue.exit_reason{exit_reason:checks_timeout, $repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_total",
+                      "query": "sum:mergify.queue.exit_reason{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "CI Failure Rate",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "%",
+                "max": "100",
+                "min": "0"
+              }
+            },
+            "id": 1929467465585204,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 6,
+              "y": 4
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Bisections",
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.bisection.started{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Batch Bisection Count",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "bisections"
+              }
+            },
+            "id": 5276758849313239,
+            "layout": {
+              "height": 3,
+              "width": 12,
+              "x": 0,
+              "y": 7
+            }
+          }
+        ]
+      },
+      "id": 8301081968188735,
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 11
+      }
+    },
+    {
+      "definition": {
+        "layout_type": "ordered",
+        "show_title": true,
+        "title": "Throughput",
+        "type": "group",
+        "widgets": [
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Entered",
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.entered{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Entered PRs",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "PRs"
+              }
+            },
+            "id": 6684404191815549,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Merged",
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "sum:mergify.queue.merged{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Merged PRs",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "PRs"
+              }
+            },
+            "id": 1801722304011057,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 6,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "line",
+                  "formulas": [
+                    {
+                      "alias": "Max Queue Size",
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "max:mergify.queue.size.max{$repository, $branch, $queue, $priority_rule}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Max Queue Size",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "PRs in queue"
+              }
+            },
+            "id": 1405311577127895,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 0,
+              "y": 3
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Avg Batch Size",
+                      "formula": "q_sum / q_cnt"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_sum",
+                      "query": "sum:mergify.queue.batch_size.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_cnt",
+                      "query": "sum:mergify.queue.batch_size.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Average Batch Size",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "PRs per batch"
+              }
+            },
+            "id": 7325479760010840,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 6,
+              "y": 3
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "line",
+                  "formulas": [
+                    {
+                      "alias": "Max Running Checks",
+                      "formula": "q1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q1",
+                      "query": "max:mergify.queue.running_checks.max{$repository, $branch, $queue}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Max Running Checks",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "concurrent checks"
+              }
+            },
+            "id": 1516323309667291,
+            "layout": {
+              "height": 3,
+              "width": 12,
+              "x": 0,
+              "y": 6
+            }
+          }
+        ]
+      },
+      "id": 5085147537935617,
+      "layout": {
+        "x": 0,
+        "y": 17,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "definition": {
+        "layout_type": "ordered",
+        "show_title": true,
+        "title": "Performance",
+        "type": "group",
+        "widgets": [
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "horizontal",
+              "legend_size": "4",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Wait for CI",
+                      "formula": "q_c / q_idle_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Schedule Wait",
+                      "formula": "q_s / q_idle_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "Freeze Wait",
+                      "formula": "q_f / q_idle_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "CI Runtime",
+                      "formula": "q_r / q_r_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_c",
+                      "query": "sum:mergify.queue.idle.capacity.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_s",
+                      "query": "sum:mergify.queue.idle.schedule.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_f",
+                      "query": "sum:mergify.queue.idle.freeze.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_r",
+                      "query": "sum:mergify.queue.ci_runtime.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_idle_cnt",
+                      "query": "sum:mergify.queue.idle.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_r_cnt",
+                      "query": "sum:mergify.queue.ci_runtime.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": true,
+              "title": "Time Breakdown",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": true,
+                "label": "duration"
+              }
+            },
+            "id": 8198146069224657,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Avg Queue Time",
+                      "formula": "q_sum / q_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_sum",
+                      "query": "sum:mergify.queue.total_queue_time.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_cnt",
+                      "query": "sum:mergify.queue.total_queue_time.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Average Queue Time",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": false,
+                "label": "duration"
+              }
+            },
+            "id": 5704060706232434,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 6,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "legend_columns": [
+                "avg",
+                "max"
+              ],
+              "legend_layout": "auto",
+              "legend_size": "0",
+              "requests": [
+                {
+                  "display_type": "bars",
+                  "formulas": [
+                    {
+                      "alias": "Avg CI Runtime",
+                      "formula": "q_sum / q_cnt",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "q_sum",
+                      "query": "sum:mergify.queue.ci_runtime.sum{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "q_cnt",
+                      "query": "sum:mergify.queue.ci_runtime.count{$repository, $branch, $queue, $priority_rule}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "show_legend": false,
+              "title": "Average CI Runtime",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
+              "yaxis": {
+                "include_zero": false,
+                "label": "duration"
+              }
+            },
+            "id": 1060316008208870,
+            "layout": {
+              "height": 3,
+              "width": 12,
+              "x": 0,
+              "y": 4
+            }
+          }
+        ]
+      },
+      "id": 8356133078709617,
+      "layout": {
+        "x": 0,
+        "y": 27,
+        "width": 12,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "available_values": [],
+      "default": "*",
+      "name": "repository",
+      "prefix": "repository"
+    },
+    {
+      "available_values": [],
+      "default": "*",
+      "name": "branch",
+      "prefix": "branch"
+    },
+    {
+      "available_values": [],
+      "default": "*",
+      "name": "queue",
+      "prefix": "queue"
+    },
+    {
+      "available_values": [],
+      "default": "*",
+      "name": "priority_rule",
+      "prefix": "priority_rule"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
