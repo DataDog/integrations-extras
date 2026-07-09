@@ -1,6 +1,5 @@
 import os
 
-
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 EXPECTED_PROMETHEUS_METRICS = [

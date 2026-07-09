@@ -1,12 +1,9 @@
-from unittest import mock
-
 import pytest
 
 from datadog_checks.base.constants import ServiceCheck
 from datadog_checks.dev.utils import get_metadata_metrics
-from datadog_checks.external_secrets import ExternalSecretsCheck
 
-from .common import EXPECTED_PROMETHEUS_METRICS, get_fixture_path
+from .common import EXPECTED_PROMETHEUS_METRICS
 
 
 @pytest.mark.e2e
