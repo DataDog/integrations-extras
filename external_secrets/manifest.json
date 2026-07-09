@@ -1,0 +1,66 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "f7a5b3c1-d8e2-4f6a-9b1c-3d4e5f6a7b8c",
+  "app_id": "external-secrets",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "The External Secrets Operator (ESO) synchronizes secrets from external providers into Kubernetes Secrets",
+    "title": "External Secrets",
+    "media": [],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Category::Alerting",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://external-secrets.io/"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 0,
+      "source_type_name": "External Secrets",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "external_secrets.",
+        "check": "external_secrets.externalsecret.status_condition",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "external-secrets-overview": "assets/dashboards/external_secrets_overview.json"
+    },
+    "monitors": {
+      "External Secrets not ready": "assets/monitors/external_secrets_not_ready.json",
+      "Secret Sync Errors": "assets/monitors/sync_errors.json",
+      "Provider API Errors": "assets/monitors/provider_api_errors.json",
+      "Workqueue Depth High": "assets/monitors/workqueue_depth.json"
+    }
+  },
+  "author": {
+    "support_email": "willianccs@gmail.com",
+    "name": "Willian Cesar Cincerre da Silva",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "willian@appoena.io"
+  }
+}

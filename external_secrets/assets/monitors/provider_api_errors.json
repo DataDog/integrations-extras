@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "title": "External Secrets Provider API Errors",
+  "tags": ["integration:external-secrets"],
+  "description": "This monitor alerts when API calls to external secret providers are failing, indicating connectivity or authentication issues.",
+  "definition": {
+    "name": "[External Secrets] Provider API Errors for {{provider.name}} ({{call.name}})",
+    "message": "Provider `{{provider.name}}` is returning errors for API call `{{call.name}}`. This indicates connectivity or authentication issues with the external secret provider.\n\nTo resolve:\n1. Verify the provider credentials in the SecretStore\n2. Check network connectivity to the provider API\n3. Review provider API rate limits",
+    "query": "sum(last_15m):sum:external_secrets.externalsecret.provider_api_calls.count{status:error} by {provider,call}.as_count() > 0",
+    "type": "query alert",
+    "options": {
+      "thresholds": {
+        "critical": 0
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "renotify_interval": 60,
+      "escalation_message": "",
+      "notify_no_data": false,
+      "avalanche_window": 10,
+      "enable_samples": true,
+      "groupby_simple_monitor": false,
+      "silenced": {}
+    }
+  }
+}

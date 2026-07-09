@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling>=0.13.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "datadog-external-secrets"
+description = "The External Secrets check"
+requires-python = ">=3.11"
+dependencies = ["datadog-checks-base>=37.0.0"]
+dynamic = ["version"]
+
+[tool.hatch.version]
+path = "datadog_checks/external_secrets/__about__.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["/datadog_checks", "/tests", "/manifest.json"]
+
+[tool.hatch.build.targets.wheel]
+include = ["/datadog_checks/external_secrets"]
+dev-mode-dirs = ["."]
