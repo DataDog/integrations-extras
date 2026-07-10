@@ -1,0 +1,153 @@
+{
+  "title": "Genesys Cloud MOS Overview",
+  "description": "Overview of Genesys Cloud conversation call quality (MOS).",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "Average MOS",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:genesys_mos.conversation.mos.avg{$region}"
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Conversations below threshold",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "sum:genesys_mos.conversation.below_threshold.count{$region}"
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": { "x": 3, "y": 0, "width": 3, "height": 2 }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "MOS quality (avg / worst)",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1", "alias": "avg" },
+              { "formula": "query2", "alias": "worst (min)" }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:genesys_mos.conversation.mos.avg{$region}"
+              },
+              {
+                "name": "query2",
+                "data_source": "metrics",
+                "query": "min:genesys_mos.conversation.mos.min{$region}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Conversation volume",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "sum:genesys_mos.conversation.count{$region}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": { "palette": "cool", "line_type": "solid", "line_width": "normal" },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 2, "width": 6, "height": 3 }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Conversations below threshold over time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "sum:genesys_mos.conversation.below_threshold.count{$region}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": { "palette": "warm", "line_type": "solid", "line_width": "normal" },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 2, "width": 6, "height": 3 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "region",
+      "prefix": "region",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

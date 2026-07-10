@@ -1,0 +1,57 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b7e0f6d2-3a4c-4d9e-8f1a-6c2e5d0b9a11",
+  "app_id": "genesys-mos",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Track Genesys Cloud conversation call quality (MOS) in Datadog.",
+    "title": "Genesys Cloud MOS",
+    "media": [],
+    "classifier_tags": [
+      "Category::Notifications",
+      "Category::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration"
+    ]
+  },
+  "author": {
+    "support_email": "ed.ferron@datadoghq.com",
+    "name": "Community",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "ed.ferron@datadoghq.com"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 100000000,
+      "source_type_name": "Genesys Cloud MOS",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "genesys_mos.",
+        "check": "genesys_mos.conversation.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Genesys Cloud MOS Overview": "assets/dashboards/genesys_mos_overview.json"
+    },
+    "monitors": {
+      "Low average MOS": "assets/monitors/low_average_mos.json"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+    "hatchling>=0.13.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "datadog-genesys-mos"
+description = "The Genesys Cloud MOS check"
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.12"
+keywords = [
+    "datadog",
+    "datadog agent",
+    "datadog check",
+    "genesys_mos",
+]
+authors = [
+    { name = "Community", email = "ed.ferron@datadoghq.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: BSD License",
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "datadog-checks-base>=32.0.0",
+]
+dynamic = [
+    "version",
+]
+
+[project.optional-dependencies]
+deps = [
+    "PureCloudPlatformClientV2==261.0.0",
+]
+
+[project.urls]
+Source = "https://github.com/DataDog/integrations-extras"
+
+[tool.hatch.version]
+path = "datadog_checks/genesys_mos/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/datadog_checks/genesys_mos",
+]
+dev-mode-dirs = [
+    ".",
+]
