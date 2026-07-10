@@ -2,10 +2,11 @@
 
 ## Overview
 
-This check reports [Genesys Cloud][1] conversation call-quality metrics -- the Mean
-Opinion Score (MOS) -- to Datadog.
+This check reports [Genesys Cloud][1] conversation call-quality metrics, the Mean
+Opinion Score (MOS), to Datadog.
 
-MOS is a measure of perceived call quality on a scale of roughly 1.0 (unusable) to ~4.9
+MOS is a measure of perceived call quality on a scale of roughly 1.0 (unusable) to
+approximately 4.9
 (toll quality). Genesys Cloud computes it per conversation and exposes it directly through
 the [Analytics Conversation Detail Query API][2] as the `mediaStatsMinConversationMos`
 dimension (the minimum MOS observed on the conversation). This check queries ended
@@ -110,13 +111,13 @@ Any other supported backend (for example `aws.secrets`, `azure.keyvault`, or a c
 
 [Run the Agent's status subcommand][9] and look for `genesys_mos` under the Checks section.
 
-## Data Collected
+## Data collected
 
 ### Metrics
 
 See [metadata.csv][10] for a list of metrics provided by this integration.
 
-### Service Checks
+### Service checks
 
 See [service_checks.json][11] for a list of service checks provided by this integration.
 
@@ -136,7 +137,9 @@ The Genesys Cloud MOS integration does not include any events.
 
 ## Support
 
-Need help? Contact [Datadog support][12].
+This integration is maintained by the community. For questions, issues, or feature
+requests, contact the maintainer at ed.ferron@datadoghq.com or open an issue in the
+[integrations-extras repository][12].
 
 [1]: https://www.genesys.com/genesys-cloud
 [2]: https://developer.genesys.cloud/analyticsdatamanagement/analytics/detail/conversation-query
@@ -149,5 +152,5 @@ Need help? Contact [Datadog support][12].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/genesys_mos/metadata.csv
 [11]: https://github.com/DataDog/integrations-extras/blob/master/genesys_mos/assets/service_checks.json
-[12]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/issues
 [13]: https://docs.datadoghq.com/agent/configuration/secrets-management/
