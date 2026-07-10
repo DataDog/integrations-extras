@@ -4,10 +4,9 @@
 import re
 
 import pytest
-from mock import MagicMock, patch
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.genesys_mos import GenesysMosCheck
+from mock import MagicMock, patch
 
 pytestmark = pytest.mark.unit
 
@@ -42,39 +41,33 @@ def test_emits_distribution_gauges_and_ok_service_check(aggregator, instance):
     check = _check(instance)
     conversations = {"c1": 4.8, "c2": 4.1, "c3": 3.5}
 
-    with patch.object(check, "_authenticate", return_value=MagicMock()), patch.object(
-        check, "_collect_conversations", return_value=conversations
+    with (
+        patch.object(check, "_authenticate", return_value=MagicMock()),
+        patch.object(check, "_collect_conversations", return_value=conversations),
     ):
         check.check(None)
 
     tags = ["region:mypurecloud.com", "team:voice"]
     aggregator.assert_metric("genesys_mos.conversation.count", value=3, tags=tags)
-    aggregator.assert_metric(
-        "genesys_mos.conversation.mos.avg", value=(4.8 + 4.1 + 3.5) / 3, tags=tags
-    )
+    aggregator.assert_metric("genesys_mos.conversation.mos.avg", value=(4.8 + 4.1 + 3.5) / 3, tags=tags)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=3.5, tags=tags)
     # threshold 4.2 -> 4.1 and 3.5 are at/below
-    aggregator.assert_metric(
-        "genesys_mos.conversation.below_threshold.count", value=2, tags=tags
-    )
-    aggregator.assert_service_check(
-        "genesys_mos.can_connect", status=AgentCheck.OK, tags=tags
-    )
+    aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=2, tags=tags)
+    aggregator.assert_service_check("genesys_mos.can_connect", status=AgentCheck.OK, tags=tags)
     aggregator.assert_all_metrics_covered()
 
 
 def test_no_conversations_reports_zero(aggregator, instance):
     check = _check(instance)
-    with patch.object(check, "_authenticate", return_value=MagicMock()), patch.object(
-        check, "_collect_conversations", return_value={}
+    with (
+        patch.object(check, "_authenticate", return_value=MagicMock()),
+        patch.object(check, "_collect_conversations", return_value={}),
     ):
         check.check(None)
 
     tags = ["region:mypurecloud.com", "team:voice"]
     aggregator.assert_metric("genesys_mos.conversation.count", value=0, tags=tags)
-    aggregator.assert_metric(
-        "genesys_mos.conversation.below_threshold.count", value=0, tags=tags
-    )
+    aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=0, tags=tags)
     # No quality gauges when there is no data.
     aggregator.assert_metric("genesys_mos.conversation.mos.avg", count=0)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", count=0)
@@ -87,9 +80,7 @@ def test_auth_failure_reports_critical_and_raises(aggregator, instance):
         with pytest.raises(RuntimeError, match="bad secret"):
             check.check(None)
 
-    aggregator.assert_service_check(
-        "genesys_mos.can_connect", status=AgentCheck.CRITICAL
-    )
+    aggregator.assert_service_check("genesys_mos.can_connect", status=AgentCheck.CRITICAL)
     aggregator.assert_metric("genesys_mos.conversation.count", count=0)
 
 

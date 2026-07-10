@@ -6,4 +6,4 @@
 
 ***Added***:
 
-- Initial release of the Genesys Cloud MOS integration.
+* Initial release of the Genesys Cloud MOS integration.

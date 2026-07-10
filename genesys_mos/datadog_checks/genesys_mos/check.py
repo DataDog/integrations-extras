@@ -33,9 +33,7 @@ class GenesysMosCheck(AgentCheck):
         self.client_secret = self.instance.get("client_secret")
         self.mos_threshold = float(self.instance.get("mos_threshold", DEFAULT_MOS_THRESHOLD))
         self.lag_seconds = int(self.instance.get("collection_lag_seconds", DEFAULT_LAG_SECONDS))
-        self.window_seconds = int(
-            self.instance.get("min_collection_interval", DEFAULT_INTERVAL_SECONDS)
-        )
+        self.window_seconds = int(self.instance.get("min_collection_interval", DEFAULT_INTERVAL_SECONDS))
 
         if not self.region:
             raise ConfigurationError("`region` is required (e.g. mypurecloud.com, usw2.pure.cloud).")
@@ -53,9 +51,7 @@ class GenesysMosCheck(AgentCheck):
             analytics_api = self._authenticate()
             conversations = self._collect_conversations(analytics_api, interval)
         except Exception as e:
-            self.service_check(
-                self.SERVICE_CHECK_CONNECT, AgentCheck.CRITICAL, tags=self.base_tags, message=str(e)
-            )
+            self.service_check(self.SERVICE_CHECK_CONNECT, AgentCheck.CRITICAL, tags=self.base_tags, message=str(e))
             self.log.exception("Genesys Cloud MOS collection failed")
             raise
 
@@ -79,9 +75,7 @@ class GenesysMosCheck(AgentCheck):
         import PureCloudPlatformClientV2 as genesys
 
         genesys.configuration.Configuration().host = "https://api.{}".format(self.region)
-        api_client = genesys.api_client.ApiClient().get_client_credentials_token(
-            self.client_id, self.client_secret
-        )
+        api_client = genesys.api_client.ApiClient().get_client_credentials_token(self.client_id, self.client_secret)
         return genesys.AnalyticsApi(api_client)
 
     def _collect_conversations(self, analytics_api, interval):

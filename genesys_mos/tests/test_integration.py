@@ -16,12 +16,12 @@ that the query the check *sends* matches the documented API contract.
 Response shape reference:
 https://developer.genesys.cloud/analyticsdatamanagement/analytics/detail/conversation-query
 """
+
 import pytest
+from datadog_checks.genesys_mos import GenesysMosCheck
 from mock import MagicMock, patch
 
-from datadog_checks.genesys_mos import GenesysMosCheck
-
-from .common import INSTANCE, read_fixture
+from .common import read_fixture
 
 pytestmark = pytest.mark.integration
 
@@ -91,17 +91,11 @@ def test_documented_pagination_dedupe_and_metrics(aggregator, instance):
     # Page 1: 4.42, 4.05 | Page 2: 4.05 (duplicate id), 3.61 -> 3 unique conversations.
     values = [4.42, 4.05, 3.61]
     aggregator.assert_metric("genesys_mos.conversation.count", value=3, tags=EXPECTED_TAGS)
-    aggregator.assert_metric(
-        "genesys_mos.conversation.mos.avg", value=sum(values) / len(values), tags=EXPECTED_TAGS
-    )
+    aggregator.assert_metric("genesys_mos.conversation.mos.avg", value=sum(values) / len(values), tags=EXPECTED_TAGS)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=3.61, tags=EXPECTED_TAGS)
     # threshold 4.2 -> 4.05 and 3.61 are at/below.
-    aggregator.assert_metric(
-        "genesys_mos.conversation.below_threshold.count", value=2, tags=EXPECTED_TAGS
-    )
-    aggregator.assert_service_check(
-        "genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS
-    )
+    aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=2, tags=EXPECTED_TAGS)
+    aggregator.assert_service_check("genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS)
     aggregator.assert_all_metrics_covered()
 
     # Paged until an empty page was returned (3 requests: page 1, 2, and the empty page 3).
@@ -112,9 +106,7 @@ def test_query_body_matches_genesys_api_contract(aggregator, instance):
     import PureCloudPlatformClientV2 as genesys
 
     api_client = genesys.api_client.ApiClient()
-    analytics_api = _analytics_api_returning(
-        [_load_response(api_client, "conversations_empty.json")]
-    )
+    analytics_api = _analytics_api_returning([_load_response(api_client, "conversations_empty.json")])
 
     _run_check(instance, analytics_api)
 
@@ -155,9 +147,5 @@ def test_conversation_without_mos_is_skipped(aggregator, instance):
     aggregator.assert_metric("genesys_mos.conversation.count", value=1, tags=EXPECTED_TAGS)
     aggregator.assert_metric("genesys_mos.conversation.mos.avg", value=4.30, tags=EXPECTED_TAGS)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=4.30, tags=EXPECTED_TAGS)
-    aggregator.assert_metric(
-        "genesys_mos.conversation.below_threshold.count", value=0, tags=EXPECTED_TAGS
-    )
-    aggregator.assert_service_check(
-        "genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS
-    )
+    aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=0, tags=EXPECTED_TAGS)
+    aggregator.assert_service_check("genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS)
