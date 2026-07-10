@@ -16,6 +16,22 @@ def _check(instance):
     return GenesysMosCheck("genesys_mos", {}, [instance])
 
 
+def test_configuration_models_load_from_spec(instance):
+    # Exercise the spec-generated config models the way the Agent does before a
+    # run (via check_initializations), validating that a well-formed instance
+    # maps cleanly onto InstanceConfig/SharedConfig.
+    check = _check(instance)
+    check.load_configuration_models()
+
+    assert check._config_model_shared is not None
+    assert check._config_model_instance is not None
+    assert check._config_model_instance.region == "mypurecloud.com"
+    assert check._config_model_instance.client_id == "test-client-id"
+    assert check._config_model_instance.mos_threshold == 4.2
+    assert check._config_model_instance.min_collection_interval == 300
+    assert check._config_model_instance.tags == ("team:voice",)
+
+
 def test_config_requires_region(instance):
     del instance["region"]
     with pytest.raises(ConfigurationError, match="region"):
