@@ -4,7 +4,7 @@
 
 Instrument Salesforce Lightning Apps and Experience Cloud sites with Datadog Real User Monitoring using the Datadog Browser SDK slim RUM bundle.
 
-This guide covers four different deployment paths:
+This guide covers three deployment paths, plus a feature support reference:
 
 - **[Lightning Apps](#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
 - **[Experience Cloud Head Markup](#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
@@ -21,7 +21,7 @@ You will need the following Datadog RUM values:
 - A Datadog RUM Client Token
 - A Datadog site, such as `datadoghq.com`
 
-You can get those values in Datadog under **RUM > Digital Experience > Real User Monitoring > Manage Applications > Set Up Manually**.
+You can get those values in Datadog under **Digital Experience > Real User Monitoring > Manage Applications > Set Up Manually**.
 
 You should also enable [Lightning Web Security][1] in the Salesforce org.
 
@@ -247,7 +247,7 @@ After deploying the component:
 
 ## Experience Cloud Head Markup
 
-Use this path for Experience Cloud sites where you can add custom JavaScript through Head Markup. This is usually the simplest Experience Cloud approach because the SDK loads at the page level and does not rely on the Salesforce Utility Bar.
+Use this path for Experience Cloud sites where you can add custom JavaScript through Head Markup. This is usually the most direct Experience Cloud approach because the SDK loads at the page level and does not rely on the Salesforce Utility Bar.
 
 This path uses:
 
@@ -306,7 +306,7 @@ Use the following trusted site configuration for US1:
 | Name  | `browser_intake_datadoghq_com`      |
 | URL   | `https://browser-intake-datadoghq.com` |
 
-For non-US1 Datadog sites, use the intake endpoint for the correct Datadog site.
+For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
 
 ### 4. Add the Head Markup script
 
@@ -363,7 +363,7 @@ This path is useful when:
 
 Unlike Lightning Apps, Experience Cloud does not use the Utility Bar. The `datadogInit` component must be placed somewhere that loads on every page where RUM should run:
 
-- For simple installations, expose the component as an Experience Builder page component and place it in a shared region that appears across the site.
+- For lightweight installations, expose the component as an Experience Builder page component and place it in a shared region that appears across the site.
 - For custom LWR theme layouts, include the initializer inside your existing custom theme layout wrapper.
 
 This path uses:
@@ -417,7 +417,7 @@ Use the following trusted site configuration for US1:
 | Name  | `browser_intake_datadoghq_com`      |
 | URL   | `https://browser-intake-datadoghq.com` |
 
-For non-US1 Datadog sites, use the intake endpoint for the correct Datadog site.
+For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
 
 ### 3. Create the Datadog init component
 
@@ -600,7 +600,7 @@ The following table outlines SDK feature support within the Lightning Web Securi
 | ---------------------------- | ------------ | -------------------------------------------- |
 | **View Events**               |              |                                               |
 | Initial View                 | Yes          | Automatic on init.                           |
-| Manual Tracking              | Yes          | Supported via `startView`.                   |
+| Manual Tracking              | Yes          | Supported through `startView`.                   |
 | Navigation Timings           | Yes          | Collected via performance API.               |
 | Web Vitals                   | Yes          |                                               |
 | **Resource Events**           |              |                                               |
@@ -608,7 +608,7 @@ The following table outlines SDK feature support within the Lightning Web Securi
 | Other Resources              | Yes          | CSS, images, etc.                            |
 | APM Correlation               | Limited (2)  | Requires header injection.                   |
 | **Action Events**             |              |                                               |
-| Custom Actions                | Yes          | Supported via `addAction`. (5) Not supported on the Head Markup path. |
+| Custom Actions                | Yes          | Supported through `addAction`. (5) Not supported on the Head Markup path. |
 | Click Actions                 | Yes          | (3) Shadow DOM boundaries apply.              |
 | Frustration Signals            | Yes          |                                               |
 | Loading Time                  | Limited (1)  | Network detection may be incomplete.          |
@@ -636,3 +636,4 @@ Need help? Contact [Datadog Support][3].
 [1]: https://help.salesforce.com/s/articleView?id=sf.lwc_lwsec_enable.htm
 [2]: https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-slim.js
 [3]: https://docs.datadoghq.com/help/
+[4]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
