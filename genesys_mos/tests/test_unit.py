@@ -4,9 +4,10 @@
 import re
 
 import pytest
+from mock import MagicMock, patch
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.genesys_mos import GenesysMosCheck
-from mock import MagicMock, patch
 
 pytestmark = pytest.mark.unit
 
