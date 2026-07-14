@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check reports [Genesys Cloud][1] conversation call-quality metrics, the Mean
+This check reports [Genesys Cloud][1] conversation call quality metrics, the Mean
 Opinion Score (MOS), to Datadog.
 
 MOS is a measure of perceived call quality on a scale of roughly 1.0 (unusable) to
