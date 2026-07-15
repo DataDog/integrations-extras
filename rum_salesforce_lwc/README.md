@@ -31,7 +31,13 @@ Finally, you need the [Datadog Slim RUM Bundle][2]. Download it into your Salesf
 curl -o staticresources/datadog_rum_slim.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-slim.js
 ```
 
-### Lightning Apps
+Once you have these, follow one of the deployment paths below:
+
+- **[Lightning Apps](#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
+- **[Experience Cloud Head Markup](#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
+- **[Experience Cloud Theme/Layout LWC](#experience-cloud-themelayout-lwc)**: Add a custom Lightning Web Component to an Experience Builder page, shared region, or theme/layout area.
+
+## Lightning Apps
 
 Use this path for Salesforce LWC applications.
 
@@ -42,7 +48,7 @@ This path uses:
 - A custom Lightning Web Component.
 - A Utility Bar configuration with eager loading enabled.
 
-#### 1. Add the static resource
+### 1. Add the static resource
 
 Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
 
@@ -71,7 +77,7 @@ If you configure this through the Salesforce UI:
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
-#### 2. Add the CSP Trusted Site
+### 2. Add the CSP Trusted Site
 
 Allow Salesforce's Content Security Policy to connect to the Datadog browser intake endpoint. Without this configuration, the browser may block RUM events from being sent to Datadog.
 
@@ -94,7 +100,7 @@ XML configuration:
 
 For non-US1 Datadog sites, update `endpointUrl` to match the correct Datadog browser intake endpoint for your region.
 
-#### 3. Create the Datadog init component
+### 3. Create the Datadog init component
 
 Create a Lightning Web Component that loads the Datadog Browser SDK and manually starts views as users navigate within the Lightning application.
 
@@ -106,7 +112,7 @@ File location: `lwc/datadogInit/datadogInit.html`
 <template></template>
 ```
 
-#### 4. Add the component JavaScript
+### 4. Add the component JavaScript
 
 File location: `lwc/datadogInit/datadogInit.js`
 
@@ -188,7 +194,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-#### 5. Add the component metadata
+### 5. Add the component metadata
 
 File location: `lwc/datadogInit/datadogInit.js-meta.xml`
 
@@ -213,7 +219,7 @@ File location: `lwc/datadogInit/datadogInit.js-meta.xml`
 </LightningComponentBundle>
 ```
 
-#### 6. Add the component to a Lightning app
+### 6. Add the component to a Lightning app
 
 Register the `datadogInit` component in your app's Utility Bar. You can do this through the Salesforce UI or by updating the app's FlexiPage metadata.
 
@@ -233,7 +239,7 @@ File location: `flexipages/MyApp_UtilityBar.flexipage-meta.xml`
 </componentInstance>
 ```
 
-#### 7. Validate the Lightning app installation
+### 7. Validate the Lightning app installation
 
 After deploying the component:
 
@@ -245,7 +251,7 @@ After deploying the component:
 6. In Datadog RUM Explorer, filter by the configured service and env.
 7. Confirm that view events are created when navigation occurs.
 
-### Experience Cloud Head Markup
+## Experience Cloud Head Markup
 
 Use this path for Experience Cloud sites where you can add custom JavaScript through Head Markup. This is usually the most direct Experience Cloud approach because the SDK loads at the page level and does not rely on the Salesforce Utility Bar.
 
@@ -255,7 +261,7 @@ This path uses:
 - Experience Cloud CSP configuration.
 - A Head Markup script that loads the SDK and tracks route changes.
 
-#### 1. Add the static resource
+### 1. Add the static resource
 
 Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
 
@@ -284,14 +290,14 @@ If you configure this through the Salesforce UI:
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
-#### 2. Open the Experience Cloud site in Builder
+### 2. Open the Experience Cloud site in Builder
 
 1. Go to **Setup > Apps > App Manager**.
 2. Search for your Experience Cloud application.
 3. Click **Manage**.
 4. When the page loads, click **Builder**.
 
-#### 3. Configure CSP for the Datadog intake endpoint
+### 3. Configure CSP for the Datadog intake endpoint
 
 In Experience Builder:
 
@@ -308,7 +314,7 @@ Use the following trusted site configuration for US1:
 
 For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
 
-#### 4. Add the Head Markup script
+### 4. Add the Head Markup script
 
 In Experience Builder:
 
@@ -338,7 +344,7 @@ In Experience Builder:
 </script>
 ```
 
-#### 5. Publish the Experience Cloud site
+### 5. Publish the Experience Cloud site
 
 After adding the Head Markup script:
 
@@ -350,7 +356,7 @@ After adding the Head Markup script:
 6. Navigate between site pages.
 7. Confirm that RUM view events appear in Datadog.
 
-### Experience Cloud Theme/Layout LWC
+## Experience Cloud Theme/Layout LWC
 
 Use this path when you want to instrument an Experience Cloud site with a Lightning Web Component instead of Head Markup.
 
@@ -373,7 +379,7 @@ This path uses:
 - A custom Lightning Web Component exposed to Experience Builder.
 - Placement in a shared site region, page template, or theme/layout area.
 
-#### 1. Add the static resource
+### 1. Add the static resource
 
 Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
 
@@ -402,7 +408,7 @@ If you configure this through the Salesforce UI:
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
-#### 2. Configure CSP for the Datadog intake endpoint
+### 2. Configure CSP for the Datadog intake endpoint
 
 In Experience Builder:
 
@@ -419,7 +425,7 @@ Use the following trusted site configuration for US1:
 
 For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
 
-#### 3. Create the Datadog init component
+### 3. Create the Datadog init component
 
 Create an LWC that loads the Datadog Browser SDK and manually starts views as users navigate within the Experience Cloud site.
 
@@ -431,7 +437,7 @@ File location: `lwc/datadogInit/datadogInit.html`
 <template></template>
 ```
 
-#### 4. Add the component JavaScript
+### 4. Add the component JavaScript
 
 File location: `lwc/datadogInit/datadogInit.js`
 
@@ -513,7 +519,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-#### 5. Add the component metadata for Experience Builder
+### 5. Add the component metadata for Experience Builder
 
 Expose the component to Experience Builder:
 
@@ -556,7 +562,7 @@ If you are using the same `datadogInit` component for both Lightning Apps and Ex
 
 Then configure both target groups in `targetConfigs` as needed.
 
-#### 6. Add the component to an Experience Builder theme/layout area
+### 6. Add the component to an Experience Builder theme/layout area
 
 Open the Experience Cloud site in Builder:
 
@@ -579,7 +585,7 @@ After adding the component:
 3. Save the site.
 4. Publish the site.
 
-#### 7. Validate the Theme/Layout LWC installation
+### 7. Validate the Theme/Layout LWC installation
 
 After publishing the site:
 
@@ -592,7 +598,7 @@ After publishing the site:
 
 If the component is accidentally added multiple times, the global initialization guard prevents duplicate SDK initialization, but the component should still be placed only once for clarity and maintainability.
 
-### Salesforce Feature Support Matrix
+## Salesforce Feature Support Matrix
 
 The following table outlines SDK feature support within the Lightning Web Security (LWS) sandbox environment.
 
