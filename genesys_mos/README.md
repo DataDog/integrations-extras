@@ -30,10 +30,15 @@ versions of the Agent.
    datadog-agent integration install -w /path/to/genesys_mos/dist/datadog_genesys_mos-1.0.0-py3-none-any.whl
    ```
 
-   This also installs the check's dependency, the Genesys Cloud Python SDK
-   (`PureCloudPlatformClientV2`), into the Agent's embedded environment.
+2. This command does not install the check's third-party dependency, so install the Genesys
+   Cloud Python SDK (`PureCloudPlatformClientV2`) into the Agent's embedded environment
+   manually:
 
-2. Configure your integration similar to core [integrations][5].
+   ```shell
+   sudo -u dd-agent /opt/datadog-agent/embedded/bin/pip install "PureCloudPlatformClientV2==261.0.0"
+   ```
+
+3. Configure your integration similar to core [integrations][5].
 
 ### Configuration
 
@@ -119,7 +124,10 @@ See [metadata.csv][10] for a list of metrics provided by this integration.
 
 ### Service checks
 
-See [service_checks.json][11] for a list of service checks provided by this integration.
+The Genesys Cloud MOS integration does not include any service checks. Connectivity is
+reported through the `genesys_mos.can_connect` metric, which is `1` when the check can
+authenticate against the Genesys Cloud API and run the analytics conversation query, and
+`0` otherwise.
 
 ### Events
 
@@ -127,7 +135,7 @@ The Genesys Cloud MOS integration does not include any events.
 
 ## Troubleshooting
 
-- `genesys_mos.can_connect` reports `CRITICAL`: verify the `region`, `client_id`, and
+- `genesys_mos.can_connect` is `0`: verify the `region`, `client_id`, and
   `client_secret`, and confirm the OAuth client's role has the
   **Analytics > Conversation Detail > View** permission.
 - No conversations reported: MOS is only present on conversations that used media with
@@ -151,6 +159,5 @@ requests, contact the maintainer at ed.ferron@datadoghq.com or open an issue in 
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/genesys_mos/metadata.csv
-[11]: https://github.com/DataDog/integrations-extras/blob/master/genesys_mos/assets/service_checks.json
 [12]: https://github.com/DataDog/integrations-extras/issues
 [13]: https://docs.datadoghq.com/agent/configuration/secrets-management/

@@ -96,7 +96,7 @@ def test_documented_pagination_dedupe_and_metrics(aggregator, instance):
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=3.61, tags=EXPECTED_TAGS)
     # threshold 4.2 -> 4.05 and 3.61 are at/below.
     aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=2, tags=EXPECTED_TAGS)
-    aggregator.assert_service_check("genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS)
+    aggregator.assert_metric("genesys_mos.can_connect", value=1, tags=EXPECTED_TAGS)
     aggregator.assert_all_metrics_covered()
 
     # Paged until an empty page was returned (3 requests: page 1, 2, and the empty page 3).
@@ -149,4 +149,4 @@ def test_conversation_without_mos_is_skipped(aggregator, instance):
     aggregator.assert_metric("genesys_mos.conversation.mos.avg", value=4.30, tags=EXPECTED_TAGS)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=4.30, tags=EXPECTED_TAGS)
     aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=0, tags=EXPECTED_TAGS)
-    aggregator.assert_service_check("genesys_mos.can_connect", status=GenesysMosCheck.OK, tags=EXPECTED_TAGS)
+    aggregator.assert_metric("genesys_mos.can_connect", value=1, tags=EXPECTED_TAGS)

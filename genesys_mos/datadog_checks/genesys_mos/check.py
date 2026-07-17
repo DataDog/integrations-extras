@@ -23,7 +23,7 @@ DEFAULT_MOS_THRESHOLD = 4.2
 class GenesysMosCheck(AgentCheck):
     __NAMESPACE__ = "genesys_mos"
 
-    SERVICE_CHECK_CONNECT = "can_connect"
+    CAN_CONNECT_METRIC = "can_connect"
 
     def __init__(self, name, init_config, instances):
         super(GenesysMosCheck, self).__init__(name, init_config, instances)
@@ -50,12 +50,13 @@ class GenesysMosCheck(AgentCheck):
         try:
             analytics_api = self._authenticate()
             conversations = self._collect_conversations(analytics_api, interval)
-        except Exception as e:
-            self.service_check(self.SERVICE_CHECK_CONNECT, AgentCheck.CRITICAL, tags=self.base_tags, message=str(e))
+        except Exception:
+            # Report connectivity as a 0/1 gauge rather than a service check.
+            self.gauge(self.CAN_CONNECT_METRIC, 0, tags=self.base_tags)
             self.log.exception("Genesys Cloud MOS collection failed")
             raise
 
-        self.service_check(self.SERVICE_CHECK_CONNECT, AgentCheck.OK, tags=self.base_tags)
+        self.gauge(self.CAN_CONNECT_METRIC, 1, tags=self.base_tags)
         self._submit_metrics(conversations)
 
     def _query_interval(self):

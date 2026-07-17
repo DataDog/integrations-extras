@@ -6,7 +6,8 @@ import re
 import pytest
 from mock import MagicMock, patch
 
-from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.base import ConfigurationError
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.genesys_mos import GenesysMosCheck
 
 pytestmark = pytest.mark.unit
@@ -54,7 +55,7 @@ def test_query_interval_is_rfc3339_range(instance):
     assert start < end
 
 
-def test_emits_distribution_gauges_and_ok_service_check(aggregator, instance):
+def test_emits_distribution_gauges_and_can_connect(aggregator, instance):
     check = _check(instance)
     conversations = {"c1": 4.8, "c2": 4.1, "c3": 3.5}
 
@@ -70,8 +71,10 @@ def test_emits_distribution_gauges_and_ok_service_check(aggregator, instance):
     aggregator.assert_metric("genesys_mos.conversation.mos.min", value=3.5, tags=tags)
     # threshold 4.2 -> 4.1 and 3.5 are at/below
     aggregator.assert_metric("genesys_mos.conversation.below_threshold.count", value=2, tags=tags)
-    aggregator.assert_service_check("genesys_mos.can_connect", status=AgentCheck.OK, tags=tags)
+    # Connectivity is reported as a 0/1 gauge, not a service check.
+    aggregator.assert_metric("genesys_mos.can_connect", value=1, tags=tags)
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
 def test_no_conversations_reports_zero(aggregator, instance):
@@ -88,16 +91,16 @@ def test_no_conversations_reports_zero(aggregator, instance):
     # No quality gauges when there is no data.
     aggregator.assert_metric("genesys_mos.conversation.mos.avg", count=0)
     aggregator.assert_metric("genesys_mos.conversation.mos.min", count=0)
-    aggregator.assert_service_check("genesys_mos.can_connect", status=AgentCheck.OK)
+    aggregator.assert_metric("genesys_mos.can_connect", value=1)
 
 
-def test_auth_failure_reports_critical_and_raises(aggregator, instance):
+def test_auth_failure_reports_can_connect_zero_and_raises(aggregator, instance):
     check = _check(instance)
     with patch.object(check, "_authenticate", side_effect=RuntimeError("bad secret")):
         with pytest.raises(RuntimeError, match="bad secret"):
             check.check(None)
 
-    aggregator.assert_service_check("genesys_mos.can_connect", status=AgentCheck.CRITICAL)
+    aggregator.assert_metric("genesys_mos.can_connect", value=0)
     aggregator.assert_metric("genesys_mos.conversation.count", count=0)
 
 
