@@ -21,6 +21,7 @@ class CfsslCheck(AgentCheck):
 
     def check(self, _):
         # type: (Any) -> None
+        # Retrieve the URL from the instance configuration
         url = self.instance.get("url")
 
         if not url:
