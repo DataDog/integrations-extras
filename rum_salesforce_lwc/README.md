@@ -2,7 +2,7 @@
 
 ## Overview
 
-Instrument Salesforce Lightning Apps and Experience Cloud sites with Datadog Real User Monitoring using the Datadog Browser SDK slim RUM bundle.
+Instrument Salesforce Lightning Apps and Experience Cloud sites with Datadog Real User Monitoring using the Datadog RUM Salesforce bundle.
 
 This guide covers three deployment paths, plus a feature support reference:
 
@@ -25,10 +25,10 @@ You can get those values in Datadog under **Digital Experience > Real User Monit
 
 You should also enable [Lightning Web Security][1] in the Salesforce org.
 
-Finally, you need the [Datadog Slim RUM Bundle][2]. Download it into your Salesforce project's static resources folder, for example:
+Finally, you need the [Datadog RUM Salesforce Bundle][2]. Download it into your Salesforce project's static resources folder, for example:
 
 ```shell
-curl -o staticresources/datadog_rum_slim.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-slim.js
+curl -o staticresources/datadog_rum_salesforce.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
 ```
 
 Once you have these, follow one of the deployment paths below:
@@ -43,20 +43,20 @@ Use this path for Salesforce LWC applications.
 
 This path uses:
 
-- A Salesforce Static Resource for the Datadog slim RUM bundle.
+- A Salesforce Static Resource for the Datadog Salesforce RUM bundle.
 - A CSP Trusted Site for the Datadog browser intake endpoint.
 - A custom Lightning Web Component.
 - A Utility Bar configuration with eager loading enabled.
 
 ### 1. Add the static resource
 
-Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
+Copy the Datadog Salesforce RUM bundle into your Salesforce project and register it as a static resource.
 
 Suggested configuration:
 
-- Static Resource Name: `datadog_rum_slim`
-- File location: `staticresources/datadog_rum_slim.js`
-- Metadata location: `staticresources/datadog_rum_slim.resource-meta.xml`
+- Static Resource Name: `datadog_rum`
+- File location: `staticresources/datadog_rum.js`
+- Metadata location: `staticresources/datadog_rum.resource-meta.xml`
 
 XML configuration:
 
@@ -72,8 +72,8 @@ If you configure this through the Salesforce UI:
 
 1. Go to **Setup > Static Resources**.
 2. Click **New**.
-3. Set **Name** to `datadog_rum_slim`.
-4. Upload the slim RUM JavaScript bundle.
+3. Set **Name** to `datadog_rum`.
+4. Upload the Salesforce RUM JavaScript bundle.
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
@@ -119,7 +119,7 @@ File location: `lwc/datadogInit/datadogInit.js`
 ```javascript
 import { LightningElement, api, wire } from 'lwc'
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation'
-import datadogRumSlim from '@salesforce/resourceUrl/datadog_rum_slim'
+import datadogRum from '@salesforce/resourceUrl/datadog_rum'
 import { loadScript } from 'lightning/platformResourceLoader'
 
 let datadogInitialization
@@ -170,7 +170,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
   }
 
   loadDatadogRum() {
-    return loadScript(this, datadogRumSlim).then(() => {
+    return loadScript(this, datadogRum).then(() => {
       const initConfig = {
         applicationId: this.applicationId,
         clientToken: this.clientToken,
@@ -257,19 +257,19 @@ Use this path for Experience Cloud sites where you can add custom JavaScript thr
 
 This path uses:
 
-- A Salesforce Static Resource for the Datadog slim RUM bundle.
+- A Salesforce Static Resource for the Datadog Salesforce RUM bundle.
 - Experience Cloud CSP configuration.
 - A Head Markup script that loads the SDK and tracks route changes.
 
 ### 1. Add the static resource
 
-Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
+Copy the Datadog Salesforce RUM bundle into your Salesforce project and register it as a static resource.
 
 Suggested configuration:
 
-- Static Resource Name: `datadog_rum_slim`
-- File location: `staticresources/datadog_rum_slim.js`
-- Metadata location: `staticresources/datadog_rum_slim.resource-meta.xml`
+- Static Resource Name: `datadog_rum`
+- File location: `staticresources/datadog_rum.js`
+- Metadata location: `staticresources/datadog_rum.resource-meta.xml`
 
 XML configuration:
 
@@ -285,8 +285,8 @@ If you configure this through the Salesforce UI:
 
 1. Go to **Setup > Static Resources**.
 2. Click **New**.
-3. Set **Name** to `datadog_rum_slim`.
-4. Upload the slim RUM JavaScript bundle.
+3. Set **Name** to `datadog_rum`.
+4. Upload the Salesforce RUM JavaScript bundle.
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
@@ -325,7 +325,7 @@ In Experience Builder:
 5. Replace the placeholder values with your Datadog RUM configuration.
 
 ```html
-<script src="/sfsites/c/resource/datadog_rum_slim"></script>
+<script src="/sfsites/c/resource/datadog_rum"></script>
 <script>
   window.DD_RUM.onReady(function () {
     window.DD_RUM.init({
@@ -374,20 +374,20 @@ Unlike Lightning Apps, Experience Cloud does not use the Utility Bar. The `datad
 
 This path uses:
 
-- A Salesforce Static Resource for the Datadog slim RUM bundle.
+- A Salesforce Static Resource for the Datadog Salesforce RUM bundle.
 - Experience Cloud CSP configuration.
 - A custom Lightning Web Component exposed to Experience Builder.
 - Placement in a shared site region, page template, or theme/layout area.
 
 ### 1. Add the static resource
 
-Copy the Datadog slim RUM bundle into your Salesforce project and register it as a static resource.
+Copy the Datadog Salesforce RUM bundle into your Salesforce project and register it as a static resource.
 
 Suggested configuration:
 
-- Static Resource Name: `datadog_rum_slim`
-- File location: `staticresources/datadog_rum_slim.js`
-- Metadata location: `staticresources/datadog_rum_slim.resource-meta.xml`
+- Static Resource Name: `datadog_rum`
+- File location: `staticresources/datadog_rum.js`
+- Metadata location: `staticresources/datadog_rum.resource-meta.xml`
 
 XML configuration:
 
@@ -403,8 +403,8 @@ If you configure this through the Salesforce UI:
 
 1. Go to **Setup > Static Resources**.
 2. Click **New**.
-3. Set **Name** to `datadog_rum_slim`.
-4. Upload the slim RUM JavaScript bundle.
+3. Set **Name** to `datadog_rum`.
+4. Upload the Salesforce RUM JavaScript bundle.
 5. Set **Cache Control** to `Public`.
 6. Save the static resource.
 
@@ -444,7 +444,7 @@ File location: `lwc/datadogInit/datadogInit.js`
 ```javascript
 import { LightningElement, api, wire } from 'lwc'
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation'
-import datadogRumSlim from '@salesforce/resourceUrl/datadog_rum_slim'
+import datadogRum from '@salesforce/resourceUrl/datadog_rum'
 import { loadScript } from 'lightning/platformResourceLoader'
 
 let datadogInitialization
@@ -495,7 +495,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
   }
 
   loadDatadogRum() {
-    return loadScript(this, datadogRumSlim).then(() => {
+    return loadScript(this, datadogRum).then(() => {
       const initConfig = {
         applicationId: this.applicationId,
         clientToken: this.clientToken,
@@ -640,6 +640,6 @@ Footnotes:
 Need help? Contact [Datadog Support][3].
 
 [1]: https://help.salesforce.com/s/articleView?id=sf.lwc_lwsec_enable.htm
-[2]: https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-slim.js
+[2]: https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
 [3]: https://docs.datadoghq.com/help/
 [4]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
