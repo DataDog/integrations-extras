@@ -33,9 +33,9 @@ curl -o staticresources/datadog_rum.js https://www.datadoghq-browser-agent.com/u
 
 Once you have these, follow one of the deployment paths below:
 
-- **[Lightning Apps](#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
-- **[Experience Cloud Head Markup](#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
-- **[Experience Cloud Theme/Layout LWC](#experience-cloud-themelayout-lwc)**: Add a custom Lightning Web Component to an Experience Builder page, shared region, or theme/layout area.
+- **[Lightning Apps](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
+- **[Experience Cloud Head Markup](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
+- **[Experience Cloud Theme/Layout LWC](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#experience-cloud-themelayout-lwc)**: Add a custom Lightning Web Component to an Experience Builder page, shared region, or theme/layout area.
 
 ## Lightning Apps
 
