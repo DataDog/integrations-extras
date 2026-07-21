@@ -1,5 +1,11 @@
 # CHANGELOG - celerdata
 
+## 1.2.2 / 2026-06-03
+
+***Fixed***:
+
+* Collect all per-database `starrocks_fe_table_num` series. StarRocks FE exposes this metric interleaved with `starrocks_fe_db_size_bytes`, so the OpenMetrics parser typed every series after the first as `unknown` and dropped them; pinning the metric type to `gauge` recovers all per-db series.
+
 ## 1.2.1 / 2025-10-01
 
 ***Fixed***:
