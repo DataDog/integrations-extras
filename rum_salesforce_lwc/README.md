@@ -607,7 +607,7 @@ Footnotes:
 
 Need help? Contact [Datadog Support][3].
 
-[1]: https://help.salesforce.com/s/articleView?id=sf.lwc_lwsec_enable.htm
+[1]: https://developer.salesforce.com/docs/platform/lightning-components-security/guide/lws-enable.html
 [2]: https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
 [3]: https://docs.datadoghq.com/help/
 [4]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
