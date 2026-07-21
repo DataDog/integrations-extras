@@ -4,12 +4,12 @@
 
 Instrument Salesforce Lightning Apps and Experience Cloud sites with Datadog Real User Monitoring using the Datadog RUM Salesforce bundle.
 
-This guide covers three deployment paths, plus a feature support reference:
+The full Salesforce RUM documentation covers three deployment paths, plus a feature support reference:
 
-- **[Lightning Apps](#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
-- **[Experience Cloud Head Markup](#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
-- **[Experience Cloud Theme/Layout LWC](#experience-cloud-themelayout-lwc)**: Add a custom Lightning Web Component to an Experience Builder page, shared region, or theme/layout area.
-- **[Feature Support](#salesforce-feature-support-matrix)**: Review supported features for the Datadog integration.
+- **[Lightning Apps](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#lightning-apps)**: Use a custom Lightning Web Component loaded from the Utility Bar.
+- **[Experience Cloud Head Markup](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#experience-cloud-head-markup)**: Add the Datadog RUM initialization script directly to Head Markup.
+- **[Experience Cloud Theme/Layout LWC](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#experience-cloud-themelayout-lwc)**: Add a custom Lightning Web Component to an Experience Builder page, shared region, or theme/layout area.
+- **[Feature Support](https://github.com/DataDog/browser-sdk/tree/main/packages/browser-rum-slim/src/salesforce#salesforce-feature-support-matrix)**: Review supported features for the Datadog integration.
 
 **Note**: Use only one deployment path per Salesforce app or Experience Cloud site.
 
@@ -28,7 +28,7 @@ You should also enable [Lightning Web Security][1] in the Salesforce org.
 Finally, you need the [Datadog RUM Salesforce Bundle][2]. Download it into your Salesforce project's static resources folder, for example:
 
 ```shell
-curl -o staticresources/datadog_rum_salesforce.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
+curl -o staticresources/datadog_rum.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
 ```
 
 Once you have these, follow one of the deployment paths below:
@@ -131,8 +131,6 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
   @api site
   @api service
   @api env
-  @api allowedTracingUrls
-  @api trackViewsManually
 
   connectedCallback() {
     this.initialize()
@@ -194,38 +192,34 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-### 5. Add the component metadata
+### 5. Add to Utility Bar
 
-File location: `lwc/datadogInit/datadogInit.js-meta.xml`
+Expose the component to the Lightning Utility Bar, then add it to your app's Utility Bar with `eager` set to `true`.
+
+`lwc/datadogInit/datadogInit.js-meta.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>64.0</apiVersion>
-    <isExposed>true</isExposed>
-    <masterLabel>Datadog Init</masterLabel>
-    <targets>
-        <target>lightning__UtilityBar</target>
-    </targets>
-    <targetConfigs>
-        <targetConfig targets="lightning__UtilityBar">
-            <property name="applicationId" type="String" label="Application ID" description="Datadog RUM application ID" />
-            <property name="clientToken" type="String" label="Client Token" description="Datadog browser client token" />
-            <property name="site" type="String" label="Site" default="datadoghq.com" />
-            <property name="service" type="String" label="Service" default="my-salesforce-app" />
-            <property name="env" type="String" label="Env" default="dev" />
-        </targetConfig>
-    </targetConfigs>
+  <apiVersion>64.0</apiVersion>
+  <isExposed>true</isExposed>
+  <masterLabel>Datadog Init</masterLabel>
+  <targets>
+    <target>lightning__UtilityBar</target>
+  </targets>
+  <targetConfigs>
+    <targetConfig targets="lightning__UtilityBar">
+      <property name="applicationId" type="String" label="Application ID" required="true" />
+      <property name="clientToken" type="String" label="Client Token" required="true" />
+      <property name="site" type="String" label="Site" />
+      <property name="service" type="String" label="Service" />
+      <property name="env" type="String" label="Env" />
+    </targetConfig>
+  </targetConfigs>
 </LightningComponentBundle>
 ```
 
-### 6. Add the component to a Lightning app
-
-Register the `datadogInit` component in your app's Utility Bar. You can do this through the Salesforce UI or by updating the app's FlexiPage metadata.
-
-**Important**: set the `eager` property to `true`. Without this setting, the SDK initializes only when the user manually opens the Utility Bar item, which can cause lost initial page-load data.
-
-File location: `flexipages/MyApp_UtilityBar.flexipage-meta.xml`
+Add the following `componentInstance` excerpt to your app's existing Utility Bar FlexiPage metadata, for example in `flexipages/MyApp_UtilityBar.flexipage-meta.xml`.
 
 ```xml
 <componentInstance>
@@ -234,12 +228,37 @@ File location: `flexipages/MyApp_UtilityBar.flexipage-meta.xml`
     <type>decorator</type>
     <value>true</value>
   </componentInstanceProperties>
+  <componentInstanceProperties>
+    <name>applicationId</name>
+    <type>String</type>
+    <value>YOUR_DATADOG_APPLICATION_ID</value>
+  </componentInstanceProperties>
+  <componentInstanceProperties>
+    <name>clientToken</name>
+    <type>String</type>
+    <value>YOUR_DATADOG_CLIENT_TOKEN</value>
+  </componentInstanceProperties>
+  <componentInstanceProperties>
+    <name>site</name>
+    <type>String</type>
+    <value>YOUR_DATADOG_SITE</value>
+  </componentInstanceProperties>
+  <componentInstanceProperties>
+    <name>service</name>
+    <type>String</type>
+    <value>YOUR_SERVICE_NAME</value>
+  </componentInstanceProperties>
+  <componentInstanceProperties>
+    <name>env</name>
+    <type>String</type>
+    <value>YOUR_ENV_NAME</value>
+  </componentInstanceProperties>
   <componentName>datadogInit</componentName>
   <identifier>datadogInit</identifier>
 </componentInstance>
 ```
 
-### 7. Validate the Lightning app installation
+### 6. Validate the Lightning app installation
 
 After deploying the component:
 
@@ -307,41 +326,46 @@ In Experience Builder:
 
 Use the following trusted site configuration for US1:
 
-| Field | Value                              |
-| ----- | ----------------------------------- |
-| Name  | `browser_intake_datadoghq_com`      |
+| Field | Value                                  |
+| ----- | -------------------------------------- |
+| Name  | `browser_intake_datadoghq_com`         |
 | URL   | `https://browser-intake-datadoghq.com` |
 
 For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
 
-### 4. Add the Head Markup script
+### 4. Add the Head Markup
 
 In Experience Builder:
 
 1. Go to **Settings > Advanced**.
 2. Open **Head Markup**.
 3. Click **Edit Head Markup**.
-4. Paste the following script.
+4. Paste the following markup.
 5. Replace the placeholder values with your Datadog RUM configuration.
 
 ```html
-<script src="/sfsites/c/resource/datadog_rum"></script>
-<script>
-  window.DD_RUM.onReady(function () {
-    window.DD_RUM.init({
-      applicationId: '<DATADOG_APPLICATION_ID>',
-      clientToken: '<DATADOG_CLIENT_TOKEN>',
-      site: 'datadoghq.com',
-      env: '<ENV>',
-      service: '<SERVICE_NAME>',
-      sessionSampleRate: 100,
-      sessionReplaySampleRate: 0,
-      trackLongTasks: true,
-      trackResources: true,
-      trackUserInteractions: true,
-    })
-  })
-</script>
+<x-oasis-script hidden>
+  ;(function () {
+    var datadogScript = document.createElement('script')
+    datadogScript.src = '/sfsites/c/resource/datadog_rum'
+    datadogScript.onload = function () {
+      window.DD_RUM.onReady(function () {
+        window.DD_RUM.init({
+          applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
+          clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
+          site: '<YOUR_DATADOG_SITE>',
+          env: '<YOUR_ENV_NAME>',
+          service: '<YOUR_SERVICE_NAME>',
+          sessionSampleRate: 100,
+          trackLongTasks: true,
+          trackResources: true,
+          trackUserInteractions: true,
+        })
+      })
+    }
+    document.head.appendChild(datadogScript)
+  })()
+</x-oasis-script>
 ```
 
 ### 5. Publish the Experience Cloud site
@@ -363,7 +387,6 @@ Use this path when you want to instrument an Experience Cloud site with a Lightn
 This path is useful when:
 
 - Head Markup is unavailable.
-- You want RUM configuration to be managed through Experience Builder component properties.
 - You want to place the initializer in a shared region, template, page layout, or theme/layout area.
 - You want to reuse the LWC-based implementation pattern across Salesforce surfaces.
 
@@ -418,9 +441,9 @@ In Experience Builder:
 
 Use the following trusted site configuration for US1:
 
-| Field | Value                              |
-| ----- | ----------------------------------- |
-| Name  | `browser_intake_datadoghq_com`      |
+| Field | Value                                  |
+| ----- | -------------------------------------- |
+| Name  | `browser_intake_datadoghq_com`         |
 | URL   | `https://browser-intake-datadoghq.com` |
 
 For non-US1 Datadog sites, use the intake endpoint for the correct [Datadog site][4].
@@ -442,7 +465,7 @@ File location: `lwc/datadogInit/datadogInit.html`
 File location: `lwc/datadogInit/datadogInit.js`
 
 ```javascript
-import { LightningElement, api, wire } from 'lwc'
+import { LightningElement, wire } from 'lwc'
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation'
 import datadogRum from '@salesforce/resourceUrl/datadog_rum'
 import { loadScript } from 'lightning/platformResourceLoader'
@@ -451,14 +474,6 @@ let datadogInitialization
 let lastStartedUrl
 
 export default class DatadogInit extends NavigationMixin(LightningElement) {
-  @api applicationId
-  @api clientToken
-  @api site
-  @api service
-  @api env
-  @api allowedTracingUrls
-  @api trackViewsManually
-
   connectedCallback() {
     this.initialize()
   }
@@ -497,11 +512,11 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
   loadDatadogRum() {
     return loadScript(this, datadogRum).then(() => {
       const initConfig = {
-        applicationId: this.applicationId,
-        clientToken: this.clientToken,
-        env: this.env,
-        service: this.service,
-        site: this.site,
+        applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
+        clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
+        env: '<YOUR_ENV_NAME>',
+        service: '<YOUR_SERVICE_NAME>',
+        site: '<YOUR_DATADOG_SITE>',
         trackViewsManually: true,
         trackEarlyRequests: true,
         trackLongTasks: true,
@@ -519,73 +534,26 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-### 5. Add the component metadata for Experience Builder
+### 5. Add to Experience Builder
 
-Expose the component to Experience Builder:
+Expose the component to Experience Builder and place it in a shared region, page template, global header, global footer, or theme/layout area that loads on every page.
 
-- Use `lightningCommunity__Page` so the component can be placed through Experience Builder.
-- Use `lightningCommunity__Default` so the Datadog configuration values can be edited as component properties.
-
-File location: `lwc/datadogInit/datadogInit.js-meta.xml`
+`lwc/datadogInit/datadogInit.js-meta.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>64.0</apiVersion>
-    <isExposed>true</isExposed>
-    <masterLabel>Datadog Init</masterLabel>
-    <targets>
-        <target>lightningCommunity__Page</target>
-        <target>lightningCommunity__Default</target>
-    </targets>
-    <targetConfigs>
-        <targetConfig targets="lightningCommunity__Default">
-            <property name="applicationId" type="String" label="Application ID" description="Datadog RUM application ID" />
-            <property name="clientToken" type="String" label="Client Token" description="Datadog browser client token" />
-            <property name="site" type="String" label="Site" default="datadoghq.com" />
-            <property name="service" type="String" label="Service" default="my-salesforce-experience-site" />
-            <property name="env" type="String" label="Env" default="dev" />
-        </targetConfig>
-    </targetConfigs>
+  <apiVersion>64.0</apiVersion>
+  <isExposed>true</isExposed>
+  <masterLabel>Datadog Init</masterLabel>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
 </LightningComponentBundle>
 ```
 
-If you are using the same `datadogInit` component for both Lightning Apps and Experience Cloud, combine the targets into one metadata file:
-
-```xml
-<targets>
-    <target>lightning__UtilityBar</target>
-    <target>lightningCommunity__Page</target>
-    <target>lightningCommunity__Default</target>
-</targets>
-```
-
-Then configure both target groups in `targetConfigs` as needed.
-
-### 6. Add the component to an Experience Builder theme/layout area
-
-Open the Experience Cloud site in Builder:
-
-1. Go to **Setup > Apps > App Manager**.
-2. Search for your Experience Cloud application.
-3. Click **Manage**.
-4. Click **Builder**.
-
-Add the Datadog Init component to a location that loads on every page where RUM should run. Recommended placements include:
-
-- A shared site region.
-- A shared page template.
-- A global header or footer region.
-- A theme/layout area that is rendered across the site.
-
-After adding the component:
-
-1. Select the Datadog Init component.
-2. Set the component properties: `applicationId`, `clientToken`, `site`, `service`, `env`.
-3. Save the site.
-4. Publish the site.
-
-### 7. Validate the Theme/Layout LWC installation
+### 6. Validate the Theme/Layout LWC installation
 
 After publishing the site:
 
@@ -602,30 +570,30 @@ If the component is accidentally added multiple times, the global initialization
 
 The following table outlines SDK feature support within the Lightning Web Security (LWS) sandbox environment.
 
-| Feature Area                | Supported    | Notes                                       |
-| ---------------------------- | ------------ | -------------------------------------------- |
-| **View Events**               |              |                                               |
-| Initial View                 | Yes          | Automatic on init.                           |
-| Manual Tracking              | Yes          | Supported through `startView`.                   |
-| Navigation Timings           | Yes          | Collected via performance API.               |
-| Web Vitals                   | Yes          |                                               |
-| **Resource Events**           |              |                                               |
-| Fetch / XHR                  | Limited (2)  | Context payload inaccessible.                |
-| Other Resources              | Yes          | CSS, images, etc.                            |
-| APM Correlation               | Limited (2)  | Requires header injection.                   |
-| **Action Events**             |              |                                               |
-| Custom Actions                | Yes          | Supported through `addAction`. (5) Not supported on the Head Markup path. |
-| Click Actions                 | Yes          | (3) Shadow DOM boundaries apply.              |
-| Frustration Signals            | Yes          |                                               |
-| Loading Time                  | Limited (1)  | Network detection may be incomplete.          |
-| **Error Events**               |              |                                               |
-| Console / Custom              | Yes           | Captured via instrumentation. (5) Not supported on the Head Markup path. |
-| Runtime Errors                 | Limited (4)  | Often redacted as "Script error."             |
-| Unhandled Rejection             | No           | Event not supported in LWS.                   |
-| **Other**                      |              |                                               |
-| Vital Events                   | Yes          |                                               |
-| Long Task Events               | Yes          |                                               |
-| Session Replay                 | No           | DOM/Worker constraints prevent support.        |
+| Feature Area        | Supported   | Notes                                                                     |
+| ------------------- | ----------- | ------------------------------------------------------------------------- |
+| **View Events**     |             |                                                                           |
+| Initial View        | Yes         | Automatic on init.                                                        |
+| Manual Tracking     | Yes         | Supported through `startView`.                                            |
+| Navigation Timings  | Yes         | Collected via performance API.                                            |
+| Web Vitals          | Yes         |                                                                           |
+| **Resource Events** |             |                                                                           |
+| Fetch / XHR         | Limited (2) | Context payload inaccessible.                                             |
+| Other Resources     | Yes         | CSS, images, etc.                                                         |
+| APM Correlation     | Limited (2) | Requires header injection.                                                |
+| **Action Events**   |             |                                                                           |
+| Custom Actions      | Yes         | Supported through `addAction`. (5) Not supported on the Head Markup path. |
+| Click Actions       | Yes         | (3) Shadow DOM boundaries apply.                                          |
+| Frustration Signals | Yes         |                                                                           |
+| Loading Time        | Limited (1) | Network detection may be incomplete.                                      |
+| **Error Events**    |             |                                                                           |
+| Console / Custom    | Yes         | Captured via instrumentation. (5) Not supported on the Head Markup path.  |
+| Runtime Errors      | Limited (4) | Often redacted as "Script error."                                         |
+| Unhandled Rejection | No          | Event not supported in LWS.                                               |
+| **Other**           |             |                                                                           |
+| Vital Events        | Yes         |                                                                           |
+| Long Task Events    | Yes         |                                                                           |
+| Session Replay      | No          | DOM/Worker constraints prevent support.                                   |
 
 Footnotes:
 
