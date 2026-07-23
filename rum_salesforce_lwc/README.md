@@ -39,7 +39,8 @@ curl -o staticresources/datadog_rum.js https://www.datadoghq-browser-agent.com/u
 
 Use this option when your Salesforce project is managed from source control. Commit the metadata file with the downloaded bundle.
 
-`staticresources/datadog_rum.resource-meta.xml`
+<details>
+<summary>View <code>staticresources/datadog_rum.resource-meta.xml</code></summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -48,6 +49,8 @@ Use this option when your Salesforce project is managed from source control. Com
   <contentType>application/javascript</contentType>
 </StaticResource>
 ```
+
+</details>
 
 <!-- xxz tab xxx -->
 <!-- xxx tab "Salesforce UI" xxx -->
@@ -76,7 +79,8 @@ Allow Salesforce to connect to the Datadog browser intake endpoint for your [Dat
 
 Use this option when your Salesforce project is managed from source control.
 
-`cspTrustedSites/browser_intake_datadoghq_com.cspTrustedSite-meta.xml`
+<details>
+<summary>View <code>cspTrustedSites/browser_intake_datadoghq_com.cspTrustedSite-meta.xml</code></summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -88,6 +92,8 @@ Use this option when your Salesforce project is managed from source control.
   <isApplicableToConnectSrc>true</isApplicableToConnectSrc>
 </CspTrustedSite>
 ```
+
+</details>
 
 For non-US1 Datadog sites, update `endpointUrl` to match the correct Datadog browser intake endpoint for your region.
 
@@ -132,7 +138,10 @@ File location: `lwc/datadogInit/datadogInit.html`
 <template></template>
 ```
 
-Create the component JavaScript at `lwc/datadogInit/datadogInit.js`:
+Create the component JavaScript:
+
+<details>
+<summary>View <code>lwc/datadogInit/datadogInit.js</code></summary>
 
 ```javascript
 import { LightningElement, api, wire } from 'lwc'
@@ -209,11 +218,14 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
+</details>
+
 ##### 4. Add to Utility Bar
 
 Expose the component to the Lightning Utility Bar, then add it to your app's Utility Bar with `eager` set to `true`.
 
-`lwc/datadogInit/datadogInit.js-meta.xml`
+<details>
+<summary>View <code>lwc/datadogInit/datadogInit.js-meta.xml</code></summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -236,7 +248,12 @@ Expose the component to the Lightning Utility Bar, then add it to your app's Uti
 </LightningComponentBundle>
 ```
 
+</details>
+
 Add the following `componentInstance` excerpt to your app's existing Utility Bar FlexiPage metadata, for example in `flexipages/MyApp_UtilityBar.flexipage-meta.xml`.
+
+<details>
+<summary>View <code>flexipages/MyApp_UtilityBar.flexipage-meta.xml</code></summary>
 
 ```xml
 <componentInstance>
@@ -275,6 +292,8 @@ Add the following `componentInstance` excerpt to your app's existing Utility Bar
 </componentInstance>
 ```
 
+</details>
+
 <!-- xxz tab xxx -->
 <!-- xxx tab "Experience Cloud Head Markup" xxx -->
 
@@ -291,6 +310,9 @@ Use when you can edit Head Markup. This is the most direct Experience Cloud setu
 ##### 3. Add Head Markup
 
 In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste the following script, and replace the placeholder values with your Datadog RUM configuration. Save the change, then publish the site.
+
+<details>
+<summary>View Experience Cloud Head Markup</summary>
 
 ```html
 <x-oasis-script hidden>
@@ -317,6 +339,8 @@ In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste t
 </x-oasis-script>
 ```
 
+</details>
+
 <!-- xxz tab xxx -->
 <!-- xxx tab "Experience Cloud Component" xxx -->
 
@@ -342,7 +366,10 @@ File location: `lwc/datadogInit/datadogInit.html`
 <template></template>
 ```
 
-Create the component JavaScript at `lwc/datadogInit/datadogInit.js`:
+Create the component JavaScript:
+
+<details>
+<summary>View <code>lwc/datadogInit/datadogInit.js</code></summary>
 
 ```javascript
 import { LightningElement, wire } from 'lwc'
@@ -413,11 +440,14 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
+</details>
+
 ##### 4. Add to Experience Builder
 
 Expose the component to Experience Builder and place it in a shared region, page template, global header, global footer, or theme/layout area that loads on every page.
 
-`lwc/datadogInit/datadogInit.js-meta.xml`
+<details>
+<summary>View <code>lwc/datadogInit/datadogInit.js-meta.xml</code></summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -431,6 +461,8 @@ Expose the component to Experience Builder and place it in a shared region, page
   </targets>
 </LightningComponentBundle>
 ```
+
+</details>
 
 <!-- xxz tab xxx -->
 <!-- xxz tabs xxx -->
