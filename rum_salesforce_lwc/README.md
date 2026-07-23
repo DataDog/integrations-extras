@@ -289,7 +289,7 @@ Use when you can edit Head Markup. This is the most direct Experience Cloud setu
 In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste the following script, and replace the placeholder values with your Datadog RUM configuration. Save the change, then publish the site.
 
 ```html
-<script src="/sfsites/c/resource/datadog_rum_slim"></script>
+<script src="/sfsites/c/resource/datadog_rum"></script>
 <script>
   window.DD_RUM.onReady(function () {
     window.DD_RUM.init({
