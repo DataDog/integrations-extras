@@ -89,20 +89,34 @@ pipeline:
       enabled: true
       categories:
         - filter:
+            query: '@type:stdout NOT @http.statusCode:*'
+          name: Info
+        - filter:
             query: '@proxy.statusCode:[200 TO 299]'
           name: OK
         - filter:
             query: '@proxy.statusCode:[300 TO 399]'
           name: Notice
         - filter:
-            query: '@proxy.statusCode:[400 TO 499]'
+            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr NOT @http.statusCode:*)'
           name: Warning
         - filter:
             query: '@proxy.statusCode:[500 TO 599]'
           name: Error
       target: http.status_category
+    - type: category-processor
+      name: Output Type Remapper
+      enabled: true
+      categories:
+        - filter:
+            query: '@type:stderr'
+          name: Warning
+        - filter:
+            query: '@type:stdout'
+          name: Info
+      target: level
     - type: status-remapper
-      name: Define `http.status_category` as the official status of the log
+      name: Define `http.status_category`, `type` as the official status of the log
       enabled: true
       sources:
         - http.status_category
