@@ -32,90 +32,95 @@ All deployment paths share the first two steps. Complete them once before config
 curl -o staticresources/datadog_rum.js https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js
 ```
 
-<table>
-  <thead>
-    <tr>
-      <th>Project metadata</th>
-      <th>Salesforce UI</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top">
-        <p>Use this option when your Salesforce project is managed from source control. Commit the metadata file with the downloaded bundle.</p>
-        <p><code>staticresources/datadog_rum.resource-meta.xml</code></p>
-        <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
-&lt;StaticResource xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
-  &lt;cacheControl&gt;Public&lt;/cacheControl&gt;
-  &lt;contentType&gt;application/javascript&lt;/contentType&gt;
-&lt;/StaticResource&gt;</code></pre>
-      </td>
-      <td valign="top">
-        <p>Use this option when you configure the static resource directly in Salesforce Setup.</p>
-        <ol>
-          <li>Go to <strong>Setup &gt; Static Resources</strong>.</li>
-          <li>Click <strong>New</strong>.</li>
-          <li>Set <strong>Name</strong> to <code>datadog_rum</code>.</li>
-          <li>Upload the downloaded RUM JavaScript bundle.</li>
-          <li>Set <strong>Cache Control</strong> to <strong>Public</strong>, then save.</li>
-        </ol>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- xxx tabs xxx -->
+<!-- xxx tab "Project metadata" xxx -->
+
+##### Project metadata
+
+Use this option when your Salesforce project is managed from source control. Commit the metadata file with the downloaded bundle.
+
+`staticresources/datadog_rum.resource-meta.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+  <cacheControl>Public</cacheControl>
+  <contentType>application/javascript</contentType>
+</StaticResource>
+```
+
+<!-- xxz tab xxx -->
+<!-- xxx tab "Salesforce UI" xxx -->
+
+##### Salesforce UI
+
+Use this option when you configure the static resource directly in Salesforce Setup.
+
+1. Go to **Setup > Static Resources**.
+2. Click **New**.
+3. Set **Name** to `datadog_rum`.
+4. Upload the downloaded RUM JavaScript bundle.
+5. Set **Cache Control** to **Public**, then save.
+
+<!-- xxz tab xxx -->
+<!-- xxz tabs xxx -->
 
 #### 2. Configure CSP
 
 Allow Salesforce to connect to the Datadog browser intake endpoint for your [Datadog site][4].
 
-<table>
-  <thead>
-    <tr>
-      <th>Project metadata</th>
-      <th>Salesforce UI</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top">
-        <p>Use this option when your Salesforce project is managed from source control.</p>
-        <p><code>cspTrustedSites/browser_intake_datadoghq_com.cspTrustedSite-meta.xml</code></p>
-        <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
-&lt;CspTrustedSite xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
-  &lt;context&gt;All&lt;/context&gt;
-  &lt;description&gt;Datadog browser RUM intake for US1&lt;/description&gt;
-  &lt;endpointUrl&gt;https://browser-intake-datadoghq.com&lt;/endpointUrl&gt;
-  &lt;isActive&gt;true&lt;/isActive&gt;
-  &lt;isApplicableToConnectSrc&gt;true&lt;/isApplicableToConnectSrc&gt;
-&lt;/CspTrustedSite&gt;</code></pre>
-        <p>For non-US1 Datadog sites, update <code>endpointUrl</code> to match the correct Datadog browser intake endpoint for your region.</p>
-      </td>
-      <td valign="top">
-        <p>Use this option when you configure the trusted endpoint directly in Salesforce Setup.</p>
-        <ol>
-          <li>Go to <strong>Setup &gt; Security &gt; Trusted URLs</strong>.</li>
-          <li>Click <strong>New Trusted URL</strong>.</li>
-          <li>Set <strong>API Name</strong> to <code>browser_intake_datadoghq_com</code>.</li>
-          <li>Set <strong>URL</strong> to <code>https://browser-intake-datadoghq.com</code> for US1. For other regions, use the endpoint for your Datadog site.</li>
-          <li>Make sure <strong>Active</strong> is checked.</li>
-          <li>Set <strong>CSP Context</strong> to <strong>All</strong>.</li>
-          <li>Under <strong>CSP Directives</strong>, check <strong>connect-src (scripts)</strong>, then save.</li>
-        </ol>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- xxx tabs xxx -->
+<!-- xxx tab "Project metadata" xxx -->
+
+##### Project metadata
+
+Use this option when your Salesforce project is managed from source control.
+
+`cspTrustedSites/browser_intake_datadoghq_com.cspTrustedSite-meta.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<CspTrustedSite xmlns="http://soap.sforce.com/2006/04/metadata">
+  <context>All</context>
+  <description>Datadog browser RUM intake for US1</description>
+  <endpointUrl>https://browser-intake-datadoghq.com</endpointUrl>
+  <isActive>true</isActive>
+  <isApplicableToConnectSrc>true</isApplicableToConnectSrc>
+</CspTrustedSite>
+```
+
+For non-US1 Datadog sites, update `endpointUrl` to match the correct Datadog browser intake endpoint for your region.
+
+<!-- xxz tab xxx -->
+<!-- xxx tab "Salesforce UI" xxx -->
+
+##### Salesforce UI
+
+Use this option when you configure the trusted endpoint directly in Salesforce Setup.
+
+1. Go to **Setup > Security > Trusted URLs**.
+2. Click **New Trusted URL**.
+3. Set **API Name** to `browser_intake_datadoghq_com`.
+4. Set **URL** to `https://browser-intake-datadoghq.com` for US1. For other regions, use the endpoint for your [Datadog site][4].
+5. Make sure **Active** is checked.
+6. Set **CSP Context** to **All**.
+7. Under **CSP Directives**, check **connect-src (scripts)**, then save.
+
+<!-- xxz tab xxx -->
+<!-- xxz tabs xxx -->
 
 ### Configuration
 
 Choose the deployment path that matches your Salesforce app or Experience Cloud site.
 
-<details>
-<summary>Lightning App Utility Bar</summary>
+<!-- xxx tabs xxx -->
+<!-- xxx tab "Lightning App Utility Bar" xxx -->
+
+#### Lightning App Utility Bar
 
 Use for Salesforce Lightning Apps. This path loads a Datadog initializer LWC from the Utility Bar.
 
-#### 1. Create Init Component
+##### 1. Create Init Component
 
 Create a Lightning Web Component that loads the Datadog Browser SDK and manually starts views as users navigate within the Lightning application.
 
@@ -205,7 +210,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-#### 2. Add to Utility Bar
+##### 2. Add to Utility Bar
 
 Expose the component to the Lightning Utility Bar, then add it to your app's Utility Bar with `eager` set to `true`.
 
@@ -271,10 +276,10 @@ Add the following `componentInstance` excerpt to your app's existing Utility Bar
 </componentInstance>
 ```
 
-</details>
+<!-- xxz tab xxx -->
+<!-- xxx tab "Experience Cloud Head Markup" xxx -->
 
-<details>
-<summary>Experience Cloud Head Markup</summary>
+#### Experience Cloud Head Markup
 
 Use when you can edit Head Markup. This is the most direct Experience Cloud setup.
 
@@ -284,7 +289,7 @@ Use when you can edit Head Markup. This is the most direct Experience Cloud setu
 2. Go to **Settings > Security & Privacy**.
 3. Change the security level from **Strict CSP** to **Relaxed CSP**.
 
-#### 1. Add Head Markup
+##### 1. Add Head Markup
 
 In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste the following script, and replace the placeholder values with your Datadog RUM configuration. Save the change, then publish the site.
 
@@ -307,14 +312,14 @@ In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste t
 </script>
 ```
 
-</details>
+<!-- xxz tab xxx -->
+<!-- xxx tab "Experience Cloud Component" xxx -->
 
-<details>
-<summary>Experience Cloud Component</summary>
+#### Experience Cloud Component
 
 Place an initializer LWC in a shared site region.
 
-#### 1. Create Init Component
+##### 1. Create Init Component
 
 Create an LWC that loads the Datadog Browser SDK and manually starts views as users navigate within the Experience Cloud site.
 
@@ -398,7 +403,7 @@ export default class DatadogInit extends NavigationMixin(LightningElement) {
 }
 ```
 
-#### 2. Add to Experience Builder
+##### 2. Add to Experience Builder
 
 Expose the component to Experience Builder and place it in a shared region, page template, global header, global footer, or theme/layout area that loads on every page.
 
@@ -417,7 +422,8 @@ Expose the component to Experience Builder and place it in a shared region, page
 </LightningComponentBundle>
 ```
 
-</details>
+<!-- xxz tab xxx -->
+<!-- xxz tabs xxx -->
 
 ### Validate the Installation
 
