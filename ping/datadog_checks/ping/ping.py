@@ -44,7 +44,7 @@ class PingCheck(AgentCheck):
             cmd = "ping"
 
         if platform.system() == "Windows":  # pragma: nocover
-            precmd = ["cmd", "/c", "chcp 437 &"]  # Set code page to English for non-US Windows
+            precmd = ["cmd", "/c", "chcp 65001 &"]  # UTF-8 code page so non-ASCII ping output decodes correctly
             countOption = "-n"
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
@@ -85,12 +85,13 @@ class PingCheck(AgentCheck):
 
         try:
             lines = self._exec_ping(timeout, host)
-            regex = re.compile(r"time[<=]((\d|\.)*)")
+            # Match on the untranslated "ms" unit, since ping localizes the "time" label (e.g. German "Zeit=")
+            regex = re.compile(r"[<=]\s*([\d.]+)\s*ms")
             result = regex.findall(lines)
             if result:
-                length = result[0][0]
+                length = result[0]
             else:
-                raise CheckException("No time= found ({})".format(lines))
+                raise CheckException("No response time found ({})".format(lines))
 
         except CheckException as e:
             self.log.info("%s is DOWN (%s)", host, e)
