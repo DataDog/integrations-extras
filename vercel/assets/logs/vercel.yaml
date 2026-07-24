@@ -114,7 +114,17 @@ pipeline:
       enabled: true
       sources:
         - projectName
-   - type: attribute-remapper
+    - type: attribute-remapper
+      name: Define `deploymentId` as the official version of the log
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: version
+      targetType: tag
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
       name: Define `environment` as the official env of the log
       enabled: true
       sources:
@@ -168,6 +178,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -195,6 +207,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -222,6 +236,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -252,6 +268,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -282,6 +300,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -312,6 +332,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -342,6 +364,8 @@ metrics:
         tagName: branch
       - path: '@environment'
         tagName: environment
+      - path: '@deploymentId'
+        tagName: deployment_id
       - path: '@projectId'
         tagName: project_id
       - path: '@statusCode'
@@ -363,5 +387,7 @@ metrics:
     groupBys:
       - path: '@projectName'
         tagName: project_name
+      - path: '@environment'
+        tagName: environment
       - path: '@projectId'
         tagName: project_id
