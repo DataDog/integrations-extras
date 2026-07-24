@@ -7,22 +7,61 @@ instances:
     #
   - sentinel_host: localhost
 
-    ## @param sentinel_port - string - required
+    ## @param sentinel_port - integer - required
     ## Port to connect to when reaching `sentinel_host`.
     #
     sentinel_port: 26379
 
     ## @param sentinel_password - string - optional
-    ## Password for authenticating to the Sentinel host
+    ## Password for authenticating to the Sentinel host.
     #
-    # sentinel_password: <password>
+    # sentinel_password: <PASSWORD>
+
+    ## @param sentinel_username - string - optional
+    ## Username for authenticating to the Sentinel host. Redis 6+ only (ACL support).
+    #
+    # sentinel_username: <USERNAME>
 
     ## @param masters - list of strings - required
-    ## List of masters name to collect data from
+    ## List of masters name to collect data from.
     #
     masters:
       - <MASTER_NAME_1>
       - <MASTER_NAME_2>
+
+    ## @param socket_timeout - integer - optional - default: 5
+    ## Timeout in seconds for connecting to and reading from the Sentinel host.
+    #
+    # socket_timeout: 5
+
+    ## @param ssl - boolean - optional - default: false
+    ## Enable SSL/TLS encryption for the Sentinel connection.
+    #
+    # ssl: false
+
+    ## @param ssl_keyfile - string - optional
+    ## The path to the client-side private keyfile.
+    #
+    # ssl_keyfile: <CERT_KEY_PATH>
+
+    ## @param ssl_certfile - string - optional
+    ## The path to the client-side certificate file.
+    #
+    # ssl_certfile: <CERT_PEM_PATH>
+
+    ## @param ssl_ca_certs - string - optional
+    ## The path to the CA certs file.
+    #
+    # ssl_ca_certs: <CERT_PATH>
+
+    ## @param ssl_cert_reqs - integer - optional - default: 2
+    ## Specifies whether a certificate is required from the
+    ## other side of the connection, and whether it's validated if provided.
+    ##   * 0 for ssl.CERT_NONE (certificates ignored)
+    ##   * 1 for ssl.CERT_OPTIONAL (not required, but validated if provided)
+    ##   * 2 for ssl.CERT_REQUIRED (required and validated)
+    #
+    # ssl_cert_reqs: 2
 
     ## @param tags - list of key:value elements - optional
     ## List of tags to attach to every metric, event and service check emitted by this integration.
