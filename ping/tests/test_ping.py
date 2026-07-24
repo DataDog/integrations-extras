@@ -15,6 +15,14 @@ def mock_exec_ping():
 round-trip min/avg/max/stddev = 0.093/0.093/0.093/0.000 ms"""
 
 
+def mock_exec_ping_german():
+    return (
+        "Antwort von 127.0.0.1: Bytes=32 Zeit=3ms TTL=117\n"
+        "Ping-Statistik für 127.0.0.1:\n"
+        "    Minimum = 3ms, Maximum = 3ms, Mittelwert = 3ms"
+    )
+
+
 def test_empty_check(empty_instance):
     check = PingCheck("ping", {}, {})
 
@@ -46,6 +54,17 @@ def test_valid_check_ipv6(aggregator, instance_ipv6):
         check.check(instance_ipv6)
     aggregator.assert_service_check("network.ping.can_connect", AgentCheck.OK)
     aggregator.assert_metric("network.ping.can_connect", value=1)
+    aggregator.assert_all_metrics_covered()
+
+
+def test_localized_output(aggregator, instance_response_time):
+    check = PingCheck("ping", {}, {})
+
+    with mock.patch.object(check, "_exec_ping", return_value=mock_exec_ping_german()):
+        check.check(instance_response_time)
+    aggregator.assert_service_check("network.ping.can_connect", AgentCheck.OK)
+    aggregator.assert_metric("network.ping.can_connect", value=1)
+    aggregator.assert_metric("network.ping.response_time", value=3)
     aggregator.assert_all_metrics_covered()
 
 
