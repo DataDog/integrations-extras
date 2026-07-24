@@ -10,7 +10,7 @@ files:
     - template: instances/openmetrics
       options:
       overrides:
-        openmetrics_endpoint.value.example: http://localhost:9490/metrics/flasharray/array?endpoint=array01
+        openmetrics_endpoint.value.example: https://<arrayIP-or-FQDN>/metrics/array?namespace=purefa
         openmetrics_endpoint.display_priority: 1
         hostname_label.value.example: host
         hostname_label.display_priority: 1
@@ -22,7 +22,7 @@ files:
         min_collection_interval.value.example: 120
         min_collection_interval.enabled: true
         cache_shared_labels.value.example: false
-        share_labels.value.enabled: true
+        share_labels.enabled: true
         share_labels.value.example:
           purefa_info:
             labels:
