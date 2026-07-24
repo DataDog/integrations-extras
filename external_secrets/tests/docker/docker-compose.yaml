@@ -1,0 +1,8 @@
+services:
+  external-secrets-mock:
+    image: python:3.13-alpine
+    command: python -m http.server 8080 --directory /metrics
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../fixtures:/metrics

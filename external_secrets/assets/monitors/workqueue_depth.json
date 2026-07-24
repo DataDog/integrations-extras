@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "title": "External Secrets Workqueue Depth High",
+  "tags": ["integration:external-secrets"],
+  "description": "This monitor alerts when the workqueue depth is high, indicating that the controller is falling behind on reconciliation.",
+  "definition": {
+    "name": "[External Secrets] High Workqueue Depth for {{name.name}}",
+    "message": "Workqueue `{{name.name}}` has a depth of {{value}} items, indicating the controller is falling behind on reconciliation.\n\nTo resolve:\n1. Check if the controller is rate-limited or throttled by the provider API\n2. Consider increasing concurrent reconciles\n3. Check for a large number of newly created ExternalSecret resources",
+    "query": "avg(last_10m):avg:external_secrets.workqueue.depth{*} by {name} > 10",
+    "type": "query alert",
+    "options": {
+      "thresholds": {
+        "critical": 10,
+        "warning": 5
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "renotify_interval": 60,
+      "escalation_message": "",
+      "notify_no_data": false,
+      "avalanche_window": 10,
+      "enable_samples": true,
+      "groupby_simple_monitor": false,
+      "silenced": {}
+    }
+  }
+}

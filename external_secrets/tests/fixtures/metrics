@@ -1,0 +1,79 @@
+# HELP externalsecret_status_condition The status condition of a specific External Secret
+# TYPE externalsecret_status_condition gauge
+externalsecret_status_condition{name="example-secret",namespace="default",condition="Ready",status="true"} 1
+externalsecret_status_condition{name="another-secret",namespace="production",condition="Ready",status="true"} 1
+# HELP externalsecret_reconcile_duration The duration time to reconcile the External Secret
+# TYPE externalsecret_reconcile_duration gauge
+externalsecret_reconcile_duration{name="example-secret",namespace="default"} 0.045
+externalsecret_reconcile_duration{name="another-secret",namespace="production"} 0.120
+# HELP externalsecret_sync_calls_total Total number of the External Secret sync calls
+# TYPE externalsecret_sync_calls_total counter
+externalsecret_sync_calls_total{name="example-secret",namespace="default"} 150
+externalsecret_sync_calls_total{name="another-secret",namespace="production"} 89
+# HELP externalsecret_sync_calls_error Total number of the External Secret sync errors
+# TYPE externalsecret_sync_calls_error counter
+externalsecret_sync_calls_error{name="example-secret",namespace="default"} 2
+externalsecret_sync_calls_error{name="another-secret",namespace="production"} 0
+# HELP externalsecret_provider_api_calls_count Number of API calls made to an upstream secret provider API
+# TYPE externalsecret_provider_api_calls_count counter
+externalsecret_provider_api_calls_count{provider="vault",call="read",status="success"} 300
+externalsecret_provider_api_calls_count{provider="vault",call="read",status="error"} 5
+externalsecret_provider_api_calls_count{provider="aws",call="get",status="success"} 120
+# HELP clusterexternalsecret_status_condition The status condition of a specific Cluster External Secret
+# TYPE clusterexternalsecret_status_condition gauge
+clusterexternalsecret_status_condition{name="cluster-external-secret",condition="Ready",status="true"} 1
+# HELP clusterexternalsecret_reconcile_duration The duration time to reconcile the Cluster External Secret
+# TYPE clusterexternalsecret_reconcile_duration gauge
+clusterexternalsecret_reconcile_duration{name="cluster-external-secret"} 0.250
+# HELP pushsecret_status_condition The status condition of a specific Push Secret
+# TYPE pushsecret_status_condition gauge
+pushsecret_status_condition{name="push-example",namespace="default",condition="Ready",status="true"} 1
+# HELP pushsecret_reconcile_duration The duration time to reconcile the Push Secret
+# TYPE pushsecret_reconcile_duration gauge
+pushsecret_reconcile_duration{name="push-example",namespace="default"} 0.080
+# HELP clustersecretstore_status_condition The status condition of a specific Cluster Secret Store
+# TYPE clustersecretstore_status_condition gauge
+clustersecretstore_status_condition{name="vault-store",condition="Ready",status="true"} 1
+clustersecretstore_status_condition{name="aws-store",condition="Ready",status="true"} 1
+# HELP clustersecretstore_reconcile_duration The duration time to reconcile the Cluster Secret Store
+# TYPE clustersecretstore_reconcile_duration gauge
+clustersecretstore_reconcile_duration{name="vault-store"} 0.015
+clustersecretstore_reconcile_duration{name="aws-store"} 0.010
+# HELP secretstore_status_condition The status condition of a specific Secret Store
+# TYPE secretstore_status_condition gauge
+secretstore_status_condition{name="namespace-store",namespace="default",condition="Ready",status="true"} 1
+# HELP secretstore_reconcile_duration The duration time to reconcile the Secret Store
+# TYPE secretstore_reconcile_duration gauge
+secretstore_reconcile_duration{name="namespace-store",namespace="default"} 0.005
+# HELP controller_runtime_reconcile_total Total number of reconciliations per controller
+# TYPE controller_runtime_reconcile_total counter
+controller_runtime_reconcile_total{controller="externalsecret",result="success"} 500
+controller_runtime_reconcile_total{controller="externalsecret",result="error"} 10
+controller_runtime_reconcile_total{controller="clustersecretstore",result="success"} 200
+controller_runtime_reconcile_total{controller="pushsecret",result="success"} 50
+# HELP controller_runtime_reconcile_errors_total Total number of reconciliation errors per controller
+# TYPE controller_runtime_reconcile_errors_total counter
+controller_runtime_reconcile_errors_total{controller="externalsecret"} 10
+controller_runtime_reconcile_errors_total{controller="clustersecretstore"} 3
+# HELP controller_runtime_reconcile_time_seconds Histogram of the duration of reconciliations
+# TYPE controller_runtime_reconcile_time_seconds histogram
+controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="0.01"} 100
+controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="0.1"} 400
+controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="1"} 500
+controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="10"} 510
+controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="+Inf"} 510
+controller_runtime_reconcile_time_seconds_sum{controller="externalsecret"} 123.450
+controller_runtime_reconcile_time_seconds_count{controller="externalsecret"} 510
+# HELP controller_runtime_active_workers Number of currently used workers per controller
+# TYPE controller_runtime_active_workers gauge
+controller_runtime_active_workers{controller="externalsecret"} 3
+controller_runtime_active_workers{controller="clustersecretstore"} 1
+# HELP controller_runtime_max_concurrent_reconciles Maximum number of concurrent reconciles per controller
+# TYPE controller_runtime_max_concurrent_reconciles gauge
+controller_runtime_max_concurrent_reconciles{controller="externalsecret"} 5
+controller_runtime_max_concurrent_reconciles{controller="clustersecretstore"} 5
+# HELP workqueue_depth Current depth of the workqueue
+# TYPE workqueue_depth gauge
+workqueue_depth{name="externalsecret"} 0
+workqueue_depth{name="clustersecretstore"} 2
+workqueue_depth{name="pushsecret"} 0
