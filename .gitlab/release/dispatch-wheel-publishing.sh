@@ -17,6 +17,8 @@ DISPATCH_TOKEN=$(dd-octo-sts token \
     --policy self.gitlab.release.dispatch-wheel-publishing)
 trap 'set +x; dd-octo-sts revoke -t "$DISPATCH_TOKEN" 2>/dev/null || true' EXIT
 
+# A lost success response can produce a duplicate dispatch. That is safe: each
+# run uses the same source SHA and downstream TUF writes are retry-safe.
 curl --fail-with-body --silent --show-error \
     --retry 3 --retry-all-errors --retry-delay 2 --max-time 30 \
     --request POST \

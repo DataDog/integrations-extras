@@ -28,6 +28,10 @@ on:
         required: false
         type: string
 
+concurrency:
+  group: release-${{ inputs.source-repo-ref }}
+  cancel-in-progress: false
+
 jobs:
   context:
     name: Detect release context
@@ -50,7 +54,7 @@ jobs:
     with:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
-      source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
+      source-repo-ref: ${{ inputs.source-repo-ref }}
       source-repo-branch: master
       create-tags: false
       dry-run: ${{ inputs.dry-run || false }}
