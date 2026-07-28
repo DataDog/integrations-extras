@@ -16,6 +16,9 @@ workflow:
 release-auto:
   stage: release
   image: $TAGGER_IMAGE
+  id_tokens:
+    DDOCTOSTS_ID_TOKEN:
+      aud: dd-octo-sts
   script:
     - ddev --version
     - ddev config set repos.extras .

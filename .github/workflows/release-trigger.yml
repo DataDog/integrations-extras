@@ -1,15 +1,11 @@
 name: Trigger Wheel Builds
 
-# Thin wrapper — all tagging and dispatch logic lives in integrations-core's
-# reusable release-dispatch.yml workflow.
+# The legacy GitLab release job owns signing and tag creation. This receiver
+# delegates detection, validation, and wheel dispatch to integrations-core.
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "*/CHANGELOG.md"
-      - "*/datadog_checks/*/__about__.py"
+  # Automatic push triggering is intentionally disabled. The legacy GitLab release
+  # job dispatches this workflow with the exact signed SHA after pushing all tags.
   workflow_dispatch:
     inputs:
       packages:
@@ -47,25 +43,19 @@ jobs:
             echo "is-stable-release=false" >> "$GITHUB_OUTPUT"
           fi
 
-  approve:
-    name: Await release approval
-    needs: context
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - run: echo "Release approved"
-
   dispatch:
     name: Release
-    needs: [context, approve]
+    needs: context
     uses: DataDog/integrations-core/.github/workflows/release-dispatch.yml@master
     with:
       source-repo: integrations-extras
       packages: ${{ inputs.packages || '' }}
       source-repo-ref: ${{ inputs.source-repo-ref || github.sha }}
+      source-repo-branch: master
+      create-tags: false
       dry-run: ${{ inputs.dry-run || false }}
       ddev-version: ${{ inputs.ddev-version || '' }}
       is-stable-release: ${{ needs.context.outputs.is-stable-release }}
     permissions:
       id-token: write
-      contents: write
+      contents: read
