@@ -4,20 +4,16 @@
 
 ***Added***:
 
-* Expose the raw cumulative value of the client-connection `endpoint_*` counters as gauges.
-  `endpoint_client_connections`, `endpoint_client_disconnections`, and `endpoint_proxy_disconnections`
-  are now submitted with the `counter_gauge` type, which adds a new `rdse2.<name>.total` gauge
-  alongside the existing monotonic `rdse2.<name>.count` metric. This allows dashboards to compute
-  values such as current connected clients
-  (`endpoint_client_connections` - `endpoint_client_disconnections` - `endpoint_proxy_disconnections`)
-  from the raw counter totals. The existing `.count` metrics are unchanged.
-* Add `rdse2.redis_server_db_keys`, a distinct wire gauge for the total key count.
+* Submit the client-connection `endpoint_*` counters with the `counter_gauge` type, adding `.total` gauges (`rdse2.endpoint_client_connections.total`, `rdse2.endpoint_client_disconnections.total`, `rdse2.endpoint_proxy_disconnections.total`) alongside the existing `.count` metrics so current connected clients can be computed from the raw totals. [#3078](https://github.com/DataDog/integrations-extras/pull/3078)
+* Add `rdse2.redis_server_db_keys`, a distinct gauge for the total key count. [#3078](https://github.com/DataDog/integrations-extras/pull/3078)
 
 ***Deprecated***:
 
-* `rdse2.redis_server_db0_keys` is deprecated in favor of `rdse2.redis_server_db_keys`. It remains
-  mapped and emitting for backward compatibility, and dashboards now reference
-  `rdse2.redis_server_db_keys`.
+* Deprecate `rdse2.redis_server_db0_keys` in favor of `rdse2.redis_server_db_keys`; it remains mapped and emitting for backward compatibility. [#3078](https://github.com/DataDog/integrations-extras/pull/3078)
+
+***Fixed***:
+
+* Rename the internal `get_default_config` method so it no longer collides with the method `OpenMetricsBaseCheckV2` added in datadog-checks-base 37.39.0, which crashed the check on recent Agents. [#3078](https://github.com/DataDog/integrations-extras/pull/3078)
 
 ## 1.0.1 / 2025-10-17
 

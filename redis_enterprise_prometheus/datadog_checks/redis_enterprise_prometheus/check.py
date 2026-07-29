@@ -17,7 +17,7 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
     def _parse_config(self):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get("openmetrics_endpoint")
-        metrics = self.get_default_config()
+        metrics = self._get_default_metrics()
 
         additional = []
         groups = self.instance.get("extra_metrics", [])
@@ -50,7 +50,10 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         config.update(self.instance)
         self.scraper_configs.append(config)
 
-    def get_default_config(self):
+    # NOTE: must NOT be named get_default_config() — that collides with the method
+    # OpenMetricsBaseCheckV2 introduced in datadog-checks-base 37.39.0, which the base
+    # calls as `dict(self.get_default_config())` and would crash on this list.
+    def _get_default_metrics(self):
         metrics = []
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
