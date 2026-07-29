@@ -9,7 +9,7 @@ Ping operates by sending Internet Control Message Protocol (ICMP) echo request p
 
 This check uses the system ping command, rather than generating the ICMP echo request itself, as creating an ICMP packet requires a raw socket. Creating raw sockets requires root privileges, which the Agent does not have. The ping command uses the `setuid` access flag to run with elevated privileges, avoiding this issue.
 
-**Note for Windows users**: Version 1.0.3 or later is required for this check to work correctly when the installed Windows language is not set to English.
+**Note for Windows users**: Versions prior to 1.0.3 may not work correctly if the installed Windows language is not set to English.
 
 ## Setup
 
