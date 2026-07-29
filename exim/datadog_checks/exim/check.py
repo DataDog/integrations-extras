@@ -7,7 +7,7 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 
 class EximCheck(AgentCheck):
-    # This will be the prefix of every metric and service check the integration sends
+    # Namespace prefix for all metrics and service checks emitted by this integration
     __NAMESPACE__ = 'exim'
 
     SERVICE_CHECK_NAME = 'returns.output'
