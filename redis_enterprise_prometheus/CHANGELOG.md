@@ -4,7 +4,8 @@
 
 ***Added***:
 
-* Expose the raw cumulative value of the `endpoint_*` Prometheus counters as gauges. These metrics
+* Expose the raw cumulative value of the client-connection `endpoint_*` counters as gauges.
+  `endpoint_client_connections`, `endpoint_client_disconnections`, and `endpoint_proxy_disconnections`
   are now submitted with the `counter_gauge` type, which adds a new `rdse2.<name>.total` gauge
   alongside the existing monotonic `rdse2.<name>.count` metric. This allows dashboards to compute
   values such as current connected clients
