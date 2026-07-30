@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "created_at": "2026-01-01",
+  "last_updated_at": "2026-01-01",
+  "title": "Genesys Cloud average MOS is degraded",
+  "description": "Mean Opinion Score (MOS) measures perceived voice call quality; a drop means customers may be experiencing degraded audio. This monitor alerts when the average conversation MOS from Genesys Cloud falls below an acceptable threshold, so call quality issues are caught early.",
+  "definition": {
+    "message": "The average Genesys Cloud conversation MOS has dropped below {{threshold}} for {{region.name}}, indicating degraded call quality.",
+    "name": "[Genesys Cloud MOS] Average MOS is degraded on {{region.name}}",
+    "options": {
+      "notify_audit": false,
+      "thresholds": {
+        "critical": 3.6,
+        "warning": 4.0
+      },
+      "notify_no_data": false,
+      "renotify_interval": 0
+    },
+    "query": "avg(last_15m):avg:genesys_mos.conversation.mos.avg{*} by {region} < 3.6",
+    "tags": [
+      "integration:genesys-mos"
+    ],
+    "type": "query alert"
+  },
+  "tags": [
+    "integration:genesys-mos"
+  ]
+}
