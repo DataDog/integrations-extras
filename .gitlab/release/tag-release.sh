@@ -14,10 +14,12 @@ if [[ $status -eq 0 ]]; then
     # Order of steps matter as we want the tag to point to the signing commit.
     # 1. Sign
     # 2. Create tag(s)
-    # 3. Trigger the build pipeline
+    # 3. Trigger the legacy build pipeline
+    # 4. Dispatch autonomous wheel publishing from the signed, tagged commit
     ./.gitlab/release/sign-release.sh
     ddev release tag all
     ./.gitlab/release/build-packages.sh
+    ./.gitlab/release/dispatch-wheel-publishing.sh
 elif [[ $status -eq 2 ]]; then
     echo "No new releases, skipping the build pipeline trigger"
 else
