@@ -63,3 +63,16 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
+  track:
+    name: Record release deployment
+    needs: dispatch
+    if: ${{ !inputs.dry-run }}
+    runs-on: ubuntu-latest
+    environment: release
+    permissions: {}
+    steps:
+      - name: Record successful dispatch
+        env:
+          SOURCE_REPO_REF: ${{ inputs.source-repo-ref }}
+        run: echo "Wheel build dispatch completed for ${SOURCE_REPO_REF}"
