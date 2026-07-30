@@ -21,6 +21,11 @@ Before you begin, gather the following Datadog RUM values:
 
 You can get those values in Datadog under **Digital Experience > Real User Monitoring > Manage Applications > Set Up Manually**.
 
+The snippets below are written for the US1 site. If your organization is on a different [Datadog site][4], substitute both of the following in every snippet:
+
+- `us1` in the bundle URL, with your site's datacenter code (for example `eu1`, `us3`, `us5`, `ap1`).
+- `<YOUR_DATADOG_SITE>`, with your site's domain (for example `datadoghq.eu`, `us3.datadoghq.com`).
+
 You'll also need:
 
 - Admin access to your Shopify store (**Settings** and **Online Store > Themes**).
@@ -50,7 +55,7 @@ Use this path to cover storefront pages (product, collection, cart, home).
        window,
        document,
        'script',
-       'https://www.datadoghq-browser-agent.com/{{< region-param key="dd_datacenter_lowercase" code="true" >}}/v7/datadog-rum-shopify.js',
+       'https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-shopify.js',
        'DD_RUM'
      );
 
@@ -58,7 +63,7 @@ Use this path to cover storefront pages (product, collection, cart, home).
        DD_RUM.init({
          applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
          clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
-         site: '{{< region-param key="dd_site" code="true" >}}',
+         site: '<YOUR_DATADOG_SITE>',
          service: '<YOUR_SERVICE_NAME>',
          env: '<YOUR_ENV_NAME>',
          version: '1.0.0',
@@ -110,7 +115,7 @@ Use this path to cover checkout pages (`/checkouts/*`, `/checkout`). It runs ins
      window,
      document,
      'script',
-     'https://www.datadoghq-browser-agent.com/{{< region-param key="dd_datacenter_lowercase" code="true" >}}/v7/datadog-rum-shopify.js',
+     'https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-shopify.js',
      'DD_RUM'
    )
 
@@ -118,7 +123,7 @@ Use this path to cover checkout pages (`/checkouts/*`, `/checkout`). It runs ins
      DD_RUM.init({
        applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
        clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
-       site: '{{< region-param key="dd_site" code="true" >}}',
+       site: '<YOUR_DATADOG_SITE>',
        service: '<YOUR_SERVICE_NAME>',
        env: '<YOUR_ENV_NAME>',
        version: '1.0.0',
