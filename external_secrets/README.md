@@ -21,7 +21,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Extern
 
 ### Configuration
 
-1. Edit the `external_secrets.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your External Secrets Operator [metrics](#metrics). See the [sample external_secrets.d/conf.yaml][7] for all available configuration options.
+1. Edit the `external_secrets.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your External Secrets Operator metrics. See the [sample external_secrets.d/conf.yaml][7] for all available configuration options.
 
 2. [Restart the Agent][8].
 
