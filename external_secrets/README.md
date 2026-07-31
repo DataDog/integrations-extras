@@ -17,7 +17,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Extern
    datadog-agent integration install -t datadog-external-secrets==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][5].
+3. Configure your integration in the same way as core [integrations][5].
 
 ### Configuration
 
