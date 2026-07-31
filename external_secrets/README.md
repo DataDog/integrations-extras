@@ -59,3 +59,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/external_secrets/metadata.csv
 [11]: https://github.com/DataDog/integrations-extras/blob/master/external_secrets/assets/service_checks.json
 [12]: https://docs.datadoghq.com/help/
+[13]: https://external-secrets.io/
