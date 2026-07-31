@@ -2,7 +2,7 @@
 
 ## Overview
 
-The External Secrets Operator (ESO) synchronizes secrets from external providers (e.g. HashiCorp Vault, AWS Secrets Manager) into Kubernetes Secrets. This integration provides visibility into ESO's health and performance, including reconciliation rates, provider API calls, secret sync status, and controller runtime metrics.
+The [External Secrets Operator][13] (ESO) synchronizes secrets from external providers, such as HashiCorp Vault or AWS Secrets Manager, into Kubernetes Secrets. This integration provides visibility into ESO's health and performance, including reconciliation rates, provider API calls, secret sync status, and controller runtime metrics.
 
 ## Setup
 
