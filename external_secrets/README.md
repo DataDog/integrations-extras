@@ -11,7 +11,7 @@ The [External Secrets Operator][13] (ESO) synchronizes secrets from external pro
 If you are using Agent v6.8+ follow the instructions below to install the External Secrets check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent Manager][2] or in a [Docker environment][4].
 
 1. [Download and launch the Datadog Agent][3].
-2. Run the following command to install the integrations wheel with the Agent:
+2. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-external-secrets==<INTEGRATION_VERSION>
