@@ -105,6 +105,7 @@ def test_load_config_ssl():
             'ssl_keyfile': '/path/to/key.pem',
             'ssl_ca_certs': '/path/to/ca.pem',
             'ssl_cert_reqs': 2,
+            'ssl_check_hostname': False,
         }
     )
     assert ssl_kwargs == {
@@ -113,6 +114,7 @@ def test_load_config_ssl():
         'ssl_keyfile': '/path/to/key.pem',
         'ssl_ca_certs': '/path/to/ca.pem',
         'ssl_cert_reqs': 2,
+        'ssl_check_hostname': False,
     }
 
     # SSL enabled with minimal options
@@ -164,7 +166,7 @@ def test_down_slaves(aggregator, instance):
     for _ in range(7):
         sentinel_slaves.append({'is_odown': False, 'is_sdown': True})
 
-    with mock.patch.object(check, '_get_sentinel_replicas', return_value=sentinel_slaves):
+    with mock.patch('redis.StrictRedis.sentinel_slaves', return_value=sentinel_slaves):
         check.check(instance)
 
         aggregator.assert_metric('redis.sentinel.odown_slaves', 5)

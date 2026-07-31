@@ -42,6 +42,9 @@ class RedisSentinelCheck(AgentCheck):
             ssl_cert_reqs = instance.get('ssl_cert_reqs')
             if ssl_cert_reqs is not None:
                 ssl_kwargs['ssl_cert_reqs'] = ssl_cert_reqs
+            ssl_check_hostname = instance.get('ssl_check_hostname')
+            if ssl_check_hostname is not None:
+                ssl_kwargs['ssl_check_hostname'] = ssl_check_hostname
 
         return host, port, passwd, username, socket_timeout, ssl_kwargs
 
@@ -70,15 +73,6 @@ class RedisSentinelCheck(AgentCheck):
         master_tags = self._process_master_stats(redis_conn, master_name, base_tags)
         self._process_slaves_stats(redis_conn, master_name, base_tags, master_tags)
         self._process_sentinels_stats(redis_conn, master_name, base_tags, master_tags)
-
-    def _get_sentinel_replicas(self, redis_conn, master_name):
-        """Get replica stats using sentinel_replicas() (Redis 7+) with fallback to sentinel_slaves()."""
-        if hasattr(redis_conn, 'sentinel_replicas'):
-            try:
-                return redis_conn.sentinel_replicas(master_name)
-            except Exception:
-                pass
-        return redis_conn.sentinel_slaves(master_name)
 
     def _process_sentinels_stats(self, redis_conn, master_name, base_tags, master_tags):
         """
@@ -160,7 +154,7 @@ class RedisSentinelCheck(AgentCheck):
             'slave-repl-offset': 12345678,
         }]
         """
-        slaves_stats = self._get_sentinel_replicas(redis_conn, master_name)
+        slaves_stats = redis_conn.sentinel_slaves(master_name)
         slaves_odown = 0
         slaves_sdown = 0
 
