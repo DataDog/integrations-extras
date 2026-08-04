@@ -2,10 +2,11 @@
 
 import platform
 import re
+import subprocess
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
-from datadog_checks.base.utils.subprocess_output import get_subprocess_output
+from datadog_checks.base.utils.subprocess_output import SubprocessOutputEmptyError, get_subprocess_output
 
 
 class PingCheck(AgentCheck):
@@ -24,8 +25,6 @@ class PingCheck(AgentCheck):
         return host, custom_tags, timeout, response_time
 
     def _exec_ping(self, timeout, target_host):
-        precmd = []
-
         try:
             split_url = target_host.split(":")
         except Exception:  # Would be raised if url is not a string
@@ -44,7 +43,6 @@ class PingCheck(AgentCheck):
             cmd = "ping"
 
         if platform.system() == "Windows":  # pragma: nocover
-            precmd = ["cmd", "/c", "chcp 65001 &"]
             countOption = "-n"
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
@@ -65,18 +63,28 @@ class PingCheck(AgentCheck):
             countOption = "-c"
             timeoutOption = "-W"
 
-        self.log.debug("Running: %s %s %s %s %s %s", cmd, countOption, "1", timeoutOption, timeout, target_host)
+        command = [cmd, countOption, "1", timeoutOption, str(timeout), target_host]
+        self.log.debug("Running: %s", " ".join(command))
 
-        lines, err, retcode = get_subprocess_output(
-            precmd + [cmd, countOption, "1", timeoutOption, str(timeout), target_host],
-            self.log,
-            raise_on_empty_output=True,
-        )
+        if platform.system() == "Windows":  # pragma: nocover
+            lines, err, retcode = self._exec_ping_windows(command)
+        else:
+            lines, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=True)
+
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:
             raise CheckException("ping returned {}: {}".format(retcode, err))
 
         return lines
+
+    def _exec_ping_windows(self, command):  # pragma: nocover
+        # ping emits localized output in the OEM code page; get_subprocess_output would hardcode a UTF-8 decode.
+        result = subprocess.run(command, capture_output=True)
+        out = result.stdout.decode("oem", errors="replace")
+        err = result.stderr.decode("oem", errors="replace")
+        if not out:
+            raise SubprocessOutputEmptyError("get_subprocess_output expected output but had none.")
+        return out, err, result.returncode
 
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
