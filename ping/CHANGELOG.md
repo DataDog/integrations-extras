@@ -1,5 +1,11 @@
 # CHANGELOG - Ping
 
+## 1.0.4 / 2026-08-04
+
+***Fixed***:
+
+* Fix the Ping check still crashing on non-English Windows. The ``chcp 65001`` approach in 1.0.3 did not change the encoding of ping's output, so localized output still failed with ``'utf-8' codec can't decode byte 0x81``. On Windows the check now decodes ping's output using the OEM code page instead of UTF-8 ([#<PR>](https://github.com/DataDog/integrations-extras/pull/<PR>)).
+
 ## 1.0.3 / 2026-07-23
 
 ***Fixed***:
