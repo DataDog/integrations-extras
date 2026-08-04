@@ -1,0 +1,636 @@
+{
+  "title": "Stonebranch Overview",
+  "description": "Monitors Stonebranch Universal Automation Center task execution, infrastructure health, and license consumption.",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "type": "group",
+        "title": "About Stonebranch",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2,
+            "definition": {
+              "type": "note",
+              "content": "## Stonebranch Universal Automation Center\n\nStonebranch UAC is an enterprise workload automation platform. This dashboard provides visibility into task execution outcomes, agent and OMS connectivity, and license utilization.\n\n**Useful links:**\n- [Stonebranch Documentation](https://docs.stonebranch.com)\n- [Datadog Integration Setup](https://docs.datadoghq.com)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "definition": {
+        "type": "group",
+        "title": "Overview",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 11,
+            "definition": {
+              "type": "query_value",
+              "title": "Active Task Instances",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_task_instance.active{$endpoint}",
+                  "aggregator": "last"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            }
+          },
+          {
+            "id": 12,
+            "definition": {
+              "type": "query_value",
+              "title": "OMS Servers Connected",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_oms_server.status{$endpoint}",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": "<",
+                      "value": 1,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 1,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 13,
+            "definition": {
+              "type": "query_value",
+              "title": "Tasks Launched (Last Hour)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_task_instance.launch.total.count{$endpoint}.as_count()",
+                  "aggregator": "sum"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            }
+          },
+          {
+            "id": 14,
+            "definition": {
+              "type": "monitor_summary",
+              "title": "Stonebranch Monitors",
+              "title_size": "16",
+              "title_align": "left",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": true,
+              "show_last_triggered": false,
+              "query": "tag:integration:stonebranch",
+              "sort": "status,asc",
+              "count": 50,
+              "start": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "definition": {
+        "type": "group",
+        "title": "Task Execution",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 21,
+            "definition": {
+              "type": "timeseries",
+              "title": "Task Execution History by Status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "sum"],
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_history.total.count{$endpoint} by {task_instance_status}.as_count()",
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  }
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            }
+          },
+          {
+            "id": 22,
+            "definition": {
+              "type": "sunburst",
+              "title": "Task Outcomes Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_history.total.count{$endpoint} by {task_instance_status}.as_count()",
+                  "style": {
+                    "palette": "dog_classic"
+                  }
+                }
+              ],
+              "legend": {
+                "type": "table"
+              }
+            }
+          },
+          {
+            "id": 23,
+            "definition": {
+              "type": "timeseries",
+              "title": "Late Starts and Late Finishes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "sum"],
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_task_instance.late_start.total.count{$endpoint}.as_count()",
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "sum:stonebranch.uc_task_instance.late_start.total.count{$endpoint}.as_count()",
+                      "alias": "Late Starts"
+                    }
+                  ]
+                },
+                {
+                  "q": "sum:stonebranch.uc_task_instance.late_finish.total.count{$endpoint}.as_count()",
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "sum:stonebranch.uc_task_instance.late_finish.total.count{$endpoint}.as_count()",
+                      "alias": "Late Finishes"
+                    }
+                  ]
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            }
+          },
+          {
+            "id": 24,
+            "definition": {
+              "type": "timeseries",
+              "title": "Active Task Instances",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "max"],
+              "requests": [
+                {
+                  "q": "sum:stonebranch.uc_task_instance.active{$endpoint} by {task_instance_status}",
+                  "display_type": "area",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  }
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "definition": {
+        "type": "group",
+        "title": "License Consumption",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 31,
+            "definition": {
+              "type": "query_value",
+              "title": "Distributed Agents (Used / Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.agents_distributed.used{$endpoint} / avg:stonebranch.uc_license.agents_distributed.max{$endpoint} * 100",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 80,
+                      "palette": "yellow_on_white"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 80,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "%",
+              "precision": 1,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 32,
+            "definition": {
+              "type": "query_value",
+              "title": "z/OS Agents (Used / Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.agents_zos.used{$endpoint} / avg:stonebranch.uc_license.agents_zos.max{$endpoint} * 100",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 80,
+                      "palette": "yellow_on_white"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 80,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "%",
+              "precision": 1,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 33,
+            "definition": {
+              "type": "query_value",
+              "title": "Cluster Nodes (Used / Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.cluster_nodes.used{$endpoint} / avg:stonebranch.uc_license.cluster_nodes.max{$endpoint} * 100",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 80,
+                      "palette": "yellow_on_white"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 80,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "%",
+              "precision": 1,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 34,
+            "definition": {
+              "type": "query_value",
+              "title": "Monthly Executions (Used / Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.monthly_executions.used{$endpoint} / avg:stonebranch.uc_license.monthly_executions.max{$endpoint} * 100",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 85,
+                      "palette": "yellow_on_white"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 85,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "%",
+              "precision": 1,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 35,
+            "definition": {
+              "type": "query_value",
+              "title": "Task Definitions (Used / Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.task_definitions.used{$endpoint} / avg:stonebranch.uc_license.task_definitions.max{$endpoint} * 100",
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 80,
+                      "palette": "yellow_on_white"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 80,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "%",
+              "precision": 1,
+              "timeseries_background": {
+                "type": "area"
+              }
+            }
+          },
+          {
+            "id": 36,
+            "definition": {
+              "type": "timeseries",
+              "title": "Monthly Executions Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "max"],
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_license.monthly_executions.used{$endpoint}",
+                  "display_type": "line",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "avg:stonebranch.uc_license.monthly_executions.used{$endpoint}",
+                      "alias": "Used"
+                    }
+                  ]
+                },
+                {
+                  "q": "avg:stonebranch.uc_license.monthly_executions.max{$endpoint}",
+                  "display_type": "line",
+                  "style": {
+                    "palette": "grey",
+                    "line_type": "dashed",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "avg:stonebranch.uc_license.monthly_executions.max{$endpoint}",
+                      "alias": "Licensed Max"
+                    }
+                  ]
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "definition": {
+        "type": "group",
+        "title": "Infrastructure Health",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 41,
+            "definition": {
+              "type": "timeseries",
+              "title": "OMS Server Status by Device",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min"],
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_oms_server.status{$endpoint} by {device}",
+                  "display_type": "line",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "thick"
+                  }
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0",
+                "max": "2"
+              }
+            }
+          },
+          {
+            "id": 42,
+            "definition": {
+              "type": "timeseries",
+              "title": "Database Connection Pool (Active vs Max)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "max"],
+              "requests": [
+                {
+                  "q": "avg:stonebranch.uc_database_connection_pool.active{$endpoint} by {pool}",
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "avg:stonebranch.uc_database_connection_pool.active{$endpoint} by {pool}",
+                      "alias": "Active"
+                    }
+                  ]
+                },
+                {
+                  "q": "avg:stonebranch.uc_database_connection_pool.max{$endpoint} by {pool}",
+                  "display_type": "line",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dashed",
+                    "line_width": "normal"
+                  },
+                  "metadata": [
+                    {
+                      "expression": "avg:stonebranch.uc_database_connection_pool.max{$endpoint} by {pool}",
+                      "alias": "Max"
+                    }
+                  ]
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            }
+          },
+          {
+            "id": 43,
+            "definition": {
+              "type": "toplist",
+              "title": "Agent Status",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "q": "top(avg:stonebranch.uc_agent.status{$endpoint} by {agent_id}, 25, 'last', 'asc')",
+                  "style": {
+                    "palette": "dog_classic"
+                  },
+                  "conditional_formats": [
+                    {
+                      "comparator": "<",
+                      "value": 1,
+                      "palette": "red_on_white"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 1,
+                      "palette": "green_on_white"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "endpoint",
+      "prefix": "endpoint",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
