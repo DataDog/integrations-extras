@@ -93,7 +93,7 @@
               "title_align": "left",
               "requests": [
                 {
-                  "q": "sum:stonebranch.uc_task_instance.launch.total{$endpoint}.as_count()",
+                  "q": "sum:stonebranch.uc_task_instance.launch.total.count{$endpoint}.as_count()",
                   "aggregator": "sum"
                 }
               ],
@@ -143,7 +143,7 @@
               "legend_columns": ["avg", "sum"],
               "requests": [
                 {
-                  "q": "sum:stonebranch.uc_history.total{$endpoint} by {task_instance_status}.as_count()",
+                  "q": "sum:stonebranch.uc_history.total.count{$endpoint} by {task_instance_status}.as_count()",
                   "display_type": "bars",
                   "style": {
                     "palette": "dog_classic",
@@ -167,7 +167,7 @@
               "title_align": "left",
               "requests": [
                 {
-                  "q": "sum:stonebranch.uc_history.total{$endpoint} by {task_instance_status}.as_count()",
+                  "q": "sum:stonebranch.uc_history.total.count{$endpoint} by {task_instance_status}.as_count()",
                   "style": {
                     "palette": "dog_classic"
                   }
@@ -190,7 +190,7 @@
               "legend_columns": ["avg", "sum"],
               "requests": [
                 {
-                  "q": "sum:stonebranch.uc_task_instance.late_start.total{$endpoint}.as_count()",
+                  "q": "sum:stonebranch.uc_task_instance.late_start.total.count{$endpoint}.as_count()",
                   "display_type": "bars",
                   "style": {
                     "palette": "warm",
@@ -199,13 +199,13 @@
                   },
                   "metadata": [
                     {
-                      "expression": "sum:stonebranch.uc_task_instance.late_start.total{$endpoint}.as_count()",
+                      "expression": "sum:stonebranch.uc_task_instance.late_start.total.count{$endpoint}.as_count()",
                       "alias": "Late Starts"
                     }
                   ]
                 },
                 {
-                  "q": "sum:stonebranch.uc_task_instance.late_finish.total{$endpoint}.as_count()",
+                  "q": "sum:stonebranch.uc_task_instance.late_finish.total.count{$endpoint}.as_count()",
                   "display_type": "bars",
                   "style": {
                     "palette": "orange",
@@ -214,7 +214,7 @@
                   },
                   "metadata": [
                     {
-                      "expression": "sum:stonebranch.uc_task_instance.late_finish.total{$endpoint}.as_count()",
+                      "expression": "sum:stonebranch.uc_task_instance.late_finish.total.count{$endpoint}.as_count()",
                       "alias": "Late Finishes"
                     }
                   ]
