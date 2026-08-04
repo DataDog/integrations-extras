@@ -4,7 +4,7 @@
 
 ***Added***:
 
-* Added dedicated dashboards for TiDB Cloud Premium and Essential clusters.
+* Added Dynamic Tracker dashboards for TiDB Cloud Premium and Essential instances, including a separate Essential dashboard for instances created on or after July 1, 2026.
 
 ***Fixed***:
 
