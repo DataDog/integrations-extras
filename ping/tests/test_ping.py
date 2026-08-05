@@ -9,8 +9,7 @@ from datadog_checks.base.errors import CheckException
 from datadog_checks.ping import PingCheck
 
 WINDOWS_GERMAN_OUTPUT = (
-    "Ping wird ausgeführt für 127.0.0.1 mit 32 Bytes Daten:\r\n"
-    "Antwort von 127.0.0.1: Bytes=32 Zeit=3ms TTL=117\r\n"
+    "Ping wird ausgeführt für 127.0.0.1 mit 32 Bytes Daten:\r\nAntwort von 127.0.0.1: Bytes=32 Zeit=3ms TTL=117\r\n"
 ).encode("cp850")
 
 
@@ -18,9 +17,7 @@ def run_windows_check(check, instance, stdout=b"", stderr=b"", returncode=0, run
     check.WINDOWS_OUTPUT_ENCODING = "cp850"
     proc = mock.Mock(stdout=stdout, stderr=stderr, returncode=returncode)
     run_mock = mock.Mock(return_value=proc, side_effect=run_side_effect)
-    with mock.patch.object(platform, "system", return_value="Windows"), mock.patch.object(
-        subprocess, "run", run_mock
-    ):
+    with mock.patch.object(platform, "system", return_value="Windows"), mock.patch.object(subprocess, "run", run_mock):
         check.check(instance)
 
 
