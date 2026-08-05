@@ -6,11 +6,12 @@ import subprocess
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
-from datadog_checks.base.utils.subprocess_output import SubprocessOutputEmptyError, get_subprocess_output
+from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 
 class PingCheck(AgentCheck):
     SERVICE_CHECK_NAME = "network.ping.can_connect"
+    WINDOWS_OUTPUT_ENCODING = "oem"
 
     def _load_conf(self, instance):
         # Fetches the conf
@@ -47,6 +48,7 @@ class PingCheck(AgentCheck):
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
             # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping
+            subprocess_timeout = timeout + 10
             timeout = timeout * 1000
         elif platform.system() == "Darwin":
             countOption = "-c"
@@ -67,7 +69,7 @@ class PingCheck(AgentCheck):
         self.log.debug("Running: %s", " ".join(command))
 
         if platform.system() == "Windows":  # pragma: nocover
-            lines, err, retcode = self._exec_ping_windows(command)
+            lines, err, retcode = self._exec_ping_windows(command, subprocess_timeout)
         else:
             lines, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=True)
 
@@ -77,13 +79,18 @@ class PingCheck(AgentCheck):
 
         return lines
 
-    def _exec_ping_windows(self, command):  # pragma: nocover
+    def _exec_ping_windows(self, command, subprocess_timeout):
         # ping emits localized output in the OEM code page; get_subprocess_output would hardcode a UTF-8 decode.
-        result = subprocess.run(command, capture_output=True)
-        out = result.stdout.decode("oem", errors="replace")
-        err = result.stderr.decode("oem", errors="replace")
+        try:
+            result = subprocess.run(command, capture_output=True, timeout=subprocess_timeout)
+        except OSError as e:  # e.g. an IPv6 host maps to ping6, which has no executable on Windows
+            raise CheckException("unable to run {}: {}".format(command[0], e))
+        except subprocess.TimeoutExpired:
+            raise CheckException("ping timed out after {}s".format(subprocess_timeout))
+        out = result.stdout.decode(self.WINDOWS_OUTPUT_ENCODING, errors="replace")
+        err = result.stderr.decode(self.WINDOWS_OUTPUT_ENCODING, errors="replace")
         if not out:
-            raise SubprocessOutputEmptyError("get_subprocess_output expected output but had none.")
+            raise CheckException("ping produced no output ({})".format(err))
         return out, err, result.returncode
 
     def check(self, instance):
