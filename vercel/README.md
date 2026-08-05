@@ -49,7 +49,7 @@ On the **Configure Vercel for Serverless** page, complete the following steps:
 
 5. **Enable Vercel Trace Drain for APM** - Toggle **Trace Drain** on to forward traces from your Vercel apps to Datadog. Set the sampling percentage (1-100%).
 
-6. Select **Add Integration**. Datadog automatically sets the `DD_API_KEY` and `DD_SITE` environment variables on your selected Vercel project(s) so they can report telemetry to Datadog without additional configuration. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
+6. Select **Add Integration**. Datadog automatically sets the `DD_API_KEY` and `DD_SITE` environment variables on your selected Vercel project(s) so they can report telemetry to Datadog without additional configuration. **Note:** Your Vercel project(s) may need to be redeployed for these environment variables to take effect. The **Vercel Integration Setup** status page opens and confirms that data is flowing into Datadog. From there you can navigate to the Vercel Monitoring summary, the out-of-the-box dashboard, the Log Explorer, the Trace Explorer, and Real User Monitoring.
 
 **Note:** Vercel Log Drains and Trace Drains are billed by Vercel. See the Vercel documentation for [Log Drains][10] and [Trace Drains][13].
 
