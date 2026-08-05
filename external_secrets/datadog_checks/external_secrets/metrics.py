@@ -2,7 +2,7 @@ METRIC_MAP = {
     ## ExternalSecret Metrics
     'externalsecret_status_condition': 'externalsecret.status_condition',
     'externalsecret_reconcile_duration': 'externalsecret.reconcile_duration',
-    'externalsecret_sync_calls: 'externalsecret.sync_calls',
+    'externalsecret_sync_calls': 'externalsecret.sync_calls',
     'externalsecret_sync_calls_error': 'externalsecret.sync_calls_error',
     'externalsecret_provider_api_calls_count': 'externalsecret.provider_api_calls',
     ## ClusterExternalSecret Metrics
