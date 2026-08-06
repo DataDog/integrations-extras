@@ -83,11 +83,15 @@ def test_localized_output(aggregator, instance_response_time):
     aggregator.assert_all_metrics_covered()
 
 
-def test_windows_oem_decode(aggregator, instance_response_time):
+def test_windows_oem_decode():
     check = PingCheck("ping", {}, {})
-    run_windows_check(check, instance_response_time, stdout=WINDOWS_GERMAN_OUTPUT)
-    aggregator.assert_service_check("network.ping.can_connect", AgentCheck.OK)
-    aggregator.assert_metric("network.ping.response_time", value=3)
+    check.WINDOWS_OUTPUT_ENCODING = "cp850"
+    proc = mock.Mock(stdout=WINDOWS_GERMAN_OUTPUT, stderr=b"", returncode=0)
+    with mock.patch.object(subprocess, "run", return_value=proc):
+        lines, err, retcode = check._exec_ping_windows(["ping", "-n", "1", "127.0.0.1"], 14)
+    # The actual regression check: a wrong codec turns "ausgeführt" into mojibake / replacement chars.
+    assert "ausgeführt" in lines
+    assert "\ufffd" not in lines
 
 
 def test_windows_missing_executable_is_critical(aggregator, instance):

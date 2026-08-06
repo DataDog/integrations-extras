@@ -68,7 +68,7 @@ class PingCheck(AgentCheck):
         command = [cmd, countOption, "1", timeoutOption, str(timeout), target_host]
         self.log.debug("Running: %s", " ".join(command))
 
-        if platform.system() == "Windows":  # pragma: nocover
+        if platform.system() == "Windows":
             lines, err, retcode = self._exec_ping_windows(command, subprocess_timeout)
         else:
             lines, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=True)
