@@ -205,13 +205,34 @@ You can also emit and subscribe to [custom events][5] the same way.
 5. If you added extra event subscriptions (see [Instrumenting extra Shopify events](#instrumenting-extra-shopify-events)), confirm their custom actions or user attributes (such as `checkout_completed`, the identified email from `setUser`) show up on the same view/session.
 6. If nothing appears: check the pixel's consent category under **Settings > Customer events** - in opt-in (GDPR-style) regions, Shopify won't load the sandbox at all until the visitor consents, so no events fire until then.
 
+## Data Collected
+
+### Metrics
+
+The Shopify (RUM) integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][6].
+
+### Events
+
+For more information about events and attributes, see [RUM Browser Data Collected][7].
+
+### Service Checks
+
+The Shopify (RUM) integration does not include any service checks.
+
+### Logs
+
+The Shopify (RUM) integration does not include Logs. To forward your Shopify store's logs to Datadog, see [JavaScript Logs Collection][8].
+
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog Support][9].
 
 [1]: https://shopify.dev/docs/api/web-pixels-api
 [2]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
 [3]: https://github.com/DataDog/browser-sdk/blob/main/packages/rum/README.md
 [4]: https://shopify.dev/docs/api/web-pixels-api/standard-events
 [5]: https://shopify.dev/docs/api/web-pixels-api/emitting-data
-[6]: https://docs.datadoghq.com/help/
+[6]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
+[7]: https://docs.datadoghq.com/real_user_monitoring/browser/data_collected/
+[8]: https://docs.datadoghq.com/logs/log_collection/javascript/
+[9]: https://docs.datadoghq.com/help/
