@@ -134,6 +134,35 @@ def test_load_config_socket_timeout():
     assert socket_timeout == 10
 
 
+@pytest.mark.unit
+def test_check_forwards_connection_kwargs():
+    """`check()` must actually pass the config from `_load_config()` through to `redis.StrictRedis`."""
+    c = RedisSentinelCheck(CHECK_NAME, {}, {})
+    instance = {
+        'sentinel_host': 'localhost',
+        'sentinel_port': 26379,
+        'masters': [],
+        'sentinel_username': 'myuser',
+        'sentinel_password': 'password1',
+        'socket_timeout': 10,
+        'ssl': True,
+        'ssl_ca_certs': '/path/to/ca.pem',
+    }
+
+    with mock.patch('redis.StrictRedis') as mock_redis:
+        c.check(instance)
+
+    kwargs = mock_redis.call_args.kwargs
+    assert kwargs['host'] == 'localhost'
+    assert kwargs['port'] == 26379
+    assert kwargs['username'] == 'myuser'
+    assert kwargs['password'] == 'password1'
+    assert kwargs['socket_timeout'] == 10
+    assert kwargs['socket_connect_timeout'] == 10
+    assert kwargs['ssl'] is True
+    assert kwargs['ssl_ca_certs'] == '/path/to/ca.pem'
+
+
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 def test_check(aggregator, instance):
