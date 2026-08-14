@@ -18,7 +18,7 @@ METRIC_MAP = {
     'secretstore_status_condition': 'secretstore.status_condition',
     'secretstore_reconcile_duration': 'secretstore.reconcile_duration',
     ## Controller-runtime Metrics
-    'controller_runtime_reconcile_total': 'controller_runtime.reconcile',
+    'controller_runtime_reconcile: 'controller_runtime.reconcile',
     'controller_runtime_reconcile_errors_total': 'controller_runtime.reconcile_errors',
     'controller_runtime_reconcile_time_seconds': 'controller_runtime.reconcile_time_seconds',
     'controller_runtime_active_workers': 'controller_runtime.active_workers',
