@@ -1,5 +1,11 @@
 # CHANGELOG - Cloudsmith
 
+### Unreleased
+
+### Fixed
+
+* Corrected Overview dashboard typos: "Allowence" → "Allowance", and "Licence" → "License" for policy violations widget consistency
+
 ### 1.4.0 / 2026-06-01
 
 ### Added
