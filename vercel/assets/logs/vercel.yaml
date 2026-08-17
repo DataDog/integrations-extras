@@ -38,6 +38,45 @@ facets:
     name: Subdivision Name
     path: network.client.geoip.subdivision.name
     source: log
+  - groups:
+      - Vercel
+    name: Vercel Environment
+    path: environment
+    source: log
+    type: string
+  - groups:
+      - Vercel
+    name: Vercel Deployment Id
+    path: deploymentId
+    source: log
+    type: string
+  - groups:
+      - Vercel
+    name: Vercel Invocation Id
+    path: invocationId
+    source: log
+    type: string
+  - groups:
+      - Vercel
+    name: Vercel Project Id
+    path: projectId
+    source: log
+    type: string
+  - groups:
+      - Vercel
+    name: Vercel Project Name
+    path: projectName
+    source: log
+    type: string
+  - groups:
+      - Vercel
+    name: Vercel Request Duration
+    path: lambda.duration
+    source: log
+    type: integer
+    unit:
+      family: time
+      name: nanosecond
 pipeline:
   type: pipeline
   name: Vercel
@@ -89,7 +128,7 @@ pipeline:
       enabled: true
       categories:
         - filter:
-            query: '@type:stdout NOT @http.statusCode:*'
+            query: '@type:stdout AND @source:build'
           name: Info
         - filter:
             query: '@proxy.statusCode:[200 TO 299]'
@@ -98,10 +137,10 @@ pipeline:
             query: '@proxy.statusCode:[300 TO 399]'
           name: Notice
         - filter:
-            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr NOT @http.statusCode:*)'
+            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr AND @source:build) OR message:*warn*'
           name: Warning
         - filter:
-            query: '@proxy.statusCode:[500 TO 599]'
+            query: '@proxy.statusCode:[500 TO 599] OR (@type:stderr AND NOT @source:build AND NOT message:*warn*)'
           name: Error
       target: http.status_category
     - type: status-remapper
@@ -385,9 +424,11 @@ metrics:
   - name: vercel.projects.build_count
     query: source:vercel "Build completed in"
     groupBys:
-      - path: '@projectName'
-        tagName: project_name
       - path: '@environment'
         tagName: environment
+      - path: '@projectName'
+        tagName: project_name
       - path: '@projectId'
         tagName: project_id
+      - path: '@deploymentId'
+        tagName: deployment_id
