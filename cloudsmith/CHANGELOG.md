@@ -4,7 +4,7 @@
 
 ### Fixed
 
-* Corrected Overview dashboard typos: "Allowence" → "Allowance", and "Licence" → "License" for policy violations widget consistency
+* Corrected Overview dashboard typos: "Allowence" → "Allowance", and "Licence" → "License" for policy violations widget consistency ([#3119](https://github.com/DataDog/integrations-extras/pull/3119))
 
 ### 1.4.0 / 2026-06-01
 
