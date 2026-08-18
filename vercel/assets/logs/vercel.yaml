@@ -43,25 +43,25 @@ facets:
     name: Vercel Environment
     path: environment
     source: log
-    type: string
+    : string
   - groups:
       - Vercel
     name: Vercel Deployment Id
     path: deploymentId
     source: log
-    type: string
+    : string
   - groups:
       - Vercel
     name: Vercel Invocation Id
     path: invocationId
     source: log
-    type: string
+    : string
   - groups:
       - Vercel
     name: Vercel Project Id
     path: projectId
     source: log
-    type: string
+    : string
   - groups:
       - Vercel
     name: Vercel Project Name
@@ -144,7 +144,7 @@ pipeline:
           name: Error
       target: http.status_category
     - type: status-remapper
-      name: Define `http.status_category`, `type` as the official status of the log
+      name: Define `http.status_category` as the official status of the log
       enabled: true
       sources:
         - http.status_category
