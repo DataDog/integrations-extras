@@ -20,9 +20,17 @@ def instance_empty_default_hostname():
     return False
 
 
+def instance_enable_legacy_tags_normalization():
+    return True
+
+
+def instance_enabled_metrics():
+    return ['drift', 'traffic', 'performance', 'statistic', 'service_metrics']
+
+
 def instance_min_collection_interval():
     return 15
 
 
 def instance_v1compat():
-    return True
+    return False
