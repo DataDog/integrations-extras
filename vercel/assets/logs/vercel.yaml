@@ -41,37 +41,37 @@ facets:
   - groups:
       - Vercel
     name: Vercel Environment
-    path: environment
+    path: vercel.environment
     source: log
     type: string
   - groups:
       - Vercel
     name: Vercel Deployment Id
-    path: deploymentId
+    path: vercel.deploymentId
     source: log
     type: string
   - groups:
       - Vercel
     name: Vercel Invocation Id
-    path: invocationId
+    path: vercel.invocationId
     source: log
     type: string
   - groups:
       - Vercel
     name: Vercel Project Id
-    path: projectId
+    path: vercel.projectId
     source: log
     type: string
   - groups:
       - Vercel
     name: Vercel Project Name
-    path: projectName
+    path: vercel.projectName
     source: log
     type: string
   - groups:
       - Vercel
     name: Vercel Request Duration
-    path: lambda.duration
+    path: vercel.lambda.duration
     source: log
     type: integer
     unit:
@@ -205,6 +205,66 @@ pipeline:
       enabled: true
       sources:
         - spanId
+    - type: attribute-remapper
+      name: Rename `environment` with Custom Facet prefix `vercel.environment`
+      enabled: true
+      sources:
+        - environment
+      sourceType: attribute
+      target: vercel.environment
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Rename `deploymentId` with Custom Facet prefix `vercel.deploymentId`
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Rename `invocationId` with Custom Facet prefix `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Rename `projectId` with Custom Facet prefix `vercel.projectId`
+      enabled: true
+      sources:
+        - projectId
+      sourceType: attribute
+      target: vercel.projectId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Rename `projectId` with Custom Facet prefix `vercel.projectName`
+      enabled: true
+      sources:
+        - projectName
+      sourceType: attribute
+      target: vercel.projectName
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Rename `lambda.duration` with Custom Measure prefix `vercel.lambda.duration`
+      enabled: true
+      sources:
+        - lambda.duration
+      sourceType: attribute
+      target: vercel.lambda.duration
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
 metrics:
   - name: vercel.functions.invocations
     query: source:vercel @source:lambda REPORT
@@ -422,13 +482,13 @@ metrics:
       - path: '@source'
         tagName: source
   - name: vercel.projects.build_count
-    query: source:vercel "Build completed in"
+    query: source:vercel "Build completed in "
     groupBys:
-      - path: '@environment'
+      - path: '@vercel.environment'
         tagName: environment
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
-      - path: '@projectId'
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@deploymentId'
+      - path: '@vercel.deploymentId'
         tagName: deployment_id
