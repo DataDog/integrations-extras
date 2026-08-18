@@ -6,16 +6,18 @@ variables:
 stages:
   - release
 
-workflow:
+release-auto:
+  stage: release
+  image: $TAGGER_IMAGE
   rules:
     - if: $CI_COMMIT_MESSAGE =~ /^\[Release\] Update metadata/
       when: never
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
-
-release-auto:
-  stage: release
-  image: $TAGGER_IMAGE
+    - when: never
+  id_tokens:
+    DDOCTOSTS_ID_TOKEN:
+      aud: dd-octo-sts
   script:
     - ddev --version
     - ddev config set repos.extras .
@@ -24,5 +26,5 @@ release-auto:
     - eval "$(ssh-agent -s)"
     - ./.gitlab/release/git-auth.sh
     # Prefix every line with a timestamp
-    - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
+    - set -o pipefail; ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
   tags: ["arch:amd64"]
