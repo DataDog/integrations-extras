@@ -8,7 +8,7 @@ from __future__ import annotations
 from types import MappingProxyType
 from typing import Any, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 from typing_extensions import Literal
 
 from datadog_checks.base.utils.functions import identity
@@ -18,7 +18,15 @@ from . import defaults, validators
 
 
 SECURE_FIELD_NAMES = frozenset(
-    ['auth_token', 'kerberos_cache', 'kerberos_keytab', 'tls_ca_cert', 'tls_cert', 'tls_private_key']
+    [
+        'auth_token',
+        'bearer_token_path',
+        'kerberos_cache',
+        'kerberos_keytab',
+        'tls_ca_cert',
+        'tls_cert',
+        'tls_private_key',
+    ]
 )
 
 
@@ -31,14 +39,21 @@ class AuthToken(BaseModel):
     writer: Optional[MappingProxyType[str, Any]] = None
 
 
-class ExtraMetrics(BaseModel):
+class TargetMetric(BaseModel):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra='allow',
         frozen=True,
     )
-    name: Optional[str] = None
-    type: Optional[str] = None
+    label_to_match: Optional[str] = None
+    labels_to_get: Optional[tuple[str, ...]] = None
+
+
+class LabelJoins(BaseModel):
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+        frozen=True,
+    )
+    target_metric: Optional[TargetMetric] = None
 
 
 class MetricPatterns(BaseModel):
@@ -50,16 +65,6 @@ class MetricPatterns(BaseModel):
     include: Optional[tuple[str, ...]] = None
 
 
-class Metrics(BaseModel):
-    model_config = ConfigDict(
-        arbitrary_types_allowed=True,
-        extra='allow',
-        frozen=True,
-    )
-    name: Optional[str] = None
-    type: Optional[str] = None
-
-
 class Proxy(BaseModel):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
@@ -68,15 +73,6 @@ class Proxy(BaseModel):
     http: Optional[str] = None
     https: Optional[str] = None
     no_proxy: Optional[tuple[str, ...]] = None
-
-
-class ShareLabels(BaseModel):
-    model_config = ConfigDict(
-        arbitrary_types_allowed=True,
-        frozen=True,
-    )
-    labels: Optional[tuple[str, ...]] = None
-    match: Optional[tuple[str, ...]] = None
 
 
 class InstanceConfig(BaseModel):
@@ -91,27 +87,22 @@ class InstanceConfig(BaseModel):
     aws_host: Optional[str] = None
     aws_region: Optional[str] = None
     aws_service: Optional[str] = None
-    cache_metric_wildcards: Optional[bool] = None
-    cache_shared_labels: Optional[bool] = None
-    collect_counters_with_distributions: Optional[bool] = None
-    collect_histogram_buckets: Optional[bool] = None
+    bearer_token_auth: Optional[Union[bool, str]] = None
+    bearer_token_path: Optional[str] = None
+    bearer_token_refresh_interval: Optional[int] = None
     connect_timeout: Optional[float] = None
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
-    enable_health_service_check: Optional[bool] = None
     enable_legacy_tags_normalization: Optional[bool] = None
     exclude_labels: Optional[tuple[str, ...]] = None
-    exclude_metrics: Optional[tuple[str, ...]] = None
-    exclude_metrics_by_labels: Optional[MappingProxyType[str, Union[bool, tuple[str, ...]]]] = None
     extra_headers: Optional[MappingProxyType[str, Any]] = None
-    extra_metrics: Optional[tuple[Union[str, MappingProxyType[str, Union[str, ExtraMetrics]]], ...]] = None
     headers: Optional[MappingProxyType[str, Any]] = None
-    histogram_buckets_as_distributions: Optional[bool] = None
-    hostname_format: Optional[str] = None
-    hostname_label: Optional[str] = None
-    ignore_connection_errors: Optional[bool] = None
+    health_service_check: Optional[bool] = None
+    ignore_metrics: Optional[tuple[str, ...]] = None
+    ignore_metrics_by_labels: Optional[MappingProxyType[str, tuple[str, ...]]] = None
     ignore_tags: Optional[tuple[str, ...]] = None
     include_labels: Optional[tuple[str, ...]] = None
+    instance_type: str
     kerberos_auth: Optional[Literal['required', 'optional', 'disabled']] = None
     kerberos_cache: Optional[str] = None
     kerberos_delegate: Optional[bool] = None
@@ -119,30 +110,31 @@ class InstanceConfig(BaseModel):
     kerberos_hostname: Optional[str] = None
     kerberos_keytab: Optional[str] = None
     kerberos_principal: Optional[str] = None
+    label_joins: Optional[LabelJoins] = None
+    label_to_hostname: Optional[str] = None
+    labels_mapper: Optional[MappingProxyType[str, Any]] = None
     log_requests: Optional[bool] = None
     metric_patterns: Optional[MetricPatterns] = None
-    metrics: Optional[tuple[Union[str, MappingProxyType[str, Union[str, Metrics]]], ...]] = None
+    metrics: tuple[Union[str, MappingProxyType[str, str]], ...]
     min_collection_interval: Optional[float] = None
-    namespace: Optional[str] = Field(None, pattern='\\w*')
-    neo4j_dbs: Optional[tuple[str, ...]] = None
-    neo4j_version: Optional[str] = None
-    non_cumulative_histogram_buckets: Optional[bool] = None
+    namespace: str
     ntlm_domain: Optional[str] = None
-    openmetrics_endpoint: str
     password: Optional[str] = None
     persist_connections: Optional[bool] = None
+    prometheus_metrics_prefix: Optional[str] = None
+    prometheus_url: str
     proxy: Optional[Proxy] = None
-    raw_line_filters: Optional[tuple[str, ...]] = None
-    raw_metric_prefix: Optional[str] = None
     read_timeout: Optional[float] = None
-    rename_labels: Optional[MappingProxyType[str, Any]] = None
     request_size: Optional[float] = None
+    send_distribution_buckets: Optional[bool] = None
+    send_distribution_counts_as_monotonic: Optional[bool] = None
+    send_distribution_sums_as_monotonic: Optional[bool] = None
+    send_histograms_buckets: Optional[bool] = None
+    send_monotonic_counter: Optional[bool] = None
+    send_monotonic_with_gauge: Optional[bool] = None
     service: Optional[str] = None
-    share_labels: Optional[MappingProxyType[str, Union[bool, ShareLabels]]] = None
     skip_proxy: Optional[bool] = None
-    tag_by_endpoint: Optional[bool] = None
     tags: Optional[tuple[str, ...]] = None
-    telemetry: Optional[bool] = None
     timeout: Optional[float] = None
     tls_ca_cert: Optional[str] = None
     tls_cert: Optional[str] = None
@@ -152,7 +144,7 @@ class InstanceConfig(BaseModel):
     tls_protocols_allowed: Optional[tuple[str, ...]] = None
     tls_use_host_header: Optional[bool] = None
     tls_verify: Optional[bool] = None
-    use_latest_spec: Optional[bool] = None
+    type_overrides: Optional[MappingProxyType[str, Any]] = None
     use_legacy_auth_encoding: Optional[bool] = None
     use_process_start_time: Optional[bool] = None
     username: Optional[str] = None
