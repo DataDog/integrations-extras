@@ -20,20 +20,8 @@ def instance_auth_type():
     return 'basic'
 
 
-def instance_cache_metric_wildcards():
-    return True
-
-
-def instance_cache_shared_labels():
-    return True
-
-
-def instance_collect_counters_with_distributions():
-    return False
-
-
-def instance_collect_histogram_buckets():
-    return True
+def instance_bearer_token_refresh_interval():
+    return 60
 
 
 def instance_disable_generic_tags():
@@ -41,27 +29,15 @@ def instance_disable_generic_tags():
 
 
 def instance_empty_default_hostname():
-    return True
-
-
-def instance_enable_health_service_check():
-    return True
+    return False
 
 
 def instance_enable_legacy_tags_normalization():
     return True
 
 
-def instance_histogram_buckets_as_distributions():
-    return False
-
-
-def instance_hostname_label():
-    return 'host'
-
-
-def instance_ignore_connection_errors():
-    return False
+def instance_health_service_check():
+    return True
 
 
 def instance_kerberos_auth():
@@ -81,11 +57,7 @@ def instance_log_requests():
 
 
 def instance_min_collection_interval():
-    return 120
-
-
-def instance_non_cumulative_histogram_buckets():
-    return False
+    return 15
 
 
 def instance_persist_connections():
@@ -96,15 +68,31 @@ def instance_request_size():
     return 16
 
 
-def instance_skip_proxy():
+def instance_send_distribution_buckets():
     return False
 
 
-def instance_tag_by_endpoint():
+def instance_send_distribution_counts_as_monotonic():
+    return False
+
+
+def instance_send_distribution_sums_as_monotonic():
+    return False
+
+
+def instance_send_histograms_buckets():
     return True
 
 
-def instance_telemetry():
+def instance_send_monotonic_counter():
+    return True
+
+
+def instance_send_monotonic_with_gauge():
+    return False
+
+
+def instance_skip_proxy():
     return False
 
 
@@ -122,10 +110,6 @@ def instance_tls_use_host_header():
 
 def instance_tls_verify():
     return True
-
-
-def instance_use_latest_spec():
-    return False
 
 
 def instance_use_legacy_auth_encoding():
