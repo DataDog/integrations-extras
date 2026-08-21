@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "created_at": "2025-07-09",
+  "last_updated_at": "2025-07-09",
+  "title": "External Secrets Sync Errors",
+  "description": "This monitor alerts when the External Secrets Operator encounters sync errors, indicating that secrets may not be synchronized correctly.",
+  "definition": {
+    "name": "[External Secrets] Sync Errors for {{name.name}} in {{namespace.name}}",
+    "type": "query alert",
+    "query": "sum(last_15m):sum:external_secrets.externalsecret.sync_calls_error.count{*} by {name,namespace}.as_count() > 1",
+    "message": "External Secret `{{name.name}}` in namespace `{{namespace.name}}` is experiencing sync errors. This may indicate issues with the external provider or misconfiguration.\n\nTo resolve:\n1. Check the ExternalSecret resource status: `kubectl describe externalsecret {{name.name}} -n {{namespace.name}}`\n2. Verify the secret provider is accessible and credentials are valid\n3. Check ESO controller logs for detailed error messages",
+    "tags": [
+      "integration:external_secrets"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 1
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "renotify_interval": 60,
+      "silenced": {}
+    },
+    "priority": null
+  },
+  "tags": [
+    "integration:external-secrets"
+  ]
+}
