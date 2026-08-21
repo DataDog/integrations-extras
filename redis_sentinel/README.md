@@ -42,7 +42,7 @@ See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Events
 
-The Redis's Sentinel check does not include any events.
+The Redis Sentinel check emits an event when a monitored master fails over to a new IP address. No event is emitted the first time a master is observed, so starting the check does not generate failover events.
 
 ### Service Checks
 
