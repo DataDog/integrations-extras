@@ -1,0 +1,38 @@
+name: Stonebranch
+files:
+  - name: stonebranch.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/openmetrics
+
+      - template: instances
+        options:
+          - template: instances/openmetrics
+
+          - name: metric_groups
+            description: |
+              Opt-in metric groups to scrape in addition to the default Stonebranch metrics.
+              Allowed values: `jvm`, `process`, `license_details`.
+            value:
+              type: array
+              items:
+                type: string
+              example:
+                - jvm
+                - process
+              compact_example: true
+            enabled: true
+
+          - name: exclude_metric_names
+            description: |
+              Metrics to exclude by exact Prometheus metric name.
+              (This is applied after defaults and metric groups are expanded.)
+            value:
+              type: array
+              items:
+                type: string
+              example:
+                - uc_build_info
+              compact_example: true
+            enabled: true
