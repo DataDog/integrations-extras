@@ -66,8 +66,15 @@ facets:
   - facetType: list
     groups:
       - Vercel
-    name: Vercel Deployment Environment
-    path: vercel.environment
+    name: Vercel Deployment Id
+    path: vercel.deploymentId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Invocation Id
+    path: vercel.invocationId
     source: log
     type: string
   pipeline:
@@ -199,12 +206,23 @@ facets:
       sources:
         - spanId
     - type: attribute-remapper
-      name: Map `environment` to `vercel.environment`
+      name: Map `deploymentId` to `vercel.deploymentId`
       enabled: true
       sources:
-        - environment
+        - deploymentId
       sourceType: attribute
-      target: vercel.environment
+      target: vercel.deploymentId
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `invocationId` to `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+
