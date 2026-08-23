@@ -77,6 +77,16 @@ facets:
   filter:
     query: source:vercel
   processors:
+    - type: attribute-remapper
+      name: Map `deploymentId` to `vercel.deploymentId`
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
     - type: pipeline
       name: Processing for URL Paths
       enabled: true
@@ -147,10 +157,10 @@ facets:
       sources:
         - projectName
     - type: attribute-remapper
-      name: Define `deploymentId` as the official version of the log
+      name: Define `vercel.deploymentId` as the official version of the log
       enabled: true
       sources:
-        - deploymentId
+        - vercel.deploymentId
       sourceType: attribute
       target: version
       targetType: tag
@@ -198,23 +208,3 @@ facets:
       enabled: true
       sources:
         - spanId
-    - type: attribute-remapper
-      name: Map `deploymentId` to `vercel.deploymentId`
-      enabled: true
-      sources:
-        - deploymentId
-      sourceType: attribute
-      target: vercel.deploymentId
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `invocationId` to `vercel.invocationId`
-      enabled: true
-      sources:
-        - invocationId
-      sourceType: attribute
-      target: vercel.invocationId
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
