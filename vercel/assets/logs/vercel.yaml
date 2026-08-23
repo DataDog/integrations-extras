@@ -70,16 +70,6 @@ facets:
   filter:
     query: source:vercel
   processors:
-    - type: attribute-remapper
-      name: Map `deploymentId` to `vercel.deploymentId`
-      enabled: true
-      sources:
-        - deploymentId
-      sourceType: attribute
-      target: vercel.deploymentId
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
     - type: pipeline
       name: Processing for URL Paths
       enabled: true
@@ -139,6 +129,16 @@ facets:
             query: '@proxy.statusCode:[500 TO 599] OR (@type:stderr AND NOT @source:build AND NOT message:*warn*)'
           name: Error
       target: http.status_category
+    - type: attribute-remapper
+      name: Map `deploymentId` to `vercel.deploymentId`
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
     - type: status-remapper
       name: Define `http.status_category` as the official status of the log
       enabled: true
