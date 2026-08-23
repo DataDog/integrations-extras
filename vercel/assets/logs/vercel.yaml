@@ -77,28 +77,7 @@ facets:
     path: vercel.deploymentId
     source: log
     type: string
-  - facetType: list
-    groups:
-      - Vercel
-    name: Vercel Invocation Id
-    path: vercel.invocationId
-    source: log
-    type: string
-  - facetType: list
-    groups:
-      - Vercel
-    name: Vercel Project Id
-    path: vercel.projectId
-    source: log
-    type: string
-  - facetType: list
-    groups:
-      - Vercel
-    name: Vercel Project Name
-    path: vercel.projectName
-    source: log
-    type: string
-pipeline:
+  pipeline:
   type: pipeline
   name: Vercel
   enabled: true
@@ -243,36 +222,6 @@ pipeline:
         - environment
       sourceType: attribute
       target: vercel.environment
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `invocationId` to `vercel.invocationId`
-      enabled: true
-      sources:
-        - invocationId
-      sourceType: attribute
-      target: vercel.invocationId
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-   - type: attribute-remapper
-      name: Map `projectId` to `vercel.projectId`
-      enabled: true
-      sources:
-        - projectId
-      sourceType: attribute
-      target: vercel.projectId
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
-   - type: attribute-remapper
-      name: Map `projectName` to `vercel.projectName`
-      enabled: true
-      sources:
-        - projectName
-      sourceType: attribute
-      target: vercel.projectName
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
