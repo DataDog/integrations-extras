@@ -38,45 +38,56 @@ facets:
     name: Subdivision Name
     path: network.client.geoip.subdivision.name
     source: log
-  - groups:
+  - facetType: list
+    groups:
       - Vercel
-    name: Vercel Environment
+    name: Vercel Deployment Environment
     path: vercel.environment
     source: log
     type: string
-  - groups:
+  - facetType: list
+    groups:
       - Vercel
     name: Vercel Deployment Id
     path: vercel.deploymentId
     source: log
     type: string
-  - groups:
+  - facetType: list
+    groups:
       - Vercel
     name: Vercel Invocation Id
     path: vercel.invocationId
     source: log
     type: string
-  - groups:
+  - facetType: list
+    groups:
       - Vercel
     name: Vercel Project Id
     path: vercel.projectId
     source: log
     type: string
-  - groups:
+  - facetType: list
+    groups:
       - Vercel
     name: Vercel Project Name
     path: vercel.projectName
     source: log
     type: string
-  - groups:
+  - facetType: range
+    groups:
       - Vercel
     name: Vercel Request Duration
     path: vercel.lambda.duration
     source: log
     type: integer
     unit:
-      family: time
       name: nanosecond
+      family: time
+  - groups:
+      - Web Access
+    name: URL Path
+    path: http.url
+    source: log
 pipeline:
   type: pipeline
   name: Vercel
@@ -93,7 +104,7 @@ pipeline:
         - type: string-builder-processor
           name: Build a parseable http.url from proxy scheme, host, and path
           enabled: true
-          template: '%{proxy.scheme}://%{proxy.host}%{proxy.path}'
+          template: "%{proxy.scheme}://%{proxy.host}%{proxy.path}"
           target: http.url
           replaceMissing: true
         - type: url-parser
