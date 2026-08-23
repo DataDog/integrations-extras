@@ -134,26 +134,16 @@ pipeline:
       enabled: true
       sources:
         - http.status_category
-    - type: attribute-remapper
-      name: Map `deploymentId` to `vercel.deploymentId`
-      enabled: true
-      sources:
-        - deploymentId
-      sourceType: attribute
-      target: vercel.deploymentId
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
     - type: service-remapper
       name: Define `projectName` as the official service of the log
       enabled: true
       sources:
         - projectName
     - type: attribute-remapper
-      name: Define `vercel.deploymentId` as the official version of the log
+      name: Define `deploymentId` as the official version of the log
       enabled: true
       sources:
-        - vercel.deploymentId
+        - deploymentId
       sourceType: attribute
       target: version
       targetType: tag
