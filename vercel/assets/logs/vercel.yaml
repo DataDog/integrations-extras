@@ -63,37 +63,37 @@ facets:
     name: Subdivision Name
     path: network.client.geoip.subdivision.name
     source: log
-- pipeline:
-    type: pipeline
-    name: Vercel
+pipeline:
+  type: pipeline
+  name: Vercel
+  enabled: true
+  filter:
+    query: source:vercel
+  processors:
+    - type: pipeline
+    name: Processing for URL Paths
     enabled: true
     filter:
-      query: source:vercel
+      query: "@proxy.scheme:* @proxy.host:* @proxy.path:* NOT @source:build"
     processors:
-      - type: pipeline
-      name: Processing for URL Paths
-      enabled: true
-      filter:
-        query: "@proxy.scheme:* @proxy.host:* @proxy.path:* NOT @source:build"
-      processors:
-        - type: string-builder-processor
-          name: Build a parseable http.url from proxy scheme, host, and path
-          enabled: true
-          template: "%{proxy.scheme}://%{proxy.host}%{proxy.path}"
-          target: http.url
-          replaceMissing: true
-        - type: url-parser
-          name: Parse http.url into http.url_details
-          enabled: true
-          sources:
-            - http.url
-          target: http.url_details
-        - type: url-parser
-          name: Parse proxy.referer into http.referer_details
-          enabled: true
-          sources:
-            - proxy.referer
-          target: http.referer_details
+      - type: string-builder-processor
+        name: Build a parseable http.url from proxy scheme, host, and path
+        enabled: true
+        template: "%{proxy.scheme}://%{proxy.host}%{proxy.path}"
+        target: http.url
+        replaceMissing: true
+      - type: url-parser
+        name: Parse http.url into http.url_details
+        enabled: true
+        sources:
+          - http.url
+        target: http.url_details
+      - type: url-parser
+        name: Parse proxy.referer into http.referer_details
+        enabled: true
+        sources:
+          - proxy.referer
+        target: http.referer_details
     - type: grok-parser
       name: Parsing Lambda Report Logs
       enabled: true
