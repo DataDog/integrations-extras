@@ -63,6 +63,51 @@ facets:
     name: Subdivision Name
     path: network.client.geoip.subdivision.name
     source: log
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Deployment Environment
+    path: vercel.environment
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Deployment Id
+    path: vercel.deploymentId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Invocation Id
+    path: vercel.invocationId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Id
+    path: vercel.projectId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Name
+    path: vercel.projectName
+    source: log
+    type: string
+  - facetType: range
+    groups:
+      - Vercel
+    name: Vercel Request Duration
+    path: vercel.lambda.duration
+    source: log
+    type: integer
+    unit:
+      name: nanosecond
+      family: time  
 pipeline:
   type: pipeline
   name: Vercel
@@ -191,3 +236,63 @@ pipeline:
       enabled: true
       sources:
         - spanId
+    - type: attribute-remapper
+      name: Map `deploymentId` to `vercel.deploymentId`
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `environment` to `vercel.environment`
+      enabled: true
+      sources:
+        - environment
+      sourceType: attribute
+      target: vercel.environment
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `invocationId` to `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Map `projectId` to `vercel.projectId`
+      enabled: true
+      sources:
+        - projectId
+      sourceType: attribute
+      target: vercel.projectId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Map `projectName` to `vercel.projectName`
+      enabled: true
+      sources:
+        - projectName
+      sourceType: attribute
+      target: vercel.projectName
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Map `lambda.duration` to `vercel.lambda.duration`
+      enabled: true
+      sources:
+        - lambda.duration
+      sourceType: attribute
+      target: vercel.lambda.duration
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
