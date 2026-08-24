@@ -161,16 +161,6 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `environment` to `vercel.environment`
-      enabled: true
-      sources:
-        - environment
-      sourceType: attribute
-      target: vercel.environment
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
-    - type: attribute-remapper
       name: Map `invocationId` to `vercel.invocationId`
       enabled: true
       sources:
@@ -216,10 +206,10 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Define `vercel.environment` as the official env of the log
+      name: Define `environment` as the official env of the log
       enabled: true
       sources:
-        - vercel.environment
+        - environment
       sourceType: attribute
       target: env
       targetType: tag
