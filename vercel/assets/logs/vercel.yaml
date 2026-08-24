@@ -72,6 +72,20 @@ facets:
     path: vercel.environment
     source: log
     type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Id
+    path: vercel.projectId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Name
+    path: vercel.projectName
+    source: log
+    type: string
 pipeline:
   type: pipeline
   name: Vercel
@@ -177,6 +191,26 @@ pipeline:
       target: vercel.environment
       targetType: attribute
       preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `projectId` to `vercel.projectId`
+      enabled: true
+      sources:
+        - projectId
+      sourceType: attribute
+      target: vercel.projectId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Map `projectName` to `vercel.projectName`
+      enabled: true
+      sources:
+        - projectName
+      sourceType: attribute
+      target: vercel.projectName
+      targetType: attribute
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Define `vercel.environment` as the official env of the log
