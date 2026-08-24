@@ -175,16 +175,6 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Define `environment` as the official env of the log
-      enabled: true
-      sources:
-        - environment
-      sourceType: attribute
-      target: env
-      targetType: tag
-      preserveSource: true
-      overrideOnConflict: false
-    - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
       sources:
