@@ -133,6 +133,7 @@ instances:
     ## @param exclude_metrics - list of strings - optional
     ## A list of metrics to exclude, with each entry being either
     ## the exact metric name or a regular expression.
+    ##
     ## In order to exclude all metrics but the ones matching a specific filter,
     ## you can use a negative lookahead regex like:
     ##   - ^(?!foo).*$
@@ -241,10 +242,10 @@ instances:
     ## label value that matches the `pod` label value of `metric_b`, and all labels from `metric_c`
     ## to all other metrics if their value is equal to `23` or `42`.
     #
-    # share_labels:
-    #   purefa_info:
-    #     labels:
-    #     - version
+    share_labels:
+      purefa_info:
+        labels:
+        - version
 
     ## @param cache_shared_labels - boolean - optional - default: false
     ## When `share_labels` is set, it instructs the check to cache labels collected from the first payload

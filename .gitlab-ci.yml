@@ -6,16 +6,15 @@ variables:
 stages:
   - release
 
-workflow:
+release-auto:
+  stage: release
+  image: $TAGGER_IMAGE
   rules:
     - if: $CI_COMMIT_MESSAGE =~ /^\[Release\] Update metadata/
       when: never
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
-
-release-auto:
-  stage: release
-  image: $TAGGER_IMAGE
+    - when: never
   id_tokens:
     DDOCTOSTS_ID_TOKEN:
       aud: dd-octo-sts
