@@ -75,6 +75,13 @@ facets:
   - facetType: list
     groups:
       - Vercel
+    name: Vercel Invocation Id
+    path: vercel.invocationId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
     name: Vercel Project Id
     path: vercel.projectId
     source: log
@@ -191,6 +198,16 @@ pipeline:
       target: vercel.environment
       targetType: attribute
       preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `invocationId` to `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
+      targetType: attribute
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `projectId` to `vercel.projectId`
