@@ -186,7 +186,7 @@ pipeline:
       sourceType: attribute
       target: vercel.invocationId
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `projectId` to `vercel.projectId`
@@ -196,7 +196,7 @@ pipeline:
       sourceType: attribute
       target: vercel.projectId
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
    - type: attribute-remapper
       name: Map `projectName` to `vercel.projectName`
@@ -215,7 +215,7 @@ pipeline:
         - vercel.projectName
     - type: attribute-remapper
       name: Define `vercel.deploymentId` as the official version of the log
-      enabled: true
+      enabled: false
       sources:
         - vercel.deploymentId
       sourceType: attribute
