@@ -159,12 +159,7 @@ pipeline:
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
-    - type: service-remapper
-      name: Define `vercel.projectName` as the official service of the log
-      enabled: true
-      sources:
-        - vercel.projectName
-    - type: attribute-remapper
+   - type: attribute-remapper
       name: Define `vercel.deploymentId` as the official version of the log
       enabled: false
       sources:
@@ -174,6 +169,11 @@ pipeline:
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
+    - type: service-remapper
+      name: Define `vercel.projectName` as the official service of the log
+      enabled: true
+      sources:
+        - vercel.projectName
     - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
