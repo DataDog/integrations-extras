@@ -72,13 +72,7 @@ facets:
     path: vercel.environment
     source: log
     type: string
-  - facetType: list
-    groups:
-      - Vercel
-    name: Vercel Invocation Id
-    path: vercel.invocationId
-    source: log
-    type: string
+
   - facetType: list
     groups:
       - Vercel
@@ -174,21 +168,6 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-    - type: service-remapper
-      name: Define `projectName` as the official service of the log
-      enabled: true
-      sources:
-        - projectName
-    - type: attribute-remapper
-      name: Define `vercel.deploymentId` as the official version of the log
-      enabled: true
-      sources:
-        - vercel.deploymentId
-      sourceType: attribute
-      target: version
-      targetType: tag
-      preserveSource: true
-      overrideOnConflict: false
     - type: attribute-remapper
       name: Map `environment` to `vercel.environment`
       enabled: true
@@ -227,6 +206,21 @@ pipeline:
       sourceType: attribute
       target: vercel.projectName
       targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: service-remapper
+      name: Define `vercel.projectName` as the official service of the log
+      enabled: true
+      sources:
+        - vercel.projectName
+    - type: attribute-remapper
+      name: Define `vercel.deploymentId` as the official version of the log
+      enabled: true
+      sources:
+        - vercel.deploymentId
+      sourceType: attribute
+      target: version
+      targetType: tag
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
