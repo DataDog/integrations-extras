@@ -139,21 +139,11 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-   - type: attribute-remapper
-      name: Map `projectName` to `vercel.projectName`
+    - type: service-remapper
+      name: Define `projectName` as the official service of the log
       enabled: true
       sources:
         - projectName
-      sourceType: attribute
-      target: vercel.projectName
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
-    - type: service-remapper
-      name: Define `vercel.projectName` as the official service of the log
-      enabled: true
-      sources:
-        - vercel.projectName
     - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
