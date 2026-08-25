@@ -169,6 +169,16 @@ pipeline:
       sources:
         - projectName
     - type: attribute-remapper
+      name: Define `vercel.deploymentId` as the official version of the log
+      enabled: true
+      sources:
+        - vercel.deploymentId
+      sourceType: attribute
+      target: version
+      targetType: tag
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
       sources:
