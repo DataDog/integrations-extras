@@ -10,6 +10,13 @@ facets:
     path: vercel.deploymentId
     source: log
     type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Invocation Id
+    path: vercel.invocationId
+    source: log
+    type: string
   - groups:
       - Web Access
     name: URL Host
@@ -143,6 +150,16 @@ pipeline:
         - deploymentId
       sourceType: attribute
       target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `invocationId` to `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
