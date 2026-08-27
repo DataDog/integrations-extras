@@ -239,16 +239,6 @@ pipeline:
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
-   - type: attribute-remapper
-      name: Map `lambda.duration` to `vercel.lambda.duration`
-      enabled: true
-      sources:
-        - lambda.duration
-      sourceType: attribute
-      target: vercel.lambda.duration
-      targetType: attribute
-      preserveSource: true
-      overrideOnConflict: false
     - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
@@ -370,7 +360,7 @@ metrics:
       - path: '@source'
         tagName: source
     aggregation:
-      path: '@vercel.lambda.duration'
+      path: '@lambda.duration'
       includePercentiles: true
   - name: vercel.functions.execution
     query: source:vercel @source:lambda REPORT
