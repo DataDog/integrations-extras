@@ -13,6 +13,13 @@ facets:
   - facetType: list
     groups:
       - Vercel
+    name: Vercel Deployment Environment
+    path: vercel.deploymentEnvironment
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
     name: Vercel Invocation Id
     path: vercel.invocationId
     source: log
@@ -154,6 +161,16 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
+      name: Map `environment` to `vercel.deploymentEnvironment`
+      enabled: true
+      sources:
+        - environment
+      sourceType: attribute
+      target: vercel.deploymentEnvironment
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
       name: Map `invocationId` to `vercel.invocationId`
       enabled: true
       sources:
@@ -175,6 +192,16 @@ pipeline:
         - vercel.deploymentId
       sourceType: attribute
       target: version
+      targetType: tag
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Define `vercel.deploymentEnvironment` as the official env of the log
+      enabled: true
+      sources:
+        - vercel.deploymentEnvironment
+      sourceType: attribute
+      target: env
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
