@@ -24,16 +24,6 @@ facets:
     path: vercel.invocationId
     source: log
     type: string
-  - facetType: range
-    groups:
-      - Vercel
-    name: Vercel Request Duration
-    path: vercel.lambda.duration
-    source: log
-    type: integer
-    unit:
-      name: nanosecond
-      family: time
   - facetType: list
     groups:
       - Vercel
@@ -291,3 +281,230 @@ pipeline:
       enabled: true
       sources:
         - spanId
+metrics:
+  - name: vercel.functions.invocations
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+  - name: vercel.functions.errors
+    query: source:vercel @source:lambda status:error REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+  - name: vercel.functions.duration
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+    aggregation:
+      path: '@vercel.lambda.duration'
+      includePercentiles: true
+  - name: vercel.functions.execution
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+    aggregation:
+      path: '@lambda.execution'
+      includePercentiles: true
+  - name: vercel.functions.max_memory_used
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+    aggregation:
+      path: '@lambda.max_memory_used'
+      includePercentiles: true
+  - name: vercel.functions.memorysize
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+    aggregation:
+      path: '@lambda.memorysize'
+      includePercentiles: false
+  - name: vercel.requests
+    query: source:vercel ((@source:lambda REPORT) OR @source:static)
+    groupBys:
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@path'
+        tagName: path
+      - path: '@branch'
+        tagName: branch
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@http.status_code'
+        tagName: status_code
+      - path: '@proxy.host'
+        tagName: proxy_host
+      - path: '@proxy.method'
+        tagName: request_method
+      - path: '@proxy.pathType'
+        tagName: path_type
+      - path: '@proxy.region'
+        tagName: region
+      - path: '@proxy.vercelCache'
+        tagName: vercel_cache
+      - path: '@source'
+        tagName: source
+  - name: vercel.projects.build_count
+    query: source:vercel "Build completed in "
+    groupBys:
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.projectName'
+        tagName: project_name
+      - path: '@vercel.projectId'
+        tagName: project_id
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
