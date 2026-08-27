@@ -24,6 +24,16 @@ facets:
     path: vercel.invocationId
     source: log
     type: string
+  - facetType: range
+    groups:
+      - Vercel
+    name: Vercel Request Duration
+    path: vercel.lambda.duration
+    source: log
+    type: integer
+    unit:
+      name: nanosecond
+      family: time
   - facetType: list
     groups:
       - Vercel
@@ -144,7 +154,7 @@ pipeline:
       enabled: true
       categories:
         - filter:
-            query: '@type:stdout AND @source:build'
+            query: '@type:stdout AND (@source:build OR (@level:info AND @type:stdout AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode))'
           name: Info
         - filter:
             query: '@proxy.statusCode:[200 TO 299]'
@@ -153,10 +163,10 @@ pipeline:
             query: '@proxy.statusCode:[300 TO 399]'
           name: Notice
         - filter:
-            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr AND @source:build) OR message:*warn*'
+            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr AND (@source:build OR (@level:warn* AND @type:stderr AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)))'
           name: Warning
         - filter:
-            query: '@proxy.statusCode:[500 TO 599] OR (@type:stderr AND NOT @source:build AND NOT message:*warn*)'
+            query: '@proxy.statusCode:[500 TO 599] OR (@type:stderr AND NOT @source:build AND @level:error AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)'
           name: Error
       target: http.status_category
     - type: status-remapper
@@ -238,6 +248,16 @@ pipeline:
       target: env
       targetType: tag
       preserveSource: true
+      overrideOnConflict: false
+   - type: attribute-remapper
+      name: Map `lambda.duration` to `vercel.lambda.duration`
+      enabled: true
+      sources:
+        - lambda.duration
+      sourceType: attribute
+      target: vercel.lambda.duration
+      targetType: attribute
+      preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `host` to `url_host`
