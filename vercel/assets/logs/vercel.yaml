@@ -147,7 +147,7 @@ pipeline:
             query: '@type:stdout AND (@source:build OR (@level:info AND @type:stdout AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode))'
           name: Info
         - filter:
-            query: '@proxy.statusCode:[200 TO 299]'
+            query: '@proxy.statusCode:[200 TO 299] AND NOT @level:error AND NOT @type:stderr'
           name: OK
         - filter:
             query: '@proxy.statusCode:[300 TO 399]'
