@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 
 from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
@@ -58,16 +58,6 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
             }
         )
         return config
-
-    def check(self, instance: dict[str, Any]) -> None:
-        endpoint = self.instance.get("openmetrics_endpoint", "")
-        tags = [f"endpoint:{endpoint}"]
-        try:
-            super().check(instance)
-            self.service_check("openmetrics.health", AgentCheck.OK, tags=tags)
-        except Exception as e:
-            self.service_check("openmetrics.health", AgentCheck.CRITICAL, message=str(e), tags=tags)
-            raise
 
     @staticmethod
     def _coerce_metrics(value: Any) -> list[dict[str, str]]:

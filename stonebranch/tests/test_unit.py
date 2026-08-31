@@ -1,9 +1,7 @@
 import io
 
-import pytest
 import requests
 
-from datadog_checks.base import AgentCheck
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.stonebranch import StonebranchCheck
 
@@ -148,53 +146,4 @@ def test_metric_groups_jvm(aggregator, dd_run_check, mocker):
     aggregator.assert_metric(
         "stonebranch.jvm_gc_collection_seconds",
         tags=base_tags + ["gc:G1 Young Generation"],
-    )
-
-
-def test_can_connect_ok(aggregator, dd_run_check, mocker):
-    url = "http://test.local/metrics"
-    instance = {
-        "openmetrics_endpoint": url,
-        "metrics": [{"uc_build_info": "uc_build.info"}],
-    }
-
-    mocker.patch(
-        "requests.sessions.Session.request",
-        autospec=True,
-        return_value=make_streaming_response(
-            url, "# HELP uc_build_info info\n# TYPE uc_build_info gauge\nuc_build_info{release=\"7.9\"} 1\n"
-        ),
-    )
-
-    check = StonebranchCheck("stonebranch", {}, [instance])
-    dd_run_check(check)
-
-    aggregator.assert_service_check(
-        "stonebranch.openmetrics.health",
-        status=AgentCheck.OK,
-        tags=[f"endpoint:{url}"],
-    )
-
-
-def test_can_connect_critical(aggregator, dd_run_check, mocker):
-    url = "http://unreachable.local/metrics"
-    instance = {
-        "openmetrics_endpoint": url,
-        "metrics": [{"uc_build_info": "uc_build.info"}],
-    }
-
-    mocker.patch(
-        "requests.sessions.Session.request",
-        autospec=True,
-        side_effect=requests.exceptions.ConnectionError("Connection refused"),
-    )
-
-    check = StonebranchCheck("stonebranch", {}, [instance])
-    with pytest.raises(Exception):
-        dd_run_check(check)
-
-    aggregator.assert_service_check(
-        "stonebranch.openmetrics.health",
-        status=AgentCheck.CRITICAL,
-        tags=[f"endpoint:{url}"],
     )
