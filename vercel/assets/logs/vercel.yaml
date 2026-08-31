@@ -156,7 +156,7 @@ pipeline:
             query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr AND (@source:build OR (@level:warn* AND @type:stderr AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)))'
           name: Warning
         - filter:
-            query: '@proxy.statusCode:[500 TO 599] OR (@type:stderr AND NOT @source:build AND @level:error AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)'
+            query: '@proxy.statusCode:[500 TO 599] OR (@level:error AND NOT @source:build AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)'
           name: Error
       target: http.status_category
     - type: status-remapper
