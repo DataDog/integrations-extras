@@ -1,0 +1,83 @@
+# HELP uc_agent_status Agent status. (0=Offline, 1=Active, -1=Unknown)
+# TYPE uc_agent_status gauge
+uc_agent_status{agent_id="AGNT0001"} 1.0
+uc_agent_status{agent_id="AGNT0002"} 0.0
+
+# HELP uc_build_info Universal Controller build information.
+# TYPE uc_build_info gauge
+uc_build_info{build="build.108",build_date="09-26-2025_0545",release="7.9.0.0"} 1
+
+# HELP uc_database_connection_pool_active Number of connections currently borrowed from a given pool.
+# TYPE uc_database_connection_pool_active gauge
+uc_database_connection_pool_active{db_type="MySQL",pool="Client"} 2.0
+
+# HELP uc_database_connection_pool_idle Number of connections currently idle in a given pool.
+# TYPE uc_database_connection_pool_idle gauge
+uc_database_connection_pool_idle{db_type="MySQL",pool="Client"} 8.0
+
+# HELP uc_database_connection_pool_idle_min Target for the minimum number of idle connections to maintain in a given pool.
+# TYPE uc_database_connection_pool_idle_min gauge
+uc_database_connection_pool_idle_min{db_type="MySQL",pool="Client"} 2.0
+
+# HELP uc_database_connection_pool_idle_max Maximum number of idle connections to maintain in a given pool.
+# TYPE uc_database_connection_pool_idle_max gauge
+uc_database_connection_pool_idle_max{db_type="MySQL",pool="Client"} 10.0
+
+# HELP uc_database_connection_pool_allocated Number of connections currently allocated by a given pool.
+# TYPE uc_database_connection_pool_allocated gauge
+uc_database_connection_pool_allocated{db_type="MySQL",pool="Client"} 10.0
+
+# HELP uc_database_connection_pool_max Maximum number of connections that can be allocated by a given pool.
+# TYPE uc_database_connection_pool_max gauge
+uc_database_connection_pool_max{db_type="MySQL",pool="Client"} 50.0
+
+# HELP uc_history_total Total number of task instances that completed with an end status.
+# TYPE uc_history_total counter
+uc_history_total{task_instance_status="Success"} 1250.0
+uc_history_total{task_instance_status="Failed"} 12.0
+uc_history_total{task_instance_status="Skipped"} 3.0
+
+# HELP uc_monthly_executions Total completed task instance executions for the current month.
+# TYPE uc_monthly_executions gauge
+uc_monthly_executions{task_type="Linux",task_instance_status="Success"} 432.0
+
+# HELP uc_oms_server_status OMS Server status. (0=Disconnected, 1=Connected, -1=Unknown)
+# TYPE uc_oms_server_status gauge
+uc_oms_server_status{oms_server_name="OMS-PRIMARY"} 1.0
+
+# HELP uc_oms_server_session_status OMS Server session status.
+# TYPE uc_oms_server_session_status gauge
+uc_oms_server_session_status{oms_server_name="OMS-PRIMARY"} 2.0
+
+# HELP uc_oms_server_last_connected_time_seconds OMS Server last connected time as seconds since Unix epoch.
+# TYPE uc_oms_server_last_connected_time_seconds gauge
+uc_oms_server_last_connected_time_seconds{oms_server_name="OMS-PRIMARY"} 1.748e+09
+
+# HELP uc_task_instance_active Number of instances currently active by a given status.
+# TYPE uc_task_instance_active gauge
+uc_task_instance_active{task_instance_status="Running"} 5.0
+uc_task_instance_active{task_instance_status="Waiting"} 2.0
+
+# HELP uc_task_instance_launch_total Total number of task instances launched.
+# TYPE uc_task_instance_launch_total counter
+uc_task_instance_launch_total 2048.0
+
+# HELP uc_task_instance_late_start_total Total number of task instances that started late.
+# TYPE uc_task_instance_late_start_total counter
+uc_task_instance_late_start_total 4.0
+
+# HELP uc_task_instance_late_finish_total Total number of task instances that finished late.
+# TYPE uc_task_instance_late_finish_total counter
+uc_task_instance_late_finish_total 2.0
+
+# HELP uc_task_instance_early_finish_total Total number of task instances that finished early.
+# TYPE uc_task_instance_early_finish_total counter
+uc_task_instance_early_finish_total 1.0
+
+# HELP uc_task_instance_duration_seconds Task instance duration in seconds.
+# TYPE uc_task_instance_duration_seconds gauge
+uc_task_instance_duration_seconds{task_name="daily-etl",task_type="Linux"} 42.5
+
+# HELP uc_universal_event_total Total number of universal events triggered.
+# TYPE uc_universal_event_total counter
+uc_universal_event_total{event_name="job-complete"} 128.0
