@@ -172,7 +172,7 @@ pipeline:
       sourceType: attribute
       target: vercel.deploymentId
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `environment` to `vercel.deploymentEnv`
@@ -182,7 +182,7 @@ pipeline:
       sourceType: attribute
       target: vercel.deploymentEnv
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `invocationId` to `vercel.invocationId`
@@ -192,7 +192,7 @@ pipeline:
       sourceType: attribute
       target: vercel.invocationId
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `projectId` to `vercel.projectId`
@@ -202,7 +202,7 @@ pipeline:
       sourceType: attribute
       target: vercel.projectId
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `projectName` to `vercel.projectName`
@@ -212,7 +212,7 @@ pipeline:
       sourceType: attribute
       target: vercel.projectName
       targetType: attribute
-      preserveSource: false
+      preserveSource: true
       overrideOnConflict: false
     - type: service-remapper
       name: Define `vercel.projectName` as the official service of the log
