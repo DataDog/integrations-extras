@@ -46,7 +46,7 @@
                 "group_by": [],
                 "compute": {
                   "aggregation": "cardinality",
-                  "metric": "@requestId"
+                  "metric": "@vercel.requestId"
                 },
                 "storage": "hot"
               }
@@ -90,7 +90,7 @@
                 "group_by": [],
                 "compute": {
                   "aggregation": "cardinality",
-                  "metric": "@requestId"
+                  "metric": "@vercel.requestId"
                 },
                 "storage": "hot"
               }
@@ -129,7 +129,7 @@
                 "group_by": [],
                 "compute": {
                   "aggregation": "cardinality",
-                  "metric": "@requestId"
+                  "metric": "@vercel.requestId"
                 },
                 "storage": "hot"
               }
@@ -176,13 +176,13 @@
                 "name": "query1",
                 "data_source": "logs",
                 "search": {
-                  "query": "source:vercel @statusCode:(>=200 AND <400) $vercel_url"
+                  "query": "source:vercel @proxy.statusCode:(>=200 AND <400) $vercel_url"
                 },
                 "indexes": ["*"],
                 "group_by": [],
                 "compute": {
                   "aggregation": "cardinality",
-                  "metric": "@requestId"
+                  "metric": "@vercel.requestId"
                 },
                 "storage": "hot"
               }
@@ -224,7 +224,7 @@
                 "group_by": [],
                 "compute": {
                   "aggregation": "cardinality",
-                  "metric": "@requestId"
+                  "metric": "@vercel.requestId"
                 },
                 "storage": "hot"
               }
@@ -267,14 +267,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -316,14 +316,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -366,14 +366,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -416,14 +416,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -466,14 +466,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -517,19 +517,19 @@
                       "indexes": ["*"],
                       "group_by": [
                         {
-                          "facet": "@statusCode",
+                          "facet": "@proxy.statusCode",
                           "limit": 10,
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -593,7 +593,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -635,13 +635,13 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "source:vercel $vercel_url @statusCode:(>=200 AND <400) @source:lambda"
+                        "query": "source:vercel $vercel_url @proxy.statusCode:(>=200 AND <400) @source:lambda"
                       },
                       "indexes": ["*"],
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -679,13 +679,13 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "source:vercel $vercel_url @statusCode:(>=500) @source:lambda"
+                        "query": "source:vercel $vercel_url @http.status_code:(>=500) @source:lambda"
                       },
                       "indexes": ["*"],
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -792,7 +792,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -851,7 +851,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     },
@@ -865,7 +865,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -923,7 +923,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -992,14 +992,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -1049,7 +1049,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     },
@@ -1063,7 +1063,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -1118,7 +1118,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     },
@@ -1132,7 +1132,7 @@
                       "group_by": [],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
@@ -1254,14 +1254,14 @@
                           "sort": {
                             "aggregation": "cardinality",
                             "order": "desc",
-                            "metric": "@requestId"
+                            "metric": "@vercel.requestId"
                           },
                           "should_exclude_missing": true
                         }
                       ],
                       "compute": {
                         "aggregation": "cardinality",
-                        "metric": "@requestId"
+                        "metric": "@vercel.requestId"
                       },
                       "storage": "hot"
                     }
