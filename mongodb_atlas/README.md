@@ -30,7 +30,10 @@ You can install the MongoDB Atlas integration by logging in to your Atlas portal
 
 See [metadata.csv][3] for a list of metrics provided by this integration.
 
-Query shape metrics (prefixed `mongodb.atlas.querystats`) carry `samplingstrategy` and `samplingrate` tags that describe how MongoDB Atlas collected the underlying operations. On clusters running MongoDB 9.0 or later with sample-based collection in effect (`samplingstrategy:sampled`), query shape metrics reflect a random sample of read and write operations (1% by default), so metric values represent only the sampled operations. On earlier versions, Atlas records up to 100 read queries per second per host (`samplingstrategy:rate_limited`) and write operations are not collected.
+Query shape metrics (prefixed `mongodb.atlas.querystats`) carry `samplingstrategy` and `samplingrate` tags that describe how MongoDB Atlas collected the underlying operations:
+
+- `samplingstrategy:sampled`: On clusters running MongoDB 9.0 or later with sample-based collection in effect, query shape metrics reflect a random sample of read and write operations, so metric values represent only the sampled operations. `samplingrate` is a floating point number indicating the percentage of operations sampled - for example, `0.01` if 1% sampling (the default) is enabled.
+- `samplingstrategy:rate_limited`: On earlier versions, Atlas records up to a maximum number of read queries per second per host (100 per second by default), and write operations are not collected. `samplingrate` is always `0` when the sampling strategy is `rate_limited`.
 
 ### Events
 
