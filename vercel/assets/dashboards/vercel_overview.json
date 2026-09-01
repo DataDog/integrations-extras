@@ -176,7 +176,7 @@
                 "name": "query1",
                 "data_source": "logs",
                 "search": {
-                  "query": "source:vercel @proxy.statusCode:(>=200 AND <400) $vercel_url"
+                  "query": "source:vercel @statusCode:(>=200 AND <400) $vercel_url"
                 },
                 "indexes": ["*"],
                 "group_by": [],
@@ -517,7 +517,7 @@
                       "indexes": ["*"],
                       "group_by": [
                         {
-                          "facet": "@proxy.statusCode",
+                          "facet": "@statusCode",
                           "limit": 10,
                           "sort": {
                             "aggregation": "cardinality",
@@ -635,7 +635,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "source:vercel $vercel_url @proxy.statusCode:(>=200 AND <400) @source:lambda"
+                        "query": "source:vercel $vercel_url @statusCode:(>=200 AND <400) @source:lambda"
                       },
                       "indexes": ["*"],
                       "group_by": [],
@@ -679,7 +679,7 @@
                       "name": "query1",
                       "data_source": "logs",
                       "search": {
-                        "query": "source:vercel $vercel_url @http.status_code:(>=500) @source:lambda"
+                        "query": "source:vercel $vercel_url @statusCode:(>=500) @source:lambda"
                       },
                       "indexes": ["*"],
                       "group_by": [],
