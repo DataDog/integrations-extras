@@ -3,6 +3,61 @@
 id: vercel
 backend_only: false
 facets:
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Deployment Id
+    path: vercel.deploymentId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Deployment Environment
+    path: vercel.deploymentEnv
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Invocation Id
+    path: vercel.invocationId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Id
+    path: vercel.projectId
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - Vercel
+    name: Vercel Project Name
+    path: vercel.projectName
+    source: log
+    type: string
+  - groups:
+      - Web Access
+    name: URL Host
+    path: http.url_details.host
+    source: log
+  - groups:
+      - Web Access
+    name: URL Path
+    path: http.url_details.path
+    source: log
+  - groups:
+      - Web Access
+    name: URL Port
+    path: http.url_details.port
+    source: log
+  - groups:
+      - Web Access
+    name: URL scheme
+    path: http.url_details.scheme
+    source: log
   - groups:
       - Geoip
     name: City Name
@@ -45,6 +100,30 @@ pipeline:
   filter:
     query: source:vercel
   processors:
+    - type: pipeline
+      name: Processing for URL Paths
+      enabled: true
+      filter:
+        query: "@proxy.scheme:* @proxy.host:* @proxy.path:* NOT @source:build"
+      processors:
+        - type: string-builder-processor
+          name: Build a parseable http.url from proxy scheme, host, and path
+          enabled: true
+          template: "%{proxy.scheme}://%{proxy.host}%{proxy.path}"
+          target: http.url
+          replaceMissing: true
+        - type: url-parser
+          name: Parse http.url into http.url_details
+          enabled: true
+          sources:
+            - http.url
+          target: http.url_details
+        - type: url-parser
+          name: Parse proxy.referer into http.referer_details
+          enabled: true
+          sources:
+            - proxy.referer
+          target: http.referer_details
     - type: grok-parser
       name: Parsing Lambda Report Logs
       enabled: true
@@ -65,16 +144,19 @@ pipeline:
       enabled: true
       categories:
         - filter:
-            query: '@proxy.statusCode:[200 TO 299]'
+            query: '@type:stdout AND (@source:build OR (@level:info AND @type:stdout AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode))'
+          name: Info
+        - filter:
+            query: '@proxy.statusCode:[200 TO 299] AND NOT @level:error AND NOT @type:stderr'
           name: OK
         - filter:
             query: '@proxy.statusCode:[300 TO 399]'
           name: Notice
         - filter:
-            query: '@proxy.statusCode:[400 TO 499]'
+            query: '@proxy.statusCode:[400 TO 499] OR (@type:stderr AND (@source:build OR (@level:warn* AND @type:stderr AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)))'
           name: Warning
         - filter:
-            query: '@proxy.statusCode:[500 TO 599]'
+            query: '@proxy.statusCode:[500 TO 599] OR (@level:error AND NOT @source:build AND NOT _exists_:@http.status_code AND NOT _exists_:@proxy.statusCode)'
           name: Error
       target: http.status_category
     - type: status-remapper
@@ -82,11 +164,81 @@ pipeline:
       enabled: true
       sources:
         - http.status_category
-    - type: service-remapper
-      name: Define `projectName` as the official service of the log
+    - type: attribute-remapper
+      name: Map `deploymentId` to `vercel.deploymentId`
+      enabled: true
+      sources:
+        - deploymentId
+      sourceType: attribute
+      target: vercel.deploymentId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `environment` to `vercel.deploymentEnv`
+      enabled: true
+      sources:
+        - environment
+      sourceType: attribute
+      target: vercel.deploymentEnv
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `invocationId` to `vercel.invocationId`
+      enabled: true
+      sources:
+        - invocationId
+      sourceType: attribute
+      target: vercel.invocationId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `projectId` to `vercel.projectId`
+      enabled: true
+      sources:
+        - projectId
+      sourceType: attribute
+      target: vercel.projectId
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `projectName` to `vercel.projectName`
       enabled: true
       sources:
         - projectName
+      sourceType: attribute
+      target: vercel.projectName
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: service-remapper
+      name: Define `vercel.projectName` as the official service of the log
+      enabled: true
+      sources:
+        - vercel.projectName
+    - type: attribute-remapper
+      name: Define `vercel.deploymentId` as the official version of the log
+      enabled: true
+      sources:
+        - vercel.deploymentId
+      sourceType: attribute
+      target: version
+      targetType: tag
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Define `vercel.deploymentEnv` as the official env of the log
+      enabled: true
+      sources:
+        - vercel.deploymentEnv
+      sourceType: attribute
+      target: env
+      targetType: tag
+      preserveSource: true
+      overrideOnConflict: false
     - type: attribute-remapper
       name: Map `host` to `url_host`
       enabled: true
@@ -123,17 +275,19 @@ metrics:
   - name: vercel.functions.invocations
     query: source:vercel @source:lambda REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -150,17 +304,19 @@ metrics:
   - name: vercel.functions.errors
     query: source:vercel @source:lambda status:error REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -177,17 +333,19 @@ metrics:
   - name: vercel.functions.duration
     query: source:vercel @source:lambda REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -207,17 +365,19 @@ metrics:
   - name: vercel.functions.execution
     query: source:vercel @source:lambda REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -237,17 +397,19 @@ metrics:
   - name: vercel.functions.max_memory_used
     query: source:vercel @source:lambda REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -267,17 +429,19 @@ metrics:
   - name: vercel.functions.memorysize
     query: source:vercel @source:lambda REPORT
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -297,17 +461,19 @@ metrics:
   - name: vercel.requests
     query: source:vercel ((@source:lambda REPORT) OR @source:static)
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.projectName'
         tagName: project_name
       - path: '@path'
         tagName: path
       - path: '@branch'
         tagName: branch
-      - path: '@environment'
-        tagName: environment
-      - path: '@projectId'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
+      - path: '@vercel.projectId'
         tagName: project_id
-      - path: '@statusCode'
+      - path: '@http.status_code'
         tagName: status_code
       - path: '@proxy.host'
         tagName: proxy_host
@@ -322,9 +488,13 @@ metrics:
       - path: '@source'
         tagName: source
   - name: vercel.projects.build_count
-    query: source:vercel "Build completed in"
+    query: source:vercel "Build completed in "
     groupBys:
-      - path: '@projectName'
+      - path: '@vercel.deploymentEnv'
+        tagName: deployment_env
+      - path: '@vercel.projectName'
         tagName: project_name
-      - path: '@projectId'
+      - path: '@vercel.projectId'
         tagName: project_id
+      - path: '@vercel.deploymentId'
+        tagName: deployment_id
