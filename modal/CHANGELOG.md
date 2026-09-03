@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.7.0 / 2026-09-04
+
+***Added***:
+
+* CPU requested and memory requested
+
 ## 1.6.0 / 2026-05-14
 
 ***Added***:
