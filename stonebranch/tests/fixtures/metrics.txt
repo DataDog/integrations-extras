@@ -1,83 +1,273 @@
+# HELP jvm_buffer_pool_capacity_bytes Bytes capacity of a given JVM buffer pool.
+# TYPE jvm_buffer_pool_capacity_bytes gauge
+jvm_buffer_pool_capacity_bytes{pool="direct"} 720642.0
+jvm_buffer_pool_capacity_bytes{pool="mapped - 'non-volatile memory'"} 0.0
+
+# HELP jvm_buffer_pool_used_buffers Used buffers of a given JVM buffer pool.
+# TYPE jvm_buffer_pool_used_buffers gauge
+jvm_buffer_pool_used_buffers{pool="direct"} 58.0
+jvm_buffer_pool_used_buffers{pool="mapped - 'non-volatile memory'"} 0.0
+
+# HELP jvm_buffer_pool_used_bytes Used bytes of a given JVM buffer pool.
+# TYPE jvm_buffer_pool_used_bytes gauge
+jvm_buffer_pool_used_bytes{pool="direct"} 720642.0
+jvm_buffer_pool_used_bytes{pool="mapped - 'non-volatile memory'"} 0.0
+
+# HELP jvm_classes_currently_loaded The number of classes that are currently loaded in the JVM
+# TYPE jvm_classes_currently_loaded gauge
+jvm_classes_currently_loaded 27812.0
+
+# HELP jvm_classes_loaded_total The total number of classes that have been loaded since the JVM has started execution
+# TYPE jvm_classes_loaded_total counter
+jvm_classes_loaded_total 53660.0
+
+# HELP jvm_classes_unloaded_total The total number of classes that have been unloaded since the JVM has started execution
+# TYPE jvm_classes_unloaded_total counter
+jvm_classes_unloaded_total 25848.0
+
+# HELP jvm_compilation_time_seconds_total The total time in seconds taken for HotSpot class compilation
+# TYPE jvm_compilation_time_seconds_total counter
+jvm_compilation_time_seconds_total 503.238
+
+# HELP jvm_gc_collection_seconds Time spent in a given JVM garbage collector in seconds.
+# TYPE jvm_gc_collection_seconds summary
+jvm_gc_collection_seconds_count{gc="G1 Old Generation"} 7781
+jvm_gc_collection_seconds_sum{gc="G1 Old Generation"} 1985.328
+
+# HELP jvm_memory_committed_bytes Committed (bytes) of a given JVM memory area.
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{area="heap"} 7.1303168E8
+
+# HELP jvm_memory_init_bytes Initial bytes of a given JVM memory area.
+# TYPE jvm_memory_init_bytes gauge
+jvm_memory_init_bytes{area="heap"} 5.36870912E8
+
+# HELP jvm_memory_max_bytes Max (bytes) of a given JVM memory area.
+# TYPE jvm_memory_max_bytes gauge
+jvm_memory_max_bytes{area="heap"} 5.24288E9
+
+# HELP jvm_memory_objects_pending_finalization The number of objects waiting in the finalizer queue.
+# TYPE jvm_memory_objects_pending_finalization gauge
+jvm_memory_objects_pending_finalization 0.0
+
+# HELP jvm_memory_pool_allocated_bytes_total Total bytes allocated in a given JVM memory pool. Only updated after GC, not continuously.
+# TYPE jvm_memory_pool_allocated_bytes_total counter
+jvm_memory_pool_allocated_bytes_total{pool="CodeHeap 'non-nmethods'"} 1834880.0
+jvm_memory_pool_allocated_bytes_total{pool="Compressed Class Space"} 3.4432448E7
+
+# HELP jvm_memory_pool_collection_committed_bytes Committed after last collection bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_collection_committed_bytes gauge
+jvm_memory_pool_collection_committed_bytes{pool="G1 Eden Space"} 4.194304E8
+
+# HELP jvm_memory_pool_collection_init_bytes Initial after last collection bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_collection_init_bytes gauge
+jvm_memory_pool_collection_init_bytes{pool="G1 Eden Space"} 2.9360128E7
+
+# HELP jvm_memory_pool_collection_max_bytes Max bytes after last collection of a given JVM memory pool.
+# TYPE jvm_memory_pool_collection_max_bytes gauge
+jvm_memory_pool_collection_max_bytes{pool="G1 Eden Space"} -1.0
+
+# HELP jvm_memory_pool_collection_used_bytes Used bytes after last collection of a given JVM memory pool.
+# TYPE jvm_memory_pool_collection_used_bytes gauge
+jvm_memory_pool_collection_used_bytes{pool="G1 Eden Space"} 0.0
+
+# HELP jvm_memory_pool_committed_bytes Committed bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_committed_bytes gauge
+jvm_memory_pool_committed_bytes{pool="CodeHeap 'non-nmethods'"} 2555904.0
+jvm_memory_pool_committed_bytes{pool="Compressed Class Space"} 2.2085632E7
+
+# HELP jvm_memory_pool_init_bytes Initial bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_init_bytes gauge
+jvm_memory_pool_init_bytes{pool="CodeHeap 'non-nmethods'"} 2555904.0
+jvm_memory_pool_init_bytes{pool="Compressed Class Space"} 0.0
+
+# HELP jvm_memory_pool_max_bytes Max bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_max_bytes gauge
+jvm_memory_pool_max_bytes{pool="CodeHeap 'non-nmethods'"} 5836800.0
+jvm_memory_pool_max_bytes{pool="Compressed Class Space"} 1.073741824E9
+
+# HELP jvm_memory_pool_used_bytes Used bytes of a given JVM memory pool.
+# TYPE jvm_memory_pool_used_bytes gauge
+jvm_memory_pool_used_bytes{pool="CodeHeap 'non-nmethods'"} 1828096.0
+jvm_memory_pool_used_bytes{pool="Compressed Class Space"} 2.0404912E7
+
+# HELP jvm_memory_used_bytes Used bytes of a given JVM memory area.
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{area="heap"} 5.87768416E8
+
+# HELP jvm_runtime_info JVM runtime info
+# TYPE jvm_runtime_info gauge
+jvm_runtime_info{runtime="OpenJDK Runtime Environment",vendor="Amazon.com Inc.",version="17.0.11+9-LTS"} 1
+
+# HELP jvm_threads_current Current thread count of a JVM
+# TYPE jvm_threads_current gauge
+jvm_threads_current 89.0
+
+# HELP jvm_threads_daemon Daemon thread count of a JVM
+# TYPE jvm_threads_daemon gauge
+jvm_threads_daemon 82.0
+
+# HELP jvm_threads_deadlocked Cycles of JVM-threads that are in deadlock waiting to acquire object monitors or ownable synchronizers
+# TYPE jvm_threads_deadlocked gauge
+jvm_threads_deadlocked 0.0
+
+# HELP jvm_threads_deadlocked_monitor Cycles of JVM-threads that are in deadlock waiting to acquire object monitors
+# TYPE jvm_threads_deadlocked_monitor gauge
+jvm_threads_deadlocked_monitor 0.0
+
+# HELP jvm_threads_peak Peak thread count of a JVM
+# TYPE jvm_threads_peak gauge
+jvm_threads_peak 177.0
+
+# HELP jvm_threads_started_total Started thread count of a JVM
+# TYPE jvm_threads_started_total counter
+jvm_threads_started_total 4492.0
+
+# HELP jvm_threads_state Current count of threads by state
+# TYPE jvm_threads_state gauge
+jvm_threads_state{state="BLOCKED"} 0.0
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 49575.41
+
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 65535.0
+
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 96.0
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 2.249805824E9
+
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.784108524374E9
+
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 9.909219328E9
+
 # HELP uc_agent_status Agent status. (0=Offline, 1=Active, -1=Unknown)
 # TYPE uc_agent_status gauge
-uc_agent_status{agent_id="AGNT0001"} 1.0
-uc_agent_status{agent_id="AGNT0002"} 0.0
+uc_agent_status{agent_id="AGNT0001"} 0.0
 
 # HELP uc_build_info Universal Controller build information.
 # TYPE uc_build_info gauge
-uc_build_info{build="build.108",build_date="09-26-2025_0545",release="7.9.0.0"} 1
+uc_build_info{build="build.98",build_date="03-30-2026_0640",release="8.0.0.0"} 1
 
 # HELP uc_database_connection_pool_active Number of connections currently borrowed from a given pool.
 # TYPE uc_database_connection_pool_active gauge
-uc_database_connection_pool_active{db_type="MySQL",pool="Client"} 2.0
+uc_database_connection_pool_active{db_type="MySQL",pool="Client"} 0.0
+
+# HELP uc_database_connection_pool_allocated Number of connections currently allocated by a given pool (currently borrowed and currently idle).
+# TYPE uc_database_connection_pool_allocated gauge
+uc_database_connection_pool_allocated{db_type="MySQL",pool="Client"} 2.0
 
 # HELP uc_database_connection_pool_idle Number of connections currently idle in a given pool.
 # TYPE uc_database_connection_pool_idle gauge
-uc_database_connection_pool_idle{db_type="MySQL",pool="Client"} 8.0
-
-# HELP uc_database_connection_pool_idle_min Target for the minimum number of idle connections to maintain in a given pool.
-# TYPE uc_database_connection_pool_idle_min gauge
-uc_database_connection_pool_idle_min{db_type="MySQL",pool="Client"} 2.0
+uc_database_connection_pool_idle{db_type="MySQL",pool="Client"} 2.0
 
 # HELP uc_database_connection_pool_idle_max Maximum number of idle connections to maintain in a given pool.
 # TYPE uc_database_connection_pool_idle_max gauge
-uc_database_connection_pool_idle_max{db_type="MySQL",pool="Client"} 10.0
+uc_database_connection_pool_idle_max{db_type="MySQL",pool="Client"} 20.0
 
-# HELP uc_database_connection_pool_allocated Number of connections currently allocated by a given pool.
-# TYPE uc_database_connection_pool_allocated gauge
-uc_database_connection_pool_allocated{db_type="MySQL",pool="Client"} 10.0
+# HELP uc_database_connection_pool_idle_min Target for the minimum number of idle connections to maintain in a given pool.
+# TYPE uc_database_connection_pool_idle_min gauge
+uc_database_connection_pool_idle_min{db_type="MySQL",pool="Client"} 1.0
 
-# HELP uc_database_connection_pool_max Maximum number of connections that can be allocated by a given pool.
+# HELP uc_database_connection_pool_max Maximum number of connections that can be allocated by a given pool (currently borrowed and currently idle) at a given time.
 # TYPE uc_database_connection_pool_max gauge
-uc_database_connection_pool_max{db_type="MySQL",pool="Client"} 50.0
+uc_database_connection_pool_max{db_type="MySQL",pool="Client"} 40.0
 
-# HELP uc_history_total Total number of task instances that completed with an end status.
+# HELP uc_history_total Total number of task instances that completed with an end status of In Doubt, Start Failure, Confirmation Required, Cancelled, Failed, Skipped, Finished, or Success.
 # TYPE uc_history_total counter
-uc_history_total{task_instance_status="Success"} 1250.0
-uc_history_total{task_instance_status="Failed"} 12.0
-uc_history_total{task_instance_status="Skipped"} 3.0
+uc_history_total{agent_id="AGNT0001",cluster_node_id="uc-node-1",security_business_services="",task_instance_status="Failed",task_name="example-task",task_type="SQL",task_type_detailed="SQL"} 1.0
+uc_history_total{agent_id="AGNT0001",cluster_node_id="uc-node-1",security_business_services="",task_instance_status="Finished",task_name="example-task",task_type="Universal",task_type_detailed="Enhanced File Transfer (old)"} 1.0
 
-# HELP uc_monthly_executions Total completed task instance executions for the current month.
+# HELP uc_license_agents_distributed_max Returns the number of distributed agents allowed.
+# TYPE uc_license_agents_distributed_max gauge
+uc_license_agents_distributed_max{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 50.0
+
+# HELP uc_license_agents_distributed_used Returns the number of distributed agents used.
+# TYPE uc_license_agents_distributed_used gauge
+uc_license_agents_distributed_used{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 29.0
+
+# HELP uc_license_agents_zos_max Returns the number of Zos agents allowed.
+# TYPE uc_license_agents_zos_max gauge
+uc_license_agents_zos_max{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 5.0
+
+# HELP uc_license_agents_zos_used Returns the number of Zos agents used.
+# TYPE uc_license_agents_zos_used gauge
+uc_license_agents_zos_used{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 0.0
+
+# HELP uc_license_cluster_nodes_max Returns the number of cluster nodes allowed.
+# TYPE uc_license_cluster_nodes_max gauge
+uc_license_cluster_nodes_max{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} -1.0
+
+# HELP uc_license_cluster_nodes_used Returns the number of cluster nodes used.
+# TYPE uc_license_cluster_nodes_used gauge
+uc_license_cluster_nodes_used{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 0.0
+
+# HELP uc_license_monthly_executions_max Returns the number of licensed monthly task executions allowed.
+# TYPE uc_license_monthly_executions_max gauge
+uc_license_monthly_executions_max{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 25000.0
+
+# HELP uc_license_monthly_executions_used Returns the number of licensed monthly task executions used.
+# TYPE uc_license_monthly_executions_used gauge
+uc_license_monthly_executions_used{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 104.0
+
+# HELP uc_license_task_definitions_max Returns the number of task definitions allowed.
+# TYPE uc_license_task_definitions_max gauge
+uc_license_task_definitions_max{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} -1.0
+
+# HELP uc_license_task_definitions_used Returns the number of task definitions used.
+# TYPE uc_license_task_definitions_used gauge
+uc_license_task_definitions_used{customer="SB_Internal",environment="ps1",expiry_date="2026-12-31"} 0.0
+
+# HELP uc_monthly_executions The total number of completed (Approved, Success or Finished) task instance executions for the current month by given type and status.
 # TYPE uc_monthly_executions gauge
-uc_monthly_executions{task_type="Linux",task_instance_status="Success"} 432.0
+uc_monthly_executions{cluster_node_id="uc-node-1",task_instance_status="Approved",task_type="Approval",task_type_detailed="Approval"} 0.0
+uc_monthly_executions{cluster_node_id="uc-node-1",task_instance_status="Finished",task_type="Agent File Monitor",task_type_detailed="Agent File Monitor"} 0.0
+
+# HELP uc_oms_server_last_connected_time_seconds OMS Server last connected time specified as the number of seconds since the Unix epoch, namely January 1, 1970, 00:00:00 GMT.
+# TYPE uc_oms_server_last_connected_time_seconds gauge
+uc_oms_server_last_connected_time_seconds{last_connected="localhost/127.0.0.1:7878",server_address="127.0.0.1"} 1.784108592E9
+
+# HELP uc_oms_server_session_status OMS Server session status. (0=None, 1=Impaired, 2=Operational, -1=Unknown)
+# TYPE uc_oms_server_session_status gauge
+uc_oms_server_session_status{last_connected="localhost/127.0.0.1:7878",server_address="127.0.0.1"} 2.0
 
 # HELP uc_oms_server_status OMS Server status. (0=Disconnected, 1=Connected, -1=Unknown)
 # TYPE uc_oms_server_status gauge
-uc_oms_server_status{oms_server_name="OMS-PRIMARY"} 1.0
-
-# HELP uc_oms_server_session_status OMS Server session status.
-# TYPE uc_oms_server_session_status gauge
-uc_oms_server_session_status{oms_server_name="OMS-PRIMARY"} 2.0
-
-# HELP uc_oms_server_last_connected_time_seconds OMS Server last connected time as seconds since Unix epoch.
-# TYPE uc_oms_server_last_connected_time_seconds gauge
-uc_oms_server_last_connected_time_seconds{oms_server_name="OMS-PRIMARY"} 1.748e+09
+uc_oms_server_status{last_connected="localhost/127.0.0.1:7878",server_address="127.0.0.1"} 1.0
 
 # HELP uc_task_instance_active Number of instances currently active by a given status.
 # TYPE uc_task_instance_active gauge
-uc_task_instance_active{task_instance_status="Running"} 5.0
-uc_task_instance_active{task_instance_status="Waiting"} 2.0
+uc_task_instance_active{cluster_node_id="uc-node-1",task_instance_status="Action Required"} 0.0
+uc_task_instance_active{cluster_node_id="uc-node-1",task_instance_status="Approval Required"} 41.0
 
-# HELP uc_task_instance_launch_total Total number of task instances launched.
-# TYPE uc_task_instance_launch_total counter
-uc_task_instance_launch_total 2048.0
-
-# HELP uc_task_instance_late_start_total Total number of task instances that started late.
-# TYPE uc_task_instance_late_start_total counter
-uc_task_instance_late_start_total 4.0
-
-# HELP uc_task_instance_late_finish_total Total number of task instances that finished late.
-# TYPE uc_task_instance_late_finish_total counter
-uc_task_instance_late_finish_total 2.0
+# HELP uc_task_instance_duration_seconds Task instance duration in seconds.
+# TYPE uc_task_instance_duration_seconds histogram
+uc_task_instance_duration_seconds_bucket{cluster_node_id="uc-node-1",task_type="Approval",task_type_detailed="Approval",le="1.0"} 0
+uc_task_instance_duration_seconds_count{cluster_node_id="uc-node-1",task_type="Approval",task_type_detailed="Approval"} 3
 
 # HELP uc_task_instance_early_finish_total Total number of task instances that finished early.
 # TYPE uc_task_instance_early_finish_total counter
-uc_task_instance_early_finish_total 1.0
+uc_task_instance_early_finish_total{cluster_node_id="uc-node-1",task_type="SAP",task_type_detailed="SAP"} 50.0
 
-# HELP uc_task_instance_duration_seconds Task instance duration in seconds.
-# TYPE uc_task_instance_duration_seconds gauge
-uc_task_instance_duration_seconds{task_name="daily-etl",task_type="Linux"} 42.5
+# HELP uc_task_instance_late_finish_total Total number of task instances that finished late.
+# TYPE uc_task_instance_late_finish_total counter
+uc_task_instance_late_finish_total{cluster_node_id="uc-node-1",task_type="Universal",task_type_detailed="SAP Cloud Data Service (CPI DS)"} 13.0
 
-# HELP uc_universal_event_total Total number of universal events triggered.
+# HELP uc_task_instance_launch_total Total number of task instances launched.
+# TYPE uc_task_instance_launch_total counter
+uc_task_instance_launch_total{cluster_node_id="uc-node-1",task_type="Approval",task_type_detailed="Approval"} 57.0
+uc_task_instance_launch_total{cluster_node_id="uc-node-1",task_type="File Transfer",task_type_detailed="File Transfer"} 105.0
+
+# HELP uc_universal_event_total Total number of Universal Events published for Universal Event Templates and Universal Template Event Templates.
 # TYPE uc_universal_event_total counter
-uc_universal_event_total{event_name="job-complete"} 128.0
+uc_universal_event_total{cluster_node_id="uc-node-1",task_name="example-task",universal_event_name="job-complete",universal_extension_name="ue-example",universal_template_name="Example Template"} 13.0
