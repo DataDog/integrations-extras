@@ -6,7 +6,7 @@ The Akeyless Platform is a unified secrets management system that enables you to
 
 This integration allows you to visualize and monitor performance of your [Akeyless Gateway][2]. Telemetry metrics are sourced from the application and the runtime environment.
 
-**Note:** Starting with Gateway v5.0.0, the Gateway exposes metrics natively over Prometheus/OpenMetrics instead of shipping them itself through an embedded OpenTelemetry exporter. This changed how the integration is configured — see [Configure](#configure) below for the setup that matches your Gateway version.
+**Note:** Starting with Gateway v5.0.0, the Gateway exposes metrics natively over Prometheus/OpenMetrics instead of shipping them itself through an embedded OpenTelemetry exporter. This changed how the integration is configured: see [Configure](#configure) below for the setup that matches your Gateway version.
 
 ## Setup
 
@@ -18,7 +18,7 @@ To configure the integration with Datadog to view important Akeyless Gateway met
 
 - An Akeyless Gateway either running or being deployed for the first time.
 - **For Gateway v5.0.0 and later:** the [Datadog Agent][8] installed somewhere that can reach the Gateway's metrics endpoint on port `8000` (for example, in the same Kubernetes cluster, or on the same Docker host). The Datadog API key and site are configured on the Agent, not on the Gateway.
-- **For Gateway versions prior to 5.0.0 (legacy):** no separate Agent is required — the Gateway ships metrics directly to Datadog using its built-in OpenTelemetry exporter, configured with your Datadog API key and site.
+- **For Gateway versions prior to 5.0.0 (legacy):** no separate Agent is required. The Gateway ships metrics directly to Datadog using its built-in OpenTelemetry exporter, configured with your Datadog API key and site.
 
 ### Configure
 
@@ -28,7 +28,7 @@ Configuration differs by Gateway version, since v5.0.0 changed how metrics are e
 
 #### Gateway v5.0.0 and later
 
-From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `8000` at the `/metrics` path (metric names such as `akeyless_gw_system_healthcheck_status`, `akeyless_gw_quota_*`, and so on). Datadog is a push-based backend, so it does not scrape this endpoint by itself — the Datadog Agent's [OpenMetrics check][9] (via Autodiscovery) does the scraping and forwards the samples to Datadog. The Datadog API key and site are configured on the Agent, **not** on the Gateway.
+From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `8000` at the `/metrics` path (metric names such as `akeyless_gw_system_healthcheck_status`, `akeyless_gw_quota_*`, and so on). Datadog is a push-based backend, so it does not scrape this endpoint by itself: the Datadog Agent's [OpenMetrics check][9] (via Autodiscovery) does the scraping and forwards the samples to Datadog. The Datadog API key and site are configured on the Agent, **not** on the Gateway.
 
 **For a Gateway running on Kubernetes**
 
@@ -122,7 +122,7 @@ From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `800
     docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081 -p 5696:5696 -e ENABLE_METRICS="true" --name <your-gateway-name> akeyless/base:latest-akeyless
     ```
 
-    Do **not** mount an `otel-config.yaml` file or set Datadog credentials on the Gateway itself — from v5.0.0, metrics are served natively rather than exported by the Gateway.
+    Do **not** mount an `otel-config.yaml` file or set Datadog credentials on the Gateway itself: from v5.0.0, metrics are served natively rather than exported by the Gateway.
 
 2. Install the [Datadog Agent][8] on the same host (or a host that can reach the Gateway on port `8000`), and add an OpenMetrics instance to its configuration (for example in `conf.d/openmetrics.d/conf.yaml`):
 
@@ -217,6 +217,15 @@ Upon successful setup of the Gateway, go to the [Metrics Explorer][5] on the Dat
 See [metadata.csv][6] for a list of metrics provided by this integration.
 
 **Note on metric names:** the metric prefix depends on your Gateway version and configuration. Gateway versions prior to 5.0.0 report metrics as `akeyless.gw.*` via the built-in OpenTelemetry exporter. Gateway v5.0.0 and later expose metrics natively as `akeyless_gw_*`, which the Datadog Agent's OpenMetrics check reports under `<namespace>.akeyless_gw_*`, where `<namespace>` is the value you set in the Autodiscovery annotation (`akeyless` in the examples above).
+
+**Canonical vs. legacy request counters (v5.0.0+):** `akeyless_gw_system_request_count_total` and `akeyless_gw_system_http_response_status_code_total` are the canonical post-5.0 counters. The non-`_total` names (`akeyless_gw_system_request_count`, `akeyless_gw_system_http_response_status_code`) are transitional legacy names kept for backward compatibility; the `["akeyless_gw_.*"]` filter used above picks up both.
+
+**Gauges despite the `_total` suffix:** `akeyless_gw_system_cpu_throttled_periods_total` and `akeyless_gw_system_cpu_throttled_seconds_total` are emitted as gauges, not counters, even though their names end in `_total`. Do not apply `.as_rate()` (or PromQL `rate()`/`increase()`) to them.
+
+**Metrics that need extra Gateway configuration to populate:**
+
+- `akeyless_gw_system_network_io_receive_bytes` and `akeyless_gw_system_network_io_transmit_bytes` report a flat `0` unless the Gateway environment variable `GW_METRICS_NET_IFACE` is set to the network interface to measure (for example `eth0`). This is most commonly missed on standalone Docker deployments.
+- The Gateway's memory limit gauge only appears if `MEM_LIMIT` is set as a plain byte count. A suffixed value such as `512Mi` is silently rejected.
 
 ### Service Checks
 
