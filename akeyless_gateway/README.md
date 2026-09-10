@@ -209,6 +209,7 @@ Upon successful setup of the Gateway, go to the [Metrics Explorer][5] on the Dat
 
 - On Gateway v5.0.0 and later, you can also confirm the Agent is scraping correctly with `agent status collector`, and check that its OpenMetrics check for the Gateway shows `[OK]`.
 - Metrics from v5.0.0+ deployments appear under the namespace you configured (for example `akeyless.akeyless_gw_*`), while legacy (pre-5.0.0) deployments continue to report under `akeyless.gw.*`.
+- You can view a working example dashboard, built on the v5.0.0+ metrics, here: [Akeyless GW V5+ dashboard][10].
 
 ## Data Collected
 
@@ -249,3 +250,4 @@ Need help? Contact [Akeyless Support][7].
 [7]: mailto:support@akeyless.io
 [8]: https://docs.datadoghq.com/containers/kubernetes/installation/
 [9]: https://docs.datadoghq.com/integrations/openmetrics/
+[10]: https://p.datadoghq.com/sb/c4ff97e2-215a-11ee-bcad-da7ad0900002-aae0c413fb7deec2b81ff1fb422b4935
