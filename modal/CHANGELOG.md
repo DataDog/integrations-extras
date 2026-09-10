@@ -4,7 +4,8 @@
 
 ***Added***:
 
-* GPU clock frequency metric
+* GPU count metric
+* GPU billing type tag on container resource metrics
 
 ## 1.7.0 / 2026-09-04
 
