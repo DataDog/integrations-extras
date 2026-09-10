@@ -1,5 +1,12 @@
 # CHANGELOG - Modal
 
+## 1.8.0 / 2026-09-10
+
+***Added***:
+
+* GPU count metric
+* GPU billing type tag on container resource metrics
+
 ## 1.7.0 / 2026-09-04
 
 ***Added***:
