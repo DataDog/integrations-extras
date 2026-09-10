@@ -128,7 +128,7 @@ class Unifi:
         self.log.debug("Requesting %s/ to determine API paths", self.config.url)
         try:
             requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-            resp = requests.get(self.config.url + "/", verify=False, allow_redirects=False)
+            resp = requests.get(self.config.url + "/", verify=True, allow_redirects=False)
             resp.raise_for_status()
             if resp.status_code == 200:
                 self.new = True
