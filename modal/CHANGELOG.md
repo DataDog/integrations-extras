@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.8.0 / 2026-09-10
+
+***Added***:
+
+* GPU clock frequency metric
+
 ## 1.7.0 / 2026-09-04
 
 ***Added***:
