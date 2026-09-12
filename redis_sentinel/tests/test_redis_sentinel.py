@@ -46,18 +46,121 @@ def test_load_config():
         c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port'})
 
     # Expect to pass when port is an integer, with no password defined.
-    host, port, password = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
+    host, port, password, username, socket_timeout, ssl_kwargs = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'}
+    )
     assert host == 'localhost'
     assert port == 123
     assert password is None
+    assert username is None
+    assert socket_timeout == 5
+    assert ssl_kwargs == {}
 
     # Expect to pass when port is an integer, with password defined.
-    host, port, password = c._load_config(
+    host, port, password, username, socket_timeout, ssl_kwargs = c._load_config(
         {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'sentinel_password': 'password1'}
     )
     assert host == 'localhost'
     assert port == 123
     assert password == 'password1'
+    assert username is None
+    assert ssl_kwargs == {}
+
+
+@pytest.mark.unit
+def test_load_config_username():
+    c = RedisSentinelCheck('redis_sentinel', {}, {})
+
+    host, port, password, username, socket_timeout, ssl_kwargs = c._load_config(
+        {
+            'sentinel_host': 'localhost',
+            'sentinel_port': 123,
+            'masters': 'mymaster',
+            'sentinel_password': 'password1',
+            'sentinel_username': 'myuser',
+        }
+    )
+    assert username == 'myuser'
+    assert password == 'password1'
+
+
+@pytest.mark.unit
+def test_load_config_ssl():
+    c = RedisSentinelCheck('redis_sentinel', {}, {})
+
+    # SSL disabled by default
+    _, _, _, _, _, ssl_kwargs = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'}
+    )
+    assert ssl_kwargs == {}
+
+    # SSL enabled with all options
+    _, _, _, _, _, ssl_kwargs = c._load_config(
+        {
+            'sentinel_host': 'localhost',
+            'sentinel_port': 123,
+            'masters': 'mymaster',
+            'ssl': True,
+            'ssl_certfile': '/path/to/cert.pem',
+            'ssl_keyfile': '/path/to/key.pem',
+            'ssl_ca_certs': '/path/to/ca.pem',
+            'ssl_cert_reqs': 2,
+            'ssl_check_hostname': False,
+        }
+    )
+    assert ssl_kwargs == {
+        'ssl': True,
+        'ssl_certfile': '/path/to/cert.pem',
+        'ssl_keyfile': '/path/to/key.pem',
+        'ssl_ca_certs': '/path/to/ca.pem',
+        'ssl_cert_reqs': 2,
+        'ssl_check_hostname': False,
+    }
+
+    # SSL enabled with minimal options
+    _, _, _, _, _, ssl_kwargs = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'ssl': True}
+    )
+    assert ssl_kwargs == {'ssl': True}
+
+
+@pytest.mark.unit
+def test_load_config_socket_timeout():
+    c = RedisSentinelCheck('redis_sentinel', {}, {})
+
+    _, _, _, _, socket_timeout, _ = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'socket_timeout': 10}
+    )
+    assert socket_timeout == 10
+
+
+@pytest.mark.unit
+def test_check_forwards_connection_kwargs():
+    """`check()` must actually pass the config from `_load_config()` through to `redis.StrictRedis`."""
+    c = RedisSentinelCheck(CHECK_NAME, {}, {})
+    instance = {
+        'sentinel_host': 'localhost',
+        'sentinel_port': 26379,
+        'masters': [],
+        'sentinel_username': 'myuser',
+        'sentinel_password': 'password1',
+        'socket_timeout': 10,
+        'ssl': True,
+        'ssl_ca_certs': '/path/to/ca.pem',
+    }
+
+    with mock.patch('redis.StrictRedis') as mock_redis:
+        c.check(instance)
+
+    kwargs = mock_redis.call_args.kwargs
+    assert kwargs['host'] == 'localhost'
+    assert kwargs['port'] == 26379
+    assert kwargs['username'] == 'myuser'
+    assert kwargs['password'] == 'password1'
+    assert kwargs['socket_timeout'] == 10
+    assert kwargs['socket_connect_timeout'] == 10
+    assert kwargs['ssl'] is True
+    assert kwargs['ssl_ca_certs'] == '/path/to/ca.pem'
 
 
 @pytest.mark.integration

@@ -17,7 +17,7 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get('openmetrics_endpoint')
         self.instance.setdefault("tls_verify", True)
-        metrics = self.get_default_config()
+        metrics = self.get_default_metrics()
 
         additional = []
         groups = self.instance.get('extra_metrics', [])
@@ -50,7 +50,7 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         config.update(self.instance)
         self.scraper_configs.append(config)
 
-    def get_default_config(self):
+    def get_default_metrics(self):
         metrics = []
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
