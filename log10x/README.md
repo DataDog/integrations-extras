@@ -12,15 +12,14 @@ before anything changes, and what it sends afterwards. This integration carries 
 counters into Datadog: volume and bytes for everything the pipeline read, volume and bytes
 for what it forwarded, and the encoded size of forwarded events when compaction is on.
 Every counter carries the same tag set, so any of them can be sliced by message pattern,
-service, severity level or Kubernetes container. Two further counters make the reduction
-reversible on paper: what went to offload storage, and what a query brought back.
+service, severity level or Kubernetes container. Two further counters record what went to
+offload storage and what a retrieval query returned.
 
 Use the out-of-the-box dashboard to compare bytes and events into the pipeline against
 bytes and events out of it, and to rank patterns by the bytes they contribute.
 
-Log events stay inside the operator's network: no log data reaches log10x. The Datadog
-Agent reads these metrics from the engine's own endpoint; the engine makes no call to
-Datadog.
+The 10x Engine runs inside the operator's network. No log data reaches log10x. The Datadog
+Agent scrapes the engine's metrics endpoint and submits these metrics to Datadog.
 
 ## Setup
 
@@ -31,9 +30,9 @@ endpoint. It is a community integration and is not bundled with the Agent.
 
 A running 10x Engine, installed as described in the
 [10x install documentation](https://doc.log10x.com/install/). The engine starts under a
-built-in evaluation licence: no account, no signup, no token and no outbound call, up to
-ten nodes, for thirty days from process start. A purchased licence is an offline file that
-the engine verifies locally.
+built-in evaluation licence, up to ten nodes for thirty days from process start; its terms
+are in the [operations documentation](https://doc.log10x.com/security/operations/). A
+purchased licence is an offline file that the engine verifies locally.
 
 A Datadog Agent, version 7 or later, with network access to the engine's metrics port.
 
