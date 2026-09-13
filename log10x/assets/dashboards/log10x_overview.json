@@ -209,12 +209,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:log10x.bytes.forwarded.count{$tenx_env,$tenx_user_service}.as_count()"
+                      "query": "sum:log10x.bytes.forwarded.count{$tenx_env,$tenx_user_service}.as_count().rollup(sum, 300)"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:log10x.bytes.read.count{$tenx_env,$tenx_user_service}.as_count()"
+                      "query": "sum:log10x.bytes.read.count{$tenx_env,$tenx_user_service}.as_count().rollup(sum, 300)"
                     }
                   ],
                   "response_format": "timeseries",
