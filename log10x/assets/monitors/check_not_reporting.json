@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "created_at": "2026-09-13",
+  "last_updated_at": "2026-09-13",
+  "title": "10x check is not reporting",
+  "description": "Alerts when the log10x integration has stopped submitting its heartbeat, which means the Agent check is no longer running or no longer scheduled.",
+  "definition": {
+    "name": "[log10x] Check is not reporting on {{host.name}}",
+    "type": "query alert",
+    "query": "sum(last_10m):sum:log10x.check.up{*} by {host} < 1",
+    "message": "The log10x Agent check on `{{host.name}}` has not reported for 10 minutes.\n\nTo resolve:\n1. Run `datadog-agent status` on the host and look for `log10x` under Running Checks\n2. Confirm `conf.d/log10x.d/conf.yaml` exists and the Agent has been restarted since it was created",
+    "tags": [
+      "integration:log10x"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 1
+      },
+      "notify_audit": false,
+      "on_missing_data": "show_and_notify_no_data",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "silenced": {}
+    },
+    "priority": null
+  },
+  "tags": [
+    "integration:log10x"
+  ]
+}

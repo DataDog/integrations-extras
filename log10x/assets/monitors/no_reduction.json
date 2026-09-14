@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "created_at": "2026-09-13",
+  "last_updated_at": "2026-09-13",
+  "title": "10x is forwarding everything it reads",
+  "description": "Alerts when, over the last hour, the bytes the 10x Engine forwarded equal the bytes it read, which means no per-pattern decision is reducing what reaches Datadog.",
+  "definition": {
+    "name": "[log10x] No reduction on {{tenx_env.name}}",
+    "type": "query alert",
+    "query": "sum(last_1h):sum:log10x.bytes.forwarded.count{*} by {tenx_env}.as_count() / sum:log10x.bytes.read.count{*} by {tenx_env}.as_count() >= 1",
+    "message": "In `{{tenx_env.name}}`, the 10x Engine forwarded every byte it read over the last hour.\n\nTo resolve:\n1. Check the engine's receive configuration for the rate and compact receivers\n2. Confirm the per-pattern policy the engine loaded is the one intended for this environment",
+    "tags": [
+      "integration:log10x"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 1
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "silenced": {}
+    },
+    "priority": null
+  },
+  "tags": [
+    "integration:log10x"
+  ]
+}

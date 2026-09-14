@@ -1,0 +1,73 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "11d87da4-3048-45c0-acd6-332a650d2166",
+  "app_id": "log10x",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Per-pattern log volume and bytes read, forwarded, offloaded and retrieved by the 10x Engine",
+    "title": "log10x",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "log10x overview dashboard: what the 10x Engine read against what it forwarded to Datadog, per pattern",
+        "image_url": "images/log10x_dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Bytes and events read against bytes and events forwarded, the forwarded share, and the top patterns by bytes, on the OpenTelemetry demo",
+        "image_url": "images/log10x_read_forwarded.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Log Collection",
+      "Category::Metrics",
+      "Category::Kubernetes",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ],
+    "uninstallation": "README.md#Uninstallation"
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 89329987,
+      "source_type_name": "log10x",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "log10x.",
+        "check": "log10x.check.up",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "log10x Overview": "assets/dashboards/log10x_overview.json"
+    },
+    "monitors": {
+      "10x check is not reporting": "assets/monitors/check_not_reporting.json",
+      "10x is forwarding everything it reads": "assets/monitors/no_reduction.json"
+    },
+    "saved_views": {}
+  },
+  "author": {
+    "support_email": "support@log10x.com",
+    "name": "log10x",
+    "homepage": "https://www.log10x.com",
+    "sales_email": "sales@log10x.com"
+  }
+}
