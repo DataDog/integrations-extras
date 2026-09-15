@@ -1,0 +1,59 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b25b21f0-cdbd-4811-8964-3f909a33c403",
+  "app_id": "scaleops",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Kubernetes resource management and cost optimization from ScaleOps.",
+    "title": "ScaleOps",
+    "media": [],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Category::Cost Management",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://docs.scaleops.com"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 89444320,
+      "source_type_name": "ScaleOps",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "scaleops.",
+        "check": "scaleops.health_check",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {},
+    "monitors": {}
+  },
+  "author": {
+    "support_email": "willianccs@gmail.com",
+    "name": "Willian Cesar Cincerre da Silva",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "willian@appoena.io"
+  }
+}

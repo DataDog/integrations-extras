@@ -1,0 +1,16 @@
+name: ScaleOps
+files:
+- name: scaleops.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.value.example: 'http://localhost:9090/federate?match[]={__name__=~"scaleops_.*"}'
+        openmetrics_endpoint.description: |
+          Endpoint exposing the ScaleOps Prometheus federation metrics.
+        min_collection_interval.value.default: 30
+        min_collection_interval.value.example: 30
