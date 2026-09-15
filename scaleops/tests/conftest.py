@@ -8,7 +8,7 @@ from datadog_checks.dev.conditions import CheckEndpoints
 from datadog_checks.scaleops import ScaleopsCheck
 
 HERE = get_here()
-INSTANCE_URL = f"http://{get_docker_hostname()}:9090/federate?match[]={{__name__=~\"scaleops_.*\"}}"
+INSTANCE_URL = f"http://{get_docker_hostname()}:9090/metrics"
 
 
 @pytest.fixture(scope='session')

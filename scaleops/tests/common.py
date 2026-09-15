@@ -41,11 +41,9 @@ EXPECTED_PROMETHEUS_METRICS = [
     'scaleops.workloads_with_cpu_throttle_percentage_higher_than_75_count',
 ]
 
-MOCKED_INSTANCE = {'openmetrics_endpoint': 'http://localhost:9090/federate?match[]={__name__=~"scaleops_.*"}'}
+MOCKED_INSTANCE = {'openmetrics_endpoint': 'http://localhost:9090/metrics'}
 
-BAD_HOSTNAME_INSTANCE = {
-    'openmetrics_endpoint': 'http://invalid-hostname:9090/federate?match[]={__name__=~"scaleops_.*"}'
-}
+BAD_HOSTNAME_INSTANCE = {'openmetrics_endpoint': 'http://invalid-hostname:9090/metrics'}
 
 
 def get_fixture_path(filename):
