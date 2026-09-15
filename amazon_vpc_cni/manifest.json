@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b566f4c9-aea1-4fcd-a19b-7a34f8d049dd",
+  "app_id": "amazon-vpc-cni",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor the Amazon VPC CNI plugin for Kubernetes, tracking IP address allocation, ENI usage, and AWS API activity.",
+    "title": "Amazon VPC CNI",
+    "media": [],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://github.com/aws/amazon-vpc-cni-k8s"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 89444319,
+      "source_type_name": "Amazon VPC CNI",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "amazon_vpc_cni.",
+        "check": "amazon_vpc_cni.assigned_ip_addresses",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {},
+    "monitors": {}
+  },
+  "author": {
+    "support_email": "willianccs@gmail.com",
+    "name": "Willian Cesar Cincerre da Silva",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "willian@appoena.io"
+  }
+}
