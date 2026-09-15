@@ -1,0 +1,8 @@
+services:
+  scaleops-mock:
+    image: python:3.13-alpine
+    command: python -m http.server 9090 --directory /metrics
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../fixtures:/metrics
