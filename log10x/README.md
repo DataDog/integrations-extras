@@ -44,8 +44,8 @@ A Datadog Agent, version 7 or later, with network access to the engine's metrics
    `- run/output/metric/prometheus/scrape`. It can also be passed at launch as
    `@run/output/metric/prometheus/scrape`.
 2. Restart the pipeline. At startup the engine prints
-   `Publishing TenXSummary metrics to Prometheus scrape on port: 9100`. To change the
-   port, edit `port` in `run/output/metric/prometheus/scrape/config.yaml`.
+   `Publishing TenXSummary metrics to Prometheus`, followed by the port, 9100 by default.
+   To change it, edit `port` in `run/output/metric/prometheus/scrape/config.yaml`.
 
 #### Datadog Agent
 
@@ -74,14 +74,21 @@ A Datadog Agent, version 7 or later, with network access to the engine's metrics
 
 ### Metrics
 
-See [metadata.csv](metadata.csv) for the list of metrics this integration submits. They
-fall into four families:
+See [metadata.csv](metadata.csv) for the full list with types and units.
 
-- Everything the pipeline read, in events and in bytes.
-- What the pipeline forwarded, in events and in bytes, plus the encoded size when
-  compaction is on.
-- What was written to offload storage, in events and in bytes.
-- What a retrieval query returned, in events and in bytes.
+| Metric | Emitted by | Counts |
+|---|---|---|
+| `log10x.check.up` | the check | 1 on every run |
+| `log10x.events.read.count`, `log10x.bytes.read.count` | pipeline | everything the pipeline read |
+| `log10x.events.forwarded.count`, `log10x.bytes.forwarded.count` | pipeline | what it forwarded downstream |
+| `log10x.bytes.encoded.count` | pipeline | encoded size of forwarded events when compaction is on |
+| `log10x.events.offloaded.count`, `log10x.bytes.offloaded.count` | Retriever index | what was written to offload storage |
+| `log10x.events.retrieved.count`, `log10x.bytes.retrieved.count` | Retriever query | what a retrieval query returned |
+
+The last four come from the Retriever, which runs as its own deployment, so the Agent needs
+a second instance pointing at it: on Kubernetes, an Autodiscovery annotation on the index,
+query and stream pods. On Lambda the Retriever has no endpoint for the Agent to scrape, so
+those four metrics do not arrive through this check.
 
 ### Events
 
@@ -98,8 +105,8 @@ metrics endpoint, otherwise `OK`.
 the Agent; confirm the install step completed and that `conf.d/log10x.d/conf.yaml` exists.
 
 **`log10x.openmetrics.health` is `CRITICAL`.** The Agent cannot reach the endpoint. Check
-the engine log for `Publishing TenXSummary metrics to Prometheus scrape on port`, and that
-the port in `conf.yaml` matches it.
+the engine log for `Publishing TenXSummary metrics to Prometheus`, and that the port it
+names matches the one in `conf.yaml`.
 
 **Series arrive with no `message_pattern` tag.** Pattern enrichment comes from the
 `run/initialize/message` module. Confirm it is included in the engine's app configuration.
