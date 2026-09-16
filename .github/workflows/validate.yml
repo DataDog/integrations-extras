@@ -10,22 +10,58 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   run:
-    uses: DataDog/integrations-core/.github/workflows/run-validations.yml@4e58c485d24656a1dbc9aae3502cbf861a6fc152 # master
-    with:
-      repo: extras
+    name: Validate
+    runs-on: ubuntu-22.04
 
-      # Validations
-      ci: true
-      config: true
-      imports: true
-      integration-style: true
-      jmx-metrics: true
-      legacy-signature: true
-      metadata: true
-      models: true
-      package: true
-      readmes: true
-      codeowners: true
-    secrets: inherit
+    env:
+      PYTHON_VERSION: "3.13"
+      TARGET: ${{ github.event_name == 'pull_request' && 'changed' || '' }}
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        fetch-depth: "0"
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      with:
+        python-version: "${{ env.PYTHON_VERSION }}"
+
+    - name: Install ddev from PyPI
+      uses: DataDog/integrations-core/.github/actions/setup-ddev@b9f6f16c016d2909307a935a7338097e3e30636f # master
+      with:
+        install-mode: pypi
+
+    - name: Configure ddev
+      run: ddev config override
+
+    # Fork PRs control this workflow's YAML, so it stays unprivileged: no
+    # id-token: write, no writable token. The report leaves this job as an
+    # artifact and the trusted post-pr-comment.yml workflow posts it.
+    - name: Run all validations
+      env:
+        PR_COMMENT_OUTPUT: ${{ runner.temp }}/pr-comment/body.md
+      run: |
+        if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+          mkdir -p "$(dirname "$PR_COMMENT_OUTPUT")"
+          ddev validate all "$TARGET" --pr-comment-output "$PR_COMMENT_OUTPUT"
+        else
+          ddev validate all "$TARGET"
+        fi
+
+    - name: Upload PR comment artifact
+      if: github.event_name == 'pull_request' && !cancelled()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      with:
+        name: pr-comment
+        path: ${{ runner.temp }}/pr-comment/body.md
+        if-no-files-found: error
