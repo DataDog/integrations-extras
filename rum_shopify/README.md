@@ -128,7 +128,7 @@ Use this path to cover checkout pages (`/checkouts/*`, `/checkout`). It runs ins
        env: '<YOUR_ENV_NAME>',
        version: '1.0.0',
        sessionSampleRate: 100,
-       shopifyAnalytics: analytics,
+       plugins: [DD_RUM.shopifyPlugin({ shopifyAnalytics: analytics })],
      })
    })
    ```
