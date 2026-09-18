@@ -1,7 +1,7 @@
 {
   "manifest_version": "2.0.0",
-  "app_uuid": "b0c2527f-671e-4a98-aa74-807d7f1826e3",
-  "app_id": "eventstore",
+  "app_uuid": "ea54d2f7-d248-4848-8cc4-d610c91b292d",
+  "app_id": "kurrentdb",
   "owner": "agent-integrations",
   "display_on_public_website": true,
   "tile": {
@@ -9,16 +9,16 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Deprecated: use the KurrentDB integration instead",
-    "title": "Eventstore (Deprecated)",
+    "description": "Collects KurrentDB (formerly EventStoreDB) metrics",
+    "title": "KurrentDB",
     "media": [],
     "classifier_tags": [
-      "Category::Caching",
       "Category::Data Stores",
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
-      "Offering::Integration"
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
     ]
   },
   "author": {
@@ -29,7 +29,7 @@
   },
   "assets": {
     "integration": {
-      "source_type_name": "Eventstore",
+      "source_type_name": "KurrentDB",
       "configuration": {
         "spec": "assets/configuration/spec.yaml"
       },
@@ -37,14 +37,14 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "eventstore.",
-        "check": "eventstore.proc.mem",
+        "prefix": "kurrentdb.",
+        "check": "kurrentdb.proc_thread_count",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       },
-      "source_type_id": 10221,
+      "source_type_id": 62366207,
       "auto_install": true
     }
   }
