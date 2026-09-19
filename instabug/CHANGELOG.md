@@ -1,5 +1,13 @@
 # CHANGELOG - Luciq
 
+## 3.1.1 / 2026-09-19
+
+***Fixed***:
+
+* Updated the connection Base URL to `https://dashboard-api.luciq.ai`, matching Luciq's published integration documentation
+* Pointed the SDK integration guide link at its current location instead of relying on a redirect
+* Corrected remaining Instabug references and a grammatical error left over from the rebrand
+
 ## 3.1.0 / 2025-10-10
 
 ***Changed***:
