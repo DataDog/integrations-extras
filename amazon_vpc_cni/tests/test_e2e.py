@@ -7,13 +7,13 @@ from .common import EXPECTED_PROMETHEUS_METRICS
 
 
 @pytest.mark.e2e
-def test_e2e_service_check_ok(dd_agent_check, aggregator, instance, mock_prometheus_metrics):
+def test_e2e_service_check_ok(dd_agent_check, aggregator, instance):
     dd_agent_check(instance)
     aggregator.assert_service_check('amazon_vpc_cni.openmetrics.health', ServiceCheck.OK)
 
 
 @pytest.mark.e2e
-def test_e2e_assert_metrics(dd_agent_check, aggregator, instance, mock_prometheus_metrics):
+def test_e2e_assert_metrics(dd_agent_check, aggregator, instance):
     dd_agent_check(instance)
 
     for metric in EXPECTED_PROMETHEUS_METRICS:
