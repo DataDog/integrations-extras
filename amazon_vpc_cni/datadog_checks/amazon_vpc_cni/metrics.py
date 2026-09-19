@@ -12,6 +12,8 @@ METRIC_MAP = {
     'awscni_aws_utils_error_count': 'aws_utils_error_count',
     'awscni_ec2api_req_count': 'ec2api_req_count',
     'awscni_ec2api_error_count': 'ec2api_error_count',
+    'awscni_sagemakerapi_req_count': 'sagemakerapi_req_count',
+    'awscni_sagemakerapi_error_count': 'sagemakerapi_error_count',
     ## ENI / IP allocation
     'awscni_eni_max': 'eni_max',
     'awscni_ip_max': 'ip_max',
@@ -29,5 +31,5 @@ METRIC_MAP = {
     'awscni_ipamd_node_initialization_duration_seconds': 'ipamd_node_initialization_duration_seconds',
     ## Connmark
     'awscni_connmark_backend': 'connmark_backend',
-    'awscni_connmark_reconcile_total': 'connmark_reconcile_total',
+    'awscni_connmark_reconcile': 'connmark_reconcile_total',
 }

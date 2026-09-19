@@ -20,8 +20,8 @@ def test_connect_exception(dd_run_check, aggregator, caplog):
 def test_check_mock_amazon_vpc_cni_metrics(dd_run_check, aggregator, check, mock_prometheus_metrics):
     dd_run_check(check)
     for metric_name in EXPECTED_PROMETHEUS_METRICS:
-        aggregator.assert_metric(metric_name, at_least=0)
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+        aggregator.assert_metric(metric_name, at_least=1)
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_symmetric_inclusion=True)
 
     aggregator.assert_service_check('amazon_vpc_cni.openmetrics.health', ServiceCheck.OK)
 

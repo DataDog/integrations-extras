@@ -22,6 +22,8 @@ EXPECTED_PROMETHEUS_METRICS = [
     'amazon_vpc_cni.aws_utils_error_count.count',
     'amazon_vpc_cni.ec2api_req_count.count',
     'amazon_vpc_cni.ec2api_error_count.count',
+    'amazon_vpc_cni.sagemakerapi_req_count.count',
+    'amazon_vpc_cni.sagemakerapi_error_count.count',
     'amazon_vpc_cni.force_removed_enis.count',
     'amazon_vpc_cni.force_removed_ips.count',
     'amazon_vpc_cni.no_available_ip_addresses.count',

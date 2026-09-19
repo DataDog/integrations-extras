@@ -44,6 +44,12 @@ awscni_ec2api_req_count{fn="DescribeInstances"} 90
 # HELP awscni_ec2api_error_count The number of failed EC2 APIs requests
 # TYPE awscni_ec2api_error_count counter
 awscni_ec2api_error_count{fn="DescribeInstances"} 2
+# HELP awscni_sagemakerapi_req_count The number of requests made to SageMaker APIs by CNI
+# TYPE awscni_sagemakerapi_req_count counter
+awscni_sagemakerapi_req_count{fn="InvokeEndpoint"} 12
+# HELP awscni_sagemakerapi_error_count The number of failed SageMaker API requests
+# TYPE awscni_sagemakerapi_error_count counter
+awscni_sagemakerapi_error_count{fn="InvokeEndpoint"} 1
 # HELP awscni_eni_allocated The number of ENIs allocated
 # TYPE awscni_eni_allocated gauge
 awscni_eni_allocated 3
