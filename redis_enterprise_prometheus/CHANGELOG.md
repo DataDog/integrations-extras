@@ -1,5 +1,11 @@
 # CHANGELOG - Redis Enterprise Prometheus
 
+## 1.2.0 / 2026-08-31
+
+***Added***:
+
+* Add the "Redis Enterprise Prometheus - Redis Cloud Database" dashboard, which visualizes database-level metrics for Redis Cloud deployments. It is scoped by the Redis Cloud `sub_id` and `db_name` tags rather than the `cluster` and `db` tags used by the Redis Enterprise Software dashboards.
+
 ## 1.1.0 / 2026-07-29
 
 ***Deprecated***:
