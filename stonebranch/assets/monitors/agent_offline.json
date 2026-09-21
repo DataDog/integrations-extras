@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "created_at": "2025-12-15",
+  "last_updated_at": "2025-12-15",
+  "title": "Stonebranch agent is offline",
+  "tags": ["integration:stonebranch"],
+  "description": "Alerts when a Stonebranch Universal Agent reports an offline status. Offline agents cannot accept or execute tasks.",
+  "definition": {
+    "name": "[Stonebranch] Agent {{agent_id.name}} is offline on {{endpoint.name}}",
+    "type": "query alert",
+    "query": "min(last_5m):avg:stonebranch.uc_agent.status{*} by {endpoint,agent_id} < 1",
+    "message": "Stonebranch Universal Agent {{agent_id.name}} on {{endpoint.name}} is reporting offline status.\n\nVerify the agent process is running and it can connect to the OMS server.\n\n@slack-alerts",
+    "tags": ["integration:stonebranch"],
+    "options": {
+      "thresholds": {
+        "critical": 1
+      },
+      "notify_no_data": false,
+      "require_full_window": false,
+      "include_tags": true,
+      "new_group_delay": 60,
+      "renotify_interval": 0
+    }
+  }
+}
