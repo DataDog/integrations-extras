@@ -1,0 +1,41 @@
+name: KurrentDB
+files:
+- name: kurrentdb.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+      template: init_config/openmetrics
+  - template: instances
+    options:
+    - name: url
+      description: |
+        Base URL of the KurrentDB HTTP API, used to collect the metrics listed under `endpoints`.
+        These include cluster membership, node role, projections, and subscriptions, which are not
+        available on the Prometheus `/metrics` endpoint. Defaults to `openmetrics_endpoint` without
+        the trailing `/metrics`.
+      value:
+        type: string
+        example: <KURRENTDB_URL>
+    - name: endpoints
+      description: |
+        JSON API endpoints, relative to `url`, to collect metrics from. Any endpoint that returns a
+        404, such as `/projections/all-non-transient` when projections are not enabled, is skipped.
+        Set this to an empty list to only collect the Prometheus metrics.
+          - Generic stats: `/stats`
+          - Node role: `/info`
+          - Projection stats: `/projections/all-non-transient`
+          - Persistent subscription stats: `/subscriptions`
+          - Cluster membership: `/gossip`
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - /stats
+          - /info
+          - /projections/all-non-transient
+          - /subscriptions
+          - /gossip
+    - template: instances/default
+      template: instances/openmetrics
