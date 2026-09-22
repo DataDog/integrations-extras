@@ -26,8 +26,8 @@ deployed, and submits these metrics to Datadog.
 ## Setup
 
 This integration runs in the Datadog Agent and reads the 10x Engine's Prometheus metrics
-endpoint, and the Retriever's where one is deployed. It is a community integration and is
-not bundled with the Agent.
+endpoint, and the Retriever's where one is deployed. Community integrations are not
+bundled with the Agent, so this one installs separately.
 
 ### Prerequisites
 
@@ -64,10 +64,13 @@ for the container and Kubernetes forms of this step.
    [Autodiscovery](https://docs.datadoghq.com/containers/kubernetes/integrations/#configuration)
    annotations on the engine's pod instead.
 2. For the offload and retrieval counters, add a second instance pointing at the
-   Retriever's own endpoint, which is a separate deployment. On Kubernetes that is the
-   same Autodiscovery annotation on the Retriever's index, query and stream pods. Without
-   it, the four `offloaded` and `retrieved` metrics do not arrive and the dashboard's
-   offload group stays empty.
+   Retriever, which runs as its own deployment. Its scrape port is open only while an
+   index or a query run is in flight, so that instance needs
+   `ignore_connection_errors: true` and `enable_health_service_check: false`, otherwise a
+   closed port between runs is reported as a failure. On Kubernetes, use the same
+   Autodiscovery annotation on the Retriever's index, query, and stream pods. On Lambda,
+   the Retriever has no endpoint for the Agent to scrape, so those four metrics do not
+   arrive. Without this instance, the dashboard's offload group stays empty.
 3. Restart the Agent.
 
 ### Validation
