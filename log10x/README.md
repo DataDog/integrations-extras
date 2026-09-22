@@ -66,10 +66,12 @@ for the container and Kubernetes forms of this step.
    annotations on the engine's pod instead.
 2. For the offload and retrieval counters, add a second instance pointing at the
    Retriever's own endpoint, on the same default port, for example
-   `http://<retriever-host>:9100/metrics`. The Retriever serves these counters only while
-   an index or a query run is in flight, so between runs that instance may find nothing to
-   scrape. Set `ignore_connection_errors: true` and `enable_health_service_check: false` on
-   it so those gaps are not reported as failures. On Kubernetes, use the same
+   `http://<retriever-host>:9100/metrics`. The Retriever opens that port only while an
+   index or a query run is in flight and closes it when the run ends, so set
+   `ignore_connection_errors: true` and `enable_health_service_check: false` on that
+   instance, otherwise the closed port between runs is reported as a failure. A shorter
+   `min_collection_interval`, for example 5, gives the Agent more chances to land inside
+   a run. On Kubernetes, use the same
    Autodiscovery annotation on the Retriever's index, query, and stream pods. On Lambda,
    the Retriever has no endpoint for the Agent to scrape, so those four metrics do not
    arrive. Without this instance, the dashboard's Offload storage group stays empty.
