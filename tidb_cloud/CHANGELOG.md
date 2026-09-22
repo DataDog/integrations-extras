@@ -1,5 +1,15 @@
 # CHANGELOG - TiDB Cloud
 
+## 1.3.0 / 2026-07-31
+
+***Added***:
+
+* Added Dynamic Tracker dashboards for TiDB Cloud Premium and Essential instances, including a separate Essential dashboard for instances created on or after July 1, 2026.
+
+***Fixed***:
+
+* Updated the Dedicated dashboard CPU widgets to use the exported `tidb_cloud.node_cpu_seconds_total_rate` metric.
+
 ## 1.2.0 / 2025-08-22
 
 ***Added***:
