@@ -10,7 +10,7 @@ This integration scrapes the Prometheus metrics exposed by the VPC CNI plugin (`
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Amazon VPC CNI check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent Manager][2] or in a [Docker environment][4].
+If you are using Datadog Agent v6.8+, follow the instructions below to install the Amazon VPC CNI check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent Manager][2] or in a [Docker environment][4].
 
 1. [Download and launch the Datadog Agent][3].
 2. Run the following command to install the Agent integration:
