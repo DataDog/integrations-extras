@@ -5,7 +5,8 @@
 The 10x Engine is a log pipeline engine that runs inside the operator's own network, in
 front of Datadog. It reads events from a log forwarder, groups them by message pattern,
 and decides per pattern what to do next: forward the events unchanged, compact them, or
-offload them to the account's own object storage, which a query reads back.
+offload them to the account's own object storage, which the Retriever, a separate 10x
+deployment, indexes and reads back on a query.
 
 Because the decision is made per pattern, the engine counts what every pattern sends
 before anything changes, and what it sends afterwards. This integration carries those
@@ -27,7 +28,7 @@ deployed, and submits these metrics to Datadog.
 
 This integration runs in the Datadog Agent and reads the 10x Engine's Prometheus metrics
 endpoint, and the Retriever's where one is deployed. Community integrations are not
-bundled with the Agent, so this one installs separately.
+bundled with the Agent, so it is installed separately.
 
 ### Prerequisites
 
@@ -64,13 +65,14 @@ for the container and Kubernetes forms of this step.
    [Autodiscovery](https://docs.datadoghq.com/containers/kubernetes/integrations/#configuration)
    annotations on the engine's pod instead.
 2. For the offload and retrieval counters, add a second instance pointing at the
-   Retriever, which runs as its own deployment. Its scrape port is open only while an
-   index or a query run is in flight, so that instance needs
-   `ignore_connection_errors: true` and `enable_health_service_check: false`, otherwise a
-   closed port between runs is reported as a failure. On Kubernetes, use the same
+   Retriever's own endpoint, on the same default port, for example
+   `http://<retriever-host>:9100/metrics`. The Retriever serves these counters only while
+   an index or a query run is in flight, so between runs that instance may find nothing to
+   scrape. Set `ignore_connection_errors: true` and `enable_health_service_check: false` on
+   it so those gaps are not reported as failures. On Kubernetes, use the same
    Autodiscovery annotation on the Retriever's index, query, and stream pods. On Lambda,
    the Retriever has no endpoint for the Agent to scrape, so those four metrics do not
-   arrive. Without this instance, the dashboard's offload group stays empty.
+   arrive. Without this instance, the dashboard's Offload storage group stays empty.
 3. Restart the Agent.
 
 ### Validation
