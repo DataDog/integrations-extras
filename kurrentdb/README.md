@@ -123,7 +123,7 @@ Need help? Contact the [maintainer][12] of this integration.
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [5]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [6]: https://github.com/DataDog/integrations-extras/blob/master/kurrentdb/datadog_checks/kurrentdb/data/conf.yaml.example
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-restart-the-agent
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [8]: https://docs.kurrent.io/server/latest/diagnostics/metrics.html
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/integrations-extras/blob/master/kurrentdb/metadata.csv
