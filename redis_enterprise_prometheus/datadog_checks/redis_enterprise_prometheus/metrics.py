@@ -142,9 +142,11 @@ REDIS_NODE = {
 }
 
 REDIS_INFO = {
+    "node_config": "node_config",
     "node_disk_info": "node_disk_info",
     "node_dmi_info": "node_dmi_info",
     "node_os_info": "node_os_info",
+    "node_uname_info": "node_uname_info",
 }
 
 ### END DEFAULT
