@@ -20,12 +20,14 @@ Use the out-of-the-box dashboard to compare bytes and events into the pipeline a
 bytes and events out of it, and to rank patterns by the bytes they contribute.
 
 The 10x Engine runs inside the operator's network. No log data reaches log10x. The Datadog
-Agent scrapes the engine's metrics endpoint and submits these metrics to Datadog.
+Agent scrapes the Prometheus endpoint on the engine, and on the Retriever where one is
+deployed, and submits these metrics to Datadog.
 
 ## Setup
 
 This integration runs in the Datadog Agent and reads the 10x Engine's Prometheus metrics
-endpoint. It is a community integration and is not bundled with the Agent.
+endpoint, and the Retriever's where one is deployed. It is a community integration and is
+not bundled with the Agent.
 
 ### Prerequisites
 
@@ -61,7 +63,12 @@ for the container and Kubernetes forms of this step.
    `http://localhost:9100/metrics`. On Kubernetes, use
    [Autodiscovery](https://docs.datadoghq.com/containers/kubernetes/integrations/#configuration)
    annotations on the engine's pod instead.
-2. Restart the Agent.
+2. For the offload and retrieval counters, add a second instance pointing at the
+   Retriever's own endpoint, which is a separate deployment. On Kubernetes that is the
+   same Autodiscovery annotation on the Retriever's index, query and stream pods. Without
+   it, the four `offloaded` and `retrieved` metrics do not arrive and the dashboard's
+   offload group stays empty.
+3. Restart the Agent.
 
 ### Validation
 
