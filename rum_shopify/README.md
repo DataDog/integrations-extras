@@ -134,6 +134,7 @@ Use this path to cover checkout pages (`/checkouts/*`, `/checkout`). It runs ins
    ```
 
 4. Save the pixel, then set its required consent category under **Settings** for the pixel (for example, Analytics) to match your store's privacy configuration - the bundle does not add its own consent gate; it defers entirely to whatever the merchant declares in Shopify's Pixel Manager.
+5. Click **Connect** to give the pixel access to your store.
 
 **Note on `shopifyAnalytics`:** `analytics` is a bare global that only exists inside a Custom Pixel's code editor scope - pass it straight through as shown.
 
