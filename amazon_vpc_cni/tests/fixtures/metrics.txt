@@ -1,0 +1,103 @@
+# HELP awscni_ipamd_error_count The number of errors encountered in ipamd
+# TYPE awscni_ipamd_error_count counter
+awscni_ipamd_error_count{fn="increaseDatastorePool"} 2
+awscni_ipamd_error_count{fn="decreaseDatastorePool"} 1
+# HELP awscni_ipamd_action_inprogress The number of ipamd actions in progress
+# TYPE awscni_ipamd_action_inprogress gauge
+awscni_ipamd_action_inprogress{fn="nodeInit"} 1
+awscni_ipamd_action_inprogress{fn="increaseDatastorePool"} 0
+# HELP awscni_eni_max The maximum number of ENIs that can be attached to the instance, accounting for unmanaged ENIs
+# TYPE awscni_eni_max gauge
+awscni_eni_max 4
+# HELP awscni_ip_max The maximum number of IP addresses that can be allocated to the instance
+# TYPE awscni_ip_max gauge
+awscni_ip_max 30
+# HELP awscni_reconcile_count The number of times ipamd reconciles on ENIs and IP/Prefix addresses
+# TYPE awscni_reconcile_count counter
+awscni_reconcile_count{fn="eniReconcileAdd"} 120
+awscni_reconcile_count{fn="eniReconcileDel"} 3
+# HELP awscni_add_ip_req_count The number of add IP address requests
+# TYPE awscni_add_ip_req_count counter
+awscni_add_ip_req_count 450
+# HELP awscni_del_ip_req_count The number of delete IP address requests
+# TYPE awscni_del_ip_req_count counter
+awscni_del_ip_req_count{reason="pod_deleted"} 200
+# HELP awscni_pod_eni_error_count The number of errors encountered for pod ENIs
+# TYPE awscni_pod_eni_error_count counter
+awscni_pod_eni_error_count{fn="podENIHandler"} 4
+# HELP awscni_aws_api_latency_ms AWS API call latency in ms
+# TYPE awscni_aws_api_latency_ms summary
+awscni_aws_api_latency_ms{api="DescribeNetworkInterfaces",error="false",status="200",quantile="0.5"} 15
+awscni_aws_api_latency_ms{api="DescribeNetworkInterfaces",error="false",status="200",quantile="0.9"} 45
+awscni_aws_api_latency_ms{api="DescribeNetworkInterfaces",error="false",status="200",quantile="0.99"} 80
+awscni_aws_api_latency_ms_sum{api="DescribeNetworkInterfaces",error="false",status="200"} 1200
+awscni_aws_api_latency_ms_count{api="DescribeNetworkInterfaces",error="false",status="200"} 60
+# HELP awscni_aws_api_error_count The number of times AWS API returns an error
+# TYPE awscni_aws_api_error_count counter
+awscni_aws_api_error_count{api="DescribeNetworkInterfaces",error="RequestLimitExceeded"} 3
+# HELP awscni_aws_utils_error_count The number of errors not handled in awsutils library
+# TYPE awscni_aws_utils_error_count counter
+awscni_aws_utils_error_count{fn="GetENILimit",error="NoENILimit"} 1
+# HELP awscni_ec2api_req_count The number of requests made to EC2 APIs by CNI
+# TYPE awscni_ec2api_req_count counter
+awscni_ec2api_req_count{fn="DescribeInstances"} 90
+# HELP awscni_ec2api_error_count The number of failed EC2 APIs requests
+# TYPE awscni_ec2api_error_count counter
+awscni_ec2api_error_count{fn="DescribeInstances"} 2
+# HELP awscni_sagemakerapi_req_count The number of requests made to SageMaker APIs by CNI
+# TYPE awscni_sagemakerapi_req_count counter
+awscni_sagemakerapi_req_count{fn="InvokeEndpoint"} 12
+# HELP awscni_sagemakerapi_error_count The number of failed SageMaker API requests
+# TYPE awscni_sagemakerapi_error_count counter
+awscni_sagemakerapi_error_count{fn="InvokeEndpoint"} 1
+# HELP awscni_eni_allocated The number of ENIs allocated
+# TYPE awscni_eni_allocated gauge
+awscni_eni_allocated 3
+# HELP awscni_total_ip_addresses The total number of IP addresses
+# TYPE awscni_total_ip_addresses gauge
+awscni_total_ip_addresses 24
+# HELP awscni_assigned_ip_addresses The number of IP addresses assigned to pods
+# TYPE awscni_assigned_ip_addresses gauge
+awscni_assigned_ip_addresses 18
+# HELP awscni_force_removed_enis The number of ENIs force removed while they had assigned pods
+# TYPE awscni_force_removed_enis counter
+awscni_force_removed_enis 0
+# HELP awscni_force_removed_ips The number of IPs force removed while they had assigned pods
+# TYPE awscni_force_removed_ips counter
+awscni_force_removed_ips 0
+# HELP awscni_total_ipv4_prefixes The total number of IPv4 prefixes
+# TYPE awscni_total_ipv4_prefixes gauge
+awscni_total_ipv4_prefixes 8
+# HELP awscni_assigned_ip_per_cidr The total number of IP addresses assigned per cidr
+# TYPE awscni_assigned_ip_per_cidr gauge
+awscni_assigned_ip_per_cidr{cidr="192.168.0.0/24"} 18
+# HELP awscni_no_available_ip_addresses The number of pod IP assignments that fail due to no available IP addresses
+# TYPE awscni_no_available_ip_addresses counter
+awscni_no_available_ip_addresses 5
+# HELP awscni_assigned_ip_per_eni The number of allocated ips partitioned by eni
+# TYPE awscni_assigned_ip_per_eni gauge
+awscni_assigned_ip_per_eni{eni="eni-0a1b2c3d"} 8
+awscni_assigned_ip_per_eni{eni="eni-0d4e5f6a"} 10
+# HELP awscni_ipamd_startup_duration_seconds The duration of IPAMD startup from process start to ready to serve CNI requests
+# TYPE awscni_ipamd_startup_duration_seconds histogram
+awscni_ipamd_startup_duration_seconds_bucket{success="true",with_api_server="true",failure_reason="",le="0.1"} 0
+awscni_ipamd_startup_duration_seconds_bucket{success="true",with_api_server="true",failure_reason="",le="0.5"} 0
+awscni_ipamd_startup_duration_seconds_bucket{success="true",with_api_server="true",failure_reason="",le="1"} 1
+awscni_ipamd_startup_duration_seconds_bucket{success="true",with_api_server="true",failure_reason="",le="+Inf"} 1
+awscni_ipamd_startup_duration_seconds_sum{success="true",with_api_server="true",failure_reason=""} 0.75
+awscni_ipamd_startup_duration_seconds_count{success="true",with_api_server="true",failure_reason=""} 1
+# HELP awscni_ipamd_node_initialization_duration_seconds The duration of node initialization during IPAMD startup
+# TYPE awscni_ipamd_node_initialization_duration_seconds histogram
+awscni_ipamd_node_initialization_duration_seconds_bucket{success="true",le="0.5"} 1
+awscni_ipamd_node_initialization_duration_seconds_bucket{success="true",le="1"} 1
+awscni_ipamd_node_initialization_duration_seconds_bucket{success="true",le="+Inf"} 1
+awscni_ipamd_node_initialization_duration_seconds_sum{success="true"} 0.4
+awscni_ipamd_node_initialization_duration_seconds_count{success="true"} 1
+# HELP awscni_connmark_backend The connmark backend in use; the active backend's series is set to 1
+# TYPE awscni_connmark_backend gauge
+awscni_connmark_backend{backend="iptables"} 1
+awscni_connmark_backend{backend="ebpf"} 0
+# HELP awscni_connmark_reconcile_total The number of connmark Setup/Cleanup reconciliations by result
+# TYPE awscni_connmark_reconcile_total counter
+awscni_connmark_reconcile_total{result="success"} 40
+awscni_connmark_reconcile_total{result="error"} 1
