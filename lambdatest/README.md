@@ -23,20 +23,20 @@ Here's all that you can do with TestMu AI:
 
 Here's what the platform covers:
 
-- KaneAI — GenAI-native testing agent that plans, authors, and evolves end-to-end tests in natural language: https://www.testmuai.com/kane-ai/
-- Kane CLI — Natural-language browser automation from the terminal, for developers and AI coding agents. Drives real Chrome and returns a pass/fail with a replayable evidence pack for every run: https://www.testmuai.com/kane-cli/
-- Agent Assurance — Proves an AI agent is safe to ship by generating the suite from your code or spec, running the agent for real, and grading it on what it actually did. Every run ends in an evidence-backed verdict plus the share that could not be verified: https://www.testmuai.com/agent-assurance/
-- Agent Testing — An AI evaluation platform that tests chat, voice, phone, video, and image agents at production scale without human testers. Scores every conversation against standardized metrics such as hallucination, bias, toxicity, and compliance: https://www.testmuai.com/agent-testing/
-- HyperExecute — AI-native test orchestration cloud that runs automated test suites up to 70% faster than traditional cloud grids: https://www.testmuai.com/hyperexecute/
-- Test Manager — AI-native workspace for planning, writing and running manual and automated tests in one place, with two-way Jira and Azure DevOps sync: https://www.testmuai.com/test-management/
-- SmartUI — AI-native visual regression testing for web and mobile UI that filters out rendering noise so only real visual changes get flagged: https://www.testmuai.com/visual-testing-tool/
-- Accessibility Testing Suite — Automated compliance checks against WCAG, ADA, Section 508, EAA and AODA across websites, web apps, and native Android and iOS apps on real devices: https://www.testmuai.com/accessibility-testing/
-- Real Devices Cloud — 10,000+ real iOS and Android devices for manual and automated testing, with built-in DevTools, network throttling and a UI inspector: https://www.testmuai.com/real-device-cloud/
-- Test Automation Platform — A scalable cloud grid that runs Selenium, Playwright, Cypress, Puppeteer and other major frameworks in parallel across 3,000+ combinations: https://www.testmuai.com/automation-testing-platform/
-- Browser Cloud — Scalable browser infrastructure for AI agents that need to act on the live web, with stealth browsing, session persistence and geo-located proxies: https://www.testmuai.com/browser-cloud/
-- TestMu AI MCP Server — Connects AI coding assistants, including Claude Code, Cursor, GitHub Copilot and OpenAI Codex, to TestMu AI from inside the IDE: https://www.testmuai.com/mcp/
-- Performance Testing — Enterprise load testing that runs your existing JMeter and Gatling scripts on managed cloud load generators, scaling to 8,000 concurrent virtual users across six global regions: https://www.testmuai.com/performance-testing/
-- Test Insights — AI-native test analytics that ranks flaky tests by trend and severity, groups failures that share an error signature, and traces each failure to its root cause: https://www.testmuai.com/test-intelligence/
+- [KaneAI](https://www.testmuai.com/kane-ai/) — GenAI-native testing agent that plans, authors, and evolves end-to-end tests in natural language.
+- [Kane CLI](https://www.testmuai.com/kane-cli/) — Natural-language browser automation from the terminal, for developers and AI coding agents. Drives real Chrome and returns a pass/fail with a replayable evidence pack for every run.
+- [Agent Assurance](https://www.testmuai.com/agent-assurance/) — Proves an AI agent is safe to ship by generating the suite from your code or spec, running the agent for real, and grading it on what it actually did. Every run ends in an evidence-backed verdict plus the share that could not be verified.
+- [Agent Testing](https://www.testmuai.com/agent-testing/) — An AI evaluation platform that tests chat, voice, phone, video, and image agents at production scale without human testers. Scores every conversation against standardized metrics such as hallucination, bias, toxicity, and compliance, so regressions show up as numbers.
+- [HyperExecute](https://www.testmuai.com/hyperexecute/) — AI-native test orchestration cloud that runs automated test suites up to 70% faster than traditional cloud grids. Intelligent test ordering, fail-fast aborts, smart retries and AI root cause analysis cut both wait time and debugging time.
+- [Test Manager](https://www.testmuai.com/test-management/) — AI-native workspace for planning, writing and running manual and automated tests in one place. AI drafts the test cases, two-way sync keeps Jira and Azure DevOps up to date, and existing suites move over with one-click migration.
+- [SmartUI](https://www.testmuai.com/visual-testing-tool/) — AI-native visual regression testing for web and mobile UI. It filters out rendering noise so only real visual changes get flagged, cutting false positives by up to 95%.
+- [Accessibility Testing Suite](https://www.testmuai.com/accessibility-testing/) — Automated compliance checks against WCAG, ADA, Section 508, EAA and AODA across websites, web apps, and native Android and iOS apps on real devices. PDF documents are scanned against WCAG and PDF/UA.
+- [Real Devices Cloud](https://www.testmuai.com/real-device-cloud/) — 10,000+ real iOS and Android devices for manual and automated testing of web and mobile apps. Includes built-in DevTools, network throttling and a UI inspector, available as a public, dedicated or on-premise cloud.
+- [Test Automation Platform](https://www.testmuai.com/automation-testing-platform/) — A scalable cloud grid that runs Selenium, Playwright, Cypress, Puppeteer and other major frameworks in parallel. Covers 3,000+ real browser, OS and device combinations, 15+ languages and 120+ CI/CD integrations.
+- [Browser Cloud](https://www.testmuai.com/browser-cloud/) — Scalable browser infrastructure for AI agents that need to act on the live web. Comes with stealth browsing, session persistence, geo-located proxies and full session observability.
+- [TestMu AI MCP Server](https://www.testmuai.com/mcp/) — Connects AI coding assistants, including Claude Code, Cursor, GitHub Copilot and OpenAI Codex, to TestMu AI from inside the IDE. They can trigger and inspect HyperExecute, automation, SmartUI, accessibility and Test Manager work without copying data between tools.
+- [Performance Testing](https://www.testmuai.com/performance-testing/) — Enterprise load testing that runs your existing JMeter and Gatling scripts on managed cloud load generators. Scales to 8,000 concurrent virtual users across six global regions.
+- [Test Insights](https://www.testmuai.com/test-intelligence/) — AI-native test analytics that turns run data into decisions. Ranks flaky tests by trend and severity, groups failures that share an error signature, and traces each failure to its root cause and a fix.
 
 ## Setup
 
