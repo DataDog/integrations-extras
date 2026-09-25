@@ -1,35 +1,35 @@
-# LambdaTest integration
+# TestMu AI (Formerly LambdaTest) integration
 
 ## Overview
 
-Integrate with LambdaTest and empower your teams to collaborate and test efficiently. LambdaTest is a cloud based testing platform that allows users to run manual and automated tests on their websites and web apps across 2000+ browsers, browser versions, and operating systems.
+TestMu AI (formerly LambdaTest) is a full-stack agentic AI quality engineering platform for web, mobile, and enterprise applications. Its AI agents help plan, author, execute, and analyze tests throughout the software development lifecycle.
 
-LambdaTest supports manual and various automation testing frameworks like Selenium, Cypress, TestCafe, etc.
+Use the TestMu AI integration to log bugs in Datadog while testing websites and web applications across browsers. TestMu AI includes testing environment details, such as browser version, operating system, and resolution, along with comments and screenshots.
 
-With the LambdaTest integration, log bugs while performing cross-browser testing of your websites (and web apps) using LambdaTest platform. LambdaTest automatically includes details from the testing environment, such as browser version, OS, resolution, comments, and screenshots in Datadog.
+The platform supports manual testing and automated testing with Selenium, Playwright, Cypress, Puppeteer, Appium, Espresso, and XCUITest. Testing is available across more than 3,000 browser and operating system combinations and more than 10,000 real devices.
 
-Here's all that you can do with LambdaTest:
+### Supported TestMu AI products
 
-- Live-interactive testing across 2000+ browsers and real machines hosted on cloud-based infrastructure.
-- An online automation testing grid supports Selenium and Cypress tests with any CI/CD pipeline to help QA teams validate and ship quality builds faster.
-- A next-gen developer-friendly browser that helps to build well-performing and responsive websites with speed.
-- 100+ integrations with third-party tools for project management, communication, codeless automation, CI/CD, and more.
-- Help is always available with 24/7 chat support.
-- Lifetime free access to the platform with 100 free automation testing minutes.
+The integration covers the TestMu AI products that send session data to Datadog:
+
+- [Real-Time Testing](https://www.testmuai.com/live-testing/): Live, interactive manual testing across browsers and virtual devices. Use the Mark as Bug action during a session to capture an annotated screenshot and open a Datadog ticket without leaving the test.
+- [Test Automation Platform](https://www.testmuai.com/automation-testing-platform/): Run Selenium, Playwright, Cypress, and Puppeteer suites on a cloud grid. Web automation runs stream test status, duration, browser, and operating system to Datadog.
+- [Native App Automation Cloud](https://www.testmuai.com/mobile-app-testing/): Run Appium, Espresso, and XCUITest suites against mobile apps. App automation runs stream the same execution data to Datadog.
+- [Real Devices Cloud](https://www.testmuai.com/real-device-cloud/): Run manual or automated tests on real iOS and Android hardware. Real device sessions are tagged so you can break usage down by device in the Datadog dashboard.
 
 ## Setup
 
-All configuration happens on the LambdaTest Dashboard. See the [LambdaTest-Datadog integration][1] setup documentation.
+Configure the integration in the TestMu AI dashboard. For instructions, see the [TestMu AI-Datadog integration setup guide][1].
 
 ### Configuration
 
-Here's how you can track incidents in Datadog with LambdaTest:
+To track incidents in Datadog with TestMu AI:
 
-1. Click **Connect Accounts** to begin authorization of the LambdaTest integration from the Login page in LambdaTest.
-2. Log in to your LambdaTest account on the LambdaTest website to be redirected to the Datadog authorization page.
+1. Click **Connect Accounts** to begin authorization of the TestMu AI integration from the Login page in TestMu AI.
+2. Log in to your TestMu AI account on the TestMu AI website to be redirected to the Datadog authorization page.
 3. Click **Authorize** to complete the integration process.
 4. A confirmation email is sent once the integration configuration is complete.
-5. Once Datadog is integrated with your LambdaTest account, start logging bugs and performing cross-browser testing.
+5. Once Datadog is integrated with your TestMu AI account, start logging bugs and performing cross-browser testing.
 
 ## Uninstallation
 
@@ -39,10 +39,10 @@ Additionally, ensure that all API keys associated with this integration have bee
 
 ## Support
 
-For support or feature requests, contact LambdaTest on the following channels:
+For support or feature requests, contact TestMu AI on the following channels:
 
-Email: support@lambdatest.com
+Email: support@testmuai.com
 Phone: +1-(866)-430-7087
-Website: https://www.lambdatest.com/
+Website: https://www.testmuai.com/
 
-[1]: https://www.lambdatest.com/support/docs/datadog-integration/
+[1]: https://www.testmuai.com/support/docs/datadog-integration/
