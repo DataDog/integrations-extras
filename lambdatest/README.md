@@ -2,49 +2,28 @@
 
 ## Overview
 
-Integrate with TestMu AI and empower your teams to collaborate and test efficiently. TestMu AI (Formerly LambdaTest) is a Full Stack Agentic AI Quality Engineering platform that empowers teams to test intelligently and ship faster.
+TestMu AI (formerly LambdaTest) is a full-stack agentic AI quality engineering platform for web, mobile, and enterprise applications. Its AI agents help plan, author, execute, and analyze tests throughout the software development lifecycle.
 
-Engineered for scale, it offers end-to-end AI agents to plan, author, execute, and analyze software quality. AI-native by design, the platform enables testing of web, mobile, and enterprise applications at any scale across real devices, real browsers, and custom real-world environments.
+Use the TestMu AI integration to log bugs in Datadog while testing websites and web applications across browsers. TestMu AI includes testing environment details, such as browser version, operating system, and resolution, along with comments and screenshots.
 
-TestMu AI Agents accelerate your testing throughout the entire SDLC, moving beyond automation to agentic intelligence, where AI-driven agents continuously enhance the speed, accuracy, and depth of testing across the development lifecycle.
+The platform supports manual testing and automated testing with Selenium, Playwright, Cypress, Puppeteer, Appium, Espresso, and XCUITest. Testing is available across more than 3,000 browser and operating system combinations and more than 10,000 real devices.
 
-TestMu AI supports manual testing and automation frameworks including Selenium, Playwright, Cypress, Puppeteer, Appium, Espresso and XCUITest.
+### Supported TestMu AI products
 
-With the TestMu AI integration, log bugs while performing cross-browser testing of your websites (and web apps) using the TestMu AI platform. TestMu AI automatically includes details from the testing environment, such as browser version, OS, resolution, comments, and screenshots in Datadog.
+The integration covers the TestMu AI products that send session data to Datadog:
 
-Here's all that you can do with TestMu AI:
-
-- Live-interactive testing across 3,000+ browser and OS combinations and 10,000+ real devices hosted on cloud-based infrastructure.
-- An online automation testing grid supports Selenium, Playwright, Cypress and Appium tests with any CI/CD pipeline to help QA teams validate and ship quality builds faster.
-- A next-gen developer-friendly browser that helps to build well-performing and responsive websites with speed.
-- 120+ integrations with third-party tools for project management, communication, codeless automation, CI/CD, and more.
-- Help is always available with 24/7 chat support.
-- Lifetime free access to the platform with 100 free automation testing minutes.
-
-Here's what the platform covers:
-
-- [KaneAI](https://www.testmuai.com/kane-ai/): GenAI-native testing agent that plans, authors, and evolves end-to-end tests in natural language.
-- [Kane CLI](https://www.testmuai.com/kane-cli/): Natural-language browser automation from the terminal, for developers and AI coding agents. Drives real Chrome and returns a pass/fail with a replayable evidence pack for every run.
-- [Agent Assurance](https://www.testmuai.com/agent-assurance/): Proves an AI agent is safe to ship by generating the suite from your code or spec, running the agent for real, and grading it on what it actually did. Every run ends in an evidence-backed verdict plus the share that could not be verified.
-- [Agent Testing](https://www.testmuai.com/agent-testing/): An AI evaluation platform that tests chat, voice, phone, video, and image agents at production scale without human testers. Scores every conversation against standardized metrics such as hallucination, bias, toxicity, and compliance, so regressions show up as numbers.
-- [HyperExecute](https://www.testmuai.com/hyperexecute/): AI-native test orchestration cloud that runs automated test suites up to 70% faster than traditional cloud grids. Intelligent test ordering, fail-fast aborts, smart retries and AI root cause analysis cut both wait time and debugging time.
-- [Test Manager](https://www.testmuai.com/test-management/): AI-native workspace for planning, writing and running manual and automated tests in one place. AI drafts the test cases, two-way sync keeps Jira and Azure DevOps up to date, and existing suites move over with one-click migration.
-- [SmartUI](https://www.testmuai.com/visual-testing-tool/): AI-native visual regression testing for web and mobile UI. It filters out rendering noise so only real visual changes get flagged, cutting false positives by up to 95%.
-- [Accessibility Testing Suite](https://www.testmuai.com/accessibility-testing/): Automated compliance checks against WCAG, ADA, Section 508, EAA and AODA across websites, web apps, and native Android and iOS apps on real devices. PDF documents are scanned against WCAG and PDF/UA.
-- [Real Devices Cloud](https://www.testmuai.com/real-device-cloud/): 10,000+ real iOS and Android devices for manual and automated testing of web and mobile apps. Includes built-in DevTools, network throttling and a UI inspector, available as a public, dedicated or on-premise cloud.
-- [Test Automation Platform](https://www.testmuai.com/automation-testing-platform/): A scalable cloud grid that runs Selenium, Playwright, Cypress, Puppeteer and other major frameworks in parallel. Covers 3,000+ real browser, OS and device combinations, 15+ languages and 120+ CI/CD integrations.
-- [Browser Cloud](https://www.testmuai.com/browser-cloud/): Scalable browser infrastructure for AI agents that need to act on the live web. Comes with stealth browsing, session persistence, geo-located proxies and full session observability.
-- [TestMu AI MCP Server](https://www.testmuai.com/mcp/): Connects AI coding assistants, including Claude Code, Cursor, GitHub Copilot and OpenAI Codex, to TestMu AI from inside the IDE. They can trigger and inspect HyperExecute, automation, SmartUI, accessibility and Test Manager work without copying data between tools.
-- [Performance Testing](https://www.testmuai.com/performance-testing/): Enterprise load testing that runs your existing JMeter and Gatling scripts on managed cloud load generators. Scales to 8,000 concurrent virtual users across six global regions.
-- [Test Insights](https://www.testmuai.com/test-intelligence/): AI-native test analytics that turns run data into decisions. Ranks flaky tests by trend and severity, groups failures that share an error signature, and traces each failure to its root cause and a fix.
+- [Real-Time Testing](https://www.testmuai.com/live-testing/): Live, interactive manual testing across browsers and virtual devices. Use the Mark as Bug action during a session to capture an annotated screenshot and open a Datadog ticket without leaving the test.
+- [Test Automation Platform](https://www.testmuai.com/automation-testing-platform/): Run Selenium, Playwright, Cypress, and Puppeteer suites on a cloud grid. Web automation runs stream test status, duration, browser, and operating system to Datadog.
+- [Native App Automation Cloud](https://www.testmuai.com/mobile-app-testing/): Run Appium, Espresso, and XCUITest suites against mobile apps. App automation runs stream the same execution data to Datadog.
+- [Real Devices Cloud](https://www.testmuai.com/real-device-cloud/): Run manual or automated tests on real iOS and Android hardware. Real device sessions are tagged so you can break usage down by device in the Datadog dashboard.
 
 ## Setup
 
-All configuration happens on the TestMu AI Dashboard. See the [TestMu AI-Datadog integration][1] setup documentation.
+Configure the integration in the TestMu AI dashboard. For instructions, see the [TestMu AI-Datadog integration setup guide][1].
 
 ### Configuration
 
-Here's how you can track incidents in Datadog with TestMu AI:
+To track incidents in Datadog with TestMu AI:
 
 1. Click **Connect Accounts** to begin authorization of the TestMu AI integration from the Login page in TestMu AI.
 2. Log in to your TestMu AI account on the TestMu AI website to be redirected to the Datadog authorization page.
