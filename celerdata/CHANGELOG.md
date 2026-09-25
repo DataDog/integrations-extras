@@ -1,5 +1,15 @@
 # CHANGELOG - celerdata
 
+## 1.3.0 / 2026-09-25
+
+***Added***:
+
+* Add the `celerdata.fe.slow_lock_held_time_ms` and `celerdata.fe.slow_lock_wait_time_ms` summary metrics, surfacing FE slow-lock held and wait times (introduced by StarRocks/starrocks#66027)
+
+***Fixed***:
+
+* Collect all per-database `celerdata.fe.table_num` series. StarRocks FE interleaves this metric with `starrocks_fe_db_size_bytes`, so the OpenMetrics parser typed every series after the first as `unknown` and dropped them; pinning the metric type to `gauge` recovers every per-database series.
+
 ## 1.2.1 / 2025-10-01
 
 ***Fixed***:

@@ -63,9 +63,21 @@ METRIC_MAP = {
     "starrocks_fe_rps": "fe.rps",
     "starrocks_fe_safe_mode": "fe.safe_mode",
     "starrocks_fe_scheduled_tablet_num": "fe.scheduled_tablet_num",
+    # Summary families: the `.quantile`, `.sum` and `.count` sub-metrics are all derived from
+    # this single mapping, so no separate `_sum`/`_count` entries are needed.
+    "starrocks_fe_slow_lock_held_time_ms": "fe.slow_lock_held_time_ms",
+    "starrocks_fe_slow_lock_wait_time_ms": "fe.slow_lock_wait_time_ms",
     "starrocks_fe_slow_query": "fe.slow_query",
     "starrocks_fe_snmp": "fe.snmp",
-    "starrocks_fe_table_num": "fe.table_num",
+    # StarRocks FE emits this interleaved with `starrocks_fe_db_size_bytes`, one pair per
+    # database, and writes a `# TYPE` line only for the first sample. The Prometheus parser
+    # therefore types every later family `unknown`, and OpenMetricsV2 drops those, so only the
+    # first database was collected. Pinning the type sends all families through the `gauge`
+    # transformer instead. See #2854.
+    "starrocks_fe_table_num": {
+        "name": "fe.table_num",
+        "type": "gauge",
+    },
     "starrocks_fe_tablet_max_compaction_score": {
         "name": "fe.tablet.max_compaction_score",
         "type": "gauge",

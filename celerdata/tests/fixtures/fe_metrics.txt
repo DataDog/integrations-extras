@@ -1,0 +1,45 @@
+# Trimmed StarRocks FE /metrics payload, reproducing the exact byte layout that
+# PrometheusMetricVisitor emits (StarRocks 3.5.x). Not a live capture: it is
+# reconstructed from the visitor source so the interleaving below is exact.
+#
+# MetricRepo.collectDatabaseMetrics() loops over databases and emits table_num
+# then db_size_bytes for each one, while PrometheusMetricVisitor.visit() writes
+# "# HELP"/"# TYPE" only the first time it sees a metric name. The result is the
+# non-contiguous layout below: every table_num sample after the first lands in a
+# family the Prometheus parser types as "unknown".
+# HELP starrocks_fe_table_num count of table
+# TYPE starrocks_fe_table_num gauge
+starrocks_fe_table_num{db_name="information_schema"} 54
+# HELP starrocks_fe_db_size_bytes total size of db in bytes
+# TYPE starrocks_fe_db_size_bytes gauge
+starrocks_fe_db_size_bytes{db_name="information_schema"} 0
+starrocks_fe_table_num{db_name="_statistics_"} 10
+starrocks_fe_db_size_bytes{db_name="_statistics_"} 8192
+starrocks_fe_table_num{db_name="sys"} 8
+starrocks_fe_db_size_bytes{db_name="sys"} 0
+starrocks_fe_table_num{db_name="analytics"} 19
+starrocks_fe_db_size_bytes{db_name="analytics"} 104857600
+# HELP starrocks_fe_database_num count of database
+# TYPE starrocks_fe_database_num gauge
+starrocks_fe_database_num 4
+# Slow-lock summaries, added upstream by StarRocks/starrocks#66027 and first
+# shipped in 3.5.10. Emitted by PrometheusMetricVisitor.visitHistogram(), whose
+# HELP line carries an empty description.
+# HELP starrocks_fe_slow_lock_held_time_ms 
+# TYPE starrocks_fe_slow_lock_held_time_ms summary
+starrocks_fe_slow_lock_held_time_ms{quantile="0.75"} 512.0
+starrocks_fe_slow_lock_held_time_ms{quantile="0.95"} 1180.0
+starrocks_fe_slow_lock_held_time_ms{quantile="0.98"} 1460.0
+starrocks_fe_slow_lock_held_time_ms{quantile="0.99"} 1725.0
+starrocks_fe_slow_lock_held_time_ms{quantile="0.999"} 2048.0
+starrocks_fe_slow_lock_held_time_ms_sum 91230.0
+starrocks_fe_slow_lock_held_time_ms_count 137
+# HELP starrocks_fe_slow_lock_wait_time_ms 
+# TYPE starrocks_fe_slow_lock_wait_time_ms summary
+starrocks_fe_slow_lock_wait_time_ms{quantile="0.75"} 88.0
+starrocks_fe_slow_lock_wait_time_ms{quantile="0.95"} 304.0
+starrocks_fe_slow_lock_wait_time_ms{quantile="0.98"} 412.0
+starrocks_fe_slow_lock_wait_time_ms{quantile="0.99"} 655.0
+starrocks_fe_slow_lock_wait_time_ms{quantile="0.999"} 903.0
+starrocks_fe_slow_lock_wait_time_ms_sum 20418.0
+starrocks_fe_slow_lock_wait_time_ms_count 137
