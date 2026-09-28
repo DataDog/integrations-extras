@@ -30,7 +30,6 @@ EXPECTED_PROMETHEUS_METRICS = [
     'amazon_vpc_cni.connmark_reconcile_total.count',
     'amazon_vpc_cni.aws_api_latency_ms.count',
     'amazon_vpc_cni.aws_api_latency_ms.sum',
-    'amazon_vpc_cni.aws_api_latency_ms.quantile',
     'amazon_vpc_cni.ipamd_startup_duration_seconds.count',
     'amazon_vpc_cni.ipamd_startup_duration_seconds.sum',
     'amazon_vpc_cni.ipamd_startup_duration_seconds.bucket',

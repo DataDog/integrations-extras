@@ -15,6 +15,13 @@ instances:
 
     ## @param openmetrics_endpoint - string - required
     ## Endpoint exposing the Amazon VPC CNI Prometheus metrics.
+    ##
+    ## The `aws-node` DaemonSet runs with host networking, so `localhost` only
+    ## resolves to the IPAMD endpoint when the Agent also runs with host
+    ## networking (or directly on the node host). If the Agent runs as a pod
+    ## without host networking, set this to the node's IP address, for example
+    ## `http://<NODE_IP>:61678/metrics`, or use Autodiscovery with a template
+    ## that resolves the node address.
     #
   - openmetrics_endpoint: http://localhost:61678/metrics
 
