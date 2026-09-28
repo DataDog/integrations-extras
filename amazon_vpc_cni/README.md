@@ -23,7 +23,9 @@ If you are using Datadog Agent v6.8+, follow the instructions below to install t
 
 ### Configuration
 
-Enable Prometheus metrics on the `aws-node` DaemonSet by setting the environment variable `ENABLE_PROMETHEUS_METRICS` to `true`. The plugin then exposes metrics at `http://localhost:61678/metrics` on each node.
+Metrics are enabled by default on the `aws-node` DaemonSet. To control them, set the environment variable `DISABLE_METRICS` to `false`. The plugin exposes metrics at `http://localhost:61678/metrics` on each node.
+
+Because the `aws-node` DaemonSet runs with host networking, `localhost` only resolves to the IPAMD endpoint when the Agent also runs with host networking (or directly on the node). If the Agent runs as a pod without host networking, set `openmetrics_endpoint` to the node's IP address, for example `http://<NODE_IP>:61678/metrics`, or use Autodiscovery to resolve the node address.
 
 1. Edit the `amazon_vpc_cni.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your Amazon VPC CNI metrics. See the [sample amazon_vpc_cni.d/conf.yaml][7] for all available configuration options.
 

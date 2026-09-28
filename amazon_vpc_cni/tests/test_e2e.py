@@ -17,7 +17,7 @@ def test_e2e_assert_metrics(dd_agent_check, aggregator, instance):
     dd_agent_check(instance)
 
     for metric in EXPECTED_PROMETHEUS_METRICS:
-        aggregator.assert_metric(metric, at_least=0)
+        aggregator.assert_metric(metric, at_least=1)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_symmetric_inclusion=True)
