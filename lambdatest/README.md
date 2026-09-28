@@ -10,12 +10,12 @@ The platform supports manual testing and automated testing with Selenium, Playwr
 
 ### Supported TestMu AI products
 
-The integration covers the TestMu AI products that send session data to Datadog:
+The integration supports the following TestMu AI products, which send session data to Datadog:
 
-- [Real-Time Testing](https://www.testmuai.com/live-testing/): Live, interactive manual testing across browsers and virtual devices. Use the Mark as Bug action during a session to capture an annotated screenshot and open a Datadog ticket without leaving the test.
-- [Test Automation Platform](https://www.testmuai.com/automation-testing-platform/): Run Selenium, Playwright, Cypress, and Puppeteer suites on a cloud grid. Web automation runs stream test status, duration, browser, and operating system to Datadog.
-- [Native App Automation Cloud](https://www.testmuai.com/mobile-app-testing/): Run Appium, Espresso, and XCUITest suites against mobile apps. App automation runs stream the same execution data to Datadog.
-- [Real Devices Cloud](https://www.testmuai.com/real-device-cloud/): Run manual or automated tests on real iOS and Android hardware. Real device sessions are tagged so you can break usage down by device in the Datadog dashboard.
+- [Real-Time Testing][2]: Live, interactive manual testing across browsers and virtual devices. Use the **Mark as Bug** action during a session to capture an annotated screenshot and open a Datadog ticket without leaving the test.
+- [Test Automation Platform][3]: Run Selenium, Playwright, Cypress, and Puppeteer suites on a cloud grid. Web automation runs send test status, duration, browser details, and operating system details to Datadog.
+- [Native App Automation Cloud][4]: Run Appium, Espresso, and XCUITest suites against mobile apps. App automation runs send test execution data to Datadog.
+- [Real Devices Cloud][5]: Run manual or automated tests on real iOS and Android hardware. Real device sessions are tagged so you can break usage down by device in the Datadog dashboard.
 
 ## Setup
 
@@ -25,11 +25,11 @@ Configure the integration in the TestMu AI dashboard. For instructions, see the 
 
 To track incidents in Datadog with TestMu AI:
 
-1. Click **Connect Accounts** to begin authorization of the TestMu AI integration from the Login page in TestMu AI.
-2. Log in to your TestMu AI account on the TestMu AI website to be redirected to the Datadog authorization page.
+1. On the TestMu AI login page, click **Connect Accounts**.
+2. Log in to your TestMu AI account. You are redirected to the Datadog authorization page.
 3. Click **Authorize** to complete the integration process.
 4. A confirmation email is sent once the integration configuration is complete.
-5. Once Datadog is integrated with your TestMu AI account, start logging bugs and performing cross-browser testing.
+5. After integrating Datadog with your TestMu AI account, start logging bugs and performing cross-browser testing.
 
 ## Uninstallation
 
@@ -46,3 +46,7 @@ Phone: +1-(866)-430-7087
 Website: https://www.testmuai.com/
 
 [1]: https://www.testmuai.com/support/docs/datadog-integration/
+[2]: https://www.testmuai.com/live-testing/
+[3]: https://www.testmuai.com/automation-testing-platform/
+[4]: https://www.testmuai.com/mobile-app-testing/
+[5]: https://www.testmuai.com/real-device-cloud/
