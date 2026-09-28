@@ -14,7 +14,7 @@ def test_e2e_service_check_ok(dd_agent_check, aggregator, instance):
 
 @pytest.mark.e2e
 def test_e2e_assert_metrics(dd_agent_check, aggregator, instance):
-    dd_agent_check(instance)
+    dd_agent_check(instance, rate=True)
 
     for metric in EXPECTED_PROMETHEUS_METRICS:
         aggregator.assert_metric(metric, at_least=1)
