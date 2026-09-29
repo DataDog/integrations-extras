@@ -7,4 +7,4 @@ curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master \
     --form variables[ORIG_CI_BUILD_REF]=$CURRENT_COMMIT \
     --form variables[ROOT_LAYOUT_TYPE]=extras \
     --form variables[REPO_NAME]=integrations-extras \
-    https://gitlab.ddbuild.io/api/v4/projects/138/trigger/pipeline
+    https://gitlab.ddbuild.io/api/v4/projects/13727/trigger/pipeline
