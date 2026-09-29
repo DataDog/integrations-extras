@@ -23,7 +23,7 @@ A Zscaler Cloud NSS subscription is required.
 
 For every NSS feed below, the Feed Output Type is `JSON` and the Feed Escape Character is set to `,\"`. This escape character alone is not always sufficient: if a field's raw value contains a double quote, backslash, or comma (for example, a URL query string, a referrer, a user-agent string, or a department name), it can break the JSON structure before it reaches Datadog's intake, resulting in log lines with unescaped characters.
 
-To prevent this, Zscaler recommends using the hex-encoded variant of any field that can carry free text or URL-like data (for example, `%s{elogin}` instead of `%s{login}`, `%s{eurl}` instead of `%s{url}`). The feed output formats below have already been updated to use these hex-encoded fields wherever Zscaler documents one. If you still see malformed JSON after applying these formats, check the [Zscaler NSS field reference][3] for the log type in question — some fields may have additional hex-encoded variants not reflected here.
+To prevent this, Zscaler recommends using the hex-encoded variant of any field that can carry free text or URL-like data (for example, `%s{elogin}` instead of `%s{login}`, `%s{eurl}` instead of `%s{url}`). The feed output formats below have already been updated to use these hex-encoded fields wherever Zscaler documents one. If you still see malformed JSON after applying these formats, check the [Zscaler NSS field reference][3] for the log type in question - some fields may have additional hex-encoded variants not reflected here.
 
 ### Configure a webhook in Zscaler
 
