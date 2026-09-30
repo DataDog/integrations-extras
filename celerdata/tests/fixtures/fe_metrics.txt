@@ -19,6 +19,11 @@ starrocks_fe_table_num{db_name="sys"} 8
 starrocks_fe_db_size_bytes{db_name="sys"} 0
 starrocks_fe_table_num{db_name="analytics"} 19
 starrocks_fe_db_size_bytes{db_name="analytics"} 104857600
+# Issue #2854's other reported symptom. Unlike table_num, this family is contiguous and
+# correctly typed, so the interleaving bug does not affect it and it is collected.
+# HELP starrocks_fe_query_timeout total timeout query
+# TYPE starrocks_fe_query_timeout counter
+starrocks_fe_query_timeout 0
 # HELP starrocks_fe_database_num count of database
 # TYPE starrocks_fe_database_num gauge
 starrocks_fe_database_num 4
