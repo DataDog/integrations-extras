@@ -1,0 +1,277 @@
+# TYPE kurrentdb_cache_hits_misses_total counter
+kurrentdb_cache_hits_misses_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",cache="stream-info",kind="hits"} 5
+
+# TYPE kurrentdb_cache_resources_bytes gauge
+kurrentdb_cache_resources_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",cache="LastEventNumber",kind="size"} 1
+
+# TYPE kurrentdb_cache_resources_entries gauge
+kurrentdb_cache_resources_entries{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",cache="LastEventNumber",kind="count"} 1
+
+# TYPE kurrentdb_checkpoints gauge
+kurrentdb_checkpoints{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",name="replication",read="non-flushed"} 1
+
+# TYPE kurrentdb_elections_count_total counter
+kurrentdb_elections_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 5
+
+# TYPE kurrentdb_io_bytes_total counter
+kurrentdb_io_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="read"} 5
+
+# TYPE kurrentdb_io_events_total counter
+kurrentdb_io_events_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="written"} 5
+
+# TYPE kurrentdb_logical_chunk_read_distribution histogram
+kurrentdb_logical_chunk_read_distribution_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",le="0.005"} 1
+kurrentdb_logical_chunk_read_distribution_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",le="0.01"} 2
+kurrentdb_logical_chunk_read_distribution_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",le="+Inf"} 3
+kurrentdb_logical_chunk_read_distribution_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 0.5
+kurrentdb_logical_chunk_read_distribution_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 3
+
+# TYPE kurrentdb_io_record_read_duration_seconds histogram
+kurrentdb_io_record_read_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",source="FileSystem",le="0.005"} 1
+kurrentdb_io_record_read_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",source="FileSystem",le="0.01"} 2
+kurrentdb_io_record_read_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",source="FileSystem",le="+Inf"} 3
+kurrentdb_io_record_read_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",source="FileSystem"} 0.5
+kurrentdb_io_record_read_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",source="FileSystem"} 3
+
+# TYPE kurrentdb_gossip_latency_seconds histogram
+kurrentdb_gossip_latency_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-to-peer",status="successful",le="0.005"} 1
+kurrentdb_gossip_latency_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-to-peer",status="successful",le="0.01"} 2
+kurrentdb_gossip_latency_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-to-peer",status="successful",le="+Inf"} 3
+kurrentdb_gossip_latency_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-to-peer",status="successful"} 0.5
+kurrentdb_gossip_latency_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-to-peer",status="successful"} 3
+
+# TYPE kurrentdb_gossip_processing_duration_seconds histogram
+kurrentdb_gossip_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-from-peer",status="successful",le="0.005"} 1
+kurrentdb_gossip_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-from-peer",status="successful",le="0.01"} 2
+kurrentdb_gossip_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-from-peer",status="successful",le="+Inf"} 3
+kurrentdb_gossip_processing_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-from-peer",status="successful"} 0.5
+kurrentdb_gossip_processing_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="push-from-peer",status="successful"} 3
+
+# TYPE kurrentdb_current_incoming_grpc_calls gauge
+kurrentdb_current_incoming_grpc_calls{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_incoming_grpc_calls_total counter
+kurrentdb_incoming_grpc_calls_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",kind="failed"} 5
+
+# TYPE kurrentdb_grpc_method_duration_seconds histogram
+kurrentdb_grpc_method_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="append",status="successful",le="0.005"} 1
+kurrentdb_grpc_method_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="append",status="successful",le="0.01"} 2
+kurrentdb_grpc_method_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="append",status="successful",le="+Inf"} 3
+kurrentdb_grpc_method_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="append",status="successful"} 0.5
+kurrentdb_grpc_method_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="append",status="successful"} 3
+
+# TYPE kurrentdb_kestrel_connections gauge
+kurrentdb_kestrel_connections{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_persistent_sub_connections gauge
+kurrentdb_persistent_sub_connections{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_parked_messages gauge
+kurrentdb_persistent_sub_parked_messages{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_in_flight_messages gauge
+kurrentdb_persistent_sub_in_flight_messages{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_oldest_parked_message_seconds gauge
+kurrentdb_persistent_sub_oldest_parked_message_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_items_processed_total counter
+kurrentdb_persistent_sub_items_processed_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 5
+
+# TYPE kurrentdb_persistent_sub_last_known_event_number gauge
+kurrentdb_persistent_sub_last_known_event_number{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_last_known_event_commit_position gauge
+kurrentdb_persistent_sub_last_known_event_commit_position{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_checkpointed_event_number gauge
+kurrentdb_persistent_sub_checkpointed_event_number{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_checkpointed_event_commit_position gauge
+kurrentdb_persistent_sub_checkpointed_event_commit_position{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_parked_message_replays gauge
+kurrentdb_persistent_sub_parked_message_replays{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE kurrentdb_persistent_sub_park_message_requests gauge
+kurrentdb_persistent_sub_park_message_requests{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1",reason="client-nak"} 1
+
+# TYPE kurrentdb_proc_up_time_seconds_total counter
+kurrentdb_proc_up_time_seconds_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",pid="1"} 5
+
+# TYPE kurrentdb_proc_cpu gauge
+kurrentdb_proc_cpu{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_proc_thread_count gauge
+kurrentdb_proc_thread_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_proc_thread_pool_pending_work_item_count gauge
+kurrentdb_proc_thread_pool_pending_work_item_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_proc_contention_count_total counter
+kurrentdb_proc_contention_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 5
+
+# TYPE kurrentdb_proc_exception_count_total counter
+kurrentdb_proc_exception_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 5
+
+# TYPE kurrentdb_gc_time_in_gc gauge
+kurrentdb_gc_time_in_gc{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_gc_heap_size_bytes gauge
+kurrentdb_gc_heap_size_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_gc_heap_fragmentation gauge
+kurrentdb_gc_heap_fragmentation{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_gc_allocated_bytes_total counter
+kurrentdb_gc_allocated_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 5
+
+# TYPE kurrentdb_gc_pause_duration_max_seconds gauge
+kurrentdb_gc_pause_duration_max_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_gc_generation_size_bytes gauge
+kurrentdb_gc_generation_size_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",generation="gen0"} 1
+
+# TYPE kurrentdb_gc_collection_count_total counter
+kurrentdb_gc_collection_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",generation="gen0"} 5
+
+# TYPE kurrentdb_proc_mem_bytes gauge
+kurrentdb_proc_mem_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",kind="working-set"} 1
+
+# TYPE kurrentdb_disk_io_bytes_total counter
+kurrentdb_disk_io_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="read"} 5
+
+# TYPE kurrentdb_disk_io_operations_total counter
+kurrentdb_disk_io_operations_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",activity="read"} 5
+
+# TYPE kurrentdb_projection_events_processed_after_restart_total counter
+kurrentdb_projection_events_processed_after_restart_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category"} 5
+
+# TYPE kurrentdb_projection_progress gauge
+kurrentdb_projection_progress{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category"} 1
+
+# TYPE kurrentdb_projection_running gauge
+kurrentdb_projection_running{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category"} 1
+
+# TYPE kurrentdb_projection_status gauge
+kurrentdb_projection_status{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",status="Running"} 1
+
+# TYPE kurrentdb_projection_state_size gauge
+kurrentdb_projection_state_size{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",partition="p1"} 1
+
+# TYPE kurrentdb_projection_state_size_bound gauge
+kurrentdb_projection_state_size_bound{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",bound="LIMIT"} 1
+
+# TYPE kurrentdb_projection_state_serialization_duration_max_seconds gauge
+kurrentdb_projection_state_serialization_duration_max_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",name="$by_category",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_projection_execution_duration_max_seconds gauge
+kurrentdb_projection_execution_duration_max_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",name="$by_category",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_projection_execution_duration_seconds histogram
+kurrentdb_projection_execution_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",jsFunction="$any",le="0.005"} 1
+kurrentdb_projection_execution_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",jsFunction="$any",le="0.01"} 2
+kurrentdb_projection_execution_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",jsFunction="$any",le="+Inf"} 3
+kurrentdb_projection_execution_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",jsFunction="$any"} 0.5
+kurrentdb_projection_execution_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",projection="$by_category",jsFunction="$any"} 3
+
+# TYPE kurrentdb_queue_queueing_duration_max_seconds gauge
+kurrentdb_queue_queueing_duration_max_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",name="Readers",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_queue_processing_duration_seconds histogram
+kurrentdb_queue_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",message_type="ReadEvent",queue="Readers",le="0.005"} 1
+kurrentdb_queue_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",message_type="ReadEvent",queue="Readers",le="0.01"} 2
+kurrentdb_queue_processing_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",message_type="ReadEvent",queue="Readers",le="+Inf"} 3
+kurrentdb_queue_processing_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",message_type="ReadEvent",queue="Readers"} 0.5
+kurrentdb_queue_processing_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",message_type="ReadEvent",queue="Readers"} 3
+
+# TYPE kurrentdb_statuses gauge
+kurrentdb_statuses{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",name="Index",status="Idle"} 1
+
+# TYPE kurrentdb_writer_flush_size_max gauge
+kurrentdb_writer_flush_size_max{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_writer_flush_duration_max_seconds gauge
+kurrentdb_writer_flush_duration_max_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",range="16-20 seconds"} 1
+
+# TYPE kurrentdb_sys_load_avg gauge
+kurrentdb_sys_load_avg{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",period="1m"} 1
+
+# TYPE kurrentdb_sys_cpu gauge
+kurrentdb_sys_cpu{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0"} 1
+
+# TYPE kurrentdb_sys_mem_bytes gauge
+kurrentdb_sys_mem_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",kind="free"} 1
+
+# TYPE kurrentdb_sys_disk_bytes gauge
+kurrentdb_sys_disk_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",disk="/data",kind="used"} 1
+
+# TYPE kurrentdb_indexes_secondary_gap_bytes gauge
+kurrentdb_indexes_secondary_gap_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",index="default"} 1
+
+# TYPE kurrentdb_indexes_secondary_lag_seconds gauge
+kurrentdb_indexes_secondary_lag_seconds{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",index="default"} 1
+
+# TYPE kurrentdb_persistent_sub_parked_message_truncations gauge
+kurrentdb_persistent_sub_parked_message_truncations{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",event_stream_id="test-stream",group_name="group1"} 1
+
+# TYPE aspnetcore_authentication_authenticate_duration_seconds histogram
+aspnetcore_authentication_authenticate_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_authentication_result="none",aspnetcore_authentication_scheme="Cookies",le="0.005"} 1
+aspnetcore_authentication_authenticate_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_authentication_result="none",aspnetcore_authentication_scheme="Cookies",le="0.01"} 2
+aspnetcore_authentication_authenticate_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_authentication_result="none",aspnetcore_authentication_scheme="Cookies",le="+Inf"} 3
+aspnetcore_authentication_authenticate_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_authentication_result="none",aspnetcore_authentication_scheme="Cookies"} 0.5
+aspnetcore_authentication_authenticate_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_authentication_result="none",aspnetcore_authentication_scheme="Cookies"} 3
+
+# TYPE aspnetcore_memory_pool_allocated_bytes_total counter
+aspnetcore_memory_pool_allocated_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_memory_pool_owner="kestrel"} 5
+
+# TYPE aspnetcore_memory_pool_evicted_bytes_total counter
+aspnetcore_memory_pool_evicted_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_memory_pool_owner="kestrel"} 5
+
+# TYPE aspnetcore_memory_pool_pooled_bytes gauge
+aspnetcore_memory_pool_pooled_bytes{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_memory_pool_owner="kestrel"} 1
+
+# TYPE aspnetcore_memory_pool_rented_bytes_total counter
+aspnetcore_memory_pool_rented_bytes_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_memory_pool_owner="kestrel"} 5
+
+# TYPE aspnetcore_routing_match_attempts_total counter
+aspnetcore_routing_match_attempts_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",aspnetcore_routing_is_fallback="false",aspnetcore_routing_match_status="success",http_route="/info"} 5
+
+# TYPE http_server_active_requests gauge
+http_server_active_requests{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",url_scheme="http"} 1
+
+# TYPE http_server_request_duration_seconds histogram
+http_server_request_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",http_response_status_code="200",http_route="/info",network_protocol_version="1.1",url_scheme="http",le="0.005"} 1
+http_server_request_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",http_response_status_code="200",http_route="/info",network_protocol_version="1.1",url_scheme="http",le="0.01"} 2
+http_server_request_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",http_response_status_code="200",http_route="/info",network_protocol_version="1.1",url_scheme="http",le="+Inf"} 3
+http_server_request_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",http_response_status_code="200",http_route="/info",network_protocol_version="1.1",url_scheme="http"} 0.5
+http_server_request_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",http_request_method="GET",http_response_status_code="200",http_route="/info",network_protocol_version="1.1",url_scheme="http"} 3
+
+# TYPE kestrel_active_connections gauge
+kestrel_active_connections{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113"} 1
+
+# TYPE kestrel_connection_duration_seconds histogram
+kestrel_connection_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_protocol_name="http",network_protocol_version="1.1",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113",le="0.005"} 1
+kestrel_connection_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_protocol_name="http",network_protocol_version="1.1",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113",le="0.01"} 2
+kestrel_connection_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_protocol_name="http",network_protocol_version="1.1",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113",le="+Inf"} 3
+kestrel_connection_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_protocol_name="http",network_protocol_version="1.1",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113"} 0.5
+kestrel_connection_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_protocol_name="http",network_protocol_version="1.1",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113"} 3
+
+# TYPE kestrel_queued_connections gauge
+kestrel_queued_connections{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",network_transport="tcp",network_type="ipv4",server_address="127.0.0.1",server_port="2113"} 1
+
+# TYPE messaging_kurrent_consumer_message_count_total counter
+messaging_kurrent_consumer_message_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_consumer_client_id="SchemaProjection"} 5
+
+# TYPE messaging_kurrent_producer_message_count_total counter
+messaging_kurrent_producer_message_count_total{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer"} 5
+
+# TYPE messaging_kurrent_producer_produce_duration_seconds histogram
+messaging_kurrent_producer_produce_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer",le="0.005"} 1
+messaging_kurrent_producer_produce_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer",le="0.01"} 2
+messaging_kurrent_producer_produce_duration_seconds_bucket{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer",le="+Inf"} 3
+messaging_kurrent_producer_produce_duration_seconds_sum{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer"} 0.5
+messaging_kurrent_producer_produce_duration_seconds_count{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer"} 3
+
+# TYPE messaging_kurrent_producer_queue_length gauge
+messaging_kurrent_producer_queue_length{otel_scope_name="KurrentDB.Core",otel_scope_version="1.0.0",messaging_kurrent_producer_client_id="ConnectorsControlRegistryProducer"} 1
