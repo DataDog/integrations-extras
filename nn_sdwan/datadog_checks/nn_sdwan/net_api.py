@@ -9,7 +9,7 @@ def get_response(url):
         def inner_wrapper(self):
             initiate_pull_time = datetime.now()
             url1 = "{}://{}{}".format(self.protocol, self.hostname, url)
-            resp = requests.get(url1, auth=(self.username, self.password), verify=False)
+            resp = requests.get(url1, auth=(self.username, self.password), verify=True)
             return func(self, resp, initiate_pull_time, datetime.now())
 
         return inner_wrapper
@@ -148,7 +148,7 @@ class vManageApi:
             url1,
             auth=(self.username, self.password),
             headers=_get_token_and_cookie_headers(token, vmanage_cookie),
-            verify=False,
+            verify=True,
         )
         recieve_time = datetime.now()
         event_time = resp.json()["header"]["generatedOn"]

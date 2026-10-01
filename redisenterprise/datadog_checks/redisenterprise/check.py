@@ -105,7 +105,7 @@ class RedisenterpriseCheck(AgentCheck):
             auth=HTTPBasicAuth(username, password),
             headers={'Content-Type': 'application/json'},
             allow_redirects=False,
-            verify=False,
+            verify=True,
         )
 
         if r.status_code != 307:
