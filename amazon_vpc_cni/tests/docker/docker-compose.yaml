@@ -1,0 +1,8 @@
+services:
+  amazon-vpc-cni-mock:
+    image: python:3.13-alpine
+    command: python -m http.server 61678 --directory /metrics
+    ports:
+      - "61678:61678"
+    volumes:
+      - ../fixtures:/metrics
