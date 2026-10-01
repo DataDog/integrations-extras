@@ -27,9 +27,9 @@ starrocks_fe_query_timeout 0
 # HELP starrocks_fe_database_num count of database
 # TYPE starrocks_fe_database_num gauge
 starrocks_fe_database_num 4
-# Slow-lock summaries, added upstream by StarRocks/starrocks#66027 and first
-# shipped in 3.5.10. Emitted by PrometheusMetricVisitor.visitHistogram(), whose
-# HELP line carries an empty description.
+# Slow-lock summaries, added upstream by StarRocks/starrocks#66027 and first shipped in
+# 3.5.10 and 4.0.3. Emitted by PrometheusMetricVisitor.visitHistogram(); the exporter
+# writes an empty description after the metric name on the HELP line.
 # HELP starrocks_fe_slow_lock_held_time_ms 
 # TYPE starrocks_fe_slow_lock_held_time_ms summary
 starrocks_fe_slow_lock_held_time_ms{quantile="0.75"} 512.0

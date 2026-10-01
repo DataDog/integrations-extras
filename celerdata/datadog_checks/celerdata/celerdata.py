@@ -50,5 +50,5 @@ class CelerdataCheck(OpenMetricsBaseCheckV2):
                     hostname=hostname,
                     flush_first_value=runtime_data["flush_first_value"],
                 )
-            else:
+            elif sample.name == metric.name:
                 self.gauge(f"{metric_name}.quantile", sample.value, tags=tags, hostname=hostname)
