@@ -93,3 +93,9 @@ This integration does not emit events.
 ## Support
 
 If you need help, contact Datadog Support.
+
+## Dashboard Preview
+
+The integration includes an overview dashboard for IBM Sterling Connect:Direct process activity and data transfers.
+
+![IBM Sterling Connect:Direct dashboard](images/dashboard.png)

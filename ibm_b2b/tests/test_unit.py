@@ -360,3 +360,48 @@ def test_signon_rejection_is_critical(configured_check, payload, monkeypatch):
     assert args[:2] == ('can_connect', ServiceCheck.CRITICAL)
     assert 'private' not in kwargs['message']
     assert 'monitor' not in kwargs['message']
+
+
+@pytest.mark.parametrize('missing_field', ['url', 'username', 'password', 'cd_node'])
+def test_required_configuration_fields(missing_field):
+    instance = {
+        'url': 'https://connect.example.test',
+        'username': 'monitor',
+        'password': 'private',
+        'cd_node': '192.0.2.10',
+    }
+    instance.pop(missing_field)
+
+    with pytest.raises((ValueError, TypeError)):
+        InstanceConfig.model_validate(instance, context={'configured_fields': set(instance)})
+
+
+def test_signon_missing_session_token_is_critical(configured_check, monkeypatch):
+    response = Mock(status_code=200)
+    response.json.return_value = [{'messageCode': 200, 'message': 'Signon is successful'}]
+    response.headers = {'Authorization': 'jwt'}
+    response.cookies = {'XSRF-TOKEN': 'xsrf'}
+    mock_session(monkeypatch, response, Mock())
+
+    configured_check.check({})
+
+    args, kwargs = configured_check.service_check_calls.call_args
+    assert args[:2] == ('can_connect', ServiceCheck.CRITICAL)
+    assert 'private' not in kwargs['message']
+
+
+def test_statistics_invalid_payload_is_critical(configured_check, monkeypatch):
+    signon = Mock(status_code=200)
+    signon.json.return_value = [{'messageCode': 200, 'message': 'Signon is successful'}]
+    signon.headers = {'Authorization': 'jwt'}
+    signon.cookies = {'XSRF-TOKEN': 'xsrf', 'JSESSIONID': 'session'}
+    statistics = Mock(status_code=200)
+    statistics.json.return_value = {'records': []}
+    mock_session(monkeypatch, signon, statistics)
+
+    configured_check.check({})
+
+    assert configured_check.service_check_calls.call_args_list[-1] == (
+        ('statistics.can_collect', ServiceCheck.CRITICAL),
+        {'tags': [], 'message': 'selectstatistics failed (ValueError) at /cdwebconsole/svc/selectstatistics'},
+    )
