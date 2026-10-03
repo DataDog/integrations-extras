@@ -20,6 +20,8 @@ def test_e2e(dd_agent_check: Any, instance: InstanceType) -> None:
 
     # Assert no metric was emitted that wasn't covered by an assertion above.
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_service_check('ibm_b2b.can_connect', status=0)
+    aggregator.assert_service_check('ibm_b2b.statistics.can_collect', status=0)
 
     # Other useful assertions to consider for end-to-end coverage:
     # aggregator.assert_metric('ibm_b2b.<metric>', value=1.23, count=1, tags=['foo:bar'])

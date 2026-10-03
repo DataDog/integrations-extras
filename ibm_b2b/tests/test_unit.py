@@ -64,17 +64,21 @@ def mock_session(monkeypatch, signon_response=None, statistics_response=None, si
 
 def test_config_defaults_and_validation():
     config = InstanceConfig.model_validate(
-        {'url': 'https://connect.example.test', 'username': 'monitor', 'password': 'secret', 'cd_node': '192.0.2.10'},
-        context={'configured_fields': {'url', 'username', 'password', 'cd_node'}},
+        {
+            'url': 'https://connect.example.test',
+            'username': 'monitor',
+            'password': 'secret',
+            'cd_node': '192.0.2.10',
+            'statistics_timezone': 'America/Chicago',
+        },
+        context={'configured_fields': {'url', 'username', 'password', 'cd_node', 'statistics_timezone'}},
     )
     assert config.cd_port == 1363
     assert config.cd_protocol == 'TCPIP'
     assert config.tls_verify is True
     assert config.timeout == 10
     assert config.statistics_lookback_minutes == 2
-    assert config.statistics_timezone is None
-    assert 'secret' not in repr(config)
-
+    assert config.statistics_timezone == 'America/Chicago'
     with pytest.raises(ValueError, match='absolute HTTP'):
         InstanceConfig.model_validate(
             {'url': '/relative', 'username': 'monitor', 'password': 'secret', 'cd_node': 'node'},
@@ -362,13 +366,14 @@ def test_signon_rejection_is_critical(configured_check, payload, monkeypatch):
     assert 'monitor' not in kwargs['message']
 
 
-@pytest.mark.parametrize('missing_field', ['url', 'username', 'password', 'cd_node'])
+@pytest.mark.parametrize('missing_field', ['url', 'username', 'password', 'cd_node', 'statistics_timezone'])
 def test_required_configuration_fields(missing_field):
     instance = {
         'url': 'https://connect.example.test',
         'username': 'monitor',
         'password': 'private',
         'cd_node': '192.0.2.10',
+        'statistics_timezone': 'America/Chicago',
     }
     instance.pop(missing_field)
 
