@@ -2,8 +2,8 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-from unittest.mock import MagicMock, Mock
 from datetime import datetime
+from unittest.mock import MagicMock, Mock
 
 import pytest
 from requests import Response
@@ -349,7 +349,7 @@ def test_process_is_counted_again_only_after_dedup_retention_expires(configured_
     [HTTPError('unauthorized'), Timeout('slow request'), ValueError('invalid JSON')],
 )
 def test_signon_request_failure_is_redacted(configured_check, error, monkeypatch):
-    session = mock_session(monkeypatch, signon_error=error)
+    mock_session(monkeypatch, signon_error=error)
 
     configured_check.check({})
 
