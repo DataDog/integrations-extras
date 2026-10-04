@@ -206,9 +206,7 @@ class IbmB2bCheck(AgentCheck, ConfigMixin):
         now = monotonic()
         retention_seconds = self.config.statistics_lookback_minutes * 2 * 60
         self._seen_processes = {
-            key: first_seen
-            for key, first_seen in self._seen_processes.items()
-            if now - first_seen <= retention_seconds
+            key: first_seen for key, first_seen in self._seen_processes.items() if now - first_seen <= retention_seconds
         }
 
         grouped = {}

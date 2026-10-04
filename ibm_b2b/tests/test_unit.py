@@ -50,6 +50,7 @@ def mock_session(monkeypatch, signon_response=None, statistics_response=None, si
     if signon_error is not None:
         session.post.side_effect = signon_error
     else:
+
         def post(*args, **kwargs):
             for name, value in signon_response.cookies.items():
                 session.cookies.set(name, value)
@@ -146,9 +147,10 @@ def test_signon_success(configured_check, monkeypatch):
     assert 'auth' not in session.get.call_args.kwargs
     assert session.cookies.get('JSESSIONID') == 'mock-session'
     assert session.cookies.get('XSRF-TOKEN') == 'mock-xsrf'
-    assert session.post.call_args.args[0].split('/cdwebconsole/')[0] == session.get.call_args.args[0].split(
-        '/cdwebconsole/'
-    )[0]
+    assert (
+        session.post.call_args.args[0].split('/cdwebconsole/')[0]
+        == session.get.call_args.args[0].split('/cdwebconsole/')[0]
+    )
     assert configured_check.service_check_calls.call_args_list == [
         (('can_connect', ServiceCheck.OK), {'tags': []}),
         (('statistics.can_collect', ServiceCheck.OK), {'tags': []}),
@@ -215,17 +217,33 @@ def test_selectstatistics_parses_observed_payload(configured_check, monkeypatch)
     statistics = Mock(status_code=200)
     statistics.json.return_value = [
         {
-            'recordId': 'CTRC', 'recordCategory': 'CAPR', 'processName': 'TESTE', 'processNumber': 2,
-            'secondaryNode': 'VM-B2B', 'conditionCode': 8, 'bytesSent': 0, 'bytesReceived': '0',
+            'recordId': 'CTRC',
+            'recordCategory': 'CAPR',
+            'processName': 'TESTE',
+            'processNumber': 2,
+            'secondaryNode': 'VM-B2B',
+            'conditionCode': 8,
+            'bytesSent': 0,
+            'bytesReceived': '0',
             'sourceFile': r'C:\\Users\\Administrator\\Desktop\\cabrito.txt',
         },
         {
-            'recordId': 'PSTR', 'recordCategory': 'CAPR', 'processName': 'TESTE', 'processNumber': 2,
-            'secondaryNode': 'VM-B2B', 'conditionCode': 0,
+            'recordId': 'PSTR',
+            'recordCategory': 'CAPR',
+            'processName': 'TESTE',
+            'processNumber': 2,
+            'secondaryNode': 'VM-B2B',
+            'conditionCode': 0,
         },
         {
-            'recordId': 'CTRC', 'recordCategory': 'CAPR', 'processName': 'TESTE', 'processNumber': 2,
-            'secondaryNode': 'VM-B2B', 'conditionCode': 8, 'bytesSent': 0, 'bytesReceived': '0',
+            'recordId': 'CTRC',
+            'recordCategory': 'CAPR',
+            'processName': 'TESTE',
+            'processNumber': 2,
+            'secondaryNode': 'VM-B2B',
+            'conditionCode': 8,
+            'bytesSent': 0,
+            'bytesReceived': '0',
         },
         {'recordId': 'SMED', 'processName': '', 'processNumber': 0, 'conditionCode': 0},
         {'processName': 'IGNORED', 'processNumber': 99, 'conditionCode': 0},
@@ -240,8 +258,7 @@ def test_selectstatistics_parses_observed_payload(configured_check, monkeypatch)
     assert set(query) == {'startTime', 'stopTime', 'sortOrder'}
     assert query['sortOrder'] == 'DESC'
     metric_values = {
-        call.args[0]: (call.args[1], call.kwargs['tags'])
-        for call in configured_check.gauge_calls.call_args_list
+        call.args[0]: (call.args[1], call.kwargs['tags']) for call in configured_check.gauge_calls.call_args_list
     }
     tags = ['process_name:TESTE', 'secondary_node:VM-B2B']
     assert metric_values == {
@@ -278,8 +295,7 @@ def test_invalid_numeric_fields_skip_only_affected_metrics(configured_check):
     )
 
     metric_values = {
-        call.args[0]: (call.args[1], call.kwargs['tags'])
-        for call in configured_check.gauge_calls.call_args_list
+        call.args[0]: (call.args[1], call.kwargs['tags']) for call in configured_check.gauge_calls.call_args_list
     }
     tags = ['process_name:TESTE', 'secondary_node:VM-B2B']
     assert metric_values == {
