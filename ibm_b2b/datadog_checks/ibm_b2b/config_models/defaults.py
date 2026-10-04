@@ -25,7 +25,7 @@ def instance_enable_legacy_tags_normalization():
 
 
 def instance_min_collection_interval():
-    return 15
+    return 60
 
 
 def instance_statistics_lookback_minutes():
