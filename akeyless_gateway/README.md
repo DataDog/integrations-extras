@@ -124,7 +124,7 @@ From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `800
 
     Do **not** mount an `otel-config.yaml` file or set Datadog credentials on the Gateway itself: from v5.0.0, metrics are served natively rather than exported by the Gateway.
 
-2. Install the [Datadog Agent][8] on the same host (or a host that can reach the Gateway on port `8000`), and add an OpenMetrics instance to its configuration (for example in `conf.d/openmetrics.d/conf.yaml`):
+2. Install the [Datadog Agent][8] on the same host (or a host that can reach the Gateway on port `8000`), and add an OpenMetrics instance to its configuration (for example, in `conf.d/openmetrics.d/conf.yaml`):
 
     ```yaml
     instances:
