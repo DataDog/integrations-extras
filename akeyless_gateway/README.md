@@ -138,7 +138,7 @@ From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `800
 
 #### Legacy deployments (Gateway versions prior to 5.0.0)
 
-For Gateways older than v5.0.0, keep using the Gateway's built-in OpenTelemetry exporter to ship metrics directly to Datadog, as described below.
+For Gateway versions older than v5.0.0, use the Gateway's built-in OpenTelemetry exporter to ship metrics directly to Datadog, as described below.
 
 **For a Gateway running on Kubernetes**
 
