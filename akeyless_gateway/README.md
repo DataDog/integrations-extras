@@ -6,7 +6,7 @@ The Akeyless Platform is a unified secrets management system that enables you to
 
 This integration allows you to visualize and monitor performance of your [Akeyless Gateway][2]. Telemetry metrics are sourced from the application and the runtime environment.
 
-**Note:** Starting with Gateway v5.0.0, the Gateway exposes metrics natively over Prometheus/OpenMetrics instead of shipping them itself through an embedded OpenTelemetry exporter. This changed how the integration is configured: see [Configure](#configure) below for the setup that matches your Gateway version.
+**Note**: Starting with Gateway v5.0.0, the Gateway exposes metrics natively over Prometheus/OpenMetrics instead of shipping them itself through an embedded OpenTelemetry exporter. This changed how the integration is configured: see [Configure](#configure) for the setup that matches your Gateway version.
 
 ## Setup
 
