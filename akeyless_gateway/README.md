@@ -217,7 +217,7 @@ Upon successful setup of the Gateway, go to the [Metrics Explorer][5] on the Dat
 
 See [metadata.csv][6] for a list of metrics provided by this integration.
 
-**Note on metric names:** the metric prefix depends on your Gateway version and configuration. Gateway versions prior to 5.0.0 report metrics as `akeyless.gw.*` via the built-in OpenTelemetry exporter. Gateway v5.0.0 and later expose metrics natively as `akeyless_gw_*`, which the Datadog Agent's OpenMetrics check reports under `<namespace>.akeyless_gw_*`, where `<namespace>` is the value you set in the Autodiscovery annotation (`akeyless` in the examples above).
+**Note on metric names:** The metric prefix depends on your Gateway version and configuration. Gateway versions prior to 5.0.0 report metrics as `akeyless.gw.*` via the built-in OpenTelemetry exporter. Gateway v5.0.0 and later expose metrics natively as `akeyless_gw_*`, which the Datadog Agent's OpenMetrics check reports under `<namespace>.akeyless_gw_*`, where `<namespace>` is the value you set in the Autodiscovery annotation (`akeyless` in the examples above).
 
 **Canonical vs. legacy request counters (v5.0.0+):** `akeyless_gw_system_request_count_total` and `akeyless_gw_system_http_response_status_code_total` are the canonical post-5.0 counters. The non-`_total` names (`akeyless_gw_system_request_count`, `akeyless_gw_system_http_response_status_code`) are transitional legacy names kept for backward compatibility; the `["akeyless_gw_.*"]` filter used above picks up both.
 
