@@ -19,7 +19,13 @@ The integration reports process counts, transfer bytes, Connect:Direct Web Servi
 
 ### Installation
 
-The integration is intended to run with the Datadog Agent. Install the `ibm_b2b` integration package if it is not bundled with your Agent build.
+For Datadog Agent v7.21+ / v6.21+, install the integration with:
+
+```shell
+datadog-agent integration install -t datadog-ibm-b2b==<INTEGRATION_VERSION>
+```
+
+Then configure the integration and restart the Agent.
 
 ### Configuration
 
@@ -60,6 +66,14 @@ Use your secret management process to provide `password`. Do not store a real pa
 
 The check signs on at `/cdwebconsole/svc/signon` and queries existing statistics at `/cdwebconsole/svc/selectstatistics`.
 
+### Validation
+
+Run the Agent's status command and look for `ibm_b2b` under the Checks section. To inspect the check results directly, run:
+
+```shell
+sudo datadog-agent check ibm_b2b
+```
+
 ## Data Collected
 
 ### Metrics
@@ -92,7 +106,7 @@ This integration does not emit events.
 
 ## Support
 
-If you need help, contact Datadog Support.
+For help with this integration, contact [CXP Brasil Support](mailto:suporte@cxpbrasil.com.br).
 
 ## Dashboard Preview
 
