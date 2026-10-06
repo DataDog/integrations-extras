@@ -28,7 +28,7 @@ Configuration differs by Gateway version, since v5.0.0 changed how metrics are e
 
 #### Gateway v5.0.0 and later
 
-From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `8000` at the `/metrics` path (metric names such as `akeyless_gw_system_healthcheck_status`, `akeyless_gw_quota_*`, and so on). Datadog is a push-based backend, so it does not scrape this endpoint by itself: the Datadog Agent's [OpenMetrics check][9] (via Autodiscovery) does the scraping and forwards the samples to Datadog. The Datadog API key and site are configured on the Agent, **not** on the Gateway.
+From v5.0.0, the Gateway exposes Prometheus-format metrics natively on port `8000` at the `/metrics` path (metric names such as `akeyless_gw_system_healthcheck_status` and `akeyless_gw_quota_*`). Datadog is a push-based backend, so it does not scrape this endpoint by itself: the Datadog Agent's [OpenMetrics check][9] (via Autodiscovery) scrapes the endpoint and forwards the samples to Datadog. Configure the Datadog API key and site on the Agent, **not** the Gateway.
 
 **For a Gateway running on Kubernetes**
 
