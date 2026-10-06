@@ -18,7 +18,7 @@ To configure the integration with Datadog to view important Akeyless Gateway met
 
 - An Akeyless Gateway either running or being deployed for the first time.
 - **For Gateway v5.0.0 and later**: The [Datadog Agent][8] installed somewhere that can reach the Gateway's metrics endpoint on port `8000` (for example, in the same Kubernetes cluster, or on the same Docker host). The Datadog API key and site are configured on the Agent, not on the Gateway.
-- **For Gateway versions prior to 5.0.0 (legacy):** no separate Agent is required. The Gateway ships metrics directly to Datadog using its built-in OpenTelemetry exporter, configured with your Datadog API key and site.
+- **For Gateway versions prior to 5.0.0 (legacy)**: No separate Agent is required. The Gateway ships metrics directly to Datadog using its built-in OpenTelemetry exporter, configured with your Datadog API key and site.
 
 ### Configure
 
