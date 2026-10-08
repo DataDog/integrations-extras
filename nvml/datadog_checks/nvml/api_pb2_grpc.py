@@ -3,32 +3,11 @@
 """Client and server classes corresponding to protobuf-defined services."""
 
 import grpc
-import warnings
 
 from . import api_pb2 as api__pb2
 
-GRPC_GENERATED_VERSION = '1.84.0'
-GRPC_VERSION = grpc.__version__
-_version_not_supported = False
 
-try:
-    from grpc._utilities import first_version_is_lower
-
-    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
-except ImportError:
-    _version_not_supported = True
-
-if _version_not_supported:
-    raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in api_pb2_grpc.py depends on'
-        + f' grpcio>={GRPC_GENERATED_VERSION}.'
-        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
-        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
-    )
-
-
-class PodResourcesListerStub:
+class PodResourcesListerStub(object):
     """PodResourcesLister is a service provided by the kubelet that provides information about the
     node resources consumed by pods and containers on the node
     """
@@ -43,11 +22,10 @@ class PodResourcesListerStub:
             '/v1alpha1.PodResourcesLister/List',
             request_serializer=api__pb2.ListPodResourcesRequest.SerializeToString,
             response_deserializer=api__pb2.ListPodResourcesResponse.FromString,
-            _registered_method=True,
         )
 
 
-class PodResourcesListerServicer:
+class PodResourcesListerServicer(object):
     """PodResourcesLister is a service provided by the kubelet that provides information about the
     node resources consumed by pods and containers on the node
     """
@@ -69,11 +47,10 @@ def add_PodResourcesListerServicer_to_server(servicer, server):
     }
     generic_handler = grpc.method_handlers_generic_handler('v1alpha1.PodResourcesLister', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('v1alpha1.PodResourcesLister', rpc_method_handlers)
 
 
 # This class is part of an EXPERIMENTAL API.
-class PodResourcesLister:
+class PodResourcesLister(object):
     """PodResourcesLister is a service provided by the kubelet that provides information about the
     node resources consumed by pods and containers on the node
     """
@@ -105,5 +82,4 @@ class PodResourcesLister:
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
         )
