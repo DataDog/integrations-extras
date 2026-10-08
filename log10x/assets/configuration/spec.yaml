@@ -1,0 +1,16 @@
+name: log10x
+files:
+- name: log10x.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.value.example: http://localhost:9100/metrics
+        openmetrics_endpoint.description: |
+          The 10x Engine's Prometheus scrape endpoint. Turn it on by uncommenting
+          `- run/output/metric/prometheus/scrape` under "Select Metric Outputs" in the
+          engine's app configuration; the default port is 9100.
