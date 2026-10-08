@@ -1,6 +1,6 @@
 # CHANGELOG - Redis Enterprise Prometheus
 
-## 1.2.0 / 2026-08-26
+## 1.3.0 / 2026-10-08
 
 ***Added***:
 
@@ -17,6 +17,12 @@
 * Group the Cluster Nodes widget by `nodename` from `rdse2.node_uname_info` instead of the non-existent `internal-hostname` tag. [#3136](https://github.com/DataDog/integrations-extras/pull/3136)
 * Remove the Node Network Traffic widget; both `rdse.node_egress_bytes_median` and `rdse.node_ingress_bytes_median` are V1-only metrics with no V2 equivalent. [#3136](https://github.com/DataDog/integrations-extras/pull/3136)
 * Remove `title` from `note` widgets, folding it into the note content as a markdown heading. The Dashboards API rejects `title` on notes, which made the dashboard assets fail to import. [#3136](https://github.com/DataDog/integrations-extras/pull/3136)
+
+## 1.2.0 / 2026-08-31
+
+***Added***:
+
+* Add the "Redis Enterprise Prometheus - Redis Cloud Database" dashboard, which visualizes database-level metrics for Redis Cloud deployments. It is scoped by the Redis Cloud `sub_id` and `db_name` tags rather than the `cluster` and `db` tags used by the Redis Enterprise Software dashboards.
 
 ## 1.1.0 / 2026-07-29
 
