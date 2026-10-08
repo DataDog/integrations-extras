@@ -1,0 +1,32 @@
+[
+    {
+        "agent_version": "7.60.0",
+        "integration": "KurrentDB",
+        "check": "kurrentdb.openmetrics.health",
+        "statuses": [
+            "ok",
+            "critical"
+        ],
+        "groups": [
+            "host",
+            "endpoint"
+        ],
+        "name": "KurrentDB OpenMetrics endpoint health",
+        "description": "Returns `CRITICAL` if the Agent is unable to connect to the KurrentDB OpenMetrics endpoint, otherwise returns `OK`."
+    },
+    {
+        "agent_version": "7.60.0",
+        "integration": "KurrentDB",
+        "check": "kurrentdb.api.can_connect",
+        "statuses": [
+            "ok",
+            "critical"
+        ],
+        "groups": [
+            "host",
+            "endpoint"
+        ],
+        "name": "KurrentDB API endpoint connectivity",
+        "description": "Returns `CRITICAL` if the Agent is unable to collect from a KurrentDB JSON API endpoint listed in `endpoints`, otherwise returns `OK`."
+    }
+]
