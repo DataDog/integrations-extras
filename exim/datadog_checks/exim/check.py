@@ -34,6 +34,11 @@ class EximCheck(AgentCheck):
             for queue in queue_stats:
                 self.gauge('queue.count', int(queue.Count), tags=tags + [f'domain:{queue.Domain}'])
                 self.gauge('queue.volume', self.parse_size(queue.Volume), tags=tags + [f'domain:{queue.Domain}'])
+                oldest_age = self.parse_age(queue.Oldest)
+                if oldest_age is None:
+                    self.log.debug('Cannot parse the Oldest value %r for domain %s', queue.Oldest, queue.Domain)
+                else:
+                    self.gauge('queue.oldest_age', oldest_age, tags=tags + [f'domain:{queue.Domain}'])
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags)
         except Exception as e:
             self.log.warning("Cannot get exim queue info: %s", e)
@@ -174,3 +179,20 @@ class EximCheck(AgentCheck):
             number, unit = size_string, 'B'
         units = {"B": 1, "KB": 1024, "MB": 1024**2, "GB": 1024**3, "TB": 1024**4}
         return int(float(number) * units[unit.upper()])
+
+    @staticmethod
+    def parse_age(age_string):
+        """
+        Convert an Oldest/Newest value printed by exiqsumm to seconds, or return None.
+
+        exiqsumm copies the age from `exim -bp`, which prints whole minutes up to 90 minutes,
+        rounded hours up to 72 hours and rounded days beyond that (for example `5m`, `14h`, `4d`,
+        `100d`). On an empty queue exiqsumm prints `0m` as the oldest and `0000d` as the newest
+        age. Seconds and weeks are never printed but are accepted for robustness.
+        """
+        match = re.match(r'^(\d+)([smhdw])$', (age_string or '').strip())
+        if not match:
+            return None
+        number, unit = match.groups()
+        units = {'s': 1, 'm': 60, 'h': 3600, 'd': 86400, 'w': 604800}
+        return int(number) * units[unit]
