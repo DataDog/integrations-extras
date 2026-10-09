@@ -15,8 +15,7 @@
             "id": 6544225029855812,
             "definition": {
               "type": "note",
-              "title": "About This Overview Dashboard",
-              "content": "The Redis Enterprise Overview Dashboard provides a visualization of key Redis metrics at the cluster level. A cluster in Redis Enterprise is a collection of nodes with Redis Enterprise Software installed on them which may contain a number of Redis Enterprise Databases, which may each contain one or more shards. Metrics such as throughput, used memory, key counts, node counts, and latency are all captured at the top cluster level in this dashboard.",
+              "content": "## About This Overview Dashboard\n\nThe Redis Enterprise Overview Dashboard provides a visualization of key Redis metrics at the cluster level. A cluster in Redis Enterprise is a collection of nodes with Redis Enterprise Software installed on them which may contain a number of Redis Enterprise Databases, which may each contain one or more shards. Metrics such as throughput, used memory, key counts, node counts, and latency are all captured at the top cluster level in this dashboard.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -46,7 +45,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.database_syncer_config{$cluster} by {cluster,db_name}",
+                      "query": "avg:rdse2.db_config{$cluster} by {cluster,db_name}",
                       "aggregator": "avg"
                     }
                   ],
@@ -90,8 +89,7 @@
             "id": 7032118608350450,
             "definition": {
               "type": "note",
-              "title": "About This Integration",
-              "content": "This integration makes it possible to:\n\n- Collect and display metrics not available in the admin console\n\n- Set up automatic alerts for node or cluster events\n\n- Display these metrics alongside data from other systems",
+              "content": "## About This Integration\n\nThis integration makes it possible to:\n\n- Collect and display metrics not available in the admin console\n\n- Set up automatic alerts for node or cluster events\n\n- Display these metrics alongside data from other systems",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -272,8 +270,7 @@
             "id": 1508854872890636,
             "definition": {
               "type": "note",
-              "title": "About the Latency Section",
-              "content": "Latency is the length of time it takes for the system to respond.",
+              "content": "## About the Latency Section\n\nLatency is the length of time it takes for the system to respond.",
               "background_color": "orange",
               "font_size": "14",
               "text_align": "left",
@@ -408,8 +405,7 @@
             "id": 5205778284461508,
             "definition": {
               "type": "note",
-              "title": "About the Memory Section",
-              "content": "Memory limits how much data Redis can store.\n",
+              "content": "## About the Memory Section\n\nMemory limits how much data Redis can store.\n",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "left",
@@ -503,8 +499,7 @@
             "id": 4698654642100834,
             "definition": {
               "type": "note",
-              "title": "About the Keys Section",
-              "content": "Keys represent individual pieces of data in Redis. Here we take a look at the cumulative Redis Keyspace for your cluster\n\n",
+              "content": "## About the Keys Section\n\nKeys represent individual pieces of data in Redis. Here we take a look at the cumulative Redis Keyspace for your cluster\n\n",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -592,8 +587,7 @@
             "id": 3606284556444836,
             "definition": {
               "type": "note",
-              "title": "About the Requests Section",
-              "content": "Requests represent read, write, and all other requests. In this section we look at cluster level throughput metrics",
+              "content": "## About the Requests Section\n\nRequests represent read, write, and all other requests. In this section we look at cluster level throughput metrics",
               "background_color": "yellow",
               "font_size": "14",
               "text_align": "left",
@@ -717,8 +711,7 @@
             "id": 6536426319322986,
             "definition": {
               "type": "note",
-              "title": "About the Database Section",
-              "content": "The input, and/or output, of a database is the measure of how much information is being processed.",
+              "content": "## About the Database Section\n\nThe input, and/or output, of a database is the measure of how much information is being processed.",
               "background_color": "pink",
               "font_size": "14",
               "text_align": "left",
@@ -755,16 +748,6 @@
                 {
                   "formulas": [
                     {
-                      "alias": "egress",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "byte"
-                        }
-                      },
-                      "formula": "per_second(query1)"
-                    },
-                    {
                       "alias": "ingress",
                       "number_format": {
                         "unit": {
@@ -772,19 +755,29 @@
                           "unit_name": "byte"
                         }
                       },
-                      "formula": "per_second(query2)"
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "egress",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.endpoint_ingress{$cluster} by {db}.as_count()"
+                      "query": "sum:rdse2.endpoint_ingress.count{$cluster} by {db}.as_rate()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse2.endpoint_egress{$cluster} by {db}.as_count()"
+                      "query": "sum:rdse2.endpoint_egress.count{$cluster} by {db}.as_rate()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -807,9 +800,8 @@
           {
             "id": 457640250423346,
             "definition": {
-              "title":"Ingress",
               "type": "note",
-              "content": "- ingress - Rate of outgoing network traffic from the DB\n- egress - Rate of incoming network traffic to DB",
+              "content": "## Ingress\n\n- ingress - Rate of incoming network traffic to the DB\n- egress - Rate of outgoing network traffic from the DB",
               "background_color": "vivid_pink",
               "font_size": "12",
               "text_align": "left",
@@ -840,19 +832,26 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:rdse2.endpoint_client_connections{*}",
+                      "query": "sum:rdse2.endpoint_client_connections.total{*}",
                       "aggregator": "avg"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:rdse2.endpoint_client_disconnections{*}",
+                      "query": "sum:rdse2.endpoint_client_disconnections.total{*}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:rdse2.endpoint_proxy_disconnections.total{*}",
                       "aggregator": "avg"
                     }
                   ],
                   "formulas": [
                     {
-                      "formula": "query1 - query2"
+                      "formula": "query1 - query2 - query3",
+                      "alias": "current connections"
                     }
                   ]
                 }
@@ -895,8 +894,7 @@
             "id": 5309930525296140,
             "definition": {
               "type": "note",
-              "title": "About the Shard Section",
-              "content": "The individual partitions of a clustered database and the keys they contain can tells us if they are unbalanced.",
+              "content": "## About the Shard Section\n\nThe individual partitions of a clustered database and the keys they contain can tells us if they are unbalanced.",
               "background_color": "pink",
               "font_size": "14",
               "text_align": "left",
@@ -983,8 +981,7 @@
             "id": 5424811187083390,
             "definition": {
               "type": "note",
-              "title": "Shard Keys",
-              "content": "- expired - Rate keys expired in DB\n- evicted - Rate of key evictions from DB\n- trimmed - The number of keys that were trimmed in the current or last resharding process",
+              "content": "## Shard Keys\n\n- expired - Rate keys expired in DB\n- evicted - Rate of key evictions from DB\n- trimmed - The number of keys that were trimmed in the current or last resharding process",
               "background_color": "vivid_pink",
               "font_size": "12",
               "text_align": "left",
