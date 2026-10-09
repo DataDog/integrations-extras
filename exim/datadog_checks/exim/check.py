@@ -7,6 +7,8 @@ from typing import Any  # noqa: F401
 from datadog_checks.base import AgentCheck, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
+# Printed between the plain and the `exiqsumm -f` summary; never part of exiqsumm output.
+FROZEN_SUMMARY_MARKER = '@@exiqsumm-f@@'
 DEFAULT_EXIM_PATH = '/usr/sbin/exim'
 DEFAULT_EXIQSUMM_PATH = '/usr/sbin/exiqsumm'
 # systemd unit names probed when `service_name` is not set: Debian/Ubuntu, then Red Hat based systems.
@@ -30,8 +32,13 @@ class EximCheck(AgentCheck):
 
         tags = config['tags']
         try:
-            queue_stats = self._get_queue_stats()
+            queue_stats, frozen_stats = self._get_queue_summaries()
+            frozen_counts = self._get_frozen_counts(queue_stats, frozen_stats)
             for queue in queue_stats:
+                if frozen_counts is not None:
+                    self.gauge(
+                        'queue.frozen.count', frozen_counts.get(queue.Domain, 0), tags=tags + [f'domain:{queue.Domain}']
+                    )
                 self.gauge('queue.count', int(queue.Count), tags=tags + [f'domain:{queue.Domain}'])
                 self.gauge('queue.volume', self.parse_size(queue.Volume), tags=tags + [f'domain:{queue.Domain}'])
                 oldest_age = self.parse_age(queue.Oldest)
@@ -123,16 +130,32 @@ class EximCheck(AgentCheck):
 
         `sudo -n` makes sudo fail immediately instead of prompting for a password when no
         matching NOPASSWD rule exists; its error message ends up in the service check.
+
+        The captured output is summarized twice: as is, and with `exiqsumm -f`, which moves
+        recipients of frozen messages to separate `<domain> (f)` rows. Both summaries come from
+        a single `exim -bp` run, so the spool is only scanned once.
         """
         config = self._get_config()
         exim_command = f'{shlex.quote(config["exim_path"])} -bp'
         if config['use_sudo']:
             exim_command = f'sudo -n {exim_command}'
         exiqsumm_command = shlex.quote(config['exiqsumm_path'])
-        script = f'out=$({exim_command}) || exit $?; printf \'%s\\n\' "$out" | {exiqsumm_command}'
+        script = (
+            f'out=$({exim_command}) || exit $?; '
+            f'printf \'%s\\n\' "$out" | {exiqsumm_command} && '
+            f'echo {FROZEN_SUMMARY_MARKER} && '
+            f'printf \'%s\\n\' "$out" | {exiqsumm_command} -f'
+        )
         return ['/bin/sh', '-c', script]
 
     def _get_queue_stats(self):
+        return self._get_queue_summaries()[0]
+
+    def _get_queue_summaries(self):
+        """
+        Run the command and return the rows of the plain summary and of the `exiqsumm -f`
+        summary. The latter is None when the output does not contain it.
+        """
         command = self._build_command()
         # exiqsumm always prints a header and a TOTAL row, so empty output means the pipeline
         # itself did not run and must be treated as a failure.
@@ -142,6 +165,14 @@ class EximCheck(AgentCheck):
                 'Command `{}` exited with status {}: {}'.format(command[2], returncode, (err or '').strip())
             )
 
+        lines = output.splitlines()
+        if FROZEN_SUMMARY_MARKER in lines:
+            index = lines.index(FROZEN_SUMMARY_MARKER)
+            return self._parse_summary(lines[:index]), self._parse_summary(lines[index + 1 :])
+        return self._parse_summary(lines), None
+
+    @staticmethod
+    def _parse_summary(lines):
         # sample output
         '''
         Count  Volume  Oldest  Newest  Domain
@@ -152,17 +183,44 @@ class EximCheck(AgentCheck):
         '''
         header = []
         data = []
-        for line in filter(None, output.splitlines()):
+        for line in filter(None, lines):
             if '----' in line:
                 continue
             if not header:
                 header = line.split()
                 queue = namedtuple('Queue', header)
                 continue
-            line_contents = line.split()
+            # The last column can contain a space with `exiqsumm -f`, for example `gmail.com (f)`.
+            line_contents = line.split(None, len(header) - 1)
             if line_contents:
                 data.append(queue(*line_contents))
         return data
+
+    def _get_frozen_counts(self, queue_stats, frozen_stats):
+        """
+        Return the number of recipients of frozen messages per domain, including TOTAL.
+
+        `exiqsumm -f` splits each domain into a `<domain>` row for recipients of messages that
+        are not frozen and a `<domain> (f)` row for frozen ones. The frozen count is derived as
+        the plain count minus the not-frozen count instead of reading the `(f)` rows, because
+        exiqsumm truncates the domain column to 80 characters, which cuts the ` (f)` suffix off
+        domains longer than 76 characters. The derivation stays exact up to 78 characters;
+        beyond that both rows collapse into one and the frozen count can only be too low.
+        """
+        if frozen_stats is None:
+            self.log.warning('The `exiqsumm -f` summary is missing from the output, skipping exim.queue.frozen.count')
+            return None
+
+        not_frozen = {}
+        for row in frozen_stats:
+            not_frozen[row.Domain] = not_frozen.get(row.Domain, 0) + int(row.Count)
+
+        counts = {}
+        for row in queue_stats:
+            if row.Domain != 'TOTAL':
+                counts[row.Domain] = max(0, int(row.Count) - not_frozen.get(row.Domain, 0))
+        counts['TOTAL'] = sum(counts.values())
+        return counts
 
     @staticmethod
     def parse_size(size_string):
