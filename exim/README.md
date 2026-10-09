@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Exim][1] through the Datadog Agent. It runs `exim -bp | exiqsumm` and reports the number and volume of queued messages per recipient domain.
+This check monitors [Exim][1] through the Datadog Agent. It runs `exim -bp` once, summarizes the queue with `exiqsumm`, and reports the size, volume, age and number of frozen entries of the mail queue per recipient domain. It also reports whether the Exim systemd unit is running.
 
 ## Setup
 
@@ -85,7 +85,11 @@ sudo -u dd-agent /bin/sh -c 'sudo -n /usr/sbin/exim -bp | /usr/sbin/exiqsumm'
 
 See [metadata.csv][8] for a list of metrics provided by this integration.
 
-Metrics are tagged with `domain:<RECIPIENT_DOMAIN>`. The `domain:TOTAL` series summarizes the whole queue. Volumes are reported in bytes, converted from the `KB` and `MB` values that `exiqsumm` rounds to.
+Metrics are tagged with `domain:<RECIPIENT_DOMAIN>`. The `domain:TOTAL` series summarizes the whole queue. Like `exiqsumm`, the counts are per undelivered recipient, so a message to two domains is counted once for each domain.
+
+- `exim.queue.count` and `exim.queue.volume`: the number of queued recipients and their volume in bytes, converted from the `KB` and `MB` values that `exiqsumm` rounds to.
+- `exim.queue.oldest_age`: the age in seconds of the oldest queued message. Exim reports ages in minutes up to 90 minutes, in rounded hours up to 72 hours and in rounded days beyond that, so the value has the same resolution.
+- `exim.queue.frozen.count`: the number of queued recipients of frozen messages. Exim does not retry frozen messages until they are thawed or removed, so a value above `0` usually needs attention. For recipient domains longer than 78 characters the value can be too low, because `exiqsumm` truncates the domain column.
 
 ### Events
 
