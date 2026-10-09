@@ -95,6 +95,16 @@ The Exim integration does not include any events.
 
 See [service_checks.json][9] for a list of service checks provided by this integration.
 
+`exim.service.running` reports the state of the Exim systemd unit, using `systemctl show -p LoadState,ActiveState <unit>`:
+
+- `OK` when the unit is `active`.
+- `CRITICAL` when the unit exists but is in any other state, such as `inactive` or `failed`.
+- `UNKNOWN` when no Exim unit is found or `systemctl` is not available, for example on hosts without systemd. Queue metrics are still collected.
+
+When `service_name` is not set, the check tries the `exim4` unit (Debian, Ubuntu) and then `exim` (Red Hat based systems).
+
+The core [systemd integration][11] monitors any systemd unit, including Exim, with more detail. `exim.service.running` is a convenience for hosts where Exim is the only unit you want to monitor.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
@@ -110,3 +120,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://github.com/DataDog/integrations-extras/blob/master/exim/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/exim/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
+[11]: https://docs.datadoghq.com/integrations/systemd/
