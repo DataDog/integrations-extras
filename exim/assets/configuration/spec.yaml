@@ -11,8 +11,8 @@ files:
       description: |
         Absolute path to the `exim` binary.
 
-        An absolute path is used by default because the environment the Agent runs in
-        often does not have `/usr/sbin` in its PATH.
+        An absolute path is used by default because the PATH the check runs with does not
+        always include `/usr/sbin`, for example when the check is run manually from a non-root shell.
       value:
         type: string
         example: /usr/sbin/exim

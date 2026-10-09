@@ -22,7 +22,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the exim che
 
 ### Prerequisites
 
-The check runs `exim -bp` and pipes its output through `exiqsumm`, so both utilities must be installed on the host. The check uses the absolute paths `/usr/sbin/exim` and `/usr/sbin/exiqsumm` by default because the Agent's environment often does not have `/usr/sbin` in its `PATH`. Set `exim_path` and `exiqsumm_path` if your installation uses other locations.
+The check runs `exim -bp` and pipes its output through `exiqsumm`, so both utilities must be installed on the host. The check uses the absolute paths `/usr/sbin/exim` and `/usr/sbin/exiqsumm` by default because the `PATH` the check runs with does not always include `/usr/sbin`, for example when the check is run manually from a non-root shell. Set `exim_path` and `exiqsumm_path` if your installation uses other locations.
 
 #### Queue listing permissions
 
