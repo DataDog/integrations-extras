@@ -7,4 +7,35 @@ files:
     - template: init_config/default
   - template: instances
     options:
+    - name: exim_path
+      description: |
+        Absolute path to the `exim` binary.
+
+        An absolute path is used by default because the PATH the check runs with does not
+        always include `/usr/sbin`, for example when the check is run manually from a non-root shell.
+      value:
+        type: string
+        example: /usr/sbin/exim
+    - name: exiqsumm_path
+      description: |
+        Absolute path to the `exiqsumm` utility that summarizes the output of `exim -bp`.
+      value:
+        type: string
+        example: /usr/sbin/exiqsumm
+    - name: use_sudo
+      description: |
+        Run `exim -bp` through `sudo -n` (non-interactive, fails instead of prompting for a password).
+
+        Exim only lets admin users list the queue while `queue_list_requires_admin` is true,
+        which is the default. On such an installation the Agent user needs passwordless sudo
+        for this single command.
+
+        Example /etc/sudoers entry (adjust the path if `exim_path` is changed):
+          dd-agent ALL=(root) NOPASSWD:/usr/sbin/exim -bp
+
+        On Red Hat based systems, also add:
+          Defaults:dd-agent !requiretty
+      value:
+        type: boolean
+        example: false
     - template: instances/default
