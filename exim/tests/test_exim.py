@@ -13,7 +13,19 @@ from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.exim import EximCheck
 
 SUBPROCESS_OUTPUT = 'datadog_checks.exim.check.get_subprocess_output'
-DEFAULT_SCRIPT = 'out=$(/usr/sbin/exim -bp) || exit $?; printf \'%s\\n\' "$out" | /usr/sbin/exiqsumm'
+
+
+def expected_script(exim, exiqsumm):
+    # `exim -bp` runs once; its output is summarized as is and with `exiqsumm -f`.
+    return (
+        f'out=$({exim} -bp) || exit $?; '
+        f'printf \'%s\\n\' "$out" | {exiqsumm} && '
+        'echo @@exiqsumm-f@@ && '
+        f'printf \'%s\\n\' "$out" | {exiqsumm} -f'
+    )
+
+
+DEFAULT_SCRIPT = expected_script('/usr/sbin/exim', '/usr/sbin/exiqsumm')
 
 
 def exiqsumm_mock():
@@ -117,23 +129,23 @@ def test_emits_critical_service_check_on_empty_output(dd_run_check, aggregator, 
         pytest.param({}, DEFAULT_SCRIPT, id='defaults'),
         pytest.param(
             {'exim_path': '/opt/exim/bin/exim', 'exiqsumm_path': '/opt/exim/bin/exiqsumm'},
-            'out=$(/opt/exim/bin/exim -bp) || exit $?; printf \'%s\\n\' "$out" | /opt/exim/bin/exiqsumm',
+            expected_script('/opt/exim/bin/exim', '/opt/exim/bin/exiqsumm'),
             id='custom_paths',
         ),
         pytest.param(
             {'exim_path': '/opt/exim 4/exim', 'exiqsumm_path': '/opt/exim 4/exiqsumm'},
-            'out=$(\'/opt/exim 4/exim\' -bp) || exit $?; printf \'%s\\n\' "$out" | \'/opt/exim 4/exiqsumm\'',
+            expected_script("'/opt/exim 4/exim'", "'/opt/exim 4/exiqsumm'"),
             id='paths_are_shell_quoted',
         ),
         pytest.param(
             {'use_sudo': True},
-            'out=$(sudo -n /usr/sbin/exim -bp) || exit $?; printf \'%s\\n\' "$out" | /usr/sbin/exiqsumm',
+            expected_script('sudo -n /usr/sbin/exim', '/usr/sbin/exiqsumm'),
             id='use_sudo',
         ),
         pytest.param({'use_sudo': False}, DEFAULT_SCRIPT, id='use_sudo_disabled'),
         pytest.param(
             {'use_sudo': True, 'exim_path': '/usr/local/sbin/exim'},
-            'out=$(sudo -n /usr/local/sbin/exim -bp) || exit $?; printf \'%s\\n\' "$out" | /usr/sbin/exiqsumm',
+            expected_script('sudo -n /usr/local/sbin/exim', '/usr/sbin/exiqsumm'),
             id='use_sudo_custom_exim_path',
         ),
     ],
