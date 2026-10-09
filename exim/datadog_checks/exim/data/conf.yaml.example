@@ -14,6 +14,41 @@ init_config:
 instances:
 
   -
+    ## @param exim_path - string - optional - default: /usr/sbin/exim
+    ## Absolute path to the `exim` binary.
+    ##
+    ## An absolute path is used by default because the PATH the check runs with does not
+    ## always include `/usr/sbin`, for example when the check is run manually from a non-root shell.
+    #
+    # exim_path: /usr/sbin/exim
+
+    ## @param exiqsumm_path - string - optional - default: /usr/sbin/exiqsumm
+    ## Absolute path to the `exiqsumm` utility that summarizes the output of `exim -bp`.
+    #
+    # exiqsumm_path: /usr/sbin/exiqsumm
+
+    ## @param use_sudo - boolean - optional - default: false
+    ## Run `exim -bp` through `sudo -n` (non-interactive, fails instead of prompting for a password).
+    ##
+    ## Exim only lets admin users list the queue while `queue_list_requires_admin` is true,
+    ## which is the default. On such an installation the Agent user needs passwordless sudo
+    ## for this single command.
+    ##
+    ## Example /etc/sudoers entry (adjust the path if `exim_path` is changed):
+    ##   dd-agent ALL=(root) NOPASSWD:/usr/sbin/exim -bp
+    ##
+    ## On Red Hat based systems, also add:
+    ##   Defaults:dd-agent !requiretty
+    #
+    # use_sudo: false
+
+    ## @param service_name - string - optional
+    ## Name of the systemd unit that runs Exim, used by the `exim.service.running` service check.
+    ##
+    ## When unset, the check tries `exim4` (Debian, Ubuntu) and then `exim` (Red Hat based systems).
+    #
+    # service_name: exim4
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##

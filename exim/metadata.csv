@@ -1,3 +1,5 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
 exim.queue.count,gauge,,unit,,The number of messages in a given mail queue,0,exim,queue_size,
+exim.queue.frozen.count,gauge,,unit,,"Number of recipients of frozen messages in a given mail queue, counted per recipient domain like exim.queue.count",-1,exim,frozen,
 exim.queue.volume,gauge,,byte,,The volume of messages in a given mail queue,0,exim,queue_size,
+exim.queue.oldest_age,gauge,,second,,"Approximate age of the oldest message in a given mail queue, with a resolution of minutes, hours or days",-1,exim,oldest_age,
