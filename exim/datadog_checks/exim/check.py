@@ -1,5 +1,6 @@
 import re
 import shlex
+import shutil
 from collections import namedtuple
 from typing import Any  # noqa: F401
 
@@ -8,6 +9,8 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 DEFAULT_EXIM_PATH = '/usr/sbin/exim'
 DEFAULT_EXIQSUMM_PATH = '/usr/sbin/exiqsumm'
+# systemd unit names probed when `service_name` is not set: Debian/Ubuntu, then Red Hat based systems.
+DEFAULT_SERVICE_NAMES = ('exim4', 'exim')
 
 
 class EximCheck(AgentCheck):
@@ -15,6 +18,7 @@ class EximCheck(AgentCheck):
     __NAMESPACE__ = 'exim'
 
     SERVICE_CHECK_NAME = 'returns.output'
+    SERVICE_RUNNING_CHECK_NAME = 'service.running'
 
     def __init__(self, name, init_config, instances):
         super(EximCheck, self).__init__(name, init_config, instances)
@@ -35,6 +39,8 @@ class EximCheck(AgentCheck):
             self.log.warning("Cannot get exim queue info: %s", e)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
+        self._check_service_running(tags, config['service_name'])
+
     def _get_config(self):
         tags = self.instance.get('tags', [])
         instance_config = {
@@ -42,8 +48,61 @@ class EximCheck(AgentCheck):
             'exim_path': self.instance.get('exim_path', DEFAULT_EXIM_PATH),
             'exiqsumm_path': self.instance.get('exiqsumm_path', DEFAULT_EXIQSUMM_PATH),
             'use_sudo': is_affirmative(self.instance.get('use_sudo', False)),
+            'service_name': self.instance.get('service_name') or None,
         }
         return instance_config
+
+    def _check_service_running(self, tags, service_name):
+        """
+        Submit `exim.service.running` based on the state of the Exim systemd unit.
+
+        Any error results in UNKNOWN and never affects the queue metrics collected before.
+        """
+        try:
+            status, message = self._get_service_status(service_name)
+        except Exception as e:
+            status, message = AgentCheck.UNKNOWN, 'Cannot determine the state of the Exim service: {}'.format(e)
+        if status != AgentCheck.OK:
+            self.log.warning(message)
+        self.service_check(
+            self.SERVICE_RUNNING_CHECK_NAME, status, tags, message=message if status != AgentCheck.OK else None
+        )
+
+    def _get_service_status(self, service_name):
+        """
+        Return the service check status and message for the Exim systemd unit.
+
+        `systemctl show` is used instead of `systemctl is-active`, which reports a stopped unit and a
+        nonexistent unit the same way. A unit whose LoadState is `not-found` does not exist, so the next
+        candidate is tried.
+        """
+        systemctl = shutil.which('systemctl')
+        if systemctl is None:
+            return AgentCheck.UNKNOWN, '`systemctl` was not found; this service check requires systemd'
+
+        candidates = [service_name] if service_name else list(DEFAULT_SERVICE_NAMES)
+        for unit in candidates:
+            command = [systemctl, 'show', '-p', 'LoadState,ActiveState', unit]
+            output, err, returncode = get_subprocess_output(command, self.log, raise_on_empty_output=False)
+            if returncode != 0:
+                return AgentCheck.UNKNOWN, 'Command `{}` exited with status {}: {}'.format(
+                    ' '.join(command), returncode, (err or '').strip()
+                )
+
+            properties = dict(line.split('=', 1) for line in (output or '').splitlines() if '=' in line)
+            load_state = properties.get('LoadState')
+            active_state = properties.get('ActiveState')
+            if not load_state or not active_state:
+                return AgentCheck.UNKNOWN, 'Unexpected output from `{}`: {!r}'.format(' '.join(command), output)
+            if load_state == 'not-found':
+                continue
+            if active_state == 'active':
+                return AgentCheck.OK, None
+            return AgentCheck.CRITICAL, 'Exim unit `{}` is {} (LoadState={})'.format(unit, active_state, load_state)
+
+        return AgentCheck.UNKNOWN, 'No Exim systemd unit found (tried: {}); set `service_name` to the unit name'.format(
+            ', '.join(candidates)
+        )
 
     def _build_command(self):
         """

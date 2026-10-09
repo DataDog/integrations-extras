@@ -38,4 +38,13 @@ files:
       value:
         type: boolean
         example: false
+    - name: service_name
+      description: |
+        Name of the systemd unit that runs Exim, used by the `exim.service.running` service check.
+
+        When unset, the check tries `exim4` (Debian, Ubuntu) and then `exim` (Red Hat based systems).
+      value:
+        type: string
+        display_default: null
+        example: exim4
     - template: instances/default

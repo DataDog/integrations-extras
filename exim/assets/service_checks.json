@@ -10,5 +10,18 @@
         ],
         "name": "Returns output",
         "description": "Returns `CRITICAL` if the Agent is unable to run the command to retrieve the exim queue state."
+    },
+    {
+        "agent_version": "7.7.0",
+        "integration": "exim",
+        "check": "exim.service.running",
+        "groups": [],
+        "statuses": [
+            "ok",
+            "critical",
+            "unknown"
+        ],
+        "name": "Service running",
+        "description": "Returns `OK` if the Exim systemd unit is active, `CRITICAL` if it is in any other state, and `UNKNOWN` if no Exim unit is found or systemd is not available."
     }
 ]
