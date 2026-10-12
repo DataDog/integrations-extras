@@ -1,0 +1,59 @@
+name: RavenDB
+files:
+- name: ravendb.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: openmetrics_endpoint
+      description: URL to the RavenDB Prometheus/OpenMetrics endpoint.
+      required: true
+      value:
+        type: string
+        example: http://127.0.0.1:8080/admin/monitoring/v1/prometheus
+    - name: enable_database_metrics
+      description: Enable collection of database-level metrics (tagged by database_name).
+      value:
+        type: boolean
+        example: false
+        default: false
+    - name: enable_index_metrics
+      description: Enable collection of index-level metrics (tagged by database_name and index_name).
+      value:
+        type: boolean
+        example: false
+        default: false
+    - name: enable_collection_metrics
+      description: Enable collection of collection-level metrics (tagged by database_name and collection_name).
+      value:
+        type: boolean
+        example: false
+        default: false
+    - name: enable_gc_metrics
+      description: Enable collection of GC (Garbage Collection) metrics exposed by RavenDB.
+      value:
+        type: boolean
+        example: false
+        default: false
+    - name: exclude_metrics
+      description: |
+        A list of metrics to exclude. Matching happens before the Prometheus-to-Datadog
+        translation, so entries must be raw Prometheus metric names
+        (for example `ravendb_network_total_requests`), not Datadog names
+        (for example `network.total.requests.count`).
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - "ravendb_network_total_requests"
+          - "ravendb_database_indexes_errors_count"
+    - template: instances/default
+  - template: logs
+    example:
+    - type: file
+      path: /var/log/ravendb/logs/*.log
+      source: ravendb
+      service: ravendb

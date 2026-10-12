@@ -22,8 +22,8 @@ The Luciq integration for Datadog provides comprehensive mobile app monitoring a
 ### Prerequisites
 
 - A Datadog account with access to App Builder
-- An Luciq account with access to your project's App Health dashboard
-- An Luciq API token and email (contact [Luciq Support][2] to obtain these)
+- A Luciq account with access to your project's App Health dashboard
+- A Luciq API token and email (contact [Luciq Support][2] to obtain these)
 
 ### Installation
 
@@ -35,7 +35,7 @@ The Luciq integration for Datadog provides comprehensive mobile app monitoring a
    - To create a new connection:
      1. Click **+ New Connection** and select `HTTP Connection`.
      2. Configure the following:
-        - Base URL: `https://dashboard-api.instabug.com`
+        - Base URL: `https://dashboard-api.luciq.ai`
         - Authentication Type: Token Auth
         - Token fields:
           - `token`: Your Luciq API token
@@ -67,6 +67,6 @@ Additional helpful documentation, links, and articles:
 [1]: http://luciq.ai
 [2]: mailto:support@luciq.ai
 [3]: /app-builder/blueprints
-[4]: https://docs.luciq.ai/docs/introduction
+[4]: https://docs.luciq.ai/getting-started/introduction
 [5]: https://www.datadoghq.com/blog/instabug-mobile-usability/
 [6]: /app-builder/apps/list
