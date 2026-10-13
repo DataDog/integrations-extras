@@ -2,13 +2,14 @@
   "manifest_version": "2.0.0",
   "app_uuid": "c3ff5bcd-f252-4c9a-a17b-b7e39a60ecd4",
   "app_id": "cyberhaven",
+  "owner": "integrations-developer-platform",
   "display_on_public_website": false,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Monitors Cyberhaven incident, events and audit logs.",
+    "description": "Monitors Cyberhaven incidents, events and audit logs.",
     "title": "Cyberhaven",
     "media": [],
     "classifier_tags": [
@@ -38,6 +39,17 @@
     },
     "logs": {
       "source": "cyberhaven"
+    },
+    "dashboards": {
+      "Cyberhaven - Audit": "assets/dashboards/cyberhaven_audit.json",
+      "Cyberhaven - Events": "assets/dashboards/cyberhaven_events.json",
+      "Cyberhaven - Incidents": "assets/dashboards/cyberhaven_incidents.json",
+      "Cyberhaven - Troubleshooting": "assets/dashboards/cyberhaven_troubleshooting.json"
+    },
+    "monitors": {
+      "[Cyberhaven] Audit logs not received in Datadog": "assets/monitors/cyberhaven_audit_logs_missing.json",
+      "[Cyberhaven] Event logs not received in Datadog": "assets/monitors/cyberhaven_event_logs_missing.json",
+      "[Cyberhaven] Incident logs not received in Datadog": "assets/monitors/cyberhaven_incident_logs_missing.json"
     }
   },
   "author": {
@@ -46,4 +58,3 @@
     "homepage": "https://www.cyberhaven.com/"
   }
 }
-

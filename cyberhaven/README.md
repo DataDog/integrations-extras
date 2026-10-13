@@ -1,16 +1,17 @@
 ## Overview
 
-Cyberhaven is a Data Detection and Response (DDR) platform that tracks data lineage across endpoints, browsers, and cloud apps, distinguishing genuinely risky data movement from routine activity rather than relying on static content-matching alone. It combines policy-based detection with an AI risk-scoring layer (Linea AI) that assigns a blended risk score per incident and can independently flag severity (`ai_severity`), helping SOC and insider-risk teams triage the highest-risk activity first.
+This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events** to Datadog, where they are parsed, enriched, and ready to search, visualize, and alert on. It includes:
 
-Coverage spans endpoint, browser, and cloud sensors, and extends to physical/offline vectors (removable storage, printers) and collaboration surfaces (email, IM, cloud share, source-code repositories). Every admin and user action inside the Cyberhaven console itself (logins, searches, policy/incident/role/API-key changes) is separately captured as an Audit Log, giving a "who changed what" trail independent of the DLP detection stream.
+- **Data Streaming**: Cyberhaven forwards each log type to Datadog through its own Destination and Configuration (Audit Logs, Incidents, Events).
+- **Log Processing**: A Datadog log pipeline parses, normalizes, and enriches each log type, with a separate sub-pipeline for each. Incident logs also get a `cyberhaven.incident.url` attribute that links straight to the incident in Cyberhaven.
+- **Dashboards**: Four out-of-the-box dashboards. **Audit**, **Incidents**, and **Events** let you analyze each log type (the Incidents dashboard links each incident to Cyberhaven). **Troubleshooting** shows whether data is flowing and processed correctly, with step-by-step fixes.
+- **Monitors**: Three monitor templates, one per log type, that you enable for the log types you stream. Each alerts when no logs have been received for 24 hours.
 
-This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events** to Datadog, and includes:
+### About Cyberhaven
 
-- **Data Streaming**: Cyberhaven forwards each log type to Datadog through a dedicated Streaming Destination (Audit Logs, Incidents, Events).
-- **Log Processing**: A Datadog Log Pipeline parses, normalizes, and enriches Cyberhaven data for downstream analysis.
-- **Dashboards**: Out-of-the-box dashboards for visualizing parsed and enriched Cyberhaven data.
-- **Monitors**: Out-of-the-box monitors to help identify and alert on relevant activities and conditions.
+Cyberhaven is a Data Detection and Response (DDR) platform that tracks data lineage across endpoints, browsers, and cloud apps, distinguishing genuinely risky data movement from routine activity rather than relying on static content-matching alone. It combines policy-based detection with an AI risk-scoring layer (Linea AI) that assigns a risk score per incident, helping SOC and insider-risk teams triage the highest-risk activity first.
 
+Coverage spans endpoint, browser, and cloud sensors, and extends to physical and offline vectors (removable storage, printers) and collaboration surfaces (email, IM, cloud share, source-code repositories). Every admin and user action in the Cyberhaven console itself (logins, searches, policy, incident, role, and API-key changes) is captured as an Audit Log, giving a "who changed what" trail independent of the detection stream.
 
 ## Setup
 
@@ -20,82 +21,92 @@ This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events*
 |---|---|
 | Datadog account | Cloud SIEM enabled; permission to create API keys |
 | Cyberhaven admin access | Permission to create and configure streaming destinations |
-| Datadog API key | Required. Create one following the steps below |
 
-### Configuration
+### Step 1: Gather three values
 
-#### Generate a Datadog API key
+Collect these before you open the Cyberhaven Console.
 
-1. Log in to your Datadog instance.
-2. Click your user avatar in the bottom-left corner and select **Organization Settings**.
-3. In the left sidebar, under **Access**, click **API Keys**.
-4. Click **New Key**, give it a name (for example, `forwarding-to-cyberhaven`), and click **Create Key**.
-5. Copy the generated key and store it safely.
+| Value | Used as | Where to find it |
+|---|---|---|
+| Datadog API key | `DD-API-KEY` header | In Datadog, click your avatar (bottom-left) > **Organization Settings** > **Access** > **API Keys** > **New Key**. Name it (for example, `forwarding-to-cyberhaven`), click **Create Key**, and copy the key. |
+| Datadog site | `<YOUR_DATADOG_SITE>` | In Datadog, click your avatar > **My Preferences**. The site is shown in the top-right corner (for example, `datadoghq.com`). |
+| Cyberhaven instance URL | `<YOUR_CYBERHAVEN_INSTANCE_URL>` | In the Cyberhaven Console, check your browser's address bar. It typically follows the pattern `<your-tenant-id>.cyberhaven.io`. Enter the host only, without `https://` or a path. |
 
-#### Locate your Datadog site
+The Cyberhaven instance URL is also used to build the incident links in Datadog, so a wrong value breaks them.
 
-1. Log in to your Datadog instance.
-2. Click your user avatar in the bottom-left corner and select **My Preferences**.
-3. Note your Datadog site in the top-right corner (for example, `datadoghq.com`).
+### Step 2: Quick start with Incidents
 
-#### Locate your Cyberhaven instance URL
+Start with Incidents to get data flowing and confirm it end to end. Once it works, adding Audit Logs and Events (Step 3) takes the same steps with a few different values.
 
-1. While logged in to your organization's Cyberhaven Console, check your browser's address bar.
-2. Note the host domain, which typically follows the pattern `<your-tenant-id>.cyberhaven.io`.
+Cyberhaven needs a **Destination** (where logs are sent) and a **Configuration** (what is sent and when). Both are under **Settings > Data Export** in the Cyberhaven Console.
 
-#### Forward logs from Cyberhaven to Datadog
+**Create the destination**
 
-The Cyberhaven Datadog integration supports collection, parsing, and visualization for Audit Logs, Incidents, and Events. Based on your organization's needs, you can configure any single source independently, combine any two, or enable all three.
-
-For each log type, you create a **Destination** (where the logs are sent) and a **Configuration** (what gets sent and when) in the Cyberhaven Console under **Settings > Data Export**.
-
-**Configure Audit Logs**
-
-1. Under **Settings > Data Export**, click **Destinations > Add new**.
-2. Name the destination (for example, `audit-logs-to-datadog-destination`).
+1. Click **Destinations > Add new**.
+2. Name it `incident-logs-to-datadog-destination`.
 3. Set **Type** to `HTTPS`.
-4. Set **URI** to:
+4. Set **URI** to the following, replacing the two placeholders with your values from Step 1:
 
    ```text
-   https://http-intake.logs.<YOUR_DATADOG_SITE>/api/v2/logs?ddsource=cyberhaven&ddtags=cyberhaven.domain:<YOUR_CYBERHAVEN_INSTANCE_URL>,cyberhaven.logtype:cyberhaven-audit
+   https://http-intake.logs.<YOUR_DATADOG_SITE>/api/v2/logs?ddsource=cyberhaven&ddtags=cyberhaven.domain:<YOUR_CYBERHAVEN_INSTANCE_URL>,cyberhaven.logtype:cyberhaven-incidents
    ```
-
-   Replace `<YOUR_DATADOG_SITE>` and `<YOUR_CYBERHAVEN_INSTANCE_URL>` with the values from the steps above.
 5. Set **Format** to `JSON Array` and **Encoding** to `GZip`.
 6. Under **HTTP Headers**, add a header named `DD-API-KEY` with your Datadog API key as the value.
 7. Click **Save & Test**.
-8. Under **Settings > Data Export**, click **Configurations > Add new**.
-9. Name the configuration (for example, `audit-logs-to-datadog-configuration`).
-10. Set **Destination** to the destination created above, **Source** to `Audit`, and **Schedule** to `Immediate`.
-11. Ensure **Enabled** is checked, then click **Save**.
 
-**Configure Incident Logs**
+**Create the configuration**
 
-1. Repeat steps 1-7 above, naming the destination `incident-logs-to-datadog-destination` and using the logtype tag `cyberhaven.logtype:cyberhaven-incidents` in the URI.
-2. Under **Settings > Data Export**, click **Configurations > Add new**.
-3. Name the configuration (for example, `incident-logs-to-datadog-configuration`).
-4. Set **Destination** to the destination created above, **Source** to `Incidents`, and **Schedule** to `Immediate`.
-5. Set **Scope** to `Full Access`.
-6. Check **Subscribe to new incidents**, **Subscribe to incident updates**, and **Include incident event details**.
-7. Ensure **Enabled** is checked, then click **Save**.
+1. Click **Configurations > Add new**.
+2. Name it `incident-logs-to-datadog-configuration`.
+3. Set **Destination** to the destination you just created, **Source** to `Incidents`, **Schedule** to `Immediate`, and **Max records per request** to `100`.
+4. Set **Scope** to `Full Access`.
+5. Check **Subscribe to new incidents**, **Subscribe to incident updates**, and **Include incident event details**.
+6. Ensure **Enabled** is checked, then click **Save**.
 
-**Configure Event Logs**
+**Verify**
 
-1. Repeat steps 1-7 above, naming the destination `events-logs-to-datadog-destination` and using the logtype tag `cyberhaven.logtype:cyberhaven-events` in the URI.
-2. Under **Settings > Data Export**, click **Configurations > Add new**.
-3. Name the configuration (for example, `events-logs-to-datadog-configuration`).
-4. Set **Destination** to the destination created above, **Source** to `Events`, **Schedule** to `Immediate`, and **Scope** to `Full Access`.
-5. Ensure **Enabled** is checked, then click **Save**.
+In the [Log Explorer][1], search `source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`. Logs appear as new incidents are created or updated. If nothing shows up after a few minutes, open the **Cyberhaven - Troubleshooting** dashboard, or see the Support section below.
 
-### Validation
+### Step 3: Add Audit Logs and Events (optional)
 
-After saving each configuration, confirm logs are arriving by searching `source:cyberhaven` in the [Log Explorer][1].
+You can configure any single log type, combine any two, or enable all three. Repeat the Step 2 procedure for each additional log type, changing only the values below. Everything else (Type, URI pattern, Format, Encoding, `DD-API-KEY` header, Schedule, Max records, Enabled) stays the same.
+
+| | Audit Logs | Incidents (done in Step 2) | Events |
+|---|---|---|---|
+| Destination name | `audit-logs-to-datadog-destination` | `incident-logs-to-datadog-destination` | `event-logs-to-datadog-destination` |
+| `cyberhaven.logtype` value in the URI | `cyberhaven-audit` | `cyberhaven-incidents` | `cyberhaven-events` |
+| Configuration name | `audit-logs-to-datadog-configuration` | `incident-logs-to-datadog-configuration` | `event-logs-to-datadog-configuration` |
+| Configuration **Source** | `Audit` | `Incidents` | `Events` |
+| Configuration **Scope** | Not applicable | `Full Access` | `Full Access` |
+| Extra options | None | **Subscribe to new incidents**, **Subscribe to incident updates**, **Include incident event details** | None |
+
+Each log type needs its own destination, because the `cyberhaven.logtype` tag in the URI is what the Datadog pipeline uses to process it correctly.
+
+To verify each one, search `source:cyberhaven cyberhaven.logtype:<value>` in the [Log Explorer][1], using the value from the table.
+
+### Step 4: Enable monitors (optional)
+
+The integration provides three monitor templates, one per log type. They are templates, so none is active until you create it, and you only create the ones for log types you stream. A monitor for a log type you have not set up would alert after 24 hours with no logs.
+
+| Monitor template | Create it if you completed |
+|---|---|
+| [Cyberhaven] Audit logs not received in Datadog | Audit Logs (Step 3) |
+| [Cyberhaven] Incident logs not received in Datadog | Incidents (Step 2) |
+| [Cyberhaven] Event logs not received in Datadog | Events (Step 3) |
+
+1. In Datadog, go to **Monitors > Templates** and search for `Cyberhaven`.
+2. Open the template for each log type you stream and click **Create Monitor**.
+3. Under **Notify your team**, add the people or channels to alert (for example, `@your-team-email` or `@slack-your-channel`), then click **Create**.
+
+Each monitor alerts when no logs of that type have been received for 24 hours. Quiet periods can be normal, especially for Incidents (no policy matched) and Audit Logs (no console activity). If this is noisy for you, lower the monitor's priority or lengthen its evaluation window.
 
 ## Data Collected
 
 ### Logs
 
 The Cyberhaven integration collects Audit Logs, Incidents, and Events, tagged with `source:cyberhaven` and `cyberhaven.logtype:cyberhaven-audit` / `cyberhaven.logtype:cyberhaven-incidents` / `cyberhaven.logtype:cyberhaven-events`.
+
+Incident logs include `cyberhaven.incident.url`, a link that opens the incident in your Cyberhaven Console. It is shown in the Incidents dashboard (**Incident Links**) and can be used in monitors and notebooks.
 
 ### Metrics
 
@@ -105,7 +116,16 @@ Cyberhaven does not include any metrics.
 
 Cyberhaven does not include any events.
 
-## Troubleshooting
+## Support
+
+If logs are missing or not processed correctly, open the **Cyberhaven - Troubleshooting** dashboard. It shows whether each log type is arriving, whether records are tagged and processed correctly, and gives step-by-step fixes for the most common problems.
+
+The most common causes are:
+
+- A wrong Datadog site or an invalid `DD-API-KEY` in the destination (**Save & Test** shows an error).
+- A wrong `ddsource` or `cyberhaven.logtype` value in the destination URI.
+- **Format** not set to `JSON Array` or **Encoding** not set to `GZip`.
+- The configuration is not **Enabled**, or points at the wrong destination.
 
 Need help? Contact [Datadog support][2] or [Cyberhaven support](mailto:support@cyberhaven.com).
 

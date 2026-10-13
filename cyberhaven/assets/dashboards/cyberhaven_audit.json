@@ -1,0 +1,2841 @@
+{
+  "title": "Cyberhaven - Audit",
+  "description": "Admin and user activity trail from the Cyberhaven console and API: logins, policy/role changes, deletions, exports and API key activity. Source: Cyberhaven Audit Log streaming destination.",
+  "widgets": [
+    {
+      "id": 1088535448063882,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn.prod.website-files.com/64deefeac57fbbefc32df53d/67f80b8b335c5571831ff66c_cyberhaven-logo-solid-dark.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 5,
+        "height": 4
+      }
+    },
+    {
+      "id": 3954468609571952,
+      "definition": {
+        "type": "note",
+        "content": "## Cyberhaven Audit Trail\n*Who did what in the Cyberhaven console and API*\n\nThis dashboard provides complete visibility into the Cyberhaven audit trail: who did what in the Cyberhaven console and API, including logins, policy and role changes, deletions, exports and API key activity.\n\nData source: Cyberhaven Audit Log streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-audit`).\n\n**Tips**\n- Use the filters at the top (Action-Type, Object-Type, Actor, Actor-Type, Outcome, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 5,
+        "y": 0,
+        "width": 7,
+        "height": 4
+      }
+    },
+    {
+      "id": 8666714393190382,
+      "definition": {
+        "title": "Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4680543270444510,
+            "definition": {
+              "type": "note",
+              "content": "High-level view of Cyberhaven audit activity: total events, unique actors, logins, searches, deletes and exports, plus trends over time by action type, severity and actor.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 4332368673739270,
+            "definition": {
+              "title": "Total Audit Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-audit&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4772015203971354,
+            "definition": {
+              "title": "Unique Actors",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@actor"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1189135755177018,
+            "definition": {
+              "title": "Login Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:login $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8694760783232821,
+            "definition": {
+              "title": "Search Actions",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:search $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7531495437352752,
+            "definition": {
+              "title": "Delete Actions",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F57C00",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:delete $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-audit%20%40action_type%3Adelete&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4004222516227847,
+            "definition": {
+              "title": "Export Actions",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:export $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 450221905136730,
+            "definition": {
+              "title": "Audit Events Over Time by Action Type",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 8,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 6483963850451409,
+            "definition": {
+              "title": "Unique Actors Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@actor"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 2771780998613713,
+            "definition": {
+              "title": "Audit Events Over Time by Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@severity",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 16
+      }
+    },
+    {
+      "id": 2407119209611037,
+      "definition": {
+        "title": "Audit Severity",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8667493742245631,
+            "definition": {
+              "type": "note",
+              "content": "Triage view of audit events by severity (informational, low, medium) and by outcome (allowed, successful, failed, rejected), including failed logins.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 1422850179713248,
+            "definition": {
+              "title": "Medium",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @severity:medium $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "events",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2362205575519034,
+            "definition": {
+              "title": "Informational",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @severity:informational $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#78909C",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "events",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8426554222117698,
+            "definition": {
+              "title": "Low",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @severity:low $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#1E88E5",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "events",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 9943789793642728,
+            "definition": {
+              "title": "Audit Log Status",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 851103677000053,
+            "definition": {
+              "title": "Failed Logins",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:login @evt.outcome:failed $Actor $Actor-Type $Cyberhaven-Tenant $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2729769181076351,
+            "definition": {
+              "title": "Audit Outcome (allowed / successful / failed / rejected)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 4,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 5,
+              "width": 8,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 1776793289041109,
+      "definition": {
+        "title": "Audit Log Details",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6322616354807306,
+            "definition": {
+              "type": "note",
+              "content": "Raw list of recent audit events. Use the filters above to narrow down and drill into individual records.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 5362137743303498,
+            "definition": {
+              "title": "Recent Audit Events",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "actor",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "actor_type",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "actor_ip",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action_type",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "object_type",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "object_name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "severity",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "cyberhaven.domain",
+                      "width": "auto"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 6
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 28,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 6722446360719554,
+      "definition": {
+        "title": "Authentication & Session Security",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2550039300239152,
+            "definition": {
+              "type": "note",
+              "content": "Account-takeover investigation surface: logins, password, MFA and SSO resets, and who is authenticating most often.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 3790022569832041,
+            "definition": {
+              "title": "Email Invite Logins",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:email_invite_login $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4654399639315485,
+            "definition": {
+              "title": "MFA Resets",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:reset_mfa $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3302066752992996,
+            "definition": {
+              "title": "SSO/Provider Resets",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:reset_provider $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 7281551270906584,
+            "definition": {
+              "title": "Password Resets",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:reset_password $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8237384786808250,
+            "definition": {
+              "title": "Top Actors by Login Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:login $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4960036337923632,
+            "definition": {
+              "title": "Auth-Related Actions Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit (@action_type:login OR @action_type:email_invite_login OR @action_type:reset_password OR @action_type:reset_mfa OR @action_type:reset_provider) $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 36,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 122851187142999,
+      "definition": {
+        "title": "Destructive & Sensitive Changes",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2702732198201392,
+            "definition": {
+              "type": "note",
+              "content": "Change-control view of create, update and delete activity, the object types most affected, and the actors behind deletes and updates.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2168923471861729,
+            "definition": {
+              "title": "Create / Update / Delete Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit (@action_type:create OR @action_type:update OR @action_type:delete) $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1060368554562238,
+            "definition": {
+              "title": "Object Types Most Deleted/Updated",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit (@action_type:delete OR @action_type:update) $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@object_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 367565634502756,
+            "definition": {
+              "title": "Top Actors Performing Deletes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:delete $Cyberhaven-Tenant $Outcome $Object-Type $Actor-Type"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3812917479579168,
+            "definition": {
+              "title": "Top Actors Performing Updates",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:update $Cyberhaven-Tenant $Outcome $Object-Type $Actor-Type"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 48,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 5909144735673405,
+      "definition": {
+        "title": "Role, Scope & API Key Management",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1902384203597583,
+            "definition": {
+              "type": "note",
+              "content": "Privilege-escalation surface: role, scope and deployment-group assignments, and activity by API keys and system actors.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 4035567579613491,
+            "definition": {
+              "title": "Actions by System Actor",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @actor_type:system $Action-Type $Object-Type $Cyberhaven-Tenant $Outcome $Actor"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4058147685796855,
+            "definition": {
+              "title": "Actions by API Keys",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @actor_type:api_key $Action-Type $Object-Type $Cyberhaven-Tenant $Outcome $Actor"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 172419550247509,
+            "definition": {
+              "title": "Actors Performing Role/Scope Changes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit (@action_type:assign_role OR @action_type:assign_scope OR @action_type:assign_user OR @action_type:assign_deployment_group) $Cyberhaven-Tenant $Outcome $Object-Type $Actor-Type"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1235229438085302,
+            "definition": {
+              "title": "Scope / User / Deployment-Group Assignments",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit (@action_type:assign_scope OR @action_type:assign_user OR @action_type:assign_deployment_group) $Actor $Actor-Type $Cyberhaven-Tenant $Outcome $Object-Type"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3946694555547050,
+            "definition": {
+              "title": "Role Assignments (assign_role) by Object",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:assign_role $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@object_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2495045678891068,
+            "definition": {
+              "title": "Top API Key Actors",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @actor_type:api_key $Action-Type $Object-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 7,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 56,
+        "width": 12,
+        "height": 11
+      }
+    },
+    {
+      "id": 4470811918007592,
+      "definition": {
+        "title": "Actors & Access",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4814713386146226,
+            "definition": {
+              "type": "note",
+              "content": "Who is acting and from where: top actors, source IPs, user agents, tenant domains, actor types and geographic distribution.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 3221763943733237,
+            "definition": {
+              "title": "Top Actors",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 2257510777692615,
+            "definition": {
+              "title": "Top Source IPs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor_ip",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6351401358336952,
+            "definition": {
+              "title": "Top User Agents / Clients",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@actor_user_agent",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 4974524023902762,
+            "definition": {
+              "title": "Top Tenant Domains",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.domain",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 5,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6372795253141001,
+            "definition": {
+              "title": "Actor Type (user / api_key / system)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@actor_type",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 6857260258800616,
+            "definition": {
+              "title": "Actor IP Geo Distribution",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "geomap",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.iso_code",
+                          "limit": 250,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "palette": "hostmap_blues",
+                "palette_flip": false
+              },
+              "view": {
+                "focus": "WORLD"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8489372356450412,
+            "definition": {
+              "title": "Top Countries",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.iso_code",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 11,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 67,
+        "width": 12,
+        "height": 16
+      }
+    },
+    {
+      "id": 5446926228514438,
+      "definition": {
+        "title": "Actions & Objects",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5846168360985312,
+            "definition": {
+              "type": "note",
+              "content": "Volume breakdown of what is being done and to what: top action types, objects acted on, and action x object x actor combinations.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7952069810558585,
+            "definition": {
+              "title": "Top Action Types",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6582395101076549,
+            "definition": {
+              "title": "Top Objects Acted On",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@object_name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6640263953608122,
+            "definition": {
+              "title": "Events by Object Type",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@object_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 8679355533660008,
+            "definition": {
+              "title": "Action Type x Object Type x Actor (Top Combinations)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@object_type",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@actor",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Count",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 83,
+        "width": 12,
+        "height": 13
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "Outcome",
+      "prefix": "@evt.outcome",
+      "available_values": [
+        "allowed",
+        "successful",
+        "failed",
+        "rejected"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Action-Type",
+      "prefix": "@action_type",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Actor",
+      "prefix": "@actor",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Object-Type",
+      "prefix": "@object_type",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Actor-Type",
+      "prefix": "@actor_type",
+      "available_values": [
+        "user",
+        "api_key",
+        "system"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Cyberhaven-Tenant",
+      "prefix": "cyberhaven.domain",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}

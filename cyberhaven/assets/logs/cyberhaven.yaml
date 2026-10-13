@@ -1,0 +1,969 @@
+id: cyberhaven
+metric_id: cyberhaven
+backend_only: false
+facets:
+  - groups:
+      - Event
+    name: Event Name
+    path: evt.name
+    source: log
+  - groups:
+      - Event
+    name: Event Outcome
+    path: evt.outcome
+    source: log
+  - groups:
+      - User
+    name: User ID
+    path: usr.id
+    source: log
+  - groups:
+      - User
+    name: User Name
+    path: usr.name
+    source: log
+  - groups:
+      - Web Access
+    name: Client IP
+    path: network.client.ip
+    source: log
+  - groups:
+      - Web Access
+    name: User-Agent
+    path: http.useragent
+    source: log
+  - description: ""
+    facetType: list
+    groups:
+      - Cyberhaven
+    name: Logtype
+    path: cyberhaven.logtype
+    source: tag
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Cyberhaven
+    name: Tenant
+    path: cyberhaven.domain
+    source: tag
+    type: string
+pipeline:
+  type: pipeline
+  name: Cyberhaven
+  enabled: true
+  filter:
+    query: source:cyberhaven
+  processors:
+    - type: pipeline
+      name: Cyberhaven Audit Logs
+      enabled: true
+      filter:
+        query: cyberhaven.logtype:cyberhaven-audit
+      processors:
+        - type: date-remapper
+          name: Define `timestamp` as the official date of the log
+          enabled: true
+          sources:
+            - timestamp
+        - type: attribute-remapper
+          name: Map `action_type` to `evt.name`
+          enabled: true
+          sources:
+            - action_type
+          sourceType: attribute
+          target: evt.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `status` to `evt.outcome`
+          enabled: true
+          sources:
+            - status
+          sourceType: attribute
+          target: evt.outcome
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `status` to `cyberhaven.audit.status`
+          enabled: true
+          sources:
+            - status
+          sourceType: attribute
+          target: cyberhaven.audit.status
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `actor_id` to `usr.id`
+          enabled: true
+          sources:
+            - actor_id
+          sourceType: attribute
+          target: usr.id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `actor` to `usr.name`
+          enabled: true
+          sources:
+            - actor
+          sourceType: attribute
+          target: usr.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: grok-parser
+          name: Parsing actor for usr.email when actor is a user
+          enabled: true
+          source: actor
+          samples:
+            - example@exampledomain.com
+          grok:
+            supportRules: ""
+            matchRules: email_actor %{regex("[^@\\s]+@[^@\\s]+\\.[^@\\s]+"):usr.email}
+        - type: attribute-remapper
+          name: Map `actor_ip` to `network.client.ip`
+          enabled: true
+          sources:
+            - actor_ip
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: geo-ip-parser
+          name: Geo-enrich `network.client.ip`
+          enabled: true
+          sources:
+            - network.client.ip
+          target: network.client.geoip
+          ip_processing_behavior: do-nothing
+        - type: attribute-remapper
+          name: Map `actor_user_agent` to `http.useragent`
+          enabled: true
+          sources:
+            - actor_user_agent
+          sourceType: attribute
+          target: http.useragent
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: user-agent-parser
+          name: Parse `http.useragent`
+          enabled: true
+          sources:
+            - http.useragent
+          target: http.useragent_details
+          encoded: false
+          combineVersionDetails: false
+        - name: Lookup on `severity` to `status`
+          enabled: true
+          source: severity
+          target: status
+          lookupTable: |-
+            medium,warning
+            low,notice
+            informational,info
+          type: lookup-processor
+        - type: status-remapper
+          name: Define `status` as the official status of the log
+          enabled: true
+          sources:
+            - status
+        - type: string-builder-processor
+          name: Derive `cyberhaven.message` from `actor`, `action_type`, `object_type`
+          enabled: true
+          template: "%{actor_type} %{actor} performed %{action_type} on %{object_type}
+            (severity: %{severity}) [id: %{id}]"
+          target: cyberhaven.message
+          replaceMissing: true
+        - type: message-remapper
+          name: Define `cyberhaven.message` as the official message of the log
+          enabled: true
+          sources:
+            - cyberhaven.message
+        - type: attribute-remapper
+          name: Map tag 'cyberhaven.domain' to attribute 'cyberhaven.domain'
+          enabled: true
+          sources:
+            - cyberhaven.domain
+          sourceType: tag
+          target: cyberhaven.domain
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+    - type: pipeline
+      name: Cyberhaven Incident Logs
+      enabled: true
+      filter:
+        query: cyberhaven.logtype:cyberhaven-incidents
+      processors:
+        - type: date-remapper
+          name: Define `last_modified or trigger_time` as the official date of the log
+          enabled: true
+          sources:
+            - last_modified
+            - trigger_time
+        - type: attribute-remapper
+          name: Map `user.id` to `usr.id`
+          enabled: true
+          sources:
+            - user.id
+          sourceType: attribute
+          target: usr.id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `user.local_username` to `usr.name`
+          enabled: true
+          sources:
+            - user.local_username
+          sourceType: attribute
+          target: usr.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `event_details.end_event.action.ip_address` to `network.client.ip`
+          enabled: true
+          sources:
+            - event_details.end_event.action.ip_address
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: geo-ip-parser
+          name: Geo-enrich `network.client.ip`
+          enabled: true
+          sources:
+            - network.client.ip
+          target: network.client.geoip
+          ip_processing_behavior: do-nothing
+        - type: attribute-remapper
+          name: Map `status` to `cyberhaven.incident.status`
+          enabled: true
+          sources:
+            - status
+          sourceType: attribute
+          target: cyberhaven.incident.status
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - name: Lookup on `policy.severity` to `status`
+          enabled: true
+          source: policy.severity
+          target: status
+          lookupTable: |-
+            critical,critical
+            high,error
+            medium,warning
+            low,notice
+            informational,info
+          type: lookup-processor
+        - type: status-remapper
+          name: Define `status` as the official status of the log
+          enabled: true
+          sources:
+            - status
+        - type: category-processor
+          name: Derive `cyberhaven.action.normalized` from `blocked`,
+            `event_details.end_event.action.kind` (`blocked` wins)
+          enabled: true
+          categories:
+            - filter:
+                query: "@blocked:true"
+              name: blocked
+            - filter:
+                query: "@event_details.end_event.action.kind:create"
+              name: create
+            - filter:
+                query: "@event_details.end_event.action.kind:copy"
+              name: copy
+            - filter:
+                query: "@event_details.end_event.action.kind:move"
+              name: move
+            - filter:
+                query: "@event_details.end_event.action.kind:rename"
+              name: rename
+            - filter:
+                query: "@event_details.end_event.action.kind:delete"
+              name: delete
+            - filter:
+                query: "@event_details.end_event.action.kind:open"
+              name: open
+            - filter:
+                query: "@event_details.end_event.action.kind:save"
+              name: save
+            - filter:
+                query: "@event_details.end_event.action.kind:save_as"
+              name: save_as
+            - filter:
+                query: "@event_details.end_event.action.kind:compress"
+              name: compress
+            - filter:
+                query: "@event_details.end_event.action.kind:extract"
+              name: extract
+            - filter:
+                query: "@event_details.end_event.action.kind:upload"
+              name: upload
+            - filter:
+                query: "@event_details.end_event.action.kind:download"
+              name: download
+            - filter:
+                query: "@event_details.end_event.action.kind:share"
+              name: share
+            - filter:
+                query: "@event_details.end_event.action.kind:email_send"
+              name: email_send
+            - filter:
+                query: "@event_details.end_event.action.kind:email_receive"
+              name: email_receive
+            - filter:
+                query: "@event_details.end_event.action.kind:send_to_printer"
+              name: send_to_printer
+            - filter:
+                query: "@event_details.end_event.action.kind:clipboard_copy_paste"
+              name: clipboard_copy_paste
+            - filter:
+                query: "@event_details.end_event.action.kind:dlp_scan"
+              name: dlp_scan
+            - filter:
+                query: "@event_details.end_event.action.kind:dar_scan"
+              name: dar_scan
+            - filter:
+                query: "@event_details.end_event.action.kind:push"
+              name: push
+            - filter:
+                query: "@event_details.end_event.action.kind:fetch"
+              name: fetch
+            - filter:
+                query: "@event_details.end_event.action.kind:action_unspecified"
+              name: unknown
+          target: cyberhaven.action.normalized
+        - type: attribute-remapper
+          name: Map `event_details.end_event.action.kind` to `evt.name`
+          enabled: true
+          sources:
+            - event_details.end_event.action.kind
+          sourceType: attribute
+          target: evt.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Derive `evt.outcome` (`blocked`/`allowed`) from `blocked`
+          enabled: true
+          categories:
+            - filter:
+                query: "@blocked:true"
+              name: blocked
+            - filter:
+                query: "*"
+              name: allowed
+          target: evt.outcome
+        - type: attribute-remapper
+          name: Map `event_details.end_event.action.data_size` to
+            `cyberhaven.action.data_size_bytes`
+          enabled: true
+          sources:
+            - event_details.end_event.action.data_size
+          sourceType: attribute
+          target: cyberhaven.action.data_size_bytes
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Derive `cyberhaven.destination.location_category` from populated
+            `event_details.end_event.destination.*` sub-object
+          enabled: true
+          categories:
+            - filter:
+                query: "@event_details.end_event.destination.cloud_share_recipient.scope:*"
+              name: cloud_share
+            - filter:
+                query: "@event_details.end_event.destination.email_attachment.id:*"
+              name: email_attachment
+            - filter:
+                query: "@event_details.end_event.destination.email.id:*"
+              name: email
+            - filter:
+                query: "@event_details.end_event.destination.im_message.sender:*"
+              name: im_message
+            - filter:
+                query: "@event_details.end_event.destination.source_code_repo.name:*"
+              name: source_code_repo
+            - filter:
+                query: "@event_details.end_event.destination.printer.name:*"
+              name: printer
+            - filter:
+                query: "@event_details.end_event.destination.removable_storage.id:*"
+              name: removable_storage
+            - filter:
+                query: "@event_details.end_event.destination.network_share.hostname:*"
+              name: network_share
+            - filter:
+                query: "@event_details.end_event.destination.cloud_file.id:*"
+              name: cloud_file
+            - filter:
+                query: "@event_details.end_event.destination.cloud_app.provider:*"
+              name: cloud_app
+            - filter:
+                query: "@event_details.end_event.destination.web.url:*"
+              name: web
+            - filter:
+                query: "@event_details.end_event.destination.local_file.path:*"
+              name: local_file
+            - filter:
+                query: "@event_details.end_event.destination.file.name:*"
+              name: file_only
+          target: cyberhaven.destination.location_category
+        - type: category-processor
+          name: Derive `cyberhaven.source.location_category` from populated
+            `event_details.end_event.source.*` sub-object
+          enabled: true
+          categories:
+            - filter:
+                query: "@event_details.end_event.source.cloud_share_recipient.scope:*"
+              name: cloud_share
+            - filter:
+                query: "@event_details.end_event.source.email_attachment.id:*"
+              name: email_attachment
+            - filter:
+                query: "@event_details.end_event.source.email.id:*"
+              name: email
+            - filter:
+                query: "@event_details.end_event.source.im_message.sender:*"
+              name: im_message
+            - filter:
+                query: "@event_details.end_event.source.source_code_repo.name:*"
+              name: source_code_repo
+            - filter:
+                query: "@event_details.end_event.source.printer.name:*"
+              name: printer
+            - filter:
+                query: "@event_details.end_event.source.removable_storage.id:*"
+              name: removable_storage
+            - filter:
+                query: "@event_details.end_event.source.network_share.hostname:*"
+              name: network_share
+            - filter:
+                query: "@event_details.end_event.source.cloud_file.id:*"
+              name: cloud_file
+            - filter:
+                query: "@event_details.end_event.source.cloud_app.provider:*"
+              name: cloud_app
+            - filter:
+                query: "@event_details.end_event.source.web.url:*"
+              name: web
+            - filter:
+                query: "@event_details.end_event.source.local_file.path:*"
+              name: local_file
+            - filter:
+                query: "@event_details.end_event.source.file.name:*"
+              name: file_only
+          target: cyberhaven.source.location_category
+        - type: attribute-remapper
+          name: Map populated `event_details.end_event.destination.*` name/title/path
+            fields to `cyberhaven.destination.display_name`
+          enabled: true
+          sources:
+            - event_details.end_event.destination.display_name
+            - event_details.end_event.destination.email.subject
+            - event_details.end_event.destination.im_message.workspace
+            - event_details.end_event.destination.source_code_repo.name
+            - event_details.end_event.destination.printer.name
+            - event_details.end_event.destination.removable_storage.name
+            - event_details.end_event.destination.network_share.hostname
+            - event_details.end_event.destination.cloud_file.path
+            - event_details.end_event.destination.cloud_app.name
+            - event_details.end_event.destination.web.title
+            - event_details.end_event.destination.local_file.path
+            - event_details.end_event.destination.file.name
+          sourceType: attribute
+          target: cyberhaven.destination.display_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `event_details.end_event.destination.*` URI/path fields to
+            `cyberhaven.destination.location`
+          enabled: true
+          sources:
+            - event_details.end_event.destination.cloud_file.content_uri
+            - event_details.end_event.destination.cloud_file.path
+            - event_details.end_event.destination.web.download_url
+            - event_details.end_event.destination.web.url
+            - event_details.end_event.destination.network_share.path
+            - event_details.end_event.destination.local_file.path
+          sourceType: attribute
+          target: cyberhaven.destination.location
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `event_details.end_event.source.*` name/title/path fields to
+            `cyberhaven.source.display_name`
+          enabled: true
+          sources:
+            - event_details.end_event.source.display_name
+            - event_details.end_event.source.email.subject
+            - event_details.end_event.source.im_message.workspace
+            - event_details.end_event.source.source_code_repo.name
+            - event_details.end_event.source.printer.name
+            - event_details.end_event.source.removable_storage.name
+            - event_details.end_event.source.network_share.hostname
+            - event_details.end_event.source.cloud_file.path
+            - event_details.end_event.source.cloud_app.name
+            - event_details.end_event.source.web.title
+            - event_details.end_event.source.local_file.path
+            - event_details.end_event.source.file.name
+          sourceType: attribute
+          target: cyberhaven.source.display_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `event_details.end_event.source.*` URI/path fields to
+            `cyberhaven.source.location`
+          enabled: true
+          sources:
+            - event_details.end_event.source.cloud_file.content_uri
+            - event_details.end_event.source.cloud_file.path
+            - event_details.end_event.source.web.download_url
+            - event_details.end_event.source.web.url
+            - event_details.end_event.source.network_share.path
+            - event_details.end_event.source.local_file.path
+          sourceType: attribute
+          target: cyberhaven.source.location
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `event_details.end_event.destination.app.name` to
+            `cyberhaven.destination.application`
+          enabled: true
+          sources:
+            - event_details.end_event.destination.app.name
+          sourceType: attribute
+          target: cyberhaven.destination.application
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `event_details.end_event.source.app.name` to
+            `cyberhaven.source.application`
+          enabled: true
+          sources:
+            - event_details.end_event.source.app.name
+          sourceType: attribute
+          target: cyberhaven.source.application
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map tag 'cyberhaven.domain' to attribute 'cyberhaven.domain'
+          enabled: true
+          sources:
+            - cyberhaven.domain
+          sourceType: tag
+          target: cyberhaven.domain
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: string-builder-processor
+          name: Derive `cyberhaven.incident.url` from `id`
+          enabled: true
+          template: https://%{cyberhaven.domain}/incidents/?id=%{id}
+          target: cyberhaven.incident.url
+          replaceMissing: false
+        - type: string-builder-processor
+          name: Derive `cyberhaven.incident.summary` from `policy.name`, `dataset.name`,
+            `user.local_username`
+          enabled: true
+          template: '%{user.local_username} triggered "%{policy.name}"
+            (%{policy.severity}) on "%{dataset.name}" (%{dataset.sensitivity})'
+          target: cyberhaven.incident.summary
+          replaceMissing: true
+        - type: string-builder-processor
+          name: Derive `cyberhaven.message` from `cyberhaven.incident.summary`,
+            `cyberhaven.incident.status`
+          enabled: true
+          template: "%{cyberhaven.incident.summary}; %{evt.outcome}; status:
+            %{cyberhaven.incident.status}; risk: %{risk_score}; by:
+            %{created_by}; at: %{trigger_time} [%{id}]"
+          target: cyberhaven.message
+          replaceMissing: true
+        - type: message-remapper
+          name: Define `cyberhaven.message` as the official message of the log
+          enabled: true
+          sources:
+            - cyberhaven.message
+    - type: pipeline
+      name: Cyberhaven Event Logs
+      enabled: true
+      filter:
+        query: cyberhaven.logtype:cyberhaven-events
+      processors:
+        - type: date-remapper
+          name: Define `timestamp` as the official date of the log
+          enabled: true
+          sources:
+            - timestamp
+        - type: attribute-remapper
+          name: Map `action.ip_address` to `network.client.ip`
+          enabled: true
+          sources:
+            - action.ip_address
+          sourceType: attribute
+          target: network.client.ip
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: geo-ip-parser
+          name: Geo-enrich `network.client.ip`
+          enabled: true
+          sources:
+            - network.client.ip
+          target: network.client.geoip
+          ip_processing_behavior: do-nothing
+        - type: attribute-remapper
+          name: Map `user.id` to `usr.id`
+          enabled: true
+          sources:
+            - user.id
+          sourceType: attribute
+          target: usr.id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `user.local_username` to `usr.name`
+          enabled: true
+          sources:
+            - user.local_username
+          sourceType: attribute
+          target: usr.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Derive `cyberhaven.action.normalized` from `action.blocked`, `action.kind`
+            (`blocked` wins)
+          enabled: true
+          categories:
+            - filter:
+                query: "@action.blocked:true"
+              name: blocked
+            - filter:
+                query: "@action.kind:create"
+              name: create
+            - filter:
+                query: "@action.kind:copy"
+              name: copy
+            - filter:
+                query: "@action.kind:move"
+              name: move
+            - filter:
+                query: "@action.kind:rename"
+              name: rename
+            - filter:
+                query: "@action.kind:delete"
+              name: delete
+            - filter:
+                query: "@action.kind:open"
+              name: open
+            - filter:
+                query: "@action.kind:save"
+              name: save
+            - filter:
+                query: "@action.kind:save_as"
+              name: save_as
+            - filter:
+                query: "@action.kind:compress"
+              name: compress
+            - filter:
+                query: "@action.kind:extract"
+              name: extract
+            - filter:
+                query: "@action.kind:upload"
+              name: upload
+            - filter:
+                query: "@action.kind:download"
+              name: download
+            - filter:
+                query: "@action.kind:share"
+              name: share
+            - filter:
+                query: "@action.kind:email_send"
+              name: email_send
+            - filter:
+                query: "@action.kind:email_receive"
+              name: email_receive
+            - filter:
+                query: "@action.kind:send_to_printer"
+              name: send_to_printer
+            - filter:
+                query: "@action.kind:clipboard_copy_paste"
+              name: clipboard_copy_paste
+            - filter:
+                query: "@action.kind:dlp_scan"
+              name: dlp_scan
+            - filter:
+                query: "@action.kind:dar_scan"
+              name: dar_scan
+            - filter:
+                query: "@action.kind:push"
+              name: push
+            - filter:
+                query: "@action.kind:fetch"
+              name: fetch
+            - filter:
+                query: "@action.kind:action_unspecified"
+              name: unknown
+          target: cyberhaven.action.normalized
+        - type: attribute-remapper
+          name: Map `action.kind` to `evt.name`
+          enabled: true
+          sources:
+            - action.kind
+          sourceType: attribute
+          target: evt.name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Derive `evt.outcome` from `action.blocked`
+          enabled: true
+          categories:
+            - filter:
+                query: "@action.blocked:true"
+              name: blocked
+            - filter:
+                query: "*"
+              name: allowed
+          target: evt.outcome
+        - type: attribute-remapper
+          name: Map `action.data_size` to `cyberhaven.action.data_size_bytes`
+          enabled: true
+          sources:
+            - action.data_size
+          sourceType: attribute
+          target: cyberhaven.action.data_size_bytes
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Derive `cyberhaven.source.location_category` from populated `source.*`
+            sub-object
+          enabled: true
+          categories:
+            - filter:
+                query: "@source.cloud_share_recipient.scope:*"
+              name: cloud_share
+            - filter:
+                query: "@source.email_attachment.id:*"
+              name: email_attachment
+            - filter:
+                query: "@source.email.id:*"
+              name: email
+            - filter:
+                query: "@source.im_message.sender:*"
+              name: im_message
+            - filter:
+                query: "@source.source_code_repo.name:*"
+              name: source_code_repo
+            - filter:
+                query: "@source.printer.name:*"
+              name: printer
+            - filter:
+                query: "@source.removable_storage.id:*"
+              name: removable_storage
+            - filter:
+                query: "@source.network_share.hostname:*"
+              name: network_share
+            - filter:
+                query: "@source.cloud_file.id:*"
+              name: cloud_file
+            - filter:
+                query: "@source.cloud_app.provider:*"
+              name: cloud_app
+            - filter:
+                query: "@source.web.url:*"
+              name: web
+            - filter:
+                query: "@source.local_file.path:*"
+              name: local_file
+            - filter:
+                query: "@source.file.name:*"
+              name: file_only
+          target: cyberhaven.source.location_category
+        - type: category-processor
+          name: Derive `cyberhaven.destination.location_category` from populated
+            `destination.*` sub-object
+          enabled: true
+          categories:
+            - filter:
+                query: "@destination.cloud_share_recipient.scope:*"
+              name: cloud_share
+            - filter:
+                query: "@destination.email_attachment.id:*"
+              name: email_attachment
+            - filter:
+                query: "@destination.email.id:*"
+              name: email
+            - filter:
+                query: "@destination.im_message.sender:*"
+              name: im_message
+            - filter:
+                query: "@destination.source_code_repo.name:*"
+              name: source_code_repo
+            - filter:
+                query: "@destination.printer.name:*"
+              name: printer
+            - filter:
+                query: "@destination.removable_storage.id:*"
+              name: removable_storage
+            - filter:
+                query: "@destination.network_share.hostname:*"
+              name: network_share
+            - filter:
+                query: "@destination.cloud_file.id:*"
+              name: cloud_file
+            - filter:
+                query: "@destination.cloud_app.provider:*"
+              name: cloud_app
+            - filter:
+                query: "@destination.web.url:*"
+              name: web
+            - filter:
+                query: "@destination.local_file.path:*"
+              name: local_file
+            - filter:
+                query: "@destination.file.name:*"
+              name: file_only
+          target: cyberhaven.destination.location_category
+        - type: attribute-remapper
+          name: Map populated `destination.*` name/title/path fields to
+            `cyberhaven.destination.display_name`
+          enabled: true
+          sources:
+            - destination.display_name
+            - destination.email.subject
+            - destination.im_message.workspace
+            - destination.source_code_repo.name
+            - destination.printer.name
+            - destination.removable_storage.name
+            - destination.network_share.hostname
+            - destination.cloud_file.path
+            - destination.cloud_app.name
+            - destination.web.title
+            - destination.local_file.path
+            - destination.file.name
+          sourceType: attribute
+          target: cyberhaven.destination.display_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `destination.*` URI/path fields to
+            `cyberhaven.destination.location`
+          enabled: true
+          sources:
+            - destination.cloud_file.content_uri
+            - destination.cloud_file.path
+            - destination.web.download_url
+            - destination.web.url
+            - destination.network_share.path
+            - destination.local_file.path
+          sourceType: attribute
+          target: cyberhaven.destination.location
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `source.*` name/title/path fields to
+            `cyberhaven.source.display_name`
+          enabled: true
+          sources:
+            - source.display_name
+            - source.email.subject
+            - source.im_message.workspace
+            - source.source_code_repo.name
+            - source.printer.name
+            - source.removable_storage.name
+            - source.network_share.hostname
+            - source.cloud_file.path
+            - source.cloud_app.name
+            - source.web.title
+            - source.local_file.path
+            - source.file.name
+          sourceType: attribute
+          target: cyberhaven.source.display_name
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map populated `source.*` URI/path fields to `cyberhaven.source.location`
+          enabled: true
+          sources:
+            - source.cloud_file.content_uri
+            - source.cloud_file.path
+            - source.web.download_url
+            - source.web.url
+            - source.network_share.path
+            - source.local_file.path
+          sourceType: attribute
+          target: cyberhaven.source.location
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `source.app.name` to `cyberhaven.source.application`
+          enabled: true
+          sources:
+            - source.app.name
+          sourceType: attribute
+          target: cyberhaven.source.application
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `destination.app.name` to `cyberhaven.destination.application`
+          enabled: true
+          sources:
+            - destination.app.name
+          sourceType: attribute
+          target: cyberhaven.destination.application
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: string-builder-processor
+          name: Derive `cyberhaven.message` from `user.local_username`, `action.kind`,
+            `action.hostname`
+          enabled: true
+          template: "%{user.local_username} performed %{action.kind} on host
+            %{action.hostname} via %{action.sensor_kind} sensor (%{evt.outcome})
+            [event id: %{id}]"
+          target: cyberhaven.message
+          replaceMissing: true
+        - type: message-remapper
+          name: Define `cyberhaven.message` as the official message of the log
+          enabled: true
+          sources:
+            - cyberhaven.message
+        - type: attribute-remapper
+          name: Map tag 'cyberhaven.domain' to attribute 'cyberhaven.domain'
+          enabled: true
+          sources:
+            - cyberhaven.domain
+          sourceType: tag
+          target: cyberhaven.domain
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
