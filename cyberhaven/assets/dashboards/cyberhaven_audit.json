@@ -775,62 +775,6 @@
             }
           },
           {
-            "id": 9943789793642728,
-            "definition": {
-              "title": "Audit Log Status",
-              "title_size": "16",
-              "title_align": "left",
-              "requests": [
-                {
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "status",
-                          "limit": 5,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Action-Type $Object-Type $Actor $Actor-Type $Cyberhaven-Tenant $Outcome"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "style": {
-                    "palette": "cool"
-                  },
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "legend": {
-                "type": "table"
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 3,
-              "width": 12,
-              "height": 2
-            }
-          },
-          {
             "id": 851103677000053,
             "definition": {
               "title": "Failed Logins",
@@ -855,7 +799,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:login @evt.outcome:failed $Actor $Actor-Type $Cyberhaven-Tenant $Object-Type"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit @action_type:login @evt.outcome:(failed OR rejected) $Actor $Actor-Type $Cyberhaven-Tenant $Object-Type"
                       }
                     }
                   ],
@@ -881,7 +825,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 5,
+              "y": 3,
               "width": 4,
               "height": 2
             }
@@ -937,7 +881,7 @@
             },
             "layout": {
               "x": 4,
-              "y": 5,
+              "y": 3,
               "width": 8,
               "height": 2
             }

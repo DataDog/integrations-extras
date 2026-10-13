@@ -2581,7 +2581,7 @@
           {
             "id": 3017359247023995,
             "definition": {
-              "title": "Top Cloud Share Recipients (Scope / Role)",
+              "title": "Top Cloud Share Recipients (Role / Scope)",
               "title_size": "16",
               "title_align": "left",
               "type": "toplist",
@@ -2601,6 +2601,14 @@
                       "group_by": [
                         {
                           "facet": "@destination.cloud_share_recipient.role",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@destination.cloud_share_recipient.scope",
                           "limit": 6,
                           "sort": {
                             "aggregation": "count",
@@ -2638,7 +2646,7 @@
           {
             "id": 7543218858143291,
             "definition": {
-              "title": "Top Email Recipient Domains",
+              "title": "Top Email Recipients",
               "title_size": "16",
               "title_align": "left",
               "type": "toplist",

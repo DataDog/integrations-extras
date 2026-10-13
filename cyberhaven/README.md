@@ -19,7 +19,7 @@ Coverage spans endpoint, browser, and cloud sensors, and extends to physical and
 
 | Prerequisite | Detail |
 |---|---|
-| Datadog account | Cloud SIEM enabled; permission to create API keys |
+| Datadog account | Permission to create API keys |
 | Cyberhaven admin access | Permission to create and configure streaming destinations |
 
 ### Step 1: Gather three values
