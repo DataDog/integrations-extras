@@ -14,9 +14,11 @@ tests:
       "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
       "severity" : "informational",
       "severity_id" : 1,
-      "status" : "successful",
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-audit"
+      "status" : "successful"
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
   result:
     custom:
       action_type: "read"
@@ -83,9 +85,11 @@ tests:
       "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
       "severity" : "medium",
       "severity_id" : 3,
-      "status" : "allowed",
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-audit"
+      "status" : "allowed"
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
   result:
     custom:
       action_type: "delete"
@@ -182,9 +186,11 @@ tests:
         "outline" : "workstation-01",
         "type" : "endpoint"
       },
-      "ingestion_timestamp" : "2026-10-01T10:24:55.161140430Z",
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-events"
+      "ingestion_timestamp" : "2026-10-01T10:24:55.161140430Z"
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
   result:
     custom:
       action:
@@ -302,9 +308,11 @@ tests:
         "type" : "genai_apps",
         "domain" : "chat.openai.com"
       },
-      "ingestion_timestamp" : "2026-10-01T10:27:32.555892231Z",
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-events"
+      "ingestion_timestamp" : "2026-10-01T10:27:32.555892231Z"
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
   result:
     custom:
       action:
@@ -451,9 +459,11 @@ tests:
             "type" : "endpoint"
           }
         }
-      },
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-incidents"
+      }
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
   result:
     custom:
       blocked: true
@@ -629,9 +639,11 @@ tests:
             "domain" : "chat.openai.com"
           }
         }
-      },
-      "ddtags" : "cyberhaven.domain:tenant-example.cyberhaven.io,cyberhaven.logtype:cyberhaven-incidents"
+      }
     }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
   result:
     custom:
       created_by: "policy"
@@ -730,3 +742,72 @@ tests:
      - "cyberhaven.domain:tenant-example.cyberhaven.io"
      - "cyberhaven.logtype:cyberhaven-incidents"
     timestamp: 1790850452766
+ -
+  sample: |-
+    {
+      "id" : "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99",
+      "timestamp" : "2026-10-01T10:30:00.000000000Z",
+      "action_type" : "read",
+      "object_type" : "policy",
+      "actor_type" : "user",
+      "actor" : "jane.doe@example.com",
+      "actor_id" : "EXAMPLEUSERID0000000000001",
+      "actor_ip" : "192.0.2.10",
+      "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "severity" : "informational",
+      "severity_id" : 1,
+      "status" : "successful"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+  result:
+    custom:
+      action_type: "read"
+      actor: "jane.doe@example.com"
+      actor_id: "EXAMPLEUSERID0000000000001"
+      actor_ip: "192.0.2.10"
+      actor_type: "user"
+      actor_user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      cyberhaven:
+        audit:
+          status: "successful"
+        domain: "tenant-example.cyberhaven.io"
+      evt:
+        name: "read"
+        outcome: "successful"
+      http:
+        useragent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+        useragent_details:
+          browser:
+            family: "Chrome"
+            major: "147"
+            minor: "0"
+            patch: "0"
+            patch_minor: "0"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+            major: "10"
+      id: "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.10"
+      object_type: "policy"
+      severity: "informational"
+      severity_id: 1
+      timestamp: "2026-10-01T10:30:00.000000000Z"
+      usr:
+        email: "jane.doe@example.com"
+        id: "EXAMPLEUSERID0000000000001"
+        name: "jane.doe@example.com"
+    message: "user jane.doe@example.com performed read on policy (severity: informational) [id: 3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99]"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+    timestamp: 1790850600000
