@@ -3,17 +3,24 @@
 ## Overview
 
 The 10x Engine is a log pipeline engine that runs inside the operator's own network, in
-front of Datadog. It reads events from a log forwarder, groups them by message pattern,
-and decides per pattern what to do next: forward the events unchanged, compact them, or
-offload them to the account's own object storage, which the Retriever, a separate 10x
-deployment, indexes and reads back on a query.
+front of Datadog. It names each log line by its most likely source statement, the
+pattern, or by the line's own known words when no source matches. The Receiver counts each
+pattern per container against a limit: one threshold and one action for each service the
+operator configures, and a fleet default for every other service. Above the limit the
+excess takes the action: `tier_down` marks it for a Flex Logs index, where it still reaches
+Datadog and stays searchable; `offload` sends it to the account's own object storage,
+which the Retriever, a separate 10x deployment, indexes and reads back on a query.
+Compaction does not apply to Datadog. Every forwarded event carries the route it took
+(`routeState`) and, when configured, the pattern hash (`tenx_hash`).
 
-Because the decision is made per pattern, the engine counts what every pattern sends
+Because every line is named by its pattern, the engine counts what every pattern sends
 before anything changes, and what it sends afterwards. This integration carries those
 counters into Datadog: volume and bytes for everything the pipeline read, volume and bytes
-for what it forwarded, and the encoded size of forwarded events when compaction is on.
+for what it forwarded, and the encoded size of forwarded events where compaction runs,
+which never applies to events bound for Datadog.
 Every counter carries the same tag set, so any of them can be sliced by message pattern,
-service, severity level, or Kubernetes container. Four further counters, emitted by the
+service, severity level, route (`routestate`, when the rate receiver runs), or Kubernetes
+container. Four further counters, emitted by the
 Retriever rather than by the pipeline, record what went to offload storage and what a
 retrieval query returned, in events and in bytes.
 
@@ -100,8 +107,8 @@ See [metadata.csv](metadata.csv) for the full list with types and units.
 |---|---|---|
 | `log10x.check.up` | The check | One on every run |
 | `log10x.events.read.count`, `log10x.bytes.read.count` | Pipeline | Everything the pipeline read |
-| `log10x.events.forwarded.count`, `log10x.bytes.forwarded.count` | Pipeline | What it forwarded downstream |
-| `log10x.bytes.encoded.count` | Pipeline | Encoded size of forwarded events when compaction is on |
+| `log10x.events.forwarded.count`, `log10x.bytes.forwarded.count` | Pipeline | Every event returned to the forwarder, on any route. Split by `routestate` to see what went to Standard (`pass`), Flex (`tier_down`), and storage (`offload`) |
+| `log10x.bytes.encoded.count` | Pipeline | Encoded size of forwarded events where compaction runs; never set for events bound for Datadog |
 | `log10x.events.offloaded.count`, `log10x.bytes.offloaded.count` | Retriever index | What was written to offload storage |
 | `log10x.events.retrieved.count`, `log10x.bytes.retrieved.count` | Retriever query | What a retrieval query returned |
 

@@ -185,7 +185,7 @@
           {
             "id": 1000000000000014,
             "definition": {
-              "title": "Forwarded bytes as a share of bytes read",
+              "title": "Bytes passed to Standard as a share of bytes read",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -209,7 +209,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:log10x.bytes.forwarded.count{$tenx_env,$tenx_user_service}.as_count().rollup(sum, 300)"
+                      "query": "sum:log10x.bytes.forwarded.count{$tenx_env,$tenx_user_service,routestate:pass}.as_count().rollup(sum, 300)"
                     },
                     {
                       "data_source": "metrics",
