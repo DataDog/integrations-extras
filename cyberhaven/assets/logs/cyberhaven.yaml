@@ -111,11 +111,6 @@ pipeline:
       filter:
         query: cyberhaven.logtype:cyberhaven-audit
       processors:
-        - type: date-remapper
-          name: Define `timestamp` as the official date of the log
-          enabled: true
-          sources:
-            - timestamp
         - type: attribute-remapper
           name: Map `action_type` to `evt.name`
           enabled: true
@@ -252,12 +247,6 @@ pipeline:
       filter:
         query: cyberhaven.logtype:cyberhaven-incidents
       processors:
-        - type: date-remapper
-          name: Define `last_modified or trigger_time` as the official date of the log
-          enabled: true
-          sources:
-            - last_modified
-            - trigger_time
         - type: attribute-remapper
           name: Map `user.id` to `usr.id`
           enabled: true
@@ -660,11 +649,6 @@ pipeline:
       filter:
         query: cyberhaven.logtype:cyberhaven-events
       processors:
-        - type: date-remapper
-          name: Define `timestamp` as the official date of the log
-          enabled: true
-          sources:
-            - timestamp
         - type: attribute-remapper
           name: Map `action.ip_address` to `network.client.ip`
           enabled: true
