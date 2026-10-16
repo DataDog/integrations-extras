@@ -1,5 +1,15 @@
 # CHANGELOG - celerdata
 
+## 1.3.0 / 2026-09-30
+
+***Added***:
+
+* Add the `celerdata.fe.slow_lock_held_time_ms` and `celerdata.fe.slow_lock_wait_time_ms` metrics, which report FE slow-lock held and wait times as quantiles plus a sample count (requires StarRocks 3.5.10 or later, or 4.0.3 or later)
+
+***Fixed***:
+
+* Collect all per-database `celerdata.fe.table_num` series. Previously, only the first database was reported. Queries and monitors that don't group this metric by `db_name` now aggregate across every database.
+
 ## 1.2.1 / 2025-10-01
 
 ***Fixed***:
