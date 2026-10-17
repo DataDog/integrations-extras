@@ -1,0 +1,818 @@
+id: "cyberhaven"
+tests:
+ -
+  sample: |-
+    {
+      "id" : "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e01",
+      "timestamp" : "2026-10-01T10:14:46.696365050Z",
+      "action_type" : "read",
+      "object_type" : "policy",
+      "actor_type" : "user",
+      "actor" : "jane.doe@example.com",
+      "actor_id" : "EXAMPLEUSERID0000000000001",
+      "actor_ip" : "192.0.2.10",
+      "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "severity" : "informational",
+      "severity_id" : 1,
+      "status" : "successful"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+  result:
+    custom:
+      action_type: "read"
+      actor: "jane.doe@example.com"
+      actor_id: "EXAMPLEUSERID0000000000001"
+      actor_ip: "192.0.2.10"
+      actor_type: "user"
+      actor_user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      cyberhaven:
+        audit:
+          status: "successful"
+        domain: "tenant-example.cyberhaven.io"
+      evt:
+        name: "read"
+        outcome: "successful"
+      http:
+        useragent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+        useragent_details:
+          browser:
+            family: "Chrome"
+            major: "147"
+            minor: "0"
+            patch: "0"
+            patch_minor: "0"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+            major: "10"
+      id: "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e01"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.10"
+      object_type: "policy"
+      severity: "informational"
+      severity_id: 1
+      status: "info"
+      timestamp: "2026-10-01T10:14:46.696365050Z"
+      usr:
+        email: "jane.doe@example.com"
+        id: "EXAMPLEUSERID0000000000001"
+        name: "jane.doe@example.com"
+    message: "user jane.doe@example.com performed read on policy (severity: informational) [id: 3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e01]"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+    timestamp: 1790849686696
+ -
+  sample: |-
+    {
+      "id" : "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e02",
+      "timestamp" : "2026-10-01T10:26:47.385156027Z",
+      "action_type" : "delete",
+      "object_type" : "user_group",
+      "object_name" : "Example User Group",
+      "object_id" : "0a1b2c3d-4e5f-7a1b-8c2d-3e4f5a6b7c02",
+      "actor_type" : "user",
+      "actor" : "jane.doe@example.com",
+      "actor_id" : "EXAMPLEUSERID0000000000001",
+      "actor_ip" : "192.0.2.10",
+      "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "severity" : "medium",
+      "severity_id" : 3,
+      "status" : "allowed"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+  result:
+    custom:
+      action_type: "delete"
+      actor: "jane.doe@example.com"
+      actor_id: "EXAMPLEUSERID0000000000001"
+      actor_ip: "192.0.2.10"
+      actor_type: "user"
+      actor_user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      cyberhaven:
+        audit:
+          status: "allowed"
+        domain: "tenant-example.cyberhaven.io"
+      evt:
+        name: "delete"
+        outcome: "allowed"
+      http:
+        useragent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+        useragent_details:
+          browser:
+            family: "Chrome"
+            major: "147"
+            minor: "0"
+            patch: "0"
+            patch_minor: "0"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+            major: "10"
+      id: "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e02"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.10"
+      object_id: "0a1b2c3d-4e5f-7a1b-8c2d-3e4f5a6b7c02"
+      object_name: "Example User Group"
+      object_type: "user_group"
+      severity: "medium"
+      severity_id: 3
+      status: "warn"
+      timestamp: "2026-10-01T10:26:47.385156027Z"
+      usr:
+        email: "jane.doe@example.com"
+        id: "EXAMPLEUSERID0000000000001"
+        name: "jane.doe@example.com"
+    message: "user jane.doe@example.com performed delete on user_group (severity: medium) [id: 3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e02]"
+    status: "warn"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+    timestamp: 1790850407385
+ -
+  sample: |-
+    {
+      "id" : "11111111-aaaa-4bbb-8ccc-000000000001",
+      "timestamp" : "2026-10-01T10:24:54.566Z",
+      "action" : {
+        "kind" : "copy",
+        "blocked" : true,
+        "data_size" : "5",
+        "sensor_kind" : "endpoint",
+        "hostname" : "workstation-01",
+        "machine_serial_number" : "EXAMPLE-SERIAL-0001",
+        "ip_address" : "192.0.2.20"
+      },
+      "user" : {
+        "id" : "00000000-0000-4000-8000-000000000001:501",
+        "local_username" : "jdoe",
+        "local_id" : "501"
+      },
+      "source" : {
+        "file" : {
+          "name" : "quarterly-report.pdf",
+          "extension" : "pdf",
+          "size" : "5"
+        },
+        "local_file" : {
+          "path" : "Users/jdoe/Documents/quarterly-report.pdf",
+          "id" : "2941018a;001e00000001f5fc"
+        },
+        "outline" : "workstation-01",
+        "type" : "endpoint"
+      },
+      "destination" : {
+        "file" : {
+          "name" : "quarterly-report.pdf",
+          "extension" : "pdf",
+          "size" : "5"
+        },
+        "local_file" : {
+          "path" : "Users/jdoe/Backup/quarterly-report.pdf"
+        },
+        "outline" : "workstation-01",
+        "type" : "endpoint"
+      },
+      "ingestion_timestamp" : "2026-10-01T10:24:55.161140430Z"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
+  result:
+    custom:
+      action:
+        blocked: true
+        data_size: "5"
+        hostname: "workstation-01"
+        ip_address: "192.0.2.20"
+        kind: "copy"
+        machine_serial_number: "EXAMPLE-SERIAL-0001"
+        sensor_kind: "endpoint"
+      cyberhaven:
+        action:
+          data_size_bytes: "5"
+          normalized: "blocked"
+        destination:
+          display_name: "Users/jdoe/Backup/quarterly-report.pdf"
+          location: "Users/jdoe/Backup/quarterly-report.pdf"
+          location_category: "local_file"
+        domain: "tenant-example.cyberhaven.io"
+        source:
+          display_name: "Users/jdoe/Documents/quarterly-report.pdf"
+          location: "Users/jdoe/Documents/quarterly-report.pdf"
+          location_category: "local_file"
+      destination:
+        file:
+          extension: "pdf"
+          name: "quarterly-report.pdf"
+          size: "5"
+        local_file:
+          path: "Users/jdoe/Backup/quarterly-report.pdf"
+        outline: "workstation-01"
+        type: "endpoint"
+      evt:
+        name: "copy"
+        outcome: "blocked"
+      id: "11111111-aaaa-4bbb-8ccc-000000000001"
+      ingestion_timestamp: "2026-10-01T10:24:55.161140430Z"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.20"
+      source:
+        file:
+          extension: "pdf"
+          name: "quarterly-report.pdf"
+          size: "5"
+        local_file:
+          id: "2941018a;001e00000001f5fc"
+          path: "Users/jdoe/Documents/quarterly-report.pdf"
+        outline: "workstation-01"
+        type: "endpoint"
+      timestamp: "2026-10-01T10:24:54.566Z"
+      user:
+        id: "00000000-0000-4000-8000-000000000001:501"
+        local_id: "501"
+        local_username: "jdoe"
+      usr:
+        id: "00000000-0000-4000-8000-000000000001:501"
+        name: "jdoe"
+    message: "jdoe performed copy on host workstation-01 via endpoint sensor (blocked) [event id: 11111111-aaaa-4bbb-8ccc-000000000001]"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
+    timestamp: 1790850294566
+ -
+  sample: |-
+    {
+      "id" : "11111111-aaaa-4bbb-8ccc-000000000002",
+      "timestamp" : "2026-10-01T10:27:32.480Z",
+      "action" : {
+        "kind" : "upload",
+        "data_size" : "6",
+        "sensor_kind" : "browser",
+        "hostname" : "workstation-01",
+        "ip_address" : "192.0.2.20"
+      },
+      "user" : {
+        "local_username" : "jdoe",
+        "local_id" : "501"
+      },
+      "source" : {
+        "file" : {
+          "name" : "export.csv",
+          "size" : "439944"
+        },
+        "local_file" : {
+          "id" : "25081555",
+          "path" : "/Users/jdoe/Desktop/export.csv"
+        },
+        "outline" : "workstation-01",
+        "type" : "endpoint"
+      },
+      "destination" : {
+        "app" : {
+          "name" : "Chrome"
+        },
+        "file" : {
+          "size" : "439944"
+        },
+        "web" : {
+          "url" : "https://chat.openai.com/",
+          "domain" : "chat.openai.com",
+          "category" : "ai_and_gen_ai_tools",
+          "download_url" : "https://chat.openai.com/",
+          "title" : "ChatGPT"
+        },
+        "cloud_app" : {
+          "provider" : "openai",
+          "name" : "openai_chat_gpt",
+          "user_name" : "jdoe",
+          "user_email" : "jdoe"
+        },
+        "outline" : "chat.openai.com",
+        "type" : "genai_apps",
+        "domain" : "chat.openai.com"
+      },
+      "ingestion_timestamp" : "2026-10-01T10:27:32.555892231Z"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
+  result:
+    custom:
+      action:
+        data_size: "6"
+        hostname: "workstation-01"
+        ip_address: "192.0.2.20"
+        kind: "upload"
+        sensor_kind: "browser"
+      cyberhaven:
+        action:
+          data_size_bytes: "6"
+          normalized: "upload"
+        destination:
+          application: "Chrome"
+          display_name: "openai_chat_gpt"
+          location: "https://chat.openai.com/"
+          location_category: "cloud_app"
+        domain: "tenant-example.cyberhaven.io"
+        source:
+          display_name: "/Users/jdoe/Desktop/export.csv"
+          location: "/Users/jdoe/Desktop/export.csv"
+          location_category: "local_file"
+      destination:
+        app:
+          name: "Chrome"
+        cloud_app:
+          name: "openai_chat_gpt"
+          provider: "openai"
+          user_email: "jdoe"
+          user_name: "jdoe"
+        domain: "chat.openai.com"
+        file:
+          size: "439944"
+        outline: "chat.openai.com"
+        type: "genai_apps"
+        web:
+          category: "ai_and_gen_ai_tools"
+          domain: "chat.openai.com"
+          download_url: "https://chat.openai.com/"
+          title: "ChatGPT"
+          url: "https://chat.openai.com/"
+      evt:
+        name: "upload"
+        outcome: "allowed"
+      id: "11111111-aaaa-4bbb-8ccc-000000000002"
+      ingestion_timestamp: "2026-10-01T10:27:32.555892231Z"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.20"
+      source:
+        file:
+          name: "export.csv"
+          size: "439944"
+        local_file:
+          id: "25081555"
+          path: "/Users/jdoe/Desktop/export.csv"
+        outline: "workstation-01"
+        type: "endpoint"
+      timestamp: "2026-10-01T10:27:32.480Z"
+      user:
+        local_id: "501"
+        local_username: "jdoe"
+      usr:
+        name: "jdoe"
+    message: "jdoe performed upload on host workstation-01 via browser sensor (allowed) [event id: 11111111-aaaa-4bbb-8ccc-000000000002]"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-events"
+    timestamp: 1790850452480
+ -
+  sample: |-
+    {
+      "id" : "22222222-bbbb-4ccc-8ddd-000000000001",
+      "user" : {
+        "id" : "00000000-0000-4000-8000-000000000001:501",
+        "local_username" : "jdoe",
+        "local_id" : "501"
+      },
+      "event_lineage_id" : {
+        "start_event_id" : "11111111-aaaa-4bbb-8ccc-000000000001",
+        "end_event_id" : "11111111-aaaa-4bbb-8ccc-000000000001"
+      },
+      "blocked" : true,
+      "event_time" : "2026-10-01T10:24:54.566Z",
+      "trigger_time" : "2026-10-01T10:38:08.011671468Z",
+      "dataset" : {
+        "id" : "33333333-cccc-4ddd-8eee-000000000001",
+        "name" : "Example Dataset",
+        "sensitivity" : "low"
+      },
+      "policy" : {
+        "id" : "44444444-dddd-4eee-8fff-000000000001",
+        "name" : "Example Sensitive File Copy Policy",
+        "severity" : "high"
+      },
+      "risk_score" : 4,
+      "warning_status" : "not_applicable",
+      "status" : "open",
+      "created_by" : "policy",
+      "last_modified" : "2026-10-01T10:38:08.011671468Z",
+      "event_details" : {
+        "end_event" : {
+          "id" : "11111111-aaaa-4bbb-8ccc-000000000001",
+          "timestamp" : "2026-10-01T10:24:54.566Z",
+          "action" : {
+            "kind" : "copy",
+            "blocked" : true,
+            "data_size" : "5",
+            "sensor_kind" : "endpoint",
+            "hostname" : "workstation-01",
+            "machine_serial_number" : "EXAMPLE-SERIAL-0001",
+            "ip_address" : "192.0.2.20"
+          },
+          "user" : {
+            "id" : "00000000-0000-4000-8000-000000000001:501",
+            "local_username" : "jdoe",
+            "local_id" : "501"
+          },
+          "source" : {
+            "file" : {
+              "name" : "quarterly-report.pdf",
+              "extension" : "pdf",
+              "size" : "5"
+            },
+            "local_file" : {
+              "path" : "Users/jdoe/Documents/quarterly-report.pdf",
+              "id" : "2941018a;001e00000001f5fc"
+            },
+            "outline" : "workstation-01",
+            "type" : "endpoint"
+          },
+          "destination" : {
+            "file" : {
+              "name" : "quarterly-report.pdf",
+              "extension" : "pdf",
+              "size" : "5"
+            },
+            "local_file" : {
+              "path" : "Users/jdoe/Backup/quarterly-report.pdf"
+            },
+            "outline" : "workstation-01",
+            "type" : "endpoint"
+          }
+        }
+      }
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
+  result:
+    custom:
+      blocked: true
+      created_by: "policy"
+      cyberhaven:
+        action:
+          data_size_bytes: "5"
+          normalized: "blocked"
+        destination:
+          display_name: "Users/jdoe/Backup/quarterly-report.pdf"
+          location: "Users/jdoe/Backup/quarterly-report.pdf"
+          location_category: "local_file"
+        domain: "tenant-example.cyberhaven.io"
+        incident:
+          status: "open"
+          summary: "jdoe triggered \"Example Sensitive File Copy Policy\" (high) on \"Example Dataset\" (low)"
+          url: "https://tenant-example.cyberhaven.io/incidents/?id=22222222-bbbb-4ccc-8ddd-000000000001"
+        source:
+          display_name: "Users/jdoe/Documents/quarterly-report.pdf"
+          location: "Users/jdoe/Documents/quarterly-report.pdf"
+          location_category: "local_file"
+      dataset:
+        id: "33333333-cccc-4ddd-8eee-000000000001"
+        name: "Example Dataset"
+        sensitivity: "low"
+      event_details:
+        end_event:
+          action:
+            blocked: true
+            data_size: "5"
+            hostname: "workstation-01"
+            ip_address: "192.0.2.20"
+            kind: "copy"
+            machine_serial_number: "EXAMPLE-SERIAL-0001"
+            sensor_kind: "endpoint"
+          destination:
+            file:
+              extension: "pdf"
+              name: "quarterly-report.pdf"
+              size: "5"
+            local_file:
+              path: "Users/jdoe/Backup/quarterly-report.pdf"
+            outline: "workstation-01"
+            type: "endpoint"
+          id: "11111111-aaaa-4bbb-8ccc-000000000001"
+          source:
+            file:
+              extension: "pdf"
+              name: "quarterly-report.pdf"
+              size: "5"
+            local_file:
+              id: "2941018a;001e00000001f5fc"
+              path: "Users/jdoe/Documents/quarterly-report.pdf"
+            outline: "workstation-01"
+            type: "endpoint"
+          timestamp: "2026-10-01T10:24:54.566Z"
+          user:
+            id: "00000000-0000-4000-8000-000000000001:501"
+            local_id: "501"
+            local_username: "jdoe"
+      event_lineage_id:
+        end_event_id: "11111111-aaaa-4bbb-8ccc-000000000001"
+        start_event_id: "11111111-aaaa-4bbb-8ccc-000000000001"
+      event_time: "2026-10-01T10:24:54.566Z"
+      evt:
+        name: "copy"
+        outcome: "blocked"
+      id: "22222222-bbbb-4ccc-8ddd-000000000001"
+      last_modified: "2026-10-01T10:38:08.011671468Z"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.20"
+      policy:
+        id: "44444444-dddd-4eee-8fff-000000000001"
+        name: "Example Sensitive File Copy Policy"
+        severity: "high"
+      risk_score: 4
+      status: "error"
+      trigger_time: "2026-10-01T10:38:08.011671468Z"
+      user:
+        id: "00000000-0000-4000-8000-000000000001:501"
+        local_id: "501"
+        local_username: "jdoe"
+      usr:
+        id: "00000000-0000-4000-8000-000000000001:501"
+        name: "jdoe"
+      warning_status: "not_applicable"
+    message: "jdoe triggered \"Example Sensitive File Copy Policy\" (high) on \"Example Dataset\" (low); blocked; status: open; risk: 4; by: policy; at: 2026-10-01T10:38:08.011671468Z [22222222-bbbb-4ccc-8ddd-000000000001]"
+    status: "error"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
+    timestamp: 1790851088011
+ -
+  sample: |-
+    {
+      "id" : "22222222-bbbb-4ccc-8ddd-000000000002",
+      "user" : {
+        "local_username" : "jdoe",
+        "local_id" : "501"
+      },
+      "event_lineage_id" : {
+        "start_event_id" : "11111111-aaaa-4bbb-8ccc-000000000002",
+        "end_event_id" : "11111111-aaaa-4bbb-8ccc-000000000002"
+      },
+      "event_time" : "2026-10-01T10:27:32.480Z",
+      "trigger_time" : "2026-10-01T10:27:32.766863185Z",
+      "dataset" : {
+        "id" : "33333333-cccc-4ddd-8eee-000000000001",
+        "name" : "Example Dataset",
+        "sensitivity" : "low"
+      },
+      "policy" : {
+        "id" : "44444444-dddd-4eee-8fff-000000000001",
+        "name" : "Example GenAI Upload Policy",
+        "severity" : "low"
+      },
+      "risk_score" : 1,
+      "warning_status" : "not_applicable",
+      "status" : "open",
+      "created_by" : "policy",
+      "last_modified" : "2026-10-01T10:27:32.766863185Z",
+      "event_details" : {
+        "end_event" : {
+          "id" : "11111111-aaaa-4bbb-8ccc-000000000002",
+          "timestamp" : "2026-10-01T10:27:32.480Z",
+          "action" : {
+            "kind" : "upload",
+            "data_size" : "6",
+            "sensor_kind" : "browser",
+            "hostname" : "workstation-01",
+            "ip_address" : "192.0.2.20"
+          },
+          "user" : {
+            "local_username" : "jdoe",
+            "local_id" : "501"
+          },
+          "source" : {
+            "file" : {
+              "name" : "export.csv",
+              "size" : "439944"
+            },
+            "local_file" : {
+              "id" : "25081555",
+              "path" : "/Users/jdoe/Desktop/export.csv"
+            },
+            "outline" : "workstation-01",
+            "type" : "endpoint"
+          },
+          "destination" : {
+            "app" : {
+              "name" : "Chrome"
+            },
+            "file" : {
+              "size" : "439944"
+            },
+            "web" : {
+              "url" : "https://chat.openai.com/",
+              "domain" : "chat.openai.com",
+              "category" : "ai_and_gen_ai_tools",
+              "download_url" : "https://chat.openai.com/",
+              "title" : "ChatGPT"
+            },
+            "cloud_app" : {
+              "provider" : "openai",
+              "name" : "openai_chat_gpt",
+              "user_name" : "jdoe",
+              "user_email" : "jdoe"
+            },
+            "outline" : "chat.openai.com",
+            "type" : "genai_apps",
+            "domain" : "chat.openai.com"
+          }
+        }
+      }
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
+  result:
+    custom:
+      created_by: "policy"
+      cyberhaven:
+        action:
+          data_size_bytes: "6"
+          normalized: "upload"
+        destination:
+          application: "Chrome"
+          display_name: "openai_chat_gpt"
+          location: "https://chat.openai.com/"
+          location_category: "cloud_app"
+        domain: "tenant-example.cyberhaven.io"
+        incident:
+          status: "open"
+          summary: "jdoe triggered \"Example GenAI Upload Policy\" (low) on \"Example Dataset\" (low)"
+          url: "https://tenant-example.cyberhaven.io/incidents/?id=22222222-bbbb-4ccc-8ddd-000000000002"
+        source:
+          display_name: "/Users/jdoe/Desktop/export.csv"
+          location: "/Users/jdoe/Desktop/export.csv"
+          location_category: "local_file"
+      dataset:
+        id: "33333333-cccc-4ddd-8eee-000000000001"
+        name: "Example Dataset"
+        sensitivity: "low"
+      event_details:
+        end_event:
+          action:
+            data_size: "6"
+            hostname: "workstation-01"
+            ip_address: "192.0.2.20"
+            kind: "upload"
+            sensor_kind: "browser"
+          destination:
+            app:
+              name: "Chrome"
+            cloud_app:
+              name: "openai_chat_gpt"
+              provider: "openai"
+              user_email: "jdoe"
+              user_name: "jdoe"
+            domain: "chat.openai.com"
+            file:
+              size: "439944"
+            outline: "chat.openai.com"
+            type: "genai_apps"
+            web:
+              category: "ai_and_gen_ai_tools"
+              domain: "chat.openai.com"
+              download_url: "https://chat.openai.com/"
+              title: "ChatGPT"
+              url: "https://chat.openai.com/"
+          id: "11111111-aaaa-4bbb-8ccc-000000000002"
+          source:
+            file:
+              name: "export.csv"
+              size: "439944"
+            local_file:
+              id: "25081555"
+              path: "/Users/jdoe/Desktop/export.csv"
+            outline: "workstation-01"
+            type: "endpoint"
+          timestamp: "2026-10-01T10:27:32.480Z"
+          user:
+            local_id: "501"
+            local_username: "jdoe"
+      event_lineage_id:
+        end_event_id: "11111111-aaaa-4bbb-8ccc-000000000002"
+        start_event_id: "11111111-aaaa-4bbb-8ccc-000000000002"
+      event_time: "2026-10-01T10:27:32.480Z"
+      evt:
+        name: "upload"
+        outcome: "allowed"
+      id: "22222222-bbbb-4ccc-8ddd-000000000002"
+      last_modified: "2026-10-01T10:27:32.766863185Z"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.20"
+      policy:
+        id: "44444444-dddd-4eee-8fff-000000000001"
+        name: "Example GenAI Upload Policy"
+        severity: "low"
+      risk_score: 1
+      status: "notice"
+      trigger_time: "2026-10-01T10:27:32.766863185Z"
+      user:
+        local_id: "501"
+        local_username: "jdoe"
+      usr:
+        name: "jdoe"
+      warning_status: "not_applicable"
+    message: "jdoe triggered \"Example GenAI Upload Policy\" (low) on \"Example Dataset\" (low); allowed; status: open; risk: 1; by: policy; at: 2026-10-01T10:27:32.766863185Z [22222222-bbbb-4ccc-8ddd-000000000002]"
+    status: "notice"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-incidents"
+    timestamp: 1790850452766
+ -
+  sample: |-
+    {
+      "id" : "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99",
+      "timestamp" : "2026-10-01T10:30:00.000000000Z",
+      "action_type" : "read",
+      "object_type" : "policy",
+      "actor_type" : "user",
+      "actor" : "jane.doe@example.com",
+      "actor_id" : "EXAMPLEUSERID0000000000001",
+      "actor_ip" : "192.0.2.10",
+      "actor_user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "severity" : "informational",
+      "severity_id" : 1,
+      "status" : "successful"
+    }
+  tags:
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+  result:
+    custom:
+      action_type: "read"
+      actor: "jane.doe@example.com"
+      actor_id: "EXAMPLEUSERID0000000000001"
+      actor_ip: "192.0.2.10"
+      actor_type: "user"
+      actor_user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      cyberhaven:
+        audit:
+          status: "successful"
+        domain: "tenant-example.cyberhaven.io"
+      evt:
+        name: "read"
+        outcome: "successful"
+      http:
+        useragent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+        useragent_details:
+          browser:
+            family: "Chrome"
+            major: "147"
+            minor: "0"
+            patch: "0"
+            patch_minor: "0"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+            major: "10"
+      id: "3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99"
+      network:
+        client:
+          geoip: {}
+          ip: "192.0.2.10"
+      object_type: "policy"
+      severity: "informational"
+      severity_id: 1
+      status: "info"
+      timestamp: "2026-10-01T10:30:00.000000000Z"
+      usr:
+        email: "jane.doe@example.com"
+        id: "EXAMPLEUSERID0000000000001"
+        name: "jane.doe@example.com"
+    message: "user jane.doe@example.com performed read on policy (severity: informational) [id: 3f0c1b52-7a1e-4d0a-9c11-0a1b2c3d4e99]"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+     - "cyberhaven.domain:tenant-example.cyberhaven.io"
+     - "cyberhaven.logtype:cyberhaven-audit"
+    timestamp: 1790850600000

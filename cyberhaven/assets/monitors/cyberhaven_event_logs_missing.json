@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "created_at": "2026-10-13",
+  "last_updated_at": "2026-10-13",
+  "title": "[Cyberhaven] Event logs not received in Datadog",
+  "description": "Alerts when no Cyberhaven event logs (data-movement telemetry) have been received in Datadog for 24 hours. Create it only if you stream Events.",
+  "tags": [
+    "integration:cyberhaven"
+  ],
+  "definition": {
+    "name": "[Cyberhaven] Event logs not received in Datadog",
+    "type": "log alert",
+    "query": "logs(\"source:cyberhaven cyberhaven.logtype:cyberhaven-events\").index(\"*\").rollup(\"count\").last(\"1d\") == 0",
+    "message": "{{#is_alert}}\n## Alert: Cyberhaven event logs have not been received in Datadog for the last 24 hours.\n`source:cyberhaven` `cyberhaven.logtype:cyberhaven-events`\n\n### Impact\nEndpoint, browser and cloud event telemetry is missing, reducing visibility into data movement and limiting investigation context for incidents.\n\n### Investigation\n\n1. Open the **Cyberhaven - Troubleshooting** dashboard and review **Ingest Status** for the Event source (last received time and volume).\n2. In Log Explorer, search `source:cyberhaven`. If other log types are arriving but not event logs, the issue is specific to this destination. If nothing is arriving, check the Datadog API key and site.\n3. In the Cyberhaven Console under **Settings > Data Export > Destinations**, verify the URI includes `ddsource=cyberhaven` and `cyberhaven.logtype:cyberhaven-events`, the Datadog site is correct, **Format** is `JSON Array`, **Encoding** is `GZip`, and the `DD-API-KEY` header is set. Run **Save & Test**.\n4. Under **Settings > Data Export**, verify the **Source** is `Events`, **Scope** is `Full Access`, **Schedule** is `Immediate`, and **Enabled** is checked.\n5. Verify the Datadog API key is active and has not been revoked or expired (**Organization Settings > API Keys**).\n6. Check Cyberhaven for streaming destination delivery failures, retries, or other delivery errors.\n7. Verify that Cyberhaven is generating events: confirm sensors are reporting in the Cyberhaven console and that endpoint activity has occurred during the window.\n8. If logs are arriving but not visible, check that no Datadog index exclusion filter is dropping them.\n\nPlease investigate and restore Cyberhaven \u2192 Datadog event logs delivery.\n\n{{/is_alert}}\n\n{{#is_recovery}}\n## Recovery: Cyberhaven event logs delivery has recovered.\n\nCyberhaven event logs are being received normally in Datadog.\n{{/is_recovery}}",
+    "tags": [
+      "integration:cyberhaven"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 0
+      },
+      "enable_logs_sample": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "groupby_simple_monitor": false
+    },
+    "priority": 3
+  }
+}
