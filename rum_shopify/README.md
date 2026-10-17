@@ -134,6 +134,7 @@ Use this path to cover checkout pages (`/checkouts/*`, `/checkout`). It runs ins
    ```
 
 4. Save the pixel, then set its required consent category under **Settings** for the pixel (for example, Analytics) to match your store's privacy configuration - the bundle does not add its own consent gate; it defers entirely to whatever the merchant declares in Shopify's Pixel Manager.
+5. Click **Connect** to give the pixel access to your store.
 
 **Note on `shopifyAnalytics`:** `analytics` is a bare global that only exists inside a Custom Pixel's code editor scope - pass it straight through as shown.
 
@@ -225,6 +226,34 @@ The Shopify (RUM) integration does not include Logs. To forward your Shopify sto
 
 ## Troubleshooting
 
+### Unexpected sessions from theme preview renders
+
+On an instrumented store, the RUM Explorer may show a small number of empty sessions. They typically share the following properties:
+
+- `browser.name`: `HeadlessChrome`
+- `os.name`: `Linux`
+- `geo.country`: `United States`
+- `url.host`: `<token>-<shop_id>.shopifypreview.com`
+- A single view on `/`, with no actions and no user interactions.
+
+These come from Shopify, not from your visitors. As part of managing themes, Shopify Admin loads your storefront with its own headless browsers through [theme preview URLs][10]. Those renders serve `layout/theme.liquid` and execute the Theme Liquid snippet exactly as a real page load would, so the SDK reports them as ordinary sessions.
+
+Preview renders are served from a `shopifypreview.com` host, so a preview session can never be joined to a storefront session.
+
+**The Custom Pixel is unaffected.** Preview renders never reach a checkout page, so they never produce a checkout view.
+
+Datadog cannot distinguish these renders from genuine traffic at collection time - they are real page loads of your storefront, performed by a real browser engine, and the SDK receives no signal that marks them as automated. To leave them out of a query, dashboard, or monitor, exclude the preview host in the RUM Explorer. On the **Sessions** event type:
+
+```text
+-@session.initial_view.url_host:*.shopifypreview.com
+```
+
+On the **Views** event type:
+
+```text
+-@view.url_host:*.shopifypreview.com
+```
+
 Need help? Contact [Datadog Support][9].
 
 [1]: https://shopify.dev/docs/api/web-pixels-api
@@ -236,3 +265,4 @@ Need help? Contact [Datadog Support][9].
 [7]: https://docs.datadoghq.com/real_user_monitoring/browser/data_collected/
 [8]: https://docs.datadoghq.com/logs/log_collection/javascript/
 [9]: https://docs.datadoghq.com/help/
+[10]: https://help.shopify.com/en/manual/online-store/themes/adding-themes
