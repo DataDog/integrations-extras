@@ -14,7 +14,6 @@ METRIC_MAP = {
     ## Forwarded
     'emitted_events_summaryVolume': 'events.forwarded',
     'emitted_events_summaryBytes': 'bytes.forwarded',
-    'emitted_events_optimized_size': 'bytes.encoded',
     ## Offloaded
     'indexed_events_summaryVolume': 'events.offloaded',
     'indexed_events_summaryBytes': 'bytes.offloaded',

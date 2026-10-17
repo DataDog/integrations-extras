@@ -11,13 +11,13 @@ excess takes the action: `tier_down` marks it for a Flex Logs index, where it st
 Datadog and stays searchable; `offload` sends it to the account's own object storage,
 which the Retriever, a separate 10x deployment, indexes and reads back on a query.
 Compaction does not apply to Datadog. Every forwarded event carries the route it took
-(`routeState`) and, when configured, the pattern hash (`tenx_hash`).
+in its `routeState` field and, when configured, the pattern hash in `tenx_hash`. Datadog
+lowercases tag keys, so on the metrics the route appears as `routestate`.
 
 Because every line is named by its pattern, the engine counts what every pattern sends
 before anything changes, and what it sends afterwards. This integration carries those
-counters into Datadog: volume and bytes for everything the pipeline read, volume and bytes
-for what it forwarded, and the encoded size of forwarded events where compaction runs,
-which never applies to events bound for Datadog.
+counters into Datadog: volume and bytes for everything the pipeline read, and volume and
+bytes for what it forwarded.
 Every counter carries the same tag set, so any of them can be sliced by message pattern,
 service, severity level, route (`routestate`, when the rate receiver runs), or Kubernetes
 container. Four further counters, emitted by the
@@ -35,7 +35,7 @@ deployed, and submits these metrics to Datadog.
 
 This integration runs in the Datadog Agent and reads the 10x Engine's Prometheus metrics
 endpoint, and the Retriever's where one is deployed. Community integrations are not
-bundled with the Agent, so it is installed separately.
+bundled with the Agent, so install this integration separately.
 
 ### Prerequisites
 
@@ -51,7 +51,7 @@ bundled with the Agent, so it is installed separately.
 #### 10x Engine
 
 1. In the app configuration file, under **Select Metric Outputs**, uncomment the line
-   `- run/output/metric/prometheus/scrape`. It can also be passed at launch as
+   `- run/output/metric/prometheus/scrape`. You can also pass the line at launch as
    `@run/output/metric/prometheus/scrape`.
 2. Restart the pipeline. At startup, the engine prints
    `Publishing TenXSummary metrics to Prometheus`, followed by the port, which is `9100` by
@@ -59,10 +59,13 @@ bundled with the Agent, so it is installed separately.
 
 #### Datadog Agent
 
-Install the integration on the Agent host:
-`datadog-agent integration install -t datadog-log10x==1.0.0`. See
-[Use Community and Marketplace Integrations](https://docs.datadoghq.com/agent/guide/use-community-integrations/)
-for the container and Kubernetes forms of this step.
+Run the following command on the Agent host:
+
+```shell
+datadog-agent integration install -t datadog-log10x==1.0.0
+```
+
+For containerized and Kubernetes environments, see [Use Community and Marketplace Integrations](https://docs.datadoghq.com/agent/guide/use-community-integrations/).
 
 ### Configuration
 
@@ -73,15 +76,18 @@ for the container and Kubernetes forms of this step.
    annotations on the engine's pod instead.
 2. For the offload and retrieval counters, add a second instance pointing at the
    Retriever's own endpoint, on the same default port, for example
-   `http://<retriever-host>:9100/metrics`. The Retriever opens that port only while an
-   index or a query run is in flight and closes it when the run ends, so set
-   `ignore_connection_errors: true` and `enable_health_service_check: false` on that
-   instance, otherwise the closed port between runs is reported as a failure. A shorter
-   `min_collection_interval`, for example 5, gives the Agent more chances to land inside
-   a run. On Kubernetes, use the same
-   Autodiscovery annotation on the Retriever's index, query, and stream pods. On Lambda,
-   the Retriever has no endpoint for the Agent to scrape, so those four metrics do not
-   arrive. Without this instance, the dashboard's Offload storage group stays empty.
+   `http://<retriever-host>:9100/metrics`. Without this instance, the dashboard's
+   Offload storage group stays empty. Configure the instance as follows:
+   - Set `ignore_connection_errors: true` and `enable_health_service_check: false`. The
+     Retriever opens its port only while an index or query run is in flight. Without
+     these settings, Datadog reports the closed port between runs as a failure.
+   - Optionally, set a shorter `min_collection_interval`, such as `5`, to increase the
+     chance of collecting metrics during a run.
+   - On Kubernetes, use the same Autodiscovery annotation on the Retriever's index,
+     query, and stream pods.
+
+   **Note**: On Lambda, the Retriever has no endpoint for the Agent to scrape, so the
+   offload and retrieval metrics are not available.
 3. Restart the Agent.
 
 ### Validation
@@ -97,18 +103,17 @@ Run `datadog-agent status` and confirm `log10x` appears under **Running Checks**
 3. Use the [delete dashboard](https://docs.datadoghq.com/dashboards/configure/#delete-dashboard)
    option in the dashboard settings to remove the 10x dashboard.
 
-## Data collected
+## Data Collected
 
 ### Metrics
 
-See [metadata.csv](metadata.csv) for the full list with types and units.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/log10x/metadata.csv) for the full list with types and units.
 
 | Metric | Emitted by | Counts |
 |---|---|---|
 | `log10x.check.up` | The check | One on every run |
 | `log10x.events.read.count`, `log10x.bytes.read.count` | Pipeline | Everything the pipeline read |
-| `log10x.events.forwarded.count`, `log10x.bytes.forwarded.count` | Pipeline | Every event returned to the forwarder, on any route. Split by `routestate` to see what went to Standard (`pass`), Flex (`tier_down`), and storage (`offload`) |
-| `log10x.bytes.encoded.count` | Pipeline | Encoded size of forwarded events where compaction runs; never set for events bound for Datadog |
+| `log10x.events.forwarded.count`, `log10x.bytes.forwarded.count` | Pipeline | Every event returned to the forwarder, on any route. Split by `routestate` to see what went to Standard Indexing (`pass`), Flex Logs (`tier_down`), and storage (`offload`) |
 | `log10x.events.offloaded.count`, `log10x.bytes.offloaded.count` | Retriever index | What was written to offload storage |
 | `log10x.events.retrieved.count`, `log10x.bytes.retrieved.count` | Retriever query | What a retrieval query returned |
 
@@ -121,7 +126,7 @@ those four metrics do not arrive through this check.
 
 This integration does not submit events.
 
-### Service checks
+### Service Checks
 
 **log10x.openmetrics.health**: Returns `CRITICAL` if the Agent cannot reach the engine's
 metrics endpoint, otherwise `OK`.

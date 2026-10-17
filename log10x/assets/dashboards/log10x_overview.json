@@ -25,7 +25,7 @@
       "id": 1000000000000002,
       "definition": {
         "type": "note",
-        "content": "**About**\n\nThe 10x Engine runs in the operator's network in front of Datadog, groups events by message pattern, and decides per pattern whether to forward, compact or offload them. This dashboard shows the counts on each side of that decision.",
+        "content": "**About**\n\nThe 10x Engine runs in the operator's network in front of Datadog, groups events by message pattern, and decides per pattern whether to forward, compact, or offload them. This dashboard shows the counts on each side of that decision.",
         "background_color": "white",
         "font_size": "14",
         "text_align": "center",
@@ -229,61 +229,6 @@
             },
             "layout": {
               "x": 0,
-              "y": 4,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 1000000000000015,
-            "definition": {
-              "title": "Encoded size against forwarded bytes, when compaction is on",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    },
-                    {
-                      "formula": "query2"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:log10x.bytes.encoded.count{$tenx_env,$tenx_user_service}.as_count()"
-                    },
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "sum:log10x.bytes.forwarded.count{$tenx_env,$tenx_user_service}.as_count()"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 6,
               "y": 4,
               "width": 6,
               "height": 3
