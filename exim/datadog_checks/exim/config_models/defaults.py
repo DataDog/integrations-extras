@@ -12,5 +12,21 @@ def instance_empty_default_hostname():
     return False
 
 
+def instance_enable_legacy_tags_normalization():
+    return True
+
+
+def instance_exim_path():
+    return '/usr/sbin/exim'
+
+
+def instance_exiqsumm_path():
+    return '/usr/sbin/exiqsumm'
+
+
 def instance_min_collection_interval():
     return 15
+
+
+def instance_use_sudo():
+    return False
