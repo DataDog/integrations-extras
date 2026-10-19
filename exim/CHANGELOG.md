@@ -1,5 +1,11 @@
 # CHANGELOG - exim
 
+## 1.2.1 / 2026-10-19
+
+***Fixed***:
+
+* Include the command's stderr, such as `sudo: a password is required`, in the `exim.returns.output` message when the command prints no output. On the Agent the error raised by `raise_on_empty_output` does not carry stderr, so the reason was lost. ([#3210](https://github.com/DataDog/integrations-extras/pull/3210))
+
 ## 1.2.0 / 2026-10-19
 
 ***Added***:
