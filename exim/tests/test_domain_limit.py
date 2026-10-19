@@ -1,10 +1,6 @@
-from typing import Any, Callable, Dict  # noqa: F401
-
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.exim import EximCheck
 
@@ -57,7 +53,6 @@ def run(dd_run_check, instance):
 
 @pytest.mark.unit
 def test_domains_beyond_the_limit_are_aggregated(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     run(dd_run_check, {'max_domains': 2})
 
     aggregator.assert_metric('exim.queue.count', value=10, tags=['domain:d1.example'])
@@ -82,7 +77,6 @@ def test_domains_beyond_the_limit_are_aggregated(dd_run_check, aggregator):
     'instance', [pytest.param({'max_domains': 0}, id='zero'), pytest.param({'max_domains': 5}, id='exact')]
 )
 def test_no_aggregation_when_within_the_limit(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     run(dd_run_check, instance)
 
     aggregator.assert_metric('exim.queue.count', count=6)
@@ -94,7 +88,6 @@ def test_no_aggregation_when_within_the_limit(dd_run_check, aggregator, instance
 
 @pytest.mark.unit
 def test_default_limit_is_100(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     rows = [(i, '100', '1m', '1m', f'd{i:03d}.example') for i in range(150, 0, -1)]
     output = summary(rows) + '@@exiqsumm-f@@\n' + summary(rows) + '@@exiqsumm-b@@\n' + summary(rows)
     check = EximCheck('exim', {}, [{}])
@@ -109,7 +102,6 @@ def test_default_limit_is_100(dd_run_check, aggregator):
 
 @pytest.mark.unit
 def test_other_without_parseable_age(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     rows = [(2, '100', '1m', '1m', 'a.example'), (1, '100', '??', '1m', 'b.example')]
     output = summary(rows) + '@@exiqsumm-f@@\n' + summary(rows) + '@@exiqsumm-b@@\n' + summary(rows)
     check = EximCheck('exim', {}, [{'max_domains': 1}])

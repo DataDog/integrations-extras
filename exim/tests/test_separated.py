@@ -1,12 +1,9 @@
 import os
 from collections import namedtuple
-from typing import Any, Callable, Dict  # noqa: F401
 
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev import get_here
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.exim import EximCheck
@@ -22,7 +19,6 @@ def fixture(name):
 
 @pytest.mark.unit
 def test_check_frozen_count(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     # exiqsumm-separated.txt is the real output of the check's shell script for the `exim -bp`
     # listing in exim-bp.txt, with exiqsumm from Exim 4.96: the plain, -f and -b summaries.
     check = EximCheck('exim', {}, [instance])
@@ -53,7 +49,6 @@ def test_check_frozen_count(dd_run_check, aggregator, instance):
 
 @pytest.mark.unit
 def test_check_frozen_count_empty_queue(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     empty = fixture('exiqsumm-empty.txt')
     output = empty + '@@exiqsumm-f@@\n' + empty + '@@exiqsumm-b@@\n' + empty
@@ -68,7 +63,6 @@ def test_check_frozen_count_empty_queue(dd_run_check, aggregator, instance):
 
 @pytest.mark.unit
 def test_check_frozen_count_skipped_without_frozen_summary(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm.txt'), '', 0)):
         dd_run_check(check)

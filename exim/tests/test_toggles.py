@@ -1,11 +1,8 @@
 import os
-from typing import Any, Callable, Dict  # noqa: F401
 
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev import get_here
 from datadog_checks.exim import EximCheck
 
@@ -31,7 +28,6 @@ def test_all_features_enabled_by_default():
 
 @pytest.mark.unit
 def test_disabling_frozen_count_drops_the_f_pass(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     script = script_of({'collect_frozen_count': False})
     assert 'exiqsumm -f' not in script and '/usr/sbin/exiqsumm -b' in script
 
@@ -48,7 +44,6 @@ def test_disabling_frozen_count_drops_the_f_pass(dd_run_check, aggregator):
 
 @pytest.mark.unit
 def test_disabling_bounce_count_drops_the_b_pass(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     script = script_of({'collect_bounce_count': False})
     assert 'exiqsumm -b' not in script and '/usr/sbin/exiqsumm -f' in script
 
@@ -62,7 +57,6 @@ def test_disabling_bounce_count_drops_the_b_pass(dd_run_check, aggregator):
 
 @pytest.mark.unit
 def test_disabling_both_separated_counts_runs_exiqsumm_once(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     instance = {'collect_frozen_count': False, 'collect_bounce_count': False}
     assert script_of(instance).count('/usr/sbin/exiqsumm') == 1
 
@@ -80,7 +74,6 @@ def test_disabling_both_separated_counts_runs_exiqsumm_once(dd_run_check, aggreg
     'instance', [{'collect_domain_metrics': False}, {'collect_domain_metrics': False, 'max_domains': 1}]
 )
 def test_disabling_domain_metrics_keeps_only_total(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)):
         dd_run_check(check)
@@ -100,7 +93,6 @@ def test_disabling_domain_metrics_keeps_only_total(dd_run_check, aggregator, ins
 
 @pytest.mark.unit
 def test_disabling_oldest_age(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     check = EximCheck('exim', {}, [{'collect_oldest_age': False}])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)):
         dd_run_check(check)
@@ -110,7 +102,6 @@ def test_disabling_oldest_age(dd_run_check, aggregator):
 
 @pytest.mark.unit
 def test_disabling_service_running_submits_no_service_check(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     check = EximCheck('exim', {}, [{'collect_service_running': False}])
     with (
         mock.patch('datadog_checks.exim.check.shutil.which', return_value='/usr/bin/systemctl'),
@@ -124,7 +115,6 @@ def test_disabling_service_running_submits_no_service_check(dd_run_check, aggreg
 
 @pytest.mark.unit
 def test_disabling_version_metadata_skips_exim_bv(dd_run_check, datadog_agent, no_version):
-    # type: (Callable[[AgentCheck, bool], None], Any, Any) -> None
     check = EximCheck('exim', {}, [{'collect_version_metadata': False}])
     check.check_id = 'test:123'
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)) as subprocess_output:

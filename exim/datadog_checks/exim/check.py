@@ -2,7 +2,6 @@ import re
 import shlex
 import shutil
 from collections import namedtuple
-from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
@@ -29,12 +28,7 @@ class EximCheck(AgentCheck):
     SERVICE_CHECK_NAME = 'returns.output'
     SERVICE_RUNNING_CHECK_NAME = 'service.running'
 
-    def __init__(self, name, init_config, instances):
-        super(EximCheck, self).__init__(name, init_config, instances)
-
     def check(self, _):
-        # type: (Any) -> None
-
         config = self._get_config()
 
         tags = config['tags']

@@ -1,10 +1,6 @@
-from typing import Any, Callable, Dict  # noqa: F401
-
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.exim import EximCheck
 
 SUBPROCESS_OUTPUT = 'datadog_checks.exim.check.get_subprocess_output'
@@ -50,7 +46,6 @@ def fake_subprocess(bv_result):
     ],
 )
 def test_version_metadata(dd_run_check, datadog_agent, bv_result, expected):
-    # type: (Callable[[AgentCheck, bool], None], Any, Any, Dict[str, str]) -> None
     check = EximCheck('exim', {}, [{'exim_path': '/opt/exim/bin/exim'}])
     check.check_id = 'test:123'
     with (
@@ -75,7 +70,6 @@ def test_version_metadata(dd_run_check, datadog_agent, bv_result, expected):
     ],
 )
 def test_version_metadata_skipped_on_failure(dd_run_check, datadog_agent, aggregator, bv_result):
-    # type: (Callable[[AgentCheck, bool], None], Any, AggregatorStub, Any) -> None
     check = EximCheck('exim', {}, [{}])
     check.check_id = 'test:123'
     with (
