@@ -30,6 +30,11 @@ class InstanceConfig(BaseModel):
         arbitrary_types_allowed=True,
         frozen=True,
     )
+    collect_bounce_count: Optional[bool] = None
+    collect_frozen_count: Optional[bool] = None
+    collect_oldest_age: Optional[bool] = None
+    collect_service_running: Optional[bool] = None
+    collect_version_metadata: Optional[bool] = None
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
     enable_legacy_tags_normalization: Optional[bool] = None

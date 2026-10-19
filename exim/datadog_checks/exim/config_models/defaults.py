@@ -4,6 +4,26 @@
 #     ddev -x validate models -s <INTEGRATION_NAME>
 
 
+def instance_collect_bounce_count():
+    return True
+
+
+def instance_collect_frozen_count():
+    return True
+
+
+def instance_collect_oldest_age():
+    return True
+
+
+def instance_collect_service_running():
+    return True
+
+
+def instance_collect_version_metadata():
+    return True
+
+
 def instance_disable_generic_tags():
     return False
 

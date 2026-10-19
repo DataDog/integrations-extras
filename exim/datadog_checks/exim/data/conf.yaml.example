@@ -57,6 +57,34 @@ instances:
     #
     # max_domains: 100
 
+    ## @param collect_oldest_age - boolean - optional - default: true
+    ## Collect the `exim.queue.oldest_age` metric.
+    #
+    # collect_oldest_age: true
+
+    ## @param collect_frozen_count - boolean - optional - default: true
+    ## Collect the `exim.queue.frozen.count` metric. When disabled, the captured queue listing is
+    ## not summarized with `exiqsumm -f`.
+    #
+    # collect_frozen_count: true
+
+    ## @param collect_bounce_count - boolean - optional - default: true
+    ## Collect the `exim.queue.bounce.count` metric. When disabled, the captured queue listing is
+    ## not summarized with `exiqsumm -b`.
+    #
+    # collect_bounce_count: true
+
+    ## @param collect_service_running - boolean - optional - default: true
+    ## Submit the `exim.service.running` service check. Disable it on hosts without systemd, or
+    ## when the core `systemd` integration already monitors the Exim unit.
+    #
+    # collect_service_running: true
+
+    ## @param collect_version_metadata - boolean - optional - default: true
+    ## Run `exim -bV` to submit the Exim version as check metadata.
+    #
+    # collect_version_metadata: true
+
     ## @param service_name - string - optional
     ## Name of the systemd unit that runs Exim, used by the `exim.service.running` service check.
     ##

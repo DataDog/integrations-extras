@@ -42,7 +42,7 @@ class EximCheck(AgentCheck):
             queue_stats, separated_stats = self._get_queue_summaries()
             separated_counts = {
                 kind: self._get_separated_counts(queue_stats, separated_stats.get(kind), kind)
-                for kind, _, _ in SEPARATED_SUMMARIES
+                for kind, _, _ in self._enabled_summaries(config)
             }
             rows = self._collect_rows(queue_stats, separated_counts)
             self.gauge('queue.domains', sum(1 for row in rows if row['domain'] != TOTAL_DOMAIN), tags=tags)
@@ -50,7 +50,7 @@ class EximCheck(AgentCheck):
                 domain_tags = tags + [f"domain:{row['domain']}"]
                 self.gauge('queue.count', row['count'], tags=domain_tags)
                 self.gauge('queue.volume', row['volume'], tags=domain_tags)
-                if row['oldest_age'] is not None:
+                if config['collect_oldest_age'] and row['oldest_age'] is not None:
                     self.gauge('queue.oldest_age', row['oldest_age'], tags=domain_tags)
                 for kind, value in row['separated'].items():
                     self.gauge(f'queue.{kind}.count', value, tags=domain_tags)
@@ -59,8 +59,10 @@ class EximCheck(AgentCheck):
             self.log.warning("Cannot get exim queue info: %s", e)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
-        self._check_service_running(tags, config['service_name'])
-        self._collect_version(config['exim_path'])
+        if config['collect_service_running']:
+            self._check_service_running(tags, config['service_name'])
+        if config['collect_version_metadata']:
+            self._collect_version(config['exim_path'])
 
     def _get_config(self):
         tags = self.instance.get('tags', [])
@@ -71,10 +73,19 @@ class EximCheck(AgentCheck):
             'use_sudo': is_affirmative(self.instance.get('use_sudo', False)),
             'service_name': self.instance.get('service_name') or None,
             'max_domains': int(self.instance.get('max_domains', DEFAULT_MAX_DOMAINS)),
+            # Feature toggles; a disabled feature also skips the work behind it.
+            'collect_oldest_age': is_affirmative(self.instance.get('collect_oldest_age', True)),
+            'collect_frozen_count': is_affirmative(self.instance.get('collect_frozen_count', True)),
+            'collect_bounce_count': is_affirmative(self.instance.get('collect_bounce_count', True)),
+            'collect_service_running': is_affirmative(self.instance.get('collect_service_running', True)),
+            'collect_version_metadata': is_affirmative(self.instance.get('collect_version_metadata', True)),
         }
         if instance_config['max_domains'] < 0:
             raise ConfigurationError('`max_domains` must be 0 (no limit) or a positive number')
         return instance_config
+
+    def _enabled_summaries(self, config):
+        return [item for item in SEPARATED_SUMMARIES if config[f'collect_{item[0]}_count']]
 
     def _collect_rows(self, queue_stats, separated_counts):
         """
@@ -228,9 +239,10 @@ class EximCheck(AgentCheck):
         which does the same for bounce messages as `<domain> (b)` rows. All summaries come from
         a single `exim -bp` run, so the spool is only scanned once.
         """
+        config = self._get_config()
         exim_command, exiqsumm_command = self._command_parts()
         script = f'out=$({exim_command}) || exit $?; printf \'%s\\n\' "$out" | {exiqsumm_command}'
-        for _, option, marker in SEPARATED_SUMMARIES:
+        for _, option, marker in self._enabled_summaries(config):
             script += f' && echo {marker} && printf \'%s\\n\' "$out" | {exiqsumm_command} {option}'
         return ['/bin/sh', '-c', script]
 

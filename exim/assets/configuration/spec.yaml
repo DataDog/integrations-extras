@@ -55,6 +55,37 @@ files:
         type: integer
         example: 100
         minimum: 0
+    - name: collect_oldest_age
+      description: Collect the `exim.queue.oldest_age` metric.
+      value:
+        type: boolean
+        example: true
+    - name: collect_frozen_count
+      description: |
+        Collect the `exim.queue.frozen.count` metric. When disabled, the captured queue listing is
+        not summarized with `exiqsumm -f`.
+      value:
+        type: boolean
+        example: true
+    - name: collect_bounce_count
+      description: |
+        Collect the `exim.queue.bounce.count` metric. When disabled, the captured queue listing is
+        not summarized with `exiqsumm -b`.
+      value:
+        type: boolean
+        example: true
+    - name: collect_service_running
+      description: |
+        Submit the `exim.service.running` service check. Disable it on hosts without systemd, or
+        when the core `systemd` integration already monitors the Exim unit.
+      value:
+        type: boolean
+        example: true
+    - name: collect_version_metadata
+      description: Run `exim -bV` to submit the Exim version as check metadata.
+      value:
+        type: boolean
+        example: true
     - name: service_name
       description: |
         Name of the systemd unit that runs Exim, used by the `exim.service.running` service check.
