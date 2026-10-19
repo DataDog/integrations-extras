@@ -115,3 +115,14 @@ def test_gauge_named_count_stays_gauge(dd_run_check, aggregator):
 )
 def test_submission_type(family_type, sample_name, expected):
     assert UpboundUxpCheck._submission_type(family_type, sample_name) == expected
+
+
+@pytest.mark.unit
+def test_instance_tags_on_heartbeat(dd_run_check, aggregator):
+    _run(dd_run_check, _fixture())
+
+    submissions = aggregator.metrics('uxp.datadog_agent_checks')
+    assert submissions
+    for m in submissions:
+        for tag in INSTANCE_TAGS:
+            assert tag in m.tags, m.tags

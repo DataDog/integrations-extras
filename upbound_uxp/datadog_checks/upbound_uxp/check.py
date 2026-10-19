@@ -339,6 +339,11 @@ class UpboundUxpCheck(AgentCheck):
 
         super(UpboundUxpCheck, self).__init__(name, init_config, instances)
 
+        # Tags configured on the instance, for example env, or kube_cluster_name
+        # added by the Cluster Agent to dispatched cluster checks. Computed once,
+        # since the instance configuration does not change during the check lifetime.
+        self._tags = list((self.instance or {}).get('tags') or [])
+
     def _raise_format_err(self, n, msg):
         raise ConfigurationError(
             'Configuration error, ' + 'Please fix format for ' + n + ' in auto_conf.yaml and/or conf.yaml. ' + msg
@@ -380,14 +385,9 @@ class UpboundUxpCheck(AgentCheck):
             else:
                 tags.append(k + ":" + v)
         tags.append("pod:" + pod_name)
-        tags.extend(self._instance_tags())
+        tags.extend(self._tags)
 
         return tags
-
-    def _instance_tags(self):
-        # Tags configured on the instance, for example env, or kube_cluster_name
-        # added by the Cluster Agent to dispatched cluster checks.
-        return list((self.instance or {}).get('tags') or [])
 
     @staticmethod
     def _submission_type(family_type, sample_name):
@@ -403,7 +403,10 @@ class UpboundUxpCheck(AgentCheck):
             return 'gauge'
         if family_type == 'gauge':
             return 'gauge'
-        # Untyped or missing TYPE line: fall back to the metric name suffix
+        # Untyped or missing TYPE line: fall back to the metric name suffix.
+        # Note that a name ending in _count is then treated as cumulative
+        # (monotonic count), which matches Prometheus naming conventions but
+        # would be wrong for an untyped gauge named *_count.
         if sample_name.endswith(('_total', '_sum', '_count')):
             return 'monotonic_count'
         if sample_name.endswith('_bucket'):
@@ -485,19 +488,21 @@ class UpboundUxpCheck(AgentCheck):
                         self.SERVICE_CHECK_CONNECT_NAME,
                         self.CRITICAL,
                         message="Error {0}".format(e),
-                        tags=self._instance_tags(),
+                        tags=list(self._tags),
                         hostname=host,
                     )
                     continue
 
                 self.get_metrics(metrics, host)
 
-            self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
+            self.count(
+                'datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__] + self._tags
+            )
             self.check_count = self.check_count + 1
-            self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, tags=self._instance_tags())
+            self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, tags=list(self._tags))
             return
 
-        self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
+        self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__] + self._tags)
         self.check_count = self.check_count + 1
 
         # Get Pods in upbound-system or another namespace
@@ -517,15 +522,13 @@ class UpboundUxpCheck(AgentCheck):
                 self.SERVICE_CHECK_CONNECT_NAME,
                 self.CRITICAL,
                 message="Error {0}".format(e),
-                tags=self._instance_tags(),
+                tags=list(self._tags),
                 hostname=None,
             )
             raise
             return
 
-        self.service_check(
-            self.SERVICE_CHECK_CONNECT_NAME, self.OK, message=None, tags=self._instance_tags(), hostname=None
-        )
+        self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, message=None, tags=list(self._tags), hostname=None)
 
         v1 = client.CoreV1Api()
         pods = []
@@ -587,7 +590,7 @@ class UpboundUxpCheck(AgentCheck):
                     self.SERVICE_CHECK_CONNECT_NAME,
                     self.CRITICAL,
                     message="Error {0}".format(e),
-                    tags=self._instance_tags(),
+                    tags=list(self._tags),
                     hostname=pod.status.pod_ip,
                 )
                 continue
