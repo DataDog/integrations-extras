@@ -1,5 +1,13 @@
 # CHANGELOG - exim
 
+## 1.2.0 / 2026-10-19
+
+***Added***:
+
+* Add the `exim.service.running` service check, which reports the state of the Exim systemd unit, and the `service_name` instance option. ([#3210](https://github.com/DataDog/integrations-extras/pull/3210))
+* Add the `exim.queue.oldest_age` metric with the age of the oldest queued message per domain. ([#3210](https://github.com/DataDog/integrations-extras/pull/3210))
+* Add the `exim.queue.frozen.count` metric with the number of queued recipients of frozen messages per domain. ([#3210](https://github.com/DataDog/integrations-extras/pull/3210))
+
 ## 1.1.0 / 2026-10-09
 
 ***Changed***:

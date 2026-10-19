@@ -38,6 +38,7 @@ class InstanceConfig(BaseModel):
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
     service: Optional[str] = None
+    service_name: Optional[str] = None
     tags: Optional[tuple[str, ...]] = None
     use_sudo: Optional[bool] = None
 
