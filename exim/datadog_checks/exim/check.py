@@ -13,6 +13,8 @@ DEFAULT_EXIM_PATH = '/usr/sbin/exim'
 DEFAULT_EXIQSUMM_PATH = '/usr/sbin/exiqsumm'
 # systemd unit names probed when `service_name` is not set: Debian/Ubuntu, then Red Hat based systems.
 DEFAULT_SERVICE_NAMES = ('exim4', 'exim')
+# Exim versions have two parts (4.97) and sometimes a third (4.94.2), which semver would reject.
+VERSION_PATTERN = r'^(?P<major>\d+)\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?$'
 
 
 class EximCheck(AgentCheck):
@@ -52,6 +54,7 @@ class EximCheck(AgentCheck):
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
         self._check_service_running(tags, config['service_name'])
+        self._collect_version(config['exim_path'])
 
     def _get_config(self):
         tags = self.instance.get('tags', [])
@@ -63,6 +66,21 @@ class EximCheck(AgentCheck):
             'service_name': self.instance.get('service_name') or None,
         }
         return instance_config
+
+    def _collect_version(self, exim_path):
+        """
+        Submit the Exim version as check metadata. `exim -bV` needs no privileges; its first line
+        reads `Exim version 4.97 #2 built 22-Sep-2026 18:24:17`.
+        """
+        try:
+            output, err, returncode = get_subprocess_output([exim_path, '-bV'], self.log, raise_on_empty_output=False)
+            match = re.search(r'^Exim version (\d+(?:\.\d+)+)', output or '', re.M)
+            if returncode != 0 or not match:
+                self.log.debug('Cannot determine the Exim version (status %s): %r %r', returncode, output, err)
+                return
+            self.set_metadata('version', match.group(1), scheme='regex', pattern=VERSION_PATTERN)
+        except Exception as e:
+            self.log.debug('Cannot determine the Exim version: %s', e)
 
     def _check_service_running(self, tags, service_name):
         """
