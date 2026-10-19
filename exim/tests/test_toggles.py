@@ -76,6 +76,29 @@ def test_disabling_both_separated_counts_runs_exiqsumm_once(dd_run_check, aggreg
 
 
 @pytest.mark.unit
+@pytest.mark.parametrize(
+    'instance', [{'collect_domain_metrics': False}, {'collect_domain_metrics': False, 'max_domains': 1}]
+)
+def test_disabling_domain_metrics_keeps_only_total(dd_run_check, aggregator, instance):
+    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+    check = EximCheck('exim', {}, [instance])
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)):
+        dd_run_check(check)
+    for name, value in (
+        ('exim.queue.count', 7),
+        ('exim.queue.volume', 2511 * 1024),
+        ('exim.queue.oldest_age', 100 * 86400),
+        ('exim.queue.frozen.count', 4),
+        ('exim.queue.bounce.count', 1),
+    ):
+        aggregator.assert_metric(name, value=value, tags=['domain:TOTAL'])
+        aggregator.assert_metric(name, count=1)
+    aggregator.assert_metric('exim.queue.domains', value=4, tags=[])
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
+
+
+@pytest.mark.unit
 def test_disabling_oldest_age(dd_run_check, aggregator):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub) -> None
     check = EximCheck('exim', {}, [{'collect_oldest_age': False}])

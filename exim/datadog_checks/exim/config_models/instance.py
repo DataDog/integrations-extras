@@ -31,6 +31,7 @@ class InstanceConfig(BaseModel):
         frozen=True,
     )
     collect_bounce_count: Optional[bool] = None
+    collect_domain_metrics: Optional[bool] = None
     collect_frozen_count: Optional[bool] = None
     collect_oldest_age: Optional[bool] = None
     collect_service_running: Optional[bool] = None

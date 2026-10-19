@@ -46,7 +46,12 @@ class EximCheck(AgentCheck):
             }
             rows = self._collect_rows(queue_stats, separated_counts)
             self.gauge('queue.domains', sum(1 for row in rows if row['domain'] != TOTAL_DOMAIN), tags=tags)
-            for row in self._limit_domains(rows, config['max_domains']):
+            if config['collect_domain_metrics']:
+                rows = self._limit_domains(rows, config['max_domains'])
+            else:
+                # Only the TOTAL row: a fixed number of time series regardless of the queue contents.
+                rows = [row for row in rows if row['domain'] == TOTAL_DOMAIN]
+            for row in rows:
                 domain_tags = tags + [f"domain:{row['domain']}"]
                 self.gauge('queue.count', row['count'], tags=domain_tags)
                 self.gauge('queue.volume', row['volume'], tags=domain_tags)
@@ -74,6 +79,7 @@ class EximCheck(AgentCheck):
             'service_name': self.instance.get('service_name') or None,
             'max_domains': int(self.instance.get('max_domains', DEFAULT_MAX_DOMAINS)),
             # Feature toggles; a disabled feature also skips the work behind it.
+            'collect_domain_metrics': is_affirmative(self.instance.get('collect_domain_metrics', True)),
             'collect_oldest_age': is_affirmative(self.instance.get('collect_oldest_age', True)),
             'collect_frozen_count': is_affirmative(self.instance.get('collect_frozen_count', True)),
             'collect_bounce_count': is_affirmative(self.instance.get('collect_bounce_count', True)),

@@ -55,6 +55,17 @@ files:
         type: integer
         example: 100
         minimum: 0
+    - name: collect_domain_metrics
+      description: |
+        Report the queue metrics per recipient domain (`domain:<DOMAIN>` and `domain:other`).
+        When disabled, only the `domain:TOTAL` series and `exim.queue.domains` are submitted.
+
+        Cost: with this disabled the integration always produces 6 custom metrics per host
+        (5 queue metrics for `domain:TOTAL` plus `exim.queue.domains`), whatever the queue
+        contains. With it enabled, add 5 per reported domain; see `max_domains`.
+      value:
+        type: boolean
+        example: true
     - name: collect_oldest_age
       description: Collect the `exim.queue.oldest_age` metric.
       value:

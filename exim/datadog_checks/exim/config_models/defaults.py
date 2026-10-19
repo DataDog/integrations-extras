@@ -8,6 +8,10 @@ def instance_collect_bounce_count():
     return True
 
 
+def instance_collect_domain_metrics():
+    return True
+
+
 def instance_collect_frozen_count():
     return True
 
