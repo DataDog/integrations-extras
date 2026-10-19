@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from datadog_checks.base.utils.functions import identity
 from datadog_checks.base.utils.models import validation
@@ -35,6 +35,7 @@ class InstanceConfig(BaseModel):
     enable_legacy_tags_normalization: Optional[bool] = None
     exim_path: Optional[str] = None
     exiqsumm_path: Optional[str] = None
+    max_domains: Optional[int] = Field(None, ge=0)
     metric_patterns: Optional[MetricPatterns] = None
     min_collection_interval: Optional[float] = None
     service: Optional[str] = None

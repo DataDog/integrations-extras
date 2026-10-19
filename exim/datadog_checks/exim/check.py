@@ -4,7 +4,7 @@ import shutil
 from collections import namedtuple
 from typing import Any  # noqa: F401
 
-from datadog_checks.base import AgentCheck, is_affirmative
+from datadog_checks.base import AgentCheck, ConfigurationError, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 # Printed between the summaries in the command output; never part of exiqsumm output itself.
@@ -14,6 +14,10 @@ DEFAULT_EXIM_PATH = '/usr/sbin/exim'
 DEFAULT_EXIQSUMM_PATH = '/usr/sbin/exiqsumm'
 # systemd unit names probed when `service_name` is not set: Debian/Ubuntu, then Red Hat based systems.
 DEFAULT_SERVICE_NAMES = ('exim4', 'exim')
+# Domains beyond `max_domains` (ordered by queued recipients) are aggregated under this tag value.
+DEFAULT_MAX_DOMAINS = 100
+OTHER_DOMAIN = 'other'
+TOTAL_DOMAIN = 'TOTAL'
 # Exim versions have two parts (4.97) and sometimes a third (4.94.2), which semver would reject.
 VERSION_PATTERN = r'^(?P<major>\d+)\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?$'
 
@@ -40,19 +44,16 @@ class EximCheck(AgentCheck):
                 kind: self._get_separated_counts(queue_stats, separated_stats.get(kind), kind)
                 for kind, _, _ in SEPARATED_SUMMARIES
             }
-            for queue in queue_stats:
-                for kind, counts in separated_counts.items():
-                    if counts is not None:
-                        self.gauge(
-                            f'queue.{kind}.count', counts.get(queue.Domain, 0), tags=tags + [f'domain:{queue.Domain}']
-                        )
-                self.gauge('queue.count', int(queue.Count), tags=tags + [f'domain:{queue.Domain}'])
-                self.gauge('queue.volume', self.parse_size(queue.Volume), tags=tags + [f'domain:{queue.Domain}'])
-                oldest_age = self.parse_age(queue.Oldest)
-                if oldest_age is None:
-                    self.log.debug('Cannot parse the Oldest value %r for domain %s', queue.Oldest, queue.Domain)
-                else:
-                    self.gauge('queue.oldest_age', oldest_age, tags=tags + [f'domain:{queue.Domain}'])
+            rows = self._collect_rows(queue_stats, separated_counts)
+            self.gauge('queue.domains', sum(1 for row in rows if row['domain'] != TOTAL_DOMAIN), tags=tags)
+            for row in self._limit_domains(rows, config['max_domains']):
+                domain_tags = tags + [f"domain:{row['domain']}"]
+                self.gauge('queue.count', row['count'], tags=domain_tags)
+                self.gauge('queue.volume', row['volume'], tags=domain_tags)
+                if row['oldest_age'] is not None:
+                    self.gauge('queue.oldest_age', row['oldest_age'], tags=domain_tags)
+                for kind, value in row['separated'].items():
+                    self.gauge(f'queue.{kind}.count', value, tags=domain_tags)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags)
         except Exception as e:
             self.log.warning("Cannot get exim queue info: %s", e)
@@ -69,8 +70,62 @@ class EximCheck(AgentCheck):
             'exiqsumm_path': self.instance.get('exiqsumm_path', DEFAULT_EXIQSUMM_PATH),
             'use_sudo': is_affirmative(self.instance.get('use_sudo', False)),
             'service_name': self.instance.get('service_name') or None,
+            'max_domains': int(self.instance.get('max_domains', DEFAULT_MAX_DOMAINS)),
         }
+        if instance_config['max_domains'] < 0:
+            raise ConfigurationError('`max_domains` must be 0 (no limit) or a positive number')
         return instance_config
+
+    def _collect_rows(self, queue_stats, separated_counts):
+        """
+        Turn the exiqsumm rows into dicts with parsed values: count, volume in bytes, oldest age in
+        seconds (None when unparseable) and the separated counts (frozen, bounce) that are available.
+        """
+        rows = []
+        for queue in queue_stats:
+            oldest_age = self.parse_age(queue.Oldest)
+            if oldest_age is None:
+                self.log.debug('Cannot parse the Oldest value %r for domain %s', queue.Oldest, queue.Domain)
+            rows.append(
+                {
+                    'domain': queue.Domain,
+                    'count': int(queue.Count),
+                    'volume': self.parse_size(queue.Volume),
+                    'oldest_age': oldest_age,
+                    'separated': {
+                        kind: counts.get(queue.Domain, 0)
+                        for kind, counts in separated_counts.items()
+                        if counts is not None
+                    },
+                }
+            )
+        return rows
+
+    @staticmethod
+    def _limit_domains(rows, max_domains):
+        """
+        Keep the `max_domains` domains with the most queued recipients and aggregate the rest into
+        one `other` row, so the number of `domain` tag values (and therefore of time series) stays
+        bounded on relays that queue mail for many domains. TOTAL is passed through unchanged and
+        0 disables the limit.
+        """
+        total = [row for row in rows if row['domain'] == TOTAL_DOMAIN]
+        domains = sorted(
+            (row for row in rows if row['domain'] != TOTAL_DOMAIN), key=lambda r: (-r['count'], r['domain'])
+        )
+        if not max_domains or len(domains) <= max_domains:
+            return domains + total
+
+        kept, rest = domains[:max_domains], domains[max_domains:]
+        ages = [row['oldest_age'] for row in rest if row['oldest_age'] is not None]
+        other = {
+            'domain': OTHER_DOMAIN,
+            'count': sum(row['count'] for row in rest),
+            'volume': sum(row['volume'] for row in rest),
+            'oldest_age': max(ages) if ages else None,
+            'separated': {kind: sum(row['separated'].get(kind, 0) for row in rest) for kind in rest[0]['separated']},
+        }
+        return kept + [other] + total
 
     def _collect_version(self, exim_path):
         """
@@ -260,9 +315,9 @@ class EximCheck(AgentCheck):
 
         counts = {}
         for row in queue_stats:
-            if row.Domain != 'TOTAL':
+            if row.Domain != TOTAL_DOMAIN:
                 counts[row.Domain] = max(0, int(row.Count) - plain.get(row.Domain, 0))
-        counts['TOTAL'] = sum(counts.values())
+        counts[TOTAL_DOMAIN] = sum(counts.values())
         return counts
 
     @staticmethod

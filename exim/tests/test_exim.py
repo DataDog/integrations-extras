@@ -61,6 +61,8 @@ def test_check(dd_run_check, aggregator, instance):
         aggregator.assert_metric('exim.queue.oldest_age', value=11 * 3600, tags=tags + ['domain:user@server2.in'])
         aggregator.assert_metric('exim.queue.oldest_age', value=14 * 3600, tags=tags + ['domain:TOTAL'])
 
+        aggregator.assert_metric('exim.queue.domains', value=2, tags=tags)
+
         aggregator.assert_all_metrics_covered()
         aggregator.assert_metrics_using_metadata(get_metadata_metrics())
         aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
@@ -76,6 +78,7 @@ def test_check_empty_queue(dd_run_check, aggregator, instance):
         aggregator.assert_metric('exim.queue.count', value=0, tags=['domain:TOTAL'])
         aggregator.assert_metric('exim.queue.volume', value=0, tags=['domain:TOTAL'])
         aggregator.assert_metric('exim.queue.oldest_age', value=0, tags=['domain:TOTAL'])
+        aggregator.assert_metric('exim.queue.domains', value=0, tags=[])
         aggregator.assert_all_metrics_covered()
         aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
 

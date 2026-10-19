@@ -24,6 +24,10 @@ def instance_exiqsumm_path():
     return '/usr/sbin/exiqsumm'
 
 
+def instance_max_domains():
+    return 100
+
+
 def instance_min_collection_interval():
     return 15
 
