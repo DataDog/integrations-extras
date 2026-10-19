@@ -74,8 +74,11 @@ class EximCheck(AgentCheck):
             status, message = self._get_service_status(service_name)
         except Exception as e:
             status, message = AgentCheck.UNKNOWN, 'Cannot determine the state of the Exim service: {}'.format(e)
-        if status != AgentCheck.OK:
+        if status == AgentCheck.CRITICAL:
             self.log.warning(message)
+        elif status == AgentCheck.UNKNOWN:
+            # Expected on hosts without systemd (the status already says so), so do not warn on every run.
+            self.log.debug(message)
         self.service_check(
             self.SERVICE_RUNNING_CHECK_NAME, status, tags, message=message if status != AgentCheck.OK else None
         )

@@ -4,7 +4,8 @@
 
 ***Fixed***:
 
-* Include the command's stderr, such as `sudo: a password is required`, in the `exim.returns.output` message when the command prints no output. On the Agent the error raised by `raise_on_empty_output` does not carry stderr, so the reason was lost. ([#3210](https://github.com/DataDog/integrations-extras/pull/3210))
+* Include the command's stderr, such as `sudo: a password is required`, in the `exim.returns.output` message when the command prints no output. On the Agent the error raised by `raise_on_empty_output` does not carry stderr, so the reason was lost. ([#TBD](https://github.com/DataDog/integrations-extras/pull/TBD))
+* Log `exim.service.running` failures at debug level when the result is `UNKNOWN`, for example on hosts without systemd, instead of a warning on every run. ([#TBD](https://github.com/DataDog/integrations-extras/pull/TBD))
 
 ## 1.2.0 / 2026-10-19
 
