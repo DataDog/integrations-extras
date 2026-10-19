@@ -15,12 +15,14 @@ SUBPROCESS_OUTPUT = 'datadog_checks.exim.check.get_subprocess_output'
 
 
 def expected_script(exim, exiqsumm):
-    # `exim -bp` runs once; its output is summarized as is and with `exiqsumm -f`.
+    # `exim -bp` runs once; its output is summarized as is, with `exiqsumm -f` and with `exiqsumm -b`.
     return (
         f'out=$({exim} -bp) || exit $?; '
         f'printf \'%s\\n\' "$out" | {exiqsumm} && '
         'echo @@exiqsumm-f@@ && '
-        f'printf \'%s\\n\' "$out" | {exiqsumm} -f'
+        f'printf \'%s\\n\' "$out" | {exiqsumm} -f && '
+        'echo @@exiqsumm-b@@ && '
+        f'printf \'%s\\n\' "$out" | {exiqsumm} -b'
     )
 
 

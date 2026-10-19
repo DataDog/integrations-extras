@@ -23,10 +23,10 @@ def fixture(name):
 @pytest.mark.unit
 def test_check_frozen_count(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-    # exiqsumm-frozen.txt is the real output of the check's shell script for the `exim -bp`
-    # listing in exim-bp.txt, with exiqsumm from Exim 4.96.
+    # exiqsumm-separated.txt is the real output of the check's shell script for the `exim -bp`
+    # listing in exim-bp.txt, with exiqsumm from Exim 4.96: the plain, -f and -b summaries.
     check = EximCheck('exim', {}, [instance])
-    with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-frozen.txt'), '', 0)):
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)):
         dd_run_check(check)
 
     aggregator.assert_metric('exim.queue.frozen.count', value=2, tags=['domain:example.org'])
@@ -40,6 +40,13 @@ def test_check_frozen_count(dd_run_check, aggregator, instance):
     aggregator.assert_metric('exim.queue.count', value=7, tags=['domain:TOTAL'])
     aggregator.assert_metric('exim.queue.count', count=5)
     aggregator.assert_metric('exim.queue.frozen.count', count=5)
+    # The only bounce (empty sender) is the frozen message to dave@example.org.
+    aggregator.assert_metric('exim.queue.bounce.count', value=1, tags=['domain:example.org'])
+    aggregator.assert_metric('exim.queue.bounce.count', value=0, tags=['domain:gmail.com'])
+    aggregator.assert_metric('exim.queue.bounce.count', value=0, tags=['domain:yahoo.com'])
+    aggregator.assert_metric('exim.queue.bounce.count', value=0, tags=[f'domain:{LONG_DOMAIN}'])
+    aggregator.assert_metric('exim.queue.bounce.count', value=1, tags=['domain:TOTAL'])
+    aggregator.assert_metric('exim.queue.bounce.count', count=5)
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
     aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
 
@@ -49,11 +56,14 @@ def test_check_frozen_count_empty_queue(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     empty = fixture('exiqsumm-empty.txt')
-    with mock.patch(SUBPROCESS_OUTPUT, return_value=(empty + '@@exiqsumm-f@@\n' + empty, '', 0)):
+    output = empty + '@@exiqsumm-f@@\n' + empty + '@@exiqsumm-b@@\n' + empty
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=(output, '', 0)):
         dd_run_check(check)
 
     aggregator.assert_metric('exim.queue.frozen.count', value=0, tags=['domain:TOTAL'])
     aggregator.assert_metric('exim.queue.frozen.count', count=1)
+    aggregator.assert_metric('exim.queue.bounce.count', value=0, tags=['domain:TOTAL'])
+    aggregator.assert_metric('exim.queue.bounce.count', count=1)
 
 
 @pytest.mark.unit
@@ -64,6 +74,7 @@ def test_check_frozen_count_skipped_without_frozen_summary(dd_run_check, aggrega
         dd_run_check(check)
 
     aggregator.assert_metric('exim.queue.frozen.count', count=0)
+    aggregator.assert_metric('exim.queue.bounce.count', count=0)
     aggregator.assert_metric('exim.queue.count', value=3, tags=['domain:TOTAL'])
     aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
 
@@ -71,11 +82,20 @@ def test_check_frozen_count_skipped_without_frozen_summary(dd_run_check, aggrega
 @pytest.mark.unit
 def test_get_queue_summaries_parses_frozen_rows(dd_run_check):
     check = EximCheck('exim', {}, [{}])
-    with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-frozen.txt'), '', 0)):
-        queues, frozen = check._get_queue_summaries()
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=(fixture('exiqsumm-separated.txt'), '', 0)):
+        queues, separated = check._get_queue_summaries()
 
     assert [q.Domain for q in queues] == [LONG_DOMAIN, 'example.org', 'gmail.com', 'yahoo.com', 'TOTAL']
-    assert [(q.Count, q.Domain) for q in frozen] == [
+    assert sorted(separated) == ['bounce', 'frozen']
+    assert [(q.Count, q.Domain) for q in separated['bounce']] == [
+        ('1', LONG_DOMAIN),
+        ('2', 'example.org'),
+        ('1', 'example.org (b)'),
+        ('2', 'gmail.com'),
+        ('1', 'yahoo.com'),
+        ('7', 'TOTAL'),
+    ]
+    assert [(q.Count, q.Domain) for q in separated['frozen']] == [
         ('1', LONG_DOMAIN + ' ('),
         ('1', 'example.org'),
         ('2', 'example.org (f)'),
@@ -99,4 +119,4 @@ def test_frozen_count_for_domains_longer_than_78_characters(dd_run_check):
         queue('2', '0', '1m', '1m', domain),
         queue('3', '0', '1m', '1m', 'TOTAL'),
     ]
-    assert check._get_frozen_counts(queues, frozen) == {domain: 0, 'TOTAL': 0}
+    assert check._get_separated_counts(queues, frozen, 'frozen') == {domain: 0, 'TOTAL': 0}

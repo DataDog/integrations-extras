@@ -7,8 +7,9 @@ from typing import Any  # noqa: F401
 from datadog_checks.base import AgentCheck, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
-# Printed between the plain and the `exiqsumm -f` summary; never part of exiqsumm output.
-FROZEN_SUMMARY_MARKER = '@@exiqsumm-f@@'
+# Printed between the summaries in the command output; never part of exiqsumm output itself.
+# Each extra summary separates one kind of message into `<domain> (x)` rows: -f frozen, -b bounces.
+SEPARATED_SUMMARIES = (('frozen', '-f', '@@exiqsumm-f@@'), ('bounce', '-b', '@@exiqsumm-b@@'))
 DEFAULT_EXIM_PATH = '/usr/sbin/exim'
 DEFAULT_EXIQSUMM_PATH = '/usr/sbin/exiqsumm'
 # systemd unit names probed when `service_name` is not set: Debian/Ubuntu, then Red Hat based systems.
@@ -34,13 +35,17 @@ class EximCheck(AgentCheck):
 
         tags = config['tags']
         try:
-            queue_stats, frozen_stats = self._get_queue_summaries()
-            frozen_counts = self._get_frozen_counts(queue_stats, frozen_stats)
+            queue_stats, separated_stats = self._get_queue_summaries()
+            separated_counts = {
+                kind: self._get_separated_counts(queue_stats, separated_stats.get(kind), kind)
+                for kind, _, _ in SEPARATED_SUMMARIES
+            }
             for queue in queue_stats:
-                if frozen_counts is not None:
-                    self.gauge(
-                        'queue.frozen.count', frozen_counts.get(queue.Domain, 0), tags=tags + [f'domain:{queue.Domain}']
-                    )
+                for kind, counts in separated_counts.items():
+                    if counts is not None:
+                        self.gauge(
+                            f'queue.{kind}.count', counts.get(queue.Domain, 0), tags=tags + [f'domain:{queue.Domain}']
+                        )
                 self.gauge('queue.count', int(queue.Count), tags=tags + [f'domain:{queue.Domain}'])
                 self.gauge('queue.volume', self.parse_size(queue.Volume), tags=tags + [f'domain:{queue.Domain}'])
                 oldest_age = self.parse_age(queue.Oldest)
@@ -163,17 +168,15 @@ class EximCheck(AgentCheck):
         `sudo -n` makes sudo fail immediately instead of prompting for a password when no
         matching NOPASSWD rule exists; its error message ends up in the service check.
 
-        The captured output is summarized twice: as is, and with `exiqsumm -f`, which moves
-        recipients of frozen messages to separate `<domain> (f)` rows. Both summaries come from
+        The captured output is summarized several times: as is, with `exiqsumm -f`, which moves
+        recipients of frozen messages to separate `<domain> (f)` rows, and with `exiqsumm -b`,
+        which does the same for bounce messages as `<domain> (b)` rows. All summaries come from
         a single `exim -bp` run, so the spool is only scanned once.
         """
         exim_command, exiqsumm_command = self._command_parts()
-        script = (
-            f'out=$({exim_command}) || exit $?; '
-            f'printf \'%s\\n\' "$out" | {exiqsumm_command} && '
-            f'echo {FROZEN_SUMMARY_MARKER} && '
-            f'printf \'%s\\n\' "$out" | {exiqsumm_command} -f'
-        )
+        script = f'out=$({exim_command}) || exit $?; printf \'%s\\n\' "$out" | {exiqsumm_command}'
+        for _, option, marker in SEPARATED_SUMMARIES:
+            script += f' && echo {marker} && printf \'%s\\n\' "$out" | {exiqsumm_command} {option}'
         return ['/bin/sh', '-c', script]
 
     def _get_queue_stats(self):
@@ -181,8 +184,9 @@ class EximCheck(AgentCheck):
 
     def _get_queue_summaries(self):
         """
-        Run the command and return the rows of the plain summary and of the `exiqsumm -f`
-        summary. The latter is None when the output does not contain it.
+        Run the command and return the rows of the plain summary and a dict with the rows of each
+        separated summary by kind (`frozen`, `bounce`). A kind is missing when its summary is not
+        in the output.
         """
         command = self._build_command()
         # raise_on_empty_output is False on purpose: on the Agent the error it raises never carries
@@ -196,11 +200,17 @@ class EximCheck(AgentCheck):
         if not output:
             raise Exception('`{}` produced no output{}'.format(description, ': ' + err if err else ''))
 
-        lines = output.splitlines()
-        if FROZEN_SUMMARY_MARKER in lines:
-            index = lines.index(FROZEN_SUMMARY_MARKER)
-            return self._parse_summary(lines[:index]), self._parse_summary(lines[index + 1 :])
-        return self._parse_summary(lines), None
+        sections = {None: []}
+        current = None
+        markers = {marker: kind for kind, _, marker in SEPARATED_SUMMARIES}
+        for line in output.splitlines():
+            if line in markers:
+                current = markers[line]
+                sections[current] = []
+            else:
+                sections[current].append(line)
+        separated = {kind: self._parse_summary(lines) for kind, lines in sections.items() if kind is not None}
+        return self._parse_summary(sections[None]), separated
 
     @staticmethod
     def _parse_summary(lines):
@@ -227,29 +237,31 @@ class EximCheck(AgentCheck):
                 data.append(queue(*line_contents))
         return data
 
-    def _get_frozen_counts(self, queue_stats, frozen_stats):
+    def _get_separated_counts(self, queue_stats, separated_stats, kind):
         """
-        Return the number of recipients of frozen messages per domain, including TOTAL.
+        Return the number of recipients of frozen (or bounce) messages per domain, including TOTAL.
 
-        `exiqsumm -f` splits each domain into a `<domain>` row for recipients of messages that
-        are not frozen and a `<domain> (f)` row for frozen ones. The frozen count is derived as
-        the plain count minus the not-frozen count instead of reading the `(f)` rows, because
-        exiqsumm truncates the domain column to 80 characters, which cuts the ` (f)` suffix off
-        domains longer than 76 characters. The derivation stays exact up to 78 characters;
-        beyond that both rows collapse into one and the frozen count can only be too low.
+        `exiqsumm -f` (or `-b`) splits each domain into a `<domain>` row for recipients of messages
+        that are not frozen (not bounces) and a `<domain> (f)` (`<domain> (b)`) row for the others.
+        The count is derived as the plain count minus the `<domain>` row instead of reading the
+        suffixed rows, because exiqsumm truncates the domain column to 80 characters, which cuts
+        the suffix off domains longer than 76 characters. The derivation stays exact up to 78
+        characters; beyond that both rows collapse into one and the count can only be too low.
         """
-        if frozen_stats is None:
-            self.log.warning('The `exiqsumm -f` summary is missing from the output, skipping exim.queue.frozen.count')
+        if separated_stats is None:
+            self.log.warning(
+                'The `exiqsumm` %s summary is missing from the output, skipping exim.queue.%s.count', kind, kind
+            )
             return None
 
-        not_frozen = {}
-        for row in frozen_stats:
-            not_frozen[row.Domain] = not_frozen.get(row.Domain, 0) + int(row.Count)
+        plain = {}
+        for row in separated_stats:
+            plain[row.Domain] = plain.get(row.Domain, 0) + int(row.Count)
 
         counts = {}
         for row in queue_stats:
             if row.Domain != 'TOTAL':
-                counts[row.Domain] = max(0, int(row.Count) - not_frozen.get(row.Domain, 0))
+                counts[row.Domain] = max(0, int(row.Count) - plain.get(row.Domain, 0))
         counts['TOTAL'] = sum(counts.values())
         return counts
 
