@@ -1,5 +1,21 @@
 # CHANGELOG - exim
 
+## 1.3.0 / 2026-10-19
+
+***Added***:
+
+* Add the `max_domains` instance option (default 100) that aggregates the less busy recipient domains under `domain:other` to bound the number of time series on relays with many destination domains, and the `exim.queue.domains` metric. ([#3224](https://github.com/DataDog/integrations-extras/pull/3224))
+* Add the `exim.queue.bounce.count` metric with the number of queued recipients of bounce messages per domain. ([#3224](https://github.com/DataDog/integrations-extras/pull/3224))
+* Submit the Exim version from `exim -bV` as check metadata. ([#3224](https://github.com/DataDog/integrations-extras/pull/3224))
+* Add the `collect_domain_metrics`, `collect_oldest_age`, `collect_frozen_count`, `collect_bounce_count`, `collect_service_running` and `collect_version_metadata` instance options to disable individual features. ([#3224](https://github.com/DataDog/integrations-extras/pull/3224))
+
+## 1.2.1 / 2026-10-19
+
+***Fixed***:
+
+* Include the command's stderr, such as `sudo: a password is required`, in the `exim.returns.output` message when the command prints no output. On the Agent the error raised by `raise_on_empty_output` does not carry stderr, so the reason was lost. ([#3223](https://github.com/DataDog/integrations-extras/pull/3223))
+* Log `exim.service.running` failures at debug level when the result is `UNKNOWN`, for example on hosts without systemd, instead of a warning on every run. ([#3223](https://github.com/DataDog/integrations-extras/pull/3223))
+
 ## 1.2.0 / 2026-10-19
 
 ***Added***:

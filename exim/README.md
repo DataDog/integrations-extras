@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Exim][1] through the Datadog Agent. It runs `exim -bp` once, summarizes the queue with `exiqsumm`, and reports the size, volume, age and number of frozen entries of the mail queue per recipient domain. It also reports whether the Exim systemd unit is running.
+This check monitors [Exim][1] through the Datadog Agent. It runs `exim -bp` once, summarizes the queue with `exiqsumm`, and reports the size, volume, age and number of frozen and bounce entries of the mail queue per recipient domain. It also reports whether the Exim systemd unit is running and which Exim version is installed.
 
 ## Setup
 
@@ -90,6 +90,26 @@ Metrics are tagged with `domain:<RECIPIENT_DOMAIN>`. The `domain:TOTAL` series s
 - `exim.queue.count` and `exim.queue.volume`: the number of queued recipients and their volume in bytes, converted from the `KB` and `MB` values that `exiqsumm` rounds to.
 - `exim.queue.oldest_age`: the age in seconds of the oldest queued message. Exim reports ages in minutes up to 90 minutes, in rounded hours up to 72 hours and in rounded days beyond that, so the value has the same resolution.
 - `exim.queue.frozen.count`: the number of queued recipients of frozen messages. Exim does not retry frozen messages until they are thawed or removed, so a value above `0` usually needs attention. For recipient domains longer than 78 characters the value can be too low, because `exiqsumm` truncates the domain column.
+- `exim.queue.bounce.count`: the number of queued recipients of bounce messages, that is messages with an empty sender. Bounces that stay in the queue usually mean the host accepted mail it can neither deliver nor return. The same 78-character limit applies.
+- `exim.queue.domains`: the number of recipient domains with queued mail. It has no `domain` tag.
+
+#### Limiting the number of domains
+
+Every recipient domain is a `domain` tag value, and every value produces one time series per queue metric: five with the default options (`count`, `volume`, `oldest_age`, `frozen.count`, `bounce.count`). Metrics from this integration count as [custom metrics][12], which Datadog bills per time series averaged over the month, so on a relay that queues mail for many destination domains the cost grows with the queue. A domain only counts while it has queued mail.
+
+| Setting | Custom metrics per host |
+| --- | --- |
+| `collect_domain_metrics: false` | 6, fixed: five for `domain:TOTAL` plus `exim.queue.domains` |
+| `max_domains: 100` (default) | 6 + 5 per domain with queued mail, at most 511 |
+| `max_domains: 0` | 6 + 5 per domain with queued mail, unbounded |
+
+The `max_domains` option keeps the domains with the most queued recipients as separate tag values and aggregates the rest under `domain:other`: counts and volumes are summed and the oldest age is the maximum. `domain:TOTAL` always covers the whole queue, and `exim.queue.domains` shows how many domains there are. Set `max_domains: 0` to report every domain, or `collect_domain_metrics: false` to drop the per-domain series altogether.
+
+#### Disabling features
+
+Each optional feature has a boolean instance option, all enabled by default: `collect_domain_metrics`, `collect_oldest_age`, `collect_frozen_count`, `collect_bounce_count`, `collect_service_running` and `collect_version_metadata`. Disabling a feature also skips the work behind it, for example the extra `exiqsumm -f` or `exiqsumm -b` pass or the `exim -bV` call. The `exim.queue.count` and `exim.queue.volume` metrics are always collected.
+
+The check also submits the Exim version, read from `exim -bV`, as check metadata. It appears in the host's integration metadata and on the integration tile.
 
 ### Events
 
@@ -125,3 +145,4 @@ Need help? Contact [Datadog support][10].
 [9]: https://github.com/DataDog/integrations-extras/blob/master/exim/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
 [11]: https://docs.datadoghq.com/integrations/systemd/
+[12]: https://docs.datadoghq.com/account_management/billing/custom_metrics/
