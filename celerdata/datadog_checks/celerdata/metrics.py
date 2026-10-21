@@ -65,7 +65,15 @@ METRIC_MAP = {
     "starrocks_fe_scheduled_tablet_num": "fe.scheduled_tablet_num",
     "starrocks_fe_slow_query": "fe.slow_query",
     "starrocks_fe_snmp": "fe.snmp",
-    "starrocks_fe_table_num": "fe.table_num",
+    # StarRocks FE emits this interleaved with `starrocks_fe_db_size_bytes`, one pair per
+    # database, and writes a `# TYPE` line only for the first sample. The Prometheus parser
+    # therefore types every later family `unknown`, and OpenMetricsV2 drops those, so only the
+    # first database was collected. Pinning the type sends all families through the `gauge`
+    # transformer instead. See #2854.
+    "starrocks_fe_table_num": {
+        "name": "fe.table_num",
+        "type": "gauge",
+    },
     "starrocks_fe_tablet_max_compaction_score": {
         "name": "fe.tablet.max_compaction_score",
         "type": "gauge",
@@ -774,4 +782,20 @@ METRIC_MAP = {
     "dla_cache_write_bytes": "be.dla_cache_write_bytes",
     "dla_cache_write_fail_count": "be.dla_cache_write_fail_count",
     "dla_cache_write_success_count": "be.dla_cache_write_success_count",
+}
+
+# Slow-lock summaries are submitted by a custom transformer on `CelerdataCheck`, not by
+# `METRIC_MAP`. They must stay out of `METRIC_MAP`: `MetricTransformer.get()` resolves exact
+# `METRIC_MAP` names before custom transformer patterns, so an entry there would silently
+# shadow the transformer and nothing would appear to be wrong.
+#
+# The reason for the custom transformer is StarRocks' `_sum`. It is emitted as
+# `histogram.getCount() * snapshot.getMean()`, where the count is cumulative but the mean comes
+# from a 1-minute sliding window (`MetricRepo.SlideWindowHistogramCreator`). The product is
+# neither a sum nor monotonic -- it collapses to zero whenever a minute passes without a slow
+# lock -- so only the quantiles and the cumulative `_count` are submitted.
+# See StarRocks/starrocks#66027.
+SLOW_LOCK_SUMMARIES = {
+    "starrocks_fe_slow_lock_held_time_ms": "fe.slow_lock_held_time_ms",
+    "starrocks_fe_slow_lock_wait_time_ms": "fe.slow_lock_wait_time_ms",
 }
