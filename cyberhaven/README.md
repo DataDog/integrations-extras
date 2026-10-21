@@ -100,6 +100,13 @@ The integration provides three monitor templates, one per log type. They are tem
 
 Each monitor alerts when no logs of that type have been received for 24 hours. Quiet periods can be normal, especially for Incidents (no policy matched) and Audit Logs (no console activity). If this is noisy for you, lower the monitor's priority or lengthen its evaluation window.
 
+## Uninstallation
+
+1. In Datadog, navigate to **Integrations**, select the Cyberhaven tile, and click **Uninstall Integration**.
+2. In the Cyberhaven Console, go to **Settings > Data Export**, and disable or delete each Configuration and Destination that sends logs to Datadog.
+3. In Datadog, go to **Organization Settings** > **Access** > **API Keys** and revoke the API key you created for Cyberhaven (for example, `forwarding-to-cyberhaven`).
+4. In Datadog, go to **Monitors** > **Manage Monitors** and delete any monitors you created from the Cyberhaven monitor templates.
+
 ## Data Collected
 
 ### Logs
@@ -107,6 +114,8 @@ Each monitor alerts when no logs of that type have been received for 24 hours. Q
 The Cyberhaven integration collects Audit Logs, Incidents, and Events, tagged with `source:cyberhaven` and `cyberhaven.logtype:cyberhaven-audit` / `cyberhaven.logtype:cyberhaven-incidents` / `cyberhaven.logtype:cyberhaven-events`.
 
 Incident logs include `cyberhaven.incident.url`, a link that opens the incident in your Cyberhaven Console. It is shown in the Incidents dashboard (**Incident Links**) and can be used in monitors and notebooks.
+
+**Log timestamps and the 18-hour limit.** Datadog does not accept logs with a timestamp more than 18 hours in the past, which is standard Datadog behavior. This applies to all Cyberhaven log types (Audit Logs, Incidents, and Events). A record with an older timestamp is not ingested. This mainly affects backfills of older records. If you need to ingest logs up to 7 days old, check with your Datadog account team or [Datadog support][2] on whether your organization is eligible for the [7-day ingestion preview][3], and request access there.
 
 ### Metrics
 
@@ -127,7 +136,8 @@ The most common causes are:
 - **Format** not set to `JSON Array` or **Encoding** not set to `GZip`.
 - The configuration is not **Enabled**, or points at the wrong destination.
 
-Need help? Contact [Datadog support][2] or [Cyberhaven support](mailto:support@cyberhaven.com).
+Need help? Contact [Cyberhaven support](mailto:support@cyberhaven.com).
 
 [1]: https://docs.datadoghq.com/logs/explorer/
 [2]: https://docs.datadoghq.com/help/
+[3]: https://www.datadoghq.com/product-preview/ingest-logs-up-to-7-days-old/

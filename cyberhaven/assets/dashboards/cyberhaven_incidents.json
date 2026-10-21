@@ -25,7 +25,7 @@
       "id": 3521520505546808,
       "definition": {
         "type": "note",
-        "content": "## Cyberhaven DLP / Insider-Risk Incidents\n*Triage, workload and resolution at a glance*\n\nThis dashboard provides complete visibility into DLP / insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, analyst workload, resolution and underlying event detail.\n\nData source: Cyberhaven Incident streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`).\n\n**Tips**\n- Use the filters at the top (Policy-Severity, Status, Dataset-Sensitivity, Affected-User, Policy-Name, Dataset-Name, Host, Action-Kind, Blocked-Allowed, Assigned-Analyst, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+        "content": "## Cyberhaven DLP / Insider-Risk Incidents\n*Triage and resolution at a glance*\n\nThis dashboard provides complete visibility into DLP / insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, resolution and underlying event detail.\n\nData source: Cyberhaven Incident streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`).\n\n**Tips**\n- Use the filters at the top (Policy-Severity, Status, Dataset-Sensitivity, Affected-User, Policy-Name, Dataset-Name, Host, Action-Kind, Blocked-Allowed, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
         "background_color": "blue",
         "font_size": "14",
         "text_align": "left",
@@ -55,7 +55,7 @@
             "id": 7288566596548926,
             "definition": {
               "type": "note",
-              "content": "High-level view of DLP / insider-risk incidents: totals, open vs closed, blocked, unassigned queue, users affected and risk score, plus trends over time.",
+              "content": "High-level view of DLP / insider-risk incidents: totals, open vs closed, blocked, users affected and risk score, plus trends over time.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
@@ -98,7 +98,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -123,7 +123,7 @@
             "layout": {
               "x": 0,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3
             }
           },
@@ -161,7 +161,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:open $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:open $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -184,67 +184,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 6,
               "y": 1,
-              "width": 4,
-              "height": 3
-            }
-          },
-          {
-            "id": 3397437053760229,
-            "definition": {
-              "title": "Unassigned Open Incidents",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "aggregator": "last",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">",
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#F57C00",
-                      "value": 0
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:open -@assigned_to:* $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar"
-                }
-              ],
-              "autoscale": true,
-              "custom_links": [],
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area",
-                "yaxis": {
-                  "include_zero": false
-                }
-              }
-            },
-            "layout": {
-              "x": 8,
-              "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3
             }
           },
@@ -282,7 +224,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @blocked:true $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @blocked:true $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -337,7 +279,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -395,7 +337,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -445,7 +387,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -510,7 +452,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -574,7 +516,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -670,10 +612,6 @@
                     {
                       "field": "close_reason",
                       "width": "auto"
-                    },
-                    {
-                      "field": "assigned_to",
-                      "width": "auto"
                     }
                   ],
                   "query": {
@@ -681,7 +619,7 @@
                     "indexes": [
                       "*"
                     ],
-                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst",
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed",
                     "storage": "hot"
                   },
                   "response_format": "event_list"
@@ -720,7 +658,7 @@
           {
             "id": 4379033144510984,
             "definition": {
-              "title": "Incident Links (click an ID to open in Cyberhaven)",
+              "title": "Incident Links (Click an ID to Open in Cyberhaven)",
               "title_size": "16",
               "title_align": "left",
               "type": "query_table",
@@ -799,7 +737,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -911,7 +849,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:critical $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:critical $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -968,7 +906,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:high $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:high $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1025,7 +963,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:medium $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:medium $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1082,7 +1020,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:low $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:low $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1131,7 +1069,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:informational $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:informational $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1191,7 +1129,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1248,7 +1186,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1305,7 +1243,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1358,7 +1296,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1414,7 +1352,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1503,7 +1441,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1566,7 +1504,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1662,7 +1600,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1718,7 +1656,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1774,7 +1712,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1831,7 +1769,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1888,7 +1826,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -1944,7 +1882,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2013,7 +1951,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host"
                       }
                     }
                   ],
@@ -2114,7 +2052,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2170,7 +2108,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2239,7 +2177,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind"
                       }
                     }
                   ],
@@ -2287,7 +2225,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @screenshot_guid:* $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @screenshot_guid:* $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2340,7 +2278,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2409,7 +2347,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2454,7 +2392,7 @@
     {
       "id": 6157628782185446,
       "definition": {
-        "title": "Top Users & Analyst Workload",
+        "title": "Top Users & Hosts",
         "background_color": "vivid_blue",
         "show_title": true,
         "type": "group",
@@ -2464,7 +2402,7 @@
             "id": 783486054846990,
             "definition": {
               "type": "note",
-              "content": "Operational view: users and hosts with the most incidents, open incidents per analyst, severity mix per user and the highest-risk incidents.",
+              "content": "Operational view: users and hosts with the most incidents, severity mix per user and the highest-risk incidents.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
@@ -2511,7 +2449,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2534,7 +2472,7 @@
             "layout": {
               "x": 0,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3
             }
           },
@@ -2568,7 +2506,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2589,66 +2527,9 @@
               }
             },
             "layout": {
-              "x": 4,
+              "x": 6,
               "y": 1,
-              "width": 4,
-              "height": 3
-            }
-          },
-          {
-            "id": 1303229483347276,
-            "definition": {
-              "title": "Open Incidents by Assigned Analyst",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
-              "requests": [
-                {
-                  "queries": [
-                    {
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "data_source": "logs",
-                      "group_by": [
-                        {
-                          "facet": "@assigned_to",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          }
-                        }
-                      ],
-                      "indexes": [
-                        "*"
-                      ],
-                      "name": "query1",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:open $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "style": {
-                "display": {
-                  "legend": "automatic",
-                  "type": "stacked"
-                },
-                "palette": "cool"
-              }
-            },
-            "layout": {
-              "x": 8,
-              "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3
             }
           },
@@ -2694,7 +2575,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2774,7 +2655,7 @@
                     "indexes": [
                       "*"
                     ],
-                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @risk_score:* $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst",
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @risk_score:* $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed",
                     "storage": "hot",
                     "sort": {
                       "column": "risk_score",
@@ -2835,7 +2716,7 @@
           {
             "id": 6747560930013327,
             "definition": {
-              "title": "Top User Risk Groups (by Risk Multiplier)",
+              "title": "Top User Risk Groups (By Risk Multiplier)",
               "title_size": "16",
               "title_align": "left",
               "type": "toplist",
@@ -2864,7 +2745,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @user_risk_groups.name:* $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst $Affected-User"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @user_risk_groups.name:* $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Affected-User"
                       }
                     }
                   ],
@@ -2918,7 +2799,7 @@
                       ],
                       "name": "query1",
                       "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Assigned-Analyst"
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
                       }
                     }
                   ],
@@ -2988,12 +2869,6 @@
     {
       "name": "Policy-Name",
       "prefix": "@policy.name",
-      "available_values": [],
-      "default": "*"
-    },
-    {
-      "name": "Assigned-Analyst",
-      "prefix": "@assigned_to",
       "available_values": [],
       "default": "*"
     },
