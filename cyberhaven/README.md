@@ -131,7 +131,7 @@ If logs are missing or not processed correctly, open the **Cyberhaven - Troubles
 
 The most common causes are:
 
-- A wrong Datadog site or an invalid `DD-API-KEY` in the destination (**Save & Test** shows an error).
+- A wrong Datadog site or an invalid `DD-API-KEY` in the destination.
 - A wrong `ddsource` or `cyberhaven.logtype` value in the destination URI.
 - **Format** not set to `JSON Array` or **Encoding** not set to `GZip`.
 - The configuration is not **Enabled**, or points at the wrong destination.
