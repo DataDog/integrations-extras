@@ -282,105 +282,13 @@ Add the following `componentInstance` excerpt to your app's existing Utility Bar
 <!-- xxz tab xxx -->
 <!-- xxx tab "Experience Cloud" xxx -->
 
-#### Experience Cloud
+Choose one of the following setups. Head Markup runs outside Lightning Web Security (LWS) and is the only Salesforce deployment path that supports Session Replay.
 
-Choose Head Markup to load the SDK from Salesforce Static Resources or the Datadog CDN. Use a Lightning Web Component when Head Markup is unavailable.
+- **Head Markup (Static Resource)**: Use when you can edit Head Markup and want to host the SDK in Salesforce.
+- **Head Markup (CDN)**: Use when you can edit Head Markup and want to load the SDK from the Datadog CDN.
+- **Lightning Web Component**: Use when Head Markup is unavailable. Place an initializer LWC in a shared site region.
 
-Head Markup runs outside Lightning Web Security (LWS) and is the only Salesforce deployment path that supports Session Replay.
-
-<!-- xxx tabs xxx -->
-<!-- xxx tab "Head Markup (CDN)" xxx -->
-
-- **CDN async (recommended)**: Does not block page rendering, but it can miss events that occur before the SDK loads.
-- **CDN sync**: Loads the SDK before subsequent scripts, so it collects earlier events, but it can affect page load performance.
-
-For more information, see [Browser Monitoring Setup](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/).
-
-##### 1. Configure CSP for CDN Loading
-
-Allow Salesforce to connect to the Datadog browser intake by completing the [Configure CSP](#2-configure-csp) section on this page. Then, in Experience Builder:
-
-1. Open the site in Experience Builder from **Setup > Digital Experiences > All Sites > Builder**.
-2. Go to **Settings > Security & Privacy**.
-3. Change the security level from **Strict CSP** to **Relaxed CSP**. This is required because the Head Markup snippets contain inline initialization scripts. See [Select a Security Level in Experience Builder Sites](https://help.salesforce.com/s/articleView?id=experience.networks_security_csp_scriptlevel.htm&type=5).
-4. Under **Trusted Sites for Scripts**, click **Add Trusted Site**.
-5. Add `https://www.datadoghq-browser-agent.com` and make sure it is active.
-
-For more information, see [Where to Allowlist Third-Party Hosts for Experience Builder Sites](https://help.salesforce.com/s/articleView?id=experience.networks_security_csp_allow.htm&type=5).
-
-##### 2. Add CDN Head Markup
-
-In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste one of the following snippets, and replace the placeholder values with your Datadog RUM configuration. Set `sessionReplaySampleRate` to a value greater than `0` to enable Session Replay. Save the change, then publish the site.
-
-<!-- xxx tabs xxx -->
-<!-- xxx tab "CDN async (recommended)" xxx -->
-
-```html
-<script>
-  ;(function (h, o, u, n, d) {
-    h = h[d] = h[d] || {
-      q: [],
-      onReady: function (c) {
-        h.q.push(c)
-      },
-    }
-    d = o.createElement(u)
-    d.async = 1
-    d.src = n
-    d.crossOrigin = 'anonymous'
-    n = o.getElementsByTagName(u)[0]
-    n.parentNode.insertBefore(d, n)
-  })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js', 'DD_RUM')
-</script>
-<script>
-  window.DD_RUM.onReady(function () {
-    window.DD_RUM.init({
-      applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
-      clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
-      env: '<YOUR_ENV_NAME>',
-      service: '<YOUR_SERVICE_NAME>',
-      site: '<YOUR_DATADOG_SITE>',
-      sessionSampleRate: 100,
-      sessionReplaySampleRate: 100,
-      trackLongTasks: true,
-      trackResources: true,
-      trackUserInteractions: true,
-    })
-  })
-</script>
-```
-
-<!-- xxz tab xxx -->
-<!-- xxx tab "CDN sync" xxx -->
-
-```html
-<script
-  src="https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js"
-  type="text/javascript"
-  crossorigin
-></script>
-<script>
-  window.DD_RUM &&
-    window.DD_RUM.init({
-      applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
-      clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
-      env: '<YOUR_ENV_NAME>',
-      service: '<YOUR_SERVICE_NAME>',
-      site: '<YOUR_DATADOG_SITE>',
-      sessionSampleRate: 100,
-      sessionReplaySampleRate: 100,
-      trackLongTasks: true,
-      trackResources: true,
-      trackUserInteractions: true,
-    })
-</script>
-```
-
-<!-- xxz tab xxx -->
-<!-- xxz tabs xxx -->
-
-<!-- xxz tab xxx -->
-<!-- xxx tab "Head Markup (Static Resource)" xxx -->
+#### Head Markup (Static Resource)
 
 Loads synchronously and hosts the SDK and its lazy-loaded chunks in Salesforce.
 
@@ -418,12 +326,92 @@ Use this after uploading the bundle and its chunks as described in the [Add Sale
 </script>
 ```
 
-<!-- xxz tab xxx -->
-<!-- xxx tab "Lightning Web Component" xxx -->
+#### Head Markup (CDN)
 
-#### Experience Cloud Component
+- **CDN async (recommended)**: Does not block page rendering, but it can miss events that occur before the SDK loads.
+- **CDN sync**: Loads the SDK before subsequent scripts, so it collects earlier events, but it can affect page load performance.
 
-Place an initializer LWC in a shared site region.
+For more information, see [Browser Monitoring Setup](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/).
+
+##### 1. Configure CSP for CDN Loading
+
+Allow Salesforce to connect to the Datadog browser intake by completing the [Configure CSP](#2-configure-csp) section on this page. Then, in Experience Builder:
+
+1. Open the site in Experience Builder from **Setup > Digital Experiences > All Sites > Builder**.
+2. Go to **Settings > Security & Privacy**.
+3. Change the security level from **Strict CSP** to **Relaxed CSP**. This is required because the Head Markup snippets contain inline initialization scripts. See [Select a Security Level in Experience Builder Sites](https://help.salesforce.com/s/articleView?id=experience.networks_security_csp_scriptlevel.htm&type=5).
+4. Under **Trusted Sites for Scripts**, click **Add Trusted Site**.
+5. Add `https://www.datadoghq-browser-agent.com` and make sure it is active.
+
+For more information, see [Where to Allowlist Third-Party Hosts for Experience Builder Sites](https://help.salesforce.com/s/articleView?id=experience.networks_security_csp_allow.htm&type=5).
+
+##### 2. Add CDN Head Markup
+
+In Experience Builder, go to **Settings > Advanced > Edit Head Markup**, paste one of the following snippets, and replace the placeholder values with your Datadog RUM configuration. Set `sessionReplaySampleRate` to a value greater than `0` to enable Session Replay. Save the change, then publish the site.
+
+**CDN async (recommended)**:
+
+```html
+<script>
+  ;(function (h, o, u, n, d) {
+    h = h[d] = h[d] || {
+      q: [],
+      onReady: function (c) {
+        h.q.push(c)
+      },
+    }
+    d = o.createElement(u)
+    d.async = 1
+    d.src = n
+    d.crossOrigin = 'anonymous'
+    n = o.getElementsByTagName(u)[0]
+    n.parentNode.insertBefore(d, n)
+  })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js', 'DD_RUM')
+</script>
+<script>
+  window.DD_RUM.onReady(function () {
+    window.DD_RUM.init({
+      applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
+      clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
+      env: '<YOUR_ENV_NAME>',
+      service: '<YOUR_SERVICE_NAME>',
+      site: '<YOUR_DATADOG_SITE>',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 100,
+      trackLongTasks: true,
+      trackResources: true,
+      trackUserInteractions: true,
+    })
+  })
+</script>
+```
+
+**CDN sync**:
+
+```html
+<script
+  src="https://www.datadoghq-browser-agent.com/us1/v7/datadog-rum-salesforce.js"
+  type="text/javascript"
+  crossorigin
+></script>
+<script>
+  window.DD_RUM &&
+    window.DD_RUM.init({
+      applicationId: '<YOUR_DATADOG_APPLICATION_ID>',
+      clientToken: '<YOUR_DATADOG_CLIENT_TOKEN>',
+      env: '<YOUR_ENV_NAME>',
+      service: '<YOUR_SERVICE_NAME>',
+      site: '<YOUR_DATADOG_SITE>',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 100,
+      trackLongTasks: true,
+      trackResources: true,
+      trackUserInteractions: true,
+    })
+</script>
+```
+
+#### Lightning Web Component
 
 ##### 1. Create Init Component
 
@@ -528,9 +516,6 @@ Expose the component to Experience Builder and place it in a shared region, page
   </targets>
 </LightningComponentBundle>
 ```
-
-<!-- xxz tab xxx -->
-<!-- xxz tabs xxx -->
 
 <!-- xxz tab xxx -->
 <!-- xxz tabs xxx -->
