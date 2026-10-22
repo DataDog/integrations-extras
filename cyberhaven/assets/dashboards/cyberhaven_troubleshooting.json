@@ -1,0 +1,2138 @@
+{
+  "title": "Cyberhaven - Troubleshooting",
+  "description": "Operational health of the Cyberhaven to Datadog integration: ingest status per source, delivery checks, processing health and a step-by-step troubleshooting guide.",
+  "widgets": [
+    {
+      "id": 873210275287371,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn.prod.website-files.com/64deefeac57fbbefc32df53d/67f80b8b335c5571831ff66c_cyberhaven-logo-solid-dark.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 4
+      }
+    },
+    {
+      "id": 2829171824436526,
+      "definition": {
+        "type": "note",
+        "content": "## Cyberhaven → Datadog Troubleshooting\n*Is data flowing? Is it processed correctly? What do I do if not?*\n\nThis dashboard tells you whether Cyberhaven **Audit, Incident and Event** logs reach Datadog and are processed correctly, then shows the fix.\n\n**Read top to bottom**\n1. **Ingest Status**: green = receiving, grey = no recent data\n2. **Alerting**: monitors that alert when a source sends no logs for 24 hours\n3. **Delivery Checks**: all should be **0**\n4. **Processing Health**: all should be **about 100%**\n5. **Configuration Completeness**: every setting should show as complete\n6. **Troubleshooting Guide** (bottom): pick the Fix that matches",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 9,
+        "height": 4
+      }
+    },
+    {
+      "id": 7122183912633748,
+      "definition": {
+        "title": "1. Ingest Status — Per Source",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 9546560691780534,
+            "definition": {
+              "type": "note",
+              "content": "Is each Cyberhaven source delivering? Green = records in the last 24 hours. Grey = no recent data: informational, quiet periods are normal. To change the 24-hour idle period, edit a tile's Timeframe. Problem? See Fix 1 or Fix 2 in the guide below.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 3093678730002150,
+            "definition": {
+              "title": "Audit — Status (Records, Last 24h)",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1d"
+              },
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#78909C"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": " records",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-audit&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 384396136562397,
+            "definition": {
+              "title": "Audit — Last Records Received",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1w"
+              },
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action_type",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "object_type",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "id",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "message",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 3224263293810778,
+            "definition": {
+              "title": "Events — Status (Records, Last 24h)",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1d"
+              },
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#78909C"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": " records",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-events&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 395438490341978,
+            "definition": {
+              "title": "Events — Last Records Received",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1w"
+              },
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action.kind",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "evt.outcome",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "id",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "message",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 4,
+              "y": 5,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 9671353994326404,
+            "definition": {
+              "title": "Incidents — Status (Records, Last 24h)",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1d"
+              },
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#78909C"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": " records",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-incidents&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6408210549811866,
+            "definition": {
+              "title": "Incidents — Last Records Received",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1w"
+              },
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "policy.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "cyberhaven.incident.status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "id",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "message",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 4,
+              "y": 8,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 6959910339824914,
+            "definition": {
+              "title": "Ingest Volume Over Time (Selected Timeframe)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 6985780299727120,
+            "definition": {
+              "title": "Ingest Timeline — Last 7 Days (Look for Gaps)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "time": {
+                "live_span": "1w"
+              },
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 15,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 19
+      }
+    },
+    {
+      "id": 1066060222797223,
+      "definition": {
+        "title": "2. Alerting — Cyberhaven Monitors",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3272234412365572,
+            "definition": {
+              "type": "note",
+              "content": "One monitor per source alerts when no logs are received for 24 hours. If one is Alert → start with Ingest Status above, then follow the matching fix in the Troubleshooting Guide below.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 5686440531892111,
+            "definition": {
+              "title": "",
+              "type": "manage_status",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": false,
+              "show_status": true,
+              "last_triggered_format": "relative",
+              "query": "tag:\"integration:cyberhaven\"",
+              "sort": "status,asc",
+              "count": 50,
+              "start": 0,
+              "summary_type": "monitors",
+              "show_priority": true,
+              "show_last_triggered": true,
+              "show_investigation": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 4733295403589453,
+      "definition": {
+        "title": "3. Delivery Checks — Are Logs Reaching the Pipeline?",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7387343643142929,
+            "definition": {
+              "type": "note",
+              "content": "Every tile should be 0 (green). Red means logs arrive mis-tagged or unsplit, so the Cyberhaven pipeline cannot process them. The table shows where Cyberhaven-looking logs actually land: only rows with source = cyberhaven and a Cyberhaven logtype are healthy. Fix: see Fix 3 or Fix 4 below.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 9224107586629564,
+            "definition": {
+              "title": "Not Split (No Parsed ID) — Expected 0",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven -@id:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20-%40id%3A%2A&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 7234670006049455,
+            "definition": {
+              "title": "Tag Problems (Missing or Unknown Logtype, Missing Tenant) — Expected 0",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven (-cyberhaven.logtype:* OR -cyberhaven.domain:* OR (cyberhaven.logtype:* -cyberhaven.logtype:(cyberhaven-audit OR cyberhaven-incidents OR cyberhaven-events)))"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20%28-cyberhaven.logtype%3A%2A%20OR%20-cyberhaven.domain%3A%2A%20OR%20%28cyberhaven.logtype%3A%2A%20-cyberhaven.logtype%3A%28cyberhaven-audit%20OR%20cyberhaven-incidents%20OR%20cyberhaven-events%29%29%29&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 3422610351819144,
+            "definition": {
+              "title": "Wrong Source (By Tag or by Record Contents) — Expected 0",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "(-source:cyberhaven cyberhaven.logtype:*) OR (-source:cyberhaven ((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)))"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=%28-source%3Acyberhaven%20cyberhaven.logtype%3A%2A%29%20OR%20%28-source%3Acyberhaven%20%28%28%40action_type%3A%2A%20%40actor_type%3A%2A%29%20OR%20%40action.sensor_kind%3A%2A%20OR%20%28%40policy.severity%3A%2A%20%40dataset.name%3A%2A%29%29%29&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 3215523249765475,
+            "definition": {
+              "title": "Where Do Cyberhaven-Looking Logs Land? (By Source Tag and Logtype Tag)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)) OR source:cyberhaven"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "source",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 50,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "alias": "Records",
+                      "cell_display_mode": "number"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 7808340870189312,
+            "definition": {
+              "title": "Delivery Problems Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "tags",
+                      "alias": "Tag problems"
+                    },
+                    {
+                      "formula": "wrong",
+                      "alias": "Wrong source"
+                    },
+                    {
+                      "formula": "split",
+                      "alias": "Not split"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "tags",
+                      "search": {
+                        "query": "source:cyberhaven (-cyberhaven.logtype:* OR -cyberhaven.domain:* OR (cyberhaven.logtype:* -cyberhaven.logtype:(cyberhaven-audit OR cyberhaven-incidents OR cyberhaven-events)))"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "wrong",
+                      "search": {
+                        "query": "(-source:cyberhaven cyberhaven.logtype:*) OR (-source:cyberhaven ((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)))"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "split",
+                      "search": {
+                        "query": "source:cyberhaven -@id:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 12,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 2561232831610413,
+            "definition": {
+              "title": "Sample of Problem Records",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "source",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "id",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "message",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "(source:cyberhaven (-cyberhaven.logtype:* OR -cyberhaven.domain:* OR (cyberhaven.logtype:* -cyberhaven.logtype:(cyberhaven-audit OR cyberhaven-incidents OR cyberhaven-events)))) OR ((-source:cyberhaven cyberhaven.logtype:*) OR (-source:cyberhaven ((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)))) OR (source:cyberhaven -@id:*)",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 16,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 29,
+        "width": 12,
+        "height": 21
+      }
+    },
+    {
+      "id": 8227925216303491,
+      "definition": {
+        "title": "4. Processing Health — Are Records Processed Correctly?",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7964373595778817,
+            "definition": {
+              "type": "note",
+              "content": "A record counts as fully processed only when it has an id, its key raw fields, the pipeline-mapped attributes and the pipeline outcome. Green ≥ 99%, amber 90–99%, red below 90%. The table shows each check separately, so you can see which step fails. Fix: see Fix 3.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 9433125333051940,
+            "definition": {
+              "title": "Audit — Fully Processed %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * query2 / query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant @id:* @action_type:* @actor_type:* @evt.name:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 99,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-audit&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 1
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1067608907197038,
+            "definition": {
+              "title": "Incidents — Fully Processed %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * query2 / query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant @id:* @policy.name:* @policy.severity:* @cyberhaven.incident.status:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 99,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-incidents&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 1
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4624088464580763,
+            "definition": {
+              "title": "Events — Fully Processed %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * query2 / query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant @id:* @action.kind:* @evt.name:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 99,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 90,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-events&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 1
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 552277237586727,
+            "definition": {
+              "title": "Each Check on Its Own (Find Which Step Fails)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "t",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "i",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* @id:* $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "r",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* (@action_type:* OR @policy.name:* OR @action.kind:*) $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "m",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* (@evt.name:* OR @cyberhaven.incident.status:*) $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "o",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:* @evt.outcome:* $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "cyberhaven.logtype",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 50,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "formula": "t",
+                      "alias": "1. Records received",
+                      "cell_display_mode": "number"
+                    },
+                    {
+                      "formula": "i",
+                      "alias": "2. Has id (parsed)",
+                      "cell_display_mode": "number"
+                    },
+                    {
+                      "formula": "r",
+                      "alias": "3. Has key field",
+                      "cell_display_mode": "number"
+                    },
+                    {
+                      "formula": "m",
+                      "alias": "4. Mapped by pipeline",
+                      "cell_display_mode": "number"
+                    },
+                    {
+                      "formula": "o",
+                      "alias": "5. Pipeline outcome set",
+                      "cell_display_mode": "number"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 8154105490499896,
+            "definition": {
+              "title": "Fully Processed % Over Time (Find When It Broke)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * audit_ok / audit_total",
+                      "alias": "Audit fully processed %"
+                    },
+                    {
+                      "formula": "100 * incidents_ok / incidents_total",
+                      "alias": "Incidents fully processed %"
+                    },
+                    {
+                      "formula": "100 * events_ok / events_total",
+                      "alias": "Events fully processed %"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "audit_total",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "audit_ok",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-audit $Cyberhaven-Tenant @id:* @action_type:* @actor_type:* @evt.name:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "incidents_total",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "incidents_ok",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant @id:* @policy.name:* @policy.severity:* @cyberhaven.incident.status:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "events_total",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "events_ok",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant @id:* @action.kind:* @evt.name:* @evt.outcome:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5590835065128832,
+            "definition": {
+              "title": "Sample of Records That Were Not Fully Processed",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "source",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "id",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "message",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven (-@evt.outcome:* OR (@action_type:* -@evt.name:*) OR (@action.kind:* -@evt.name:*) OR (@policy.severity:* -@cyberhaven.incident.status:*)) $Cyberhaven-Tenant",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 10,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 50,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "id": 997774686593271,
+      "definition": {
+        "title": "5. Configuration Completeness — Is Everything Switched On?",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7191600909512812,
+            "definition": {
+              "type": "note",
+              "content": "Signs that a Cyberhaven option is missing. Low event-details % or closed incidents stuck at 0 → Fix 6.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2021735305270729,
+            "definition": {
+              "title": "Incidents Carrying Event Details %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * query2 / query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant @event_details.end_event.action.kind:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825"
+                    },
+                    {
+                      "comparator": "<=",
+                      "value": 0,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 1
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5431597651292879,
+            "definition": {
+              "title": "Events with a Classified Destination %",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "100 * query2 / query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant @cyberhaven.destination.location_category:*"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 95,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32"
+                    },
+                    {
+                      "comparator": ">=",
+                      "value": 70,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825"
+                    },
+                    {
+                      "comparator": "<",
+                      "value": 70,
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 1
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 65,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 936972836411425,
+      "definition": {
+        "title": "6. Troubleshooting Guide — What You See → What to Do",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5376644726051690,
+            "definition": {
+              "type": "note",
+              "content": "Find what you see, then follow the numbered steps in order. ",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2025876627039669,
+            "definition": {
+              "type": "note",
+              "content": "### Start here\nMatch what you see above, then open the fix:\n- **One Ingest tile grey, the others green** → **Fix 1**\n- **All Ingest tiles grey** → **Fix 2**\n- **Ingest green, but a red tile or a low % in Delivery / Processing** → **Fix 3**\n- **“Not split” tile above 0** → **Fix 4**\n- **Logs are in Log Explorer but the Cyberhaven dashboards are empty** → **Fix 5**\n- **Incident hosts / files missing, or incidents never close** → **Fix 6**\n- **Nothing here helps** → **Fix 7**\n\n*Grey = “No recent data” is informational. Quiet periods are normal.*\n\n**Shortcuts:** [Log Explorer](/logs?query=source%3Acyberhaven) · [Live Tail](/logs/livetail) · [Pipelines](/logs/pipelines) · [Indexes](/logs/pipelines/indexes) · [API Keys](/organization-settings/api-keys)",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 6032005527694973,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 1 — One source is grey\n**You see:** one Ingest tile grey, the others green.\n\n**Do this, in order:**\n1. **Is it just quiet?** Do an action for that source (for Audit: sign in to the console). Wait about 5 minutes. Green again = it was only quiet.\n2. Cyberhaven → **Settings → Data Export → Configurations**. For that source: **Enabled** ticked, correct **Destination**, Schedule **Immediate**.\n3. Open its **Destination** → **Save & Test** → fix any error shown.\n4. Look at the **Delivery** group. Red there means the URI tags are wrong → correct the URI (see Expected settings).\n\n**Check it worked:** The tile turns green.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 5142903986740694,
+            "definition": {
+              "type": "note",
+              "content": "### Expected settings (to compare against)\n**Cyberhaven Console → Settings → Data Export.** One Destination and one Configuration per source (Audit, Incidents, Events).\n- **Destination:** Type `HTTPS` · Format `JSON Array` · Encoding `GZip` · Header `DD-API-KEY` = your key\n- **URI:** `https://http-intake.logs.<DD_SITE>/api/v2/logs?ddsource=cyberhaven&ddtags=cyberhaven.domain:<TENANT>,cyberhaven.logtype:<LOGTYPE>`\n- **LOGTYPE:** `cyberhaven-audit`, `cyberhaven-incidents` or `cyberhaven-events`\n- **Configuration:** Source `Audit` / `Incidents` / `Events` · Schedule `Immediate` · Enabled\n- **Incidents and Events:** Scope `Full Access`. **Incidents also:** tick *Subscribe to new incidents*, *Subscribe to incident updates*, *Include incident event details*\n- Click **Save & Test** on every Destination\n\n**Datadog:** the Cyberhaven integration is installed and the **Cyberhaven** log pipeline is enabled.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 1672140445535649,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 2 — All sources are grey\n**You see:** all three Ingest tiles grey.\n\n**Do this, in order:**\n1. Datadog [API Keys](/organization-settings/api-keys): the key exists, is not revoked and shows a recent *Last used*. Not sure? Create a new key and paste it into the `DD-API-KEY` header of every Destination.\n2. The URI host must match your Datadog site: `datadoghq.com`, `us3.datadoghq.com`, `us5.datadoghq.com`, `datadoghq.eu`, `ap1.datadoghq.com`, `ap2.datadoghq.com` or `ddog-gov.com`.\n3. Datadog [Indexes](/logs/pipelines/indexes): no exclusion filter on `source:cyberhaven` and the daily quota not reached.\n4. Open [Live Tail](/logs/livetail) with `source:cyberhaven`, then trigger activity. Still nothing → Fix 7.\n\n**Check it worked:** Live Tail shows records.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 5341092719405125,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 3 — Logs arrive but are not processed\n**You see:** Ingest is green, but a Delivery tile is red or a Processing % is low.\n\n**Do this, in order:**\n1. **Delivery group red?** The URI tags are wrong. Fix `ddsource=cyberhaven` and the `cyberhaven.logtype` tag in the Destination URI → **Save & Test**.\n2. Datadog → Integrations: **Cyberhaven** is installed. Datadog [Pipelines](/logs/pipelines): the **Cyberhaven** pipeline is enabled, filter `source:cyberhaven`, and no pipeline above it changes these logs.\n3. Open *Fully Processed % Over Time*. Note the day it dropped and ask what changed that day (a pipeline edit, or a Cyberhaven update). Nothing changed on your side → Fix 7.\n\n*Only new logs are fixed. Logs already received stay as they were.*\n\n**Check it worked:** Processing tiles go back to about 100%.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 16,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5955068394276212,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 4 — Records are not split\n**You see:** the “Not split” tile is above 0; one log holds many records as long text.\n\n**Do this, in order:**\n1. Cyberhaven → **Settings → Data Export → Destinations** → open the Destination.\n2. Set Format **JSON Array** and Encoding **GZip** → **Save & Test**.\n\n**Check it worked:** New logs appear as separate records with fields. Old ones stay as they were.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 19,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5065757321551745,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 5 — Logs exist but the dashboards are empty\n**You see:** records in Log Explorer, nothing on the Cyberhaven dashboards.\n\n**Do this, in order:**\n1. Set every dashboard filter to `*` and widen the timeframe. Each log is dated by its own timestamp, so recent data can sit earlier than you expect.\n2. The **Cyberhaven-Tenant** filter must equal the `cyberhaven.domain` tag on a record.\n3. The **Processing** group here must be green. If not, follow Fix 3.\n\n**Check it worked:** Panels fill in.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 22,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 6866090804604149,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 6 — Incident details missing, or incidents never close\n**You see:** Incident hosts, destinations or files empty; closed incidents stay at 0.\n\n**Do this, in order:**\n1. Cyberhaven → **Settings → Data Export → Configurations** → the incidents configuration.\n2. Tick **Include incident event details** (adds hosts, files, destinations).\n3. Tick **Subscribe to incident updates** (adds closed and updated incidents).\n4. **Save.**\n\n**Check it worked:** New incidents carry the details. The two tiles in *Configuration Completeness* move off 0.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 25,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 7411154245090934,
+            "definition": {
+              "type": "note",
+              "content": "### Fix 7 — Still stuck? Send this to support\n**Who:** Cyberhaven support (support@cyberhaven.com) or Datadog support.\n\n**Do this, in order:**\n1. Screenshot of this dashboard: Ingest, Delivery and Processing groups.\n2. Your **Datadog site** and your **tenant** (`cyberhaven.domain`).\n3. Which source is affected and **when** it started (see the 7-day timeline).\n4. The **Save & Test** result text (never share the API key).\n5. One record **id** and timestamp from the sample lists.\n6. Screenshot of the Destination and Configuration (hide the key).\n\n**Check it worked:** Support can trace failed deliveries on the Cyberhaven side.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 28,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 70,
+        "width": 12,
+        "height": 33
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "Cyberhaven-Tenant",
+      "prefix": "cyberhaven.domain",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}

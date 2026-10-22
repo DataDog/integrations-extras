@@ -1,0 +1,2919 @@
+{
+  "title": "Cyberhaven - Incidents",
+  "description": "DLP / insider-risk incidents raised by Cyberhaven policies. Source: Cyberhaven Incident streaming destination.",
+  "widgets": [
+    {
+      "id": 7452347757784820,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn.prod.website-files.com/64deefeac57fbbefc32df53d/67f80b8b335c5571831ff66c_cyberhaven-logo-solid-dark.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 5,
+        "height": 4
+      }
+    },
+    {
+      "id": 3521520505546808,
+      "definition": {
+        "type": "note",
+        "content": "## Cyberhaven DLP / Insider-Risk Incidents\n*Triage and resolution at a glance*\n\nThis dashboard provides complete visibility into DLP / insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, resolution and underlying event detail.\n\nData source: Cyberhaven Incident streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`).\n\n**Tips**\n- Use the filters at the top (Policy-Severity, Status, Dataset-Sensitivity, Affected-User, Policy-Name, Dataset-Name, Host, Action-Kind, Blocked-Allowed, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 5,
+        "y": 0,
+        "width": 7,
+        "height": 4
+      }
+    },
+    {
+      "id": 3613404769040955,
+      "definition": {
+        "title": "Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7288566596548926,
+            "definition": {
+              "type": "note",
+              "content": "High-level view of DLP / insider-risk incidents: totals, open vs closed, blocked, users affected and risk score, plus trends over time.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 4786971008299068,
+            "definition": {
+              "title": "Total Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-incidents&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5842279926831649,
+            "definition": {
+              "title": "Open Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:open $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-incidents%20%40cyberhaven.incident.status%3Aopen&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2778425042561123,
+            "definition": {
+              "title": "Blocked Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @blocked:true $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-incidents%20%40blocked%3Atrue&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 2643363025613248,
+            "definition": {
+              "title": "Closed Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#2E7D32",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 4,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 3500752276196697,
+            "definition": {
+              "title": "Unique Users Affected",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@user.local_username"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 1215120182199440,
+            "definition": {
+              "title": "Avg Risk Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "avg",
+                        "metric": "@risk_score"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 4,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 2722857526355518,
+            "definition": {
+              "title": "Incidents Over Time by Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.severity",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 8401845646532780,
+            "definition": {
+              "title": "Open vs Closed Incidents Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.incident.status",
+                          "limit": 2,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 10,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 14
+      }
+    },
+    {
+      "id": 5753858717854288,
+      "definition": {
+        "title": "Incident Details",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4379033144510983,
+            "definition": {
+              "title": "Recent Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "policy.severity",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "dataset.sensitivity",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "user.local_username",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "policy.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "dataset.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "cyberhaven.incident.status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "blocked",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "risk_score",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "warning_status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "close_reason",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed",
+                    "storage": "hot"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 7715632155912797,
+            "definition": {
+              "type": "note",
+              "content": "Raw list of recent incidents. Use the filters above to narrow down and drill into individual records.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 4379033144510984,
+            "definition": {
+              "title": "Incident Links (Click an ID to Open in Cyberhaven)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@id",
+                          "limit": 100,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@policy.name",
+                          "limit": 1,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@user.local_username",
+                          "limit": 1,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@policy.severity",
+                          "limit": 1,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@cyberhaven.incident.status",
+                          "limit": 1,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "cyberhaven.domain",
+                          "limit": 1,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 100,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Records",
+                      "cell_display_mode": "number",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto",
+              "custom_links": [
+                {
+                  "label": "Open incident in Cyberhaven",
+                  "link": "https://{{cyberhaven.domain.value}}/incidents/?id={{@id.value}}"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 865755762222377,
+      "definition": {
+        "title": "Severity & Sensitivity Breakdown",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8480605272404021,
+            "definition": {
+              "type": "note",
+              "content": "Triage prioritisation: incidents by policy severity (critical to informational), dataset sensitivity, top policies and datasets, and who created them.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 5031288760666670,
+            "definition": {
+              "title": "Critical Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:critical $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6932480639766920,
+            "definition": {
+              "title": "High Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F57C00",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:high $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 1,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 1955974194221294,
+            "definition": {
+              "title": "Medium Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:medium $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 439061390328873,
+            "definition": {
+              "title": "Low Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#1E88E5",
+                      "value": 0
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:low $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5550336399361755,
+            "definition": {
+              "title": "Informational Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @policy.severity:informational $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#78909C",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 10,
+              "y": 1,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 3900596075901641,
+            "definition": {
+              "title": "Incidents by Policy Severity",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.severity",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1282189348594354,
+            "definition": {
+              "title": "Top Datasets by Incident Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@dataset.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 5250157153524242,
+            "definition": {
+              "title": "Incident Volume by Policy",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "treemap",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.name",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 2856605888035841,
+            "definition": {
+              "title": "Top Policies Triggered",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 7358133871624706,
+            "definition": {
+              "title": "Incidents by Dataset Sensitivity",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@dataset.sensitivity",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 15,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5163821951355459,
+            "definition": {
+              "title": "Severity x Sensitivity x Policy x Dataset (Top Combinations)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.severity",
+                          "limit": 6,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@dataset.sensitivity",
+                          "limit": 6,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@policy.name",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@dataset.name",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "cell_display_mode": "number",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 18,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 6302314740461636,
+            "definition": {
+              "title": "Incidents Created By (Policy / Linea AI)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@created_by",
+                          "limit": 4,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 21,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 30,
+        "width": 12,
+        "height": 25
+      }
+    },
+    {
+      "id": 8682020338019659,
+      "definition": {
+        "title": "Underlying Event Detail",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1222226572197016,
+            "definition": {
+              "type": "note",
+              "content": "Where the data went: triggering sensor and action, destinations, source files, and action kind by blocked / allowed outcome.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6183176094521319,
+            "definition": {
+              "title": "Top Source Files Involved",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@event_details.end_event.source.file.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6340294037814554,
+            "definition": {
+              "title": "Triggering Sensor Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@event_details.end_event.action.sensor_kind",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8389027549996010,
+            "definition": {
+              "title": "Triggering Action Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 7,
+              "height": 3
+            }
+          },
+          {
+            "id": 7915992333373624,
+            "definition": {
+              "title": "Incidents by Destination Location Category",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.destination.location_category",
+                          "limit": 4,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 7,
+              "y": 4,
+              "width": 5,
+              "height": 3
+            }
+          },
+          {
+            "id": 9806543417143024,
+            "definition": {
+              "title": "Top Destinations (Display Name)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.destination.display_name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 6100416912045291,
+            "definition": {
+              "title": "Incidents by Normalized Action",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.action.normalized",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 10,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 4505389312554090,
+            "definition": {
+              "title": "Action Kind x Blocked / Allowed",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 2,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "cell_display_mode": "number",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 13,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 55,
+        "width": 12,
+        "height": 17
+      }
+    },
+    {
+      "id": 8167199778626916,
+      "definition": {
+        "title": "Response, Warnings & Resolution",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7528023507352806,
+            "definition": {
+              "type": "note",
+              "content": "Closure workflow: warning status, user reactions, blocked vs allowed trend, screenshots captured, close reasons and false-positive signal by policy.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7645792864905813,
+            "definition": {
+              "title": "Warning Status",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@warning_status",
+                          "limit": 7,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4578444051925831,
+            "definition": {
+              "title": "User Reactions to Warnings",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@user_reactions",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5826718906950791,
+            "definition": {
+              "title": "Blocked vs Allowed Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 2,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 2
+            }
+          },
+          {
+            "id": 3769921585325823,
+            "definition": {
+              "title": "Incidents with Screenshot Captured",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @screenshot_guid:* $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 1013686693883293,
+            "definition": {
+              "title": "Close Reasons (True / False Positive Signal)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@close_reason",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 2637416818846899,
+            "definition": {
+              "title": "False-Positive Signal by Policy (Close Reasons)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@policy.name",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@close_reason",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.status:closed $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "cell_display_mode": "number",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 72,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 6157628782185446,
+      "definition": {
+        "title": "Top Users & Hosts",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 783486054846990,
+            "definition": {
+              "type": "note",
+              "content": "Operational view: users and hosts with the most incidents, severity mix per user and the highest-risk incidents.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7795320806343543,
+            "definition": {
+              "title": "Top Users by Incident Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@user.local_username",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5490248335230326,
+            "definition": {
+              "title": "Top Hosts by Incident Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@event_details.end_event.action.hostname",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6306169150392090,
+            "definition": {
+              "title": "Top Users by Severity Mix",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@user.local_username",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@policy.severity",
+                          "limit": 6,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "cell_display_mode": "number",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 8780118913337538,
+            "definition": {
+              "title": "Highest Risk Score Incidents",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "risk_score",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "policy.severity",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "user.local_username",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "policy.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "dataset.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "cyberhaven.incident.status",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "blocked",
+                      "width": "auto"
+                    }
+                  ],
+                  "query": {
+                    "data_source": "logs_stream",
+                    "indexes": [
+                      "*"
+                    ],
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @risk_score:* $Policy-Severity $Status $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed",
+                    "storage": "hot",
+                    "sort": {
+                      "column": "risk_score",
+                      "order": "desc"
+                    }
+                  },
+                  "response_format": "event_list"
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 84,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "id": 2271490220599314,
+      "definition": {
+        "title": "Risk Scoring & Attribution",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2464583253652304,
+            "definition": {
+              "type": "note",
+              "content": "User risk groups and the maximum risk score under the current filters.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6747560930013327,
+            "definition": {
+              "title": "Top User Risk Groups (By Risk Multiplier)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "avg",
+                        "metric": "@user_risk_groups.risk_multiplier"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@user_risk_groups.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "avg",
+                            "metric": "@user_risk_groups.risk_multiplier",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @user_risk_groups.name:* $Status $Policy-Severity $Dataset-Sensitivity $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed $Affected-User"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "legend": "automatic",
+                  "type": "stacked"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3930300529096368,
+            "definition": {
+              "title": "Max Risk Score (Current Filter)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "aggregator": "last",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "max",
+                        "metric": "@risk_score"
+                      },
+                      "data_source": "logs",
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Status $Policy-Severity $Dataset-Sensitivity $Affected-User $Policy-Name $Dataset-Name $Cyberhaven-Tenant $Host $Action-Kind $Blocked-Allowed"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 97,
+        "width": 12,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "Status",
+      "prefix": "@cyberhaven.incident.status",
+      "available_values": [
+        "open",
+        "closed"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Policy-Severity",
+      "prefix": "@policy.severity",
+      "available_values": [
+        "informational",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Affected-User",
+      "prefix": "@usr.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Host",
+      "prefix": "@event_details.end_event.action.hostname",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Policy-Name",
+      "prefix": "@policy.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Blocked-Allowed",
+      "prefix": "@evt.outcome",
+      "available_values": [
+        "blocked",
+        "allowed"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Action-Kind",
+      "prefix": "@evt.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Dataset-Name",
+      "prefix": "@dataset.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Dataset-Sensitivity",
+      "prefix": "@dataset.sensitivity",
+      "available_values": [
+        "unrestricted",
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Cyberhaven-Tenant",
+      "prefix": "cyberhaven.domain",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}

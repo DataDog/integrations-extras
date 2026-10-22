@@ -1,0 +1,77 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "c3ff5bcd-f252-4c9a-a17b-b7e39a60ecd4",
+  "app_id": "cyberhaven",
+  "owner": "integrations-developer-platform",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitors Cyberhaven incidents, events and audit logs",
+    "title": "Cyberhaven",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Audit dashboard: who did what in the Cyberhaven console and API",
+        "image_url": "images/cyberhaven_audit.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Events dashboard: data-movement activity seen by Cyberhaven sensors",
+        "image_url": "images/cyberhaven_events.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Incidents dashboard: DLP and insider-risk incidents by severity",
+        "image_url": "images/cyberhaven_incidents.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Troubleshooting dashboard: Cyberhaven log ingestion health",
+        "image_url": "images/cyberhaven_troubleshooting.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Incidents",
+      "Category::Log Collection",
+      "Category::Security",
+      "Category::SIEM",
+      "Offering::Integration",
+      "Submitted Data Type::Logs"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 90599096,
+      "source_type_name": "Cyberhaven",
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "logs": {
+      "source": "cyberhaven"
+    },
+    "dashboards": {
+      "Cyberhaven - Audit": "assets/dashboards/cyberhaven_audit.json",
+      "Cyberhaven - Events": "assets/dashboards/cyberhaven_events.json",
+      "Cyberhaven - Incidents": "assets/dashboards/cyberhaven_incidents.json",
+      "Cyberhaven - Troubleshooting": "assets/dashboards/cyberhaven_troubleshooting.json"
+    },
+    "monitors": {
+      "Audit logs not received in Datadog": "assets/monitors/cyberhaven_audit_logs_missing.json",
+      "Event logs not received in Datadog": "assets/monitors/cyberhaven_event_logs_missing.json",
+      "Incident logs not received in Datadog": "assets/monitors/cyberhaven_incident_logs_missing.json"
+    }
+  },
+  "author": {
+    "support_email": "support@cyberhaven.com",
+    "name": "Cyberhaven",
+    "homepage": "https://www.cyberhaven.com/"
+  }
+}

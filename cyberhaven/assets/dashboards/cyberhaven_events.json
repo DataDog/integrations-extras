@@ -1,0 +1,3334 @@
+{
+  "title": "Cyberhaven - Events",
+  "description": "Raw data-movement / DLP activity events observed by Cyberhaven sensors (endpoint, browser, cloud). Source: Cyberhaven Event streaming destination.",
+  "widgets": [
+    {
+      "id": 1824197466837004,
+      "definition": {
+        "type": "image",
+        "url": "https://cdn.prod.website-files.com/64deefeac57fbbefc32df53d/67f80b8b335c5571831ff66c_cyberhaven-logo-solid-dark.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 5,
+        "height": 4
+      }
+    },
+    {
+      "id": 2596948595435016,
+      "definition": {
+        "type": "note",
+        "content": "## Cyberhaven Events\n*Raw activity observed by endpoint, browser and cloud sensors*\n\nThis dashboard provides complete visibility into raw data-movement / DLP events observed by Cyberhaven sensors (endpoint, browser, cloud): actions, destinations, users, hosts, data volume and content inspection.\n\nData source: Cyberhaven Event streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-events`).\n\n**Tips**\n- Use the filters at the top (Action-Kind, Sensor-Kind, Destination-Sensitivity, User, Blocked-Allowed, Host, Destination-Channel, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+        "background_color": "blue",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 5,
+        "y": 0,
+        "width": 7,
+        "height": 4
+      }
+    },
+    {
+      "id": 1666349176451861,
+      "definition": {
+        "title": "Overview",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8309043882454099,
+            "definition": {
+              "type": "note",
+              "content": "High-level view of Cyberhaven data-movement events: totals, blocked events, unique users and hosts, data volume, and trends over time.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 1997170535827141,
+            "definition": {
+              "title": "Total Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-events&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1925564893541203,
+            "definition": {
+              "title": "Blocked Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.blocked:true $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#D32F2F",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View in Log Explorer",
+                  "link": "/logs?query=source%3Acyberhaven%20cyberhaven.logtype%3Acyberhaven-events%20%40action.blocked%3Atrue&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1355269294153065,
+            "definition": {
+              "title": "Unique Users",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@user.local_username"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1503411488070067,
+            "definition": {
+              "title": "Unique Hostnames",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@action.hostname"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4415939743030504,
+            "definition": {
+              "title": "Total Data Volume Moved",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "sum",
+                        "metric": "@action.data_size"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 8041491792112314,
+            "definition": {
+              "title": "Avg Data Size per Event",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "avg",
+                        "metric": "@action.data_size"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 4,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2568609908874927,
+            "definition": {
+              "title": "Events Over Time by Action Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.kind",
+                          "limit": 8,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 882084423746470,
+            "definition": {
+              "title": "Blocked vs Allowed Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "value",
+                "avg",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 2,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 12,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 18
+      }
+    },
+    {
+      "id": 6221615542719387,
+      "definition": {
+        "title": "Action & Sensor Breakdown",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 541789934990921,
+            "definition": {
+              "type": "note",
+              "content": "What is happening and how it was observed: events by action kind, sensor kind, device type, applications, data volume and action kind by destination channel.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 3848540789851753,
+            "definition": {
+              "title": "Events by Action Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.kind",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 7526126618760090,
+            "definition": {
+              "title": "Events by Sensor Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.sensor_kind",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 5776176201813649,
+            "definition": {
+              "title": "Managed vs Unmanaged Devices",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.device_type",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 756943232386037,
+            "definition": {
+              "title": "Top Source Applications",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $Action-Kind"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.source.application",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 9,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6142364066395871,
+            "definition": {
+              "title": "Data Volume by Action Kind",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "treemap",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.kind",
+                          "limit": 15,
+                          "sort": {
+                            "aggregation": "sum",
+                            "metric": "@action.data_size",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "sum",
+                        "metric": "@action.data_size"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 13,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8896866683294760,
+            "definition": {
+              "title": "Action Kind x Sensor Kind x Blocked (Top Combinations)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Destination-Sensitivity $User $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.kind",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@action.sensor_kind",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 2,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Count",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 6,
+              "y": 13,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 8079712730513430,
+            "definition": {
+              "title": "Events by Normalized Action",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $Action-Kind"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.action.normalized",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 7405463883611377,
+            "definition": {
+              "title": "Action Kind x Destination Channel",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Host $Action-Kind $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.kind",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        },
+                        {
+                          "facet": "@cyberhaven.destination.location_category",
+                          "limit": 13,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc",
+                            "metric": "count"
+                          },
+                          "should_exclude_missing": true
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "Count",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": {
+              "x": 0,
+              "y": 21,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 22,
+        "width": 12,
+        "height": 25
+      }
+    },
+    {
+      "id": 1873236697114826,
+      "definition": {
+        "title": "Users, Hosts & Devices",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2485459910802942,
+            "definition": {
+              "type": "note",
+              "content": "Who and where from: top users and endpoint IP geography.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2177964579478519,
+            "definition": {
+              "title": "Top Users by Event Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@user.local_username",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 823487910611814,
+            "definition": {
+              "title": "Top Hostnames",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.hostname",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 405414544302959,
+            "definition": {
+              "title": "Endpoint IP Geo Distribution (Geo-Enriched)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "geomap",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $User"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.client.geoip.country.iso_code",
+                          "limit": 250,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "palette": "hostmap_blues",
+                "palette_flip": false
+              },
+              "view": {
+                "focus": "WORLD"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 47,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 3879923111372222,
+      "definition": {
+        "title": "Destinations & Data Classification",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2438253546654929,
+            "definition": {
+              "type": "note",
+              "content": "Where data is going and what it is: destination channels, apps, web categories, files, data labels, sensitivity and display names.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 1456217385769678,
+            "definition": {
+              "title": "Top Destination Cloud Apps",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.cloud_app.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 2642081575562820,
+            "definition": {
+              "title": "Web Destination Category",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.web.category",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 6269771348154931,
+            "definition": {
+              "title": "GenAI / AI Tool Destination Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @destination.web.category:ai_and_gen_ai_tools $Action-Kind $Sensor-Kind $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#7B1FA2",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4429303498384850,
+            "definition": {
+              "title": "Top File Extensions",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.file.extension",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8726336610026083,
+            "definition": {
+              "title": "Largest Files by Size",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.file.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "max",
+                            "metric": "@destination.file.size",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "max",
+                        "metric": "@destination.file.size"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6886292456693131,
+            "definition": {
+              "title": "Top Network Share Hosts",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.network_share.hostname",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8490686340889519,
+            "definition": {
+              "title": "Top Cloud Providers",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.cloud_app.provider",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7699532222882646,
+            "definition": {
+              "title": "Top Inferred Data Labels",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.data.labels",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 11,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7600773401430772,
+            "definition": {
+              "title": "Events by Dataset Sensitivity",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.dataset_sensitivity",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 14,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5110137017978437,
+            "definition": {
+              "title": "Top Destinations (Display Name)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.destination.display_name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 9434420207467392,
+            "definition": {
+              "title": "Top Destination Applications",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Host $Destination-Channel $Cyberhaven-Tenant"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.destination.application",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 20,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 5483710112698553,
+            "definition": {
+              "title": "Events by Destination Location Category",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@cyberhaven.destination.location_category",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 23,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 55,
+        "width": 12,
+        "height": 27
+      }
+    },
+    {
+      "id": 179925102621071,
+      "definition": {
+        "title": "Event Details",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 206951055168946,
+            "definition": {
+              "type": "note",
+              "content": "Raw list of recent events. Use the filters above to narrow down and drill into individual records.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 3919685729010102,
+            "definition": {
+              "title": "Recent Events",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action.kind",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action.sensor_kind",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "action.blocked",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "user.local_username",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "destination.cloud_app.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "source.file.name",
+                      "width": "auto"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 6
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 82,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 2143403999826979,
+      "definition": {
+        "title": "Removable Storage, Printers & Physical Egress",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8449058834106439,
+            "definition": {
+              "type": "note",
+              "content": "USB, removable storage and printing activity: devices, printers and connectivity.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 770271297863910,
+            "definition": {
+              "title": "USB / Removable Storage Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @destination.removable_storage.id:* $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3186041497722265,
+            "definition": {
+              "title": "Print Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:send_to_printer $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 1740639573483557,
+            "definition": {
+              "title": "Top Printers Used",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:send_to_printer $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.printer.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6974133841745356,
+            "definition": {
+              "title": "Top Removable Storage Devices",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @destination.removable_storage.id:* $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.removable_storage.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8654959592419152,
+            "definition": {
+              "title": "Printer Connectivity (Local vs Network)",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:send_to_printer $Cyberhaven-Tenant $Host $Destination-Channel $User $Blocked-Allowed $Destination-Sensitivity $Sensor-Kind"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.printer.connectivity",
+                          "limit": 3,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "table"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 90,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 2227510572129200,
+      "definition": {
+        "title": "Email, Messaging & Collaboration",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2813972537898402,
+            "definition": {
+              "type": "note",
+              "content": "Email, clipboard, IM and cloud-share activity: recipients, workspaces and share roles.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6177488026545585,
+            "definition": {
+              "title": "Email Send Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:email_send $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1647948760065075,
+            "definition": {
+              "title": "Clipboard Copy/Paste Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:clipboard_copy_paste $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 4
+            }
+          },
+          {
+            "id": 1385651311703799,
+            "definition": {
+              "title": "Top IM / Chat Workspaces",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.im_message.workspace",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3017359247023995,
+            "definition": {
+              "title": "Top Cloud Share Recipients (Role / Scope)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:share $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.cloud_share_recipient.role",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        },
+                        {
+                          "facet": "@destination.cloud_share_recipient.scope",
+                          "limit": 6,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 5,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7543218858143291,
+            "definition": {
+              "title": "Top Email Recipients",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.kind:email_send $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@destination.email.to",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 100,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 89302245729894,
+      "definition": {
+        "title": "Source Code & Cloud Connectors",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4384616479178585,
+            "definition": {
+              "type": "note",
+              "content": "Source code repository activity.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 1481153328014597,
+            "definition": {
+              "title": "Top Source Code Repositories",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@source.source_code_repo.name",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 112,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 8936943491789105,
+      "definition": {
+        "title": "Content Inspection & DLP Tags",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8606627137259250,
+            "definition": {
+              "type": "note",
+              "content": "Content inspection results, DLP / DAR scan events and detected content tags.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 544414954722628,
+            "definition": {
+              "title": "DLP / DAR Scan Events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events (@action.kind:dlp_scan OR @action.kind:dar_scan) $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5601505192640638,
+            "definition": {
+              "title": "Events with Inspected Content",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.content.inspected:true $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5378751332829414,
+            "definition": {
+              "title": "Top Content Tags Detected",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Action-Kind $Sensor-Kind $Destination-Sensitivity $User $Blocked-Allowed $Cyberhaven-Tenant $Host $Destination-Channel"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.content.tags",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "cool"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 117,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 7967621050511565,
+      "definition": {
+        "title": "Fail-Close & DLP Scan Reliability",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 9806850602489720,
+            "definition": {
+              "type": "note",
+              "content": "DLP scan reliability: temporarily blocked actions and fail-close statuses.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 4572445274659381,
+            "definition": {
+              "title": "Temporarily Blocked (Pending DLP Evaluation)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.temporary_blocked:true $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "custom_bg",
+                      "custom_bg_color": "#F9A825",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "timeseries_background": {
+                "type": "area",
+                "yaxis": {
+                  "include_zero": false
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2960340512101620,
+            "definition": {
+              "title": "Fail-Close: DLP Precondition Failures",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.fail_close_statuses.dlp_precondition:* $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.fail_close_statuses.dlp_precondition",
+                          "limit": 5,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3962717896844300,
+            "definition": {
+              "title": "Fail-Close: Action Status",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.fail_close_statuses.action_status:* $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.fail_close_statuses.action_status",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7599572580256371,
+            "definition": {
+              "title": "Fail-Close: DLP API Status",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "search": {
+                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events @action.fail_close_statuses.dlp_api_status:* $Action-Kind $Sensor-Kind $User $Cyberhaven-Tenant $Host $Destination-Channel $Blocked-Allowed $Destination-Sensitivity"
+                      },
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@action.fail_close_statuses.dlp_api_status",
+                          "limit": 10,
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "warm"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 4,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 125,
+        "width": 12,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "User",
+      "prefix": "@user.local_username",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Host",
+      "prefix": "@action.hostname",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Action-Kind",
+      "prefix": "@action.kind",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Blocked-Allowed",
+      "prefix": "@evt.outcome",
+      "available_values": [
+        "blocked",
+        "allowed"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Destination-Channel",
+      "prefix": "@cyberhaven.destination.location_category",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Destination-Sensitivity",
+      "prefix": "@destination.dataset_sensitivity",
+      "available_values": [
+        "unrestricted",
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Sensor-Kind",
+      "prefix": "@action.sensor_kind",
+      "available_values": [
+        "endpoint",
+        "cloud",
+        "browser"
+      ],
+      "default": "*"
+    },
+    {
+      "name": "Cyberhaven-Tenant",
+      "prefix": "cyberhaven.domain",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "pause_auto_refresh": false,
+  "reflow_type": "fixed"
+}
