@@ -32,7 +32,7 @@ def test_metrics(aggregator):
         c = NeutronaCheck('neutrona', {}, {}, None)
 
         pwd = os.path.dirname(os.path.abspath(__file__))
-        args = ["docker-compose", "-f", os.path.join(pwd, 'docker-compose.yml')]
+        args = ["docker", "compose", "-f", os.path.join(pwd, 'docker-compose.yml')]
 
         # start API mock containers
         subprocess.check_call(args + ["up", "-d"])
