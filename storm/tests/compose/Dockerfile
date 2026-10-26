@@ -1,4 +1,4 @@
-FROM maven:3.5.0-jdk-7
+FROM maven:3.6.3-jdk-8
 
 
 RUN curl -fsSL https://github.com/apache/storm/archive/v1.2.3.tar.gz -o storm.tar.gz \

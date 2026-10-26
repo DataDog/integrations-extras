@@ -14,8 +14,9 @@ RUN apk add --update \
     alpine-sdk \
     && rm -rf /var/cache/apk/*
 
+# caucho.com does not serve its intermediate certificate, so HTTPS fails; integrity is ensured by the checksum
 RUN CHK_SUM=05461c51fa94ab1a304481d0d9cbab64f5772eb9119289db696b868e4adba57d && \
-  curl -Lo /tmp/resin.tar.gz 'https://caucho.com/download/resin-4.0.62.tar.gz' && \
+  curl -Lo /tmp/resin.tar.gz 'http://caucho.com/download/resin-4.0.62.tar.gz' && \
   sha256sum /tmp/resin.tar.gz && \
   echo "${CHK_SUM}  /tmp/resin.tar.gz" | sha256sum -c - && \
   mkdir -p /opt/resin && \
