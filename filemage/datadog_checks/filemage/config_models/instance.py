@@ -42,6 +42,7 @@ class InstanceConfig(BaseModel):
     )
     disable_generic_tags: Optional[bool] = None
     empty_default_hostname: Optional[bool] = None
+    enable_legacy_tags_normalization: Optional[bool] = None
     filemage_api_config: FilemageApiConfig
     filemage_service_checks: tuple[str, ...]
     metric_patterns: Optional[MetricPatterns] = None
