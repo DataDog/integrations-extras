@@ -1,0 +1,30 @@
+{
+  "created_at": "2025-10-27",
+  "definition": {
+    "message": "This monitor will trigger when CPU contention increases above 60% for one or more logical partitions (LPARs) on mainframe platforms.",
+    "name": "Mainframe CPU Contention Monitor",
+    "options": {
+      "include_tags": true,
+      "new_group_delay": 60,
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "silenced": {},
+      "thresholds": {
+        "critical": 0.59,
+        "warning": 0.5
+      }
+    },
+    "query": "max(last_15m):max:ziris.zos.cpu.in_ready_work_queue_contention{*} by {host.name}.fill(linear) > 0.59",
+    "tags": [
+      "mainframe-cpu"
+    ],
+    "type": "query alert"
+  },
+  "description": "",
+  "last_updated_at": "2026-05-06",
+  "tags": [
+    "integration:ziris"
+  ],
+  "title": "",
+  "version": 2
+}

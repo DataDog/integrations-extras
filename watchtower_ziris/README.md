@@ -17,7 +17,7 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 
 ### Installation
 
-1. **Configure the OpenTelemetry Collector**
+1. Configure the OpenTelemetry Collector
 
    - Configure the OTLP receiver
    
@@ -48,15 +48,15 @@ Verify that WatchTower z/IRIS is installed and running. Refer to the WatchTower 
 2. [Configure the Datadog Exporter and Connector][3]
 
    Follow Datadog's documentation to add the Datadog exporter to your collector configuration and provide your API key.
-   Add the processors `transform/datadog`  to the z/IRIS pipelines exporting signals to your Datadog tenant.
+   Add the processor `transform/datadog` to the z/IRIS pipelines exporting signals to your Datadog tenant.
 
-3. Launch the collector and verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and verify that mainframe traces and spans are streaming.
+3. Launch the collector. Verify in Datadog that the renamed metrics (`ziris.*`) are appearing in the [Metrics Explorer][4] and that mainframe traces and spans are streaming.
 
 4. In Datadog, open the WatchTower z/IRIS integration tile and click **Install**.
 
    Dashboards will be cloned into your organization, and the monitors will be available on the [Monitor Templates][5] page.
    
-5.  In Datadog, open Log explorer and verify that the z/IRIS custom group facets is available for filtering.
+5.  In Datadog, open Log Explorer and verify that the z/IRIS custom group facets are available for filtering.
 
 
 
