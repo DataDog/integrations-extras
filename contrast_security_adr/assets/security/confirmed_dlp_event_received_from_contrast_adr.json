@@ -1,74 +1,74 @@
 {
-  "name": "Confirmed DLP event received from Contrast ADR",
-  "partnerRuleId": "ext-00w-f8n",
-  "message": "### Summary:\n\nConfirmed active SQL Injection by Contrast ADR on  {{@url}} endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
-  "id": "xgy-cyz-hyl",
-  "tags": [],
-  "type": "log_detection",
+  "blocking": false,
   "cases": [
     {
-      "name": "Condition 1",
-      "status": "info",
       "condition": "a > 0 && b > 0",
-      "notifications": []
+      "name": "Condition 1",
+      "notifications": [],
+      "status": "info"
     }
   ],
-  "isBeta": false,
+  "createdAt": 1749466228666,
+  "creationAuthorId": 26956021,
   "creator": {
-    "name": "Pranav Kalariya",
-    "handle": "pranav.kalariya@contrastsecurity.com"
+    "handle": "pranav.kalariya@contrastsecurity.com",
+    "name": "Pranav Kalariya"
   },
   "filters": [],
-  "options": {
-    "keepAlive": 3600,
-    "detectionMethod": "threshold",
-    "evaluationWindow": 300,
-    "maxSignalDuration": 86400
-  },
-  "queries": [
-    {
-      "name": "",
-      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR",
-      "dataSource": "logs",
-      "aggregation": "count",
-      "groupByFields": [
-        "@host.hostname"
-      ],
-      "distinctFields": [],
-      "hasOptionalGroupByFields": false
-    },
-    {
-      "name": "",
-      "query": "source:dlp_test",
-      "dataSource": "logs",
-      "aggregation": "count",
-      "groupByFields": [
-        "@hostname"
-      ],
-      "distinctFields": [],
-      "hasOptionalGroupByFields": false
-    }
-  ],
-  "updater": {
-    "name": "Harsha Nagendra",
-    "handle": "harsha.nagendra@contrastsecurity.com"
-  },
-  "version": 22,
-  "blocking": false,
+  "hasExtendedTitle": true,
+  "id": "xgy-cyz-hyl",
+  "isBeta": false,
+  "isDefault": false,
+  "isDeleted": false,
+  "isDeprecated": false,
+  "isPartner": false,
+  "message": "### Summary:\n\nConfirmed active SQL Injection by Contrast ADR on  {{@url}} endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "metadata": {
+    "entities": [],
     "sources": [
       "contrast-security-adr",
       "dlp_test"
-    ],
-    "entities": []
+    ]
   },
-  "createdAt": 1749466228666,
-  "isDefault": false,
-  "isDeleted": false,
-  "isPartner": false,
-  "updatedAt": 1764678410070,
-  "isDeprecated": false,
+  "name": "Confirmed DLP event received from Contrast ADR",
+  "options": {
+    "detectionMethod": "threshold",
+    "evaluationWindow": 300,
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400
+  },
+  "partnerRuleId": "ext-009-x5q",
+  "queries": [
+    {
+      "aggregation": "count",
+      "dataSource": "logs",
+      "distinctFields": [],
+      "groupByFields": [
+        "@host.hostname"
+      ],
+      "hasOptionalGroupByFields": false,
+      "name": "",
+      "query": "source:contrast-security-adr tags:attack_event @result:(EXPLOITED OR exploited OR Exploited) AND @rule:(sql-injection OR SQL-INJECTION OR SQL-Injection OR SQL-injection) service:ContrastADR"
+    },
+    {
+      "aggregation": "count",
+      "dataSource": "logs",
+      "distinctFields": [],
+      "groupByFields": [
+        "@hostname"
+      ],
+      "hasOptionalGroupByFields": false,
+      "name": "",
+      "query": "source:dlp_test"
+    }
+  ],
+  "tags": [],
+  "type": "log_detection",
   "updateAuthorId": 64082222,
-  "creationAuthorId": 26956021,
-  "hasExtendedTitle": true
+  "updatedAt": 1764678410070,
+  "updater": {
+    "handle": "harsha.nagendra@contrastsecurity.com",
+    "name": "Harsha Nagendra"
+  },
+  "version": 22
 }

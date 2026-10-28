@@ -1,412 +1,413 @@
 {
-  "title": "Contrast Security ADR",
   "description": "- Get an overview of attacked applications and URIs, as detected and/or blocked by Contrast Security ADR agents.\n- Drill down to underlying logs to get more details into attack sources, payloads, code location, and other details.",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variables": [],
+  "title": "Contrast Security ADR",
   "widgets": [
     {
+      "definition": {
+        "has_background": true,
+        "has_border": true,
+        "horizontal_align": "center",
+        "sizing": "contain",
+        "type": "image",
+        "url": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_color.png",
+        "url_dark_theme": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_reverse.png",
+        "vertical_align": "center"
+      },
       "id": 6181128480564103,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 2,
         "width": 12,
-        "height": 2
-      },
-      "definition": {
-        "url": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_color.png",
-        "type": "image",
-        "sizing": "contain",
-        "has_border": true,
-        "has_background": true,
-        "url_dark_theme": "https://raw.githubusercontent.com/Contrast-Security-OSS/Contrast-Logo/refs/heads/main/CS_logo_RGB_reverse.png",
-        "vertical_align": "center",
-        "horizontal_align": "center"
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 8517415573612248,
-      "layout": {
-        "x": 0,
-        "y": 2,
-        "width": 12,
-        "height": 13
-      },
       "definition": {
-        "type": "group",
+        "background_color": "vivid_green",
+        "layout_type": "ordered",
+        "show_title": true,
         "title": "Attacks",
+        "type": "group",
         "widgets": [
           {
-            "id": 1782623543348740,
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 4
-            },
             "definition": {
-              "type": "sunburst",
-              "title": "Distribution of Attack Events",
               "legend": {
                 "type": "automatic"
               },
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@result",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:contrast-security-adr tags:attack_event"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 10,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   },
                   "style": {
                     "palette": "datadog16"
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "search": {
-                        "query": "source:contrast-security-adr tags:attack_event"
-                      },
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "storage": "hot",
-                      "group_by": [
-                        {
-                          "sort": {
-                            "order": "desc",
-                            "metric": "count",
-                            "aggregation": "count"
-                          },
-                          "facet": "@result",
-                          "limit": 10,
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "data_source": "logs"
-                    }
-                  ],
+                  }
+                }
+              ],
+              "title": "Distribution of Attack Events",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "sunburst"
+            },
+            "id": 1782623543348740,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "requests": [
+                {
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
-                  "response_format": "scalar"
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@application.name",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:contrast-security-adr tags:attack_event"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  }
                 }
               ],
-              "title_size": "16",
-              "title_align": "left"
-            }
-          },
-          {
-            "id": 2595467198821652,
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 6,
-              "height": 4
-            },
-            "definition": {
-              "type": "toplist",
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 }
               },
               "title": "Top 10 Attacks by Applications",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
+            },
+            "id": 2595467198821652,
+            "layout": {
+              "height": 4,
+              "width": 6,
+              "x": 6,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
               "requests": [
                 {
-                  "sort": {
-                    "count": 10,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "search": {
-                        "query": "source:contrast-security-adr tags:attack_event"
-                      },
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "storage": "hot",
-                      "group_by": [
-                        {
-                          "sort": {
-                            "order": "desc",
-                            "metric": "count",
-                            "aggregation": "count"
-                          },
-                          "facet": "@application.name",
-                          "limit": 10,
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "data_source": "logs"
-                    }
-                  ],
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
-                  "response_format": "scalar"
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@rule",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:contrast-security-adr tags:attack_event"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  }
                 }
               ],
-              "title_size": "16",
-              "title_align": "left"
-            }
-          },
-          {
-            "id": 1701489096793870,
-            "layout": {
-              "x": 0,
-              "y": 4,
-              "width": 5,
-              "height": 4
-            },
-            "definition": {
-              "type": "toplist",
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 }
               },
               "title": "Top 10 Attacks by Rule",
-              "requests": [
-                {
-                  "sort": {
-                    "count": 10,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "search": {
-                        "query": "source:contrast-security-adr tags:attack_event"
-                      },
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "storage": "hot",
-                      "group_by": [
-                        {
-                          "sort": {
-                            "order": "desc",
-                            "metric": "count",
-                            "aggregation": "count"
-                          },
-                          "facet": "@rule",
-                          "limit": 10,
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "data_source": "logs"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "response_format": "scalar"
-                }
-              ],
+              "title_align": "left",
               "title_size": "16",
-              "title_align": "left"
+              "type": "toplist"
+            },
+            "id": 1701489096793870,
+            "layout": {
+              "height": 4,
+              "width": 5,
+              "x": 0,
+              "y": 4
             }
           },
           {
-            "id": 2205300797772388,
-            "layout": {
-              "x": 5,
-              "y": 4,
-              "width": 7,
-              "height": 4
-            },
             "definition": {
-              "type": "query_table",
-              "title": "Top 10 Most Attacked URLs",
+              "has_search_bar": "auto",
               "requests": [
                 {
-                  "sort": {
-                    "count": 10,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
-                      "name": "query1",
-                      "search": {
-                        "query": "source:contrast-security-adr tags:attack_event"
-                      },
                       "compute": {
                         "aggregation": "count"
                       },
-                      "indexes": [
-                        "*"
-                      ],
-                      "storage": "hot",
+                      "data_source": "logs",
                       "group_by": [
                         {
-                          "sort": {
-                            "order": "desc",
-                            "metric": "count",
-                            "aggregation": "count"
-                          },
                           "facet": "@url",
                           "limit": 10,
-                          "should_exclude_missing": true
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
                         },
                         {
-                          "sort": {
-                            "order": "desc",
-                            "metric": "count",
-                            "aggregation": "count"
-                          },
                           "facet": "@application.name",
                           "limit": 10,
-                          "should_exclude_missing": true
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
                         }
                       ],
-                      "data_source": "logs"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "cell_display_mode": "bar"
-                    }
-                  ],
-                  "response_format": "scalar"
-                }
-              ],
-              "title_size": "16",
-              "title_align": "left",
-              "has_search_bar": "auto"
-            }
-          },
-          {
-            "id": 4349148145843182,
-            "layout": {
-              "x": 0,
-              "y": 8,
-              "width": 12,
-              "height": 4
-            },
-            "definition": {
-              "type": "timeseries",
-              "title": "Attack Timeline",
-              "requests": [
-                {
-                  "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "queries": [
-                    {
+                      "indexes": [
+                        "*"
+                      ],
                       "name": "query1",
                       "search": {
                         "query": "source:contrast-security-adr tags:attack_event"
                       },
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "storage": "hot",
-                      "group_by": [],
-                      "data_source": "logs"
+                      "storage": "hot"
                     }
                   ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "display_type": "line",
-                  "response_format": "timeseries"
-                },
-                {
-                  "queries": [
-                    {
-                      "name": "dashboard_events_overlay",
-                      "search": {
-                        "query": ""
-                      },
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [],
-                      "data_source": "events"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "dashboard_events_overlay"
-                    }
-                  ],
-                  "display_type": "overlay",
-                  "response_format": "timeseries"
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  }
                 }
               ],
-              "title_size": "16",
-              "show_legend": true,
+              "title": "Top 10 Most Attacked URLs",
               "title_align": "left",
-              "legend_layout": "auto",
+              "title_size": "16",
+              "type": "query_table"
+            },
+            "id": 2205300797772388,
+            "layout": {
+              "height": 4,
+              "width": 7,
+              "x": 5,
+              "y": 4
+            }
+          },
+          {
+            "definition": {
               "legend_columns": [
                 "avg",
                 "min",
                 "max",
                 "value",
                 "sum"
-              ]
+              ],
+              "legend_layout": "auto",
+              "requests": [
+                {
+                  "display_type": "line",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:contrast-security-adr tags:attack_event"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "line_type": "solid",
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "dog_classic"
+                  }
+                },
+                {
+                  "display_type": "overlay",
+                  "formulas": [
+                    {
+                      "formula": "dashboard_events_overlay"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "events",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "dashboard_events_overlay",
+                      "search": {
+                        "query": ""
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries"
+                }
+              ],
+              "show_legend": true,
+              "title": "Attack Timeline",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
+            },
+            "id": 4349148145843182,
+            "layout": {
+              "height": 4,
+              "width": 12,
+              "x": 0,
+              "y": 8
             }
           }
-        ],
-        "show_title": true,
-        "layout_type": "ordered",
-        "background_color": "vivid_green"
+        ]
+      },
+      "id": 8517415573612248,
+      "layout": {
+        "height": 13,
+        "width": 12,
+        "x": 0,
+        "y": 2
       }
     }
-  ],
-  "template_variables": [],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "reflow_type": "fixed"
+  ]
 }

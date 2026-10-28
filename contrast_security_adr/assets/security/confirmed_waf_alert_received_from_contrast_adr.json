@@ -1,74 +1,74 @@
 {
-  "name": "Confirmed WAF alert received from Contrast ADR",
-  "partnerRuleId": "ext-00g-gwc",
-  "message": "### Summary:\nWAF Alert Confirmed {{@result}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
-  "id": "lrk-h3m-hto",
-  "tags": [],
-  "type": "log_detection",
+  "blocking": false,
   "cases": [
     {
-      "name": "Condition 1",
-      "status": "info",
       "condition": "b > 0 && a > 0 ",
-      "notifications": []
+      "name": "Condition 1",
+      "notifications": [],
+      "status": "info"
     }
   ],
-  "isBeta": false,
+  "createdAt": 1747814166967,
+  "creationAuthorId": 22452697,
   "creator": {
-    "name": "Pragati Gupta",
-    "handle": "pragati.gupta@contrastsecurity.com"
+    "handle": "pragati.gupta@contrastsecurity.com",
+    "name": "Pragati Gupta"
   },
   "filters": [],
-  "options": {
-    "keepAlive": 3600,
-    "detectionMethod": "threshold",
-    "evaluationWindow": 300,
-    "maxSignalDuration": 86400
-  },
-  "queries": [
-    {
-      "name": "",
-      "query": "source:contrast-security-adr tags:attack_event @result:((EXPLOITED OR exploited) OR (BLOCKED OR blocked)) service:ContrastADR",
-      "dataSource": "logs",
-      "aggregation": "count",
-      "groupByFields": [
-        "@sourceIp"
-      ],
-      "distinctFields": [],
-      "hasOptionalGroupByFields": false
-    },
-    {
-      "name": "",
-      "query": "source:waf_test",
-      "dataSource": "logs",
-      "aggregation": "count",
-      "groupByFields": [
-        "@targetip"
-      ],
-      "distinctFields": [],
-      "hasOptionalGroupByFields": false
-    }
-  ],
-  "updater": {
-    "name": "Harsha Nagendra",
-    "handle": "harsha.nagendra@contrastsecurity.com"
-  },
-  "version": 37,
-  "blocking": false,
+  "hasExtendedTitle": true,
+  "id": "lrk-h3m-hto",
+  "isBeta": false,
+  "isDefault": false,
+  "isDeleted": false,
+  "isDeprecated": false,
+  "isPartner": false,
+  "message": "### Summary:\nWAF Alert Confirmed {{@result}}  by Contrast ADR on {{@url}}  endpoint of {{@application.name}}\n   \n### Actions:\n\n View recommended actions at https://contrastsecurity.dev/adr-runbooks/runbooks/{{@rule}}\n\nView in Contrast Security ADR: {{@uiUrl}}",
   "metadata": {
+    "entities": [],
     "sources": [
       "waf_test",
       "contrast-security-adr"
-    ],
-    "entities": []
+    ]
   },
-  "createdAt": 1747814166967,
-  "isDefault": false,
-  "isDeleted": false,
-  "isPartner": false,
-  "updatedAt": 1764678406973,
-  "isDeprecated": false,
+  "name": "Confirmed WAF alert received from Contrast ADR",
+  "options": {
+    "detectionMethod": "threshold",
+    "evaluationWindow": 300,
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400
+  },
+  "partnerRuleId": "ext-00d-ua7",
+  "queries": [
+    {
+      "aggregation": "count",
+      "dataSource": "logs",
+      "distinctFields": [],
+      "groupByFields": [
+        "@sourceIp"
+      ],
+      "hasOptionalGroupByFields": false,
+      "name": "",
+      "query": "source:contrast-security-adr tags:attack_event @result:((EXPLOITED OR exploited) OR (BLOCKED OR blocked)) service:ContrastADR"
+    },
+    {
+      "aggregation": "count",
+      "dataSource": "logs",
+      "distinctFields": [],
+      "groupByFields": [
+        "@targetip"
+      ],
+      "hasOptionalGroupByFields": false,
+      "name": "",
+      "query": "source:waf_test"
+    }
+  ],
+  "tags": [],
+  "type": "log_detection",
   "updateAuthorId": 64082222,
-  "creationAuthorId": 22452697,
-  "hasExtendedTitle": true
+  "updatedAt": 1764678406973,
+  "updater": {
+    "handle": "harsha.nagendra@contrastsecurity.com",
+    "name": "Harsha Nagendra"
+  },
+  "version": 37
 }
