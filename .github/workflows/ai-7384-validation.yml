@@ -1,0 +1,39 @@
+name: AI-7384 disposable validation
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  pinned-pr:
+    uses: DataDog/integrations-core/.github/workflows/pr-test.yml@7fb47f8d0c89155f3b25b2adcb27ef64f526f8f6
+    with:
+      repo: extras
+      python-version: "3.13"
+      ddev-version: "==20.1.0"
+      integrations-core-ref: 7fb47f8d0c89155f3b25b2adcb27ef64f526f8f6
+    secrets: inherit
+
+  incompatible-tooling:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+      - name: Install incompatible pinned ddev
+        id: unsupported
+        continue-on-error: true
+        uses: DataDog/integrations-core/.github/actions/setup-ddev@7fb47f8d0c89155f3b25b2adcb27ef64f526f8f6
+        with:
+          install-mode: pypi
+          ddev-version: "==20.1.0"
+      - name: Verify installation failed
+        env:
+          INSTALL_OUTCOME: ${{ steps.unsupported.outcome }}
+        run: |
+          test "$INSTALL_OUTCOME" = failure
+          python --version
+          echo 'Pinned ddev installation rejected the unsupported tooling Python.'
