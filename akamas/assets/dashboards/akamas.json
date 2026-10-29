@@ -1,101 +1,110 @@
 {
-  "title": "Akamas",
   "description": "# Akamas Insights\n\nThis dashboard provide a high level overview of your kubernetes cluster reliability risks and compliance issues at the cluster, workload and application runtime level. \n\nGo to [akamas.io](https://www.akamas.io/) for further information on how insights are gathered. ",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variables": [
+    {
+      "default": "*",
+      "name": "cluster",
+      "prefix": "cluster"
+    }
+  ],
+  "title": "Akamas",
   "widgets": [
     {
-      "id": 4077777763784574,
       "definition": {
-        "title": "About Akamas Insights",
         "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "About Akamas Insights",
+        "type": "group",
         "widgets": [
           {
-            "id": 7408769629097188,
             "definition": {
+              "has_background": true,
+              "has_border": true,
+              "horizontal_align": "center",
+              "margin": "md",
+              "sizing": "cover",
               "type": "image",
               "url": "https://akamas-public-doc.s3.us-east-2.amazonaws.com/logos/Logo+primary.png",
               "url_dark_theme": "https://akamas-public-doc.s3.us-east-2.amazonaws.com/logos/Logo+secondary.png",
-              "sizing": "cover",
-              "margin": "md",
-              "has_background": true,
-              "has_border": true,
-              "vertical_align": "center",
-              "horizontal_align": "center"
+              "vertical_align": "center"
             },
+            "id": 7408769629097188,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 4,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 6259204086329126,
             "definition": {
-              "type": "note",
-              "content": "Akamas Insights analyzes your Kubernetes clusters highlighting reliability risks and out-of-compliance insights. It analyzes both cluster and application level to provide full stack insights.\n \nHead over to [akamas.io](akamas.io) to learn more.",
               "background_color": "white",
+              "content": "Akamas Insights analyzes your Kubernetes clusters highlighting reliability risks and out-of-compliance insights. It analyzes both cluster and application level to provide full stack insights.\n \nHead over to [akamas.io](akamas.io) to learn more.",
               "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "top",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "top"
             },
+            "id": 6259204086329126,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 4,
               "width": 4,
-              "height": 4
+              "x": 0,
+              "y": 1
             }
           }
         ]
       },
+      "id": 4077777763784574,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 6,
         "width": 4,
-        "height": 6
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 4850974944471892,
       "definition": {
-        "title": "Overview",
         "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Overview",
+        "type": "group",
         "widgets": [
           {
-            "id": 2674277876998956,
             "definition": {
-              "type": "note",
-              "content": "Here you can find a list of all your clusters sorted by their risk index. The risk index is a curated index that aggregates all reliability risks. \n\nSelect one cluster to inspect the identified risks further and opportunities.",
               "background_color": "white",
+              "content": "Here you can find a list of all your clusters sorted by their risk index. The risk index is a curated index that aggregates all reliability risks. \n\nSelect one cluster to inspect the identified risks further and opportunities.",
               "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "top",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "top"
             },
+            "id": 2674277876998956,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 2,
               "width": 4,
-              "height": 2
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 7449562634989530,
             "definition": {
-              "title": "Clusters at Risk",
-              "type": "query_value",
+              "autoscale": true,
+              "precision": 2,
               "requests": [
                 {
                   "formulas": [
@@ -105,16 +114,16 @@
                   ],
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "cardinality",
                         "metric": "cluster"
                       },
+                      "data_source": "events",
                       "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps type:reliability"
                       }
@@ -123,72 +132,70 @@
                   "response_format": "scalar"
                 }
               ],
-              "autoscale": true,
-              "precision": 2
+              "title": "Clusters at Risk",
+              "type": "query_value"
             },
+            "id": 7449562634989530,
             "layout": {
-              "x": 4,
-              "y": 0,
+              "height": 2,
               "width": 4,
-              "height": 2
+              "x": 4,
+              "y": 0
             }
           },
           {
-            "id": 1674216644026602,
             "definition": {
-              "title": "Risks by Cluster",
-              "type": "toplist",
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "sum",
                         "metric": "priority"
                       },
+                      "data_source": "events",
                       "group_by": [
                         {
                           "facet": "cluster",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
                             "aggregation": "sum",
-                            "metric": "priority"
+                            "metric": "priority",
+                            "order": "desc"
                           }
                         },
                         {
                           "facet": "type",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
                             "aggregation": "sum",
-                            "metric": "priority"
+                            "metric": "priority",
+                            "order": "desc"
                           }
                         }
                       ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps"
                       }
                     }
                   ],
                   "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
                   "sort": {
                     "count": 100,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -196,112 +203,112 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 },
                 "palette": "datadog16",
                 "scaling": "absolute"
-              }
+              },
+              "title": "Risks by Cluster",
+              "type": "toplist"
             },
+            "id": 1674216644026602,
             "layout": {
-              "x": 0,
-              "y": 2,
+              "height": 3,
               "width": 8,
-              "height": 3
+              "x": 0,
+              "y": 2
             }
           }
         ]
       },
+      "id": 4850974944471892,
       "layout": {
-        "x": 4,
-        "y": 0,
+        "height": 6,
         "width": 8,
-        "height": 6
+        "x": 4,
+        "y": 0
       }
     },
     {
-      "id": 3475570785754972,
       "definition": {
-        "title": "Insights for Cluster $cluster.value",
         "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Insights for Cluster $cluster.value",
+        "type": "group",
         "widgets": [
           {
-            "id": 3696218396863305,
             "definition": {
-              "type": "note",
-              "content": "**Reliability Risks** are configuration issues that might threaten the stability of applications running on Kubernetes.\n\n**Compliance Issues** insights allow you to adopt best practices in managing your cluster configurations.\n ",
               "background_color": "white",
+              "content": "**Reliability Risks** are configuration issues that might threaten the stability of applications running on Kubernetes.\n\n**Compliance Issues** insights allow you to adopt best practices in managing your cluster configurations.\n ",
               "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "top",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "top"
             },
+            "id": 3696218396863305,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 12,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 8814697513031638,
             "definition": {
-              "title": "Most  Frequent Reliability Risks",
-              "type": "toplist",
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "count"
                       },
+                      "data_source": "events",
                       "group_by": [
                         {
                           "facet": "name",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         },
                         {
                           "facet": "level",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         }
                       ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps cluster:$cluster.value type:reliability"
                       }
                     }
                   ],
                   "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
                   "sort": {
                     "count": 100,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -309,137 +316,137 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 },
                 "palette": "datadog16",
                 "scaling": "absolute"
-              }
+              },
+              "title": "Most  Frequent Reliability Risks",
+              "type": "toplist"
             },
+            "id": 8814697513031638,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 5,
               "width": 6,
-              "height": 5
+              "x": 0,
+              "y": 1
             }
           },
           {
-            "id": 8857521172903578,
             "definition": {
-              "title": "Compliance Issues by Layer",
+              "legend": {
+                "type": "automatic"
+              },
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "count"
                       },
+                      "data_source": "events",
                       "group_by": [
                         {
                           "facet": "level",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         }
                       ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps cluster:$cluster.value type:compliance"
                       }
                     }
                   ],
                   "response_format": "scalar",
+                  "sort": {
+                    "count": 500,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  },
                   "style": {
                     "palette": "datadog16"
-                  },
+                  }
+                }
+              ],
+              "title": "Compliance Issues by Layer",
+              "type": "sunburst"
+            },
+            "id": 8857521172903578,
+            "layout": {
+              "height": 3,
+              "width": 6,
+              "x": 6,
+              "y": 1
+            }
+          },
+          {
+            "definition": {
+              "requests": [
+                {
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
-                  "sort": {
-                    "count": 500,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  }
-                }
-              ],
-              "type": "sunburst",
-              "legend": {
-                "type": "automatic"
-              }
-            },
-            "layout": {
-              "x": 6,
-              "y": 1,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 6826962814015148,
-            "definition": {
-              "title": "Most Frequent Compliance Issue",
-              "type": "toplist",
-              "requests": [
-                {
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "count"
                       },
+                      "data_source": "events",
                       "group_by": [
                         {
                           "facet": "name",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         },
                         {
                           "facet": "level",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         }
                       ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps cluster:$cluster.value type:compliance"
                       }
                     }
                   ],
                   "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
                   "sort": {
                     "count": 100,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -447,102 +454,95 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 },
                 "palette": "datadog16"
-              }
+              },
+              "title": "Most Frequent Compliance Issue",
+              "type": "toplist"
             },
+            "id": 6826962814015148,
             "layout": {
-              "x": 6,
-              "y": 4,
+              "height": 5,
               "width": 6,
-              "height": 5
+              "x": 6,
+              "y": 4
             }
           },
           {
-            "id": 1476695558649380,
             "definition": {
-              "title": "Reliability Risks by Layer",
+              "legend": {
+                "type": "automatic"
+              },
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
-                      "data_source": "events",
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
                       "compute": {
                         "aggregation": "count"
                       },
+                      "data_source": "events",
                       "group_by": [
                         {
                           "facet": "level",
                           "limit": 10,
                           "sort": {
-                            "order": "desc",
-                            "aggregation": "count"
+                            "aggregation": "count",
+                            "order": "desc"
                           }
                         }
                       ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
                       "search": {
                         "query": "source:my_apps cluster:$cluster.value type:reliability"
                       }
                     }
                   ],
                   "response_format": "scalar",
-                  "style": {
-                    "palette": "datadog16"
-                  },
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
                   "sort": {
                     "count": 500,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
+                  },
+                  "style": {
+                    "palette": "datadog16"
                   }
                 }
               ],
-              "type": "sunburst",
-              "legend": {
-                "type": "automatic"
-              }
+              "title": "Reliability Risks by Layer",
+              "type": "sunburst"
             },
+            "id": 1476695558649380,
             "layout": {
-              "x": 0,
-              "y": 6,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 6
             }
           }
         ]
       },
+      "id": 3475570785754972,
       "layout": {
-        "x": 0,
-        "y": 12,
+        "height": 10,
         "width": 12,
-        "height": 10
+        "x": 0,
+        "y": 12
       }
     }
-  ],
-  "template_variables": [
-    {
-      "name": "cluster",
-      "prefix": "cluster",
-      "default": "*"
-    }
-  ],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "reflow_type": "fixed",
-  "tags": []
+  ]
 }
