@@ -1,4 +1,4 @@
-# CHANGELOG - Gatling Enterprise
+# CHANGELOG - gatling-enterprise
 
 ## 1.3.0 / 2025-10-10
 
@@ -16,7 +16,7 @@
 
 * Removed `start_date` tag from metrics
 
-## 1.2.0 / 2025-07-21
+## 1.2.0 / 2025-09-09
 
 _**Fixed**_:
 
