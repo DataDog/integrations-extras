@@ -5,7 +5,8 @@ This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events*
 - **Data Streaming**: Cyberhaven forwards each log type to Datadog through its own Destination and Configuration (Audit Logs, Incidents, Events).
 - **Log Processing**: A Datadog log pipeline parses, normalizes, and enriches each log type, with a separate sub-pipeline for each. Incident logs also get a `cyberhaven.incident.url` attribute that links straight to the incident in Cyberhaven.
 - **Dashboards**: Four out-of-the-box dashboards. **Audit**, **Incidents**, and **Events** let you analyze each log type (the Incidents dashboard links each incident to Cyberhaven). **Troubleshooting** shows whether data is flowing and processed correctly, with step-by-step fixes.
-- **Monitors**: Three monitor templates, one per log type, that alert when no logs have been received for 24 hours, plus an **Incident created or updated** monitor that triggers a Datadog Workflow to create or update a Datadog incident for each Cyberhaven incident.
+- **Monitors**: Three monitor templates, one per log type, that alert when no logs have been received for 24 hours.
+- **Incident creation (optional)**: A fourth monitor template, **Incident created or updated**, triggers a Datadog Workflow Automation workflow. The workflow creates a Datadog incident for each Cyberhaven incident and updates it on every later change, so Cyberhaven incidents can be tracked in Datadog Incident Management. A setup script and the workflow are provided in the `partner-integration-artifacts/datadog` folder of the Cyberhaven integration.
 
 ### About Cyberhaven
 
@@ -31,8 +32,8 @@ Collect these before you open the Cyberhaven Console.
 
 | Value | Used as | Where to find it |
 |---|---|---|
-| Datadog API key | `DD-API-KEY` header | In Datadog, click your avatar (bottom-left) > **Organization Settings** > **Access** > **API Keys** > **New Key**. Name it (for example, `forwarding-to-cyberhaven`), click **Create Key**, and copy the key. |
-| Datadog site | `<YOUR_DATADOG_SITE>` | In Datadog, click your avatar > **My Preferences**. The site is shown in the top-right corner (for example, `datadoghq.com`). |
+| Datadog API key | `DD-API-KEY` header | In Datadog, hover over your avatar (top-right) > **Organization Settings** > **Access** > **API Keys** > **New Key**. Name it (for example, `forwarding-to-cyberhaven`), click **Create Key**, and copy the key. |
+| Datadog site | `<YOUR_DATADOG_SITE>` | In Datadog, hover over your avatar (top-right) > **My Preferences**. The site is shown in the top-right corner (for example, `datadoghq.com`). |
 | Cyberhaven instance URL | `<YOUR_CYBERHAVEN_INSTANCE_URL>` | In the Cyberhaven Console, check your browser's address bar. It typically follows the pattern `<your-tenant-id>.cyberhaven.io`. Enter the host only, without `https://` or a path. |
 
 The Cyberhaven instance URL is also used to build the incident links in Datadog, so a wrong value breaks them.
@@ -46,7 +47,7 @@ Cyberhaven needs a **Destination** (where logs are sent) and a **Configuration**
 **Create the destination**
 
 1. Click **Destinations > Add new**.
-2. Name it `incident-logs-to-datadog-destination`.
+2. Name it `incident-logs-destination`.
 3. Set **Type** to `HTTPS`.
 4. Set **URI** to the following, replacing the two placeholders with your values from Step 1:
 
@@ -60,7 +61,7 @@ Cyberhaven needs a **Destination** (where logs are sent) and a **Configuration**
 **Create the configuration**
 
 1. Click **Configurations > Add new**.
-2. Name it `incident-logs-to-datadog-configuration`.
+2. Name it `incident-logs-configuration`.
 3. Set **Destination** to the destination you just created, **Source** to `Incidents`, **Schedule** to `Immediate`, and **Max records per request** to `100`.
 4. Set **Scope** to `Full Access`.
 5. Check **Subscribe to new incidents**, **Subscribe to incident updates**, and **Include incident event details**.
@@ -76,9 +77,9 @@ You can configure any single log type, combine any two, or enable all three. Rep
 
 | | Audit Logs | Incidents (done in Step 2) | Events |
 |---|---|---|---|
-| Destination name | `audit-logs-to-datadog-destination` | `incident-logs-to-datadog-destination` | `event-logs-to-datadog-destination` |
+| Destination name | `audit-logs-destination` | `incident-logs-destination` | `event-logs-destination` |
 | `cyberhaven.logtype` value in the URI | `cyberhaven-audit` | `cyberhaven-incidents` | `cyberhaven-events` |
-| Configuration name | `audit-logs-to-datadog-configuration` | `incident-logs-to-datadog-configuration` | `event-logs-to-datadog-configuration` |
+| Configuration name | `audit-logs-configuration` | `incident-logs-configuration` | `event-logs-configuration` |
 | Configuration **Source** | `Audit` | `Incidents` | `Events` |
 | Configuration **Scope** | Not applicable | `Full Access` | `Full Access` |
 | Extra options | None | **Subscribe to new incidents**, **Subscribe to incident updates**, **Include incident event details** | None |
@@ -110,12 +111,12 @@ Skip this step unless you want each Cyberhaven incident to appear in Datadog Inc
 
 The **[Cyberhaven] Incident created or updated** monitor is grouped by `@cyberhaven.incident.id` and `@cyberhaven.incident.last_modified`, so it fires once when a Cyberhaven incident is created and again on every update. Each alert triggers the `cyberhaven-create-update-incident` Datadog Workflow, which looks the incident up by its `source_incident_id` field and creates or updates the Datadog incident.
 
-The workflow and its setup script are in the [`assets/incident-automation`](https://github.com/Datadog/integrations-extras/tree/master/cyberhaven/assets/incident-automation) folder of the Cyberhaven integration in the `integrations-extras` repository. That folder's README has the full guide, including what is created, limits and troubleshooting. In short:
+The workflow and its setup script are in the [`partner-integration-artifacts/datadog`](https://github.com/Datadog/integrations-extras/tree/master/cyberhaven/partner-integration-artifacts/datadog) folder of the Cyberhaven integration in the `integrations-extras` repository. The folder's README has the full guide, including what is created, limits and troubleshooting. In short:
 
-1. Download or clone the [`integrations-extras`](https://github.com/Datadog/integrations-extras) repository and open the `cyberhaven/assets/incident-automation` folder.
-2. Set `DD_API_KEY`, `DD_APP_KEY` and `DD_SITE`, then run `python3 setup_datadog_incident_type.py`. It creates the **Cyberhaven Incident** incident type and its property fields, and prints the incident type UUID.
-3. In Datadog, go to **Workflow Automation**, click **New Workflow** > **Import from JSON**, and import `cyberhaven_create_update_incident.json`. In the **Create_incident** step, replace `REPLACE_WITH_INCIDENT_TYPE_UUID` with the printed UUID. Keep the handle `cyberhaven-create-update-incident`, then **Publish** the workflow.
-4. Create the monitor last, so it cannot alert before the workflow exists: go to **Monitors > Templates**, open **[Cyberhaven] Incident created or updated**, and click **Create Monitor**. It starts with one run for each incident version logged in the last hour, which is expected.
+1. Download or clone the [`integrations-extras`](https://github.com/Datadog/integrations-extras) repository and open the `cyberhaven/partner-integration-artifacts/datadog` folder.
+2. Set `DD_API_KEY`, `DD_APP_KEY` and `DD_SITE`, then run `python3 incident-automation/setup_datadog_incident_type.py`. It creates the **Cyberhaven Incident** incident type and its property fields, and prints the incident type UUID.
+3. In Datadog, go to **Workflow Automation**, click **New Workflow** > **Import from JSON**, and import `incident-automation/cyberhaven_create_update_incident.json`. In the **Create_incident** step, replace `REPLACE_WITH_INCIDENT_TYPE_UUID` with the printed UUID. Keep the handle `cyberhaven-create-update-incident`, then **Publish** the workflow.
+4. Create the monitor last, so it cannot alert before the workflow exists: go to **Monitors > Templates**, open **[Cyberhaven] Incident created or updated**, and click **Create Monitor**.
 5. Verify: create or update a Cyberhaven incident, then check that the workflow ran and that a Datadog incident with a matching **Cyberhaven Incident ID** exists.
 
 ## Uninstallation
@@ -124,7 +125,7 @@ The workflow and its setup script are in the [`assets/incident-automation`](http
 2. In the Cyberhaven Console, go to **Settings > Data Export**, and disable or delete each Configuration and Destination that sends logs to Datadog.
 3. In Datadog, go to **Organization Settings** > **Access** > **API Keys** and revoke the API key you created for Cyberhaven (for example, `forwarding-to-cyberhaven`).
 4. In Datadog, go to **Monitors** > **Manage Monitors** and delete any monitors you created from the Cyberhaven monitor templates.
-5. If you set up Step 5, delete or disable the `cyberhaven-create-update-incident` workflow in **Workflow Automation**. The README in the `assets/incident-automation` folder explains how to remove the incident type.
+5. If you set up Step 5, delete or disable the `cyberhaven-create-update-incident` workflow in **Workflow Automation**.
 
 ## Data Collected
 

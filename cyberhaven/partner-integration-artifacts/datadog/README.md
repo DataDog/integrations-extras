@@ -30,8 +30,8 @@ The workflow needs a Datadog incident type with a set of Cyberhaven property fie
 
 | File | Purpose |
 |---|---|
-| `setup_datadog_incident_type.py` | Creates the **Cyberhaven Incident** incident type and its property fields in your Datadog org, then prints the incident type UUID. Safe to re-run. |
-| `cyberhaven_create_update_incident.json` | The Datadog Workflow Automation workflow to import. Its `Create_incident` step contains the placeholder `REPLACE_WITH_INCIDENT_TYPE_UUID`, which you replace with the UUID from the script. |
+| `incident-automation/setup_datadog_incident_type.py` | Creates the **Cyberhaven Incident** incident type and its property fields in your Datadog org, then prints the incident type UUID. Safe to re-run. |
+| `incident-automation/cyberhaven_create_update_incident.json` | The Datadog Workflow Automation workflow to import. Its `Create_incident` step contains the placeholder `REPLACE_WITH_INCIDENT_TYPE_UUID`, which you replace with the UUID from the script. |
 
 The monitor ships with the Cyberhaven integration as the **[Cyberhaven] Incident created or updated** template.
 
@@ -49,11 +49,11 @@ Do the steps in this order. Create the monitor last, so it can never alert befor
 
 ### 1. Get the files
 
-Download or clone [Datadog/integrations-extras](https://github.com/Datadog/integrations-extras) and open the `cyberhaven/assets/incident-automation` folder.
+Download or clone [Datadog/integrations-extras](https://github.com/Datadog/integrations-extras) and open the `cyberhaven/partner-integration-artifacts/datadog` folder.
 
 ### 2. Create the incident type and fields
 
-Set your keys and your Datadog site. `DD_SITE` is the site your org is on, for example `datadoghq.com`, `datadoghq.eu`, `us3.datadoghq.com`, `us5.datadoghq.com`, `ap1.datadoghq.com` or `ddog-gov.com`.
+Set your keys and your Datadog site. `DD_SITE` is the site your org is on, for example `datadoghq.com`, `datadoghq.eu`, etc.
 
 ```bash
 export DD_API_KEY="<your API key>"
@@ -64,7 +64,7 @@ export DD_SITE="datadoghq.com"
 Run the script:
 
 ```bash
-python3 setup_datadog_incident_type.py
+python3 incident-automation/setup_datadog_incident_type.py
 ```
 
 The script:
@@ -79,7 +79,7 @@ A successful run ends with `verified: all 30 fields are present` and `incident_t
 ### 3. Import the workflow
 
 1. In Datadog, go to **Workflow Automation**, click **New Workflow**, then **Import from JSON**.
-2. Select `cyberhaven_create_update_incident.json`.
+2. Select `incident-automation/cyberhaven_create_update_incident.json`.
 3. Keep the handle `cyberhaven-create-update-incident`. The monitor's `@workflow-cyberhaven-create-update-incident` handle depends on it.
 4. Open the **Create_incident** step and replace `REPLACE_WITH_INCIDENT_TYPE_UUID` in `incident_type_uuid` with the UUID the script printed.
 5. Click **Publish**.
@@ -88,10 +88,7 @@ A successful run ends with `verified: all 30 fields are present` and `incident_t
 
 1. In Datadog, go to **Monitors > Templates** and search for `Cyberhaven`.
 2. Open **[Cyberhaven] Incident created or updated** and click **Create Monitor**.
-3. Optionally add people or channels under **Notify your team**. The workflow handle is already in the monitor message.
-4. Click **Create**.
-
-When you create the monitor, it evaluates the last hour. It raises one alert for each Cyberhaven incident version logged in that hour, so the workflow runs once for each. This is expected and safe, because the workflow updates an existing Datadog incident instead of creating a duplicate.
+3. Click **Create**.
 
 ### 5. Verify end to end
 
@@ -102,7 +99,7 @@ When you create the monitor, it evaluates the last hour. It raises one alert for
 
 ## What is created in Datadog
 
-**Title:** `<policy name> - <action> by <user>`, at most 100 characters.
+**Title:** `<policy name> - <action> by <user>`. The policy name is shortened to keep the title to about 100 characters. A very long user name or action is not shortened, so the title can be longer than 100 characters in that case.
 
 **Built-in fields**
 
@@ -119,22 +116,12 @@ When you create the monitor, it evaluates the last hour. It raises one alert for
 
 When the incident is created, a markdown note with every attribute of the Cyberhaven log is added to it.
 
-## Behavior and limits
-
-- **Updates overwrite.** Each update replaces the title, severity, state and all Cyberhaven fields with Cyberhaven's latest values, so a manual edit to those in Datadog is lost on the next update. Fields you add yourself, and other parts of the incident, are not touched.
-- **The note is written once**, when the incident is created. It is not refreshed on updates. The Summary and Last Change fields are.
-- **Cleared values are not cleared.** Empty values are not sent, because the Incidents API rejects them. If a value becomes empty in Cyberhaven (for example a close note after a reopen), the old value stays in Datadog. The Cyberhaven Status field always shows the current state.
-- **Late logs.** The monitor evaluates the last hour, so an incident log that reaches Datadog up to an hour after its timestamp is still picked up. Datadog does not ingest logs timestamped more than 18 hours in the past. See the integration README.
-- **Version history.** Last Change compares against earlier versions from the last 7 days. An older incident shows `First version seen`.
-- **Rare duplicates.** If Cyberhaven sends an incident's creation and first update within seconds of each other, they run as separate workflow runs and both may create an incident. Search for the same `source_incident_id` to find and merge them.
-- **Failures are visible.** Every failure ends the workflow run with an error naming the incident, so nothing is skipped silently. Lookups, creates and updates retry three times, 10 seconds apart.
-
 ## Troubleshooting
 
 | Symptom | Cause and fix |
 |---|---|
 | Script: `not authorized` | The application key's owner lacks **Incident Settings Write** or **Incident Read**, the key is scoped without them, or `DD_SITE` is not the site your org is on. |
-| Script: `N of 30 fields are missing` | One or more field creations failed. Read the `could not create field` lines above it, fix the cause and re-run. Existing fields are skipped. |
+| Script: `N of 30 fields are missing` | One or more field creations failed. Read the error printed by the script, fix the cause and re-run. Existing fields are skipped. |
 | Workflow run fails at **Log_lookup_failed** | The Logs search failed three times. Check that the workflow's publishing user has `logs_read_data` and `logs_read_index_data`. |
 | Workflow run fails at **No_incident_logs_found** | No incident log was found for that id in the last 7 days. Check that the monitor groups by `@cyberhaven.incident.id`, that an index exclusion filter is not dropping `source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`, and that the Cyberhaven incidents export is still running. |
 | Workflow run fails at **Incident_lookup_failed** | The Incidents search failed three times. Check that the publishing user has `incident_read`. Nothing was created, to avoid a duplicate. |
@@ -142,9 +129,3 @@ When the incident is created, a markdown note with every attribute of the Cyberh
 | Workflow run fails at **Update_incident_failed** | Check that the publishing user has `incident_write` and that the Datadog incident was not deleted. |
 | Monitor alerts but the workflow never runs | Confirm the workflow is **published** with the handle `cyberhaven-create-update-incident`. Alerts that fired before it was published do not re-fire. |
 | No incidents appear and no alerts fire | Confirm the monitor exists and Incident logs are arriving (see Prerequisites). |
-
-## Remove
-
-1. In **Monitors**, delete the **[Cyberhaven] Incident created or updated** monitor.
-2. In **Workflow Automation**, delete or disable the `cyberhaven-create-update-incident` workflow.
-3. Optional: in **Incidents > Settings**, delete the **Cyberhaven Incident** incident type, only if you no longer need the Datadog incidents this workflow created.
