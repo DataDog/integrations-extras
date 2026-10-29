@@ -1,117 +1,117 @@
 {
-  "title": "Hawkeye by Neubird Overview",
   "description": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions.",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variables": [],
+  "title": "Hawkeye by Neubird Overview",
   "widgets": [
     {
-      "id": 8253039466437824,
       "definition": {
-        "title": "About",
         "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "About",
+        "type": "group",
         "widgets": [
           {
-            "id": 8931252417181702,
             "definition": {
-              "type": "image",
-              "url": "https://neubird-marketing.s3.us-east-1.amazonaws.com/Hawkeye-logo.png",
-              "sizing": "scale-down",
               "has_background": true,
               "has_border": true,
-              "vertical_align": "center",
-              "horizontal_align": "center"
+              "horizontal_align": "center",
+              "sizing": "scale-down",
+              "type": "image",
+              "url": "https://neubird-marketing.s3.us-east-1.amazonaws.com/Hawkeye-logo.png",
+              "vertical_align": "center"
             },
+            "id": 8931252417181702,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 1,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 4859173550379992,
             "definition": {
-              "type": "note",
-              "content": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions. Each monitor includes a link to the corresponding automated session summary.",
               "background_color": "transparent",
+              "content": "The Hawkeye dashboard displays triggered monitor instances associated with Hawkeye automated sessions. Each monitor includes a link to the corresponding automated session summary.",
               "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "center",
+              "has_padding": false,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": false
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 4859173550379992,
             "layout": {
-              "x": 1,
-              "y": 0,
+              "height": 1,
               "width": 10,
-              "height": 1
+              "x": 1,
+              "y": 0
             }
           }
         ]
       },
+      "id": 8253039466437824,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 2,
         "width": 12,
-        "height": 2
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 7519546929010915,
       "definition": {
-        "title": "Investigated Monitors",
         "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Investigated Monitors",
+        "type": "group",
         "widgets": [
           {
-            "id": 1638224069194486,
             "definition": {
-              "title": "Automated Monitor Investigation Sessions",
-              "title_size": "16",
-              "title_align": "left",
+              "requests": [
+                {
+                  "columns": [],
+                  "query": {
+                    "data_source": "event_stream",
+                    "event_size": "s",
+                    "query_string": "source:neubird_hawkeye"
+                  },
+                  "response_format": "event_list"
+                }
+              ],
               "time": {
                 "type": "live",
                 "unit": "month",
                 "value": 3
               },
-              "requests": [
-                {
-                  "response_format": "event_list",
-                  "query": {
-                    "query_string": "source:neubird_hawkeye",
-                    "data_source": "event_stream",
-                    "event_size": "s"
-                  },
-                  "columns": []
-                }
-              ],
+              "title": "Automated Monitor Investigation Sessions",
+              "title_align": "left",
+              "title_size": "16",
               "type": "list_stream"
             },
+            "id": 1638224069194486,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 5,
               "width": 12,
-              "height": 5
+              "x": 0,
+              "y": 0
             }
           }
         ]
       },
+      "id": 7519546929010915,
       "layout": {
-        "x": 0,
-        "y": 2,
+        "height": 6,
         "width": 12,
-        "height": 6
+        "x": 0,
+        "y": 2
       }
     }
-  ],
-  "template_variables": [],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "reflow_type": "fixed",
-  "tags": []
+  ]
 }

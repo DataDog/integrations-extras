@@ -1,4 +1,4 @@
-# CHANGELOG - Hawkeye by NeuBird
+# CHANGELOG - hawkeye-by-neubird
 
 ## 1.0.0 / 2025-05-13
 
