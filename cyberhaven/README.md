@@ -5,7 +5,7 @@ This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events*
 - **Data Streaming**: Cyberhaven forwards each log type to Datadog through its own Destination and Configuration (Audit Logs, Incidents, Events).
 - **Log Processing**: A Datadog log pipeline parses, normalizes, and enriches each log type, with a separate sub-pipeline for each. Incident logs also get a `cyberhaven.incident.url` attribute that links straight to the incident in Cyberhaven.
 - **Dashboards**: Four out-of-the-box dashboards. **Audit**, **Incidents**, and **Events** let you analyze each log type (the Incidents dashboard links each incident to Cyberhaven). **Troubleshooting** shows whether data is flowing and processed correctly, with step-by-step fixes.
-- **Monitors**: Three monitor templates, one per log type, that you enable for the log types you stream. Each alerts when no logs have been received for 24 hours.
+- **Monitors**: Three monitor templates, one per log type, that alert when no logs have been received for 24 hours, plus an **Incident created or updated** monitor that triggers a Datadog Workflow to create or update a Datadog incident for each Cyberhaven incident.
 
 ### About Cyberhaven
 
@@ -21,6 +21,9 @@ Coverage spans endpoint, browser, and cloud sensors, and extends to physical and
 |---|---|
 | Datadog account | Permission to create API keys |
 | Cyberhaven admin access | Permission to create and configure streaming destinations |
+| Datadog Incident Management and Workflow Automation | Only for Step 5 (optional): creating Datadog incidents from Cyberhaven incidents. Both must be available in your org. |
+| Datadog application key | Only for Step 5. Its owner needs the **Incident Settings Write** and **Incident Read** permissions. |
+| Python 3.8 or later | Only for Step 5, to run the setup script. No packages to install. |
 
 ### Step 1: Gather three values
 
@@ -86,19 +89,34 @@ To verify each one, search `source:cyberhaven cyberhaven.logtype:<value>` in the
 
 ### Step 4: Enable monitors (optional)
 
-The integration provides three monitor templates, one per log type. They are templates, so none is active until you create it, and you only create the ones for log types you stream. A monitor for a log type you have not set up would alert after 24 hours with no logs.
+The integration provides three "logs not received" monitor templates, one per log type. They are templates, so none is active until you create it, and you only create the ones for log types you stream. A monitor for a log type you have not set up would alert after 24 hours with no logs. A fourth template, **Incident created or updated**, belongs to the optional Datadog incident feature in Step 5.
 
 | Monitor template | Create it if you completed |
 |---|---|
 | [Cyberhaven] Audit logs not received in Datadog | Audit Logs (Step 3) |
 | [Cyberhaven] Incident logs not received in Datadog | Incidents (Step 2) |
 | [Cyberhaven] Event logs not received in Datadog | Events (Step 3) |
+| [Cyberhaven] Incident created or updated | Do not create it here. Create it in Step 5, after the workflow is published |
 
 1. In Datadog, go to **Monitors > Templates** and search for `Cyberhaven`.
 2. Open the template for each log type you stream and click **Create Monitor**.
 3. Under **Notify your team**, add the people or channels to alert (for example, `@your-team-email` or `@slack-your-channel`), then click **Create**.
 
-Each monitor alerts when no logs of that type have been received for 24 hours. Quiet periods can be normal, especially for Incidents (no policy matched) and Audit Logs (no console activity). If this is noisy for you, lower the monitor's priority or lengthen its evaluation window.
+Each "logs not received" monitor alerts when no logs of that type have been received for 24 hours. Quiet periods can be normal, especially for Incidents (no policy matched) and Audit Logs (no console activity). If this is noisy for you, lower the monitor's priority or lengthen its evaluation window.
+
+### Step 5: Create Datadog incidents from Cyberhaven incidents (optional)
+
+Skip this step unless you want each Cyberhaven incident to appear in Datadog Incident Management. It needs Incident logs streaming (Step 2) and the extra prerequisites listed above.
+
+The **[Cyberhaven] Incident created or updated** monitor is grouped by `@cyberhaven.incident.id` and `@cyberhaven.incident.last_modified`, so it fires once when a Cyberhaven incident is created and again on every update. Each alert triggers the `cyberhaven-create-update-incident` Datadog Workflow, which looks the incident up by its `source_incident_id` field and creates or updates the Datadog incident.
+
+The workflow and its setup script are in the [`assets/incident-automation`](https://github.com/Datadog/integrations-extras/tree/master/cyberhaven/assets/incident-automation) folder of the Cyberhaven integration in the `integrations-extras` repository. That folder's README has the full guide, including what is created, limits and troubleshooting. In short:
+
+1. Download or clone the [`integrations-extras`](https://github.com/Datadog/integrations-extras) repository and open the `cyberhaven/assets/incident-automation` folder.
+2. Set `DD_API_KEY`, `DD_APP_KEY` and `DD_SITE`, then run `python3 setup_datadog_incident_type.py`. It creates the **Cyberhaven Incident** incident type and its property fields, and prints the incident type UUID.
+3. In Datadog, go to **Workflow Automation**, click **New Workflow** > **Import from JSON**, and import `cyberhaven_create_update_incident.json`. In the **Create_incident** step, replace `REPLACE_WITH_INCIDENT_TYPE_UUID` with the printed UUID. Keep the handle `cyberhaven-create-update-incident`, then **Publish** the workflow.
+4. Create the monitor last, so it cannot alert before the workflow exists: go to **Monitors > Templates**, open **[Cyberhaven] Incident created or updated**, and click **Create Monitor**. It starts with one run for each incident version logged in the last hour, which is expected.
+5. Verify: create or update a Cyberhaven incident, then check that the workflow ran and that a Datadog incident with a matching **Cyberhaven Incident ID** exists.
 
 ## Uninstallation
 
@@ -106,6 +124,7 @@ Each monitor alerts when no logs of that type have been received for 24 hours. Q
 2. In the Cyberhaven Console, go to **Settings > Data Export**, and disable or delete each Configuration and Destination that sends logs to Datadog.
 3. In Datadog, go to **Organization Settings** > **Access** > **API Keys** and revoke the API key you created for Cyberhaven (for example, `forwarding-to-cyberhaven`).
 4. In Datadog, go to **Monitors** > **Manage Monitors** and delete any monitors you created from the Cyberhaven monitor templates.
+5. If you set up Step 5, delete or disable the `cyberhaven-create-update-incident` workflow in **Workflow Automation**. The README in the `assets/incident-automation` folder explains how to remove the incident type.
 
 ## Data Collected
 

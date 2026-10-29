@@ -86,6 +86,22 @@ facets:
     facetType: list
     groups:
       - Cyberhaven
+    name: Incident ID
+    path: cyberhaven.incident.id
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Cyberhaven
+    name: Incident Last Modified Time
+    path: cyberhaven.incident.last_modified
+    source: log
+    type: string
+  - description: ""
+    facetType: list
+    groups:
+      - Cyberhaven
     name: Logtype
     path: cyberhaven.logtype
     source: tag
@@ -253,11 +269,10 @@ pipeline:
         query: cyberhaven.logtype:cyberhaven-incidents
       processors:
         - type: date-remapper
-          name: Define `last_modified or trigger_time` as the official date of the log
+          name: Define `last_modified` as the official date of the log
           enabled: true
           sources:
             - last_modified
-            - trigger_time
         - type: attribute-remapper
           name: Map `user.id` to `usr.id`
           enabled: true
@@ -654,6 +669,26 @@ pipeline:
           enabled: true
           sources:
             - cyberhaven.message
+        - type: attribute-remapper
+          name: Map `id` to `cyberhaven.incident.id`
+          enabled: true
+          sources:
+            - id
+          sourceType: attribute
+          target: cyberhaven.incident.id
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `last_modified` to `cyberhaven.incident.last_modified`
+          enabled: true
+          sources:
+            - last_modified
+          sourceType: attribute
+          target: cyberhaven.incident.last_modified
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
     - type: pipeline
       name: Cyberhaven Event Logs
       enabled: true
