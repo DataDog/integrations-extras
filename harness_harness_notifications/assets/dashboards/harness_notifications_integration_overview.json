@@ -1,132 +1,131 @@
 {
-  "title": "Harness Notifications Integration Overview",
   "description": "This dashboard provides a high-level overview of notification events from Harness.",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variables": [],
+  "title": "Harness Notifications Integration Overview",
   "widgets": [
     {
-      "id": 325090501093728,
       "definition": {
-        "title": "Harness Notifications",
         "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Harness Notifications",
+        "type": "group",
         "widgets": [
           {
-            "id": 2831545235878754,
             "definition": {
+              "has_background": false,
+              "has_border": false,
+              "horizontal_align": "center",
+              "margin": "md",
+              "sizing": "contain",
               "type": "image",
               "url": "https://developer.harness.io/img/icon_harness.svg",
               "url_dark_theme": "https://developer.harness.io/img/icon_harness.svg",
-              "sizing": "contain",
-              "margin": "md",
-              "has_background": false,
-              "has_border": false,
-              "vertical_align": "center",
-              "horizontal_align": "center"
+              "vertical_align": "center"
             },
+            "id": 2831545235878754,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 6,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 6544225029855812,
             "definition": {
-              "type": "note",
-              "content": "This dashboard provides a high-level overview of notification events from Harness.\n\n**Useful links**\n\n- [Send Harness pipeline notifications to Datadog](https://developer.harness.io/docs/continuous-delivery/x-platform-cd-features/cd-steps/notify-users-of-pipeline-events/#datadog-notifications).",
               "background_color": "white",
+              "content": "This dashboard provides a high-level overview of notification events from Harness.\n\n**Useful links**\n\n- [Send Harness pipeline notifications to Datadog](https://developer.harness.io/docs/continuous-delivery/x-platform-cd-features/cd-steps/notify-users-of-pipeline-events/#datadog-notifications).",
               "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "top",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "top"
             },
+            "id": 6544225029855812,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 2,
               "width": 6,
-              "height": 2
+              "x": 0,
+              "y": 1
             }
           }
         ]
       },
+      "id": 325090501093728,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 4,
         "width": 6,
-        "height": 4
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 327730656389999,
       "definition": {
-        "title": "Event type and count table",
-        "title_size": "16",
-        "title_align": "left",
-        "time": {
-          "type": "live",
-          "unit": "week",
-          "value": 1
-        },
-        "type": "query_table",
         "requests": [
           {
-            "response_format": "scalar",
+            "formulas": [
+              {
+                "alias": "Event Count",
+                "formula": "events_query_1"
+              }
+            ],
             "queries": [
               {
-                "data_source": "events",
-                "name": "events_query_1",
-                "indexes": [
-                  "*"
-                ],
                 "compute": {
                   "aggregation": "count"
                 },
+                "data_source": "events",
                 "group_by": [
                   {
                     "facet": "event_type",
                     "limit": 250,
+                    "should_exclude_missing": true,
                     "sort": {
-                      "order": "desc",
-                      "aggregation": "count"
-                    },
-                    "should_exclude_missing": true
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
                   }
                 ],
+                "indexes": [
+                  "*"
+                ],
+                "name": "events_query_1",
                 "search": {
                   "query": "source:harness_notifications"
                 },
                 "storage": "hot"
               }
             ],
-            "formulas": [
-              {
-                "alias": "Event Count",
-                "formula": "events_query_1"
-              }
-            ]
+            "response_format": "scalar"
           }
-        ]
+        ],
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "title": "Event type and count table",
+        "title_align": "left",
+        "title_size": "16",
+        "type": "query_table"
       },
+      "id": 327730656389999,
       "layout": {
-        "x": 6,
-        "y": 0,
+        "height": 4,
         "width": 6,
-        "height": 4
+        "x": 6,
+        "y": 0
       }
     },
     {
-      "id": 2837500997301410,
       "definition": {
-        "title": "Pipeline events count graph",
-        "title_size": "16",
-        "title_align": "left",
-        "show_legend": false,
-        "legend_layout": "auto",
         "legend_columns": [
           "avg",
           "min",
@@ -134,14 +133,10 @@
           "value",
           "sum"
         ],
-        "time": {
-          "type": "live",
-          "unit": "week",
-          "value": 1
-        },
-        "type": "timeseries",
+        "legend_layout": "auto",
         "requests": [
           {
+            "display_type": "bars",
             "formulas": [
               {
                 "formula": "a"
@@ -149,25 +144,25 @@
             ],
             "queries": [
               {
-                "data_source": "events",
-                "name": "a",
-                "indexes": [
-                  "*"
-                ],
                 "compute": {
                   "aggregation": "count"
                 },
+                "data_source": "events",
                 "group_by": [
                   {
                     "facet": "event_type",
                     "limit": 250,
+                    "should_exclude_missing": true,
                     "sort": {
-                      "order": "desc",
-                      "aggregation": "count"
-                    },
-                    "should_exclude_missing": true
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
                   }
                 ],
+                "indexes": [
+                  "*"
+                ],
+                "name": "a",
                 "search": {
                   "query": "source:harness_notifications"
                 },
@@ -177,22 +172,27 @@
             "response_format": "timeseries",
             "style": {
               "palette": "dog_classic"
-            },
-            "display_type": "bars"
+            }
           }
-        ]
+        ],
+        "show_legend": false,
+        "time": {
+          "type": "live",
+          "unit": "week",
+          "value": 1
+        },
+        "title": "Pipeline events count graph",
+        "title_align": "left",
+        "title_size": "16",
+        "type": "timeseries"
       },
+      "id": 2837500997301410,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 4,
         "width": 12,
-        "height": 4
+        "x": 0,
+        "y": 0
       }
     }
-  ],
-  "template_variables": [],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "reflow_type": "fixed",
-  "tags": []
+  ]
 }
