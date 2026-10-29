@@ -1,6 +1,6 @@
-# CHANGELOG - Dagster+
+# CHANGELOG - dagster-plus
 
-## 1.0.0 / 2025-06-24
+## 1.0.0 / 2025-07-08
 
 _**Added**_:
 

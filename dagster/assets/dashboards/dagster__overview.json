@@ -1,319 +1,314 @@
 {
-  "title": "Dagster+ Overview",
+  "created_at": "2025-04-09T22:25:28.686082+00:00",
   "description": "This dashboard provides a high-level overview of Dagster+ event logs in Datadog.",
-  "author_handle": "quinlan@dagsterlabs.com",
-  "author_name": "Sean Quinlan",
   "layout_type": "ordered",
-  "url": "/dashboard/gsx-993-7fu/dagster-overview",
+  "notify_list": [],
+  "reflow_type": "fixed",
   "template_variables": [],
+  "title": "Dagster+ Overview",
+  "url": "/dashboard/gsx-993-7fu/dagster-overview",
   "widgets": [
     {
-      "id": 1493381986726627,
       "definition": {
-        "title": "",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "",
+        "type": "group",
         "widgets": [
           {
-            "id": 3977115018746163,
             "definition": {
+              "has_background": false,
+              "has_border": false,
+              "horizontal_align": "center",
+              "margin": "sm",
+              "sizing": "contain",
               "type": "image",
               "url": "https://dagster.cloud/vendor/dagster_plus-primary-horizontal.png",
               "url_dark_theme": "https://dagster.cloud/vendor/dagster_plus-reversed-horizontal.png",
-              "sizing": "contain",
-              "margin": "sm",
-              "has_background": false,
-              "has_border": false,
-              "vertical_align": "center",
-              "horizontal_align": "center"
+              "vertical_align": "center"
             },
+            "id": 3977115018746163,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 12,
-              "height": 1
-            }
-          },
-          {
-            "id": 7035841209279121,
-            "definition": {
-              "type": "note",
-              "content": "This dashboard provides a high-level overview of Dagster+ event logs to help you monitor your Dagster+ deployments.\nFor more information, see [our Dagster+ documentation](https://docs.dagster.io/dagster-plus)",
-              "background_color": "white",
-              "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
               "x": 0,
-              "y": 1,
-              "width": 8,
-              "height": 2
+              "y": 0
             }
           },
           {
-            "id": 524562486732517,
             "definition": {
-              "title": "Event Logs",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
+              "background_color": "white",
+              "content": "This dashboard provides a high-level overview of Dagster+ event logs to help you monitor your Dagster+ deployments.\nFor more information, see [our Dagster+ documentation](https://docs.dagster.io/dagster-plus)",
+              "font_size": "14",
+              "has_padding": true,
+              "show_tick": false,
+              "text_align": "left",
+              "tick_edge": "left",
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "top"
+            },
+            "id": 7035841209279121,
+            "layout": {
+              "height": 2,
+              "width": 8,
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
               "requests": [
                 {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
                   "formulas": [
                     {
                       "formula": "default_zero(query1)"
                     }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 8,
-              "y": 1,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 7741621189263467,
-            "definition": {
-              "title": "Runs",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
+                  ],
                   "queries": [
                     {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
+                      "compute": {
+                        "aggregation": "count"
                       },
+                      "data_source": "logs",
+                      "group_by": [],
                       "indexes": [
                         "*"
                       ],
-                      "group_by": [],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "timeseries_background": {
+                "type": "area"
+              },
+              "title": "Event Logs",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 524562486732517,
+            "layout": {
+              "height": 1,
+              "width": 2,
+              "x": 8,
+              "y": 1
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
                       "compute": {
                         "aggregation": "cardinality",
                         "metric": "@run_id"
                       },
-                      "storage": "hot"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "default_zero(query1)"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 10,
-              "y": 1,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 2430046567074260,
-            "definition": {
-              "title": "Materializations",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "name": "query1",
                       "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus @event_type:ASSET_MATERIALIZATION"
-                      },
+                      "group_by": [],
                       "indexes": [
                         "*"
                       ],
-                      "group_by": [],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "default_zero(query1)"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 0,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 8,
-              "y": 2,
-              "width": 2,
-              "height": 1
-            }
-          },
-          {
-            "id": 8939677809136803,
-            "definition": {
-              "title": "Asset Keys",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
                       "name": "query1",
-                      "data_source": "logs",
                       "search": {
                         "query": "source:dagster-plus"
                       },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "timeseries_background": {
+                "type": "area"
+              },
+              "title": "Runs",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 7741621189263467,
+            "layout": {
+              "height": 1,
+              "width": 2,
+              "x": 10,
+              "y": 1
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [],
                       "indexes": [
                         "*"
                       ],
-                      "group_by": [],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus @event_type:ASSET_MATERIALIZATION"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "timeseries_background": {
+                "type": "area"
+              },
+              "title": "Materializations",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 2430046567074260,
+            "layout": {
+              "height": 1,
+              "width": 2,
+              "x": 8,
+              "y": 2
+            }
+          },
+          {
+            "definition": {
+              "autoscale": true,
+              "precision": 0,
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
                       "compute": {
                         "aggregation": "cardinality",
                         "metric": "@asset_key"
                       },
+                      "data_source": "logs",
+                      "group_by": [],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
                       "storage": "hot"
                     }
                   ],
-                  "formulas": [
-                    {
-                      "formula": "default_zero(query1)"
-                    }
-                  ]
+                  "response_format": "scalar"
                 }
               ],
-              "autoscale": true,
-              "precision": 0,
               "timeseries_background": {
                 "type": "area"
-              }
+              },
+              "title": "Asset Keys",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
             },
+            "id": 8939677809136803,
             "layout": {
-              "x": 10,
-              "y": 2,
+              "height": 1,
               "width": 2,
-              "height": 1
+              "x": 10,
+              "y": 2
             }
           }
         ]
       },
+      "id": 1493381986726627,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 4,
         "width": 12,
-        "height": 4
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 162776494394761,
       "definition": {
-        "title": "Partitions",
         "background_color": "purple",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Partitions",
+        "type": "group",
         "widgets": [
           {
-            "id": 2079970871115630,
             "definition": {
-              "title": "Top Partitions",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus @event_type:ASSET_MATERIALIZATION"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@partition_key",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "count"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "scalar",
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@partition_key",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus @event_type:ASSET_MATERIALIZATION"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 10,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -321,115 +316,108 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "inline"
+                  "legend": "inline",
+                  "type": "stacked"
                 },
                 "scaling": "relative"
-              }
+              },
+              "title": "Top Partitions",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
             },
+            "id": 2079970871115630,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 4,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 3600499571058463,
             "definition": {
-              "title": "Asset Keys by Partition",
-              "title_size": "16",
-              "title_align": "left",
+              "legend": {
+                "type": "automatic"
+              },
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@asset_key",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "@partition_key"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count",
-                        "metric": "@partition_key"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "style": {
-                    "palette": "datadog16"
-                  },
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count",
+                        "metric": "@partition_key"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@asset_key",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "@partition_key",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 10,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
+                  },
+                  "style": {
+                    "palette": "datadog16"
                   }
                 }
               ],
-              "type": "sunburst",
-              "legend": {
-                "type": "automatic"
-              }
+              "title": "Asset Keys by Partition",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "sunburst"
             },
+            "id": 3600499571058463,
             "layout": {
-              "x": 4,
-              "y": 0,
+              "height": 3,
               "width": 8,
-              "height": 3
+              "x": 4,
+              "y": 0
             }
           }
         ]
       },
+      "id": 162776494394761,
       "layout": {
-        "x": 0,
-        "y": 4,
+        "height": 4,
         "width": 12,
-        "height": 4
+        "x": 0,
+        "y": 4
       }
     },
     {
-      "id": 1793041739473767,
       "definition": {
-        "title": "Raw Logs from Dagster+",
-        "title_size": "16",
-        "title_align": "left",
         "requests": [
           {
-            "response_format": "event_list",
-            "query": {
-              "data_source": "logs_stream",
-              "query_string": "source:dagster-plus",
-              "indexes": [
-                "*"
-              ],
-              "storage": "hot"
-            },
             "columns": [
               {
                 "field": "status_line",
@@ -443,77 +431,84 @@
                 "field": "content",
                 "width": "compact"
               }
-            ]
+            ],
+            "query": {
+              "data_source": "logs_stream",
+              "indexes": [
+                "*"
+              ],
+              "query_string": "source:dagster-plus",
+              "storage": "hot"
+            },
+            "response_format": "event_list"
           }
         ],
+        "title": "Raw Logs from Dagster+",
+        "title_align": "left",
+        "title_size": "16",
         "type": "list_stream"
       },
+      "id": 1793041739473767,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 5,
         "width": 12,
-        "height": 5
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 3722673071218762,
       "definition": {
-        "title": "Runs",
         "background_color": "orange",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Runs",
+        "type": "group",
         "widgets": [
           {
-            "id": 5754171587356266,
             "definition": {
-              "title": "Most Active Runs",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@run_id",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "count"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "scalar",
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@run_id",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 10,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -521,27 +516,26 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "inline"
+                  "legend": "inline",
+                  "type": "stacked"
                 },
                 "scaling": "relative"
-              }
+              },
+              "title": "Most Active Runs",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
             },
+            "id": 5754171587356266,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 4,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 1275683415887370,
             "definition": {
-              "title": "Events by Run ID",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -549,129 +543,130 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@run_id",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "count"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
+                  "display_type": "bars",
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@run_id",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "dog_classic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": true,
+              "title": "Events by Run ID",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 1275683415887370,
             "layout": {
-              "x": 4,
-              "y": 0,
+              "height": 3,
               "width": 8,
-              "height": 3
+              "x": 4,
+              "y": 0
             }
           }
         ]
       },
+      "id": 3722673071218762,
       "layout": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
         "height": 4,
-        "is_column_break": true
+        "is_column_break": true,
+        "width": 12,
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 2268717065728532,
       "definition": {
-        "title": "Assets",
         "background_color": "green",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Assets",
+        "type": "group",
         "widgets": [
           {
-            "id": 6369473767928291,
             "definition": {
-              "title": "Top Asset Keys",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@asset_key",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "count"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
-                  "response_format": "scalar",
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@asset_key",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 10,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -679,27 +674,26 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "inline"
+                  "legend": "inline",
+                  "type": "stacked"
                 },
                 "scaling": "relative"
-              }
+              },
+              "title": "Top Asset Keys",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
             },
+            "id": 6369473767928291,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 4,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 8794908828185162,
             "definition": {
-              "title": "Events by Asset Key",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -707,71 +701,75 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
-                  "response_format": "timeseries",
-                  "queries": [
-                    {
-                      "name": "query1",
-                      "data_source": "logs",
-                      "search": {
-                        "query": "source:dagster-plus"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@asset_key",
-                          "limit": 10,
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc",
-                            "metric": "count"
-                          },
-                          "should_exclude_missing": true
-                        }
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "storage": "hot"
-                    }
-                  ],
+                  "display_type": "bars",
                   "formulas": [
                     {
                       "formula": "query1"
                     }
                   ],
+                  "queries": [
+                    {
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "data_source": "logs",
+                      "group_by": [
+                        {
+                          "facet": "@asset_key",
+                          "limit": 10,
+                          "should_exclude_missing": true,
+                          "sort": {
+                            "aggregation": "count",
+                            "metric": "count",
+                            "order": "desc"
+                          }
+                        }
+                      ],
+                      "indexes": [
+                        "*"
+                      ],
+                      "name": "query1",
+                      "search": {
+                        "query": "source:dagster-plus"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "dog_classic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": true,
+              "title": "Events by Asset Key",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 8794908828185162,
             "layout": {
-              "x": 4,
-              "y": 0,
+              "height": 3,
               "width": 8,
-              "height": 3
+              "x": 4,
+              "y": 0
             }
           }
         ]
       },
+      "id": 2268717065728532,
       "layout": {
-        "x": 0,
-        "y": 4,
+        "height": 4,
         "width": 12,
-        "height": 4
+        "x": 0,
+        "y": 4
       }
     }
-  ],
-  "notify_list": [],
-  "created_at": "2025-04-09T22:25:28.686082+00:00",
-  "reflow_type": "fixed"
+  ]
 }
