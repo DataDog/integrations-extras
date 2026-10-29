@@ -1,5 +1,5 @@
-# CHANGELOG - zilliz-cloud
-    
+# CHANGELOG - zilliz-cloud-zilliz-cloud
+
 ## 1.0.0 / 2025-01-06
 
 _**Added**_:

@@ -1,6 +1,5 @@
 {
   "app_id": "zilliz-cloud-zilliz-cloud",
-  "owner": "integrations-developer-platform",
   "app_uuid": "01930078-8f78-7bf8-a96f-2104f77b1c90",
   "manifest_version": "2.0.0",
   "display_on_public_website": true,
@@ -58,8 +57,9 @@
       "Cluster CU Computation usage is higher than expected": "assets/monitors/cluster_cu_computation_usage_is_higher_than_expected.json"
     },
     "integration": {
-      "source_type_name": "zilliz_cloud",
+      "source_type_name": "zilliz-cloud-zilliz-cloud",
       "auto_install": true,
+      "configuration": {},
       "process_signatures": [],
       "metrics": {
         "prefix": "zilliz",
@@ -68,10 +68,15 @@
         ],
         "metadata_path": "metadata.csv"
       },
+      "events": {
+        "creates_events": false
+      },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       },
-      "source_type_id": 31066669
+      "source_type_id": 31066669,
+      "supports_ddr_coordinated_failover": false
     }
-  }
+  },
+  "owner": "integrations-developer-platform"
 }

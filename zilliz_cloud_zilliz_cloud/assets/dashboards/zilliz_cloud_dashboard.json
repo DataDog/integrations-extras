@@ -1,64 +1,77 @@
 {
-  "title": "Zilliz Cloud Dashboard",
   "description": "This dashboard provides a comprehensive overview of your Zilliz Cloud cluster's health across several key areas: resource utilization, performance, and data volume. You can clone this template dashboard and make changes by adding your own graph widgets or removing components. (cloned)",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variable_presets": [
+    {
+      "name": "Default",
+      "template_variables": []
+    }
+  ],
+  "template_variables": [
+    {
+      "default": "*",
+      "name": "org_id",
+      "prefix": "org_id"
+    },
+    {
+      "default": "*",
+      "name": "project_id",
+      "prefix": "project_id"
+    },
+    {
+      "default": "*",
+      "name": "cluster_id",
+      "prefix": "cluster_id"
+    }
+  ],
+  "title": "Zilliz Cloud Dashboard",
   "widgets": [
     {
-      "id": 8173685574333292,
       "definition": {
-        "type": "note",
-        "content": "![alt text](https://assets.zilliz.com/Zilliz_Logo_65f122536f.svg)\n\n\nThis dashboard provides a comprehensive view of your cluster's performance across several key areas:\n- Resource metrics: Monitor CU computation and capacity, and storage consumption.\n- Performance metrics: Track queries per second (QPS), vectors per second (VPS),  latency, and request failure rate for both read and write operations.\n- Data metrics: Monitor your collection count, entity count, and loaded entities.",
         "background_color": "white",
+        "content": "![alt text](https://assets.zilliz.com/Zilliz_Logo_65f122536f.svg)\n\n\nThis dashboard provides a comprehensive view of your cluster's performance across several key areas:\n- Resource metrics: Monitor CU computation and capacity, and storage consumption.\n- Performance metrics: Track queries per second (QPS), vectors per second (VPS),  latency, and request failure rate for both read and write operations.\n- Data metrics: Monitor your collection count, entity count, and loaded entities.",
         "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "center",
+        "has_padding": true,
         "show_tick": false,
-        "tick_pos": "50%",
+        "text_align": "left",
         "tick_edge": "left",
-        "has_padding": true
+        "tick_pos": "50%",
+        "type": "note",
+        "vertical_align": "center"
       },
+      "id": 8173685574333292,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 3,
         "width": 6,
-        "height": 3
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 6566478049318840,
       "definition": {
-        "title": "CU Computation (%)",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "toplist",
         "requests": [
           {
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "max:zilliz.cluster.cu.computation.current{$org_id,$project_id,$cluster_id} by {cluster_id}",
-                "aggregator": "last"
-              }
-            ],
-            "response_format": "scalar",
             "conditional_formats": [
               {
                 "comparator": ">=",
-                "value": 90,
+                "custom_bg_color": "#fbc6c6",
                 "palette": "custom_bg",
-                "custom_bg_color": "#fbc6c6"
+                "value": 90
               },
               {
                 "comparator": ">=",
-                "value": 70,
+                "custom_bg_color": "#ffe7a9",
                 "palette": "custom_bg",
-                "custom_bg_color": "#ffe7a9"
+                "value": 70
               },
               {
                 "comparator": "<",
-                "value": 70,
+                "custom_bg_color": "#dbe0ff",
                 "palette": "custom_bg",
-                "custom_bg_color": "#dbe0ff"
+                "value": 70
               }
             ],
             "formulas": [
@@ -76,13 +89,22 @@
                 }
               }
             ],
+            "queries": [
+              {
+                "aggregator": "last",
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "max:zilliz.cluster.cu.computation.current{$org_id,$project_id,$cluster_id} by {cluster_id}"
+              }
+            ],
+            "response_format": "scalar",
             "sort": {
               "count": 10,
               "order_by": [
                 {
-                  "type": "formula",
                   "index": 0,
-                  "order": "desc"
+                  "order": "desc",
+                  "type": "formula"
                 }
               ]
             }
@@ -90,54 +112,45 @@
         ],
         "style": {
           "display": {
-            "type": "stacked",
-            "legend": "automatic"
+            "legend": "automatic",
+            "type": "stacked"
           }
-        }
+        },
+        "title": "CU Computation (%)",
+        "title_align": "left",
+        "title_size": "16",
+        "type": "toplist"
       },
+      "id": 6566478049318840,
       "layout": {
-        "x": 6,
-        "y": 0,
+        "height": 3,
         "width": 3,
-        "height": 3
+        "x": 6,
+        "y": 0
       }
     },
     {
-      "id": 990257431644686,
       "definition": {
-        "title": "CU Capacity (%)",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "toplist",
         "requests": [
           {
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "max:zilliz.cluster.cu.capacity.current{$project_id,$cluster_id} by {cluster_id}",
-                "aggregator": "max"
-              }
-            ],
-            "response_format": "scalar",
             "conditional_formats": [
               {
                 "comparator": ">=",
-                "value": 90,
+                "custom_bg_color": "#fbc6c6",
                 "palette": "custom_bg",
-                "custom_bg_color": "#fbc6c6"
+                "value": 90
               },
               {
                 "comparator": ">=",
-                "value": 70,
+                "custom_bg_color": "#ffe0a9",
                 "palette": "custom_bg",
-                "custom_bg_color": "#ffe0a9"
+                "value": 70
               },
               {
                 "comparator": "<",
-                "value": 70,
+                "custom_bg_color": "#dbe0ff",
                 "palette": "custom_bg",
-                "custom_bg_color": "#dbe0ff"
+                "value": 70
               }
             ],
             "formulas": [
@@ -151,13 +164,22 @@
                 }
               }
             ],
+            "queries": [
+              {
+                "aggregator": "max",
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "max:zilliz.cluster.cu.capacity.current{$project_id,$cluster_id} by {cluster_id}"
+              }
+            ],
+            "response_format": "scalar",
             "sort": {
               "count": 500,
               "order_by": [
                 {
-                  "type": "formula",
                   "index": 0,
-                  "order": "desc"
+                  "order": "desc",
+                  "type": "formula"
                 }
               ]
             }
@@ -165,50 +187,49 @@
         ],
         "style": {
           "display": {
-            "type": "stacked",
-            "legend": "automatic"
+            "legend": "automatic",
+            "type": "stacked"
           }
-        }
+        },
+        "title": "CU Capacity (%)",
+        "title_align": "left",
+        "title_size": "16",
+        "type": "toplist"
       },
+      "id": 990257431644686,
       "layout": {
-        "x": 9,
-        "y": 0,
+        "height": 3,
         "width": 3,
-        "height": 3
+        "x": 9,
+        "y": 0
       }
     },
     {
-      "id": 8999765848268118,
       "definition": {
-        "title": "Resources",
         "background_color": "gray",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Resources",
+        "type": "group",
         "widgets": [
           {
-            "id": 5933550001354122,
             "definition": {
-              "title": "CU Computation By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "value"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1 * 100",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "query1 * 100"
+                      }
                     }
                   ],
                   "queries": [
@@ -220,32 +241,31 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
-                    "order_reverse": false,
                     "color_order": "shuffled",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "order_reverse": false,
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "CU Computation By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 5933550001354122,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 5215715784886046,
             "definition": {
-              "title": "CU Capacity By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -253,18 +273,19 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1 * 100",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "query1 * 100"
+                      }
                     }
                   ],
                   "queries": [
@@ -276,30 +297,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "CU Capacity By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 5215715784886046,
             "layout": {
-              "x": 6,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 0
             }
           },
           {
-            "id": 2928908580621548,
             "definition": {
-              "title": "Storage By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -307,11 +327,13 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -321,8 +343,7 @@
                           "type": "canonical_unit",
                           "unit_name": "gigabyte"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     }
                   ],
                   "queries": [
@@ -334,54 +355,54 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Storage By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 2928908580621548,
             "layout": {
-              "x": 0,
-              "y": 3,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 3
             }
           }
         ]
       },
+      "id": 8999765848268118,
       "layout": {
-        "x": 0,
-        "y": 3,
+        "height": 7,
         "width": 12,
-        "height": 7
+        "x": 0,
+        "y": 3
       }
     },
     {
-      "id": 3038557328276464,
       "definition": {
-        "title": "Performance",
         "background_color": "gray",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Performance",
+        "type": "group",
         "widgets": [
           {
-            "id": 4375863663707138,
             "definition": {
-              "title": "QPS By Cluster (Read)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "value"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Query QPS",
@@ -406,30 +427,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "QPS By Cluster (Read)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 4375863663707138,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 1932786645423330,
             "definition": {
-              "title": "QPS By Cluster (Write) ",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -437,9 +457,10 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Insert QPS",
@@ -482,30 +503,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "QPS By Cluster (Write) ",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 1932786645423330,
             "layout": {
-              "x": 6,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 0
             }
           },
           {
-            "id": 8301223693649918,
             "definition": {
-              "title": "VPS By Cluster (Read)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -513,17 +533,18 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Query VPS",
                       "formula": "per_second(query3)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     },
@@ -532,8 +553,8 @@
                       "formula": "per_second(query4)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     }
@@ -552,30 +573,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "VPS By Cluster (Read)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 8301223693649918,
             "layout": {
-              "x": 0,
-              "y": 3,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 3
             }
           },
           {
-            "id": 227802312045696,
             "definition": {
-              "title": "VPS By Cluster (Write)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -583,17 +603,18 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Insert VPS",
                       "formula": "per_second(query1)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     },
@@ -602,8 +623,8 @@
                       "formula": "per_second(query2)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     },
@@ -612,8 +633,8 @@
                       "formula": "per_second(query3)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     },
@@ -622,8 +643,8 @@
                       "formula": "per_second(query4)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "vectors/s"
+                          "label": "vectors/s",
+                          "type": "custom_unit_label"
                         }
                       }
                     }
@@ -652,30 +673,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "VPS By Cluster (Write)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 227802312045696,
             "layout": {
-              "x": 6,
-              "y": 3,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 3
             }
           },
           {
-            "id": 4313768582614362,
             "definition": {
-              "title": "Latency By Cluster (Read)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -683,12 +703,14 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Query (AVG)",
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -698,11 +720,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     },
                     {
                       "alias": "Search (AVG)",
+                      "formula": "query2",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -712,11 +734,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query2"
+                      }
                     },
                     {
                       "alias": "Query (P99)",
+                      "formula": "query3",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -726,11 +748,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query3"
+                      }
                     },
                     {
                       "alias": "Search (P99)",
+                      "formula": "query4",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -740,8 +762,7 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query4"
+                      }
                     }
                   ],
                   "queries": [
@@ -768,30 +789,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Latency By Cluster (Read)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 4313768582614362,
             "layout": {
-              "x": 0,
-              "y": 6,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 6
             }
           },
           {
-            "id": 1926885492834660,
             "definition": {
-              "title": "Latency By Cluster (Write)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -799,12 +819,14 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Insert (AVG)",
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -814,11 +836,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     },
                     {
                       "alias": "Upsert (AVG)",
+                      "formula": "query2",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -828,11 +850,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query2"
+                      }
                     },
                     {
                       "alias": "Delete (AVG)",
+                      "formula": "query3",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -842,10 +864,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query3"
+                      }
                     },
                     {
+                      "alias": "Insert (P99)",
+                      "formula": "query4",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -855,12 +878,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "alias": "Insert (P99)",
-                      "formula": "query4"
+                      }
                     },
                     {
                       "alias": "Upsert (P99)",
+                      "formula": "query5",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -870,11 +892,11 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query5"
+                      }
                     },
                     {
                       "alias": "Delete (P99)",
+                      "formula": "query6",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
@@ -884,8 +906,7 @@
                           "type": "canonical_unit",
                           "unit_name": "millisecond"
                         }
-                      },
-                      "formula": "query6"
+                      }
                     }
                   ],
                   "queries": [
@@ -922,30 +943,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Latency By Cluster (Write)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 1926885492834660,
             "layout": {
-              "x": 6,
-              "y": 6,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 6
             }
           },
           {
-            "id": 721749671562338,
             "definition": {
-              "title": "Request Failure Rate By Cluster (Read)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -953,29 +973,30 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Search",
+                      "formula": "100 * monotonic_diff(query1)/ monotonic_diff(query2)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query1)/ monotonic_diff(query2)"
+                      }
                     },
                     {
                       "alias": "Query",
+                      "formula": "100 * monotonic_diff(query3) / monotonic_diff(query4)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query3) / monotonic_diff(query4)"
+                      }
                     }
                   ],
                   "queries": [
@@ -1002,30 +1023,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Request Failure Rate By Cluster (Read)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 721749671562338,
             "layout": {
-              "x": 0,
-              "y": 9,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 9
             }
           },
           {
-            "id": 529545479977698,
             "definition": {
-              "title": "Request Failure Rate By Cluster (Write)",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1033,49 +1053,50 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Insert",
+                      "formula": "100 * monotonic_diff(query1) / monotonic_diff(query2)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query1) / monotonic_diff(query2)"
+                      }
                     },
                     {
                       "alias": "Bulk Insert",
+                      "formula": "100 * monotonic_diff(query3)/ monotonic_diff(query4)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query3)/ monotonic_diff(query4)"
+                      }
                     },
                     {
                       "alias": "Upsert",
+                      "formula": "100 * monotonic_diff(query5) / monotonic_diff(query6)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query5) / monotonic_diff(query6)"
+                      }
                     },
                     {
                       "alias": "Delete",
+                      "formula": "100 * monotonic_diff(query7) / monotonic_diff(query8)",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "100 * monotonic_diff(query7) / monotonic_diff(query8)"
+                      }
                     }
                   ],
                   "queries": [
@@ -1122,30 +1143,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Request Failure Rate By Cluster (Write)",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 529545479977698,
             "layout": {
-              "x": 6,
-              "y": 9,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 9
             }
           },
           {
-            "id": 6833430448641910,
             "definition": {
-              "title": "Slow Query Count By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1153,19 +1173,20 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "alias": "Slow Query Count",
+                      "formula": "monotonic_diff(query1)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Counts/min"
+                          "label": "Counts/min",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "alias": "Slow Query Count",
-                      "formula": "monotonic_diff(query1)"
+                      }
                     }
                   ],
                   "queries": [
@@ -1177,30 +1198,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Slow Query Count By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 6833430448641910,
             "layout": {
-              "x": 0,
-              "y": 12,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 12
             }
           },
           {
-            "id": 875416414741450,
             "definition": {
-              "title": "Write Performance Capacity By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1208,19 +1228,20 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
                       "alias": "Cluster Write Performance Capacity",
+                      "formula": "query1 * 100",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "query1 * 100"
+                      }
                     }
                   ],
                   "queries": [
@@ -1232,30 +1253,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Write Performance Capacity By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 875416414741450,
             "layout": {
-              "x": 6,
-              "y": 12,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 12
             }
           },
           {
-            "id": 1311364549979742,
             "definition": {
-              "title": "Number of Flush Operations By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1263,19 +1283,20 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "alias": "Number of Flush Operations",
+                      "formula": "monotonic_diff(query1)",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Counts/min"
+                          "label": "Counts/min",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "alias": "Number of Flush Operations",
-                      "formula": "monotonic_diff(query1)"
+                      }
                     }
                   ],
                   "queries": [
@@ -1287,48 +1308,47 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Number of Flush Operations By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 1311364549979742,
             "layout": {
-              "x": 0,
-              "y": 15,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 15
             }
           }
         ]
       },
+      "id": 3038557328276464,
       "layout": {
-        "x": 0,
-        "y": 10,
+        "height": 19,
         "width": 12,
-        "height": 19
+        "x": 0,
+        "y": 10
       }
     },
     {
-      "id": 449385537300942,
       "definition": {
-        "title": "Data",
         "background_color": "gray",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Data",
+        "type": "group",
         "widgets": [
           {
-            "id": 985382568389170,
             "definition": {
-              "title": "Collection Count By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1336,18 +1356,19 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Count"
+                          "label": "Count",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     }
                   ],
                   "queries": [
@@ -1359,30 +1380,29 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Collection Count By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 985382568389170,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 8161199654086246,
             "definition": {
-              "title": "Number of Unloaded Collections By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -1390,18 +1410,19 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Count"
+                          "label": "Count",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     }
                   ],
                   "queries": [
@@ -1413,45 +1434,45 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Number of Unloaded Collections By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 8161199654086246,
             "layout": {
-              "x": 6,
-              "y": 0,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 0
             }
           },
           {
-            "id": 8545593284655802,
             "definition": {
-              "title": "Entity Count By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "vertical",
               "legend_columns": [
                 "value"
               ],
-              "type": "timeseries",
+              "legend_layout": "vertical",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Count"
+                          "label": "Count",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     }
                   ],
                   "queries": [
@@ -1463,45 +1484,45 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Entity Count By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 8545593284655802,
             "layout": {
-              "x": 0,
-              "y": 3,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 3
             }
           },
           {
-            "id": 7986284674533754,
             "definition": {
-              "title": "Loaded Entities By Cluster",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": false,
-              "legend_layout": "vertical",
               "legend_columns": [
                 "value"
               ],
-              "type": "timeseries",
+              "legend_layout": "vertical",
               "requests": [
                 {
+                  "display_type": "line",
                   "formulas": [
                     {
+                      "formula": "query1",
                       "number_format": {
                         "unit": {
-                          "type": "custom_unit_label",
-                          "label": "Count"
+                          "label": "Count",
+                          "type": "custom_unit_label"
                         }
-                      },
-                      "formula": "query1"
+                      }
                     }
                   ],
                   "queries": [
@@ -1513,57 +1534,36 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "semantic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "semantic"
+                  }
                 }
-              ]
+              ],
+              "show_legend": false,
+              "title": "Loaded Entities By Cluster",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries"
             },
+            "id": 7986284674533754,
             "layout": {
-              "x": 6,
-              "y": 3,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 6,
+              "y": 3
             }
           }
         ]
       },
+      "id": 449385537300942,
       "layout": {
-        "x": 0,
-        "y": 29,
+        "height": 7,
         "width": 12,
-        "height": 7
+        "x": 0,
+        "y": 29
       }
     }
-  ],
-  "template_variables": [
-    {
-      "name": "org_id",
-      "prefix": "org_id",
-      "default": "*"
-    },
-    {
-      "name": "project_id",
-      "prefix": "project_id",
-      "default": "*"
-    },
-    {
-      "name": "cluster_id",
-      "prefix": "cluster_id",
-      "default": "*"
-    }
-  ],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "template_variable_presets": [
-    {
-      "name": "Default",
-      "template_variables": []
-    }
-  ],
-  "reflow_type": "fixed",
-  "tags": []
+  ]
 }
