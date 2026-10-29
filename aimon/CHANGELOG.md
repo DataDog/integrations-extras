@@ -1,4 +1,4 @@
-# CHANGELOG - AIMon
+# CHANGELOG - aimon
 
 ## 1.0.0 / 2025-09-03
 
