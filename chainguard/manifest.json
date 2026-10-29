@@ -1,6 +1,5 @@
 {
   "app_id": "chainguard",
-  "owner": "integrations-developer-platform",
   "app_uuid": "0195624f-3d2a-7db6-ad4d-c1c1ce8a643b",
   "manifest_version": "2.0.0",
   "display_on_public_website": true,
@@ -38,7 +37,8 @@
       "Offering::Integration",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Queried Data Type::Metrics"
     ]
   },
   "oauth": {},
@@ -52,6 +52,21 @@
   "assets": {
     "dashboards": {
       "Chainguard Containers Overview": "assets/dashboards/chainguard_containers_overview.json"
+    },
+    "integration": {
+      "source_type_name": "chainguard",
+      "auto_install": true,
+      "configuration": {},
+      "process_signatures": [],
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 41197369,
+      "supports_ddr_coordinated_failover": false
     }
-  }
+  },
+  "owner": "integrations-developer-platform"
 }

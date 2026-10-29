@@ -1,198 +1,213 @@
 {
-  "title": "Chainguard Containers Overview",
   "description": "Chainguard Containers are built from source code, scanned and patched for CVEs daily ",
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "tags": [],
+  "template_variables": [
+    {
+      "default": "*",
+      "name": "env",
+      "prefix": "env"
+    },
+    {
+      "default": "*",
+      "name": "cluster_name",
+      "prefix": "cluster_name"
+    },
+    {
+      "default": "*",
+      "name": "short_image",
+      "prefix": "short_image"
+    }
+  ],
+  "title": "Chainguard Containers Overview",
   "widgets": [
     {
-      "id": 3494248154671680,
       "definition": {
-        "title": "About Chainguard",
         "background_color": "vivid_purple",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "About Chainguard",
+        "type": "group",
         "widgets": [
           {
-            "id": 2296567388649242,
             "definition": {
+              "has_background": false,
+              "has_border": false,
+              "horizontal_align": "center",
+              "margin": "md",
+              "sizing": "contain",
               "type": "image",
               "url": "https://images.ctfassets.net/l47ir7rfykkn/25BipSgAokeHQfRwB6gj1z/8924cb8db04191ae35810df33943dc77/chainguard-logo-light.png",
               "url_dark_theme": "https://images.ctfassets.net/l47ir7rfykkn/1YxXXjGXOzzpxgVKfwZg30/fd924cad4770cb2a5894aa40f4b6980b/chainguard-logo-dark.png",
-              "sizing": "contain",
-              "margin": "md",
-              "has_background": false,
-              "has_border": false,
-              "vertical_align": "center",
-              "horizontal_align": "center"
+              "vertical_align": "center"
             },
+            "id": 2296567388649242,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 6,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 8629047527092916,
             "definition": {
-              "type": "note",
-              "content": "Build software better with Chainguard’s minimal, zero-CVE container images and guarded protection under our remediation SLA.",
               "background_color": "transparent",
+              "content": "Build software better with Chainguard’s minimal, zero-CVE container images and guarded protection under our remediation SLA.",
               "font_size": "24",
-              "text_align": "center",
-              "vertical_align": "center",
+              "has_padding": false,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "center",
               "tick_edge": "left",
-              "has_padding": false
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 8629047527092916,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 2,
               "width": 6,
-              "height": 2
+              "x": 0,
+              "y": 1
             }
           },
           {
-            "id": 1275352067923368,
             "definition": {
-              "type": "note",
-              "content": "## [See the full Chainguard Images Directory here](https://images.chainguard.dev/directory)",
               "background_color": "vivid_purple",
+              "content": "## [See the full Chainguard Images Directory here](https://images.chainguard.dev/directory)",
               "font_size": "14",
-              "text_align": "center",
-              "vertical_align": "center",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "center",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 1275352067923368,
             "layout": {
-              "x": 0,
-              "y": 3,
+              "height": 1,
               "width": 6,
-              "height": 1
+              "x": 0,
+              "y": 3
             }
           }
         ]
       },
+      "id": 3494248154671680,
       "layout": {
-        "x": 0,
-        "y": 0,
+        "height": 5,
         "width": 6,
-        "height": 5
+        "x": 0,
+        "y": 0
       }
     },
     {
-      "id": 228280647238182,
       "definition": {
-        "title": "Chainguard Containers Compatibility",
         "background_color": "green",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Chainguard Containers Compatibility",
+        "type": "group",
         "widgets": [
           {
-            "id": 647807269803552,
             "definition": {
-              "title": "Total Running Containers",
-              "title_size": "16",
-              "title_align": "center",
-              "type": "query_value",
+              "autoscale": true,
+              "custom_links": [],
+              "precision": 0,
               "requests": [
                 {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "count:container.cpu.limit{$env,$cluster_name,$short_image}",
-                      "aggregator": "last"
-                    }
-                  ],
                   "formulas": [
                     {
                       "formula": "query1"
                     }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "text_align": "center",
-              "custom_links": [],
-              "precision": 0
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 1
-            }
-          },
-          {
-            "id": 8395876704459836,
-            "definition": {
-              "title": "Chainguard Compatible Running Containers",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query2"
-                    }
                   ],
                   "queries": [
                     {
+                      "aggregator": "last",
                       "data_source": "metrics",
-                      "name": "query2",
-                      "query": "count:container.cpu.usage{(image_name:*istio* OR image_name:*node* OR image_name:*nginx* OR image_name:*jdk* OR image_name:*php* OR image_name:*python* OR image_name:*ruby* OR image_name:*aspnet* OR image_name:*nginx* OR image_name:*jre* OR image_name:*mongodb* OR image_name:*envoy* OR image_name:*datadog* OR image_name:*vault* OR image_name:*tomcat* OR image_name:*prometheus* OR image_name:*haproxy* OR image_name:*argocd* OR image_name:*redis* OR image_name:*dotnet* OR image_name:*mysql* OR image_name:*spark* OR image_name:*kafka* OR image_name:*gradle* OR image_name:*busybox* OR image_name:*helm* OR image_name:*airflow*) AND $env AND $cluster_name AND $short_image}",
-                      "aggregator": "last"
+                      "name": "query1",
+                      "query": "count:container.cpu.limit{$env,$cluster_name,$short_image}"
                     }
                   ],
                   "response_format": "scalar"
                 }
               ],
-              "autoscale": true,
-              "precision": 2
+              "text_align": "center",
+              "title": "Total Running Containers",
+              "title_align": "center",
+              "title_size": "16",
+              "type": "query_value"
             },
+            "id": 647807269803552,
             "layout": {
-              "x": 3,
-              "y": 0,
+              "height": 1,
               "width": 3,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 4312660052413712,
             "definition": {
-              "title": "Potential Images To Convert To Chainguard Containers",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
+              "autoscale": true,
+              "precision": 2,
               "requests": [
                 {
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "query": "count:container.cpu.usage{(image_name:*istio* OR image_name:*node* OR image_name:*nginx* OR image_name:*jdk* OR image_name:*php* OR image_name:*python* OR image_name:*ruby* OR image_name:*aspnet* OR image_name:*nginx* OR image_name:*jre* OR image_name:*mongodb* OR image_name:*envoy* OR image_name:*datadog* OR image_name:*vault* OR image_name:*tomcat* OR image_name:*prometheus* OR image_name:*haproxy* OR image_name:*argocd* OR image_name:*redis* OR image_name:*dotnet* OR image_name:*mysql* OR image_name:*spark* OR image_name:*kafka* OR image_name:*gradle* OR image_name:*busybox* OR image_name:*helm* OR image_name:*airflow*) AND $env AND $cluster_name AND $short_image} by {image_name}",
-                      "aggregator": "last"
-                    }
-                  ],
-                  "response_format": "scalar",
                   "formulas": [
                     {
                       "formula": "query2"
                     }
                   ],
+                  "queries": [
+                    {
+                      "aggregator": "last",
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "count:container.cpu.usage{(image_name:*istio* OR image_name:*node* OR image_name:*nginx* OR image_name:*jdk* OR image_name:*php* OR image_name:*python* OR image_name:*ruby* OR image_name:*aspnet* OR image_name:*nginx* OR image_name:*jre* OR image_name:*mongodb* OR image_name:*envoy* OR image_name:*datadog* OR image_name:*vault* OR image_name:*tomcat* OR image_name:*prometheus* OR image_name:*haproxy* OR image_name:*argocd* OR image_name:*redis* OR image_name:*dotnet* OR image_name:*mysql* OR image_name:*spark* OR image_name:*kafka* OR image_name:*gradle* OR image_name:*busybox* OR image_name:*helm* OR image_name:*airflow*) AND $env AND $cluster_name AND $short_image}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "title": "Chainguard Compatible Running Containers",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
+            },
+            "id": 8395876704459836,
+            "layout": {
+              "height": 1,
+              "width": 3,
+              "x": 3,
+              "y": 0
+            }
+          },
+          {
+            "definition": {
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "last",
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "count:container.cpu.usage{(image_name:*istio* OR image_name:*node* OR image_name:*nginx* OR image_name:*jdk* OR image_name:*php* OR image_name:*python* OR image_name:*ruby* OR image_name:*aspnet* OR image_name:*nginx* OR image_name:*jre* OR image_name:*mongodb* OR image_name:*envoy* OR image_name:*datadog* OR image_name:*vault* OR image_name:*tomcat* OR image_name:*prometheus* OR image_name:*haproxy* OR image_name:*argocd* OR image_name:*redis* OR image_name:*dotnet* OR image_name:*mysql* OR image_name:*spark* OR image_name:*kafka* OR image_name:*gradle* OR image_name:*busybox* OR image_name:*helm* OR image_name:*airflow*) AND $env AND $cluster_name AND $short_image} by {image_name}"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
                     "count": 500,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
@@ -200,43 +215,45 @@
               ],
               "style": {
                 "display": {
-                  "type": "stacked",
-                  "legend": "automatic"
+                  "legend": "automatic",
+                  "type": "stacked"
                 }
-              }
+              },
+              "title": "Potential Images To Convert To Chainguard Containers",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
             },
+            "id": 4312660052413712,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 3,
               "width": 6,
-              "height": 3
+              "x": 0,
+              "y": 1
             }
           }
         ]
       },
+      "id": 228280647238182,
       "layout": {
-        "x": 6,
-        "y": 0,
+        "height": 5,
         "width": 6,
-        "height": 5
+        "x": 6,
+        "y": 0
       }
     },
     {
-      "id": 424311702618510,
       "definition": {
-        "title": "Chainguard Containers Coverage",
         "background_color": "blue",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Chainguard Containers Coverage",
+        "type": "group",
         "widgets": [
           {
-            "id": 1715121833547002,
             "definition": {
-              "title": "Chainguard Coverage",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
+              "autoscale": true,
+              "precision": 1,
               "requests": [
                 {
                   "formulas": [
@@ -246,42 +263,39 @@
                   ],
                   "queries": [
                     {
+                      "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "count:container.cpu.usage{git.repository_url:*chainguard*,$env,$cluster_name,$short_image}",
-                      "aggregator": "sum"
+                      "query": "count:container.cpu.usage{git.repository_url:*chainguard*,$env,$cluster_name,$short_image}"
                     },
                     {
+                      "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "count:container.cpu.usage{$env,$cluster_name,$short_image}",
-                      "aggregator": "sum"
+                      "query": "count:container.cpu.usage{$env,$cluster_name,$short_image}"
                     }
                   ],
                   "response_format": "scalar"
                 }
               ],
-              "autoscale": true,
-              "precision": 1,
               "timeseries_background": {
                 "type": "area"
-              }
+              },
+              "title": "Chainguard Coverage",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_value"
             },
+            "id": 1715121833547002,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 2,
               "width": 4,
-              "height": 2
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 5803969548554792,
             "definition": {
-              "title": "Chainguard Containers Coverage ",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
               "legend_columns": [
                 "avg",
                 "min",
@@ -289,23 +303,24 @@
                 "value",
                 "sum"
               ],
-              "type": "timeseries",
+              "legend_layout": "auto",
               "requests": [
                 {
+                  "display_type": "bars",
                   "formulas": [
                     {
+                      "alias": "Chainguard images",
+                      "formula": "query2",
                       "style": {
                         "palette": "green"
-                      },
-                      "alias": "Chainguard images",
-                      "formula": "query2"
+                      }
                     },
                     {
+                      "alias": "Other images",
+                      "formula": "query4",
                       "style": {
                         "palette": "red"
-                      },
-                      "alias": "Other images",
-                      "formula": "query4"
+                      }
                     }
                   ],
                   "queries": [
@@ -322,181 +337,183 @@
                   ],
                   "response_format": "timeseries",
                   "style": {
-                    "palette": "dog_classic",
-                    "order_by": "values",
                     "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "bars"
+                    "line_width": "normal",
+                    "order_by": "values",
+                    "palette": "dog_classic"
+                  }
                 }
               ],
+              "show_legend": true,
+              "title": "Chainguard Containers Coverage ",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "timeseries",
               "yaxis": {
                 "include_zero": false,
                 "scale": "log"
               }
             },
+            "id": 5803969548554792,
             "layout": {
-              "x": 4,
-              "y": 0,
+              "height": 7,
               "width": 8,
-              "height": 7
+              "x": 4,
+              "y": 0
             }
           },
           {
-            "id": 6582484742423238,
             "definition": {
-              "type": "note",
-              "content": "Percentage of running containers built using a Chainguard Image.",
               "background_color": "purple",
+              "content": "Percentage of running containers built using a Chainguard Image.",
               "font_size": "14",
-              "text_align": "center",
-              "vertical_align": "center",
+              "has_padding": false,
               "show_tick": true,
-              "tick_pos": "50%",
+              "text_align": "center",
               "tick_edge": "top",
-              "has_padding": false
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 6582484742423238,
             "layout": {
-              "x": 0,
-              "y": 2,
+              "height": 1,
               "width": 4,
-              "height": 1
+              "x": 0,
+              "y": 2
             }
           },
           {
-            "id": 624174923162372,
             "definition": {
-              "type": "note",
-              "content": "Hover over each bar to see the count of running containers built from each image.\\\nThose in green are built from a Chainguard image, those in red represent containers built from a non Chainguard image. This is determined using the `git_repository_url` tag.",
               "background_color": "gray",
+              "content": "Hover over each bar to see the count of running containers built from each image.\\\nThose in green are built from a Chainguard image, those in red represent containers built from a non Chainguard image. This is determined using the `git_repository_url` tag.",
               "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "center",
+              "has_padding": true,
               "show_tick": true,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "right",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 624174923162372,
             "layout": {
-              "x": 0,
-              "y": 3,
+              "height": 4,
               "width": 4,
-              "height": 4
+              "x": 0,
+              "y": 3
             }
           }
         ]
       },
+      "id": 424311702618510,
       "layout": {
-        "x": 0,
-        "y": 10,
+        "height": 8,
         "width": 12,
-        "height": 8
+        "x": 0,
+        "y": 10
       }
     },
     {
-      "id": 5627138521252312,
       "definition": {
-        "title": "Existing Container Trends",
         "background_color": "vivid_green",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Existing Container Trends",
+        "type": "group",
         "widgets": [
           {
-            "id": 1568298405656474,
             "definition": {
-              "title": "Memory Usage Per Container",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "hostmap",
+              "group": [
+                "git.repository_url"
+              ],
+              "no_group_hosts": true,
+              "no_metric_hosts": true,
+              "node_type": "container",
               "requests": {
                 "fill": {
                   "q": "avg:process.stat.container.memory.rss{*} by {host}"
                 }
               },
-              "node_type": "container",
-              "no_metric_hosts": true,
-              "no_group_hosts": true,
-              "group": [
-                "git.repository_url"
-              ],
               "scope": [],
               "style": {
                 "palette": "green_to_orange",
                 "palette_flip": false
-              }
+              },
+              "title": "Memory Usage Per Container",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "hostmap"
             },
+            "id": 1568298405656474,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 10,
               "width": 6,
-              "height": 10
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 8758955597320810,
             "definition": {
-              "title": "Top 25 Longest Running Containers",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "toplist",
               "requests": [
                 {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "query": "max:contimage.max_image_age{status:running,$env,$cluster_name,$short_image} by {image_name}",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "aggregator": "max"
-                    }
-                  ],
                   "formulas": [
                     {
                       "formula": "query1 / (86400000)"
                     }
                   ],
+                  "queries": [
+                    {
+                      "aggregator": "max",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:contimage.max_image_age{status:running,$env,$cluster_name,$short_image} by {image_name}"
+                    }
+                  ],
+                  "response_format": "scalar",
                   "sort": {
+                    "count": 25,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
-                    ],
-                    "count": 25
+                    ]
                   }
                 }
               ],
-              "style": {}
+              "style": {},
+              "title": "Top 25 Longest Running Containers",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "toplist"
             },
+            "id": 8758955597320810,
             "layout": {
-              "x": 6,
-              "y": 0,
+              "height": 6,
               "width": 6,
-              "height": 6
+              "x": 6,
+              "y": 0
             }
           },
           {
-            "id": 3918404786219426,
             "definition": {
-              "title": "Highest Used Images by Registry",
-              "title_size": "16",
-              "title_align": "left",
-              "time": {
-                "type": "live",
-                "unit": "week",
-                "value": 1
-              },
-              "type": "query_table",
+              "has_search_bar": "auto",
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "timeshift(query1, 40)"
+                    }
+                  ],
                   "queries": [
                     {
+                      "aggregator": "last",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "count:container.cpu.usage{$env,$cluster_name,$short_image} by {image_name,git.repository_url}.fill(60)",
-                      "aggregator": "last"
+                      "query": "count:container.cpu.usage{$env,$cluster_name,$short_image} by {image_name,git.repository_url}.fill(60)"
                     }
                   ],
                   "response_format": "scalar",
@@ -504,76 +521,80 @@
                     "count": 20,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
-                  },
-                  "formulas": [
-                    {
-                      "cell_display_mode": "bar",
-                      "formula": "timeshift(query1, 40)"
-                    }
-                  ]
+                  }
                 }
               ],
-              "has_search_bar": "auto"
+              "time": {
+                "type": "live",
+                "unit": "week",
+                "value": 1
+              },
+              "title": "Highest Used Images by Registry",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_table"
             },
+            "id": 3918404786219426,
             "layout": {
-              "x": 6,
-              "y": 6,
+              "height": 4,
               "width": 6,
-              "height": 4
+              "x": 6,
+              "y": 6
             }
           }
         ]
       },
+      "id": 5627138521252312,
       "layout": {
-        "x": 0,
-        "y": 18,
+        "height": 11,
         "width": 12,
-        "height": 11
+        "x": 0,
+        "y": 18
       }
     },
     {
-      "id": 1450089510409132,
       "definition": {
-        "title": "Cloud Security Management",
         "background_color": "green",
-        "show_title": true,
-        "type": "group",
         "layout_type": "ordered",
+        "show_title": true,
+        "title": "Cloud Security Management",
+        "type": "group",
         "widgets": [
           {
-            "id": 7900021519410556,
             "definition": {
-              "type": "note",
-              "content": "These widgets require the [Cloud Security Management product](https://docs.datadoghq.com/security/cloud_security_management/vulnerabilities/) to populate.",
               "background_color": "green",
+              "content": "These widgets require the [Cloud Security Management product](https://docs.datadoghq.com/security/cloud_security_management/vulnerabilities/) to populate.",
               "font_size": "16",
-              "text_align": "left",
-              "vertical_align": "center",
+              "has_padding": true,
               "show_tick": false,
-              "tick_pos": "50%",
+              "text_align": "left",
               "tick_edge": "left",
-              "has_padding": true
+              "tick_pos": "50%",
+              "type": "note",
+              "vertical_align": "center"
             },
+            "id": 7900021519410556,
             "layout": {
-              "x": 0,
-              "y": 0,
+              "height": 1,
               "width": 6,
-              "height": 1
+              "x": 0,
+              "y": 0
             }
           },
           {
-            "id": 1818972211272584,
             "definition": {
-              "title": "Distribution of Image Vulnerabilities",
-              "title_size": "16",
-              "title_align": "left",
               "requests": [
                 {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
@@ -582,72 +603,35 @@
                     }
                   ],
                   "response_format": "scalar",
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
                   "sort": {
                     "count": 500,
                     "order_by": [
                       {
-                        "type": "formula",
                         "index": 0,
-                        "order": "desc"
+                        "order": "desc",
+                        "type": "formula"
                       }
                     ]
                   }
                 }
               ],
+              "title": "Distribution of Image Vulnerabilities",
+              "title_align": "left",
+              "title_size": "16",
               "type": "sunburst"
             },
+            "id": 1818972211272584,
             "layout": {
-              "x": 6,
-              "y": 0,
+              "height": 5,
               "width": 6,
-              "height": 5
+              "x": 6,
+              "y": 0
             }
           },
           {
-            "id": 5775187560481180,
             "definition": {
-              "title": "Vulnerabilities in Most Used Images",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_table",
               "requests": [
                 {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "query": "sum:contimage.running_containers{$env,$cluster_name,$short_image} by {image_name}",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "aggregator": "avg"
-                    },
-                    {
-                      "query": "sum:contimage.running_containers{$env,$cluster_name,$short_image} by {image_name}",
-                      "data_source": "metrics",
-                      "name": "query2",
-                      "aggregator": "avg"
-                    },
-                    {
-                      "query": "sum:contimage.vuln_count{$env,$cluster_name,$short_image} by {image_name}",
-                      "data_source": "metrics",
-                      "name": "query3",
-                      "aggregator": "avg"
-                    }
-                  ],
-                  "sort": {
-                    "count": 25,
-                    "order_by": [
-                      {
-                        "type": "formula",
-                        "index": 0,
-                        "order": "desc"
-                      }
-                    ]
-                  },
                   "formulas": [
                     {
                       "alias": "Running Containers",
@@ -655,58 +639,74 @@
                     },
                     {
                       "alias": "Percent change (from last week)",
+                      "formula": "((query1 - calendar_shift(query2, '-1w', 'UTC')) / calendar_shift(query2, '-1w', 'UTC')) * 100",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "percent"
                         }
-                      },
-                      "formula": "((query1 - calendar_shift(query2, '-1w', 'UTC')) / calendar_shift(query2, '-1w', 'UTC')) * 100"
+                      }
                     },
                     {
                       "alias": "Vulnerability Count",
                       "formula": "query3"
                     }
-                  ]
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:contimage.running_containers{$env,$cluster_name,$short_image} by {image_name}"
+                    },
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:contimage.running_containers{$env,$cluster_name,$short_image} by {image_name}"
+                    },
+                    {
+                      "aggregator": "avg",
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:contimage.vuln_count{$env,$cluster_name,$short_image} by {image_name}"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "sort": {
+                    "count": 25,
+                    "order_by": [
+                      {
+                        "index": 0,
+                        "order": "desc",
+                        "type": "formula"
+                      }
+                    ]
+                  }
                 }
-              ]
+              ],
+              "title": "Vulnerabilities in Most Used Images",
+              "title_align": "left",
+              "title_size": "16",
+              "type": "query_table"
             },
+            "id": 5775187560481180,
             "layout": {
-              "x": 0,
-              "y": 1,
+              "height": 4,
               "width": 6,
-              "height": 4
+              "x": 0,
+              "y": 1
             }
           }
         ]
       },
+      "id": 1450089510409132,
       "layout": {
-        "x": 0,
-        "y": 29,
+        "height": 6,
         "width": 12,
-        "height": 6
+        "x": 0,
+        "y": 29
       }
     }
-  ],
-  "template_variables": [
-    {
-      "name": "env",
-      "prefix": "env",
-      "default": "*"
-    },
-    {
-      "name": "cluster_name",
-      "prefix": "cluster_name",
-      "default": "*"
-    },
-    {
-      "name": "short_image",
-      "prefix": "short_image",
-      "default": "*"
-    }
-  ],
-  "layout_type": "ordered",
-  "notify_list": [],
-  "reflow_type": "fixed",
-  "tags": []
+  ]
 }
