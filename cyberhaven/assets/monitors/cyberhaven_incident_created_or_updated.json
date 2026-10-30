@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "created_at": "2026-10-28",
+  "last_updated_at": "2026-10-28",
+  "title": "[Cyberhaven] Incident created or updated",
+  "description": "Triggers a Datadog Workflow each time a Cyberhaven incident log is created or updated, so the incident can be created or updated as a Datadog incident. Create it only if you stream Incidents and have imported the workflow.",
+  "tags": [
+    "integration:cyberhaven"
+  ],
+  "definition": {
+    "name": "[Cyberhaven] Incident created or updated",
+    "type": "log alert",
+    "query": "logs(\"source:cyberhaven cyberhaven.logtype:cyberhaven-incidents\").index(\"*\").rollup(\"count\").by(\"@cyberhaven.incident.id,@cyberhaven.incident.last_modified\").last(\"15m\") > 0",
+    "message": "{{#is_alert}}\n## Cyberhaven incident created or updated\n\nA Cyberhaven incident log was ingested or updated. The alert title shows the Cyberhaven incident id and the version time.\n\nThis monitor is grouped by `@cyberhaven.incident.id` and `@cyberhaven.incident.last_modified`, so it fires once per distinct version of each Cyberhaven incident: once when it is created and again on every update. The paired workflow looks the incident up in Datadog by the `source_incident_id` custom field, then creates it if missing or updates it if it exists.\n\nIf no Datadog incident was created or updated, confirm that the `cyberhaven-create-update-incident` workflow is imported, published, and enabled.\n\n@workflow-cyberhaven-create-update-incident\n{{/is_alert}}",
+    "tags": [
+      "integration:cyberhaven"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 0
+      },
+      "enable_logs_sample": true,
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "evaluation_delay": 60,
+      "renotify_interval": 0,
+      "new_group_delay": 0,
+      "groupby_simple_monitor": false
+    },
+    "priority": 3
+  }
+}

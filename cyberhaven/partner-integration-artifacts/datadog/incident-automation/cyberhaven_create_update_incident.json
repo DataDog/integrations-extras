@@ -1,0 +1,435 @@
+{
+  "name": "Cyberhaven - Create or Update Incident",
+  "description": "Creates a Datadog Incident for each Cyberhaven incident the first time its id is seen, and updates the existing Datadog Incident on every later version. Lookup is by the source_incident_id field. Triggered by the [Cyberhaven] Incident created or updated monitor.",
+  "tags": [
+    "integration:cyberhaven"
+  ],
+  "published": true,
+  "sensitivePrivileges": false,
+  "spec": {
+    "triggers": [
+      {
+        "startStepNames": [
+          "Parse_group"
+        ],
+        "monitorTrigger": {
+          "rateLimit": {
+            "count": 1000,
+            "interval": "60s"
+          }
+        }
+      }
+    ],
+    "steps": [
+      {
+        "name": "Parse_group",
+        "actionId": "com.datadoghq.datatransformation.funcPy",
+        "parameters": [
+          {
+            "name": "runtimeVersion",
+            "value": "V2"
+          },
+          {
+            "name": "script",
+            "value": "from execution_context import Context\n\n\ndef main(*, ctx: Context):\n    group_values = ctx[\"Source\"][\"monitor\"][\"group_value\"]\n    return {\"id\": str(group_values[\"@cyberhaven.incident.id\"])}\n"
+          },
+          {
+            "name": "description",
+            "value": "Reads the Cyberhaven incident id from the monitor alert group (@cyberhaven.incident.id)."
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Get_log_details",
+            "branchName": "main"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 192
+          }
+        }
+      },
+      {
+        "name": "Get_log_details",
+        "actionId": "com.datadoghq.dd.logs.listLogsV2",
+        "parameters": [
+          {
+            "name": "time_range",
+            "value": "7d"
+          },
+          {
+            "name": "query",
+            "value": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents @cyberhaven.incident.id:\"{{ Steps.Parse_group.data.id }}\""
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Extract_incident_fields",
+            "branchName": "main"
+          }
+        ],
+        "errorHandlers": [
+          {
+            "retryStrategy": {
+              "kind": "RETRY_STRATEGY_LINEAR",
+              "linear": {
+                "interval": "10s",
+                "maxRetries": 3
+              }
+            },
+            "fallbackStepName": "Log_lookup_failed"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 384
+          }
+        }
+      },
+      {
+        "name": "Extract_incident_fields",
+        "actionId": "com.datadoghq.datatransformation.funcPy",
+        "parameters": [
+          {
+            "name": "runtimeVersion",
+            "value": "V2"
+          },
+          {
+            "name": "script",
+            "value": "import json\nimport re\nfrom execution_context import Context\n\nSEV = {\"critical\": \"SEV-1\", \"high\": \"SEV-2\", \"medium\": \"SEV-3\", \"low\": \"SEV-4\", \"informational\": \"SEV-5\"}\nSTATE = {\"open\": \"active\", \"closed\": \"resolved\"}\n# Attributes that change on every version; ignored in Last Change.\nVOLATILE = re.compile(\n    r\"^(last_modified|event_time|trigger_time|timestamp|date|cyberhaven\\.message\"\n    r\"|cyberhaven\\.incident\\.last_modified|.*\\.(timestamp|ingestion_timestamp))$\"\n)\n# (incident field, log attribute) copied as-is into textbox fields.\nPLAIN_FIELDS = [\n    (\"tenant\", \"cyberhaven.domain\"), (\"policy_name\", \"policy.name\"), (\"cyberhaven_created_by\", \"created_by\"),\n    (\"dataset_name\", \"dataset.name\"), (\"risk_score\", \"risk_score\"), (\"blocked\", \"blocked\"), (\"user_id\", \"usr.id\"),\n    (\"warning_status\", \"warning_status\"), (\"event_time\", \"event_time\"), (\"trigger_time\", \"trigger_time\"),\n    (\"resolution_time\", \"resolution_time\"), (\"close_reason\", \"close_reason\"), (\"close_note\", \"close_note\"),\n    (\"cyberhaven_ai_summary\", \"ai_summary\"), (\"policy_id\", \"policy.id\"), (\"dataset_id\", \"dataset.id\"),\n]\n# (incident field, action.* attribute) from end_event, falling back to start_event.\nACTION_FIELDS = [\n    (\"hostname\", \"hostname\"), (\"device_type\", \"device_type\"), (\"sensor_kind\", \"sensor_kind\"),\n    (\"client_ip\", \"ip_address\"), (\"data_size_bytes\", \"data_size\"),\n]\n\n\ndef dig(src, path, default=None):\n    for part in path.split(\".\"):\n        if isinstance(src, dict) and src.get(part) is not None:\n            src = src[part]\n        else:\n            return default\n    return src\n\n\ndef to_text(v):\n    if v is None:\n        return \"null\"\n    if isinstance(v, bool):\n        return \"true\" if v else \"false\"\n    if isinstance(v, float) and v.is_integer():\n        return str(int(v))\n    if isinstance(v, (dict, list)):\n        return json.dumps(v, ensure_ascii=False)\n    return str(v)\n\n\ndef flatten(v, prefix, flat):\n    if isinstance(v, list):\n        for i, item in enumerate(v):\n            flatten(item, prefix + \"[\" + str(i) + \"]\", flat)\n    elif isinstance(v, dict):\n        for k, item in v.items():\n            flatten(item, prefix + \".\" + k if prefix else k, flat)\n    elif prefix:\n        flat[prefix] = v\n    return flat\n\n\ndef sort_key(lm):\n    s, _, f = lm.rstrip(\"Z\").partition(\".\")\n    return s + \".\" + f.ljust(9, \"0\")\n\n\ndef main(*, ctx: Context):\n    steps = ctx[\"Steps\"]\n    incident_id = dig(steps, \"Parse_group.data.id\", \"\")\n    logs = dig(steps, \"Get_log_details.data\", []) or []\n    if not logs:\n        return {\"found\": False, \"id\": incident_id, \"log_lines_found\": 0}\n\n    # One log line per incident version; newest last_modified first.\n    versions = []\n    for log in logs:\n        a = flatten(dig(log, \"attributes.attributes\", {}) or {}, \"\", {})\n        versions.append({\"a\": a, \"lm\": to_text(a.get(\"last_modified\") or \"\")})\n    versions.sort(key=lambda x: sort_key(x[\"lm\"]), reverse=True)\n    attrs = versions[0][\"a\"]\n    prev = versions[1][\"a\"] if len(versions) > 1 else None\n\n    def attr(k, d=\"\"):\n        v = attrs.get(k)\n        return d if v is None or v == \"\" else v\n\n    def txt(k):\n        return to_text(attr(k))\n\n    def act(n):\n        return attr(\"event_details.end_event.action.\" + n, attr(\"event_details.start_event.action.\" + n))\n\n    policy_name = to_text(attr(\"policy.name\", \"Cyberhaven incident\"))\n    action_kind = to_text(attr(\"evt.name\", act(\"kind\") or \"event\"))\n    user_name = to_text(attr(\"usr.name\", attr(\"user.local_username\", \"unknown user\")))\n    raw_status = txt(\"status\").lower()\n    ch_status = to_text(\n        attr(\"cyberhaven.incident.status\", raw_status if raw_status in (\"open\", \"closed\") else \"open\")\n    ).lower()\n    policy_sev = txt(\"policy.severity\").lower()\n    severity = SEV.get(policy_sev, \"UNKNOWN\")\n    dd_state = STATE.get(ch_status, \"active\")\n    url = txt(\"cyberhaven.incident.url\")\n\n    # Title: keep action/user intact; shorten the policy name instead.\n    tail = \" - \" + action_kind + \" by \" + user_name\n    max_len = max(20, 100 - len(tail))\n    short = policy_name[: max_len - 3] + \"...\" if len(policy_name) > max_len else policy_name\n    title = short + tail\n\n    summary = \"\\n\".join(line for line in [\n        to_text(attr(\"cyberhaven.incident.summary\", \"Policy: \" + policy_name + \" (severity \" + policy_sev + \")\")),\n        \"Action: \" + action_kind + \" | outcome=\" + txt(\"evt.outcome\") + \" | blocked=\" + txt(\"blocked\")\n        + \" | risk_score=\" + txt(\"risk_score\"),\n        \"Status: \" + ch_status + (\" (\" + txt(\"close_reason\") + \")\" if attr(\"close_reason\") else \"\"),\n        \"Event time: \" + txt(\"event_time\") + \" | Last modified: \" + txt(\"last_modified\"),\n        \"Cyberhaven: \" + url if url else \"\",\n    ] if line)\n\n    # Diff against the previous version.\n    changes = \"First version seen (no earlier version in the last 7 days)\"\n    changed = []\n    if prev:\n        keys = [k for k in dict.fromkeys(list(attrs) + list(prev)) if not VOLATILE.match(k)]\n\n        def cmp(vals, k):\n            return to_text(vals[k]) if k in vals else \"undefined\"\n\n        def sv(v):\n            t = \"(empty)\" if v is None or v == \"\" else to_text(v)\n            return t[:117] + \"...\" if len(t) > 120 else t\n\n        changed = [k for k in keys if cmp(attrs, k) != cmp(prev, k)]\n        changes = (\n            \"; \".join(k + \": \" + sv(prev.get(k)) + \" -> \" + sv(attrs.get(k)) for k in changed)\n            if changed else \"No attribute changes (only timestamps)\"\n        )\n    changes = (\"[\" + txt(\"last_modified\") + \"] \" + changes)[:2000]\n\n    def tf(v):\n        return {\"type\": \"textbox\", \"value\": \"\" if v is None else to_text(v)}\n\n    def dd(v):\n        return {\"type\": \"dropdown\", \"value\": to_text(v)}\n\n    # Field names must match setup_datadog_incident_type.py.\n    fields = {\n        \"severity\": dd(severity),\n        \"state\": dd(dd_state),\n        \"summary\": tf(summary),\n        \"detection_method\": dd(\"monitor\"),\n        \"source_incident_id\": tf(incident_id),\n        \"cyberhaven_incident_url\": tf(url),\n        \"policy_severity\": tf(policy_sev),\n        \"ai_severity\": tf(txt(\"ai_severity\").lower()),\n        \"dataset_sensitivity\": tf(txt(\"dataset.sensitivity\").lower()),\n        \"user\": tf(user_name),\n        \"action_kind\": tf(action_kind),\n        \"cyberhaven_status\": tf(ch_status),\n        \"last_change\": tf(changes),\n    }\n    for name, key in PLAIN_FIELDS:\n        fields[name] = tf(attr(key))\n    for name, key in ACTION_FIELDS:\n        fields[name] = tf(act(key))\n    # The Incidents API rejects empty values.\n    fields = {n: f for n, f in fields.items() if f[\"value\"].strip()}\n\n    rows = [\n        \"| `\" + k + \"` | \" + to_text(v).replace(\"|\", \"/\").replace(\"\\n\", \" \")[:500] + \" |\"\n        for k, v in attrs.items()\n    ]\n    note = (\n        \"## Cyberhaven incident `\" + to_text(incident_id) + \"`\\n\\n\"\n        + (\"[Open in Cyberhaven](\" + url + \")\\n\\n\" if url else \"\")\n        + \"| Attribute | Value |\\n|---|---|\\n\" + \"\\n\".join(rows)\n    )[:20000]\n\n    return {\n        \"found\": True,\n        \"id\": incident_id,\n        \"title\": title,\n        \"severity_label\": severity,\n        \"dd_state\": dd_state,\n        \"summary\": summary,\n        \"note\": note,\n        \"fields\": fields,\n        \"last_change\": changes,\n        \"changed_keys\": changed,\n        \"versions_found\": len(versions),\n        \"attribute_count\": len(attrs),\n        \"log_lines_found\": len(logs),\n        \"customer_impacted\": False,\n    }\n"
+          },
+          {
+            "name": "description",
+            "value": "Builds the Datadog incident title, severity, state, summary and property fields from the newest Cyberhaven incident log, and diffs it against the previous version to fill Last Change."
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Incident_has_logs",
+            "branchName": "main"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 552
+          }
+        }
+      },
+      {
+        "name": "Incident_has_logs",
+        "actionId": "com.datadoghq.core.if",
+        "parameters": [
+          {
+            "name": "joinOperator",
+            "value": "and"
+          },
+          {
+            "name": "conditions",
+            "value": [
+              {
+                "comparisonOperator": "istruthy",
+                "value": "{{ Steps.Extract_incident_fields.data.found }}"
+              }
+            ]
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Search_existing_incident",
+            "branchName": "true"
+          },
+          {
+            "nextStepName": "No_incident_logs_found",
+            "branchName": "false"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 816
+          }
+        }
+      },
+      {
+        "name": "Search_existing_incident",
+        "actionId": "com.datadoghq.dd.incidents.searchIncidents",
+        "parameters": [
+          {
+            "name": "sort",
+            "value": "-created"
+          },
+          {
+            "name": "page_size",
+            "value": 5
+          },
+          {
+            "name": "query",
+            "value": "source_incident_id:\"{{ Steps.Extract_incident_fields.data.id }}\""
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Find_matching_incidents",
+            "branchName": "main"
+          }
+        ],
+        "errorHandlers": [
+          {
+            "retryStrategy": {
+              "kind": "RETRY_STRATEGY_LINEAR",
+              "linear": {
+                "interval": "10s",
+                "maxRetries": 3
+              }
+            },
+            "fallbackStepName": "Incident_lookup_failed"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": -384,
+            "y": 1008
+          }
+        }
+      },
+      {
+        "name": "Find_matching_incidents",
+        "actionId": "com.datadoghq.datatransformation.funcPy",
+        "parameters": [
+          {
+            "name": "runtimeVersion",
+            "value": "V2"
+          },
+          {
+            "name": "script",
+            "value": "from execution_context import Context\n\n\ndef dig(source, path, default=None):\n    \"\"\"Read a dotted path from nested dicts; return default when any part is missing.\"\"\"\n    for part in path.split(\".\"):\n        if isinstance(source, dict) and source.get(part) is not None:\n            source = source[part]\n        else:\n            return default\n    return source\n\n\ndef main(*, ctx: Context):\n    steps = ctx[\"Steps\"]\n    cyberhaven_incident_id = dig(steps, \"Extract_incident_fields.data.id\", \"\")\n    search_result = dig(steps, \"Search_existing_incident.data\", {}) or {}\n    incidents = (\n        dig(search_result, \"data.attributes.incidents\")\n        or dig(search_result, \"attributes.incidents\")\n        or dig(search_result, \"incidents\")\n        or []\n    )\n\n    # The search query is already filtered on source_incident_id; verify the exact value anyway.\n    def source_incident_id(incident):\n        return dig(\n            incident,\n            \"data.attributes.fields.source_incident_id.value\",\n            dig(incident, \"attributes.fields.source_incident_id.value\"),\n        )\n\n    match = next(\n        (incident for incident in incidents if cyberhaven_incident_id and source_incident_id(incident) == cyberhaven_incident_id),\n        None,\n    )\n    return {\n        \"exists\": match is not None,\n        \"incident_id\": (dig(match, \"data.id\") or dig(match, \"id\") or None) if match else None,\n        \"search_id\": cyberhaven_incident_id,\n        \"matches_returned\": len(incidents),\n    }\n"
+          },
+          {
+            "name": "description",
+            "value": "Confirms which search result carries this exact Cyberhaven incident id in its source_incident_id field, so a create-or-update decision is never made on a partial match."
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Incident_exists",
+            "branchName": "main"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": -384,
+            "y": 1176
+          }
+        }
+      },
+      {
+        "name": "Incident_exists",
+        "actionId": "com.datadoghq.core.if",
+        "parameters": [
+          {
+            "name": "joinOperator",
+            "value": "and"
+          },
+          {
+            "name": "conditions",
+            "value": [
+              {
+                "comparisonOperator": "istruthy",
+                "value": "{{ Steps.Find_matching_incidents.data.exists }}"
+              }
+            ]
+          }
+        ],
+        "outboundEdges": [
+          {
+            "nextStepName": "Update_incident",
+            "branchName": "true"
+          },
+          {
+            "nextStepName": "Create_incident",
+            "branchName": "false"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": -384,
+            "y": 1416
+          }
+        }
+      },
+      {
+        "name": "Update_incident",
+        "actionId": "com.datadoghq.dd.incidents.updateIncident",
+        "parameters": [
+          {
+            "name": "incident_id",
+            "value": "{{ Steps.Find_matching_incidents.data.incident_id }}"
+          },
+          {
+            "name": "title",
+            "value": "{{ Steps.Extract_incident_fields.data.title }}"
+          },
+          {
+            "name": "fields",
+            "value": "{{ Steps.Extract_incident_fields.data.fields }}"
+          }
+        ],
+        "errorHandlers": [
+          {
+            "retryStrategy": {
+              "kind": "RETRY_STRATEGY_LINEAR",
+              "linear": {
+                "interval": "10s",
+                "maxRetries": 3
+              }
+            },
+            "fallbackStepName": "Update_incident_failed"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": -768,
+            "y": 1608
+          }
+        }
+      },
+      {
+        "name": "Create_incident",
+        "actionId": "com.datadoghq.dd.incidents.createIncident",
+        "parameters": [
+          {
+            "name": "customer_impacted",
+            "value": "{{ Steps.Extract_incident_fields.data.customer_impacted }}"
+          },
+          {
+            "name": "title",
+            "value": "{{ Steps.Extract_incident_fields.data.title }}"
+          },
+          {
+            "name": "fields",
+            "value": "{{ Steps.Extract_incident_fields.data.fields }}"
+          },
+          {
+            "name": "initial_cells",
+            "value": [
+              {
+                "cell_type": "markdown",
+                "content": {
+                  "content": "{{ Steps.Extract_incident_fields.data.note }}"
+                },
+                "important": true
+              }
+            ]
+          },
+          {
+            "name": "incident_type_uuid",
+            "value": "REPLACE_WITH_INCIDENT_TYPE_UUID"
+          }
+        ],
+        "errorHandlers": [
+          {
+            "retryStrategy": {
+              "kind": "RETRY_STRATEGY_LINEAR",
+              "linear": {
+                "interval": "10s",
+                "maxRetries": 3
+              }
+            },
+            "fallbackStepName": "Create_incident_failed"
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 1608
+          }
+        }
+      },
+      {
+        "name": "Log_lookup_failed",
+        "actionId": "com.datadoghq.core.error",
+        "parameters": [
+          {
+            "name": "message",
+            "value": "Could not read the Cyberhaven incident logs for incident {{ Steps.Parse_group.data.id }} from Datadog Logs after 3 retries. No Datadog incident was created or updated."
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 384,
+            "y": 552
+          }
+        }
+      },
+      {
+        "name": "No_incident_logs_found",
+        "actionId": "com.datadoghq.core.error",
+        "parameters": [
+          {
+            "name": "message",
+            "value": "No Cyberhaven incident logs were found in the last 7 days for incident id '{{ Steps.Parse_group.data.id }}'. Check that the monitor groups by @cyberhaven.incident.id, that the incident log is not dropped by an index exclusion filter, and that the id was parsed from the alert group. No Datadog incident was created or updated."
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 384,
+            "y": 1008
+          }
+        }
+      },
+      {
+        "name": "Incident_lookup_failed",
+        "actionId": "com.datadoghq.core.error",
+        "parameters": [
+          {
+            "name": "message",
+            "value": "Could not search Datadog Incidents for source_incident_id '{{ Steps.Extract_incident_fields.data.id }}' after 3 retries. No Datadog incident was created or updated, to avoid creating a duplicate."
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 0,
+            "y": 1176
+          }
+        }
+      },
+      {
+        "name": "Update_incident_failed",
+        "actionId": "com.datadoghq.core.error",
+        "parameters": [
+          {
+            "name": "message",
+            "value": "Could not update Datadog incident {{ Steps.Find_matching_incidents.data.incident_id }} for Cyberhaven incident '{{ Steps.Extract_incident_fields.data.id }}' after 3 retries."
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": -384,
+            "y": 1824
+          }
+        }
+      },
+      {
+        "name": "Create_incident_failed",
+        "actionId": "com.datadoghq.core.error",
+        "parameters": [
+          {
+            "name": "message",
+            "value": "Could not create a Datadog incident for Cyberhaven incident '{{ Steps.Extract_incident_fields.data.id }}' after 3 retries. Check that incident_type_uuid in the Create_incident step is your Cyberhaven incident type UUID (printed by setup_datadog_incident_type.py) and that the Cyberhaven property fields exist."
+          }
+        ],
+        "display": {
+          "bounds": {
+            "x": 384,
+            "y": 1824
+          }
+        }
+      }
+    ],
+    "handle": "cyberhaven-create-update-incident"
+  }
+}

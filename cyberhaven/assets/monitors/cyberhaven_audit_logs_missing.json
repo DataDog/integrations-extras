@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "created_at": "2026-10-13",
+  "last_updated_at": "2026-10-13",
+  "title": "[Cyberhaven] Audit logs not received in Datadog",
+  "description": "Alerts when no Cyberhaven audit logs (console and API activity) have been received in Datadog for 24 hours. Create it only if you stream Audit Logs.",
+  "tags": [
+    "integration:cyberhaven"
+  ],
+  "definition": {
+    "name": "[Cyberhaven] Audit logs not received in Datadog",
+    "type": "log alert",
+    "query": "logs(\"source:cyberhaven cyberhaven.logtype:cyberhaven-audit\").index(\"*\").rollup(\"count\").last(\"1d\") == 0",
+    "message": "{{#is_alert}}\n## Alert: Cyberhaven audit logs have not been received in Datadog for the last 24 hours.\n`source:cyberhaven` `cyberhaven.logtype:cyberhaven-audit`\n\nReceived `{{value}}` logs in the last 24 hours (alert threshold: `{{threshold}}`). Triggered at `{{last_triggered_at}}`.\n\n### Impact\nAudit log data is missing, affecting monitoring, investigation, and compliance visibility (who changed what in the Cyberhaven console).\n\n### Investigation\n\n1. Open the **Cyberhaven Troubleshooting** dashboard and review **Ingest Status** for the Audit source (last received time and volume).\n2. In Log Explorer, search `source:cyberhaven`. If other log types are arriving but not audit logs, the issue is specific to this destination. If nothing is arriving, check the Datadog API key and site.\n3. In the Cyberhaven Console under **Settings > Data Export > Destinations**, verify the URI includes `ddsource=cyberhaven` and `cyberhaven.logtype:cyberhaven-audit`, the Datadog site is correct, **Format** is `JSON Array`, **Encoding** is `GZip`, and the `DD-API-KEY` header is set. Run **Save & Test**.\n4. Under **Settings > Data Export**, verify the **Source** is `Audit`, **Destination** is the audit destination, **Schedule** is `Immediate`, and **Enabled** is checked.\n5. Verify the Datadog API key is active and has not been revoked or expired (**Organization Settings > API Keys**).\n6. Check Cyberhaven for streaming destination delivery failures, retries, or other delivery errors.\n7. Verify that Cyberhaven is generating audit events: perform an auditable action in the console (for example a search or a policy view) and re-check the dashboard after a few minutes.\n8. If logs are arriving but not visible, check that no Datadog index exclusion filter is dropping them.\n\nPlease investigate and restore Cyberhaven \u2192 Datadog audit logs delivery.\n\n{{/is_alert}}\n\n{{#is_recovery}}\n## Recovery: Cyberhaven audit logs delivery has recovered.\n\nCyberhaven audit logs are being received normally in Datadog. Received `{{value}}` logs in the last 24 hours.\n{{/is_recovery}}",
+    "tags": [
+      "integration:cyberhaven"
+    ],
+    "options": {
+      "thresholds": {
+        "critical": 0
+      },
+      "enable_logs_sample": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "groupby_simple_monitor": false
+    },
+    "priority": 3
+  }
+}
