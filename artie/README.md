@@ -13,6 +13,14 @@ This integration sends metrics from your Artie pipelines to Datadog so you can m
 
 Use these metrics to build Datadog monitors for pipelines that fall behind, tune [flush rules][4] for throughput and latency, and correlate replication behavior with source database and warehouse metrics you already collect in Datadog.
 
+### How it works
+
+Artie collects metrics from every running pipeline as part of normal operation. Once you connect the integration, Artie submits those metrics to the Datadog metrics API on a short interval using an API key it creates in your Datadog organization. No Datadog Agent, collector, or configuration file is involved, and no network access to your databases or Artie infrastructure is required.
+
+Each data point carries the time the activity happened, not the time it was submitted, so series line up with your other Datadog metrics. Expect new activity to appear a few minutes after it happens.
+
+Only pipelines in the **Running** state are exported. Paused pipelines stop reporting until they are resumed. Rows processed during a backfill are included and tagged `operation:backfill`, so you can separate initial loads from ongoing changes.
+
 ## Setup
 
 ### Prerequisites
@@ -61,6 +69,17 @@ Uninstalling removes the integration's dashboard and associated assets from your
 
 See [metadata.csv][10] for a list of metrics provided by this integration.
 
+How to read each metric:
+
+| Metric                           | What it tells you                                                                                                                                                                                                                                                             |
+|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `artie.rows_processed`           | Rows Artie wrote to the destination, by pipeline, table, and operation. A sustained drop to zero on a busy table usually means the source stopped producing changes or the pipeline is stalled. Backfill rows are tagged `operation:backfill`.                                      |
+| `artie.ingestion_lag_ms`         | Median time between a change being captured from the source and Artie processing it. This is the main freshness signal. It rises when the destination cannot absorb flushes fast enough, or during a backfill of a large table.                                                     |
+| `artie.row_lag`                  | Number of captured rows waiting to be processed. Read it together with `artie.ingestion_lag_ms`: high row lag with low time lag means a burst is being worked through, while both rising together means the pipeline is falling behind.                                         |
+| `artie.flush_count`              | Number of flushes from Artie's in-memory buffer to the destination, by reason. Many `time` flushes with few rows each means batches are too small for a warehouse destination. Many `rows` or `size` flushes means the pipeline is keeping up with high volume.                       |
+| `artie.flush_time_ms`            | Median time a flush takes to complete. Flush time is dominated by the destination's merge step, so a rising value usually points at the destination (warehouse queueing, undersized compute, or a large table being merged) rather than at Artie.                                   |
+| `artie.replication_slot_size_mb` | Size of the PostgreSQL replication slot Artie is consuming. PostgreSQL retains WAL until Artie confirms it, so this should hover near zero in steady state. Sustained growth means the pipeline is paused or behind, and left unchecked it can fill the source database's disk. |
+
 All metrics carry the following tags so you can filter and group by pipeline, connector, and table:
 
 | Tag           | Description                                                                                                  |
@@ -89,6 +108,49 @@ The Artie integration does not include any events.
 
 The Artie integration does not include any service checks.
 
+## Dashboard
+
+The **Artie Overview** dashboard is installed with the integration and is organized into four groups:
+
+- **Overview**: total rows processed and current ingestion lag across all pipelines.
+- **Data Volume**: rows processed over time, and the split by operation, pipeline, and table.
+- **Performance**: ingestion lag in time and in rows, flush count by reason, and flush time.
+- **Database Health**: PostgreSQL replication slot size per pipeline and slot.
+
+Use the `deployment`, `table`, and `operation` template variables at the top of the dashboard to focus on one pipeline or table. Integration dashboards are read-only, so clone it first if you want to customize it.
+
+## Monitoring
+
+Artie metrics work with standard [Datadog metric monitors][16]. The following examples are starting points. Adjust the thresholds to your pipelines' normal behavior, which you can read off the dashboard after a few days of data.
+
+Alert when any table on any pipeline falls more than five minutes behind:
+
+```text
+avg(last_15m):avg:artie.ingestion_lag_ms{*} by {pipeline,table} > 300000
+```
+
+Alert when a pipeline that is normally busy processes no rows for an hour:
+
+```text
+sum(last_1h):sum:artie.rows_processed{pipeline:prod-postgres-to-snowflake}.as_count() < 1
+```
+
+Alert when a PostgreSQL replication slot grows past 10 GB:
+
+```text
+max(last_10m):max:artie.replication_slot_size_mb{*} by {pipeline,slotname} > 10240
+```
+
+Artie also provides built-in [custom monitors][17] for data volume, ingestion lag, and replication slot size, with notifications to the recipients you choose. Use those if you prefer to alert from Artie, and use Datadog monitors when you want Artie alerts to follow the same routing and escalation as the rest of your infrastructure.
+
+## Limits
+
+- The integration sends metrics only. It does not send logs, traces, or events.
+- Metrics are submitted as custom metrics, and every distinct combination of tag values is a separate time series. Pipelines with many tables produce correspondingly more series. See [Datadog custom metrics billing][18] to understand how this affects your plan.
+- Each Artie company can be connected to one Datadog organization at a time.
+- Metrics are aggregated by Artie before submission. `artie.ingestion_lag_ms` and `artie.flush_time_ms` are medians, so individual slow rows or flushes are not visible as outliers.
+- If you also use Grafana, Artie can send the same metrics to Grafana Cloud or a Prometheus remote-write endpoint. See [Artie monitoring integrations][19].
+
 ## Troubleshooting
 
 **No metrics are showing up in Datadog**
@@ -115,7 +177,7 @@ Rising `artie.ingestion_lag_ms` or `artie.row_lag` usually means the destination
 
 **The PostgreSQL replication slot keeps growing**
 
-A continuously growing `artie.replication_slot_size_mb` means PostgreSQL is retaining WAL that Artie has not consumed yet, which can eventually exhaust disk space on the source. See [PostgreSQL troubleshooting][12] for diagnosis steps. Consider adding a Datadog monitor on this metric with a threshold appropriate for your database's free disk space.
+A continuously growing `artie.replication_slot_size_mb` means PostgreSQL is retaining WAL that Artie has not consumed yet, which can eventually exhaust disk space on the source. See [PostgreSQL troubleshooting][12] for diagnosis steps and [Preventing WAL growth][20] for how to set up protection on the database side. Consider adding a Datadog monitor on this metric with a threshold appropriate for your database's free disk space.
 
 For additional help, see the [Artie documentation][13] or contact [Artie support][14].
 
@@ -138,3 +200,8 @@ Need help? Contact [Artie support][14].
 [13]: https://www.artie.com/docs
 [14]: mailto:hi@artie.com
 [15]: https://docs.datadoghq.com/account_management/rbac/permissions/
+[16]: https://docs.datadoghq.com/monitors/types/metric/
+[17]: https://www.artie.com/docs/monitoring/custom-monitors
+[18]: https://docs.datadoghq.com/account_management/billing/custom_metrics/
+[19]: https://www.artie.com/docs/monitoring/integrations
+[20]: https://www.artie.com/docs/guides/database/preventing-postgres-wal-growth-on-rds
