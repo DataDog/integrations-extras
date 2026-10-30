@@ -1,13 +1,9 @@
 import os
 from collections import namedtuple
-from typing import Any, Callable, Dict  # noqa: F401
 
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
-from datadog_checks.base.utils.subprocess_output import SubprocessOutputEmptyError
 from datadog_checks.dev import get_here
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.exim import EximCheck
@@ -16,12 +12,14 @@ SUBPROCESS_OUTPUT = 'datadog_checks.exim.check.get_subprocess_output'
 
 
 def expected_script(exim, exiqsumm):
-    # `exim -bp` runs once; its output is summarized as is and with `exiqsumm -f`.
+    # `exim -bp` runs once; its output is summarized as is, with `exiqsumm -f` and with `exiqsumm -b`.
     return (
         f'out=$({exim} -bp) || exit $?; '
         f'printf \'%s\\n\' "$out" | {exiqsumm} && '
         'echo @@exiqsumm-f@@ && '
-        f'printf \'%s\\n\' "$out" | {exiqsumm} -f'
+        f'printf \'%s\\n\' "$out" | {exiqsumm} -f && '
+        'echo @@exiqsumm-b@@ && '
+        f'printf \'%s\\n\' "$out" | {exiqsumm} -b'
     )
 
 
@@ -42,7 +40,6 @@ def exiqsumm_empty_mock():
 
 @pytest.mark.unit
 def test_check(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     tags = []
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(exiqsumm_mock(), '', 0)):
@@ -60,6 +57,8 @@ def test_check(dd_run_check, aggregator, instance):
         aggregator.assert_metric('exim.queue.oldest_age', value=11 * 3600, tags=tags + ['domain:user@server2.in'])
         aggregator.assert_metric('exim.queue.oldest_age', value=14 * 3600, tags=tags + ['domain:TOTAL'])
 
+        aggregator.assert_metric('exim.queue.domains', value=2, tags=tags)
+
         aggregator.assert_all_metrics_covered()
         aggregator.assert_metrics_using_metadata(get_metadata_metrics())
         aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
@@ -67,7 +66,6 @@ def test_check(dd_run_check, aggregator, instance):
 
 @pytest.mark.unit
 def test_check_empty_queue(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(exiqsumm_empty_mock(), '', 0)):
         dd_run_check(check)
@@ -75,33 +73,35 @@ def test_check_empty_queue(dd_run_check, aggregator, instance):
         aggregator.assert_metric('exim.queue.count', value=0, tags=['domain:TOTAL'])
         aggregator.assert_metric('exim.queue.volume', value=0, tags=['domain:TOTAL'])
         aggregator.assert_metric('exim.queue.oldest_age', value=0, tags=['domain:TOTAL'])
+        aggregator.assert_metric('exim.queue.domains', value=0, tags=[])
         aggregator.assert_all_metrics_covered()
         aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
 
 
 @pytest.mark.unit
 def test_check_runs_pipeline_through_shell(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(exiqsumm_mock(), '', 0)) as subprocess_output:
         dd_run_check(check)
 
-    subprocess_output.assert_called_once_with(['/bin/sh', '-c', DEFAULT_SCRIPT], check.log, raise_on_empty_output=True)
+    subprocess_output.assert_called_once_with(['/bin/sh', '-c', DEFAULT_SCRIPT], check.log, raise_on_empty_output=False)
 
 
 @pytest.mark.unit
 def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=('', '/bin/sh: 1: /usr/sbin/exim: not found', 127)):
         dd_run_check(check)
-    aggregator.assert_service_check('exim.returns.output', EximCheck.CRITICAL, message='status 127: .*not found')
+    aggregator.assert_service_check(
+        'exim.returns.output',
+        EximCheck.CRITICAL,
+        message='^`/usr/sbin/exim -bp \\| /usr/sbin/exiqsumm` exited with status 127: .*not found',
+    )
     aggregator.assert_all_metrics_covered()
 
 
 @pytest.mark.unit
 def test_emits_critical_service_check_on_nonzero_exit(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with mock.patch(SUBPROCESS_OUTPUT, return_value=('', 'exim: permission denied\n', 1)):
         dd_run_check(check)
@@ -112,14 +112,34 @@ def test_emits_critical_service_check_on_nonzero_exit(dd_run_check, aggregator, 
 
 
 @pytest.mark.unit
-def test_emits_critical_service_check_on_empty_output(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+@pytest.mark.parametrize(
+    'err, expected_message',
+    [
+        pytest.param('', 'produced no output$', id='no_stderr'),
+        pytest.param('exiqsumm: not found\n', 'produced no output: exiqsumm: not found$', id='with_stderr'),
+    ],
+)
+def test_emits_critical_service_check_on_empty_output(dd_run_check, aggregator, instance, err, expected_message):
     check = EximCheck('exim', {}, [instance])
-    error = SubprocessOutputEmptyError('expected subprocess output but had none.')
-    with mock.patch(SUBPROCESS_OUTPUT, side_effect=error):
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=('', err, 0)):
         dd_run_check(check)
-    aggregator.assert_service_check('exim.returns.output', EximCheck.CRITICAL, message='expected subprocess output')
+    aggregator.assert_service_check('exim.returns.output', EximCheck.CRITICAL, message=expected_message)
     aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.unit
+def test_emits_critical_service_check_when_sudo_is_not_configured(dd_run_check, aggregator):
+    # On the Agent a failing `sudo -n` yields empty stdout, status 1 and the reason on stderr.
+    check = EximCheck('exim', {}, [{'use_sudo': True}])
+    with mock.patch(SUBPROCESS_OUTPUT, return_value=('', 'sudo: a password is required\n', 1)):
+        dd_run_check(check)
+    aggregator.assert_service_check(
+        'exim.returns.output',
+        EximCheck.CRITICAL,
+        message=(
+            '^`sudo -n /usr/sbin/exim -bp \\| /usr/sbin/exiqsumm` exited with status 1: sudo: a password is required$'
+        ),
+    )
 
 
 @pytest.mark.unit

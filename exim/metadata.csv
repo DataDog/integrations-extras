@@ -1,5 +1,7 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
-exim.queue.count,gauge,,unit,,The number of messages in a given mail queue,0,exim,queue_size,
+exim.queue.count,gauge,,unit,,"Number of queued recipients in a given mail queue, as counted by exiqsumm: a message to two domains counts once per domain",0,exim,queue_count,
+exim.queue.domains,gauge,,unit,,Number of recipient domains with queued messages,0,exim,domains,
+exim.queue.bounce.count,gauge,,unit,,"Number of recipients of bounce messages (empty sender) in a given mail queue, counted per recipient domain like exim.queue.count",-1,exim,bounces,
 exim.queue.frozen.count,gauge,,unit,,"Number of recipients of frozen messages in a given mail queue, counted per recipient domain like exim.queue.count",-1,exim,frozen,
-exim.queue.volume,gauge,,byte,,The volume of messages in a given mail queue,0,exim,queue_size,
+exim.queue.volume,gauge,,byte,,"Volume of the queued messages for a given mail queue in bytes, converted from the KB and MB values that exiqsumm rounds to",0,exim,queue_volume,
 exim.queue.oldest_age,gauge,,second,,"Approximate age of the oldest message in a given mail queue, with a resolution of minutes, hours or days",-1,exim,oldest_age,
