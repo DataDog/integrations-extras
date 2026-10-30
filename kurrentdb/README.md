@@ -75,7 +75,8 @@ The `eventstore` integration collected metrics from KurrentDB's JSON HTTP API. T
 * The `eventstore.es.queue.avg_items_per_second`, `eventstore.es.queue.avg_processing_time`, `eventstore.es.queue.length`, and `eventstore.subscription.average_items_per_second` histograms are now gauges, because a single value is reported per check run.
 * `eventstore.running_projections.*` was listed in the old metadata but never collected, so it is not included.
 * The TCP metrics (`kurrentdb.tcp.*`) remain for compatibility, but KurrentDB removed the external TCP API in 24.2.0, so they report zero.
-* KurrentDB 26.0 removed the queue busyness metric. Use `kurrentdb.es.queue.length` and `kurrentdb.queue_queueing_duration_max_seconds` instead.
+* KurrentDB 26.0 removed the queue busyness metric, so `kurrentdb.queue_busy_seconds.count` is only reported by KurrentDB 25.x. On 26.0 and later, use `kurrentdb.es.queue.length` and `kurrentdb.queue_queueing_duration_max_seconds` instead.
+* KurrentDB 26.1 changed the unit of the producer duration histogram, so KurrentDB 25.x and 26.0 report `kurrentdb.messaging_kurrent_producer_produce_duration_milliseconds.*` and 26.1 and later report `kurrentdb.messaging_kurrent_producer_produce_duration_seconds.*`.
 * This check expects the `kurrentdb_` Prometheus metric prefix. If you set the meters in `metricsconfig.json` back to `EventStore.Core` and `EventStore.Projections.Core` to keep the old metric names, the Prometheus metrics are not collected. The JSON API metrics are unaffected.
 
 ## Compatibility
@@ -111,7 +112,8 @@ The KurrentDB check does not include any events.
 See [service_checks.json][11] for a list of service checks provided by this integration:
 
 * `kurrentdb.openmetrics.health` reports whether the Prometheus endpoint can be scraped.
-* `kurrentdb.api.can_connect` reports, per endpoint, whether a JSON API endpoint can be collected.
+
+If a JSON API endpoint listed in `endpoints` can't be collected, the check reports a warning on the Agent status page and keeps collecting the other endpoints and the Prometheus metrics.
 
 ## Troubleshooting
 

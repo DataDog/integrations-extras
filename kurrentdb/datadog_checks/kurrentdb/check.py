@@ -5,7 +5,7 @@ import re
 
 from requests.exceptions import HTTPError, RequestException
 
-from datadog_checks.base import OpenMetricsBaseCheckV2
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 
 from .api_metrics import API_ENDPOINTS, BOOL, DEFAULT_ENDPOINTS, DURATION, NUMBER
 from .config_models import ConfigMixin
@@ -52,12 +52,26 @@ class KurrentdbCheck(OpenMetricsBaseCheckV2, ConfigMixin):
 
     DEFAULT_METRIC_LIMIT = 0
 
+    def __init__(self, name, init_config, instances):
+        super().__init__(name, init_config, instances)
+        self.check_initializations.append(self.validate_endpoints)
+
     def get_default_config(self):
         return {'metrics': [METRIC_MAP], 'exclude_labels': ['otel_scope_name', 'otel_scope_version']}
 
-    def check(self, _):
-        super().check(_)
-        self.collect_api_metrics()
+    def validate_endpoints(self):
+        unknown = set(self.config.endpoints or ()) - API_ENDPOINTS.keys()
+        if unknown:
+            raise ConfigurationError(
+                f'Unknown KurrentDB API endpoints {sorted(unknown)}, expected one of: {list(API_ENDPOINTS)}'
+            )
+
+    def check(self, instance):
+        # The JSON API is independent of `/metrics`, so collect it even when the scrape fails
+        try:
+            super().check(instance)
+        finally:
+            self.collect_api_metrics()
 
     def api_base_url(self):
         if self.config.url:
@@ -68,45 +82,38 @@ class KurrentdbCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     def collect_api_metrics(self):
         base_url = self.api_base_url()
         endpoints = self.config.endpoints if self.config.endpoints is not None else DEFAULT_ENDPOINTS
+        not_found = []
 
         for endpoint in endpoints:
-            groups = API_ENDPOINTS.get(endpoint)
-            if groups is None:
-                self.warning('Unknown KurrentDB API endpoint `%s`, expected one of: %s', endpoint, list(API_ENDPOINTS))
-                continue
-
             url = base_url + endpoint
             tags = list(self.config.tags or ())
             if self.config.tag_by_endpoint:
                 tags.append(f'endpoint:{url}')
 
-            payload = self.fetch_json(url, tags)
-            if payload is None:
+            try:
+                response = self.http.get(url)
+                response.raise_for_status()
+                payload = response.json()
+            except HTTPError as e:
+                if e.response is not None and e.response.status_code == 404:
+                    self.log.debug('KurrentDB API endpoint %s is not available on this node, skipping', url)
+                    not_found.append(url)
+                else:
+                    self.warning('Unable to collect from KurrentDB API endpoint %s: %s', url, e)
+                continue
+            except (RequestException, ValueError) as e:
+                self.warning('Unable to collect from KurrentDB API endpoint %s: %s', url, e)
                 continue
 
-            for group in groups:
+            for group in API_ENDPOINTS[endpoint]:
                 self.submit_group(payload, group, tags)
 
-    def fetch_json(self, url, tags):
-        try:
-            response = self.http.get(url)
-            response.raise_for_status()
-            payload = response.json()
-        except HTTPError as e:
-            if e.response is not None and e.response.status_code == 404:
-                self.log.debug('KurrentDB API endpoint %s is not available on this node, skipping', url)
-                return None
-            return self.fail(url, tags, e)
-        except (RequestException, ValueError) as e:
-            return self.fail(url, tags, e)
-
-        self.service_check('api.can_connect', self.OK, tags=tags)
-        return payload
-
-    def fail(self, url, tags, error):
-        message = f'Unable to collect from KurrentDB API endpoint {url}: {error}'
-        self.warning(message)
-        self.service_check('api.can_connect', self.CRITICAL, tags=tags, message=message)
+        # A single 404 is expected (for example projections disabled), but all of them point to a wrong `url`
+        if not_found and len(not_found) == len(endpoints):
+            self.warning(
+                'Every KurrentDB API endpoint returned 404, check that `url` points to the KurrentDB HTTP API: %s',
+                not_found,
+            )
 
     def submit_group(self, payload, group, tags):
         target = lookup(payload, group['path'])

@@ -30,7 +30,8 @@ METRIC_MAP = {
     'kurrentdb_persistent_sub_checkpointed_event_commit_position': 'persistent_sub_checkpointed_event_commit_position',
     'kurrentdb_persistent_sub_parked_message_replays': 'persistent_sub_parked_message_replays',
     'kurrentdb_persistent_sub_park_message_requests': 'persistent_sub_park_message_requests',
-    'kurrentdb_proc_up_time_seconds': 'proc_up_time_seconds',
+    # A counter in Prometheus, but submitted as a gauge so it reports time since start rather than a per-run delta
+    'kurrentdb_proc_up_time_seconds': {'name': 'proc_up_time_seconds', 'type': 'gauge'},
     'kurrentdb_proc_cpu': 'proc_cpu',
     'kurrentdb_proc_thread_count': 'proc_thread_count',
     'kurrentdb_proc_thread_pool_pending_work_item_count': 'proc_thread_pool_pending_work_item_count',
@@ -55,6 +56,8 @@ METRIC_MAP = {
     'kurrentdb_projection_state_serialization_duration_max_seconds': 'projection_state_serialization_duration_max_seconds',  # noqa: E501
     'kurrentdb_projection_execution_duration_max_seconds': 'projection_execution_duration_max_seconds',
     'kurrentdb_projection_execution_duration_seconds': 'projection_execution_duration_seconds',
+    # Only exposed by KurrentDB 25.x
+    'kurrentdb_queue_busy_seconds': 'queue_busy_seconds',
     'kurrentdb_queue_queueing_duration_max_seconds': 'queue_queueing_duration_max_seconds',
     'kurrentdb_queue_processing_duration_seconds': 'queue_processing_duration_seconds',
     'kurrentdb_statuses': 'statuses',
@@ -80,6 +83,8 @@ METRIC_MAP = {
     'kestrel_queued_connections': 'kestrel_queued_connections',
     'messaging_kurrent_consumer_message_count': 'messaging_kurrent_consumer_message_count',
     'messaging_kurrent_producer_message_count': 'messaging_kurrent_producer_message_count',
+    # KurrentDB 26.1 changed the unit from milliseconds to seconds
+    'messaging_kurrent_producer_produce_duration_milliseconds': 'messaging_kurrent_producer_produce_duration_milliseconds',  # noqa: E501
     'messaging_kurrent_producer_produce_duration_seconds': 'messaging_kurrent_producer_produce_duration_seconds',
     'messaging_kurrent_producer_queue_length': 'messaging_kurrent_producer_queue_length',
 }

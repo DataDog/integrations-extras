@@ -1,5 +1,6 @@
 import pytest
 
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.kurrentdb import KurrentdbCheck
 
 
@@ -8,7 +9,6 @@ def test_e2e(dd_agent_check, instance):
     aggregator = dd_agent_check(instance, rate=True)
 
     aggregator.assert_service_check('kurrentdb.openmetrics.health', KurrentdbCheck.OK)
-    aggregator.assert_service_check('kurrentdb.api.can_connect', KurrentdbCheck.OK, at_least=1)
 
     for metric in (
         'kurrentdb.proc_thread_count',
@@ -20,3 +20,4 @@ def test_e2e(dd_agent_check, instance):
         'kurrentdb.es.queue.length',
     ):
         aggregator.assert_metric(metric, at_least=1)
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
