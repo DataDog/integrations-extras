@@ -1,6 +1,6 @@
 {
   "title": "Cyberhaven Incidents",
-  "description": "DLP / insider-risk incidents raised by Cyberhaven policies. Source: Cyberhaven Incident streaming destination.",
+  "description": "This dashboard provides an overview of DLP and insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, resolution and underlying event detail.",
   "widgets": [
     {
       "id": 7452347757784821,
@@ -34,7 +34,7 @@
             "id": 3521520505546808,
             "definition": {
               "type": "note",
-              "content": "## Cyberhaven DLP / Insider-Risk Incidents\n*Triage and resolution at a glance*\n\nThis dashboard provides complete visibility into DLP / insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, resolution and underlying event detail.\n\nData source: Cyberhaven Incident streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`).",
+              "content": "## Cyberhaven DLP / Insider-Risk Incidents\n*Triage and resolution at a glance*\n\nThis dashboard provides an overview of DLP and insider-risk incidents raised by Cyberhaven policies: severity, sensitivity, blocked vs allowed actions, resolution and underlying event detail.\n\nData source: Cyberhaven Incident streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`).",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -73,7 +73,7 @@
             "id": 3521520505546809,
             "definition": {
               "type": "note",
-              "content": "**Tips**\n- Use the filters at the top (Policy-Severity, Status, Dataset-Sensitivity, Affected-User, Policy-Name, Dataset-Name, Host, Action-Kind, Blocked-Allowed, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+              "content": "**Tips**\n- Use the filters at the top to narrow down the data shown.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -497,7 +497,7 @@
                       "group_by": [
                         {
                           "facet": "@policy.severity",
-                          "limit": 6,
+                          "limit": 8,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -695,7 +695,7 @@
             "id": 7715632155912797,
             "definition": {
               "type": "note",
-              "content": "Raw list of recent incidents. Use the filters above to narrow down and drill into individual records.",
+              "content": "Raw list of recent incidents. Click a record to drill into its details.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
@@ -1174,7 +1174,7 @@
                       "group_by": [
                         {
                           "facet": "@policy.severity",
-                          "limit": 6,
+                          "limit": 8,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -1757,7 +1757,7 @@
                       "group_by": [
                         {
                           "facet": "@evt.name",
-                          "limit": 10,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -1814,7 +1814,7 @@
                       "group_by": [
                         {
                           "facet": "@cyberhaven.destination.location_category",
-                          "limit": 4,
+                          "limit": 15,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -1927,7 +1927,7 @@
                       "group_by": [
                         {
                           "facet": "@cyberhaven.action.normalized",
-                          "limit": 10,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -2323,7 +2323,7 @@
                       "group_by": [
                         {
                           "facet": "@close_reason",
-                          "limit": 6,
+                          "limit": 10,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"

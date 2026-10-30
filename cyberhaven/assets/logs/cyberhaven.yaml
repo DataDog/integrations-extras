@@ -661,7 +661,7 @@ pipeline:
           enabled: true
           template: "%{cyberhaven.incident.summary}; %{evt.outcome}; status:
             %{cyberhaven.incident.status}; risk: %{risk_score}; by:
-            %{created_by}; at: %{trigger_time} [%{id}]"
+            %{created_by}; at: %{trigger_time}"
           target: cyberhaven.message
           replaceMissing: true
         - type: message-remapper

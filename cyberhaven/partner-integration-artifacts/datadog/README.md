@@ -69,7 +69,7 @@ python3 incident-automation/setup_datadog_incident_type.py
 
 The script:
 
-1. Creates the **Cyberhaven Incident** incident type (prefix `CH`), or reuses it if it exists.
+1. Creates the **Cyberhaven Incident** incident type, or reuses it if it exists.
 2. Creates the 30 Cyberhaven property fields on it, skipping any that already exist.
 3. Reads the fields back and confirms all 30 are present.
 4. Prints the incident type UUID.

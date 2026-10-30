@@ -1,6 +1,6 @@
 {
   "title": "Cyberhaven Troubleshooting",
-  "description": "Operational health of the Cyberhaven to Datadog integration: ingest status per source, delivery checks, processing health and a step-by-step troubleshooting guide.",
+  "description": "This dashboard tells you whether Cyberhaven Audit, Incident and Event logs reach Datadog and are processed correctly, then shows the fix.",
   "widgets": [
     {
       "id": 873210275287372,
@@ -34,7 +34,7 @@
             "id": 2829171824436526,
             "definition": {
               "type": "note",
-              "content": "## Cyberhaven → Datadog Troubleshooting\n*Is data flowing? Is it processed correctly? What do I do if not?*\n\nThis dashboard tells you whether Cyberhaven **Audit, Incident and Event** logs reach Datadog and are processed correctly, then shows the fix.",
+              "content": "## Cyberhaven → Datadog Troubleshooting\n*Is data flowing? Is it processed correctly? What do I do if not?*\n\nThis dashboard tells you whether Cyberhaven Audit, Incident and Event logs reach Datadog and are processed correctly, then shows the fix.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -73,7 +73,7 @@
             "id": 2829171824436527,
             "definition": {
               "type": "note",
-              "content": "**Read top to bottom**\n1. **Ingest Status**: green = receiving, grey = no recent data\n2. **Alerting**: monitors that alert when a source sends no logs for 24 hours\n3. **Delivery Checks**: all should be **0**\n4. **Processing Health**: all should be **about 100%**\n5. **Configuration Completeness**: every setting should show as complete\n6. **Troubleshooting Guide** (bottom): pick the Fix that matches\n\n**Tips**\n- Use the Cyberhaven-Tenant filter at the top to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe. The status tiles keep their own 24-hour window.",
+              "content": "**Read top to bottom**\n1. **Ingest Status**: green = receiving, grey = no recent data\n2. **Alerting**: monitors that alert when a source sends no logs for 24 hours\n3. **Delivery Checks**: all should be **0**\n4. **Processing Health**: all should be **about 100%**\n5. **Troubleshooting Guide** (bottom): pick the Fix that matches\n\n**Tips**\n- Use the Cyberhaven-Tenant filter at the top to focus on a single tenant.\n- Use the timeframe selector in the upper-right corner to change the default timeframe. The status tiles keep their own 24-hour window.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -641,7 +641,7 @@
             "id": 3272234412365572,
             "definition": {
               "type": "note",
-              "content": "One monitor per source alerts when no logs are received for 24 hours. If one is Alert → start with Ingest Status above, then follow the matching fix in the Troubleshooting Guide below.",
+              "content": "One monitor per source alerts when no logs are received for 24 hours. If one is Alert → start with Ingest Status above, then follow the matching fix in the Troubleshooting Guide below. These monitors exist only after you create them from the Cyberhaven monitor templates (see Step 4 of the setup guide).",
               "background_color": "orange",
               "font_size": "14",
               "text_align": "center",
@@ -655,7 +655,7 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 2
+              "height": 3
             }
           },
           {
@@ -679,7 +679,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 2,
+              "y": 3,
               "width": 12,
               "height": 3
             }
@@ -690,7 +690,7 @@
         "x": 0,
         "y": 25,
         "width": 12,
-        "height": 6
+        "height": 7
       }
     },
     {
@@ -923,7 +923,7 @@
                       "data_source": "logs",
                       "name": "query1",
                       "search": {
-                        "query": "((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)) OR source:cyberhaven"
+                        "query": "((@action_type:* @actor_type:*) OR @action.sensor_kind:* OR (@policy.severity:* @dataset.name:*)) OR source:cyberhaven OR cyberhaven.logtype:*"
                       },
                       "indexes": [
                         "*"
@@ -1120,7 +1120,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 31,
+        "y": 32,
         "width": 12,
         "height": 21
       }
@@ -1719,6 +1719,10 @@
                       "width": "auto"
                     },
                     {
+                      "field": "cyberhaven.logtype",
+                      "width": "auto"
+                    },
+                    {
                       "field": "source",
                       "width": "auto"
                     },
@@ -1736,7 +1740,7 @@
                     "indexes": [
                       "*"
                     ],
-                    "query_string": "source:cyberhaven (-@evt.outcome:* OR (@action_type:* -@evt.name:*) OR (@action.kind:* -@evt.name:*) OR (@policy.severity:* -@cyberhaven.incident.status:*)) $Cyberhaven-Tenant",
+                    "query_string": "source:cyberhaven ((cyberhaven.logtype:cyberhaven-audit -(@id:* @action_type:* @actor_type:* @evt.name:* @evt.outcome:*)) OR (cyberhaven.logtype:cyberhaven-incidents -(@id:* @policy.name:* @policy.severity:* @cyberhaven.incident.status:* @evt.outcome:*)) OR (cyberhaven.logtype:cyberhaven-events -(@id:* @action.kind:* @evt.name:* @evt.outcome:*))) $Cyberhaven-Tenant",
                     "storage": "hot"
                   },
                   "response_format": "event_list"
@@ -1755,206 +1759,15 @@
       },
       "layout": {
         "x": 0,
-        "y": 52,
+        "y": 53,
         "width": 12,
         "height": 15
       }
     },
     {
-      "id": 997774686593271,
-      "definition": {
-        "title": "5. Configuration Completeness — Is Everything Switched On?",
-        "background_color": "vivid_blue",
-        "show_title": true,
-        "type": "group",
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 7191600909512812,
-            "definition": {
-              "type": "note",
-              "content": "Signs that a Cyberhaven option is missing. Low event-details % or closed incidents stuck at 0 → Fix 6.",
-              "background_color": "blue",
-              "font_size": "14",
-              "text_align": "center",
-              "vertical_align": "center",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 1
-            }
-          },
-          {
-            "id": 2021735305270729,
-            "definition": {
-              "title": "Incidents Carrying Event Details %",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "100 * query2 / query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "query1",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      }
-                    },
-                    {
-                      "data_source": "logs",
-                      "name": "query2",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-incidents $Cyberhaven-Tenant @event_details.end_event.action.kind:*"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 95,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#2E7D32"
-                    },
-                    {
-                      "comparator": ">",
-                      "value": 0,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#F9A825"
-                    },
-                    {
-                      "comparator": "<=",
-                      "value": 0,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#D32F2F"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "custom_unit": "%",
-              "precision": 1
-            },
-            "layout": {
-              "x": 0,
-              "y": 1,
-              "width": 6,
-              "height": 3
-            }
-          },
-          {
-            "id": 5431597651292879,
-            "definition": {
-              "title": "Events with a Classified Destination %",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "100 * query2 / query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "logs",
-                      "name": "query1",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      }
-                    },
-                    {
-                      "data_source": "logs",
-                      "name": "query2",
-                      "search": {
-                        "query": "source:cyberhaven cyberhaven.logtype:cyberhaven-events $Cyberhaven-Tenant @cyberhaven.destination.location_category:*"
-                      },
-                      "indexes": [
-                        "*"
-                      ],
-                      "compute": {
-                        "aggregation": "count"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "conditional_formats": [
-                    {
-                      "comparator": ">=",
-                      "value": 95,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#2E7D32"
-                    },
-                    {
-                      "comparator": ">=",
-                      "value": 70,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#F9A825"
-                    },
-                    {
-                      "comparator": "<",
-                      "value": 70,
-                      "palette": "custom_bg",
-                      "custom_bg_color": "#D32F2F"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "custom_unit": "%",
-              "precision": 1
-            },
-            "layout": {
-              "x": 6,
-              "y": 1,
-              "width": 6,
-              "height": 3
-            }
-          }
-        ]
-      },
-      "layout": {
-        "x": 0,
-        "y": 67,
-        "width": 12,
-        "height": 5
-      }
-    },
-    {
       "id": 936972836411425,
       "definition": {
-        "title": "6. Troubleshooting Guide — What You See → What to Do",
+        "title": "5. Troubleshooting Guide — What You See → What to Do",
         "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
@@ -1985,7 +1798,7 @@
             "id": 2025876627039669,
             "definition": {
               "type": "note",
-              "content": "### Start here\nMatch what you see above, then open the fix:\n- **One Ingest tile grey, the others green** → **Fix 1**\n- **All Ingest tiles grey** → **Fix 2**\n- **Ingest green, but a red tile or a low % in Delivery / Processing** → **Fix 3**\n- **“Not split” tile above 0** → **Fix 4**\n- **Logs are in Log Explorer but the Cyberhaven dashboards are empty** → **Fix 5**\n- **Incident hosts / files missing, or incidents never close** → **Fix 6**\n- **Nothing here helps** → **Fix 7**\n\n*Grey = “No recent data” is informational. Quiet periods are normal.*\n\n**Shortcuts:** [Log Explorer](/logs?query=source%3Acyberhaven) · [Live Tail](/logs/livetail) · [Pipelines](/logs/pipelines) · [Indexes](/logs/pipelines/indexes) · [API Keys](/organization-settings/api-keys)",
+              "content": "### Start here\nMatch what you see above, then open the fix:\n- **One Ingest tile grey, the others green** → **Fix 1**\n- **All Ingest tiles grey** → **Fix 2**\n- **Ingest green, but a red tile or a low % in Delivery / Processing** → **Fix 3**\n- **“Not split” tile above 0** → **Fix 4**\n- **Logs are in Log Explorer but the Cyberhaven dashboards are empty** → **Fix 5**\n- **Nothing here helps** → **Fix 6**\n\n*Grey = “No recent data” is informational. Quiet periods are normal.*\n\n**Shortcuts:** [Log Explorer](/logs?query=source%3Acyberhaven) · [Live Tail](/logs/livetail) · [Pipelines](/logs/pipelines) · [Indexes](/logs/pipelines/indexes) · [API Keys](/organization-settings/api-keys)",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -2048,7 +1861,7 @@
             "id": 1672140445535649,
             "definition": {
               "type": "note",
-              "content": "### Fix 2 — All sources are grey\n**You see:** all three Ingest tiles grey.\n\n**Do this, in order:**\n1. Datadog [API Keys](/organization-settings/api-keys): the key exists, is not revoked and shows a recent *Last used*. Not sure? Create a new key and paste it into the `DD-API-KEY` header of every Destination.\n2. The URI host must match your Datadog site: `datadoghq.com`, `us3.datadoghq.com`, `us5.datadoghq.com`, `datadoghq.eu`, `ap1.datadoghq.com`, `ap2.datadoghq.com` or `ddog-gov.com`.\n3. Datadog [Indexes](/logs/pipelines/indexes): no exclusion filter on `source:cyberhaven` and the daily quota not reached.\n4. Open [Live Tail](/logs/livetail) with `source:cyberhaven`, then trigger activity. Still nothing → Fix 7.\n\n**Check it worked:** Live Tail shows records.",
+              "content": "### Fix 2 — All sources are grey\n**You see:** all three Ingest tiles grey.\n\n**Do this, in order:**\n1. Datadog [API Keys](/organization-settings/api-keys): the key exists, is not revoked and shows a recent *Last used*. Not sure? Create a new key and paste it into the `DD-API-KEY` header of every Destination.\n2. The URI host must match your Datadog site: `datadoghq.com`, `us3.datadoghq.com`, `us5.datadoghq.com`, `datadoghq.eu`, `ap1.datadoghq.com`, `ap2.datadoghq.com` or `ddog-gov.com`.\n3. Datadog [Indexes](/logs/pipelines/indexes): no exclusion filter on `source:cyberhaven` and the daily quota not reached.\n4. Open [Live Tail](/logs/livetail) with `source:cyberhaven`, then trigger activity. Still nothing → Fix 6.\n\n**Check it worked:** Live Tail shows records.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -2069,7 +1882,7 @@
             "id": 5341092719405125,
             "definition": {
               "type": "note",
-              "content": "### Fix 3 — Logs arrive but are not processed\n**You see:** Ingest is green, but a Delivery tile is red or a Processing % is low.\n\n**Do this, in order:**\n1. **Delivery group red?** The URI tags are wrong. Fix `ddsource=cyberhaven` and the `cyberhaven.logtype` tag in the Destination URI → **Save & Test**.\n2. Datadog → Integrations: **Cyberhaven** is installed. Datadog [Pipelines](/logs/pipelines): the **Cyberhaven** pipeline is enabled, filter `source:cyberhaven`, and no pipeline above it changes these logs.\n3. Open *Fully Processed % Over Time*. Note the day it dropped and ask what changed that day (a pipeline edit, or a Cyberhaven update). Nothing changed on your side → Fix 7.\n\n*Only new logs are fixed. Logs already received stay as they were.*\n\n**Check it worked:** Processing tiles go back to about 100%.",
+              "content": "### Fix 3 — Logs arrive but are not processed\n**You see:** Ingest is green, but a Delivery tile is red or a Processing % is low.\n\n**Do this, in order:**\n1. **Delivery group red?** The URI tags are wrong. Fix `ddsource=cyberhaven`, the `cyberhaven.logtype` tag and the `cyberhaven.domain` tag (your Cyberhaven instance URL) in the Destination URI → **Save & Test**.\n2. Datadog → Integrations: **Cyberhaven** is installed. Datadog [Pipelines](/logs/pipelines): the **Cyberhaven** pipeline is enabled, filter `source:cyberhaven`, and no pipeline above it changes these logs.\n3. Open *Fully Processed % Over Time*. Note the day it dropped and ask what changed that day (a pipeline edit, or a Cyberhaven update). Nothing changed on your side → Fix 6.\n\n*Only new logs are fixed. Logs already received stay as they were.*\n\n**Check it worked:** Processing tiles go back to about 100%.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -2111,7 +1924,7 @@
             "id": 5065757321551745,
             "definition": {
               "type": "note",
-              "content": "### Fix 5 — Logs exist but the dashboards are empty\n**You see:** records in Log Explorer, nothing on the Cyberhaven dashboards.\n\n**Do this, in order:**\n1. Set every dashboard filter to `*` and widen the timeframe. Each log is dated by its own timestamp, so recent data can sit earlier than you expect.\n2. The **Cyberhaven-Tenant** filter must equal the `cyberhaven.domain` tag on a record.\n3. The **Processing** group here must be green. If not, follow Fix 3.\n\n**Check it worked:** Panels fill in.",
+              "content": "### Fix 5 — Logs exist but the dashboards are empty\n**You see:** records in Log Explorer, nothing on the Cyberhaven dashboards.\n\n**Do this, in order:**\n1. Set every dashboard filter to `*` and widen the timeframe. Each log is dated by its own timestamp, so recent data can sit earlier than you expect.\n2. The **Cyberhaven-Tenant** filter must equal the `cyberhaven.domain` tag on a record.\n3. The **Processing** group here must be green. If not, follow Fix 3.\n4. Datadog does not accept logs with a timestamp more than 18 hours in the past, so older records never arrive. This mainly affects backfills.\n\n**Check it worked:** Panels fill in.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -2125,35 +1938,14 @@
               "x": 0,
               "y": 22,
               "width": 12,
-              "height": 3
-            }
-          },
-          {
-            "id": 6866090804604149,
-            "definition": {
-              "type": "note",
-              "content": "### Fix 6 — Incident details missing, or incidents never close\n**You see:** Incident hosts, destinations or files empty; closed incidents stay at 0.\n\n**Do this, in order:**\n1. Cyberhaven → **Settings → Data Export → Configurations** → the incidents configuration.\n2. Tick **Include incident event details** (adds hosts, files, destinations).\n3. Tick **Subscribe to incident updates** (adds closed and updated incidents).\n4. **Save.**\n\n**Check it worked:** New incidents carry the details. The two tiles in *Configuration Completeness* move off 0.",
-              "background_color": "green",
-              "font_size": "14",
-              "text_align": "left",
-              "vertical_align": "center",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 25,
-              "width": 12,
-              "height": 3
+              "height": 4
             }
           },
           {
             "id": 7411154245090934,
             "definition": {
               "type": "note",
-              "content": "### Fix 7 — Still stuck? Send this to support\n**Who:** Cyberhaven support (support@cyberhaven.com) or Datadog support.\n\n**Do this, in order:**\n1. Screenshot of this dashboard: Ingest, Delivery and Processing groups.\n2. Your **Datadog site** and your **tenant** (`cyberhaven.domain`).\n3. Which source is affected and **when** it started (see the 7-day timeline).\n4. The **Save & Test** result text (never share the API key).\n5. One record **id** and timestamp from the sample lists.\n6. Screenshot of the Destination and Configuration (hide the key).\n\n**Check it worked:** Support can trace failed deliveries on the Cyberhaven side.",
+              "content": "### Fix 6 — Still stuck? Send this to support\n**Who:** Cyberhaven support (support@cyberhaven.com) or Datadog support.\n\n**Do this, in order:**\n1. Screenshot of this dashboard: Ingest, Delivery and Processing groups.\n2. Your **Datadog site** and your **tenant** (`cyberhaven.domain`).\n3. Which source is affected and **when** it started (see the 7-day timeline).\n4. The **Save & Test** result text (never share the API key).\n5. One record **id** and timestamp from the sample lists.\n6. Screenshot of the Destination and Configuration (hide the key).\n\n**Check it worked:** Support can trace failed deliveries on the Cyberhaven side.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -2165,7 +1957,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 28,
+              "y": 26,
               "width": 12,
               "height": 4
             }
@@ -2174,9 +1966,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 72,
+        "y": 68,
         "width": 12,
-        "height": 33
+        "height": 31
       }
     }
   ],

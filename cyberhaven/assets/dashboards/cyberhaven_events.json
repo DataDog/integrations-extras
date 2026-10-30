@@ -1,6 +1,6 @@
 {
   "title": "Cyberhaven Events",
-  "description": "Raw data-movement / DLP activity events observed by Cyberhaven sensors (endpoint, browser, cloud). Source: Cyberhaven Event streaming destination.",
+  "description": "This dashboard provides an overview of raw data-movement events observed by Cyberhaven sensors (endpoint, browser, cloud): actions, destinations, users, hosts, data size and content inspection.",
   "widgets": [
     {
       "id": 1824197466837005,
@@ -34,7 +34,7 @@
             "id": 2596948595435016,
             "definition": {
               "type": "note",
-              "content": "## Cyberhaven Events\n*Raw activity observed by endpoint, browser and cloud sensors*\n\nThis dashboard provides complete visibility into raw data-movement / DLP events observed by Cyberhaven sensors (endpoint, browser, cloud): actions, destinations, users, hosts, data volume and content inspection.\n\nData source: Cyberhaven Event streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-events`).",
+              "content": "## Cyberhaven Events\n*Raw activity observed by endpoint, browser and cloud sensors*\n\nThis dashboard provides an overview of raw data-movement events observed by Cyberhaven sensors (endpoint, browser, cloud): actions, destinations, users, hosts, data size and content inspection.\n\nData source: Cyberhaven Event streaming destination (`source:cyberhaven cyberhaven.logtype:cyberhaven-events`).",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -73,7 +73,7 @@
             "id": 2596948595435017,
             "definition": {
               "type": "note",
-              "content": "**Tips**\n- Use the filters at the top (Action-Kind, Sensor-Kind, Destination-Sensitivity, User, Blocked-Allowed, Host, Destination-Channel, Cyberhaven-Tenant) to narrow every panel.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
+              "content": "**Tips**\n- Use the filters at the top to narrow down the data shown.\n- Use the timeframe selector in the upper-right corner to change the default timeframe.\n- Clone this dashboard to rearrange, modify, and add widgets.",
               "background_color": "white",
               "font_size": "14",
               "text_align": "left",
@@ -112,7 +112,7 @@
             "id": 8309043882454099,
             "definition": {
               "type": "note",
-              "content": "High-level view of Cyberhaven data-movement events: totals, blocked events, unique users and hosts, data volume, and trends over time.",
+              "content": "High-level view of Cyberhaven data-movement events: totals, blocked events, unique users and hosts, data size, and trends over time.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
@@ -346,7 +346,7 @@
           {
             "id": 4415939743030504,
             "definition": {
-              "title": "Total Data Volume Moved",
+              "title": "Total Data Size of Events",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -471,7 +471,7 @@
                       "group_by": [
                         {
                           "facet": "@action.kind",
-                          "limit": 8,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -591,7 +591,7 @@
             "id": 541789934990921,
             "definition": {
               "type": "note",
-              "content": "What is happening and how it was observed: events by action kind, sensor kind, device type, applications, data volume and action kind by destination channel.",
+              "content": "What is happening and how it was observed: events by action kind, sensor kind, device type, applications, data size and action kind by destination channel.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
@@ -630,7 +630,7 @@
                       "group_by": [
                         {
                           "facet": "@action.kind",
-                          "limit": 10,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -836,7 +836,7 @@
           {
             "id": 6142364066395871,
             "definition": {
-              "title": "Data Volume by Action Kind",
+              "title": "Data Size by Action Kind",
               "title_size": "16",
               "title_align": "left",
               "type": "treemap",
@@ -995,7 +995,7 @@
                       "group_by": [
                         {
                           "facet": "@cyberhaven.action.normalized",
-                          "limit": 10,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -1052,7 +1052,7 @@
                       "group_by": [
                         {
                           "facet": "@action.kind",
-                          "limit": 10,
+                          "limit": 25,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc",
@@ -2001,7 +2001,7 @@
                       "group_by": [
                         {
                           "facet": "@cyberhaven.destination.location_category",
-                          "limit": 10,
+                          "limit": 15,
                           "sort": {
                             "aggregation": "count",
                             "order": "desc"
@@ -2057,7 +2057,7 @@
             "id": 206951055168946,
             "definition": {
               "type": "note",
-              "content": "Raw list of recent events. Use the filters above to narrow down and drill into individual records.",
+              "content": "Raw list of recent events. Click a record to drill into its details.",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
