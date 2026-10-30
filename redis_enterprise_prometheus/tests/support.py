@@ -197,9 +197,11 @@ METRICS_MAP = {
         "rdse2.redis_server_used_memory",
     ],
     "REDIS2.INFO": [
+        "rdse2.node_config",
         "rdse2.node_dmi_info",
         "rdse2.node_os_info",
         "rdse2.node_disk_info",
+        "rdse2.node_uname_info",
     ],
     # END DEFAULT
     "REDIS2.REPLICATION": [

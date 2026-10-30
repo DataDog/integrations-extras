@@ -18,6 +18,7 @@ EXPECTED_PROMETHEUS_METRICS = [
     'external_secrets.secretstore.reconcile_duration',
     'external_secrets.controller_runtime.reconcile.count',
     'external_secrets.controller_runtime.reconcile_errors.count',
+    'external_secrets.controller_runtime.terminal_reconcile_errors.count',
     'external_secrets.controller_runtime.reconcile_time_seconds.count',
     'external_secrets.controller_runtime.reconcile_time_seconds.sum',
     'external_secrets.controller_runtime.reconcile_time_seconds.bucket',

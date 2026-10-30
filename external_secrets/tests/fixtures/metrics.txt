@@ -55,6 +55,10 @@ controller_runtime_reconcile_total{controller="pushsecret",result="success"} 50
 # TYPE controller_runtime_reconcile_errors_total counter
 controller_runtime_reconcile_errors_total{controller="externalsecret"} 10
 controller_runtime_reconcile_errors_total{controller="clustersecretstore"} 3
+# HELP controller_runtime_terminal_reconcile_errors_total Total number of terminal reconciliation errors per controller
+# TYPE controller_runtime_terminal_reconcile_errors_total counter
+controller_runtime_terminal_reconcile_errors_total{controller="externalsecret"} 1
+controller_runtime_terminal_reconcile_errors_total{controller="clustersecretstore"} 0
 # HELP controller_runtime_reconcile_time_seconds Histogram of the duration of reconciliations
 # TYPE controller_runtime_reconcile_time_seconds histogram
 controller_runtime_reconcile_time_seconds_bucket{controller="externalsecret",le="0.01"} 100
