@@ -339,6 +339,11 @@ class UpboundUxpCheck(AgentCheck):
 
         super(UpboundUxpCheck, self).__init__(name, init_config, instances)
 
+        # Tags configured on the instance, for example env, or kube_cluster_name
+        # added by the Cluster Agent to dispatched cluster checks. Computed once,
+        # since the instance configuration does not change during the check lifetime.
+        self._tags = list((self.instance or {}).get('tags') or [])
+
     def _raise_format_err(self, n, msg):
         raise ConfigurationError(
             'Configuration error, ' + 'Please fix format for ' + n + ' in auto_conf.yaml and/or conf.yaml. ' + msg
@@ -380,8 +385,33 @@ class UpboundUxpCheck(AgentCheck):
             else:
                 tags.append(k + ":" + v)
         tags.append("pod:" + pod_name)
+        tags.extend(self._tags)
 
         return tags
+
+    @staticmethod
+    def _submission_type(family_type, sample_name):
+        # Map a Prometheus sample to a Datadog submission method.
+        # Counters and the _sum/_count samples of histograms and summaries are
+        # cumulative, so they are submitted as monotonic counts. Buckets, quantiles
+        # and gauges are submitted as gauges. Returns None when the type is unknown.
+        if family_type == 'counter':
+            return 'monotonic_count'
+        if family_type in ('histogram', 'summary'):
+            if sample_name.endswith(('_sum', '_count')):
+                return 'monotonic_count'
+            return 'gauge'
+        if family_type == 'gauge':
+            return 'gauge'
+        # Untyped or missing TYPE line: fall back to the metric name suffix.
+        # Note that a name ending in _count is then treated as cumulative
+        # (monotonic count), which matches Prometheus naming conventions but
+        # would be wrong for an untyped gauge named *_count.
+        if sample_name.endswith(('_total', '_sum', '_count')):
+            return 'monotonic_count'
+        if sample_name.endswith('_bucket'):
+            return 'gauge'
+        return None
 
     # Merge metrics from DataDog agent config
     # to a selected default set.
@@ -458,19 +488,21 @@ class UpboundUxpCheck(AgentCheck):
                         self.SERVICE_CHECK_CONNECT_NAME,
                         self.CRITICAL,
                         message="Error {0}".format(e),
-                        tags=None,
+                        tags=list(self._tags),
                         hostname=host,
                     )
                     continue
 
                 self.get_metrics(metrics, host)
 
-            self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
+            self.count(
+                'datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__] + self._tags
+            )
             self.check_count = self.check_count + 1
-            self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK)
+            self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, tags=list(self._tags))
             return
 
-        self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
+        self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__] + self._tags)
         self.check_count = self.check_count + 1
 
         # Get Pods in upbound-system or another namespace
@@ -487,12 +519,16 @@ class UpboundUxpCheck(AgentCheck):
             # able to get pods and their metrics
 
             self.service_check(
-                self.SERVICE_CHECK_CONNECT_NAME, self.CRITICAL, message="Error {0}".format(e), tags=None, hostname=None
+                self.SERVICE_CHECK_CONNECT_NAME,
+                self.CRITICAL,
+                message="Error {0}".format(e),
+                tags=list(self._tags),
+                hostname=None,
             )
             raise
             return
 
-        self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, message=None, tags=None, hostname=None)
+        self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, message=None, tags=list(self._tags), hostname=None)
 
         v1 = client.CoreV1Api()
         pods = []
@@ -554,7 +590,7 @@ class UpboundUxpCheck(AgentCheck):
                     self.SERVICE_CHECK_CONNECT_NAME,
                     self.CRITICAL,
                     message="Error {0}".format(e),
-                    tags=None,
+                    tags=list(self._tags),
                     hostname=pod.status.pod_ip,
                 )
                 continue
@@ -605,45 +641,19 @@ class UpboundUxpCheck(AgentCheck):
                         name = self.metrics_map[name]
                     name = metrics_prefix + name
 
-                    if name.endswith('sum'):
-                        metric_type = 'summary'
-                    if name.endswith('count'):
-                        metric_type = 'counter'
-                    if name.endswith('bucket'):
-                        metric_type = 'histogram'
-
-                    # counter: _total
-                    if metric_type == 'counter':
-                        if self.verbose:
-                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                        try:
-                            self.count(name, value, tags=tags)
-                        except Exception as e:
-                            self.log.exception(e)
-                    # histogram: _bucket
-                    elif metric_type == 'histogram':
-                        if self.verbose:
-                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                        try:
-                            # self.histogram(name, value, tags=tags)
-                            self.gauge(name, value, tags=tags)
-                        except Exception as e:
-                            self.log.exception(e)
-                    # summary: _sum
-                    elif metric_type == 'summary':
-                        if self.verbose:
-                            self.log.debug("%s: Name: %s, Labels: %s, Value: %s", metric_type, name, tags, str(value))
-                        try:
-                            self.count(name, value, tags=tags)
-                        except Exception as e:
-                            self.log.exception(e)
-                    # gauge: no _bucket, _sum, _total postfix
-                    elif metric_type == 'gauge':
-                        if self.verbose:
-                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                        try:
-                            self.gauge(name, value, tags=tags)
-                        except Exception as e:
-                            self.log.exception(e)
-                    else:
+                    submission = self._submission_type(metric_type, sample[NAME_IDX])
+                    if submission is None:
                         self.log.warning("WARNING: metric type %s unknown for %s", metric_type, name)
+                        continue
+
+                    if self.verbose:
+                        self.log.debug(
+                            "%s (%s): Name: %s, Tags: %s, Value: %s", metric_type, submission, name, tags, str(value)
+                        )
+                    try:
+                        if submission == 'monotonic_count':
+                            self.monotonic_count(name, value, tags=tags)
+                        else:
+                            self.gauge(name, value, tags=tags)
+                    except Exception as e:
+                        self.log.exception(e)
