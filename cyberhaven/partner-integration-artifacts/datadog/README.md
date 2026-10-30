@@ -24,7 +24,7 @@ Workflow  cyberhaven-create-update-incident
 Datadog Incident  created if none exists, updated if one does
 ```
 
-The workflow needs a Datadog incident type with a set of Cyberhaven property fields. The setup script creates them for you.
+The workflow needs a Datadog incident type with a set of Cyberhaven [property fields](https://docs.datadoghq.com/service_management/incident_management/incident_settings/). The setup script creates them for you.
 
 ## What is in this folder
 
@@ -86,9 +86,9 @@ A successful run ends with `verified: all 30 fields are present` and `incident_t
 
 ### 4. Create the monitor
 
-1. In Datadog, go to **Monitors > Templates** and search for `Cyberhaven`.
-2. Open **[Cyberhaven] Incident created or updated** and click **Create Monitor**.
-3. Click **Create**.
+1. In Datadog, go to **Monitors > Browse Templates** and search for `Cyberhaven`.
+2. Open **[Cyberhaven] Incident created or updated**.
+3. Click **Create and Publish**.
 
 ### 5. Verify end to end
 
@@ -108,11 +108,11 @@ A successful run ends with `verified: all 30 fields are present` and `incident_t
 | Severity | From the policy severity: critical = SEV-1, high = SEV-2, medium = SEV-3, low = SEV-4, informational = SEV-5. Any other or missing value is UNKNOWN. |
 | State | Cyberhaven `open` = active, `closed` = resolved. |
 | Detection method | `monitor` |
-| Summary | The Cyberhaven AI summary, action and outcome, status, timestamps and a link to the incident. |
+| Summary | A description of the incident (user, policy, dataset), action and outcome, status, timestamps and a link to the incident. |
 
 **Cyberhaven property fields** (all text): Cyberhaven Incident ID (`source_incident_id`, the lookup key), Cyberhaven Incident URL, Tenant, Policy Name, Policy Severity, AI Severity, Created By, Dataset Name, Dataset Sensitivity, Risk Score, Blocked, User, User ID, Action, Hostname, Device Type, Sensor Kind, Client IP, Data Size (bytes), Warning Status, Event Time, Trigger Time, Resolution Time, Close Reason, Close Note, Cyberhaven Status, AI Summary, Policy ID, Dataset ID, and **Last Change**.
 
-**Last Change** compares the newest version of the incident with the previous one, ignoring timestamps, and lists each attribute that changed (`key: old -> new`). The first version reads `First version seen`.
+**Last Change** compares the newest version of the incident with the previous one, ignoring timestamps, and lists each attribute that changed (`key: old -> new`). Each value starts with the time of the version in square brackets. The first version reads `First version seen`.
 
 When the incident is created, a markdown note with every attribute of the Cyberhaven log is added to it.
 
