@@ -49,7 +49,7 @@ Do the steps in this order. Create the monitor last, so it can never alert befor
 
 ### 1. Get the files
 
-Download or clone [Datadog/integrations-extras](https://github.com/Datadog/integrations-extras) and open the `cyberhaven/partner-integration-artifacts/datadog` folder.
+Download or clone [CyberhavenInc/partner-integration-artifacts](https://github.com/CyberhavenInc/partner-integration-artifacts) and open the `datadog` folder.
 
 ### 2. Create the incident type and fields
 

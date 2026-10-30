@@ -6,7 +6,7 @@ This integration streams Cyberhaven **Audit Logs**, **Incidents**, and **Events*
 - **Log Processing**: A Datadog log pipeline parses, normalizes, and enriches each log type, with a separate sub-pipeline for each. Incident logs also get a `cyberhaven.incident.url` attribute that links straight to the incident in Cyberhaven.
 - **Dashboards**: Four out-of-the-box dashboards. **Audit**, **Incidents**, and **Events** let you analyze each log type (the Incidents dashboard links each incident to Cyberhaven). **Troubleshooting** shows whether data is flowing and processed correctly, with step-by-step fixes.
 - **Monitors**: Three monitor templates, one per log type, that alert when no logs have been received for 24 hours.
-- **Incident creation (optional)**: A fourth monitor template, **Incident created or updated**, triggers a Datadog Workflow Automation workflow. The workflow creates a Datadog incident for each Cyberhaven incident and updates it on every later change, so Cyberhaven incidents can be tracked in Datadog Incident Management. A setup script and the workflow are provided in the `partner-integration-artifacts/datadog` folder of the Cyberhaven integration.
+- **Incident creation (optional)**: A fourth monitor template, **Incident created or updated**, triggers a Datadog Workflow Automation workflow. The workflow creates a Datadog incident for each Cyberhaven incident and updates it on every later change, so Cyberhaven incidents can be tracked in Datadog Incident Management. A setup script and the workflow are provided in the `datadog` folder of the Cyberhaven [`partner-integration-artifacts`](https://github.com/CyberhavenInc/partner-integration-artifacts) repository.
 
 ### About Cyberhaven
 
@@ -69,7 +69,7 @@ Cyberhaven needs a **Destination** (where logs are sent) and a **Configuration**
 
 **Verify**
 
-In the [Log Explorer][1], search `source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`. Logs appear as new incidents are created or updated. If nothing shows up after a few minutes, open the **Cyberhaven - Troubleshooting** dashboard, or see the Support section below.
+In the [Log Explorer][1], search `source:cyberhaven cyberhaven.logtype:cyberhaven-incidents`. Logs appear as new incidents are created or updated. If nothing shows up after a few minutes, open the **Cyberhaven Troubleshooting** dashboard, or see the Support section below.
 
 ### Step 3: Add Audit Logs and Events (optional)
 
@@ -111,9 +111,9 @@ Skip this step unless you want each Cyberhaven incident to appear in Datadog Inc
 
 The **[Cyberhaven] Incident created or updated** monitor is grouped by `@cyberhaven.incident.id` and `@cyberhaven.incident.last_modified`, so it fires once when a Cyberhaven incident is created and again on every update. Each alert triggers the `cyberhaven-create-update-incident` Datadog Workflow, which looks the incident up by its `source_incident_id` field and creates or updates the Datadog incident.
 
-The workflow and its setup script are in the [`partner-integration-artifacts/datadog`](https://github.com/bhargav-cyberhaven/integrations-extras/tree/cyberhaven/cyberhaven/partner-integration-artifacts/datadog) folder of the Cyberhaven integration in the `integrations-extras` repository. The folder's [README](https://github.com/bhargav-cyberhaven/integrations-extras/blob/cyberhaven/cyberhaven/partner-integration-artifacts/datadog/README.md) has the full guide, including what is created, limits and troubleshooting. In short:
+The workflow and its setup script are in the [`datadog`](https://github.com/CyberhavenInc/partner-integration-artifacts/tree/main/datadog) folder of the Cyberhaven [`partner-integration-artifacts`](https://github.com/CyberhavenInc/partner-integration-artifacts) repository. The folder's [README](https://github.com/CyberhavenInc/partner-integration-artifacts/blob/main/datadog/README.md) has the full guide, including what is created, limits and troubleshooting. In short:
 
-1. Download or clone the [`integrations-extras`](https://github.com/Datadog/integrations-extras) repository and open the `cyberhaven/partner-integration-artifacts/datadog` folder.
+1. Download or clone the [`partner-integration-artifacts`](https://github.com/CyberhavenInc/partner-integration-artifacts) repository and open the `datadog` folder.
 2. Set `DD_API_KEY`, `DD_APP_KEY` and `DD_SITE`, then run `python3 incident-automation/setup_datadog_incident_type.py`. It creates the **Cyberhaven Incident** incident type and its property fields, and prints the incident type UUID.
 3. In Datadog, go to **Workflow Automation**, click **New Workflow** > **Import from JSON**, and import `incident-automation/cyberhaven_create_update_incident.json`. In the **Create_incident** step, replace `REPLACE_WITH_INCIDENT_TYPE_UUID` with the printed UUID. Keep the handle `cyberhaven-create-update-incident`, then **Publish** the workflow.
 4. Create the monitor last, so it cannot alert before the workflow exists: go to **Monitors > Templates**, open **[Cyberhaven] Incident created or updated**, and click **Create Monitor**.
@@ -147,7 +147,7 @@ Cyberhaven does not include any events.
 
 ## Support
 
-If logs are missing or not processed correctly, open the **Cyberhaven - Troubleshooting** dashboard. It shows whether each log type is arriving, whether records are tagged and processed correctly, and gives step-by-step fixes for the most common problems.
+If logs are missing or not processed correctly, open the **Cyberhaven Troubleshooting** dashboard. It shows whether each log type is arriving, whether records are tagged and processed correctly, and gives step-by-step fixes for the most common problems.
 
 The most common causes are:
 
