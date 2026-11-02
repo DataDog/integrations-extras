@@ -33,7 +33,7 @@ ADDITIONAL_METRICS = {
         {"jvm_classes_currently_loaded": "jvm_classes_currently_loaded"},
         {"jvm_classes_loaded": "jvm_classes_loaded_total"},
         {"jvm_classes_unloaded": "jvm_classes_unloaded_total"},
-        {"jvm_compilation_time_seconds_total": "jvm_compilation_time_seconds_total"},
+        {"jvm_compilation_time_seconds": "jvm_compilation_time_seconds_total"},
         {"jvm_gc_collection_seconds": "jvm_gc_collection_seconds"},
         {"jvm_memory_committed_bytes": "jvm_memory_committed_bytes"},
         {"jvm_memory_init_bytes": "jvm_memory_init_bytes"},

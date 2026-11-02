@@ -1,4 +1,5 @@
 import io
+from pathlib import Path
 
 import requests
 
@@ -37,9 +38,6 @@ jvm_memory_used_bytes{area="heap"} 123456789.0
 # TYPE jvm_memory_committed_bytes gauge
 jvm_memory_committed_bytes{area="heap"} 256000000.0
 
-# HELP jvm_gc_collection_seconds Time spent in a given JVM garbage collector in seconds.
-# TYPE jvm_gc_collection_seconds gauge
-jvm_gc_collection_seconds{gc="G1 Young Generation"} 0.123
 """
 
 
@@ -143,7 +141,23 @@ def test_metric_groups_jvm(aggregator, dd_run_check, mocker):
         value=256000000.0,
         tags=base_tags + ["area:heap"],
     )
-    aggregator.assert_metric(
-        "stonebranch.jvm_gc_collection_seconds",
-        tags=base_tags + ["gc:G1 Young Generation"],
+
+
+def test_real_payload_matches_metadata(aggregator, dd_run_check, mock_http_response):
+    fixture = Path(__file__).parent / "fixtures" / "metrics.txt"
+    mock_http_response(
+        file_path=fixture,
+        headers={"Content-Type": "text/plain; version=0.0.4; charset=utf-8"},
+    )
+    instance = {
+        "openmetrics_endpoint": "http://test.local/metrics",
+        "metric_groups": ["jvm", "process", "license_details"],
+        "rename_labels": {"version": "jvm_version"},
+    }
+    check = StonebranchCheck("stonebranch", {}, [instance])
+    dd_run_check(check)  # first run — establishes counter baselines
+    dd_run_check(check)  # second run — emits counter deltas
+
+    aggregator.assert_metrics_using_metadata(
+        get_metadata_metrics(), check_submission_type=True, check_symmetric_inclusion=True
     )
