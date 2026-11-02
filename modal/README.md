@@ -39,6 +39,12 @@ Modal does not include any events.
 
 See [metadata.csv][5] for a list of metrics provided by this integration.
 
+`modal.gpu.count` reports the number of GPUs attached to each container, or zero
+for CPU containers. Container resource metrics from GPU containers include the
+`gpu_billing_type` tag when the billing type is recognized. This tag identifies the
+billed GPU class (for example, `H100`), which may differ from the physical GPU model
+when a workload is scheduled onto a newer GPU.
+
 
 ## Uninstallation
 

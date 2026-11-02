@@ -1,5 +1,24 @@
 # CHANGELOG - Modal
 
+## 1.8.1 / 2026-10-13
+
+***Changed***:
+
+* Show p50 and p90 input execution time on the Modal dashboard instead of the average
+
+## 1.8.0 / 2026-09-10
+
+***Added***:
+
+* GPU count metric
+* GPU billing type tag on container resource metrics
+
+## 1.7.0 / 2026-09-04
+
+***Added***:
+
+* CPU requested and memory requested
+
 ## 1.6.0 / 2026-05-14
 
 ***Added***:

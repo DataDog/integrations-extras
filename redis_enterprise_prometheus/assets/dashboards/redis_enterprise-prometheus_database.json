@@ -15,8 +15,7 @@
             "id": 6906627780487202,
             "definition": {
               "type": "note",
-              "title": "About The Database Dashboard",
-              "content": "The Database dashboard provides a visualization of metrics at the Redis Enterprise database level. In Redis Enterprise, a database is an abstraction over a collection of Redis Shards fronted by a single endpoint (or several when using the OSS cluster API). Key metrics such as memory usage, connections and latency are observable at the Database level.",
+              "content": "## About The Database Dashboard\n\nThe Database dashboard provides a visualization of metrics at the Redis Enterprise database level. In Redis Enterprise, a database is an abstraction over a collection of Redis Shards fronted by a single endpoint (or several when using the OSS cluster API). Key metrics such as memory usage, connections and latency are observable at the Database level.",
               "background_color": "vivid_purple",
               "font_size": "16",
               "text_align": "left",
@@ -120,7 +119,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse2.database_syncer_config{*} by {cluster,db_name,db}",
+                      "query": "avg:rdse2.db_config{*} by {cluster,db_name,db}",
                       "aggregator": "avg"
                     }
                   ],
@@ -285,19 +284,26 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:rdse2.endpoint_client_connections{$cluster,$database}",
+                      "query": "sum:rdse2.endpoint_client_connections.total{$cluster,$database}",
                       "aggregator": "last"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:rdse2.endpoint_client_disconnections{$cluster,$database}",
+                      "query": "sum:rdse2.endpoint_client_disconnections.total{$cluster,$database}",
+                      "aggregator": "last"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:rdse2.endpoint_proxy_disconnections.total{$cluster,$database}",
                       "aggregator": "last"
                     }
                   ],
                   "formulas": [
                     {
-                      "formula": "query1 - query2"
+                      "formula": "query1 - query2 - query3",
+                      "alias": "current connections"
                     }
                   ]
                 }
