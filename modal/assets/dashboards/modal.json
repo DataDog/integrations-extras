@@ -237,13 +237,21 @@
                   "formulas": [
                     {
                       "formula": "query1"
+                    },
+                    {
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:modal.input_events.elapsed_time_us{*}"
+                      "query": "p50:modal.input_events.elapsed_time_us{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "p90:modal.input_events.elapsed_time_us{*}"
                     }
                   ],
                   "response_format": "timeseries",

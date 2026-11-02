@@ -1,5 +1,11 @@
 # CHANGELOG - Modal
 
+## 1.8.1 / 2026-10-13
+
+***Changed***:
+
+* Show p50 and p90 input execution time on the Modal dashboard instead of the average
+
 ## 1.8.0 / 2026-09-10
 
 ***Added***:

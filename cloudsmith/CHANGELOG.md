@@ -1,5 +1,11 @@
 # CHANGELOG - Cloudsmith
 
+### Unreleased
+
+### Fixed
+
+* Fixed typos in Overview dashboard widget titles: "Allowence" → "Allowance" and "Licence" → "License" ([#3119](https://github.com/DataDog/integrations-extras/pull/3119))
+
 ### 1.4.0 / 2026-06-01
 
 ### Added

@@ -1,5 +1,11 @@
 # CHANGELOG - Mergify
 
+## 1.0.4 / 2026-09-17
+
+***Fixed***
+
+* Regenerate config models with the current `ddev` codegen [#3127](https://github.com/DataDog/integrations-extras/pull/3127)
+
 ## 1.0.3 / 2025-10-17
 
 ***Added***
