@@ -1,0 +1,29 @@
+name: AI-7385 pinned scheduled-path probe
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  master:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@fbcbeeff8a3c16ddea273752bbefb61fe589d6bd
+    with:
+      job-name: "master"
+      target: "ping"
+      platform: "linux"
+      runner: '["ubuntu-22.04"]'
+      repo: "extras"
+      context: standard
+      python-version: "3.13"
+      ddev-version: "==20.2.0"
+      minimum-base-package: false
+      test-py2: false
+      test-py3: true
+      agent-image: ""
+      agent-image-py2: ""
+      agent-image-windows: ""
+      agent-image-windows-py2: ""
+    secrets: inherit
