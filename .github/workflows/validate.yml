@@ -37,9 +37,10 @@ jobs:
         python-version: "${{ env.PYTHON_VERSION }}"
 
     - name: Install ddev from PyPI
-      uses: DataDog/integrations-core/.github/actions/setup-ddev@b9f6f16c016d2909307a935a7338097e3e30636f # master
+      uses: DataDog/integrations-core/.github/actions/setup-ddev@fbcbeeff8a3c16ddea273752bbefb61fe589d6bd
       with:
         install-mode: pypi
+        ddev-version: "==20.2.0"
 
     - name: Configure ddev
       run: ddev config override
