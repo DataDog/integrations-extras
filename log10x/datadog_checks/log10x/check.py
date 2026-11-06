@@ -17,9 +17,10 @@ class Log10xCheck(OpenMetricsBaseCheckV2):
     def get_default_config(self):
         return {
             'metrics': [METRIC_MAP],
-            # Per-pipeline and per-pattern identity labels. `message_pattern` already
-            # identifies the pattern in readable form, and the pipeline UUID changes on
-            # every restart, so both would only multiply the series count.
+            # Neither label adds identity, so dropping them never merges series.
+            # `tenx_hash` is the hash of the `message_pattern` value, one hash per
+            # pattern name. `tenx_pipeline_uuid` is the scraped process's id, one value
+            # per endpoint; engines since 1.1.140 no longer put it on these metrics.
             'exclude_labels': ['tenx_pipeline_uuid', 'tenx_hash'],
         }
 
