@@ -521,6 +521,17 @@ pipeline:
       targetType: attribute
       preserveSource: true
       overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `user` and `login` to `ocsf.actor.user.name`
+      enabled: true
+      sources:
+        - zscaler.user
+        - zscaler.login
+      sourceType: attribute
+      target: ocsf.actor.user.name
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
     - type: grok-parser
       name: Convert `dlpdictionaries` field into an array
       enabled: true
