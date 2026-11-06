@@ -12,6 +12,7 @@ Integrate Vercel with Datadog to:
 - See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
 - Monitor frontend and [Vercel Functions][9] performance with [Datadog Synthetics][6]
 - Trace requests across your Vercel Functions with [Datadog APM][14]
+- Group errors from your Vercel Functions into issues with [Datadog Error Tracking][15]
 
 ## Setup
 
@@ -75,6 +76,16 @@ The Vercel integration collects logs from your Vercel Project using Vercel's [Lo
 
 The Vercel integration collects traces from your Vercel Project using Vercel's [Trace Drains][13] feature.
 
+### Error Tracking
+
+The integration's log pipeline prepares Vercel Function logs for [Error Tracking][15], with no code changes:
+
+- Node.js stack traces in error logs (for example, `console.error(err)` or an uncaught exception) are parsed into `error.stack`, `error.kind`, and `error.message`.
+- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings and non-JavaScript output are not included.
+- These logs get the `error` status, even when the request returned a non-5xx status code.
+
+Issues are grouped by service (the Vercel project name), error kind, message, and stack trace. To group errors differently, set an `error.fingerprint` attribute in a pipeline of your own. Error Tracking for logs must be enabled in your organization.
+
 ## Troubleshooting
 
 If you are using the [Vercel OpenTelemetry SDK][12], the `serviceName` specified in `registerOTel` block of your initializer must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
@@ -99,3 +110,4 @@ Need help? Contact [Datadog support][8].
 [12]: https://vercel.com/docs/tracing/instrumentation
 [13]: https://vercel.com/docs/drains/reference/traces
 [14]: https://docs.datadoghq.com/tracing/
+[15]: https://docs.datadoghq.com/error_tracking/backend/logs/
