@@ -1,0 +1,60 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "6d8ea6b8-4bf5-4d38-b4d4-4f0b7ddf3f2a",
+  "app_id": "ibm-b2b",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor IBM Sterling Connect:Direct process activity and transfers",
+    "title": "IBM Sterling Connect:Direct",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "IBM B2B Overview Dashboard",
+        "image_url": "images/dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Metrics",
+      "Category::Network",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration"
+    ]
+  },
+  "author": {
+    "support_email": "suporte@cxpbrasil.com.br",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "suporte@cxpbrasil.com.br",
+    "name": "Community"
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 91076026,
+      "source_type_name": "IBM Sterling Connect:Direct",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "ibm_b2b.",
+        "check": "ibm_b2b.processes.total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "IBM B2B Overview": "assets/dashboards/ibm_b2b_overview.json"
+    }
+  }
+}
