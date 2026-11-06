@@ -1,0 +1,216 @@
+# HELP exceptions_total_counter Total number of requested which generated an exception
+# TYPE exceptions_total_counter counter
+exceptions_total_counter{method="POST",path="/v1/admin/keys"} 1
+exceptions_total_counter{method="POST",path="/v1/chat/completions"} 1
+# HELP requests_total_counter Total number of requests received
+# TYPE requests_total_counter counter
+requests_total_counter{method="GET",path="/status"} 1
+requests_total_counter{method="GET",path="/v1/cluster/auth"} 2
+requests_total_counter{method="POST",path="/v1/model_registrations/{model_type}"} 2
+requests_total_counter{method="POST",path="/v1/models"} 2
+requests_total_counter{method="POST",path="/v1/admin/setup"} 1
+requests_total_counter{method="POST",path="/token"} 1
+requests_total_counter{method="POST",path="/v1/chat/completions"} 17
+requests_total_counter{method="POST",path="/v1/completions"} 1
+requests_total_counter{method="POST",path="/v1/admin/keys"} 4
+# HELP responses_total_counter Total number of responses sent
+# TYPE responses_total_counter counter
+responses_total_counter{method="GET",path="/status"} 1
+responses_total_counter{method="GET",path="/v1/cluster/auth"} 2
+responses_total_counter{method="POST",path="/v1/model_registrations/{model_type}"} 2
+responses_total_counter{method="POST",path="/v1/models"} 2
+responses_total_counter{method="POST",path="/v1/admin/setup"} 1
+responses_total_counter{method="POST",path="/token"} 1
+responses_total_counter{method="POST",path="/v1/chat/completions"} 17
+responses_total_counter{method="POST",path="/v1/completions"} 1
+responses_total_counter{method="POST",path="/v1/admin/keys"} 4
+# HELP status_codes_counter Total number of response status codes
+# TYPE status_codes_counter counter
+status_codes_counter{method="GET",path="/status",status_code="200"} 1
+status_codes_counter{method="GET",path="/v1/cluster/auth",status_code="200"} 2
+status_codes_counter{method="POST",path="/v1/model_registrations/{model_type}",status_code="401"} 1
+status_codes_counter{method="POST",path="/v1/models",status_code="401"} 1
+status_codes_counter{method="POST",path="/v1/admin/setup",status_code="201"} 1
+status_codes_counter{method="POST",path="/token",status_code="200"} 1
+status_codes_counter{method="POST",path="/v1/model_registrations/{model_type}",status_code="200"} 1
+status_codes_counter{method="POST",path="/v1/models",status_code="200"} 1
+status_codes_counter{method="POST",path="/v1/chat/completions",status_code="200"} 6
+status_codes_counter{method="POST",path="/v1/completions",status_code="200"} 1
+status_codes_counter{method="POST",path="/v1/chat/completions",status_code="401"} 6
+status_codes_counter{method="POST",path="/v1/chat/completions",status_code="404"} 2
+status_codes_counter{method="POST",path="/v1/admin/keys",status_code="500"} 1
+status_codes_counter{method="POST",path="/v1/admin/keys",status_code="201"} 3
+status_codes_counter{method="POST",path="/v1/chat/completions",status_code="403"} 1
+status_codes_counter{method="POST",path="/v1/chat/completions",status_code="500"} 2
+# HELP xinference:api_key_request_duration_seconds API key request duration in seconds.
+# TYPE xinference:api_key_request_duration_seconds histogram
+xinference:api_key_request_duration_seconds_bucket{le="0.01",model_id="stories",model_name="stories",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="0.05",model_id="stories",model_name="stories",model_type="LLM"} 3.0
+xinference:api_key_request_duration_seconds_bucket{le="0.1",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="0.25",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="0.5",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="1.0",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="2.5",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="5.0",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="10.0",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="30.0",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="60.0",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_bucket{le="+Inf",model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_count{model_id="stories",model_name="stories",model_type="LLM"} 4.0
+xinference:api_key_request_duration_seconds_sum{model_id="stories",model_name="stories",model_type="LLM"} 0.09947108291089535
+xinference:api_key_request_duration_seconds_bucket{le="0.01",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="0.05",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="0.1",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="0.25",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="0.5",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="1.0",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="2.5",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="5.0",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="10.0",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="30.0",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="60.0",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_bucket{le="+Inf",model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_count{model_id="nope",model_name="",model_type="LLM"} 1.0
+xinference:api_key_request_duration_seconds_sum{model_id="nope",model_name="",model_type="LLM"} 0.009271874907426536
+# HELP xinference:api_key_requests_total Total API key requests.
+# TYPE xinference:api_key_requests_total counter
+xinference:api_key_requests_total{api_key_name="dd-test",model_id="stories",model_name="stories",model_type="LLM",status="success",user="admin"} 2
+xinference:api_key_requests_total{api_key_name="dd-test",model_id="nope",model_name="",model_type="LLM",status="model_not_found",user="admin"} 1
+xinference:api_key_requests_total{api_key_name="limited2",model_id="stories",model_name="stories",model_type="LLM",status="denied",user="admin"} 1
+xinference:api_key_requests_total{api_key_name="dd-test",model_id="stories",model_name="stories",model_type="LLM",status="error",user="admin"} 1
+# HELP xinference:api_keys_active_total Number of active API keys.
+# TYPE xinference:api_keys_active_total gauge
+xinference:api_keys_active_total 3
+# HELP xinference:api_keys_expired_total Number of expired API keys.
+# TYPE xinference:api_keys_expired_total gauge
+xinference:api_keys_expired_total 0
+# HELP xinference:banned_ips_total Number of currently banned IPs.
+# TYPE xinference:banned_ips_total gauge
+xinference:banned_ips_total 0
+# HELP xinference:banned_keys_total Number of currently banned (IP, Key) pairs.
+# TYPE xinference:banned_keys_total gauge
+xinference:banned_keys_total 0
+# HELP xinference:build_info Xinference build information (value=1).
+# TYPE xinference:build_info gauge
+xinference:build_info{python_version="3.12.13",supervisor_address="127.0.0.1:41293",version="4.1.0",xinference_role="supervisor"} 1
+# HELP xinference:config_info Xinference configuration information (value=1).
+# TYPE xinference:config_info gauge
+xinference:config_info{supervisor_address="127.0.0.1:41293",xinference_home="/root/.xinference",xinference_role="supervisor"} 1
+# HELP xinference:model_gpu_binding Per-replica GPU binding (one series per GPU per replica, value=1).
+# TYPE xinference:model_gpu_binding gauge
+# HELP xinference:model_gpu_memory_used_bytes Per-model GPU memory used in bytes (real-time, per process).
+# TYPE xinference:model_gpu_memory_used_bytes gauge
+# HELP xinference:model_info Running model info (value=1).
+# TYPE xinference:model_info gauge
+xinference:model_info{model_name="stories",model_type="LLM",model_uid="stories",replica_on_worker="1",replica_total="1",worker_address="127.0.0.1:14454"} 1
+# HELP xinference:model_status Model lifecycle status (value=1).
+# TYPE xinference:model_status gauge
+xinference:model_status{model_name="stories",model_uid="stories",status="READY"} 1
+# HELP xinference:model_unexpected_termination Replica currently down due to worker failure (value=1). Cleared on redeploy.
+# TYPE xinference:model_unexpected_termination gauge
+# HELP xinference:models_loaded_total Number of loaded models by type.
+# TYPE xinference:models_loaded_total gauge
+xinference:models_loaded_total{model_type="LLM"} 1
+# HELP xinference:supervisor_uptime_seconds Supervisor uptime in seconds.
+# TYPE xinference:supervisor_uptime_seconds gauge
+xinference:supervisor_uptime_seconds 172
+# HELP xinference:token_router_agent_assignment_count Assignments owned by the Token Router Agent.
+# TYPE xinference:token_router_agent_assignment_count gauge
+# HELP xinference:token_router_agent_connectivity_status Token Router Agent connectivity state (one-hot).
+# TYPE xinference:token_router_agent_connectivity_status gauge
+# HELP xinference:token_router_agent_heartbeat_age_seconds Seconds since the Token Router Agent heartbeat.
+# TYPE xinference:token_router_agent_heartbeat_age_seconds gauge
+# HELP xinference:token_router_agent_host_cpu_total Token Router Agent host CPU capacity.
+# TYPE xinference:token_router_agent_host_cpu_total gauge
+# HELP xinference:token_router_agent_host_cpu_utilization Token Router Agent host CPU utilization (0-1).
+# TYPE xinference:token_router_agent_host_cpu_utilization gauge
+# HELP xinference:token_router_agent_host_memory_available_bytes Token Router Agent host memory available in bytes.
+# TYPE xinference:token_router_agent_host_memory_available_bytes gauge
+# HELP xinference:token_router_agent_host_memory_total_bytes Token Router Agent host memory total in bytes.
+# TYPE xinference:token_router_agent_host_memory_total_bytes gauge
+# HELP xinference:token_router_agent_host_memory_used_bytes Token Router Agent host memory used in bytes.
+# TYPE xinference:token_router_agent_host_memory_used_bytes gauge
+# HELP xinference:token_router_agent_info Token Router Agent identity (value=1).
+# TYPE xinference:token_router_agent_info gauge
+# HELP xinference:token_router_agent_management_state Token Router Agent management state (one-hot).
+# TYPE xinference:token_router_agent_management_state gauge
+# HELP xinference:token_router_agent_max_instances Token Router Agent capacity.
+# TYPE xinference:token_router_agent_max_instances gauge
+# HELP xinference:token_router_agent_reported_available_slots Available Runtime slots reported by the Token Router Agent.
+# TYPE xinference:token_router_agent_reported_available_slots gauge
+# HELP xinference:token_router_agent_reported_running_instances Runtime instances reported by the Token Router Agent.
+# TYPE xinference:token_router_agent_reported_running_instances gauge
+# HELP xinference:token_router_agent_schedulable Whether the Token Router Agent is eligible for new assignments.
+# TYPE xinference:token_router_agent_schedulable gauge
+# HELP xinference:token_router_assignment_config_revision Token Router Assignment expected configuration revision.
+# TYPE xinference:token_router_assignment_config_revision gauge
+# HELP xinference:token_router_assignment_controllable Whether the associated Runtime can currently be controlled by its Agent.
+# TYPE xinference:token_router_assignment_controllable gauge
+# HELP xinference:token_router_assignment_current Whether an associated Runtime matches the current Assignment generation.
+# TYPE xinference:token_router_assignment_current gauge
+# HELP xinference:token_router_assignment_desired_state Token Router Assignment desired state (one-hot).
+# TYPE xinference:token_router_assignment_desired_state gauge
+# HELP xinference:token_router_assignment_generation Token Router Assignment generation.
+# TYPE xinference:token_router_assignment_generation gauge
+# HELP xinference:token_router_assignment_info Token Router Assignment identity (value=1).
+# TYPE xinference:token_router_assignment_info gauge
+# HELP xinference:token_router_assignment_observed_state Token Router Assignment observed state (one-hot).
+# TYPE xinference:token_router_assignment_observed_state gauge
+# HELP xinference:token_router_assignment_runtime_ready Whether an associated Runtime reports ready.
+# TYPE xinference:token_router_assignment_runtime_ready gauge
+# HELP xinference:token_router_config_synced_replicas Effective Runtime replicas synchronized to the current revision.
+# TYPE xinference:token_router_config_synced_replicas gauge
+# HELP xinference:token_router_controllable_ready_replicas Effective Runtime replicas currently controllable through an Agent.
+# TYPE xinference:token_router_controllable_ready_replicas gauge
+# HELP xinference:token_router_desired_replicas Desired Token Router replicas.
+# TYPE xinference:token_router_desired_replicas gauge
+# HELP xinference:token_router_effective_ready_replicas Effective ready Token Router Runtime replicas.
+# TYPE xinference:token_router_effective_ready_replicas gauge
+# HELP xinference:token_router_expected_revision Logical Token Router expected configuration revision.
+# TYPE xinference:token_router_expected_revision gauge
+# HELP xinference:token_router_runtime_acked_revision Configuration revision acknowledged by the Runtime.
+# TYPE xinference:token_router_runtime_acked_revision gauge
+# HELP xinference:token_router_runtime_config_synced Whether Runtime configuration and Assignment generation are current.
+# TYPE xinference:token_router_runtime_config_synced gauge
+# HELP xinference:token_router_runtime_controllable Whether the Runtime is currently controllable through its Agent.
+# TYPE xinference:token_router_runtime_controllable gauge
+# HELP xinference:token_router_runtime_effective_ready Whether the Runtime is valid and effective for serving traffic.
+# TYPE xinference:token_router_runtime_effective_ready gauge
+# HELP xinference:token_router_runtime_expected_revision Configuration revision expected by the Supervisor.
+# TYPE xinference:token_router_runtime_expected_revision gauge
+# HELP xinference:token_router_runtime_heartbeat_age_seconds Seconds since the Token Router Runtime heartbeat.
+# TYPE xinference:token_router_runtime_heartbeat_age_seconds gauge
+# HELP xinference:token_router_runtime_info Token Router Runtime identity and build information (value=1).
+# TYPE xinference:token_router_runtime_info gauge
+# HELP xinference:token_router_runtime_status Token Router Runtime state (one-hot).
+# TYPE xinference:token_router_runtime_status gauge
+# HELP xinference:token_router_runtime_up Whether the Runtime is online in the Supervisor Registry.
+# TYPE xinference:token_router_runtime_up gauge
+# HELP xinference:token_router_status Logical Token Router status (one-hot).
+# TYPE xinference:token_router_status gauge
+# HELP xinference:token_router_tokenizer_binding_generation Tokenizer Asset Binding generation.
+# TYPE xinference:token_router_tokenizer_binding_generation gauge
+# HELP xinference:token_router_tokenizer_binding_ready Whether the Tokenizer Asset Binding is ready.
+# TYPE xinference:token_router_tokenizer_binding_ready gauge
+# HELP xinference:token_router_tokenizer_binding_state Tokenizer Asset Binding desired/observed state (value=1).
+# TYPE xinference:token_router_tokenizer_binding_state gauge
+# HELP xinference:token_router_tokenizer_binding_synced Whether desired and observed Tokenizer Asset revisions are synchronized.
+# TYPE xinference:token_router_tokenizer_binding_synced gauge
+# HELP xinference:worker_cpu_utilization Worker CPU utilization (0-1).
+# TYPE xinference:worker_cpu_utilization gauge
+xinference:worker_cpu_utilization{worker_address="127.0.0.1:14454"} 0.32
+# HELP xinference:worker_gpu_memory_total_bytes Worker GPU total memory in bytes.
+# TYPE xinference:worker_gpu_memory_total_bytes gauge
+# HELP xinference:worker_gpu_memory_used_bytes Worker GPU memory used in bytes.
+# TYPE xinference:worker_gpu_memory_used_bytes gauge
+# HELP xinference:worker_gpu_utilization_percent Worker GPU utilization (0-100).
+# TYPE xinference:worker_gpu_utilization_percent gauge
+# HELP xinference:worker_memory_total_bytes Worker total memory in bytes.
+# TYPE xinference:worker_memory_total_bytes gauge
+xinference:worker_memory_total_bytes{worker_address="127.0.0.1:14454"} 17179869184
+# HELP xinference:worker_memory_used_bytes Worker memory used in bytes.
+# TYPE xinference:worker_memory_used_bytes gauge
+xinference:worker_memory_used_bytes{worker_address="127.0.0.1:14454"} 6054920192
+# HELP xinference:workers_total Number of online workers.
+# TYPE xinference:workers_total gauge
+xinference:workers_total 1

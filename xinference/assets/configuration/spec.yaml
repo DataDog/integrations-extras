@@ -1,0 +1,18 @@
+name: Xinference
+files:
+- name: xinference.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.value.example: http://localhost:9997/metrics
+        openmetrics_endpoint.description: |
+          Endpoint exposing the Xinference Prometheus metrics.
+
+          The supervisor (or `xinference-local`) serves `/metrics` on the API port, 9997 by default.
+          Each worker serves its own `/metrics` on the port set with `--metrics-exporter-port`.
+          Configure one instance per endpoint.
