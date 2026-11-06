@@ -1,0 +1,60 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "7f858071-477e-4689-ae74-e6a4c65ca9ef",
+  "app_id": "hugging-face-tei",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Hugging Face Text Embeddings Inference request latency, queueing, and batching.",
+    "title": "Hugging Face TEI",
+    "media": [],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://huggingface.co/docs/text-embeddings-inference"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 93896326,
+      "source_type_name": "Hugging Face TEI",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "hugging_face_tei.",
+        "check": "hugging_face_tei.queue.size",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {},
+    "monitors": {}
+  },
+  "author": {
+    "support_email": "lucasbarros.kam@gmail.com",
+    "name": "Lucas Barros",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "lucasbarros.kam@gmail.com"
+  }
+}
