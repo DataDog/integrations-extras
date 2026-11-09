@@ -1,6 +1,6 @@
 # CHANGELOG - ZScaler
 
-## Unreleased
+## 2.2.0 / 2026-11-09
 
 ***Added***:
 
