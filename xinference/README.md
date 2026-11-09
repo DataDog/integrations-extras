@@ -10,7 +10,8 @@ This integration scrapes the Prometheus metrics that Xinference exposes and prov
 - Time to first token and input, output, and generated tokens for language models.
 - Model load time and lifecycle status, number of loaded models, and online workers.
 - Worker CPU and memory usage.
-- API key usage by key, user, model, and result, and banned clients.
+- API key usage by key, user, model, and result.
+- Banned IP addresses and API keys.
 - Supervisor HTTP API requests and responses by path and status code.
 
 ## Setup
@@ -30,10 +31,10 @@ If you are using Datadog Agent v6.8+, follow the instructions below to install t
 
 ### Configuration
 
-Xinference exposes two kinds of metrics endpoints, both enabled by default (set `XINFERENCE_DISABLE_METRICS=1` to turn them off):
+Xinference exposes two kinds of metrics endpoints, both enabled by default. To turn them off, set `XINFERENCE_DISABLE_METRICS=1`. The endpoints are:
 
-- The supervisor, or `xinference-local`, serves cluster, model status, API key, and HTTP API metrics at `/metrics` on the API port (`9997` by default).
-- Each worker serves its model request and token metrics on a separate metrics server. Set its port with `--metrics-exporter-port` (for example, `xinference-local --metrics-exporter-port 9998` or `xinference-worker --metrics-exporter-port 9998`).
+- The supervisor (or `xinference-local` on a single machine) serves cluster, model status, API key, and HTTP API metrics at `/metrics` on the API port (`9997` by default).
+- Each worker serves its model request and token metrics on a separate metrics server. Set the metrics server port with `--metrics-exporter-port` (for example, `xinference-local --metrics-exporter-port 9998` or `xinference-worker --metrics-exporter-port 9998`).
 
 1. Edit the `xinference.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your Xinference metrics. Configure one instance per endpoint. See the [sample xinference.d/conf.yaml][7] for all available configuration options.
 
@@ -53,13 +54,13 @@ The metrics endpoints do not require authentication.
 
 [Run the Agent's status subcommand][9] and look for `xinference` under the Checks section.
 
-## Data Collected
+## Data collected
 
 ### Metrics
 
 See [metadata.csv][10] for a list of metrics provided by this integration.
 
-### Service Checks
+### Service checks
 
 See [service_checks.json][11] for a list of service checks provided by this integration.
 
