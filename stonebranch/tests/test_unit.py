@@ -143,14 +143,16 @@ def test_metric_groups_jvm(aggregator, dd_run_check, mocker):
     )
 
 
-def test_real_payload_matches_metadata(aggregator, dd_run_check, mock_http_response):
-    fixture = Path(__file__).parent / "fixtures" / "metrics.txt"
-    mock_http_response(
-        file_path=fixture,
-        headers={"Content-Type": "text/plain; version=0.0.4; charset=utf-8"},
+def test_real_payload_matches_metadata(aggregator, dd_run_check, mocker):
+    url = "http://test.local/metrics"
+    fixture_text = (Path(__file__).parent / "fixtures" / "metrics.txt").read_text(encoding="utf-8")
+    mocker.patch(
+        "requests.sessions.Session.request",
+        autospec=True,
+        side_effect=lambda *args, **kwargs: make_streaming_response(url, fixture_text),
     )
     instance = {
-        "openmetrics_endpoint": "http://test.local/metrics",
+        "openmetrics_endpoint": url,
         "metric_groups": ["jvm", "process", "license_details"],
         "rename_labels": {"version": "jvm_version"},
     }
