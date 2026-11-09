@@ -1,11 +1,5 @@
 # CHANGELOG - ZScaler
 
-## 2.2.0 / 2026-11-09
-
-***Added***:
-
-* Map `zscaler.user` and `zscaler.login` to `ocsf.actor.user.name` for all `source:zscaler` logs. Category-specific OCSF mappings still take precedence.
-
 ## 2.1.0 / 2026-05-04
 
 **Added**
