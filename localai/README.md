@@ -16,7 +16,7 @@ This integration scrapes the Prometheus metrics that LocalAI exposes at `/metric
 
 ### Installation
 
-If you are using Datadog Agent v6.8+, follow the instructions below to install the LocalAI check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent Manager][2] or in a [Docker environment][4].
+If you are using Datadog Agent v6.8+, follow these instructions to install the LocalAI check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent Manager][2] or in a [Docker environment][4].
 
 1. [Download and launch the Datadog Agent][3].
 2. Run the following command to install the Agent integration:
@@ -44,7 +44,7 @@ LocalAI serves `/metrics` on the API port (`8080` by default). The endpoint is e
 
 2. [Restart the Agent][8].
 
-The check requests `/metrics` without compression (`Accept-Encoding: identity`): with gzip, LocalAI compresses the metrics response twice and it cannot be parsed.
+The check requests `/metrics` without compression (`Accept-Encoding: identity`). When the request accepts gzip, LocalAI compresses the response twice, and the Agent cannot parse it.
 
 The failover and compression metrics are only reported when a model uses a [failover chain][14] or [context compression][15]. The `endpoint` label of the token usage metrics is renamed to `api_endpoint`, because `endpoint` is the tag the Agent uses for the scraped URL.
 
@@ -68,7 +68,7 @@ The LocalAI integration does not include any events.
 
 ## Support
 
-Need help? Contact [Datadog support][12].
+Need help? Contact [Lucas Barros][12].
 
 [1]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [2]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#start-stop-and-restart-the-agent
@@ -81,7 +81,7 @@ Need help? Contact [Datadog support][12].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/localai/metadata.csv
 [11]: https://github.com/DataDog/integrations-extras/blob/master/localai/assets/service_checks.json
-[12]: https://docs.datadoghq.com/help/
+[12]: mailto:lucasbarros.kam@gmail.com
 [13]: https://localai.io/
 [14]: https://localai.io/features/model-failover/
 [15]: https://localai.io/features/context-compression/
