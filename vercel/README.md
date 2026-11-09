@@ -78,11 +78,13 @@ The Vercel integration collects traces from your Vercel Project using Vercel's [
 
 ### Error Tracking
 
-The integration's log pipeline prepares Vercel Function logs for [Error Tracking][15], with no code changes:
+The integration's log pipeline prepares Vercel Function logs for [Error Tracking][15] from logs alone, with no code changes and no traces required:
 
-- Node.js stack traces in error logs (for example, `console.error(err)` or an uncaught exception) are parsed into `error.stack`, `error.kind`, and `error.message`.
-- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings and non-JavaScript output are not included.
-- These logs get the `error` status, even when the request returned a non-5xx status code.
+- Node.js stack traces in function logs (for example, `console.error(err)`, an uncaught exception, an unhandled promise rejection, or an error logged by a logger such as winston) are parsed into `error.stack`, `error.kind`, and `error.message`. Custom error classes keep their class name as `error.kind`.
+- [pino][16] error and fatal logs are mapped from `err` to `error.kind`, `error.message`, and `error.stack`.
+- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings, `console.trace`, and non-JavaScript output are not included.
+- Vercel Function crashes (`Node.js process exited with exit status ...`) get `error.kind:FunctionCrash`.
+- These logs get the `error` status, even when the request returned a non-5xx status code. Warnings, including `console.warn(err)`, stay warnings.
 
 Issues are grouped by service (the Vercel project name), error kind, message, and stack trace. To group errors differently, set an `error.fingerprint` attribute in a pipeline of your own. Error Tracking for logs must be enabled in your organization.
 
@@ -111,3 +113,4 @@ Need help? Contact [Datadog support][8].
 [13]: https://vercel.com/docs/drains/reference/traces
 [14]: https://docs.datadoghq.com/tracing/
 [15]: https://docs.datadoghq.com/error_tracking/backend/logs/
+[16]: https://getpino.io/
