@@ -3281,296 +3281,6 @@ pipeline:
             matchRules: |
               fqdn_with_root_dot %{regex("[^\\s]*[^\\s.]"):ocsf.query.hostname}\.
               fqdn_without_root_dot %{regex("[^\\s]*[^\\s.]"):ocsf.query.hostname}
-        - type: category-processor
-          name: ocsf.query.type
-          enabled: true
-          categories:
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"A"'
-              name: "A"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NS"'
-              name: "NS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MD"'
-              name: "MD"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MF"'
-              name: "MF"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CNAME"'
-              name: "CNAME"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SOA"'
-              name: "SOA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MB"'
-              name: "MB"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MG"'
-              name: "MG"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MR"'
-              name: "MR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NULL"'
-              name: "NULL"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"WKS"'
-              name: "WKS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"PTR"'
-              name: "PTR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"HINFO"'
-              name: "HINFO"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MINFO"'
-              name: "MINFO"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MX"'
-              name: "MX"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TXT"'
-              name: "TXT"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"RP"'
-              name: "RP"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"AFSDB"'
-              name: "AFSDB"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"X25"'
-              name: "X25"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"ISDN"'
-              name: "ISDN"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"RT"'
-              name: "RT"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NSAP"'
-              name: "NSAP"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NSAP-PTR"'
-              name: "NSAP-PTR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SIG"'
-              name: "SIG"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"KEY"'
-              name: "KEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"PX"'
-              name: "PX"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"GPOS"'
-              name: "GPOS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"AAAA"'
-              name: "AAAA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"LOC"'
-              name: "LOC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NXT"'
-              name: "NXT"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"EID"'
-              name: "EID"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NIMLOC"'
-              name: "NIMLOC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SRV"'
-              name: "SRV"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"ATMA"'
-              name: "ATMA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NAPTR"'
-              name: "NAPTR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"KX"'
-              name: "KX"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CERT"'
-              name: "CERT"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"A6"'
-              name: "A6"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DNAME"'
-              name: "DNAME"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SINK"'
-              name: "SINK"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"OPT"'
-              name: "OPT"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"APL"'
-              name: "APL"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DS"'
-              name: "DS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SSHFP"'
-              name: "SSHFP"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"IPSECKEY"'
-              name: "IPSECKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"RRSIG"'
-              name: "RRSIG"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NSEC"'
-              name: "NSEC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DNSKEY"'
-              name: "DNSKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DHCID"'
-              name: "DHCID"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NSEC3"'
-              name: "NSEC3"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NSEC3PARAM"'
-              name: "NSEC3PARAM"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TLSA"'
-              name: "TLSA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SMIMEA"'
-              name: "SMIMEA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"HIP"'
-              name: "HIP"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NINFO"'
-              name: "NINFO"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"RKEY"'
-              name: "RKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TALINK"'
-              name: "TALINK"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CDS"'
-              name: "CDS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CDNSKEY"'
-              name: "CDNSKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"OPENPGPKEY"'
-              name: "OPENPGPKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CSYNC"'
-              name: "CSYNC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"ZONEMD"'
-              name: "ZONEMD"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SVCB"'
-              name: "SVCB"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"HTTPS"'
-              name: "HTTPS"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DSYNC"'
-              name: "DSYNC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"SPF"'
-              name: "SPF"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"UINFO"'
-              name: "UINFO"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"UID"'
-              name: "UID"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"GID"'
-              name: "GID"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"UNSPEC"'
-              name: "UNSPEC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NID"'
-              name: "NID"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"L32"'
-              name: "L32"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"L64"'
-              name: "L64"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"LP"'
-              name: "LP"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"EUI48"'
-              name: "EUI48"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"EUI64"'
-              name: "EUI64"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"NXNAME"'
-              name: "NXNAME"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TKEY"'
-              name: "TKEY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TSIG"'
-              name: "TSIG"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"IXFR"'
-              name: "IXFR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"AXFR"'
-              name: "AXFR"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MAILB"'
-              name: "MAILB"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"MAILA"'
-              name: "MAILA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"ANY"'
-              name: "ANY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"URI"'
-              name: "URI"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CAA"'
-              name: "CAA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"AVC"'
-              name: "AVC"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DOA"'
-              name: "DOA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"AMTRELAY"'
-              name: "AMTRELAY"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"RESINFO"'
-              name: "RESINFO"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"WALLET"'
-              name: "WALLET"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"CLA"'
-              name: "CLA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"IPN"'
-              name: "IPN"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"TA"'
-              name: "TA"
-            - filter:
-                query: '@ocsf.query.hostname:* @zscaler.dns_reqtype:"DLV"'
-              name: "DLV"
-          target: ocsf.query.type
         - type: schema-processor
           name: Apply OCSF schema for 4003
           enabled: true
@@ -3645,9 +3355,9 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `ocsf.query.type` to `ocsf.query.type`
+              name: Map `zscaler.dns_reqtype` to `ocsf.query.type`
               sources:
-                - ocsf.query.type
+                - zscaler.dns_reqtype
               target: ocsf.query.type
               preserveSource: true
               overrideOnConflict: true
@@ -3694,6 +3404,18 @@ pipeline:
             classUid: 4003
             extensions: []
             profiles: []
+    - type: pipeline
+      name: OCSF cleanup for class DNS Activity [4003]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@ocsf.class_uid:4003 -@ocsf.query.hostname:*"
+      processors:
+        - type: exclude-attribute
+          name: Remove `ocsf.query` when `ocsf.query.hostname` is missing
+          enabled: true
+          attributeToExclude: ocsf.query
     - type: pipeline
       name: OCSF sub pipeline for class Tunnel Activity [4014]
       enabled: true
