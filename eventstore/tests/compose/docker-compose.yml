@@ -25,6 +25,9 @@ services:
       EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
       EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
       EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.4:2113,172.30.30.5:2113
+    # The image healthcheck targets localhost, but the node only listens on EVENTSTORE_EXT_IP
+    healthcheck: &healthcheck
+      test: ["CMD-SHELL", "curl --fail http://$$EVENTSTORE_EXT_IP:2113/health/live || exit 1"]
   es0:
     image: *image
     networks:
@@ -40,6 +43,7 @@ services:
       EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
       EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
       EVENTSTORE_GOSSIP_SEED: 172.30.30.4:2113,172.30.30.5:2113
+    healthcheck: *healthcheck
   es1:
     image: *image
     networks:
@@ -55,6 +59,7 @@ services:
       EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
       EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
       EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.5:2113
+    healthcheck: *healthcheck
   es2:
     image: *image
     networks:
@@ -70,6 +75,7 @@ services:
       EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
       EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
       EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.4:2113
+    healthcheck: *healthcheck
   subscription:
     image: curlimages/curl:latest
     networks:
