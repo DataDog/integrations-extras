@@ -73,6 +73,16 @@ pipeline:
         # level (50 error, 60 fatal) and errors are serialized under `err`.
         query: "@source:(lambda OR edge) @level:[50 TO 60] -@error.kind:* -@error.stack:*"
       processors:
+        - type: grok-parser
+          name: Copy the log message to `error.message` (replaced by `err.message` when present)
+          enabled: true
+          source: message
+          samples:
+            - "charge failed for order"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              pino_message_rule %{data:error.message}
         - type: attribute-remapper
           name: Map `err.type` to `error.kind`
           enabled: true
@@ -92,7 +102,7 @@ pipeline:
           target: error.message
           targetType: attribute
           preserveSource: true
-          overrideOnConflict: false
+          overrideOnConflict: true
         - type: attribute-remapper
           name: Map `err.stack` to `error.stack`
           enabled: true
@@ -103,16 +113,6 @@ pipeline:
           targetType: attribute
           preserveSource: true
           overrideOnConflict: false
-        - type: grok-parser
-          name: Copy the message of pino errors without `err` to `error.message`
-          enabled: true
-          source: message
-          samples:
-            - "Pino: payment provider timed out"
-          grok:
-            supportRules: ""
-            matchRules: |-
-              pino_message_rule %{data:error.message}
         - type: category-processor
           name: Set `error.kind` to `pino.error` for pino errors without `err`
           enabled: true
@@ -152,14 +152,15 @@ pipeline:
             # "Uncaught Exception: Error: x" is an `Error`. Custom error classes,
             # which Node prints as "Error [PaymentDeclinedError]: ...", use the
             # class name as the kind. Lines before the first frame are allowed
-            # (multi-line messages); a trailing " {" (error properties) is left
-            # out of frames. Frame loops are possessive and non-capturing, and
+            # (multi-line messages); frames may be unindented (Node.js startup
+            # crashes); a trailing " {" (error properties) is left out of
+            # frames. Frame loops are possessive and non-capturing, and
             # the `[CODE]` and first-line scans are bounded, to stay well
             # inside the grok timeout on pathological messages.
             supportRules: |-
               _js_error_kind ([A-Z][A-Za-z0-9_$]*)?Error|[A-Z][A-Za-z0-9_$]+Exception
               _js_line [^\n]{0,2048}+
-              _js_error (?:Error \[%{_js_error_kind:error.kind}\]|%{_js_error_kind:error.kind}(?:\s?\[[^\]\n]{1,80}+\])?):[ \t]*%{_js_line:error.message}(?:\n(?![ \t]+at\s|END RequestId|REPORT RequestId)[^\n]*+)*?(?:\n[ \t]+at [^\n{]*[^\n{ ])++
+              _js_error (?:Error \[%{_js_error_kind:error.kind}\]|%{_js_error_kind:error.kind}(?:\s?\[[^\]\n]{1,80}+\])?):[ \t]*%{_js_line:error.message}(?:\n(?![ \t]*at\s|END RequestId|REPORT RequestId)[^\n]*+)*?(?:\n[ \t]*at [^\n{]*[^\n{ ])++
             matchRules: |-
               node_error_rule (?:%{data}\s)??(?:⨯\s+)?%{_js_error:error.stack}%{data}
     - type: pipeline
@@ -174,10 +175,11 @@ pipeline:
           source: message
           samples:
             - "Node.js process exited with exit status: 128. The logs above can help with debugging the issue."
+            - "Function initialization failed\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue."
           grok:
             supportRules: ""
             matchRules: |-
-              function_crash_rule (?=Node\.js process exited with exit status: )%{data:error.message}
+              function_crash_rule (?:%{data}\n)?(?=Node\.js process exited with exit status: )%{data:error.message}
         - type: category-processor
           name: Set `error.kind` to `FunctionCrash`
           enabled: true
@@ -202,18 +204,24 @@ pipeline:
             - "This is a error message"
             - "2026-11-06T15:43:17.812Z\t85ea8a46-d63e-4fe3-ad03-ade7c16cd36b\tERROR\tPayment failed for order"
             - "[Error [AbortError]: This operation was aborted] {\n  code: 20,\n  INDEX_SIZE_ERR: 1\n}"
+            - "psycopg2.OperationalError: connection to server at 10.0.3.17 refused"
             - "(node:4) [DEP0040] DeprecationWarning: The `punycode` module is deprecated."
             - "Trace: Slow path taken for checkout\n    at /var/task/node_modules/next/dist/server/node-environment-extensions/console-exit.js:22:95"
             - "Traceback (most recent call last):\n  File \"/var/task/api/index.py\", line 3, in handler"
           grok:
             # Errors without frames, which Node prints as "[Name: message]" or
-            # "[Error [Name]: message]", keep their kind and message. Not
+            # "[Error [Name]: message]", and exception lines from other
+            # runtimes with a dotted name ("psycopg2.OperationalError: ...",
+            # "java.lang.IllegalStateException: ..."), keep their kind and
+            # message. Not
             # console.error: Node process warnings, console.trace, Python
             # tracebacks and logging records, and Go panics.
             supportRules: |-
               _js_error_kind ([A-Z][A-Za-z0-9_$]*)?Error|[A-Z][A-Za-z0-9_$]+Exception
+              _dotted_error_kind (?:[A-Za-z_][A-Za-z0-9_]*\.)+(?:[A-Z][A-Za-z0-9_]*)?(?:Error|Exception)
               _not_console_error (?!\(node:\d+\) )(?!Trace: )(?!Traceback \(most recent call last\))(?!(?:DEBUG|INFO|WARNING|ERROR|CRITICAL):)(?!panic: )(?!goroutine \d+ )
             matchRules: |-
+              dotted_exception_rule %{_dotted_error_kind:error.kind}: %{data:error.message}
               frameless_error_rule \[(?:Error \[%{_js_error_kind:error.kind}\]|%{_js_error_kind:error.kind}): %{regex("[^\\]\\n]{1,2048}+"):error.message}\]%{data}
               lambda_console_error_rule %{notSpace}\t%{notSpace}\tERROR\t%{_not_console_error}%{data:error.message}
               console_error_rule %{_not_console_error}%{data:error.message}

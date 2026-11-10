@@ -632,3 +632,142 @@ tests:
     tags:
      - "source:LOGS_SOURCE"
     timestamp: 1794244109402
+ -
+  sample: |-
+    {
+      "deploymentId": "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz",
+      "environment": "production",
+      "level": "info",
+      "message": "node:internal/modules/esm/resolve:278\nthrow new ERR_MODULE_NOT_FOUND(\n^\nError [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/node_modules/import-in-the-middle/create-hook.mjs' imported from /var/task/node_modules/dd-trace/loader-hook.mjs\nat finalizeResolution (node:internal/modules/esm/resolve:278:11)\nat moduleResolve (node:internal/modules/esm/resolve:885:10)\nat moduleResolveWithNodePath (node:internal/modules/esm/resolve:1012:14)\nat defaultResolve (node:internal/modules/esm/resolve:1055:79)\nat #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\nat #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\nat ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\nat #resolve (node:internal/modules/esm/loader:687:17)\nat ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\nat ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\ncode: 'ERR_MODULE_NOT_FOUND',\nurl: 'file:///var/task/node_modules/import-in-the-middle/create-hook.mjs'\n}\nNode.js v24.22.2\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue.",
+      "projectName": "dd-vercel-next-smoke",
+      "source": "lambda",
+      "timestamp": 1794244109402,
+      "type": "stderr"
+    }
+  result:
+    custom:
+      deploymentId: "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz"
+      environment: "production"
+      error:
+        kind: "Error"
+        message: "Cannot find module '/var/task/node_modules/import-in-the-middle/create-hook.mjs' imported from /var/task/node_modules/dd-trace/loader-hook.mjs"
+        stack: "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/node_modules/import-in-the-middle/create-hook.mjs' imported from /var/task/node_modules/dd-trace/loader-hook.mjs\nat finalizeResolution (node:internal/modules/esm/resolve:278:11)\nat moduleResolve (node:internal/modules/esm/resolve:885:10)\nat moduleResolveWithNodePath (node:internal/modules/esm/resolve:1012:14)\nat defaultResolve (node:internal/modules/esm/resolve:1055:79)\nat #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\nat #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\nat ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\nat #resolve (node:internal/modules/esm/loader:687:17)\nat ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\nat ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33)"
+      level: "info"
+      projectName: "dd-vercel-next-smoke"
+      source: "lambda"
+      timestamp: 1794244109402
+      type: "stderr"
+      vercel:
+        error_status: "Error"
+    message: "node:internal/modules/esm/resolve:278\nthrow new ERR_MODULE_NOT_FOUND(\n^\nError [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/node_modules/import-in-the-middle/create-hook.mjs' imported from /var/task/node_modules/dd-trace/loader-hook.mjs\nat finalizeResolution (node:internal/modules/esm/resolve:278:11)\nat moduleResolve (node:internal/modules/esm/resolve:885:10)\nat moduleResolveWithNodePath (node:internal/modules/esm/resolve:1012:14)\nat defaultResolve (node:internal/modules/esm/resolve:1055:79)\nat #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\nat #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\nat ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\nat #resolve (node:internal/modules/esm/loader:687:17)\nat ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\nat ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\ncode: 'ERR_MODULE_NOT_FOUND',\nurl: 'file:///var/task/node_modules/import-in-the-middle/create-hook.mjs'\n}\nNode.js v24.22.2\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue."
+    service: "dd-vercel-next-smoke"
+    status: "error"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1794244109402
+ -
+  sample: |-
+    {
+      "deploymentId": "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz",
+      "environment": "production",
+      "level": "info",
+      "message": "Function initialization failed\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue.",
+      "projectName": "error-tracking-vercel",
+      "source": "lambda",
+      "timestamp": 1794244109402,
+      "type": "stderr"
+    }
+  result:
+    custom:
+      deploymentId: "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz"
+      environment: "production"
+      error:
+        kind: "FunctionCrash"
+        message: "Node.js process exited with exit status: 1. The logs above can help with debugging the issue."
+      level: "info"
+      projectName: "error-tracking-vercel"
+      source: "lambda"
+      timestamp: 1794244109402
+      type: "stderr"
+      vercel:
+        error_status: "Error"
+    message: "Function initialization failed\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue."
+    service: "error-tracking-vercel"
+    status: "error"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1794244109402
+ -
+  sample: |-
+    {
+      "deploymentId": "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz",
+      "environment": "production",
+      "level": 50,
+      "message": "charge failed for order",
+      "projectName": "error-tracking-vercel",
+      "source": "lambda",
+      "timestamp": 1794244109402,
+      "type": "stdout",
+      "err": {
+        "message": "payment provider timed out",
+        "stack": "Error: payment provider timed out\n    at charge (/var/task/.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:6805)\n    at async r0.renderToResponse (/var/task/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js:5:14399)",
+        "type": "Error"
+      }
+    }
+  result:
+    custom:
+      deploymentId: "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz"
+      environment: "production"
+      err:
+        message: "payment provider timed out"
+        stack: "Error: payment provider timed out\n    at charge (/var/task/.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:6805)\n    at async r0.renderToResponse (/var/task/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js:5:14399)"
+        type: "Error"
+      error:
+        kind: "Error"
+        message: "payment provider timed out"
+        stack: "Error: payment provider timed out\n    at charge (/var/task/.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:6805)\n    at async r0.renderToResponse (/var/task/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js:5:14399)"
+      level: 50
+      projectName: "error-tracking-vercel"
+      source: "lambda"
+      timestamp: 1794244109402
+      type: "stdout"
+      vercel:
+        error_status: "Error"
+    message: "charge failed for order"
+    service: "error-tracking-vercel"
+    status: "error"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1794244109402
+ -
+  sample: |-
+    {
+      "deploymentId": "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz",
+      "environment": "production",
+      "level": "error",
+      "message": "psycopg2.OperationalError: connection to server at 10.0.3.17 refused",
+      "projectName": "error-tracking-vercel",
+      "source": "lambda",
+      "timestamp": 1794244109402,
+      "type": "stderr"
+    }
+  result:
+    custom:
+      deploymentId: "dpl_HfNqpUxyqM7eUhcpY4gWwaHWyxJz"
+      environment: "production"
+      error:
+        kind: "psycopg2.OperationalError"
+        message: "connection to server at 10.0.3.17 refused"
+      level: "error"
+      projectName: "error-tracking-vercel"
+      source: "lambda"
+      timestamp: 1794244109402
+      type: "stderr"
+      vercel:
+        error_status: "Error"
+    message: "psycopg2.OperationalError: connection to server at 10.0.3.17 refused"
+    service: "error-tracking-vercel"
+    status: "error"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1794244109402

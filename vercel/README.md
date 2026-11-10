@@ -82,7 +82,8 @@ The integration's log pipeline prepares Vercel Function logs for [Error Tracking
 
 - Node.js stack traces in function logs (for example, `console.error(err)`, an uncaught exception, an unhandled promise rejection, or an error logged by a logger such as winston) are parsed into `error.stack`, `error.kind`, and `error.message`. Custom error classes keep their class name as `error.kind`.
 - [pino][16] error and fatal logs are mapped from `err` to `error.kind`, `error.message`, and `error.stack`.
-- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings, `console.trace`, and non-JavaScript output are not included.
+- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings and `console.trace` are not included.
+- Exception lines from other runtimes with a dotted name, such as `psycopg2.OperationalError: ...` or `java.lang.IllegalStateException: ...`, keep that name as `error.kind`. Other non-JavaScript output (Python tracebacks, logging records, Go panics) is excluded on a best-effort basis.
 - Vercel Function crashes (`Node.js process exited with exit status ...`) get `error.kind:FunctionCrash`.
 - These logs get the `error` status, even when the request returned a non-5xx status code. Warnings, including `console.warn(err)`, stay warnings.
 
