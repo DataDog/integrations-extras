@@ -1,0 +1,36 @@
+# Trust policy for the agent_integrations_review_bot Rapid Slack review bot (prod)
+#
+# Grants a scoped, ephemeral token to the review bot's Kubernetes pod. The bot
+# coordinates PR reviews in Slack: it reads a PR's state, draft flag, labels, author
+# (login, bot or not, author association), mergeability and CI status, to tell whether
+# the PR is already tracked on the Extras Jira board (the GIRA `agent/*` labels) and
+# whether it's ready for review. Its only write: requesting the round-robin reviewer
+# as a reviewer on the PR. It never sets assignees, pushes code or posts reviews.
+#
+# Permissions:
+#   pull_requests: PR details, labels, author, mergeability (read); requesting a
+#                  reviewer (write)
+#   checks, statuses: the PR's CI status (GraphQL statusCheckRollup covers both)
+#   contents: the head commit the CI status hangs off
+#
+# Naming convention:
+#   Repo-local policy (per octo-sts): only DataDog/integrations-extras can grant this
+#   identity access, and it's implicitly scoped to this repo -- no `repositories:`
+#   list needed.
+#
+# Identity: rapid-agent-integrations/agent-integrations-review-bot k8s service
+# account, prod datacenter (us1.prod.dog; the bot runs as one pod there). Authenticates
+# via the sycamore (Ticino) OIDC issuer, not GitHub Actions.
+
+issuer: https://ticino.identity.local-cluster.local-dc.fabric.dog:8443/v1/issuer/sycamore
+subject_pattern: "rapid-agent-integrations\\.agent-integrations-review-bot@kubernetes\\.us1\\.prod\\.dog"
+
+claim_pattern:
+  email: "rapid-agent-integrations\\.agent-integrations-review-bot@kubernetes\\.us1\\.prod\\.dog"
+
+permissions:
+  checks: read
+  contents: read
+  metadata: read
+  pull_requests: write
+  statuses: read
