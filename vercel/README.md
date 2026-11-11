@@ -89,6 +89,8 @@ The integration's log pipeline prepares Vercel Function logs for [Error Tracking
 
 Issues are grouped by service (the Vercel project name), error kind, message, and stack trace. To group errors differently, set an `error.fingerprint` attribute in a pipeline of your own. Error Tracking for logs must be enabled in your organization.
 
+**Note**: Starting November 2026, Vercel Function logs with a stack trace, `console.error` output, or a crash get the `error` status even when the request returned a non-5xx status code. Log searches, monitors, and dashboards that filter on `status:error`, and the `vercel.functions.errors` metric, can show higher counts than before.
+
 ## Troubleshooting
 
 If you are using the [Vercel OpenTelemetry SDK][12], the `serviceName` specified in `registerOTel` block of your initializer must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
