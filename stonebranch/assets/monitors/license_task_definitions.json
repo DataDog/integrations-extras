@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "created_at": "2025-12-15",
+  "last_updated_at": "2025-12-15",
+  "title": "Stonebranch task definition license utilization is high",
+  "tags": ["integration:stonebranch"],
+  "description": "Alerts when task definition license consumption approaches the licensed maximum, which may prevent creating new task definitions.",
+  "definition": {
+    "name": "[Stonebranch] Task definition license utilization is high on {{endpoint.name}}",
+    "type": "query alert",
+    "query": "max(last_15m):avg:stonebranch.uc_license.task_definitions.used{*} by {endpoint} / avg:stonebranch.uc_license.task_definitions.max{*} by {endpoint} > 0.95",
+    "message": "Stonebranch task definition license utilization on {{endpoint.name}} has exceeded the threshold.\n\nCurrent utilization is {{value}}. Archive or delete unused task definitions or contact Stonebranch to increase the licensed limit.\n\n@slack-alerts",
+    "tags": ["integration:stonebranch"],
+    "options": {
+      "thresholds": {
+        "critical": 0.95,
+        "warning": 0.8
+      },
+      "notify_no_data": false,
+      "require_full_window": false,
+      "include_tags": true,
+      "new_group_delay": 60,
+      "renotify_interval": 0
+    }
+  }
+}
