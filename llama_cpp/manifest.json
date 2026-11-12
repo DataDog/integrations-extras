@@ -1,0 +1,60 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b37d2c15-7fb8-41d5-98b9-a880636bc797",
+  "app_id": "llama-cpp",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor llama.cpp server token throughput, request queueing, and speculative decoding.",
+    "title": "llama.cpp",
+    "media": [],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://github.com/ggml-org/llama.cpp/tree/master/tools/server"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 93895361,
+      "source_type_name": "llama.cpp",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "llama_cpp.",
+        "check": "llama_cpp.requests.processing",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {},
+    "monitors": {}
+  },
+  "author": {
+    "support_email": "lucasbarros.kam@gmail.com",
+    "name": "Lucas Barros",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "lucasbarros.kam@gmail.com"
+  }
+}
