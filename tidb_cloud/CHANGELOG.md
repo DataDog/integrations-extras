@@ -4,11 +4,7 @@
 
 ***Added***:
 
-* Added Dynamic Tracker dashboards for TiDB Cloud Premium, Essential, Essential instances created on or after July 1, 2026, and TiDB X Starter.
-
-***Changed***:
-
-* Synchronized Dynamic Tracker dashboard assets with the latest metrics-integration dashboards.
+* Added Dynamic Tracker dashboards for TiDB Cloud Premium and Essential instances, including a separate Essential dashboard for instances created on or after July 1, 2026.
 
 ***Fixed***:
 
