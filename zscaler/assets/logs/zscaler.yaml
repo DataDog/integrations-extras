@@ -3269,6 +3269,18 @@ pipeline:
             matchRules: |-
               dns_query_time_ctime %{date("EEE MMM dd HH:mm:ss yyyy"):ocsf.query_time}
               dns_query_time_iso %{date("yyyy-MM-dd HH:mm:ss"):ocsf.query_time}
+        - type: grok-parser
+          name: Parse `zscaler.dns_req` to `ocsf.query.hostname`
+          enabled: true
+          source: zscaler.dns_req
+          samples:
+            - "www.example.com."
+            - "example.com"
+          grok:
+            supportRules: ""
+            matchRules: |
+              fqdn_with_root_dot %{regex("[^\\s]*[^\\s.]"):ocsf.query.hostname}\.
+              fqdn_without_root_dot %{regex("[^\\s]*[^\\s.]"):ocsf.query.hostname}
         - type: schema-processor
           name: Apply OCSF schema for 4003
           enabled: true
@@ -3336,9 +3348,9 @@ pipeline:
               preserveSource: true
               overrideOnConflict: true
             - type: schema-remapper
-              name: Map `zscaler.dns_req` to `ocsf.query.hostname`
+              name: Map `ocsf.query.hostname` to `ocsf.query.hostname`
               sources:
-                - zscaler.dns_req
+                - ocsf.query.hostname
               target: ocsf.query.hostname
               preserveSource: true
               overrideOnConflict: true
@@ -3392,6 +3404,18 @@ pipeline:
             classUid: 4003
             extensions: []
             profiles: []
+    - type: pipeline
+      name: OCSF cleanup for class DNS Activity [4003]
+      enabled: true
+      ocsf:
+        isOcsf: true
+      filter:
+        query: "@ocsf.class_uid:4003 -@ocsf.query.hostname:*"
+      processors:
+        - type: exclude-attribute
+          name: Remove `ocsf.query` when `ocsf.query.hostname` is missing
+          enabled: true
+          attributeToExclude: ocsf.query
     - type: pipeline
       name: OCSF sub pipeline for class Tunnel Activity [4014]
       enabled: true
