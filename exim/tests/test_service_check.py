@@ -1,3 +1,4 @@
+import logging
 from typing import Any, Callable, Dict  # noqa: F401
 
 import mock
@@ -135,6 +136,27 @@ def test_service_running_unknown_without_systemctl(dd_run_check, aggregator, ins
     # Queue collection is unaffected.
     aggregator.assert_service_check('exim.returns.output', EximCheck.OK)
     aggregator.assert_metric('exim.queue.count', value=0, tags=['domain:TOTAL'])
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize(
+    'units, expected_status, expected_level',
+    [
+        pytest.param({'exim4': systemctl_show('loaded', 'active')}, EximCheck.OK, None, id='ok_logs_nothing'),
+        pytest.param({'exim4': systemctl_show('loaded', 'failed')}, EximCheck.CRITICAL, 'WARNING', id='critical_warns'),
+        pytest.param({}, EximCheck.UNKNOWN, 'DEBUG', id='unknown_is_debug'),
+    ],
+)
+def test_service_running_log_level(dd_run_check, aggregator, caplog, units, expected_status, expected_level):
+    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Any, Any, int, Any) -> None
+    check = EximCheck('exim', {}, [{}])
+    caplog.set_level(logging.DEBUG)
+    with mock.patch(WHICH, return_value=SYSTEMCTL), mock.patch(SUBPROCESS_OUTPUT, side_effect=fake_subprocess(units)):
+        dd_run_check(check)
+
+    aggregator.assert_service_check(SERVICE_CHECK, expected_status, count=1)
+    levels = [r.levelname for r in caplog.records if 'Exim' in r.getMessage() and 'queue' not in r.getMessage()]
+    assert levels == ([expected_level] if expected_level else [])
 
 
 @pytest.mark.unit
