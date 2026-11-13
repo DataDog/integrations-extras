@@ -1,5 +1,11 @@
 # CHANGELOG - ZScaler
 
+## 2.2.0 / 2026-11-09
+
+**Added**
+
+* Added Cloud NSS setup instructions for SaaS Security Gen AI logs, Posture Management logs and 3rd-Party App Governance logs. The new feeds send to the same webhook URL and use the `zscalernss-casb` (Gen AI), `zscalernss-posture` and `zscalernss-appgovernance` service names. Log pipeline and dashboard support for the Posture Management and 3rd-Party App Governance log types is not included.
+
 ## 2.1.0 / 2026-05-04
 
 **Added**
