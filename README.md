@@ -17,6 +17,13 @@ Also see the [agent integrations developer documentation][11] for more informati
 
 Please note that integrations in this repository are maintained by the community. The current maintainer is listed in `manifest.json` and will address the pull requests and issues opened for that integration. Additionally, Datadog will assist on a best-effort basis, and will support the current maintainer whenever possible. When submitting a new integration, please indicate in the PR that you're willing to become the maintainer. For current maintainers, we understand circumstances change. If you're no longer able to maintain an integration, please notify us so we can find a new maintainer or mark the integration as orphaned. If you have any questions about the process, don't hesitate to contact us.
 
+## Integrations Moved to Core
+
+Development for these integrations continues in integrations-core:
+
+- [FluxCD](https://github.com/DataDog/integrations-core/tree/master/fluxcd)
+- [Traefik Mesh](https://github.com/DataDog/integrations-core/tree/master/traefik_mesh)
+
 ## Submitting Your Integration
 
 Once you have completed the development of your integration, submit a [pull request][5] to have Datadog review your integration. Once we've reviewed your integration, we will approve and merge your pull request or provide feedback and next steps required for approval.
