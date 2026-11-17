@@ -21,7 +21,11 @@ Please note that integrations in this repository are maintained by the community
 
 Development for these integrations continues in integrations-core:
 
+- [Aerospike](https://github.com/DataDog/integrations-core/tree/master/aerospike)
+- [Calico](https://github.com/DataDog/integrations-core/tree/master/calico)
 - [FluxCD](https://github.com/DataDog/integrations-core/tree/master/fluxcd)
+- [FoundationDB](https://github.com/DataDog/integrations-core/tree/master/foundationdb)
+- [Pulsar](https://github.com/DataDog/integrations-core/tree/master/pulsar)
 - [Traefik Mesh](https://github.com/DataDog/integrations-core/tree/master/traefik_mesh)
 
 ## Submitting Your Integration
