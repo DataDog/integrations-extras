@@ -1,0 +1,1125 @@
+{
+  "title": "Lacework - Security Overview",
+  "description": "Lacework FortiCNAPP security alerts forwarded to Datadog, by severity, category and alert type, with the Cloud SIEM signals for the source.",
+  "layout_type": "ordered",
+  "template_variables": [
+    {
+      "name": "alert_type",
+      "prefix": "@evt.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "category",
+      "prefix": "@evt.category",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "severity",
+      "prefix": "status",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "widgets": [
+    {
+      "id": 5877886686474204,
+      "definition": {
+        "title": "Lacework",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6806324622707781,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard gives an overview of the security alerts Lacework FortiCNAPP forwards to Datadog: cloud activity, workload, Kubernetes, compliance, vulnerability and threat-intel alerts, by severity, category and alert type.\n\nUse the template variables to pivot on an alert type, category or severity, and open single alerts in the **Lacework Alert Details** stream.\n\nFor further reading, see:\n\n- [Lacework integration documentation](https://docs.datadoghq.com/integrations/lacework/)\n\n- [Lacework FortiCNAPP alerts reference](https://docs.fortinet.com/document/forticnapp/latest/alerts-reference)\n\n- [Datadog Cloud SIEM](https://docs.datadoghq.com/security/cloud_siem/)",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ],
+        "banner_img": "/static/images/integration_dashboard/lacework_hero_1.png"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 2385235210738916,
+      "definition": {
+        "title": "Lacework Log Overview",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6100815577627202,
+            "definition": {
+              "title": "Lacework alerts over time by category",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "sum"
+              ],
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.category",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7465376787809728,
+            "definition": {
+              "title": "Top alert types",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "datadog16"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ],
+        "background_color": "white"
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 2462058192728209,
+      "definition": {
+        "title": "Datadog Cloud SIEM",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5244504540662117,
+            "definition": {
+              "type": "note",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true,
+              "content": "Datadog Cloud SIEM analyzes and correlates Lacework logs to detect threats to your environment in real time. If you don't see signals, make sure you've enabled and configured [Datadog Cloud SIEM](/security/siem)."
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6955821388546114,
+            "definition": {
+              "title": "CRITICALs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:lacework status:critical"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#bc303c",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20status%3Acritical"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 3874631803760662,
+            "definition": {
+              "title": "HIGHs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:lacework status:high"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#d33043",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20status%3Ahigh"
+                }
+              ]
+            },
+            "layout": {
+              "x": 2,
+              "y": 1,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 6041021068351281,
+            "definition": {
+              "title": "Security Signals",
+              "type": "toplist",
+              "style": {},
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@workflow.rule.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_red",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20%40workflow.rule.name%3A{{@workflow.rule.name.value}}"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 9715726999467385,
+            "definition": {
+              "title": "Security Signals by Alert Type",
+              "type": "toplist",
+              "style": {},
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "white_on_red",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20%40evt.name%3A{{@evt.name.value}}"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 8257714028344607,
+            "definition": {
+              "title": "MEDIUMs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:lacework status:medium"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#e5a21c",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20status%3Amedium"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5788258583119805,
+            "definition": {
+              "title": "LOWs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:lacework status:low"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#ffb52b",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20status%3Alow"
+                }
+              ]
+            },
+            "layout": {
+              "x": 2,
+              "y": 3,
+              "width": 2,
+              "height": 1
+            }
+          },
+          {
+            "id": 4625981237303137,
+            "definition": {
+              "title": "INFOs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:lacework status:info"
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#84c1e0",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 0,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security/signals?query=source%3Alacework%20status%3Ainfo"
+                }
+              ]
+            },
+            "layout": {
+              "x": 2,
+              "y": 4,
+              "width": 2,
+              "height": 1
+            }
+          }
+        ],
+        "background_color": "green"
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 3383183749477915,
+      "definition": {
+        "title": "Lacework Alerts",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2265398439906149,
+            "definition": {
+              "type": "note",
+              "content": "Lacework alerts by severity, category and type. Critical alerts need immediate attention; high alerts indicate a problem that does not. Categories follow Lacework's alert subcategories (cloud activity, application, machine, user, Kubernetes activity, compliance, vulnerability, threat intel).",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 9564280524536154,
+            "definition": {
+              "title": "Alerts by severity and category",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              },
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@evt.category",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "datadog16"
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 7304957667461354,
+            "definition": {
+              "title": "Alerts by category",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.category",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "datadog16"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 1,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 5033346206789245,
+            "definition": {
+              "title": "Critical alert types",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework status:critical $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_red"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "datadog16"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 1,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 4609304672003899,
+            "definition": {
+              "title": "High alert types",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework status:high $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "value": 0,
+                      "palette": "white_on_yellow"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                },
+                "palette": "datadog16"
+              }
+            },
+            "layout": {
+              "x": 9,
+              "y": 1,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 7563795849818389,
+            "definition": {
+              "title": "Alerts by severity over time",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "timeseries",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "sum"
+              ],
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:lacework $alert_type $category $severity"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "display_type": "bars",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ],
+        "background_color": "green"
+      },
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 9981140578089226,
+      "definition": {
+        "title": "Lacework Alert Details",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2572770736202083,
+            "definition": {
+              "type": "note",
+              "content": "Each Lacework alert as it arrives, newest first. The link column opens the alert in the Lacework console for investigation.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7166123763532491,
+            "definition": {
+              "title": "Lacework alerts",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "list_stream",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:lacework $alert_type $category $severity",
+                    "indexes": [],
+                    "storage": "hot",
+                    "sort": {
+                      "column": "timestamp",
+                      "order": "desc"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@title",
+                      "width": "full"
+                    },
+                    {
+                      "field": "@evt.name",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@evt.category",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "@link",
+                      "width": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 4
+            }
+          }
+        ],
+        "background_color": "green"
+      },
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 6
+      }
+    }
+  ]
+}
