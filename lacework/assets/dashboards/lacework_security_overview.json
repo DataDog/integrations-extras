@@ -17,7 +17,7 @@
     },
     {
       "name": "severity",
-      "prefix": "status",
+      "prefix": "@severity",
       "available_values": [],
       "default": "*"
     }
@@ -714,7 +714,7 @@
                       },
                       "group_by": [
                         {
-                          "facet": "status",
+                          "facet": "@severity",
                           "limit": 10,
                           "sort": {
                             "order": "desc",
@@ -847,7 +847,7 @@
                         }
                       ],
                       "search": {
-                        "query": "source:lacework status:critical $alert_type $category $severity"
+                        "query": "source:lacework @severity:critical $alert_type $category $severity"
                       },
                       "storage": "hot"
                     }
@@ -916,7 +916,7 @@
                         }
                       ],
                       "search": {
-                        "query": "source:lacework status:high $alert_type $category $severity"
+                        "query": "source:lacework @severity:high $alert_type $category $severity"
                       },
                       "storage": "hot"
                     }
@@ -981,7 +981,7 @@
                       },
                       "group_by": [
                         {
-                          "facet": "status",
+                          "facet": "@severity",
                           "limit": 10,
                           "sort": {
                             "order": "desc",
@@ -1077,11 +1077,11 @@
                   },
                   "columns": [
                     {
-                      "field": "status_line",
+                      "field": "timestamp",
                       "width": "auto"
                     },
                     {
-                      "field": "timestamp",
+                      "field": "@severity",
                       "width": "auto"
                     },
                     {
