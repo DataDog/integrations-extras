@@ -1,6 +1,6 @@
 {
   "title": "Lacework - Security Overview",
-  "description": "Lacework FortiCNAPP security alerts forwarded to Datadog, by severity, category and alert type, with the Cloud SIEM signals for the source.",
+  "description": "Lacework FortiCNAPP security alerts forwarded to Datadog, by severity, category, and alert type, with Cloud SIEM signals for Lacework.",
   "layout_type": "ordered",
   "template_variables": [
     {
@@ -35,7 +35,7 @@
             "id": 6806324622707781,
             "definition": {
               "type": "note",
-              "content": "This dashboard gives an overview of the security alerts Lacework FortiCNAPP forwards to Datadog: cloud activity, workload, Kubernetes, compliance, vulnerability and threat-intel alerts, by severity, category and alert type.\n\nUse the template variables to pivot on an alert type, category or severity, and open single alerts in the **Lacework Alert Details** stream.\n\nFor further reading, see:\n\n- [Lacework integration documentation](https://docs.datadoghq.com/integrations/lacework/)\n\n- [Lacework FortiCNAPP alerts reference](https://docs.fortinet.com/document/forticnapp/latest/alerts-reference)\n\n- [Datadog Cloud SIEM](https://docs.datadoghq.com/security/cloud_siem/)",
+              "content": "This dashboard gives an overview of the security alerts Lacework FortiCNAPP forwards to Datadog: cloud activity, workload, Kubernetes, compliance, vulnerability, and threat intel alerts, by severity, category, and alert type.\n\nUse the template variables to filter by alert type, category, or severity, and open individual alerts in the **Lacework Alert Details** stream.\n\nFor further reading, see:\n\n- [Lacework integration documentation](https://docs.datadoghq.com/integrations/lacework/)\n\n- [Lacework FortiCNAPP alerts reference](https://docs.fortinet.com/document/forticnapp/latest/alerts-reference)\n\n- [Datadog Cloud SIEM](https://docs.datadoghq.com/security/cloud_siem/)",
               "background_color": "transparent",
               "font_size": "14",
               "text_align": "left",
@@ -236,7 +236,7 @@
           {
             "id": 6955821388546114,
             "definition": {
-              "title": "CRITICALs",
+              "title": "Critical signals",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -293,7 +293,7 @@
           {
             "id": 3874631803760662,
             "definition": {
-              "title": "HIGHs",
+              "title": "High signals",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -350,7 +350,7 @@
           {
             "id": 6041021068351281,
             "definition": {
-              "title": "Security Signals",
+              "title": "Security signals by rule",
               "type": "toplist",
               "style": {},
               "requests": [
@@ -416,7 +416,7 @@
           {
             "id": 9715726999467385,
             "definition": {
-              "title": "Security Signals by Alert Type",
+              "title": "Security signals by alert type",
               "type": "toplist",
               "style": {},
               "requests": [
@@ -482,7 +482,7 @@
           {
             "id": 8257714028344607,
             "definition": {
-              "title": "MEDIUMs",
+              "title": "Medium signals",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -539,7 +539,7 @@
           {
             "id": 5788258583119805,
             "definition": {
-              "title": "LOWs",
+              "title": "Low signals",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -596,7 +596,7 @@
           {
             "id": 4625981237303137,
             "definition": {
-              "title": "INFOs",
+              "title": "Info signals",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -672,7 +672,7 @@
             "id": 2265398439906149,
             "definition": {
               "type": "note",
-              "content": "Lacework alerts by severity, category and type. Critical alerts need immediate attention; high alerts indicate a problem that does not. Categories follow Lacework's alert subcategories (cloud activity, application, machine, user, Kubernetes activity, compliance, vulnerability, threat intel).",
+              "content": "This group breaks down Lacework alerts by severity, category, and alert type. Critical alerts need immediate attention. High alerts indicate a problem that doesn't need immediate attention. Categories follow Lacework's alert subcategories: cloud activity, application, machine, user, Kubernetes activity, compliance, vulnerability, and threat intel.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
@@ -1038,7 +1038,7 @@
             "id": 2572770736202083,
             "definition": {
               "type": "note",
-              "content": "Each Lacework alert as it arrives, newest first. The link column opens the alert in the Lacework console for investigation.",
+              "content": "This stream lists each Lacework alert as it arrives, newest first. The link column opens the alert in the Lacework console for investigation.",
               "background_color": "green",
               "font_size": "14",
               "text_align": "left",
