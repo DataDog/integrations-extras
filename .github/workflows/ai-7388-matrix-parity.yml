@@ -1,0 +1,16 @@
+name: AI-7388 full-matrix validation
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  test:
+    uses: ./.github/workflows/test-all.yml
+    with:
+      repo: extras
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
