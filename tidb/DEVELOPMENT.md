@@ -2,8 +2,7 @@
 
 1. Set up the [Agent dev tool][1].
 
-> Make sure you have the latest version of `ddev` installed.
-> Check the version by running `ddev --version`.
+> Use `ddev` 21 or later on Python 3.13 or later. Check the installed version with `ddev --version`.
 
 2. Install the [Datadog Agent][2].
 
@@ -25,6 +24,12 @@
 
    ```shell
    ddev test tidb
+   ```
+
+   To run only unit tests in the Python 3.13 test environment:
+
+   ```shell
+   ddev test tidb --envs py3.13 --pytest-args='-m unit -x'
    ```
 
 7. Set up the manual test environment:
