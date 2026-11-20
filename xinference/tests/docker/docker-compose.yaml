@@ -1,0 +1,8 @@
+services:
+  xinference-mock:
+    image: python:3.13-alpine
+    command: python -m http.server 9997 --directory /metrics
+    ports:
+      - "9997:9997"
+    volumes:
+      - ../fixtures:/metrics
