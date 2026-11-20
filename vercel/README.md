@@ -12,6 +12,7 @@ Integrate Vercel with Datadog to:
 - See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
 - Monitor frontend and [Vercel Functions][9] performance with [Datadog Synthetics][6]
 - Trace requests across your Vercel Functions with [Datadog APM][14]
+- Group errors from your Vercel Functions into issues with [Datadog Error Tracking][15]
 
 ## Setup
 
@@ -75,6 +76,21 @@ The Vercel integration collects logs from your Vercel Project using Vercel's [Lo
 
 The Vercel integration collects traces from your Vercel Project using Vercel's [Trace Drains][13] feature.
 
+### Error Tracking
+
+The integration's log pipeline prepares Vercel Function logs for [Error Tracking][15] from logs alone, with no code changes and no traces required:
+
+- Node.js stack traces in function logs (for example, `console.error(err)`, an uncaught exception, an unhandled promise rejection, or an error logged by a logger such as winston) are parsed into `error.stack`, `error.kind`, and `error.message`. Custom error classes keep their class name as `error.kind`.
+- [pino][16] error and fatal logs are mapped from `err` to `error.kind`, `error.message`, and `error.stack`.
+- `console.error` output without a stack trace gets `error.kind:console.error`, with the log message as `error.message`. Node.js process warnings and `console.trace` are not included.
+- Exception lines from other runtimes with a dotted name, such as `psycopg2.OperationalError: ...` or `java.lang.IllegalStateException: ...`, keep that name as `error.kind`. Other non-JavaScript output (Python tracebacks, logging records, Go panics) is excluded on a best-effort basis.
+- Vercel Function crashes (`Node.js process exited with exit status ...`) get `error.kind:FunctionCrash`.
+- These logs get the `error` status, even when the request returned a non-5xx status code. Warnings, including `console.warn(err)`, stay warnings.
+
+Issues are grouped by service (the Vercel project name), error kind, message, and stack trace. To group errors differently, set an `error.fingerprint` attribute in a pipeline of your own. Error Tracking for logs must be enabled in your organization.
+
+**Note**: Starting November 2026, Vercel Function logs with a stack trace, `console.error` output, or a crash get the `error` status even when the request returned a non-5xx status code. Log searches, monitors, and dashboards that filter on `status:error`, and the `vercel.functions.errors` metric, can show higher counts than before.
+
 ## Troubleshooting
 
 If you are using the [Vercel OpenTelemetry SDK][12], the `serviceName` specified in `registerOTel` block of your initializer must match the Vercel Project name. This enables traces to appear in Datadog with the appropriate logs and metrics.
@@ -99,3 +115,5 @@ Need help? Contact [Datadog support][8].
 [12]: https://vercel.com/docs/tracing/instrumentation
 [13]: https://vercel.com/docs/drains/reference/traces
 [14]: https://docs.datadoghq.com/tracing/
+[15]: https://docs.datadoghq.com/error_tracking/backend/logs/
+[16]: https://getpino.io/

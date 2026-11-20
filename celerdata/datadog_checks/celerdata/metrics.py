@@ -63,9 +63,22 @@ METRIC_MAP = {
     "starrocks_fe_rps": "fe.rps",
     "starrocks_fe_safe_mode": "fe.safe_mode",
     "starrocks_fe_scheduled_tablet_num": "fe.scheduled_tablet_num",
+    "starrocks_fe_slow_lock_held_time_ms": "fe.slow_lock_held_time_ms",
+    "starrocks_fe_slow_lock_held_time_ms_count": "fe.slow_lock_held_time_ms.count",
+    "starrocks_fe_slow_lock_held_time_ms_sum": "fe.slow_lock_held_time_ms.sum",
+    "starrocks_fe_slow_lock_wait_time_ms": "fe.slow_lock_wait_time_ms",
+    "starrocks_fe_slow_lock_wait_time_ms_count": "fe.slow_lock_wait_time_ms.count",
+    "starrocks_fe_slow_lock_wait_time_ms_sum": "fe.slow_lock_wait_time_ms.sum",
     "starrocks_fe_slow_query": "fe.slow_query",
     "starrocks_fe_snmp": "fe.snmp",
-    "starrocks_fe_table_num": "fe.table_num",
+    # StarRocks FE interleaves this metric with `starrocks_fe_db_size_bytes` (one pair per db),
+    # which breaks Prometheus family grouping: the parser tags only the first series as `gauge`
+    # and the rest as `unknown`, and OpenMetricsV2 drops `unknown`. Pinning the type recovers all
+    # per-db series. See celerdata#2854.
+    "starrocks_fe_table_num": {
+        "name": "fe.table_num",
+        "type": "gauge",
+    },
     "starrocks_fe_tablet_max_compaction_score": {
         "name": "fe.tablet.max_compaction_score",
         "type": "gauge",

@@ -13,10 +13,11 @@ concurrency:
 
 jobs:
   test:
-    uses: DataDog/integrations-core/.github/workflows/pr-test.yml@5f6b58dfb609ea0afb37762612dbb6e2c37d2933 # master
+    uses: DataDog/integrations-core/.github/workflows/pr-test.yml@b466d14c32e86debf258fdef76034c19c23fc762
     with:
       repo: extras
       python-version: "3.13"
+      ddev-version: "==21.0.0"
     secrets: inherit
     permissions:
        # needed for dd-sts-action in test-target.yml, allows the action to get a JWT signed by Github
