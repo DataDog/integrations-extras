@@ -7,7 +7,8 @@ from datadog_checks.cybersixgill_actionable_alerts.config_models.shared import (
 
 def test_shared_config_service():
     # Test that the service field is validated
-    shared_config = SharedConfig(service="my_service")
+    data = {"service": "my_service"}
+    shared_config = SharedConfig.model_validate(data, context={'configured_fields': frozenset(data)})
     assert shared_config.service == "my_service"
 
     # # Test that the service field is not validated if it is None

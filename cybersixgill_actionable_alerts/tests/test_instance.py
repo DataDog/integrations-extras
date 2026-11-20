@@ -6,14 +6,15 @@ from datadog_checks.cybersixgill_actionable_alerts.config_models.instance import
 
 def test_instance_config_initialization():
     # Test that an instance of InstanceConfig can be initialized with valid values
-    config = InstanceConfig(
-        alerts_limit=10,
-        cl_id="my_client_id",
-        cl_secret="my_client_secret",
-        organization_id="my_org_id",
-        threat_level="high",
-        threat_type="Malware",
-    )
+    data = {
+        "alerts_limit": 10,
+        "cl_id": "my_client_id",
+        "cl_secret": "my_client_secret",
+        "organization_id": "my_org_id",
+        "threat_level": "high",
+        "threat_type": "Malware",
+    }
+    config = InstanceConfig.model_validate(data, context={'configured_fields': frozenset(data)})
     assert config.alerts_limit == 10
     assert config.cl_id == "my_client_id"
     assert config.cl_secret == "my_client_secret"

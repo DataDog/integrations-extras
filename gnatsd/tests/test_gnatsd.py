@@ -55,7 +55,7 @@ def test_metrics(aggregator, instance):
     aggregator.assert_metric('gnatsd.connz.connections.unnamed.out_bytes', metric_type=aggregator.COUNT)
     aggregator.assert_metric('gnatsd.routez.num_routes', metric_type=aggregator.GAUGE)
 
-    route_ip = get_container_ip('docker_nats_serverA_1').replace('.', '_')
+    route_ip = get_container_ip('gnatsd_nats_serverA').replace('.', '_')
     aggregator.assert_metric('gnatsd.routez.routes.{}.in_msgs'.format(route_ip), metric_type=aggregator.COUNT)
     aggregator.assert_metric('gnatsd.routez.routes.{}.out_msgs'.format(route_ip), metric_type=aggregator.COUNT)
     aggregator.assert_metric('gnatsd.routez.routes.{}.subscriptions'.format(route_ip), metric_type=aggregator.GAUGE)
@@ -77,7 +77,7 @@ def test_metric_tags(aggregator, instance):
     aggregator.assert_metric_has_tag_prefix('gnatsd.connz.connections.foo-sub.out_msgs', 'gnatsd-lang', at_least=1)
     aggregator.assert_metric_has_tag_prefix('gnatsd.connz.connections.foo-sub.out_msgs', 'gnatsd-version', at_least=1)
 
-    route_ip = get_container_ip('docker_nats_serverA_1').replace('.', '_')
+    route_ip = get_container_ip('gnatsd_nats_serverA').replace('.', '_')
     aggregator.assert_metric_has_tag_prefix(
         'gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-rid', at_least=1
     )

@@ -1,3 +1,5 @@
+import re
+
 import pytest
 from mock import Mock, patch
 
@@ -52,7 +54,7 @@ def test_check_warning(aggregator, pricing_client_stubber):
     # Validate results
     missing_rate_codes = {'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
     message = 'Pricing data not found for these service rate codes: {}'.format(missing_rate_codes)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.WARNING, message=message)
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.WARNING, message=re.escape(message))
     assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
 
 
@@ -88,7 +90,7 @@ def test_check_describe_services_clienterror(aggregator, pricing_client_stubber)
 
     # Validate results
     message = 'An error occurred ({}) when calling the DescribeServices operation: {}'.format(code, message)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=message)
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=re.escape(message))
     assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
 
 
@@ -110,5 +112,5 @@ def test_check_get_products_clienterror(aggregator, pricing_client_stubber):
 
     # Validate results
     message = 'An error occurred ({}) when calling the GetProducts operation: {}'.format(code, message)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=message)
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=re.escape(message))
     assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'

@@ -160,3 +160,18 @@ def test_invalid_response_check(aggregator, instance):
     aggregator.assert_metric(name="lighthouse.unused_css_rules", count=0, at_least=0)
     aggregator.assert_metric(name="lighthouse.unused_javascript", count=0, at_least=0)
     aggregator.assert_metric(name="lighthouse.uses_optimized_images", count=0, at_least=0)
+
+
+@pytest.mark.unit
+def test_instance_tags_are_applied(aggregator):
+    instance = {'url': 'https://www.datadoghq.com', 'name': 'datadog', 'tags': ['foo:bar']}
+    lighthouse_check = LighthouseCheck('lighthouse', {}, {})
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+
+    lighthouse_check.check(instance)
+
+    aggregator.assert_metric(
+        name="lighthouse.accessibility",
+        value=92,
+        tags=['foo:bar', 'url:https://www.datadoghq.com', 'name:datadog'],
+    )
