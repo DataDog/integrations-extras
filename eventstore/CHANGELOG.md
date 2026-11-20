@@ -1,5 +1,11 @@
 # CHANGELOG - eventstore
 
+## Unreleased
+
+***Deprecated***:
+
+* This integration is deprecated in favor of the `kurrentdb` integration, following the rename of EventStoreDB to KurrentDB.
+
 ## 2.1.0
 
 ***Added***:
