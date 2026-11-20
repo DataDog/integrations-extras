@@ -38,6 +38,65 @@ files:
       value:
         type: boolean
         example: false
+    - name: max_domains
+      description: |
+        Maximum number of recipient domains reported as separate `domain` tag values, taken in
+        descending order of queued recipients. The remaining domains are aggregated under
+        `domain:other`; `domain:TOTAL` always covers the whole queue and `exim.queue.domains`
+        reports how many domains have queued mail.
+
+        Cost: metrics from this integration are custom metrics, and every reported domain
+        produces one time series per queue metric, 5 with the default options (count, volume,
+        oldest_age, frozen.count, bounce.count). A queue with 300 domains therefore means
+        1500 custom metrics without a limit; with the default limit of 100 it is at most
+        511 (100 domains, `other`, `TOTAL` and `exim.queue.domains`). A domain only counts
+        while it has queued mail. Set it to 0 to report every domain.
+      value:
+        type: integer
+        example: 100
+        minimum: 0
+    - name: collect_domain_metrics
+      description: |
+        Report the queue metrics per recipient domain (`domain:<DOMAIN>` and `domain:other`).
+        When disabled, only the `domain:TOTAL` series and `exim.queue.domains` are submitted.
+
+        Cost: with this disabled the integration always produces 6 custom metrics per host
+        (5 queue metrics for `domain:TOTAL` plus `exim.queue.domains`), whatever the queue
+        contains. With it enabled, add 5 per reported domain; see `max_domains`.
+      value:
+        type: boolean
+        example: true
+    - name: collect_oldest_age
+      description: Collect the `exim.queue.oldest_age` metric.
+      value:
+        type: boolean
+        example: true
+    - name: collect_frozen_count
+      description: |
+        Collect the `exim.queue.frozen.count` metric. When disabled, the captured queue listing is
+        not summarized with `exiqsumm -f`.
+      value:
+        type: boolean
+        example: true
+    - name: collect_bounce_count
+      description: |
+        Collect the `exim.queue.bounce.count` metric. When disabled, the captured queue listing is
+        not summarized with `exiqsumm -b`.
+      value:
+        type: boolean
+        example: true
+    - name: collect_service_running
+      description: |
+        Submit the `exim.service.running` service check. Disable it on hosts without systemd, or
+        when the core `systemd` integration already monitors the Exim unit.
+      value:
+        type: boolean
+        example: true
+    - name: collect_version_metadata
+      description: Run `exim -bV` to submit the Exim version as check metadata.
+      value:
+        type: boolean
+        example: true
     - name: service_name
       description: |
         Name of the systemd unit that runs Exim, used by the `exim.service.running` service check.

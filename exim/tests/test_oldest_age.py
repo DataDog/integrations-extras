@@ -1,11 +1,8 @@
 import os
-from typing import Any, Callable, Dict  # noqa: F401
 
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev import get_here
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.exim import EximCheck
@@ -20,7 +17,6 @@ def fixture(name):
 
 @pytest.mark.unit
 def test_check_oldest_age(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     # exiqsumm-ages.txt is the output of exiqsumm (Exim 4.96) for exim-bp.txt.
     check = EximCheck('exim', {}, [instance])
     long_domain = 'a' * 70 + '.example'
@@ -38,7 +34,6 @@ def test_check_oldest_age(dd_run_check, aggregator, instance):
 
 @pytest.mark.unit
 def test_check_skips_unparseable_oldest_age(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     output = fixture('exiqsumm-empty.txt').replace('0m   0000d', '??   0000d')
     with mock.patch(SUBPROCESS_OUTPUT, return_value=(output, '', 0)):

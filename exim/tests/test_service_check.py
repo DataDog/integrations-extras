@@ -1,10 +1,8 @@
-from typing import Any, Callable, Dict  # noqa: F401
+import logging
 
 import mock
 import pytest
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev.utils import get_service_checks
 from datadog_checks.exim import EximCheck
 
@@ -86,7 +84,6 @@ def systemctl_calls(subprocess_output):
 def test_service_running_probes_default_units(
     dd_run_check, aggregator, instance, units, expected_status, expected_message, expected_calls
 ):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], Any, int, Any, Any) -> None
     check = EximCheck('exim', {}, [instance])
     with (
         mock.patch(WHICH, return_value=SYSTEMCTL),
@@ -108,7 +105,6 @@ def test_service_running_probes_default_units(
     ],
 )
 def test_service_running_uses_configured_service_name(dd_run_check, aggregator, state, expected_status):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Any, int) -> None
     check = EximCheck('exim', {}, [{'service_name': 'exim-custom'}])
     with (
         mock.patch(WHICH, return_value=SYSTEMCTL),
@@ -122,7 +118,6 @@ def test_service_running_uses_configured_service_name(dd_run_check, aggregator, 
 
 @pytest.mark.unit
 def test_service_running_unknown_without_systemctl(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with (
         mock.patch(WHICH, return_value=None),
@@ -138,8 +133,27 @@ def test_service_running_unknown_without_systemctl(dd_run_check, aggregator, ins
 
 
 @pytest.mark.unit
+@pytest.mark.parametrize(
+    'units, expected_status, expected_level',
+    [
+        pytest.param({'exim4': systemctl_show('loaded', 'active')}, EximCheck.OK, None, id='ok_logs_nothing'),
+        pytest.param({'exim4': systemctl_show('loaded', 'failed')}, EximCheck.CRITICAL, 'WARNING', id='critical_warns'),
+        pytest.param({}, EximCheck.UNKNOWN, 'DEBUG', id='unknown_is_debug'),
+    ],
+)
+def test_service_running_log_level(dd_run_check, aggregator, caplog, units, expected_status, expected_level):
+    check = EximCheck('exim', {}, [{}])
+    caplog.set_level(logging.DEBUG)
+    with mock.patch(WHICH, return_value=SYSTEMCTL), mock.patch(SUBPROCESS_OUTPUT, side_effect=fake_subprocess(units)):
+        dd_run_check(check)
+
+    aggregator.assert_service_check(SERVICE_CHECK, expected_status, count=1)
+    levels = [r.levelname for r in caplog.records if 'Exim' in r.getMessage() and 'queue' not in r.getMessage()]
+    assert levels == ([expected_level] if expected_level else [])
+
+
+@pytest.mark.unit
 def test_service_running_unknown_when_systemctl_fails(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     error = ('', 'System has not been booted with systemd as init system (PID 1). Can\'t operate.\n', 1)
     with (
@@ -156,7 +170,6 @@ def test_service_running_unknown_when_systemctl_fails(dd_run_check, aggregator, 
 
 @pytest.mark.unit
 def test_service_running_unknown_on_unexpected_output(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with (
         mock.patch(WHICH, return_value=SYSTEMCTL),
@@ -169,7 +182,6 @@ def test_service_running_unknown_on_unexpected_output(dd_run_check, aggregator, 
 
 @pytest.mark.unit
 def test_service_running_unknown_on_exception(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
 
     def run(command, log, raise_on_empty_output=True):
@@ -189,7 +201,6 @@ def test_service_running_unknown_on_exception(dd_run_check, aggregator, instance
 
 @pytest.mark.unit
 def test_service_checks_metadata(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = EximCheck('exim', {}, [instance])
     with (
         mock.patch(WHICH, return_value=SYSTEMCTL),
