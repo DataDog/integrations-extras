@@ -1,0 +1,60 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "1058d44d-6656-4c8d-82a8-b668b11822e7",
+  "app_id": "localai",
+  "owner": "agent-integrations",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor LocalAI request latency, token usage, model failover, and context compression.",
+    "title": "LocalAI",
+    "media": [],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ],
+    "resources": [
+      {
+        "resource_type": "other",
+        "url": "https://localai.io/"
+      }
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 93931357,
+      "source_type_name": "LocalAI",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "localai.",
+        "check": "localai.request.duration.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {},
+    "monitors": {}
+  },
+  "author": {
+    "support_email": "lucasbarros.kam@gmail.com",
+    "name": "Lucas Barros",
+    "homepage": "https://github.com/lbarrosby",
+    "sales_email": "lucasbarros.kam@gmail.com"
+  }
+}
