@@ -1,4 +1,4 @@
-FROM ruby
+FROM ruby:3.1-bookworm
 COPY ./Gemfile /Gemfile
 COPY ./Gemfile.lock /Gemfile.lock
 RUN bundle install
