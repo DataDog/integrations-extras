@@ -10,6 +10,10 @@ $results = [];
 foreach ($status as $key => $val) {
     if (is_array($val)) {
         foreach ($val as $key2 => $val2) {
+            if (is_array($val2)) {
+                // e.g. preload_statistics.{functions,classes,scripts} are lists of names, not metrics
+                continue;
+            }
             $results[$prefix . $key . '.' . $key2] = _val($val2);
         }
     } else {
