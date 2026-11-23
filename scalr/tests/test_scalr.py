@@ -1,5 +1,6 @@
 from typing import Any, Callable, Dict  # noqa: F401
 
+import pytest
 from datadog_checks.base import AgentCheck  # noqa: F401
 from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev.utils import get_metadata_metrics
@@ -35,29 +36,30 @@ SCALR_ACCOUNTS_RESPONSE = '''
 '''
 
 
-def test_check(dd_run_check, aggregator, instance, requests_mock):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+@pytest.mark.parametrize('ai_metrics', [{}, {'runs-ai-assisted-count': 0}, {'runs-ai-assisted-count': 3}])
+def test_check(dd_run_check, aggregator, instance, requests_mock, ai_metrics):
+    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], Any, Dict[str, int]) -> None
 
-    SCALR_METRICS_RESPONSE = '''
-    {
-      "billings-flex-runs-count": 0,
-      "billings-flex-runs-minutes-count": 0,
-      "billings-run-minutes-count": 50,
-      "billings-runs-count": 10,
-      "environments-count": 4,
-      "quota-max-concurrency": 10,
-      "runs-awaiting-confirmation": 1,
-      "runs-concurrency": 0,
-      "runs-count": 10,
-      "runs-failed": 2,
-      "runs-queue-size": 2,
-      "runs-successful": 6,
-      "workspaces-count": 3
-    }'''
+    metrics_response = {
+        "billings-flex-runs-count": 0,
+        "billings-flex-runs-minutes-count": 0,
+        "billings-run-minutes-count": 50,
+        "billings-runs-count": 10,
+        "environments-count": 4,
+        "quota-max-concurrency": 10,
+        "runs-awaiting-confirmation": 1,
+        "runs-concurrency": 0,
+        "runs-count": 10,
+        "runs-failed": 2,
+        "runs-queue-size": 2,
+        "runs-successful": 6,
+        "workspaces-count": 3,
+        **ai_metrics,
+    }
 
     requests_mock.get(
         'http://acc_name.localhost/api/iacp/v3/accounts/acc-test/metrics',
-        text=SCALR_METRICS_RESPONSE,
+        json=metrics_response,
     )
 
     requests_mock.get(
@@ -70,6 +72,14 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
 
     for metric_name in SCALR_ACCOUNT_METRICS:
         aggregator.assert_metric('scalr.' + metric_name)
+
+    metric = 'scalr.runs.ai_assisted.count'
+    if ai_metrics:
+        aggregator.assert_metric(
+            metric, value=ai_metrics['runs-ai-assisted-count'], metric_type=aggregator.GAUGE, count=1
+        )
+    else:
+        aggregator.assert_metric(metric, count=0)
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
