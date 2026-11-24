@@ -1,5 +1,13 @@
 # CHANGELOG - Modal
 
+## 1.9.0 / 2026-11-24
+
+***Added***:
+
+* Network egress and ingress bytes metrics
+* GPU clock metric
+* Sandbox ID tag on container metrics from Modal Sandboxes
+
 ## 1.8.1 / 2026-10-13
 
 ***Changed***:
