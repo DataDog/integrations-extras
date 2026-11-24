@@ -1,7 +1,9 @@
 # (C) Datadog, Inc. 2010-2016
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
+import logging
 import re
+import subprocess
 
 import mock
 
@@ -38,6 +40,20 @@ def test_query_ups_device(mock_iocall):
     check.update_from_config(INSTANCES[0])
     mock_iocall.return_value = '\n'.join(['ups.status: OL', 'battery.charge: 100'])
     assert {'ups.status': 'OL', 'battery.charge': '100'} == check.query_ups_device('testUps')
+
+
+@mock.patch('subprocess.check_output')
+def test_query_ups_device_error(mock_iocall, caplog):
+    check = UpscCheck('upsc ', {}, {}, INSTANCES)
+    check.update_from_config(INSTANCES[0])
+    mock_iocall.side_effect = subprocess.CalledProcessError(1, ['upsc', 'testUps'])
+
+    with caplog.at_level(logging.ERROR):
+        assert {} == check.query_ups_device('testUps')
+
+    assert (
+        "Unable to query device testUps: Command '['upsc', 'testUps']' returned non-zero exit status 1."
+    ) in caplog.text
 
 
 def test_convert_and_filter_stats():

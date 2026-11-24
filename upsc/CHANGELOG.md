@@ -1,5 +1,11 @@
 # CHANGELOG - UPSC
 
+## 2.0.1 / 2026-10-27
+
+***Fixed***:
+
+* Fix the error log when querying a UPS device fails, which raised a logging `TypeError` instead of reporting the device and the `upsc` error.
+
 ## 2.0.0 / 2026-09-30
 
 ***Changed***:
