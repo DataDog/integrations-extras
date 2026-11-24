@@ -1,0 +1,168 @@
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 2297.0
+python_gc_objects_collected_total{generation="1"} 546.0
+python_gc_objects_collected_total{generation="2"} 62.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 318.0
+python_gc_collections_total{generation="1"} 28.0
+python_gc_collections_total{generation="2"} 2.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="12",patchlevel="13",version="3.12.13"} 1.0
+# HELP vllm:num_requests_running Number of running requests
+# TYPE vllm:num_requests_running gauge
+vllm:num_requests_running{server="http://127.0.0.1:18101"} 0.0
+vllm:num_requests_running{server="http://127.0.0.1:18102"} 0.0
+# HELP vllm:num_requests_waiting Number of waiting requests
+# TYPE vllm:num_requests_waiting gauge
+# HELP vllm:gpu_prefix_cache_hit_rate GPU Prefix Cache Hit Rate
+# TYPE vllm:gpu_prefix_cache_hit_rate gauge
+vllm:gpu_prefix_cache_hit_rate{server="http://127.0.0.1:18101"} 0.0
+# HELP vllm:gpu_prefix_cache_hits_total Total GPU Prefix Cache Hits
+# TYPE vllm:gpu_prefix_cache_hits_total gauge
+vllm:gpu_prefix_cache_hits_total{server="http://127.0.0.1:18101"} 0.0
+# HELP vllm:gpu_prefix_cache_queries_total Total GPU Prefix Cache Queries
+# TYPE vllm:gpu_prefix_cache_queries_total gauge
+vllm:gpu_prefix_cache_queries_total{server="http://127.0.0.1:18101"} 0.0
+# HELP vllm:current_qps Current Queries Per Second
+# TYPE vllm:current_qps gauge
+vllm:current_qps{server="http://127.0.0.1:18101"} 0.25
+vllm:current_qps{server="http://127.0.0.1:18102"} 0.25
+# HELP vllm:avg_decoding_length Average Decoding Length
+# TYPE vllm:avg_decoding_length gauge
+vllm:avg_decoding_length{server="http://127.0.0.1:18101"} -1.0
+vllm:avg_decoding_length{server="http://127.0.0.1:18102"} -1.0
+# HELP vllm:num_prefill_requests Number of Prefill Requests
+# TYPE vllm:num_prefill_requests gauge
+vllm:num_prefill_requests{server="http://127.0.0.1:18101"} 0.0
+vllm:num_prefill_requests{server="http://127.0.0.1:18102"} 0.0
+# HELP vllm:num_decoding_requests Number of Decoding Requests
+# TYPE vllm:num_decoding_requests gauge
+vllm:num_decoding_requests{server="http://127.0.0.1:18101"} 0.0
+vllm:num_decoding_requests{server="http://127.0.0.1:18102"} 0.0
+# HELP vllm:num_incoming_requests_total Total valid incoming requests to router (including when no backends available).
+# TYPE vllm:num_incoming_requests_total counter
+vllm:num_incoming_requests_total{model="stories"} 30.0
+vllm:num_incoming_requests_total{model="nope"} 1.0
+# HELP vllm:num_incoming_requests_created Total valid incoming requests to router (including when no backends available).
+# TYPE vllm:num_incoming_requests_created gauge
+vllm:num_incoming_requests_created{model="stories"} 1.793900686995562e+09
+vllm:num_incoming_requests_created{model="nope"} 1.793900688068767e+09
+# HELP vllm:healthy_pods_total Number of healthy vLLM pods
+# TYPE vllm:healthy_pods_total gauge
+vllm:healthy_pods_total{server="http://127.0.0.1:18101"} 1.0
+vllm:healthy_pods_total{server="http://127.0.0.1:18102"} 1.0
+# HELP vllm:avg_latency Average end-to-end request latency
+# TYPE vllm:avg_latency gauge
+vllm:avg_latency{server="http://127.0.0.1:18101"} 0.04672676722208659
+vllm:avg_latency{server="http://127.0.0.1:18102"} 0.029197899500528972
+# HELP vllm:avg_itl Average Inter-Token Latency
+# TYPE vllm:avg_itl gauge
+vllm:avg_itl{server="http://127.0.0.1:18101"} -1.0
+vllm:avg_itl{server="http://127.0.0.1:18102"} -1.0
+# HELP vllm:num_requests_swapped Number of swapped requests
+# TYPE vllm:num_requests_swapped gauge
+vllm:num_requests_swapped{server="http://127.0.0.1:18101"} 0.0
+vllm:num_requests_swapped{server="http://127.0.0.1:18102"} 0.0
+# HELP vllm:input_tokens_total Total input tokens processed
+# TYPE vllm:input_tokens_total counter
+vllm:input_tokens_total{model="stories",server="http://127.0.0.1:18102"} 504.0
+vllm:input_tokens_total{model="stories",server="http://127.0.0.1:18101"} 84.0
+# HELP vllm:input_tokens_created Total input tokens processed
+# TYPE vllm:input_tokens_created gauge
+vllm:input_tokens_created{model="stories",server="http://127.0.0.1:18102"} 1.793900687267314e+09
+vllm:input_tokens_created{model="stories",server="http://127.0.0.1:18101"} 1.793900699892231e+09
+# HELP vllm:output_tokens_total Total output tokens generated
+# TYPE vllm:output_tokens_total counter
+vllm:output_tokens_total{model="stories",server="http://127.0.0.1:18102"} 360.0
+vllm:output_tokens_total{model="stories",server="http://127.0.0.1:18101"} 60.0
+# HELP vllm:output_tokens_created Total output tokens generated
+# TYPE vllm:output_tokens_created gauge
+vllm:output_tokens_created{model="stories",server="http://127.0.0.1:18102"} 1.793900687267321e+09
+vllm:output_tokens_created{model="stories",server="http://127.0.0.1:18101"} 1.7939006998922381e+09
+# HELP vllm:request_errors_total Total request errors
+# TYPE vllm:request_errors_total counter
+vllm:request_errors_total{error_type="ClientConnectorError",model="stories",server="http://127.0.0.1:18102"} 3.0
+# HELP vllm:request_errors_created Total request errors
+# TYPE vllm:request_errors_created gauge
+vllm:request_errors_created{error_type="ClientConnectorError",model="stories",server="http://127.0.0.1:18102"} 1.79390069959969e+09
+# HELP vllm:request_latency_seconds End-to-end request latency observed at the router
+# TYPE vllm:request_latency_seconds histogram
+vllm:request_latency_seconds_bucket{le="0.05",model="stories",server="http://127.0.0.1:18101",status="success"} 11.0
+vllm:request_latency_seconds_bucket{le="0.1",model="stories",server="http://127.0.0.1:18101",status="success"} 13.0
+vllm:request_latency_seconds_bucket{le="0.25",model="stories",server="http://127.0.0.1:18101",status="success"} 13.0
+vllm:request_latency_seconds_bucket{le="0.5",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="1.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="2.5",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="5.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="10.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="30.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="60.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="120.0",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_bucket{le="+Inf",model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_count{model="stories",server="http://127.0.0.1:18101",status="success"} 14.0
+vllm:request_latency_seconds_sum{model="stories",server="http://127.0.0.1:18101",status="success"} 0.6994860172271729
+vllm:request_latency_seconds_bucket{le="0.05",model="stories",server="http://127.0.0.1:18102",status="success"} 11.0
+vllm:request_latency_seconds_bucket{le="0.1",model="stories",server="http://127.0.0.1:18102",status="success"} 11.0
+vllm:request_latency_seconds_bucket{le="0.25",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="0.5",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="1.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="2.5",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="5.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="10.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="30.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="60.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="120.0",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_bucket{le="+Inf",model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_count{model="stories",server="http://127.0.0.1:18102",status="success"} 12.0
+vllm:request_latency_seconds_sum{model="stories",server="http://127.0.0.1:18102",status="success"} 0.4362525939941406
+vllm:request_latency_seconds_bucket{le="0.05",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="0.1",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="0.25",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="0.5",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="1.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="2.5",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="5.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="10.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="30.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="60.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="120.0",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_bucket{le="+Inf",model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_count{model="stories",server="http://127.0.0.1:18101",status="error"} 1.0
+vllm:request_latency_seconds_sum{model="stories",server="http://127.0.0.1:18101",status="error"} 0.0016148090362548828
+vllm:request_latency_seconds_bucket{le="0.05",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="0.1",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="0.25",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="0.5",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="1.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="2.5",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="5.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="10.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="30.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="60.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="120.0",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_bucket{le="+Inf",model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_count{model="stories",server="http://127.0.0.1:18102",status="error"} 3.0
+vllm:request_latency_seconds_sum{model="stories",server="http://127.0.0.1:18102",status="error"} 0.0018317699432373047
+# HELP vllm:request_latency_seconds_created End-to-end request latency observed at the router
+# TYPE vllm:request_latency_seconds_created gauge
+vllm:request_latency_seconds_created{model="stories",server="http://127.0.0.1:18101",status="success"} 1.793900687054948e+09
+vllm:request_latency_seconds_created{model="stories",server="http://127.0.0.1:18102",status="success"} 1.7939006872673368e+09
+vllm:request_latency_seconds_created{model="stories",server="http://127.0.0.1:18101",status="error"} 1.793900688080707e+09
+vllm:request_latency_seconds_created{model="stories",server="http://127.0.0.1:18102",status="error"} 1.7939006995997288e+09
+# HELP router_cpu_usage_percent CPU usage percent
+# TYPE router_cpu_usage_percent gauge
+router_cpu_usage_percent 31.3
+# HELP router_memory_usage_percent Memory usage percent
+# TYPE router_memory_usage_percent gauge
+router_memory_usage_percent 83.2
+# HELP router_disk_usage_percent Disk usage percent
+# TYPE router_disk_usage_percent gauge
+router_disk_usage_percent 23.4
