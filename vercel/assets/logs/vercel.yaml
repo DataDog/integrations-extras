@@ -4,6 +4,11 @@ id: vercel
 backend_only: false
 facets:
   - groups:
+      - Source Code
+    name: Error Type
+    path: error.kind
+    source: log
+  - groups:
       - Geoip
     name: City Name
     path: network.client.geoip.city.name
@@ -60,6 +65,182 @@ pipeline:
       expression: lambda.billed_duration*lambda.memorysize
       target: lambda.execution
       replaceMissing: false
+    - type: pipeline
+      name: Map pino error logs to Error Tracking attributes
+      enabled: true
+      filter:
+        # pino JSON logs are parsed at intake: `level` becomes pino's numeric
+        # level (50 error, 60 fatal) and errors are serialized under `err`.
+        query: "@source:(lambda OR edge) @level:[50 TO 60] -@error.kind:* -@error.stack:*"
+      processors:
+        - type: grok-parser
+          name: Copy the log message to `error.message` (replaced by `err.message` when present)
+          enabled: true
+          source: message
+          samples:
+            - "charge failed for order"
+          grok:
+            supportRules: ""
+            matchRules: |-
+              pino_message_rule %{data:error.message}
+        - type: attribute-remapper
+          name: Map `err.type` to `error.kind`
+          enabled: true
+          sources:
+            - err.type
+          sourceType: attribute
+          target: error.kind
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: attribute-remapper
+          name: Map `err.message` to `error.message`
+          enabled: true
+          sources:
+            - err.message
+          sourceType: attribute
+          target: error.message
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: true
+        - type: attribute-remapper
+          name: Map `err.stack` to `error.stack`
+          enabled: true
+          sources:
+            - err.stack
+          sourceType: attribute
+          target: error.stack
+          targetType: attribute
+          preserveSource: true
+          overrideOnConflict: false
+        - type: category-processor
+          name: Set `error.kind` to `pino.error` for pino errors without `err`
+          enabled: true
+          categories:
+            - filter:
+                query: "-@error.kind:*"
+              name: pino.error
+          target: error.kind
+    - type: pipeline
+      name: Extract Node.js errors from Vercel Function logs for Error Tracking
+      enabled: true
+      filter:
+        # Error-level, 5xx, or non-warning stderr function logs (loggers and
+        # Node.js itself write errors to stderr at info level), and only when
+        # nothing upstream already set error data. Warnings are left alone so
+        # console.warn(err) stays a warning.
+        query: "@source:(lambda OR edge) (@level:(error OR fatal) OR @proxy.statusCode:[500 TO 599] OR (@type:stderr -@level:warning)) -@error.kind:* -@error.stack:*"
+      processors:
+        - type: grok-parser
+          name: Extract the first Node.js stack trace into `error.stack`, `error.kind` and `error.message`
+          enabled: true
+          source: message
+          samples:
+            - "Error: The router state header was sent but could not be parsed.\n    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1uyyd8v8upnf3._.js:12:39073)\n    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1uyyd8v8upnf3._.js:12:39142)"
+            - "START RequestId: 55bf26af-886a-4dfa-be76-8889441f11fa\nError: Unexpected error\n    at handler (/var/task/.next/server/pages/api/products.js:44:11)\nError: Unexpected error\n    at handler (/var/task/.next/server/pages/api/products.js:44:11)\nEND RequestId: 55bf26af-886a-4dfa-be76-8889441f11fa\nREPORT RequestId: 55bf26af-886a-4dfa-be76-8889441f11fa Duration: 375 ms Billed Duration: 376 ms Memory Size: 1024 MB Max Memory Used: 152 MB"
+            - "Failed to handle /download Error: The router state header was sent but could not be parsed.\n    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1uyyd8v8upnf3._.js:12:39073)"
+            - " ⨯ TypeError: Cannot read properties of undefined (reading 'id')\n    at GET (/var/task/.next/server/app/api/items/route.js:1:120) {\n  digest: '1234567890'\n}"
+            - "Error [PaymentDeclinedError]: Card was declined for order 1042\n    at Object.run (.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:2758)"
+            - "error: Error: Winston: failed to send receipt email\n    at Object.run (/var/task/.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:7287)"
+            - "Unhandled Rejection: Error: Background job failed without a handler\n    at Object.run (/var/task/.next/server/chunks/[root-of-the-server]__0-7653-3091xg._.js:1:5852)"
+          grok:
+            # `error.kind` and `error.message` are captured inside `error.stack`.
+            # The prefix is lazy so the first error header wins (wrapped errors
+            # keep the outer kind), and it can span lines (output before the
+            # error, logger prefixes such as "error: ", START lines, the Lambda
+            # console ERROR prefix). A bare `Exception` needs a prefix so
+            # "Uncaught Exception: Error: x" is an `Error`. Custom error classes,
+            # which Node prints as "Error [PaymentDeclinedError]: ...", use the
+            # class name as the kind. Lines before the first frame are allowed
+            # (multi-line messages); frames may be unindented (Node.js startup
+            # crashes); a trailing " {" (error properties) is left out of
+            # frames. Frame loops are possessive and non-capturing, and
+            # the `[CODE]` and first-line scans are bounded, to stay well
+            # inside the grok timeout on pathological messages.
+            supportRules: |-
+              _js_error_kind ([A-Z][A-Za-z0-9_$]*)?Error|[A-Z][A-Za-z0-9_$]+Exception
+              _js_line [^\n]{0,2048}+
+              _js_error (?:Error \[%{_js_error_kind:error.kind}\]|%{_js_error_kind:error.kind}(?:\s?\[[^\]\n]{1,80}+\])?):[ \t]*%{_js_line:error.message}(?:\n(?![ \t]*at\s|END RequestId|REPORT RequestId)[^\n]*+)*?(?:\n[ \t]*at [^\n{]*[^\n{ ])++
+            matchRules: |-
+              node_error_rule (?:%{data}\s)??(?:⨯\s+)?%{_js_error:error.stack}%{data}
+    - type: pipeline
+      name: Track Vercel Function crashes in Error Tracking
+      enabled: true
+      filter:
+        query: '@source:(lambda OR edge) @type:stderr "Node.js process exited with exit status" -@error.kind:* -@error.stack:*'
+      processors:
+        - type: grok-parser
+          name: Copy the crash message to `error.message`
+          enabled: true
+          source: message
+          samples:
+            - "Node.js process exited with exit status: 128. The logs above can help with debugging the issue."
+            - "Function initialization failed\nNode.js process exited with exit status: 1. The logs above can help with debugging the issue."
+          grok:
+            supportRules: ""
+            matchRules: |-
+              function_crash_rule (?:%{data}\n)?(?=Node\.js process exited with exit status: )%{data:error.message}
+        - type: category-processor
+          name: Set `error.kind` to `FunctionCrash`
+          enabled: true
+          categories:
+            - filter:
+                query: "@error.message:*"
+              name: FunctionCrash
+          target: error.kind
+    - type: pipeline
+      name: Track `console.error` output without a stack trace in Error Tracking
+      enabled: true
+      filter:
+        # Vercel marks console.error output as error level. Skip logs with
+        # error data already set, and START/END/REPORT invocation summaries.
+        query: "@source:(lambda OR edge) @type:stderr @level:(error OR fatal) -@error.kind:* -@error.stack:* -@lambda.request_id:*"
+      processors:
+        - type: grok-parser
+          name: Copy `console.error` output to `error.message`
+          enabled: true
+          source: message
+          samples:
+            - "This is a error message"
+            - "2026-11-06T15:43:17.812Z\t85ea8a46-d63e-4fe3-ad03-ade7c16cd36b\tERROR\tPayment failed for order"
+            - "[Error [AbortError]: This operation was aborted] {\n  code: 20,\n  INDEX_SIZE_ERR: 1\n}"
+            - "psycopg2.OperationalError: connection to server at 10.0.3.17 refused"
+            - "(node:4) [DEP0040] DeprecationWarning: The `punycode` module is deprecated."
+            - "Trace: Slow path taken for checkout\n    at /var/task/node_modules/next/dist/server/node-environment-extensions/console-exit.js:22:95"
+            - "Traceback (most recent call last):\n  File \"/var/task/api/index.py\", line 3, in handler"
+          grok:
+            # Errors without frames, which Node prints as "[Name: message]" or
+            # "[Error [Name]: message]", and exception lines from other
+            # runtimes with a dotted name ("psycopg2.OperationalError: ...",
+            # "java.lang.IllegalStateException: ..."), keep their kind and
+            # message. Not
+            # console.error: Node process warnings, console.trace, Python
+            # tracebacks and logging records, and Go panics.
+            supportRules: |-
+              _js_error_kind ([A-Z][A-Za-z0-9_$]*)?Error|[A-Z][A-Za-z0-9_$]+Exception
+              _dotted_error_kind (?:[A-Za-z_][A-Za-z0-9_]*\.)+(?:[A-Z][A-Za-z0-9_]*)?(?:Error|Exception)
+              _not_console_error (?!\(node:\d+\) )(?!Trace: )(?!Traceback \(most recent call last\))(?!(?:DEBUG|INFO|WARNING|ERROR|CRITICAL):)(?!panic: )(?!goroutine \d+ )
+            matchRules: |-
+              dotted_exception_rule %{_dotted_error_kind:error.kind}: %{data:error.message}
+              frameless_error_rule \[(?:Error \[%{_js_error_kind:error.kind}\]|%{_js_error_kind:error.kind}): %{regex("[^\\]\\n]{1,2048}+"):error.message}\]%{data}
+              lambda_console_error_rule %{notSpace}\t%{notSpace}\tERROR\t%{_not_console_error}%{data:error.message}
+              console_error_rule %{_not_console_error}%{data:error.message}
+        - type: category-processor
+          name: Set `error.kind` to `console.error`
+          enabled: true
+          categories:
+            - filter:
+                query: "@error.message:* -@error.kind:*"
+              name: console.error
+          target: error.kind
+    - type: category-processor
+      name: Mark logs with an extracted error as errors
+      enabled: true
+      categories:
+        - filter:
+            query: "@error.kind:* OR @error.stack:*"
+          name: Error
+      target: vercel.error_status
     - type: category-processor
       name: Status Code Remapper
       enabled: true
@@ -78,9 +259,10 @@ pipeline:
           name: Error
       target: http.status_category
     - type: status-remapper
-      name: Define `http.status_category` as the official status of the log
+      name: Define `vercel.error_status`, then `http.status_category`, as the official status of the log
       enabled: true
       sources:
+        - vercel.error_status
         - http.status_category
     - type: service-remapper
       name: Define `projectName` as the official service of the log

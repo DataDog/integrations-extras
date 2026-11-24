@@ -1,0 +1,52 @@
+name: APW asset release
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/apw-assets.yml
+      - .github/chainguard/self.apw-assets.schedule.sts.yaml
+  workflow_dispatch:
+  schedule:
+    # Every 15 minutes, offset from the busiest start-of-hour period.
+    - cron: '7,22,37,52 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apw-assets-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # DataDog/integrations-core#25987 (merged).
+      - uses: DataDog/integrations-core/.github/actions/apw-assets@8c5a7ec0d3a0a1d35c694c643cbfa3fd63b94f12
+        with:
+          mode: package
+
+  publish:
+    # Only scheduled runs and manual dispatches from reviewed master can publish.
+    # This job installs no packages: the action uses the runner's python3 and gh.
+    if: >-
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') &&
+      github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # DataDog/integrations-core#25987 (merged).
+      - uses: DataDog/integrations-core/.github/actions/apw-assets@8c5a7ec0d3a0a1d35c694c643cbfa3fd63b94f12
+        with:
+          mode: publish
