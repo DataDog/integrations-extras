@@ -74,8 +74,11 @@ class EximCheck(AgentCheck):
             status, message = self._get_service_status(service_name)
         except Exception as e:
             status, message = AgentCheck.UNKNOWN, 'Cannot determine the state of the Exim service: {}'.format(e)
-        if status != AgentCheck.OK:
+        if status == AgentCheck.CRITICAL:
             self.log.warning(message)
+        elif status == AgentCheck.UNKNOWN:
+            # Expected on hosts without systemd (the status already says so), so do not warn on every run.
+            self.log.debug(message)
         self.service_check(
             self.SERVICE_RUNNING_CHECK_NAME, status, tags, message=message if status != AgentCheck.OK else None
         )
@@ -116,6 +119,17 @@ class EximCheck(AgentCheck):
             ', '.join(candidates)
         )
 
+    def _command_parts(self):
+        config = self._get_config()
+        exim_command = f'{shlex.quote(config["exim_path"])} -bp'
+        if config['use_sudo']:
+            exim_command = f'sudo -n {exim_command}'
+        return exim_command, shlex.quote(config['exiqsumm_path'])
+
+    def _command_description(self):
+        # Short form for log and service check messages; the full script is in _build_command().
+        return ' | '.join(self._command_parts())
+
     def _build_command(self):
         """
         Build the argv used to collect the queue summary.
@@ -135,11 +149,7 @@ class EximCheck(AgentCheck):
         recipients of frozen messages to separate `<domain> (f)` rows. Both summaries come from
         a single `exim -bp` run, so the spool is only scanned once.
         """
-        config = self._get_config()
-        exim_command = f'{shlex.quote(config["exim_path"])} -bp'
-        if config['use_sudo']:
-            exim_command = f'sudo -n {exim_command}'
-        exiqsumm_command = shlex.quote(config['exiqsumm_path'])
+        exim_command, exiqsumm_command = self._command_parts()
         script = (
             f'out=$({exim_command}) || exit $?; '
             f'printf \'%s\\n\' "$out" | {exiqsumm_command} && '
@@ -157,13 +167,16 @@ class EximCheck(AgentCheck):
         summary. The latter is None when the output does not contain it.
         """
         command = self._build_command()
-        # exiqsumm always prints a header and a TOTAL row, so empty output means the pipeline
-        # itself did not run and must be treated as a failure.
-        output, err, returncode = get_subprocess_output(command, self.log, raise_on_empty_output=True)
+        # raise_on_empty_output is False on purpose: on the Agent the error it raises never carries
+        # stderr, so the reason (for example `sudo: a password is required`) would be lost. Empty
+        # output is still a failure, because exiqsumm always prints a header and a TOTAL row.
+        output, err, returncode = get_subprocess_output(command, self.log, raise_on_empty_output=False)
+        err = (err or '').strip()
+        description = self._command_description()
         if returncode != 0:
-            raise Exception(
-                'Command `{}` exited with status {}: {}'.format(command[2], returncode, (err or '').strip())
-            )
+            raise Exception('`{}` exited with status {}: {}'.format(description, returncode, err))
+        if not output:
+            raise Exception('`{}` produced no output{}'.format(description, ': ' + err if err else ''))
 
         lines = output.splitlines()
         if FROZEN_SUMMARY_MARKER in lines:
