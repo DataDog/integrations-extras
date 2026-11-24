@@ -20,6 +20,7 @@ class ScalrCheck(AgentCheck):
         "environments-count": "environments.count",
         "workspaces-count": "workspaces.count",
         "runs-count": "runs.count",
+        "runs-ai-assisted-count": "runs.ai_assisted.count",
         "runs-successful": "runs.successful",
         "runs-failed": "runs.failed",
         "runs-awaiting-confirmation": "runs.awaiting_confirmation",

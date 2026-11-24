@@ -16,7 +16,7 @@ For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to ins
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-scalr==1.0.0
+   datadog-agent integration install -t datadog-scalr==1.1.0
    ```
 
 2. Configure your integration similar to an Agent-based [integration][3].
