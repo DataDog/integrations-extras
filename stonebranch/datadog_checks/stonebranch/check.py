@@ -44,12 +44,16 @@ class StonebranchCheck(OpenMetricsBaseCheckV2):
             if excludes:
                 metrics = [m for m in metrics if next(iter(m.keys())) not in excludes]
 
+        rename_labels = dict(self.instance.get("rename_labels") or {})
+        rename_labels.setdefault("version", "jvm_version")
+
         config: dict[str, Any] = dict(self.instance)
         config.update(
             {
                 "openmetrics_endpoint": endpoint,
                 "namespace": self.__NAMESPACE__,
                 "metrics": metrics,
+                "rename_labels": rename_labels,
                 "metadata_label_map": {
                     "build": "build",
                     "build_date": "build_date",

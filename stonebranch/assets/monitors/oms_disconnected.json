@@ -6,10 +6,10 @@
   "tags": ["integration:stonebranch"],
   "description": "Alerts when a Stonebranch OMS server reports a disconnected status. A disconnected OMS will prevent the Universal Controller from dispatching jobs to agents.",
   "definition": {
-    "name": "[Stonebranch] OMS server disconnected on {{endpoint.name}}",
+    "name": "[Stonebranch] OMS server {{server_address.name}} disconnected on {{endpoint.name}}",
     "type": "query alert",
-    "query": "min(last_5m):avg:stonebranch.uc_oms_server.status{*} by {endpoint,device} < 1",
-    "message": "The Stonebranch OMS server {{device.name}} is reporting a disconnected status on endpoint {{endpoint.name}}.\n\nCheck the OMS server process and network connectivity between the Universal Controller and OMS.\n\n@pagerduty @slack-alerts",
+    "query": "min(last_5m):avg:stonebranch.uc_oms_server.status{*} by {endpoint,server_address} < 1",
+    "message": "The Stonebranch OMS server {{server_address.name}} is reporting a disconnected status on endpoint {{endpoint.name}}.\n\nCheck the OMS server process and network connectivity between the Universal Controller and OMS.\n\n@pagerduty @slack-alerts",
     "tags": ["integration:stonebranch"],
     "options": {
       "thresholds": {

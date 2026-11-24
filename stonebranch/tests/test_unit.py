@@ -154,7 +154,6 @@ def test_real_payload_matches_metadata(aggregator, dd_run_check, mocker):
     instance = {
         "openmetrics_endpoint": url,
         "metric_groups": ["jvm", "process", "license_details"],
-        "rename_labels": {"version": "jvm_version"},
     }
     check = StonebranchCheck("stonebranch", {}, [instance])
     dd_run_check(check)  # first run — establishes counter baselines
@@ -163,3 +162,4 @@ def test_real_payload_matches_metadata(aggregator, dd_run_check, mocker):
     aggregator.assert_metrics_using_metadata(
         get_metadata_metrics(), check_submission_type=True, check_symmetric_inclusion=True
     )
+    aggregator.assert_metric_has_tag("stonebranch.jvm_runtime_info", "jvm_version:17.0.11+9-LTS")
