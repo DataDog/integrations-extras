@@ -1,5 +1,11 @@
 # CHANGELOG - php_opcache
 
+## Unreleased
+
+***Fixed***:
+
+* Skip non-scalar values in the exporter to stop "Array to string conversion" warnings when OPcache preloading is enabled ([#3262](https://github.com/DataDog/integrations-extras/pull/3262))
+
 ## 1.0.0 / 2026-04-06
 
 ***Changed***:
