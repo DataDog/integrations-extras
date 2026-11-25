@@ -45,6 +45,12 @@ for CPU containers. Container resource metrics from GPU containers include the
 billed GPU class (for example, `H100`), which may differ from the physical GPU model
 when a workload is scheduled onto a newer GPU.
 
+`modal.network.egress.bytes` and `modal.network.ingress.bytes` report the bytes
+each container sent and received over the network during each sample window.
+They are count metrics, so summing them gives the traffic over any time range.
+
+Container metrics from Modal Sandboxes include the `sandbox_id` tag.
+
 
 ## Uninstallation
 
