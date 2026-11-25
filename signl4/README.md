@@ -1,5 +1,7 @@
 ## Overview
 
+SIGNL4 is a mobile alerting app and bridges the gap between critical systems and your mobile workforce with real-time alerts. SIGNL4 notifies through persistent mobile push, text, email and voice calls with acknowledgement, tracking and escalation. Integrated duty and shift scheduling ensures the right people are alerted at the right time.
+
 Use the [SIGNL4][1] integration to send Datadog alerts to SIGNL4 teams and seamlessly take actions on these alerts within the SIGNL4 app.
 
 Connect SIGNL4 to Datadog in order to:
