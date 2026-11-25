@@ -1,5 +1,7 @@
 # EventStore Integration
 
+**Deprecated**: EventStoreDB has been renamed to KurrentDB, and this integration is deprecated in favor of the [KurrentDB integration][12]. The KurrentDB integration collects the Prometheus metrics exposed by KurrentDB 25.0 and later on its `/metrics` endpoint. See its README for migration guidance. This integration is no longer receiving new features.
+
 ## Overview
 
 Get metrics from EventStore in real time to:
@@ -65,3 +67,4 @@ Need help? Contact the [maintainer][11] of this integration.
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/metadata.csv
 [11]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/manifest.json
+[12]: https://github.com/DataDog/integrations-extras/tree/master/kurrentdb
