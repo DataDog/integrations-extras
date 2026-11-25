@@ -51,6 +51,13 @@ They are count metrics, so summing them gives the traffic over any time range.
 
 Container metrics from Modal Sandboxes include the `sandbox_id` tag.
 
+`modal.input_events.queued_requests` and `modal.input_events.running_requests` report
+the requests queued for and running on a Modal Server, and
+`modal.input_events.input_queue_time_us` reports how long each request waited. Input
+event metrics from a Server that queues requests include the `queue_outcome` tag, which
+records whether a request was dispatched to a container, refused because the queue was
+full or timed out, passed through a container's refusal, or abandoned by the client.
+
 
 ## Uninstallation
 

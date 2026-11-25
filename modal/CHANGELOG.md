@@ -1,5 +1,13 @@
 # CHANGELOG - Modal
 
+## 1.10.0 / 2026-11-25
+
+***Added***:
+
+* Queued and running request metrics for Servers
+* Input queue time metric, which Servers that queue requests also send
+* Queue outcome tag on input event metrics
+
 ## 1.9.0 / 2026-11-24
 
 ***Added***:
