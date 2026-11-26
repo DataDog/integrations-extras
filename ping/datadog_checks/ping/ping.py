@@ -1,5 +1,6 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
+import os
 import platform
 import re
 import subprocess
@@ -71,7 +72,12 @@ class PingCheck(AgentCheck):
         if platform.system() == "Windows":
             lines, err, retcode = self._exec_ping_windows(command, subprocess_timeout)
         else:
-            lines, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=True)
+            # Force the C locale so ping's output is in English regardless of the Agent's LANG;
+            # the response-time regexes below only understand the untranslated output.
+            # The Agent replaces the whole environment when env is given, so copy it first.
+            env = dict(os.environ)
+            env["LC_ALL"] = "C"
+            lines, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=True, env=env)
 
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:

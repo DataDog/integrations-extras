@@ -1,5 +1,11 @@
 # CHANGELOG - Ping
 
+## 1.0.5 / 2026-11-26
+
+***Fixed***:
+
+* Fix the Ping check reporting reachable hosts as down on Linux and macOS when the Agent runs with a non-English locale (for example ``LANG=ja_JP.UTF-8``). ping translated its output, including the ``ms`` unit, so no response time was found. The check now runs ping with ``LC_ALL=C`` ([#PRNUM](https://github.com/DataDog/integrations-extras/pull/PRNUM)).
+
 ## 1.0.4 / 2026-08-04
 
 ***Fixed***:

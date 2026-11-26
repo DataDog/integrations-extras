@@ -1,3 +1,4 @@
+import os
 import platform
 import subprocess
 
@@ -7,6 +8,7 @@ import pytest
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
 from datadog_checks.ping import PingCheck
+from datadog_checks.ping import ping as ping_module
 
 WINDOWS_GERMAN_OUTPUT = (
     "Ping wird ausgeführt für 127.0.0.1 mit 32 Bytes Daten:\r\nAntwort von 127.0.0.1: Bytes=32 Zeit=3ms TTL=117\r\n"
@@ -81,6 +83,28 @@ def test_localized_output(aggregator, instance_response_time):
     aggregator.assert_metric("network.ping.can_connect", value=1)
     aggregator.assert_metric("network.ping.response_time", value=3)
     aggregator.assert_all_metrics_covered()
+
+
+def test_unix_ping_runs_with_c_locale(monkeypatch):
+    # ping translates its output (e.g. "time=" -> "時間=" and "ms" -> "ミリ秒" under ja_JP),
+    # which the response-time regexes can't parse, so the check must force the C locale.
+    monkeypatch.setenv("LANG", "ja_JP.UTF-8")
+    monkeypatch.setenv("LC_ALL", "ja_JP.UTF-8")
+    check = PingCheck("ping", {}, {})
+    subprocess_mock = mock.Mock(return_value=(mock_exec_ping(), "", 0))
+    with (
+        mock.patch.object(platform, "system", return_value="Linux"),
+        mock.patch.object(ping_module, "get_subprocess_output", subprocess_mock),
+    ):
+        check._exec_ping(4, "127.0.0.1")
+
+    env = subprocess_mock.call_args.kwargs["env"]
+    assert env["LC_ALL"] == "C"
+    # The Agent replaces the whole environment when env is given, so the rest must be kept.
+    assert env["PATH"] == os.environ["PATH"]
+    assert env["LANG"] == "ja_JP.UTF-8"
+    # Only the child process gets the C locale; the Agent's own environment is untouched.
+    assert os.environ["LC_ALL"] == "ja_JP.UTF-8"
 
 
 def test_windows_oem_decode():
