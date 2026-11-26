@@ -11,6 +11,8 @@ This check uses the system ping command, rather than generating the ICMP echo re
 
 **Note for Windows users**: Versions prior to 1.0.4 may not work correctly if the installed Windows language is not set to English.
 
+**Note for Linux and macOS users**: Versions prior to 1.0.5 may not work correctly if the Agent runs with a non-English locale.
+
 ## Setup
 
 The ping check is not included in the [Datadog Agent][2] package, so you need to install it.
