@@ -4,13 +4,13 @@
 
 [Zscaler Internet Access][1] (ZIA) is a cloud-delivered security service that provides secure and fast access to the internet and SaaS applications for users, regardless of their location or device. It acts as a secure web gateway, inspecting all internet traffic and applying security policies to protect against threats and prevent data loss.
 
-The integration uses a webhook to ingest Web, Firewall, DNS, Tunnel, SaaS Security, SaaS Security Activity, Admin Audit, Endpoint DLP, Email DLP and Alert logs.
+The integration uses a webhook to ingest Web, Firewall, DNS, Tunnel, SaaS Security (cloud access security broker, CASB), including Gen AI (generative AI), SaaS Security Activity, Posture Management, 3rd-Party App Governance, Admin Audit, Endpoint DLP, Email DLP and Alert logs.
 
-Visualize detailed insights into these logs with out-of-the-box dashboards. Datadog uses its built-in log pipelines to parse and enrich these logs, facilitating easy search and detailed insights. Additionally, the integration includes ready-to-use Cloud SIEM detection rules for enhanced monitoring and security.
+Visualize detailed insights into these logs with out-of-the-box dashboards. Datadog uses its built-in log pipelines to parse and enrich these logs, facilitating easy search and detailed insights. Posture Management and 3rd-Party App Governance logs are the exception: they are collected as `@zscaler.*` attributes, without dedicated parsing, dashboards, or detection rules. Additionally, the integration includes ready-to-use Cloud SIEM detection rules for enhanced monitoring and security.
 
 ## Requirements
 
-A Zscaler Cloud NSS subscription is required.
+A Zscaler Cloud NSS subscription is required, and the Zscaler admin who creates the feeds needs the Nanolog Streaming Service permission. The Posture Management and 3rd-Party App Governance logs also require Advanced SaaS Security Posture Management (SSPM).
 
 ## Setup
 
@@ -151,7 +151,7 @@ A Zscaler Cloud NSS subscription is required.
 5. In the **Formatting** section, enter or select the following values:
    * Log Type: `SaaS Security`
       * **NOTE**: Please create a separate NSS feed for each application category. Ensure that the appropriate output format is used according to the specific application category.
-   * Application Category: Choose an application category. The supported application categories are: Collaboration, CRM, Email, File, ITSM, Public Cloud Storage and Repository.
+   * Application Category: Choose an application category. The supported application categories are: Collaboration, CRM, Email, File, Gen AI, ITSM, Public Cloud Storage and Repository.
    * Feed Output Type: `JSON`
    * Feed Escape Character: `,\"`
    * Please use the below feed output format for collaboration:
@@ -182,9 +182,17 @@ A Zscaler Cloud NSS subscription is required.
       ```
       \{"sourcetype":"zscalernss-casb","event":\{"subtype":"repository","datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}","company":"%s{company}","login":"%s{owner}","tenant":"%s{tenant}","department":"%s{department}","applicationname":"%s{applicationname}","threatname":"%s{threatname}","policy":"%s{policy}","dlpdictionaries":"%s{dlpdictnames}","dlpdicthitcount":"%s{dlpdictcount}","dlpidentifier":"%d{dlpidentifier}","filesize":"%d{filesize}","num_external_collab":"%d{num_external_collab}","recordid":"%d{recordid}","datacenter":"%s{datacenter}","datacentercity":"%s{datacentercity}","datacentercountry":"%s{datacentercountry}","external_collabnames":"%s{external_collabnames}","extownername":"%s{extownername}","fileid":"%s{fileid}","filemd5":"%s{filemd5}","filename":"%s{filename}","filepath":"%s{filepath}","filetypecategory":"%s{filetypecategory}","malware":"%s{malware}","malwareclass":"%s{malwareclass}","projectname":"%s{projectname}","reponame":"%s{reponame}","rulelabel":"%s{rulelabel}","ruletype":"%s{ruletype}","severity":"%s{severity}","sha":"%s{sha}","upload_doctypename":"%s{upload_doctypename}","dlpengine":"%s{dlpenginenames}"\}\}
       ```
+   * Please use the below feed output format for Gen AI (set Max Batch Size to `16` in the **SIEM Connectivity** section for this feed):
+      ```
+      \{"sourcetype":"zscalernss-casb","event":\{"subtype":"genai","datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}","recordid":"%d{recordid}","company":"%s{company}","tenant":"%s{tenant}","login":"%s{owner}","department":"%s{departmentname}","applicationname":"%s{appname}","botname":"%s{botname}","runid":"%d{runid}","scanid":"%d{scanid}","sender_type":"%s{sender_type}","filename":"%s{filename}","filesize":"%d{filesize}","filemd5":"%s{filemd5}","threatname":"%s{threatname}","malware":"%s{malware}","malwareclass":"%s{malwareclass}","policy":"%s{policy}","rulelabel":"%s{rulelabel}","ruletype":"%s{ruletype}","severity":"%s{severity}","any_incident":"%s{any_incident}","dlpidentifier":"%d{dlpidentifier}","dlpdictionaries":"%s{dlpdictnames}","dlpdicthitcount":"%s{dlpdictcnts}","dlpengine":"%s{dlpengnames}","datacenter":"%s{datacenter}","datacentercity":"%s{datacentercity}","datacentercountry":"%s{datacentercountry}"\}\}
+      ```
    * Time Zone: `GMT`
 6. Click **Save**.
 7. **Activate** your changes.
+
+#### Validation for Gen AI
+
+In the Datadog [Log Explorer][3], search for `source:zscaler service:zscalernss-casb @zscaler.subtype:genai`. Logs appear within a few minutes of Zscaler sending them.
 
 ### ZIA SaaS Security Activity Logs
 
@@ -286,6 +294,70 @@ A Zscaler Cloud NSS subscription is required.
 6. Click **Save**.
 7. **Activate** your changes.
 
+### ZIA Posture Management Logs
+
+Posture Management logs require Advanced SaaS Security Posture Management (SSPM).
+
+1. From the ZIA console, go to **Administration** > **Nanolog Streaming Service**.
+2. Select the **Cloud NSS Feeds** tab. Then, click on **Add Cloud NSS Feed**.
+3. In the **General** section, enter or select the following values:
+   * Feed Name: `<YOUR_FEED_NAME>`
+   * NSS Type: CONSOLE: confirm the NSS Type (expected: NSS for Web)
+   * Status: `Enabled`
+4. In the **SIEM Connectivity** section, enter or select the following values:
+   * SIEM Type: `Other`
+   * Max Batch Size: `16`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
+   * HTTP headers:
+      * Key: `Content-Type`; Value: `application/json`
+5. In the **Formatting** section, enter or select the following values:
+   * Log Type: `Posture`
+   * Feed Output Type: `JSON`
+   * Feed Escape Character: `,\"`
+   * Please use the below feed output format:
+      ```
+      \{"sourcetype":"zscalernss-posture","event":\{"datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}"<, "name":"%s{name}" FOR EACH FIELD IN THE CONSOLE'S FIELD LIST, each starting with a comma>,"recordid":"%d{recordid}"\}\}
+      ```
+   * Time Zone: `GMT`
+6. Click **Save**.
+7. **Activate** your changes.
+
+#### Validation
+
+In the Datadog [Log Explorer][3], search for `source:zscaler service:zscalernss-posture`. Logs appear within a few minutes of Zscaler sending them. These logs are not parsed into facets, so search on the `@zscaler.*` attributes.
+
+### ZIA 3rd-Party App Governance Logs
+
+3rd-Party App Governance logs require Advanced SaaS Security Posture Management (SSPM).
+
+1. From the ZIA console, go to **Administration** > **Nanolog Streaming Service**.
+2. Select the **Cloud NSS Feeds** tab. Then, click on **Add Cloud NSS Feed**.
+3. In the **General** section, enter or select the following values:
+   * Feed Name: `<YOUR_FEED_NAME>`
+   * NSS Type: CONSOLE: confirm the NSS Type (expected: NSS for Web)
+   * Status: `Enabled`
+4. In the **SIEM Connectivity** section, enter or select the following values:
+   * SIEM Type: `Other`
+   * Max Batch Size: `16`
+   * API URL: The URL you copied in previous section `Create a Datadog Webhook URL`
+   * HTTP headers:
+      * Key: `Content-Type`; Value: `application/json`
+5. In the **Formatting** section, enter or select the following values:
+   * Log Type: `App Governance`
+   * Feed Output Type: `JSON`
+   * Feed Escape Character: `,\"`
+   * Please use the below feed output format:
+      ```
+      \{"sourcetype":"zscalernss-appgovernance","event":\{"datetime":"%d{yy}-%02d{mth}-%02d{dd} %02d{hh}:%02d{mm}:%02d{ss}"<, "name":"%s{name}" FOR EACH FIELD IN THE CONSOLE'S FIELD LIST, each starting with a comma>,"recordid":"%d{recordid}"\}\}
+      ```
+   * Time Zone: `GMT`
+6. Click **Save**.
+7. **Activate** your changes.
+
+#### Validation
+
+In the Datadog [Log Explorer][3], search for `source:zscaler service:zscalernss-appgovernance`. Logs appear within a few minutes of Zscaler sending them. These logs are not parsed into facets, so search on the `@zscaler.*` attributes.
+
 ### ZIA Alert Logs
 
 1. From the ZIA console, go to **Alerts** > **Webhooks**.
@@ -302,7 +374,7 @@ A Zscaler Cloud NSS subscription is required.
 ## Data Collected
 
 ### Logs
-The Zscaler integration collects Web, Firewall, DNS, Tunnel, SaaS Security, SaaS Security Activity, Admin Audit, Endpoint DLP, Email DLP and Alert logs.
+The Zscaler integration collects Web, Firewall, DNS, Tunnel, SaaS Security (including Gen AI), SaaS Security Activity, Posture Management, 3rd-Party App Governance, Admin Audit, Endpoint DLP, Email DLP and Alert logs.
 
 ### Metrics
 
@@ -318,3 +390,4 @@ For further assistance, contact [Datadog support][2].
 
 [1]: https://www.zscaler.com/products/zscaler-internet-access
 [2]: https://docs.datadoghq.com/help/
+[3]: /logs
